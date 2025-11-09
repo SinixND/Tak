@@ -1,0 +1,8 @@
+.cache/
+.clangd/
+!bin/web/release/*
+bin/
+build/
+docs/html/
+compile_commands.json
+*.vim

@@ -1,0 +1,5 @@
+#!/usr/bin/bash
+./tools/setup-docker
+./tools/setup-ncurses
+# ./tools/setup-raylib
+# ./tools/setup-emsdk

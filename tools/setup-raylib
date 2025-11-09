@@ -1,0 +1,22 @@
+#!/bin/bash
+cd external/raylib/src
+
+# web debug
+make PLATFORM=PLATFORM_WEB RAYLIB_BUILD_MODE=DEBUG -j
+mkdir -p ../../../extras/raylib/web/debug
+mv libraylib.web.a ../../../extras/raylib/web/debug/libraylib.a
+
+# web release
+make PLATFORM=PLATFORM_WEB RAYLIB_BUILD_MODE=RELEASE -j
+mkdir -p ../../../extras/raylib/web/release
+mv libraylib.web.a ../../../extras/raylib/web/release/libraylib.a
+
+# unix/desktop debug
+make PLATFORM=PLATFORM_DESKTOP RAYLIB_BUILD_MODE=DEBUG GRAPHICS=GRAPHICS_API_OPENGL_43 -j
+mkdir -p ../../../extras/raylib/unix/debug
+mv libraylib.a ../../../extras/raylib/unix/debug
+
+# unix/desktop release
+make PLATFORM=PLATFORM_DESKTOP RAYLIB_BUILD_MODE=RELEASE GRAPHICS=GRAPHICS_API_OPENGL_43 -j
+mkdir -p ../../../extras/raylib/unix/release
+cp libraylib.a ../../../extras/raylib/unix/release
