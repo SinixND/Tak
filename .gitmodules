@@ -1,0 +1,6 @@
+[submodule "external/raylib"]
+	path = external/raylib
+	url = https://github.com/raysan5/raylib
+[submodule "external/ncurses"]
+	path = external/ncurses
+	url = https://github.com/mirror/ncurses

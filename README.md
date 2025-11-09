@@ -4,22 +4,15 @@
 <h1> Tak </h1>
 <p> The boardgame from the "King Killer Chronicles" novel series </p>
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
+[![MITLicense](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
-[![Stars](https://img.shields.io/github/stars/SinixND/Tak.svg?style=for-the-badge)](https://github.com/SinixND/Tak/stargazers)
-[![Issues](https://img.shields.io/github/issues/SinixND/Tak.svg?style=for-the-badge)](https://github.com/SinixND/Tak/issues)
+[![Stars](https://img.shields.io/github/stars/SinixND/Tak?style=for-the-badge)](https://github.com/SinixND/Tak/stargazers)
+[![Issues](https://img.shields.io/github/issues/SinixND/Tak?style=for-the-badge)](https://github.com/SinixND/Tak/issues)
 
-[![Contributors](https://img.shields.io/github/contributors/SinixND/Tak.svg?style=for-the-badge)](https://github.com/SinixND/Tak/graphs/contributors)
-[![Forks](https://img.shields.io/github/forks/SinixND/Tak.svg?style=for-the-badge)](https://github.com/SinixND/Tak/network/members)
+[![Contributors](https://img.shields.io/github/contributors/SinixND/Tak?style=for-the-badge)](https://github.com/SinixND/Tak/graphs/contributors)
+[![Forks](https://img.shields.io/github/forks/SinixND/Tak?style=for-the-badge)](https://github.com/SinixND/Tak/network/members)
 
 </div>
-
-<!-- ## Table of Contents -->
-<!-- <a href="#about-the-project">About The Project</a> </br> -->
-<!-- <a href="#features">Features</a> </br> -->
-<!-- <a href="#built-with">Built With</a> </br> -->
-<!-- <a href="#getting-started">Getting Started</a> </br> -->
-<!-- <a href="#roadmap">Roadmap</a> -->
 
 
 ## About The Project
@@ -33,31 +26,41 @@ For more information about the game's rules, see [ustak.org](https://ustak.org/p
 
 
 ### Features
-- [ ] Target platforms
-    - [ ] terminal
-    - [ ] desktop
-    - [ ] web 
 
 <p align="right">(<a href="#readme-top">top</a>)</p>
 
 
-### Built With
-[![Library: raylib](https://img.shields.io/badge/library-raylib-white?style=for-the-badge)](https://github.com/raysan5/raylib)
-[![Library: ncurses](https://img.shields.io/badge/library-ncurses-blue?style=for-the-badge)](https://github.com/mirror/ncurses)
-[![Library: emscripten](https://img.shields.io/badge/library-emscripten-green?style=for-the-badge)](https://github.com/emscripten-core/emscripten)
+### Dependencies
+Dependencies that are or planned to be used:
+
+[![make](https://img.shields.io/badge/toolchain-gnumake-darkred?style=for-the-badge)](https://www.gnu.org/software/make/)
+[![compiledb](https://img.shields.io/badge/generator-compiledb-white?style=for-the-badge)](https://github.com/nickdiego/compiledb)
+[![doxygen](https://img.shields.io/badge/generator-doxygen-blue?style=for-the-badge)](https://www.doxygen.nl/)
+[![cppcheck](https://img.shields.io/badge/analyser-cppcheck-darkblue?style=for-the-badge)](https://cppcheck.sourceforge.io/)
+[![raylib](https://img.shields.io/badge/library-raylib-white?style=for-the-badge)](https://github.com/raysan5/raylib)
+[![emscripten](https://img.shields.io/badge/toolchain-emscripten-green?style=for-the-badge)](https://github.com/emscripten-core/emscripten)
+[![catch2](https://img.shields.io/badge/testing-catch2-red?style=for-the-badge)](https://github.com/catchorg/Catch2)
+
+Dependencies that were _excluded_:
+
+[![ncurses](https://img.shields.io/badge/library-ncurses-white?style=for-the-badge)](https://github.com/mirror/ncurses)
+
+Note: `ncurses` has been excluded because of conflict with `raylib`
 
 <p align="right">(<a href="#readme-top">top</a>)</p>
 
 
 ### Getting Started
-Installation/Setup instructions pending...
+Make sure the dependencies are installed.
 
 <p align="right">(<a href="#readme-top">top</a>)</p>
 
 
 ### Roadmap
-- [ ] TODOs
-
 See the [open issues](https://github.com/SinixND/Tak/issues) for a full list of planned and implemented features as well as known issues.
 
 <p align="right">(<a href="#readme-top">top</a>)</p>
+
+## Acknowledgements
+- [Artful Bytes' Youtube series](https://www.youtube.com/watch?v=HXd7g3RlCIs&list=PLS_iNJJVTtiRV0DZRDcTHnvAuDrKGPN40&index=6) about his Embedded System Project of building a sumobot
+- [The Modern Rogue - Tak](https://youtube.com/watch?v=Te0Wm_GCCAQ) Beautiful video explanation of the game

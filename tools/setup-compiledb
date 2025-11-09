@@ -1,0 +1,6 @@
+#!/bin/bash
+
+python3 -m venv tools/venv
+. tools/venv/bin/activate
+pip install --upgrade pip
+pip install compiledb

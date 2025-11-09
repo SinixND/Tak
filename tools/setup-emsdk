@@ -1,0 +1,2 @@
+#!/bin/bash
+cd external/emsdk && ./emsdk install latest && ./emsdk activate latest && source ./emsdk_env.sh
