@@ -118,6 +118,8 @@ publish: format release
 	@clang-format -i -- src/**
 >>>>>>> edcd463 ([2:ci:format] Add code formatting)
 
+publish: format release
+
 release:
 	@$(MAKE) BUILD=release build
 
