@@ -92,9 +92,10 @@ LDLIBS 			+= $(addprefix -l,$(LIBRARIES))
 #######################################
 ### TARGETS
 #######################################
-.PHONY: all build clean debug release run
+.PHONY: all build clean debug format publish release run
 
 all: debug
+	@$(MAKE) run
 
 build: $(BIN_DIR)/$(TARGET)/$(BUILD)/$(BIN)$(BIN_EXT)
 
@@ -105,6 +106,19 @@ clean:
 
 debug:
 	@$(MAKE) BUILD=debug build
+
+format:
+	$(info === FORMAT CODE ===)
+<<<<<<< HEAD
+	@clang-format -i -- src/** tests/**
+
+publish: format release
+||||||| parent of edcd463 ([2:ci:format] Add code formatting)
+=======
+	@clang-format -i -- src/**
+>>>>>>> edcd463 ([2:ci:format] Add code formatting)
+
+publish: format release
 
 release:
 	@$(MAKE) BUILD=release build
