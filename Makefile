@@ -92,7 +92,7 @@ LDLIBS 			+= $(addprefix -l,$(LIBRARIES))
 #######################################
 ### TARGETS
 #######################################
-.PHONY: all build clean debug format publish release run
+.PHONY: all build clean debug format release run
 
 all: debug
 	@$(MAKE) run
@@ -141,9 +141,7 @@ publish: format cppcheck release
 
 format:
 	$(info === FORMAT CODE ===)
-	@clang-format -i -- src/** tests/**
-
-publish: format release
+	@clang-format -i -- src/**
 
 release:
 	@$(MAKE) BUILD=release build
