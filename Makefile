@@ -92,7 +92,7 @@ LDLIBS 			+= $(addprefix -l,$(LIBRARIES))
 #######################################
 ### TARGETS
 #######################################
-.PHONY: all build clean debug release run
+.PHONY: all build clean debug format release run
 
 all: debug
 
@@ -105,6 +105,10 @@ clean:
 
 debug:
 	@$(MAKE) BUILD=debug build
+
+format:
+	$(info === FORMAT CODE ===)
+	@clang-format -i -- src/**
 
 release:
 	@$(MAKE) BUILD=release build
