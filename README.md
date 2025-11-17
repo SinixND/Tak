@@ -27,20 +27,21 @@ For more information about the game's rules, see [ustak.org](https://ustak.org/p
 
 ### Dependencies
 Dependencies that are or planned to be used:
-
-[![make](https://img.shields.io/badge/toolchain-gnumake-darkred?style=for-the-badge)](https://www.gnu.org/software/make/)
+#### Programs (not provided)
 [![compiledb](https://img.shields.io/badge/generator-compiledb-white?style=for-the-badge)](https://github.com/nickdiego/compiledb)
 [![doxygen](https://img.shields.io/badge/generator-doxygen-blue?style=for-the-badge)](https://www.doxygen.nl/)
 [![cppcheck](https://img.shields.io/badge/analyser-cppcheck-darkblue?style=for-the-badge)](https://cppcheck.sourceforge.io/)
-[![raylib](https://img.shields.io/badge/library-raylib-white?style=for-the-badge)](https://github.com/raysan5/raylib)
+
+#### Toolchains
+[![make](https://img.shields.io/badge/toolchain-gnumake-darkred?style=for-the-badge)](https://www.gnu.org/software/make/)
 [![emscripten](https://img.shields.io/badge/toolchain-emscripten-green?style=for-the-badge)](https://github.com/emscripten-core/emscripten)
+
+#### Libraries (provided)
+[![ncurses](https://img.shields.io/badge/library-ncurses-white?style=for-the-badge)](https://github.com/mirror/ncurses)
+[![raylib](https://img.shields.io/badge/library-raylib-white?style=for-the-badge)](https://github.com/raysan5/raylib)
 [![catch2](https://img.shields.io/badge/testing-catch2-red?style=for-the-badge)](https://github.com/catchorg/Catch2)
 
-Dependencies that were _excluded_:
-
-[![ncurses](https://img.shields.io/badge/library-ncurses-white?style=for-the-badge)](https://github.com/mirror/ncurses)
-
-Note: `ncurses` has been excluded because of conflict with `raylib`
+<!-- Dependencies that were _excluded_: -->
 
 <p align="right">(<a href="#readme-top">top</a>)</p>
 
@@ -56,6 +57,13 @@ Note: `ncurses` has been excluded because of conflict with `raylib`
 
 
 ### Development pipeline
+#### Code quality
+- clang-format
+- cppcheck
+#### CI
+- github actions/workflows
+- github issues & pull requests
+<!-- - docker -->
 
 <p align="right">(<a href="#readme-top">top</a>)</p>
 
