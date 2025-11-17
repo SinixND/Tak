@@ -92,7 +92,7 @@ LDLIBS 			+= $(addprefix -l,$(LIBRARIES))
 #######################################
 ### TARGETS
 #######################################
-.PHONY: all build clean cppcheck debug format publish release run
+.PHONY: all build clean debug format publish release run
 
 all: debug
 	@$(MAKE) run
@@ -138,6 +138,12 @@ publish: format release
 >>>>>>> edcd463 ([2:ci:format] Add code formatting)
 
 publish: format cppcheck release
+
+format:
+	$(info === FORMAT CODE ===)
+	@clang-format -i -- src/** tests/**
+
+publish: format release
 
 release:
 	@$(MAKE) BUILD=release build
