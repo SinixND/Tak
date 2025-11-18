@@ -92,7 +92,7 @@ LDLIBS 			+= $(addprefix -l,$(LIBRARIES))
 #######################################
 ### TARGETS
 #######################################
-.PHONY: all build clean debug format publish release run
+.PHONY: all build clean cppcheck debug format publish release run
 
 all: debug
 	@$(MAKE) run
@@ -104,8 +104,27 @@ clean:
 	$(info === CLEAN ===)
 	$(RM) $(OBJ_DIR)/* $(BIN_DIR)/*
 
+cppcheck:
+	@$(MKDIR) $(OBJ_DIR)/cppcheck
+	@cppcheck \
+		--quiet \
+		--enable=all \
+		--suppress=missingIncludeSystem \
+		--suppress=missingInclude \
+		--suppress=selfAssignment \
+		--suppress=cstyleCast \
+		--suppress=unmatchedSuppression \
+		--inconclusive \
+		--check-level=exhaustive \
+		--error-exitcode=1 \
+		--cppcheck-build-dir=$(OBJ_DIR)/cppcheck \
+		--template=gcc \
+		-I src/ \
+		src/
+
 debug:
 	@$(MAKE) BUILD=debug build
+	@$(MAKE) cppcheck
 
 format:
 	$(info === FORMAT CODE ===)
@@ -118,7 +137,7 @@ publish: format release
 	@clang-format -i -- src/**
 >>>>>>> edcd463 ([2:ci:format] Add code formatting)
 
-publish: format release
+publish: format cppcheck release
 
 release:
 	@$(MAKE) BUILD=release build
