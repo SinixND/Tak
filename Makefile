@@ -109,14 +109,7 @@ debug:
 
 format:
 	$(info === FORMAT CODE ===)
-<<<<<<< HEAD
-	@clang-format -i -- src/** tests/**
-
-publish: format release
-||||||| parent of edcd463 ([2:ci:format] Add code formatting)
-=======
 	@clang-format -i -- src/**
->>>>>>> edcd463 ([2:ci:format] Add code formatting)
 
 publish: format release
 
