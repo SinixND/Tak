@@ -26,27 +26,33 @@ For more information about the game's rules, see [ustak.org](https://ustak.org/p
 
 
 ### Dependencies
-Dependencies that are or planned to be used:
-#### Programs (not provided)
+Dependencies that are or are planned to be used:
+#### Toolchains (not provided)
+[![make](https://img.shields.io/badge/toolchain-gnumake-darkred?style=for-the-badge)](https://www.gnu.org/software/make/)
+[![clang](https://img.shields.io/badge/compiler-clang-blue?style=for-the-badge)](https://clang.llvm.org)
+[![emscripten](https://img.shields.io/badge/toolchain-emscripten-green?style=for-the-badge)](https://github.com/emscripten-core/emscripten)
+
+#### Tools (not provided)
+[![clang-format](https://img.shields.io/badge/compiler-clang-blue?style=for-the-badge)](https://clang.llvm.org/docs/ClangFormat.html)
 [![compiledb](https://img.shields.io/badge/generator-compiledb-white?style=for-the-badge)](https://github.com/nickdiego/compiledb)
 [![doxygen](https://img.shields.io/badge/generator-doxygen-blue?style=for-the-badge)](https://www.doxygen.nl/)
 [![cppcheck](https://img.shields.io/badge/analyser-cppcheck-darkblue?style=for-the-badge)](https://cppcheck.sourceforge.io/)
-
-#### Toolchains
-[![make](https://img.shields.io/badge/toolchain-gnumake-darkred?style=for-the-badge)](https://www.gnu.org/software/make/)
-[![emscripten](https://img.shields.io/badge/toolchain-emscripten-green?style=for-the-badge)](https://github.com/emscripten-core/emscripten)
 
 #### Libraries (provided)
 [![ncurses](https://img.shields.io/badge/library-ncurses-white?style=for-the-badge)](https://github.com/mirror/ncurses)
 [![raylib](https://img.shields.io/badge/library-raylib-white?style=for-the-badge)](https://github.com/raysan5/raylib)
 [![catch2](https://img.shields.io/badge/testing-catch2-red?style=for-the-badge)](https://github.com/catchorg/Catch2)
 
-<!-- Dependencies that were _excluded_: -->
+<!-- #### Excluded -->
 
 <p align="right">(<a href="#readme-top">top</a>)</p>
 
 
 ### Getting Started
+#### Run
+
+#### Develop and build
+0. Install toolchain and tools
 
 <p align="right">(<a href="#readme-top">top</a>)</p>
 
@@ -56,14 +62,20 @@ Dependencies that are or planned to be used:
 <p align="right">(<a href="#readme-top">top</a>)</p>
 
 
-### Development pipeline
-#### Code quality
-- clang-format
-- cppcheck
-#### CI
-- github actions/workflows
-- github issues & pull requests
-<!-- - docker -->
+### (Desired) Development workflow 
+(Try first time with this project)
+0. Create feature branch
+0. TDD:
+    0. Fail test
+    0. Code
+    0. Refactor
+0. Run and test new feature
+    0. Bug? -> Assert/Test!
+0. Backup to temporary branch (local only)
+0. Rebase HEAD onto base
+0. Create PR
+0. (Optional/Recommended) Wait a bit/Work on something else
+0. Close PR (via browser! prefer squash merge)
 
 <p align="right">(<a href="#readme-top">top</a>)</p>
 
