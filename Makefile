@@ -92,7 +92,7 @@ LDLIBS 			+= $(addprefix -l,$(LIBRARIES))
 #######################################
 ### TARGETS
 #######################################
-.PHONY: all build clean cppcheck debug format publish release run
+.PHONY: all build clean cppcheck debug doxygenformat publish release run
 
 all: debug
 	@$(MAKE) run
@@ -125,6 +125,9 @@ cppcheck:
 debug:
 	@$(MAKE) BUILD=debug build
 	@$(MAKE) cppcheck
+
+doxygen:
+	doxygen Doxyfile
 
 format:
 	$(info === FORMAT CODE ===)
