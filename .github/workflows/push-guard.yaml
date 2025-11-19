@@ -14,5 +14,5 @@ jobs:
           submodules: "true"
       # - run: make format && git diff --quiet
       # - run: make cppcheck
-      - run: make debug
+      - run: make release
       # - run: make tests
