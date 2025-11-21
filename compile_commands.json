@@ -1,0 +1,32 @@
+[
+ {
+  "directory": "/data/data/com.termux/files/home/git-repos/Tak",
+  "arguments": [
+   "clang",
+   "-o",
+   "build/unix/debug/src/main.c.o",
+   "-c",
+   "src/main.c",
+   "-MMD",
+   "-MP",
+   "-std=c99",
+   "-g",
+   "-ggdb",
+   "-O0",
+   "-Wall",
+   "-Wextra",
+   "-Wshadow",
+   "-Werror",
+   "-Wpedantic",
+   "-pedantic-errors",
+   "-DTERMUX",
+   "-DDEBUG",
+   "-Isrc",
+   "-isystem/data/data/com.termux/files/usr/include",
+   "-isystem/data/data/com.termux/files/usr/local/include",
+   "-isystem/data/data/com.termux/files/usr/lib",
+   "-isystem/data/data/com.termux/files/usr/local/lib"
+  ],
+  "file": "src/main.c"
+ }
+]
