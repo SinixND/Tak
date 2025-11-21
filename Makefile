@@ -92,7 +92,7 @@ LDLIBS 			+= $(addprefix -l,$(LIBRARIES))
 #######################################
 ### TARGETS
 #######################################
-.PHONY: all build clean cppcheck debug doxygenformat publish release run
+.PHONY: all build clean compiledb cppcheck debug doxygenformat publish release run
 
 all: debug
 	@$(MAKE) run
@@ -103,6 +103,11 @@ clean:
 	$(info )
 	$(info === CLEAN ===)
 	$(RM) $(OBJ_DIR)/* $(BIN_DIR)/*
+
+compiledb:
+	$(info )
+	$(info === Build compile_commands.json ===)
+	@compiledb -n make
 
 cppcheck:
 	@$(MKDIR) $(OBJ_DIR)/cppcheck
@@ -122,7 +127,7 @@ cppcheck:
 		-I src/ \
 		src/
 
-debug:
+debug: compiledb
 	@$(MAKE) BUILD=debug build
 	@$(MAKE) cppcheck
 
