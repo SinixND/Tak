@@ -1,18 +1,13 @@
 on: [push]
 jobs:
-  format-check-build-test:
+  build-and-check:
     runs-on: ubuntu-latest
-    # container:
-    #   image: sinixnd/tak:latest
-    # env:
-    #   TOOLS_PATH: /home/ubuntu/dev/tools
+    container:
+      image: sinixnd/tak:latest
     steps:
       # Clones to $GITHUB_WORKSPACE
       - name: Checkout the repository
         uses: actions/checkout@v4
         with:
           submodules: "true"
-      # - run: make format && git diff --quiet
-      # - run: make cppcheck
-      - run: make release
-      # - run: make tests
+      - run: make release cppcheck
