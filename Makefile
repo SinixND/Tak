@@ -92,7 +92,7 @@ LDLIBS 			+= $(addprefix -l,$(LIBRARIES))
 #######################################
 ### TARGETS
 #######################################
-.PHONY: all build clean compiledb cppcheck debug doxygenformat publish release run
+.PHONY: all build clean compiledb cppcheck debug doxygen format publish release run
 
 all: debug
 	@$(MAKE) run
