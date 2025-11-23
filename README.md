@@ -52,7 +52,7 @@ Dependencies that are or are planned to be used:
 #### Run
 
 #### Develop and build
-0. Install toolchain and tools
+1. Install toolchain and tools
 
 <p align="right">(<a href="#readme-top">top</a>)</p>
 
@@ -64,18 +64,18 @@ Dependencies that are or are planned to be used:
 
 ### (Desired) Development workflow 
 (Try first time with this project)
-0. Create feature branch
-0. TDD:
-    0. Fail test
-    0. Code
-    0. Refactor
-0. Run and test new feature
-    0. Bug? -> Assert/Test!
-0. Backup to temporary branch (local only)
-0. Rebase HEAD onto base
-0. Create PR
-0. (Optional/Recommended) Wait a bit/Work on something else
-0. Close PR (via browser! prefer squash merge)
+1. Create feature branch
+1. TDD:
+    1. Fail test
+    1. Code
+    1. Refactor
+1. Run and test new feature
+    1. Bug? -> Assert/Test!
+1. Backup to temporary branch (local only)
+1. Rebase HEAD onto base
+1. Create PR
+1. (Optional/Recommended) Wait a bit/Work on something else
+1. Close PR (via browser! prefer squash merge)
 
 <p align="right">(<a href="#readme-top">top</a>)</p>
 
