@@ -3,10 +3,10 @@
 
 #include "Players.h"
 
-/// Allocate memory
+/// Allocate memory; Add one extra to enable invalid ID = 0
 Players allocatePlayerComponents( int const playerCount );
 
-/// Initialize values
+/// Initialize values; Leaves [0] uninitialized
 void initPlayers(
     Players* players,
     int const playerCount,

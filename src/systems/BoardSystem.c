@@ -1,22 +1,33 @@
 #include "BoardSystem.h"
 
-/// Allocates empty board
+#include "Board.h"
 #include <assert.h>
 #include <stdlib.h>
 
-Stack* initBoard( int boardSize )
+Board allocateBoardComponents( int const boardSize )
 {
-    Stack* board = malloc( ( boardSize * boardSize ) * sizeof( Stack ) );
-    assert( board && "Bad malloc" );
+    Board board;
 
-    for ( int idx = 0; idx < boardSize; ++idx )
-    {
-        board[idx].height = 0;
-        board[idx].topStone = 0;
-    }
-
-    assert( board[0].height == 0 );
-    assert( board[boardSize].topStone == 0 );
+    board.stacks = malloc( ( boardSize * boardSize ) * sizeof( int ) );
+    assert( board.stacks && "Bad malloc" );
 
     return board;
+}
+
+void initBoard(
+    Board* board,
+    int const boardSize
+)
+{
+    int const stackCount = boardSize * boardSize;
+
+    for ( int idx = 0; idx < stackCount; ++idx )
+    {
+        board->stacks[idx] = 0;
+    }
+}
+
+void deinitBoard( Board* const board )
+{
+    free( board->stacks );
 }

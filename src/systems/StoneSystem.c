@@ -1,21 +1,18 @@
 #include "StoneSystem.h"
 
 #include "Stones.h"
-#include "RulesData.h"
 #include <assert.h>
 #include <stdlib.h>
 
-Stones allocateStoneComponents(
-    int const playerCount,
-    int const stoneCountPerPlayer
-)
+Stones allocateStoneComponents( int const stoneCount )
 {
-    int const totalStoneCount = (playerCount * stoneCountPerPlayer);
-
     Stones stones;
 
-    stones.affiliations = malloc( (1 + totalStoneCount) * sizeof( int ) );
-    stones.captives = malloc( (1 + totalStoneCount) * sizeof( int ) );
+    stones.affiliations = malloc( ( 1 + stoneCount ) * sizeof( int ) );
+    assert( stones.affiliations && "Bad malloc" );
+
+    stones.captives = malloc( ( 1 + stoneCount ) * sizeof( int ) );
+    assert( stones.captives && "Bad malloc" );
 
     return stones;
 }
@@ -26,33 +23,30 @@ void initStones(
     int const stoneCountPerPlayer
 )
 {
-    int idx = 1;
+    int playerId = 1;
+    int idx = 0;
 
-    stones.affiliations[0]= 0;
-    stones.captives[0] = 0;
+    stones->affiliations[idx] = 0;
+    stones->captives[idx] = 0;
 
-    for ( int i = 0; i < stoneCountPerPlayer; ++i )
+    for ( int n = 0; n < playerCount; ++n )
     {
-        stones.affiliations[idx] = 1;
-        stones.captives[idx] = 0;
+        for ( int m = 0; m < stoneCountPerPlayer; ++m )
+        {
+            ++idx;
 
-        ++idx;
+            stones->affiliations[idx] = playerId;
+            stones->captives[idx] = 0;
+        }
+        ++playerId;
     }
 
-    for ( int i = 0; i < stoneCountPerPlayer; ++i )
-    {
-        stones.affiliations[idx] = 2;
-        stones.captives[idx] = 0;
-
-        ++idx;
-    }
-
-    assert( stones.affiliations[0] == 0 && "StoneId 0 is unassigned" );
-    assert( stones.captives[0] == 0 && "StoneId 0 is unassigned" );
-    assert( stones.affiliations[1] == 1 );
-    assert( stones.affiliations[stoneCountPerPlayer] == 1 );
-    assert( stones.affiliations[stoneCountPerPlayer + 1] == 2 );
-    assert( stones.affiliations[ 2 * stoneCountPerPlayer ] == 2 );
+    assert( stones->affiliations[0] == 0 && "StoneId 0 is unassigned" );
+    assert( stones->captives[0] == 0 && "StoneId 0 is unassigned" );
+    assert( stones->affiliations[1] == 1 );
+    assert( stones->affiliations[stoneCountPerPlayer] == 1 );
+    assert( stones->affiliations[stoneCountPerPlayer + 1] == 2 );
+    assert( stones->affiliations[2 * stoneCountPerPlayer] == 2 );
 }
 
 void deinitStones( Stones* const stones )

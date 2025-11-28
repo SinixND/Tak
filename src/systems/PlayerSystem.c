@@ -9,8 +9,11 @@ Players allocatePlayerComponents( int playerCount )
 {
     Players players;
 
-    players.regularReserves = malloc( playerCount * sizeof( int ) );
+    players.regularReserves = malloc( 1 + playerCount * sizeof( int ) );
+    assert( players.regularReserves && "Bad malloc" );
+
     players.capstoneReserves = malloc( playerCount * sizeof( int ) );
+    assert( players.capstoneReserves && "Bad malloc" );
 
     return players;
 }
@@ -22,10 +25,17 @@ void initPlayers(
     int const capstoneReserves
 )
 {
+    players->regularReserves[0] = 0;
+    players->capstoneReserves[0] = 0;
+
+    int idx = 1;
+
     for ( int n = 0; n < playerCount; ++n )
     {
-        players.regularReserves[n] = regularReserves;
-        players.capstoneReserves[n] = capstoneReserves;
+        players->regularReserves[idx] = regularReserves;
+        players->capstoneReserves[idx] = capstoneReserves;
+
+        ++idx;
     }
 }
 

@@ -1,9 +1,18 @@
-#ifndef IG20251126093805
-#define IG20251126093805
+#ifndef IG20251128165244
+#define IG20251128165244
 
-#include "Stacks.h"
+#include "Board.h"
 
-/// Allocate and initialize
-Stacks* initBoard( int boardSize );
+/// Allocate memory; Add one extra to enable invalid ID = 0
+Board allocateBoardComponents( int const boardSize );
+
+/// Initialize values;
+void initBoard(
+    Board* board,
+    int const boardSize
+);
+
+/// Free allocated memory
+void deinitBoard( Board* const board );
 
 #endif

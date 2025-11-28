@@ -132,8 +132,8 @@ cppcheck:
 		src/
 
 debug:
-	@$(MAKE) BUILD=debug build
 	@$(MAKE) compiledb
+	@$(MAKE) BUILD=debug build
 	@$(MAKE) cppcheck
 
 doxygen:
@@ -144,7 +144,7 @@ doxygen:
 format:
 	$(info )
 	$(info === Format code ===)
-	clang-format -i -- src/**
+	clang-format -i -- src/**.*
 
 publish: format release cppcheck
 

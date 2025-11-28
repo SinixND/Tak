@@ -3,13 +3,10 @@
 
 #include "Stones.h"
 
-/// Allocate memory
-Stones allocateStoneComponents(
-    int const playerCount,
-    int const stoneCountPerPlayer
-);
+/// Allocate memory; Add one extra to enable invalid ID = 0
+Stones allocateStoneComponents( int const stoneCount);
 
-/// Initialize values; Leaves stone at [0] uninitialized to enable invalid stoneId = 0
+/// Initialize values; Leaves [0] uninitialized
 void initStones(
     Stones* stones,
     int const playerCount,
