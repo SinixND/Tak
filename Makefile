@@ -94,24 +94,27 @@ LDLIBS 			+= $(addprefix -l,$(LIBRARIES))
 #######################################
 .PHONY: all build clean compiledb cppcheck debug doxygen format publish release run
 
-all: debug
+all: 
+	@$(MAKE) debug
 	@$(MAKE) run
 
 build: $(BIN_DIR)/$(TARGET)/$(BUILD)/$(BIN)$(BIN_EXT)
 
 clean:
 	$(info )
-	$(info === CLEAN ===)
+	$(info === Clean ===)
 	$(RM) $(OBJ_DIR)/* $(BIN_DIR)/*
 
 compiledb:
 	$(info )
-	$(info === Build compile_commands.json ===)
-	@compiledb -n make
+	$(info === Build compilation database ===)
+	compiledb -n make
 
 cppcheck:
+	$(info )
+	$(info === Run cppcheck ===)
 	@$(MKDIR) $(OBJ_DIR)/cppcheck
-	@cppcheck \
+	cppcheck \
 		--quiet \
 		--enable=all \
 		--suppress=missingIncludeSystem \
@@ -119,6 +122,7 @@ cppcheck:
 		--suppress=selfAssignment \
 		--suppress=cstyleCast \
 		--suppress=unmatchedSuppression \
+		--suppress=checkersReport \
 		--inconclusive \
 		--check-level=exhaustive \
 		--error-exitcode=1 \
@@ -127,16 +131,20 @@ cppcheck:
 		-I src/ \
 		src/
 
-debug: compiledb
+debug:
+	@$(MAKE) compiledb
 	@$(MAKE) BUILD=debug build
 	@$(MAKE) cppcheck
 
 doxygen:
+	$(info )
+	$(info === Create documentation ===)
 	doxygen Doxyfile
 
 format:
-	$(info === FORMAT CODE ===)
-	@clang-format -i -- src/**
+	$(info )
+	$(info === Format code ===)
+	clang-format -i -- src/**.*
 
 publish: format release cppcheck
 
@@ -144,6 +152,8 @@ release:
 	@$(MAKE) BUILD=release build
 
 run:
+	$(info )
+	$(info === Execute ===)
 	$(BIN_DIR)/$(TARGET)/$(BUILD)/$(BIN)$(BIN_EXT)
 
 
