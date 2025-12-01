@@ -2,6 +2,7 @@
 #include "Players.h"
 #include "RuleSystem.h"
 #include "RulesData.h"
+#include "Stacks.h"
 #include "Stones.h"
 
 int main( void )
@@ -20,6 +21,8 @@ int main( void )
 
     Stones stones = allocateStoneComponents( PLAYER_COUNT * INITIAL_STONE_COUNT_PER_PLAYER );
 
+    Stacks stacks = allocateStackComponents( settings.boardSize );
+
     //* Initialize values
     initPlayers(
         &players,
@@ -34,9 +37,15 @@ int main( void )
         INITIAL_STONE_COUNT_PER_PLAYER
     );
 
+    initStacks(
+        &stacks,
+        settings.boardSize
+    );
+
     //* Deinitialize data
     deinitPlayers( &players );
     deinitStones( &stones );
+    deinitStacks( &stacks );
 
     return 0;
 }
