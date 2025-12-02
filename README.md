@@ -91,7 +91,7 @@ Dependencies that are or are planned to be used:
     1. Bug? -> Make new assert or test!
 1. Backup to temporary branch (local only)
 1. Rebase HEAD onto base
-1. Create PR (squash merge onto dev; merge rebase onto main)
+1. Create PR
 1. (Optional/Recommended) Wait a bit/Work on something else
 1. Close PR (via browser!)
 
