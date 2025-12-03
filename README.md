@@ -82,13 +82,11 @@ Dependencies that are or are planned to be used:
 ### (Desired) Development workflow
 (Try first time with this project)
 1. Create feature branch
-1. Create necessary data structure
-1. TDD:
-    1. Fail test
-    1. Code / solve test
-    1. Refactor
+1. Add code
+    1. Create necessary data structure
+    1. Create functionality
 1. Run and test new feature
-    1. Bug? -> Make new assert or test!
+    1. Bug? -> Make new assert!
 1. Backup to temporary branch (local only)
 1. Rebase HEAD onto base
 1. Create PR

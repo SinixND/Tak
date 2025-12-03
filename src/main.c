@@ -2,9 +2,11 @@
 
 int main( void )
 {
-    Game game = initGame();
+    Game game = initGame( 0 );
 
-    deinitGame(&game);
+    run( &game );
+
+    deinitGame( &game );
 
     return 0;
 }
