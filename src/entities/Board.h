@@ -10,14 +10,8 @@ typedef struct
     int* stacks;
 } Board;
 
-/// Allocate memory; Add one extra to enable invalid ID = 0
-Board allocateBoardComponents( int const boardSize );
-
 /// Initialize values;
-void initBoard(
-    Board* board,
-    int const boardSize
-);
+Board initBoard( int const boardSize);
 
 /// Free allocated memory
 void deinitBoard( Board* const board );
