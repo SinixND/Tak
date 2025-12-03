@@ -4,7 +4,7 @@ int main( void )
 {
     Game game = initGame( 0 );
 
-    // run( &game );
+    run( &game );
 
     deinitGame( &game );
 
