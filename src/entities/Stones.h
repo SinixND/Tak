@@ -4,12 +4,14 @@
 #include <assert.h>
 
 /**
- * @brief A stone piece that belongs to a player
+ * @brief SoA: A stone piece that belongs to a player
  *
  * It can be placed or moved on the board
  */
 typedef struct
 {
+    /// Stones in play
+    int inPlay;
     /// Owning player, either '0' or '1'
     int* affiliations;
     /// Index of stone below/covered by stoneId
