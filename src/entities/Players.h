@@ -10,12 +10,8 @@ typedef struct
     int* capstoneReserves;
 } Players;
 
-/// Allocate memory; Add one extra to enable invalid ID = 0
-Players allocatePlayerComponents( int const playerCount );
-
 /// Initialize values; Leaves [0] uninitialized
-void initPlayers(
-    Players* players,
+Players initPlayers(
     int const playerCount,
     int const regularReserves,
     int const capstoneReserves
