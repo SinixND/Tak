@@ -34,7 +34,7 @@ void deinitBoard( Board* const board )
 Board allocateBoardComponents( int const boardSize )
 {
     int const stackCount = boardSize * boardSize;
-    Board board;
+    Board board = { .size = boardSize };
 
     board.stacks = malloc( stackCount * sizeof( int ) );
     assert( board.stacks && "Bad malloc" );
