@@ -2,7 +2,9 @@
 #define IG20251123234513
 
 /**
- * @brief Configuration values for a game of Tak
+ * @brief Configuration values for a match
+ * 
+ * Can be set/changed by user
  */
 typedef struct
 {
