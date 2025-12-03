@@ -1,6 +1,12 @@
 #ifndef IG20251126113110
 #define IG20251126113110
 
+/**
+ * @brief Constant data for the core game 
+ * 
+ * aka. compiletime constants
+ */
+
 /// Player count
 static int const PLAYER_COUNT = 2;
 
