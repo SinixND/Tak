@@ -48,7 +48,7 @@ Stacks allocateStackComponents( int const boardSize )
 {
     int const maxIdx = boardSize + 1;
 
-    Stacks stacks;
+    Stacks stacks = { .onBoard = 0 };
 
     stacks.topStoneIds = malloc( maxIdx * sizeof( int ) );
     assert( stacks.topStoneIds && "Bad malloc" );
