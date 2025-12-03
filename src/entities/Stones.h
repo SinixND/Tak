@@ -16,12 +16,8 @@ typedef struct
     int* captives;
 } Stones;
 
-/// Allocate memory; Add one extra to enable invalid ID = 0
-Stones allocateStoneComponents( int const stoneCount );
-
 /// Initialize values; Leaves [0] uninitialized
-void initStones(
-    Stones* stones,
+Stones initStones(
     int const playerCount,
     int const stoneCountPerPlayer
 );

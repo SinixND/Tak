@@ -20,14 +20,8 @@ typedef struct
     StoneType* types;
 } Stacks;
 
-/// Allocate memory; Add one extra to enable invalid ID = 0
-Stacks allocateStackComponents( int const boardSize );
-
 /// Initialize values; Leaves [0] uninitialized
-void initStacks(
-    Stacks* stacks,
-    int const boardSize
-);
+Stacks initStacks( int const boardSize);
 
 /// Free allocated memory
 void deinitStacks( Stacks* const stacks );

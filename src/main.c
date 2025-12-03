@@ -18,35 +18,21 @@ int main( void )
 
     int const INITIAL_STONE_COUNT_PER_PLAYER = INITIAL_REGULAR_STONE_COUNT_PER_PLAYER + INITIAL_CAPSTONE_COUNT_PER_PLAYER;
 
-    //* Allocate memory
-    Players players = allocatePlayerComponents( PLAYER_COUNT );
-    Stones stones = allocateStoneComponents( PLAYER_COUNT * INITIAL_STONE_COUNT_PER_PLAYER );
-    Stacks stacks = allocateStackComponents( settings.boardSize );
-    Board board = allocateBoardComponents( settings.boardSize );
-
     //* Initialize values
-    initPlayers(
-        &players,
+    Players players = initPlayers(
         PLAYER_COUNT,
         INITIAL_REGULAR_STONE_COUNT_PER_PLAYER,
         INITIAL_CAPSTONE_COUNT_PER_PLAYER
     );
 
-    initStones(
-        &stones,
+    Stones stones = initStones(
         PLAYER_COUNT,
         INITIAL_STONE_COUNT_PER_PLAYER
     );
 
-    initStacks(
-        &stacks,
-        settings.boardSize
-    );
+    Stacks stacks = initStacks( settings.boardSize );
 
-    initBoard(
-        &board,
-        settings.boardSize
-    );
+    Board board = initBoard( settings.boardSize );
 
     //* Deinitialize data
     deinitPlayers( &players );
