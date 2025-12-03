@@ -6,12 +6,14 @@
  */
 typedef struct
 {
+    /// Constant size of board
+    int const size;
     /// Stacks located at [(boardSize * y) + x]
     int* stacks;
 } Board;
 
 /// Initialize values;
-Board initBoard( int const boardSize);
+Board initBoard( int const boardSize );
 
 /// Free allocated memory
 void deinitBoard( Board* const board );
