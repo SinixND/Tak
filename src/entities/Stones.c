@@ -17,8 +17,8 @@ Stones initStones(
 
     for ( int idx = 0; idx < stoneCount; ++idx )
     {
-        stones.affiliations[idx] = -1;
-        stones.captives[idx] = -1;
+        stones.affiliationIdxs[idx] = -1;
+        stones.captiveIdxs[idx] = -1;
     }
 
     return stones;
@@ -26,19 +26,19 @@ Stones initStones(
 
 void deinitStones( Stones* const stones )
 {
-    free( stones->affiliations );
-    free( stones->captives );
+    free( stones->affiliationIdxs );
+    free( stones->captiveIdxs );
 }
 
 Stones allocateStoneComponents( int const stoneCount )
 {
-    Stones stones = { .inPlay = 0 };
+    Stones stones = { .inPlayCount = 0 };
 
-    stones.affiliations = malloc( stoneCount * sizeof( int ) );
-    assert( stones.affiliations && "Bad malloc" );
+    stones.affiliationIdxs = malloc( stoneCount * sizeof( int ) );
+    assert( stones.affiliationIdxs && "Bad malloc" );
 
-    stones.captives = malloc( stoneCount * sizeof( int ) );
-    assert( stones.captives && "Bad malloc" );
+    stones.captiveIdxs = malloc( stoneCount * sizeof( int ) );
+    assert( stones.captiveIdxs && "Bad malloc" );
 
     return stones;
 }
