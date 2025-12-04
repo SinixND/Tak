@@ -9,10 +9,10 @@ typedef struct
     /// Constant size of board
     int const size;
     /// Stacks located at [(boardSize * y) + x]
-    int* stacks;
+    int* stackIdxs;
 } Board;
 
-/// Initialize values;
+/// Allocate memory and initialize values
 Board initBoard( int const boardSize );
 
 /// Free allocated memory

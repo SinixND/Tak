@@ -14,7 +14,7 @@ Board initBoard( int const boardSize )
 
     for ( int idx = 0; idx < stackCount; ++idx )
     {
-        board.stacks[idx] = 0;
+        board.stackIdxs[idx] = -1;
     }
 
     return board;
@@ -22,7 +22,7 @@ Board initBoard( int const boardSize )
 
 void deinitBoard( Board* const board )
 {
-    free( board->stacks );
+    free( board->stackIdxs );
 }
 
 Board allocateBoardComponents( int const boardSize )
@@ -31,8 +31,8 @@ Board allocateBoardComponents( int const boardSize )
 
     Board board = { .size = boardSize };
 
-    board.stacks = malloc( stackCount * sizeof( int ) );
-    assert( board.stacks && "Bad malloc" );
+    board.stackIdxs = malloc( stackCount * sizeof( int ) );
+    assert( board.stackIdxs && "Bad malloc" );
 
     return board;
 }

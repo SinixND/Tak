@@ -11,14 +11,14 @@
 typedef struct
 {
     /// Stones in play
-    int inPlay;
-    /// Owning player, either '0' or '1'
-    int* affiliations;
+    int inPlayCount;
+    /// Owning players
+    int* affiliationIdxs;
     /// Index of stone below/covered by stoneId
-    int* captives;
+    int* captiveIdxs;
 } Stones;
 
-/// Initialize values; Leaves [0] uninitialized
+/// Allocate memory and initialize values
 Stones initStones(
     int const playerCount,
     int const stoneCountPerPlayer

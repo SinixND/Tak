@@ -4,7 +4,7 @@
 #include "StoneType.h"
 
 /**
- * @brief SoA: A stack is a pile of stones
+ * @brief A stack is a pile of stones
  *
  * A stacks affiliation is determined by the its top stone
  * Only the top stone of a stack can have a type other than `FLAT`
@@ -13,16 +13,16 @@
 typedef struct
 {
     /// Stacks on the board
-    int onBoard;
-    /// Id of top stone
-    int* topStoneIds;
-    /// Height of stack including top stone
+    int onBoardCount;
+    /// Indexes of top stone
+    int* topStoneIdxs;
+    /// Heights of stacks including top stone
     int* heights;
-    /// Type of the stack / top stone
+    /// Types of stacks / top stones
     StoneType* types;
 } Stacks;
 
-/// Initialize values; Leaves [0] uninitialized
+/// Allocate memory and initialize values
 Stacks initStacks( int const boardSize );
 
 /// Free allocated memory
