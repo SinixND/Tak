@@ -3,7 +3,7 @@
 #include <assert.h>
 #include <stdlib.h>
 
-/// Allocate memory; Add one extra to enable invalid ID = 0
+/// Allocate memory
 Stones allocateStoneComponents( int const stoneCount );
 
 Stones initStones(
@@ -11,14 +11,14 @@ Stones initStones(
     int const stoneCountPerPlayer
 )
 {
-    Stones stones = allocateStoneComponents( playerCount * stoneCountPerPlayer );
+    int const stoneCount = playerCount * stoneCountPerPlayer;
 
-    int const maxIdx = ( playerCount * stoneCountPerPlayer ) + 1;
+    Stones stones = allocateStoneComponents( stoneCount );
 
-    for ( int idx = 0; idx < maxIdx; ++idx )
+    for ( int idx = 0; idx < stoneCount; ++idx )
     {
-        stones.affiliations[idx] = 0;
-        stones.captives[idx] = 0;
+        stones.affiliations[idx] = -1;
+        stones.captives[idx] = -1;
     }
 
     return stones;
@@ -32,14 +32,12 @@ void deinitStones( Stones* const stones )
 
 Stones allocateStoneComponents( int const stoneCount )
 {
-    int const maxIdx = stoneCount + 1;
-
     Stones stones = { .inPlay = 0 };
 
-    stones.affiliations = malloc( maxIdx * sizeof( int ) );
+    stones.affiliations = malloc( stoneCount * sizeof( int ) );
     assert( stones.affiliations && "Bad malloc" );
 
-    stones.captives = malloc( maxIdx * sizeof( int ) );
+    stones.captives = malloc( stoneCount * sizeof( int ) );
     assert( stones.captives && "Bad malloc" );
 
     return stones;

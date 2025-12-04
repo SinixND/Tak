@@ -3,7 +3,7 @@
 #include <assert.h>
 #include <stdlib.h>
 
-/// Allocate memory; Add one extra to enable invalid ID = 0
+/// Allocate memory
 Players allocatePlayerComponents( int playerCount );
 
 Players initPlayers(
@@ -14,26 +14,11 @@ Players initPlayers(
 {
     Players players = allocatePlayerComponents( playerCount );
 
-    int idx = 0;
-
-    players.regularReserves[0] = 0;
-    players.capstoneReserves[0] = 0;
-
-    for ( int n = 0; n < playerCount; ++n )
+    for ( int idx = 0; idx < playerCount; ++idx )
     {
-        ++idx;
-
         players.regularReserves[idx] = regularReserves;
         players.capstoneReserves[idx] = capstoneReserves;
     }
-
-    assert(
-        players.regularReserves[1] > 0
-        && players.capstoneReserves[1] > 0
-        && players.regularReserves[2] > 0
-        && players.capstoneReserves[2] > 0
-        && "Initial player reserves are all >0"
-    );
 
     return players;
 }
@@ -46,14 +31,12 @@ void deinitPlayers( Players* const players )
 
 Players allocatePlayerComponents( int playerCount )
 {
-    int const maxIdx = playerCount + 1;
-
     Players players;
 
-    players.regularReserves = malloc( maxIdx * sizeof( int ) );
+    players.regularReserves = malloc( playerCount * sizeof( int ) );
     assert( players.regularReserves && "Bad malloc" );
 
-    players.capstoneReserves = malloc( maxIdx * sizeof( int ) );
+    players.capstoneReserves = malloc( playerCount * sizeof( int ) );
     assert( players.capstoneReserves && "Bad malloc" );
 
     return players;
