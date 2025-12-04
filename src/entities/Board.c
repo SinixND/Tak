@@ -3,7 +3,7 @@
 #include <assert.h>
 #include <stdlib.h>
 
-/// Allocate memory; Add one extra to enable invalid ID = 0
+/// Allocate memory
 Board allocateBoardComponents( int const boardSize );
 
 Board initBoard( int const boardSize )
@@ -17,12 +17,6 @@ Board initBoard( int const boardSize )
         board.stacks[idx] = 0;
     }
 
-    assert(
-        board.stacks[0] == 0
-        && board.stacks[stackCount - 1] == 0
-        && "Board/stacks array size is at least boardSize^2"
-    );
-
     return board;
 }
 
@@ -34,6 +28,7 @@ void deinitBoard( Board* const board )
 Board allocateBoardComponents( int const boardSize )
 {
     int const stackCount = boardSize * boardSize;
+
     Board board = { .size = boardSize };
 
     board.stacks = malloc( stackCount * sizeof( int ) );
