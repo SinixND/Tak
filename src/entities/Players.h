@@ -10,7 +10,7 @@ typedef struct
     int* capstoneReserves;
 } Players;
 
-/// Initialize values; Leaves [0] uninitialized
+/// Allocate memory and initialize values
 Players initPlayers(
     int const playerCount,
     int const regularReserves,
