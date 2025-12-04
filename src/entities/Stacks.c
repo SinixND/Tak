@@ -15,7 +15,7 @@ Stacks initStacks( int const boardSize )
 
     for ( int idx = 0; idx < stackCount; ++idx )
     {
-        stacks.topStoneIds[idx] = -1;
+        stacks.topStoneIdxs[idx] = -1;
         stacks.heights[idx] = 0;
         stacks.types[idx] = NONE;
     }
@@ -25,7 +25,7 @@ Stacks initStacks( int const boardSize )
 
 void deinitStacks( Stacks* const stacks )
 {
-    free( stacks->topStoneIds );
+    free( stacks->topStoneIdxs );
     free( stacks->heights );
     free( stacks->types );
 }
@@ -34,10 +34,10 @@ Stacks allocateStackComponents( int const boardSize )
 {
     int const stackCount = boardSize * boardSize;
 
-    Stacks stacks = { .onBoard = 0 };
+    Stacks stacks = { .onBoardCount = 0 };
 
-    stacks.topStoneIds = malloc( stackCount * sizeof( int ) );
-    assert( stacks.topStoneIds && "Bad malloc" );
+    stacks.topStoneIdxs = malloc( stackCount * sizeof( int ) );
+    assert( stacks.topStoneIdxs && "Bad malloc" );
 
     stacks.heights = malloc( stackCount * sizeof( int ) );
     assert( stacks.heights && "Bad malloc" );
