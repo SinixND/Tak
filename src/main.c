@@ -1,7 +1,12 @@
-#include <stdio.h>
+#include "Game.h"
 
 int main( void )
 {
-    printf( "Hello World!\n" );
+    Game game = initGame( 0 );
+
+    // run( &game );
+
+    deinitGame( &game );
+
     return 0;
 }
