@@ -2,5 +2,6 @@
 bin/
 build/
 docs/html/
+worktrees/
 *.json
 *.vim
