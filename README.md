@@ -4,7 +4,7 @@
 <h1> Tak </h1>
 <p> The boardgame from the "King Killer Chronicles" novel series </p>
 
-[![MITLicense](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](https://opensource.org/licenses/MIT)
+[![MIT-License](https://img.shields.io/badge/MIT-License-yellow?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
 [![Stars](https://img.shields.io/github/stars/SinixND/Tak?style=for-the-badge)](https://github.com/SinixND/Tak/stargazers)
 [![Issues](https://img.shields.io/github/issues/SinixND/Tak?style=for-the-badge)](https://github.com/SinixND/Tak/issues)
@@ -16,11 +16,28 @@
 
 
 ## About The Project
-**[Insert screenshot here]](path/to/screenshot)**
+**[Insert screenshot here](path/to/screenshot)**
 
-Implementation of the two player board game from the novel series "King Killer Chronicles" by Patrick Rothfuss. 
+Implementation of the two player board game from the novel series "King Killer Chronicles" by Patrick Rothfuss.
 
 For more information about the game's rules, see [ustak.org](https://ustak.org/play-beautiful-game-tak/#)
+
+### Code Directory Strcture
+- Components:
+  - Data only
+  - Stored in container/array
+  - Container represents association between an entity (id) and its component (value)
+  - Optional: grouped in (entity-) struct
+
+- Entities: Is an id; Used as index into component containers
+
+- Systems: Logic only (on components/entities)
+
+- Data: Constant, shared variables
+
+- Configs: Changeable, shared variables
+
+- Utility: Shared functions
 
 <p align="right">(<a href="#readme-top">top</a>)</p>
 
@@ -62,20 +79,21 @@ Dependencies that are or are planned to be used:
 <p align="right">(<a href="#readme-top">top</a>)</p>
 
 
-### (Desired) Development workflow 
+### (Desired) Development workflow
 (Try first time with this project)
 1. Create feature branch
+1. Create necessary data structure
 1. TDD:
     1. Fail test
-    1. Code
+    1. Code / solve test
     1. Refactor
 1. Run and test new feature
-    1. Bug? -> Assert/Test!
+    1. Bug? -> Make new assert or test!
 1. Backup to temporary branch (local only)
 1. Rebase HEAD onto base
 1. Create PR
 1. (Optional/Recommended) Wait a bit/Work on something else
-1. Close PR (via browser! prefer squash merge)
+1. Close PR (via browser!)
 
 <p align="right">(<a href="#readme-top">top</a>)</p>
 
@@ -85,6 +103,15 @@ See the [open issues](https://github.com/SinixND/Tak/issues) for a full list of 
 
 <p align="right">(<a href="#readme-top">top</a>)</p>
 
+
+## References
+- [Tak terminology](https://ustak.org/tak-terminology/) Official Tak rules
+
+<p align="right">(<a href="#readme-top">top</a>)</p>
+
+
 ## Acknowledgements
 - [Artful Bytes' Youtube series](https://www.youtube.com/watch?v=HXd7g3RlCIs&list=PLS_iNJJVTtiRV0DZRDcTHnvAuDrKGPN40&index=6) about his Embedded System Project of building a sumobot
 - [The Modern Rogue - Tak](https://youtube.com/watch?v=Te0Wm_GCCAQ) Beautiful video explanation of the game
+
+<p align="right">(<a href="#readme-top">top</a>)</p>
