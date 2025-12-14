@@ -1,11 +1,11 @@
 #include "ReserveSystem.h"
-#include "Players.h"
+
 #include "StoneType.h"
-#include "Stones.h"
 
 int takeFromReserves(
-    Players* const players,
-    Stones* const stones,
+    int* const regularReserves,
+    int* const capstoneReserves,
+    int* const inPlayCount,
     int const player,
     StoneType const type
 )
@@ -15,13 +15,13 @@ int takeFromReserves(
         case FLAT:
         case WALL:
         {
-            --players->regularReserves[player];
+            --regularReserves[player];
             break;
         }
 
         case CAP:
         {
-            --players->capstoneReserves[player];
+            --capstoneReserves[player];
             break;
         }
         default:
@@ -31,5 +31,5 @@ int takeFromReserves(
     }
 
     //* Get new stone index
-    return stones->inPlayCount++;
+    return ( *inPlayCount )++;
 }

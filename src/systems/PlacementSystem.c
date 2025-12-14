@@ -39,8 +39,9 @@ void placeStoneOnBoard(
     );
 
     int const stoneIdx = takeFromReserves(
-        players,
-        stones,
+        players->regularReserves,
+        players->capstoneReserves,
+        &stones->inPlayCount,
         player,
         type
     );
