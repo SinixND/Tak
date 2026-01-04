@@ -1,0 +1,52 @@
+#include "Stacks.h"
+
+#include "StoneType.h"
+#include <assert.h>
+#include <stdlib.h>
+
+/// Allocate memory
+Stacks allocateStackComponents( int const stackCount );
+
+Stacks initStacks( int const boardWidth )
+{
+    int const stackCount = boardWidth * boardWidth;
+
+    Stacks stacks = allocateStackComponents( stackCount );
+
+    for ( int idx = 0; idx < stackCount; ++idx )
+    {
+        stacks.topStoneIdxs[idx] = -1;
+        stacks.heights[idx] = 0;
+        stacks.types[idx] = NONE;
+    }
+
+    return stacks;
+}
+
+void deinitStacks( Stacks* const stacks )
+{
+    free( stacks->topStoneIdxs );
+    free( stacks->heights );
+    free( stacks->types );
+}
+
+Stacks allocateStackComponents( int const stackCount )
+{
+    assert(
+        stackCount > 0
+        && "Invalid stackCount"
+    );
+
+    Stacks stacks = { .onBoardCount = 0 };
+
+    stacks.topStoneIdxs = calloc( stackCount, sizeof( int ) );
+    assert( stacks.topStoneIdxs && "Bad allocation" );
+
+    stacks.heights = calloc( stackCount, sizeof( int ) );
+    assert( stacks.heights && "Bad allocation" );
+
+    stacks.types = calloc( stackCount, sizeof( StoneType ) );
+    assert( stacks.types && "Bad allocation" );
+
+    return stacks;
+}
