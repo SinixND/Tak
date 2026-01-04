@@ -3,7 +3,7 @@
 GameSettings getDefaultSettings( void )
 {
     GameSettings settings = {
-        .boardSize = 5
+        .boardWidth = 5
     };
 
     return settings;

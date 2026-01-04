@@ -18,8 +18,8 @@ typedef struct
     Board board;
 } Game;
 
-/// Provide boardSize 0 for default value
-Game initGame( int const boardSize );
+/// Provide boardWidth 0 for default value
+Game initGame( int const boardWidth );
 // void run( Game* game );
 void deinitGame( Game* game );
 

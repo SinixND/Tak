@@ -3,13 +3,13 @@
 
 /**
  * @brief Configuration values for a match
- * 
+ *
  * Can be set/changed by user
  */
 typedef struct
 {
     /// Width and height of the playable board
-    int boardSize;
+    int boardWidth;
 } GameSettings;
 
 GameSettings getDefaultSettings( void );

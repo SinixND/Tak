@@ -5,13 +5,13 @@
 #include <stdlib.h>
 
 /// Allocate memory
-Stacks allocateStackComponents( int const boardSize );
+Stacks allocateStackComponents( int const stackCount );
 
-Stacks initStacks( int const boardSize )
+Stacks initStacks( int const boardWidth )
 {
-    int const stackCount = boardSize * boardSize;
+    int const stackCount = boardWidth * boardWidth;
 
-    Stacks stacks = allocateStackComponents( boardSize );
+    Stacks stacks = allocateStackComponents( stackCount );
 
     for ( int idx = 0; idx < stackCount; ++idx )
     {
@@ -30,10 +30,8 @@ void deinitStacks( Stacks* const stacks )
     free( stacks->types );
 }
 
-Stacks allocateStackComponents( int const boardSize )
+Stacks allocateStackComponents( int const stackCount )
 {
-    int const stackCount = boardSize * boardSize;
-
     Stacks stacks = { .onBoardCount = 0 };
 
     stacks.topStoneIdxs = malloc( stackCount * sizeof( int ) );

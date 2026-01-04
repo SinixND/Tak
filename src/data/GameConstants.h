@@ -2,8 +2,8 @@
 #define IG20251126113110
 
 /**
- * @brief Constant data for the core game 
- * 
+ * @brief Constant data for the core game
+ *
  * aka. compiletime constants
  */
 
@@ -11,10 +11,10 @@
 static int const PLAYER_COUNT = 2;
 
 /// Minimal board width/height
-static int const BOARD_SIZE_MIN = 3;
+static int const BOARD_WIDTH_MIN = 3;
 
 /// Maximal board width/height
-static int const BOARD_SIZE_MAX = 8;
+static int const BOARD_WIDTH_MAX = 8;
 
 /**
  * @brief Size of initial player reserves

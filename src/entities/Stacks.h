@@ -23,7 +23,7 @@ typedef struct
 } Stacks;
 
 /// Allocate memory and initialize values
-Stacks initStacks( int const boardSize );
+Stacks initStacks( int const boardWidth );
 
 /// Free allocated memory
 void deinitStacks( Stacks* const stacks );

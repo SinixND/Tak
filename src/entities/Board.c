@@ -4,15 +4,15 @@
 #include <stdlib.h>
 
 /// Allocate memory
-Board allocateBoardComponents( int const boardSize );
+Board allocateBoardComponents( int const tileCount );
 
-Board initBoard( int const boardSize )
+Board initBoard( int const boardWidth )
 {
-    Board board = allocateBoardComponents( boardSize );
+    int const tileCount = boardWidth * boardWidth;
 
-    int const stackCount = boardSize * boardSize;
+    Board board = allocateBoardComponents( tileCount );
 
-    for ( int idx = 0; idx < stackCount; ++idx )
+    for ( int idx = 0; idx < tileCount; ++idx )
     {
         board.stackIdxs[idx] = -1;
     }
@@ -25,13 +25,11 @@ void deinitBoard( Board* const board )
     free( board->stackIdxs );
 }
 
-Board allocateBoardComponents( int const boardSize )
+Board allocateBoardComponents( int const tileCount )
 {
-    int const stackCount = boardSize * boardSize;
+    Board board = { .tileCount = tileCount };
 
-    Board board = { .size = boardSize };
-
-    board.stackIdxs = malloc( stackCount * sizeof( int ) );
+    board.stackIdxs = malloc( tileCount * sizeof( int ) );
     assert( board.stackIdxs && "Bad malloc" );
 
     return board;

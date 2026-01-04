@@ -8,25 +8,25 @@
 #include "Stacks.h"
 #include "Stones.h"
 
-Game initGame( int boardSize )
+Game initGame( int boardWidth )
 {
-    if ( !boardSize )
+    if ( !boardWidth )
     {
-        boardSize = getDefaultSettings().boardSize;
+        boardWidth = getDefaultSettings().boardWidth;
     }
 
     Game game = {
         //* Adjust settings
         .gameSettings = {
-            .boardSize = boardSize
+            .boardWidth = boardWidth
         },
         //* Apply settings
-        .matchConstants = defineMatchConstants( game.gameSettings.boardSize ),
+        .matchConstants = defineMatchConstants( game.gameSettings.boardWidth ),
         //* Initialize values
         .players = initPlayers( PLAYER_COUNT, game.matchConstants.regularStoneReserves, game.matchConstants.capstoneReserves ),
         .stones = initStones( PLAYER_COUNT, getTotalReserves( game.matchConstants ) ),
-        .stacks = initStacks( game.gameSettings.boardSize ),
-        .board = initBoard( game.gameSettings.boardSize )
+        .stacks = initStacks( game.gameSettings.boardWidth ),
+        .board = initBoard( game.gameSettings.boardWidth )
     };
 
     return game;
