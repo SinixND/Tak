@@ -11,6 +11,16 @@ Stones initStones(
     int const stoneCountPerPlayer
 )
 {
+    assert(
+        playerCount > 0
+        && "Invalid playerCount"
+    );
+
+    assert(
+        stoneCountPerPlayer > 0
+        && "Invalid stoneCountPerPlayer"
+    );
+
     int const stoneCount = playerCount * stoneCountPerPlayer;
 
     Stones stones = allocateStoneComponents( stoneCount );
@@ -32,13 +42,18 @@ void deinitStones( Stones* const stones )
 
 Stones allocateStoneComponents( int const stoneCount )
 {
+    assert(
+        stoneCount > 0
+        && "Invalid stoneCount"
+    );
+
     Stones stones = { .inPlayCount = 0 };
 
-    stones.affiliationIdxs = malloc( stoneCount * sizeof( int ) );
-    assert( stones.affiliationIdxs && "Bad malloc" );
+    stones.affiliationIdxs = calloc( stoneCount, sizeof( int ) );
+    assert( stones.affiliationIdxs && "Bad allocation" );
 
-    stones.captiveIdxs = malloc( stoneCount * sizeof( int ) );
-    assert( stones.captiveIdxs && "Bad malloc" );
+    stones.captiveIdxs = calloc( stoneCount, sizeof( int ) );
+    assert( stones.captiveIdxs && "Bad allocation" );
 
     return stones;
 }

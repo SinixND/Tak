@@ -13,7 +13,8 @@ typedef struct
     int const capstoneReserves;
 } MatchConstants;
 
-MatchConstants defineMatchConstants( int boardWidth );
+/// Valid boardWidths: 3 to 8
+MatchConstants defineMatchConstants( int const boardWidth );
 
 /// Returns total reserves per player
 int getTotalReserves( MatchConstants const matchConstants );

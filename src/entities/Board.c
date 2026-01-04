@@ -27,10 +27,15 @@ void deinitBoard( Board* const board )
 
 Board allocateBoardComponents( int const tileCount )
 {
+    assert(
+        tileCount > 0
+        && "Invalid tileCount"
+    );
+
     Board board = { .tileCount = tileCount };
 
-    board.stackIdxs = malloc( tileCount * sizeof( int ) );
-    assert( board.stackIdxs && "Bad malloc" );
+    board.stackIdxs = calloc( tileCount, sizeof( int ) );
+    assert( board.stackIdxs && "Bad allocation" );
 
     return board;
 }

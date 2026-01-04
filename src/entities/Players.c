@@ -12,6 +12,16 @@ Players initPlayers(
     int const capstoneReserves
 )
 {
+    assert(
+        regularReserves > 0
+        && "Invalid regularReserves value"
+    );
+
+    assert(
+        capstoneReserves > -1
+        && "Invalid capstoneReserves value"
+    );
+
     Players players = allocatePlayerComponents( playerCount );
 
     for ( int idx = 0; idx < playerCount; ++idx )
@@ -31,13 +41,18 @@ void deinitPlayers( Players* const players )
 
 Players allocatePlayerComponents( int playerCount )
 {
-    Players players;
+    assert(
+        playerCount > 0
+        && "Invalid playerCount"
+    );
 
-    players.regularReserves = malloc( playerCount * sizeof( int ) );
-    assert( players.regularReserves && "Bad malloc" );
+    Players players = { .count = playerCount };
 
-    players.capstoneReserves = malloc( playerCount * sizeof( int ) );
-    assert( players.capstoneReserves && "Bad malloc" );
+    players.regularReserves = calloc( playerCount, sizeof( int ) );
+    assert( players.regularReserves && "Bad allocation" );
+
+    players.capstoneReserves = calloc( playerCount, sizeof( int ) );
+    assert( players.capstoneReserves && "Bad allocation" );
 
     return players;
 }

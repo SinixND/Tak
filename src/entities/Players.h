@@ -6,6 +6,9 @@
  */
 typedef struct
 {
+    /// Count of players
+    int const count;
+
     int* regularReserves;
     int* capstoneReserves;
 } Players;

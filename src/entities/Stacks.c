@@ -32,16 +32,21 @@ void deinitStacks( Stacks* const stacks )
 
 Stacks allocateStackComponents( int const stackCount )
 {
+    assert(
+        stackCount > 0
+        && "Invalid stackCount"
+    );
+
     Stacks stacks = { .onBoardCount = 0 };
 
-    stacks.topStoneIdxs = malloc( stackCount * sizeof( int ) );
-    assert( stacks.topStoneIdxs && "Bad malloc" );
+    stacks.topStoneIdxs = calloc( stackCount, sizeof( int ) );
+    assert( stacks.topStoneIdxs && "Bad allocation" );
 
-    stacks.heights = malloc( stackCount * sizeof( int ) );
-    assert( stacks.heights && "Bad malloc" );
+    stacks.heights = calloc( stackCount, sizeof( int ) );
+    assert( stacks.heights && "Bad allocation" );
 
-    stacks.types = malloc( stackCount * sizeof( StoneType ) );
-    assert( stacks.types && "Bad malloc" );
+    stacks.types = calloc( stackCount, sizeof( StoneType ) );
+    assert( stacks.types && "Bad allocation" );
 
     return stacks;
 }

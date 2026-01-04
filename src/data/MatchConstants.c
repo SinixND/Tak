@@ -3,7 +3,7 @@
 #include "GameConstants.h"
 #include <assert.h>
 
-MatchConstants defineMatchConstants( int boardWidth )
+MatchConstants defineMatchConstants( int const boardWidth )
 {
     assert( boardWidth > ( BOARD_WIDTH_MIN - 1 ) );
     assert( boardWidth < ( BOARD_WIDTH_MAX + 1 ) );
