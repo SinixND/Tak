@@ -4,37 +4,37 @@ Language: Cpp
 AccessModifierOffset: -4
 # AlignAfterOpenBracket: AlwaysBreak
 AlignAfterOpenBracket: BlockIndent
-AlignArrayOfStructures: None
+AlignArrayOfStructures: Left
 AlignConsecutiveAssignments:
-  Enabled: false
-  AcrossEmptyLines: false
-  AcrossComments: false
-  AlignCompound: false
+  Enabled: true
+  AcrossEmptyLines: true
+  AcrossComments: true
+  AlignCompound: true
   PadOperators: true
 AlignConsecutiveBitFields:
-  Enabled: false
-  AcrossEmptyLines: false
-  AcrossComments: false
-  AlignCompound: false
-  PadOperators: false
+  Enabled: true
+  AcrossEmptyLines: true
+  AcrossComments: true
+  AlignCompound: true
+  PadOperators: true
 AlignConsecutiveDeclarations:
-  Enabled: false
-  AcrossEmptyLines: false
-  AcrossComments: false
-  AlignCompound: false
-  PadOperators: false
+  Enabled: true
+  AcrossEmptyLines: true
+  AcrossComments: true
+  AlignCompound: true
+  PadOperators: true
 AlignConsecutiveMacros:
-  Enabled: false
-  AcrossEmptyLines: false
-  AcrossComments: false
-  AlignCompound: false
-  PadOperators: false
+  Enabled: true
+  AcrossEmptyLines: true
+  AcrossComments: true
+  AlignCompound: true
+  PadOperators: true
 AlignConsecutiveShortCaseStatements:
-  Enabled: false
-  AcrossEmptyLines: false
-  AcrossComments: false
-  AlignCaseColons: false
-AlignEscapedNewlines: Right
+  Enabled: true
+  AcrossEmptyLines: true
+  AcrossComments: true
+  AlignCaseColons: true
+AlignEscapedNewlines: Left
 AlignOperands: Align
 AlignTrailingComments:
   Kind: Always
@@ -82,7 +82,7 @@ BraceWrapping:
 BreakAfterAttributes: Always
 BreakAfterJavaFieldAnnotations: false
 BreakArrays: true
-BreakBeforeBinaryOperators: NonAssignment
+BreakBeforeBinaryOperators: All
 BreakBeforeConceptDeclarations: Always
 BreakBeforeBraces: Allman
 # BreakBeforeBraces: Attach
@@ -248,4 +248,3 @@ WhitespaceSensitiveMacros:
   - PP_STRINGIZE
   - STRINGIZE
 ---
-
