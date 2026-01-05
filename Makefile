@@ -128,7 +128,7 @@ build: $(BIN_DIR)/$(TARGET)/$(BUILD)/$(BIN)$(BIN_EXT)
 
 clean:
 	$(info )
-	$(info === CLEAN ===)
+	$(info === Clean ===)
 	$(RM) $(OBJ_DIR)/* $(BIN_DIR)/*
 
 compiledb:
@@ -137,8 +137,10 @@ compiledb:
 	$(MKDB) make
 
 cppcheck:
+	$(info )
+	$(info === Run cppcheck ===)
 	@$(MKDIR) $(OBJ_DIR)/cppcheck
-	@cppcheck \
+	cppcheck \
 		--quiet \
 		--enable=all \
 		--suppress=missingIncludeSystem \
@@ -146,6 +148,7 @@ cppcheck:
 		--suppress=selfAssignment \
 		--suppress=cstyleCast \
 		--suppress=unmatchedSuppression \
+		--suppress=checkersReport \
 		--inconclusive \
 		--check-level=exhaustive \
 		--error-exitcode=1 \
@@ -159,6 +162,8 @@ debug:
 	@$(MAKE) BUILD=debug build
 
 doxygen:
+	$(info )
+	$(info === Create documentation ===)
 	doxygen Doxyfile
 
 format:
@@ -172,6 +177,8 @@ release:
 	@$(MAKE) BUILD=release build
 
 run:
+	$(info )
+	$(info === Execute ===)
 	$(BIN_DIR)/$(TARGET)/$(BUILD)/$(BIN)$(BIN_EXT)
 
 test:
