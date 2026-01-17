@@ -1,4 +1,5 @@
 #include "TestBoard.h"
+#include "TestDefaultSettings.h"
 #include "TestPlayers.h"
 #include "TestPositionSystem.h"
 #include "TestStacks.h"
@@ -19,6 +20,7 @@ int main( void )
     RUN_TEST( testInitStacks );
     RUN_TEST( testInitStones );
     RUN_TEST( testPositionToBoardIndex );
+    RUN_TEST( testGetDefaultSettings );
 
     return UNITY_END();
 }
