@@ -16,15 +16,17 @@ Game initGame( int boardWidth )
     }
 
     Game game = {
-        //* Adjust settings
-        .gameSettings = {
-            .boardWidth = boardWidth
-        },
-        //* Apply settings
+        .gameSettings = { .boardWidth = boardWidth },
         .matchConstants = defineMatchConstants( game.gameSettings.boardWidth ),
-        //* Initialize values
-        .players = initPlayers( PLAYER_COUNT, game.matchConstants.regularStoneReserves, game.matchConstants.capstoneReserves ),
-        .stones = initStones( PLAYER_COUNT, getTotalReserves( game.matchConstants ) ),
+        .players = initPlayers(
+            PLAYER_COUNT,
+            game.matchConstants.regularStoneReserves,
+            game.matchConstants.capstoneReserves
+        ),
+        .stones = initStones(
+            PLAYER_COUNT,
+            getTotalPlayerReserves( game.matchConstants )
+        ),
         .stacks = initStacks( game.gameSettings.boardWidth ),
         .board = initBoard( game.gameSettings.boardWidth )
     };
