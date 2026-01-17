@@ -6,9 +6,9 @@
  */
 typedef struct
 {
-    /// Constant count of board tiles
-    int const tileCount;
-    /// Stacks located at [(y * boardWidth ) + x]
+    /// Constant count of board tiles per side
+    int const width;
+    /// Stacks located at tile [(y * boardWidth ) + x]
     int* stackIdxs;
 } Board;
 

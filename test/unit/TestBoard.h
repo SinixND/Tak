@@ -13,7 +13,7 @@ void testInitBoard( void )
     Board board = initBoard( boardWidth );
 
     //* VERIFY
-    TEST_ASSERT_EQUAL_INT( ( boardWidth * boardWidth ), board.tileCount );
+    TEST_ASSERT_EQUAL_INT( boardWidth, board.width );
     TEST_ASSERT_EQUAL_INT( -1, board.stackIdxs[0] );
 
     //* CLEANUP

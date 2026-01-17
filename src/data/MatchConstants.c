@@ -16,7 +16,7 @@ MatchConstants defineMatchConstants( int const boardWidth )
     return constants;
 }
 
-int getTotalReserves( MatchConstants const matchConstants )
+int getTotalPlayerReserves( MatchConstants const matchConstants )
 {
     return matchConstants.regularStoneReserves + matchConstants.capstoneReserves;
 }

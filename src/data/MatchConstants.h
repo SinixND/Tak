@@ -17,6 +17,6 @@ typedef struct
 MatchConstants defineMatchConstants( int const boardWidth );
 
 /// Returns total reserves per player
-int getTotalReserves( MatchConstants const matchConstants );
+int getTotalPlayerReserves( MatchConstants const matchConstants );
 
 #endif

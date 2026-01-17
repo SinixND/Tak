@@ -9,11 +9,11 @@ Stacks allocateStackComponents( int const stackCount );
 
 Stacks initStacks( int const boardWidth )
 {
-    int const stackCount = boardWidth * boardWidth;
+    int const tileCount = boardWidth * boardWidth;
 
-    Stacks stacks = allocateStackComponents( stackCount );
+    Stacks stacks = allocateStackComponents( tileCount );
 
-    for ( int idx = 0; idx < stackCount; ++idx )
+    for ( int idx = 0; idx < tileCount; ++idx )
     {
         stacks.topStoneIdxs[idx] = -1;
         stacks.heights[idx] = 0;
