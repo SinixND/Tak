@@ -4,10 +4,8 @@
 #include "GameConstants.h"
 #include "GameSettings.h"
 #include "MatchConstants.h"
-#include "PlacementSystem.h"
 #include "Players.h"
 #include "Stacks.h"
-#include "StoneType.h"
 #include "Stones.h"
 
 Game initGame( int boardWidth )
