@@ -73,7 +73,6 @@ endif
 
 ifeq ($(BUILD),test)
 BIN 			:= $(BIN_TEST)
-# SRCS 			:= $(TEST_DIR)/$(BIN)$(SRC_EXT)
 SRC_DIRS 		+= $(shell find $(TEST_DIR) $(EXT_DIR)/*/src -type d)
 CFLAGS 			+= -g -ggdb -O0
 CPPFLAGS 		+= -DDEBUG
@@ -156,7 +155,7 @@ cppcheck:
 		--template=gcc \
 		-I $(SRC_DIR)/ \
 		$(SRC_DIR)/ \
-		$(BIN)$(SRC_EXT)
+		$(BIN)$(SRC_EXT) \
 
 debug:
 	@$(MAKE) BUILD=debug build
