@@ -14,6 +14,8 @@ typedef struct
 {
     /// Stacks on the board
     int onBoardCount;
+    /// Locations on board
+    int* boardIdxs;
     /// Indexes of top stone
     int* topStoneIdxs;
     /// Heights of stacks including top stone
