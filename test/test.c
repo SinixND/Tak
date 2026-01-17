@@ -1,5 +1,6 @@
 #include "TestBoard.h"
 #include "TestPlayers.h"
+#include "TestPositionSystem.h"
 #include "TestStacks.h"
 #include "TestStones.h"
 #include <unity.h>
@@ -17,6 +18,7 @@ int main( void )
     RUN_TEST( testInitPlayers );
     RUN_TEST( testInitStacks );
     RUN_TEST( testInitStones );
+    RUN_TEST( testPositionToBoardIndex );
 
     return UNITY_END();
 }
