@@ -119,8 +119,8 @@ LDLIBS 			+= $(addprefix -l,$(LIBRARIES))
 all: 
 	@$(MAKE) compiledb
 	@$(MAKE) debug
-	@$(MAKE) cppcheck
 	@$(MAKE) test
+	@$(MAKE) cppcheck
 	@$(MAKE) run
 
 build: $(BIN_DIR)/$(TARGET)/$(BUILD)/$(BIN)$(BIN_EXT)
@@ -139,7 +139,7 @@ cppcheck:
 	$(info )
 	$(info === Run cppcheck ===)
 	@$(MKDIR) $(OBJ_DIR)/cppcheck
-	cppcheck \
+	@cppcheck \
 		--quiet \
 		--enable=all \
 		--suppress=missingIncludeSystem \
@@ -170,7 +170,7 @@ format:
 	$(info === Format code ===)
 	clang-format -i -- $(SRC_DIR)/**.* $(TEST_DIR)/**.*
 
-publish: format release cppcheck test
+publish: format release test cppcheck 
 
 release:
 	@$(MAKE) BUILD=release build
