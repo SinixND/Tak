@@ -3,7 +3,7 @@
 #include "Board.h"
 #include "GameConstants.h"
 #include "GameSettings.h"
-#include "MatchConstants.h"
+#include "MatchConfigs.h"
 #include "Players.h"
 #include "Stacks.h"
 #include "Stones.h"
@@ -17,15 +17,15 @@ Game initGame( int boardWidth )
 
     Game game = {
         .gameSettings = { .boardWidth = boardWidth },
-        .matchConstants = defineMatchConstants( game.gameSettings.boardWidth ),
+        .matchConfigs = defineMatchConfigs( game.gameSettings.boardWidth ),
         .players = initPlayers(
             PLAYER_COUNT,
-            game.matchConstants.regularStoneReserves,
-            game.matchConstants.capstoneReserves
+            game.matchConfigs.regularStoneReserves,
+            game.matchConfigs.capstoneReserves
         ),
         .stones = initStones(
             PLAYER_COUNT,
-            getTotalPlayerReserves( game.matchConstants )
+            getTotalPlayerReserves( game.matchConfigs )
         ),
         .stacks = initStacks( game.gameSettings.boardWidth ),
         .board = initBoard( game.gameSettings.boardWidth )
