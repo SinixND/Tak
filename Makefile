@@ -155,6 +155,7 @@ cppcheck:
 	  --quiet \
 	  --enable=all \
 	  --suppress=missingIncludeSystem \
+	  --suppress=unmatchedSuppression \
 	  --inconclusive \
 	  --check-level=exhaustive \
 	  --error-exitcode=1 \
