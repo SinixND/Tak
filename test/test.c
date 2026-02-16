@@ -3,6 +3,7 @@
 #include "TestMatchConfigs.h"
 #include "TestPlayers.h"
 #include "TestPositionSystem.h"
+#include "TestStackSystem.h"
 #include "TestStacks.h"
 #include "TestStones.h"
 #include <unity.h>
@@ -24,6 +25,7 @@ int main( void )
     RUN_TEST( testGetDefaultSettings );
     RUN_TEST( testDefineMatchConfigs );
     RUN_TEST( testGetTotalPlayerReserves );
+    RUN_TEST( testCreateOrGetStackIdx );
 
     return UNITY_END();
 }
