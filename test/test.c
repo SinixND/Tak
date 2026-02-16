@@ -2,6 +2,7 @@
 #include "TestDefaultSettings.h"
 #include "TestGame.h"
 #include "TestMatchConfigs.h"
+#include "TestPlacementSystem.h"
 #include "TestPlayers.h"
 #include "TestPositionSystem.h"
 #include "TestReserveSystem.h"
@@ -31,6 +32,7 @@ int main( void )
     RUN_TEST( testTakeFromReserves );
     RUN_TEST( testPutStoneOnStack );
     RUN_TEST( testInitGame );
+    RUN_TEST( testPlaceStoneOnBoard );
 
     return UNITY_END();
 }
