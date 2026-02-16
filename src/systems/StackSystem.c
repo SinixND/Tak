@@ -27,3 +27,22 @@ int createOrGetStackIdx(
 
     return stackIdx;
 }
+
+void putStoneOnStack(
+    Stones* const stones,
+    Stacks* const stacks,
+    int const stoneIdx,
+    int const stackIdx,
+    StoneType const type
+)
+{
+    //* Add current topStone as captive to new stone
+    stones->captiveIdxs[stoneIdx] = stacks->topStoneIdxs[stackIdx];
+
+    //* Set new stone as topStone to stack
+    stacks->topStoneIdxs[stackIdx] = stoneIdx;
+    //* Set played stone type
+    stacks->types[stackIdx] = type;
+    //* Increase stack height
+    ++stacks->heights[stackIdx];
+}

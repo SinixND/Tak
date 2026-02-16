@@ -15,4 +15,12 @@ int createOrGetStackIdx(
     int const boardIdx
 );
 
+void putStoneOnStack(
+    Stones* const stones,
+    Stacks* const stacks,
+    int const stoneIdx,
+    int const stackIdx,
+    StoneType const type
+);
+
 #endif

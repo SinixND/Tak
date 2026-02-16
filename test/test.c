@@ -28,6 +28,7 @@ int main( void )
     RUN_TEST( testGetTotalPlayerReserves );
     RUN_TEST( testCreateOrGetStackIdx );
     RUN_TEST( testTakeFromReserves );
+    RUN_TEST( testPutStoneOnStack );
 
     return UNITY_END();
 }
