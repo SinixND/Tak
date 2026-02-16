@@ -4,6 +4,7 @@
 #include "GameConstants.h"
 #include "GameSettings.h"
 #include "MatchConfigs.h"
+#include "PlacementSystem.h"
 #include "Players.h"
 #include "Stacks.h"
 #include "Stones.h"
@@ -34,9 +35,19 @@ Game initGame( int boardWidth )
     return game;
 }
 
-// void run( Game* game )
-// {
-// }
+void run( Game* game )
+{
+    placeStoneOnBoard(
+        &game->players,
+        &game->board,
+        &game->stacks,
+        &game->stones,
+        0,
+        0,
+        0,
+        FLAT
+    );
+}
 
 void deinitGame( Game* game )
 {

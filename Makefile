@@ -63,12 +63,6 @@ CFLAGS_release   := -O2
 CPPFLAGS_release := -DNDEBUG
 LDFLAGS_release  :=
 
-# Targets
-all: compiledb debug test cppcheck run
-
-# To test all targets
-checkhealth: clean doxygen format compiledb debug release test cppcheck run
-
 
 #######################################
 # AUTOMATIC VARIABLES
@@ -140,7 +134,12 @@ INCFLAGS += $(addprefix -isystem,$(EXT_INC_DIR))
 .PHONY: all build checkhealth clean cppcheck compiledb debug doxygen format release run
 
 # Targets
+all: compiledb debug test cppcheck run
+
 build: $(BIN_DIR)/$(TARGET)/$(MODE)/$(BUILD)/$(BIN_$(MODE))
+
+# To test all targets
+checkhealth: clean doxygen format compiledb debug release test cppcheck run
 
 clean:
 	$(info )
