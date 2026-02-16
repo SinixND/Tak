@@ -1,5 +1,6 @@
 #include "TestBoard.h"
 #include "TestDefaultSettings.h"
+#include "TestMatchConfigs.h"
 #include "TestPlayers.h"
 #include "TestPositionSystem.h"
 #include "TestStacks.h"
@@ -21,6 +22,8 @@ int main( void )
     RUN_TEST( testInitStones );
     RUN_TEST( testPositionToBoardIndex );
     RUN_TEST( testGetDefaultSettings );
+    RUN_TEST( testDefineMatchConfigs );
+    RUN_TEST( testGetTotalPlayerReserves );
 
     return UNITY_END();
 }
