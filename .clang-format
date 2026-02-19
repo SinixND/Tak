@@ -6,33 +6,33 @@ AccessModifierOffset: -4
 AlignAfterOpenBracket: BlockIndent
 AlignArrayOfStructures: Left
 AlignConsecutiveAssignments:
-  Enabled: true
-  AcrossEmptyLines: true
-  AcrossComments: true
+  Enabled: false
+  AcrossEmptyLines: false
+  AcrossComments: false
   AlignCompound: true
   PadOperators: true
 AlignConsecutiveBitFields:
-  Enabled: true
-  AcrossEmptyLines: true
-  AcrossComments: true
+  Enabled: false
+  AcrossEmptyLines: false
+  AcrossComments: false
   AlignCompound: true
   PadOperators: true
 AlignConsecutiveDeclarations:
-  Enabled: true
-  AcrossEmptyLines: true
-  AcrossComments: true
+  Enabled: false
+  AcrossEmptyLines: false
+  AcrossComments: false
   AlignCompound: true
   PadOperators: true
 AlignConsecutiveMacros:
-  Enabled: true
-  AcrossEmptyLines: true
-  AcrossComments: true
+  Enabled: false
+  AcrossEmptyLines: false
+  AcrossComments: false
   AlignCompound: true
   PadOperators: true
 AlignConsecutiveShortCaseStatements:
-  Enabled: true
-  AcrossEmptyLines: true
-  AcrossComments: true
+  Enabled: false
+  AcrossEmptyLines: false
+  AcrossComments: false
   AlignCaseColons: true
 AlignEscapedNewlines: Left
 AlignOperands: Align
@@ -248,3 +248,4 @@ WhitespaceSensitiveMacros:
   - PP_STRINGIZE
   - STRINGIZE
 ---
+
