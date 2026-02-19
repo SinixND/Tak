@@ -155,15 +155,17 @@ cppcheck:
 	  --enable=all \
 	  --suppress=missingIncludeSystem \
 	  --suppress=unmatchedSuppression \
+	  --suppress=missingInclude \
 	  --inconclusive \
 	  --check-level=exhaustive \
 	  --error-exitcode=1 \
 	  --cppcheck-build-dir=$(OBJ_DIR)/cppcheck \
 	  --template=gcc \
 	  --std=c99 \
-	  --project=compile_commands.json \
 	  -i $(EXT_DIR)/ \
-	  -i $(TEST_DIR)/
+	  -i $(TEST_DIR)/ \
+	  $(SRC_DIR)/ \
+	  $(BIN_DIR)/$(BIN_app)
 
 compiledb:
 	$(info )
