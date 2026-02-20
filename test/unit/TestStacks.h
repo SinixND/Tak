@@ -15,6 +15,7 @@ void testInitStacks( void )
 
     //* VERIFY
     TEST_ASSERT_EQUAL_INT( 0, stacks.onBoardCount );
+    TEST_ASSERT_EQUAL_INT( -1, stacks.boardIdxs[0] );
     TEST_ASSERT_EQUAL_INT( -1, stacks.topStoneIdxs[0] );
     TEST_ASSERT_EQUAL_INT( 0, stacks.heights[0] );
     TEST_ASSERT_EQUAL_INT( NONE, stacks.types[0] );

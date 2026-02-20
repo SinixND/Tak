@@ -1,164 +1,183 @@
 #######################################
-### CORE
+# CORE CONFIG 
 #######################################
-RM 				:= rm -rf
-MKDIR 			:= mkdir -p
-MKDB 			:= compiledb -n
 
-# Must correspond to the entry filename
-BIN 			:= main
-BIN_TEST 		:= test
+# Commands
+RM        := rm -rf
+MKDIR     := mkdir -p
 
-MAKEFLAGS 		:= --no-print-directory
+# Directories
+SRC_DIR  := src
+EXT_DIR  := external
+BIN_DIR  := bin
+OBJ_DIR  := build
+MAKE_DIR := tools/make
 
-BIN_DIR 		:= bin
-OBJ_DIR 		:= build
-SRC_DIR 		:= src
-TEST_DIR 		:= test
-EXT_DIR 		:= external
+# File extentions
+SRC_EXT  := c
+OBJ_EXT  := o
+DEP_EXT  := d
 
-SRC_DIRS 		:= $(SRC_DIR)/*/
-
-BIN_EXT 		:=
-SRC_EXT 		:= .c
-TEST_EXT 		:= .c
+# Flags
+MAKEFLAGS := --no-print-directory
 
 
 #######################################
-### DEFAULTS
+# PROJECT CONFIG 
 #######################################
-# Options: debug release test
-BUILD 			:= debug
-# Options: unix web
-TARGET 			:= unix
 
+# Target platform ( unix | TM4C123G )
+TARGET ?= unix
+# Binary mode ( app | test )
+MODE   ?= app
+# Build config ( debug | release )
+BUILD  ?= debug
 
-#######################################
-### HOST OS
-#######################################
-# Linux is default
-CC 				:= clang
-CFLAGS 			:= -MMD -MP -std=c99
-# -MMD 				provides dependency information (header files) for make in .d files
-# -pg 				ADD FOR gprof analysis TO BOTH COMPILE AND LINK COMMAND!!
-# -MJ 				CLANG ONLY: compile-database
-# -MP 				Multi-threaded compilation
-# -Wfatal-errors 	Stop at first error
+# Compiler & toolchain
+CC := clang
+LD := $(CC)
 
-USR_DIR 		:= /usr
+# Entrypoint files
+MAIN_app  := main
 
-ifdef TERMUX_VERSION
-CPPFLAGS 		+= -DTERMUX
-USR_DIR 		:= $(PREFIX)
-ifeq ($(TARGET),unix)
-LIBRARIES 		+= log
-endif
-endif
+BIN_app  := $(MAIN_app)
 
+# Libraries
+LDLIBS_CORE :=
 
-#######################################
-### BUILD CONFIGS
-#######################################
-ifeq ($(BUILD),debug)
-SRCS 			:= $(SRC_DIR)/$(BIN)$(SRC_EXT)
-CFLAGS 			+= -g -ggdb -O0 -Wall -Wextra -Wshadow -Werror -Wpedantic -pedantic-errors
-CPPFLAGS 		+= -DDEBUG
-endif
+# External includes
+EXT_INC_DIR :=
+EXT_SRC_DIR :=
 
-ifeq ($(BUILD),release)
-SRCS 			:= $(SRC_DIR)/$(BIN)$(SRC_EXT)
-CFLAGS 			+= -O2
-CPPFLAGS 		+= -DNDEBUG
-endif
+# Core flags
+CFLAGS_CORE   := -std=c99
+CPPFLAGS_CORE := -MMD -MP
+LDFLAGS_CORE  :=
 
-ifeq ($(BUILD),test)
-BIN 			:= $(BIN_TEST)
-# SRCS 			:= $(TEST_DIR)/$(BIN)$(SRC_EXT)
-SRC_DIRS 		+= $(shell find $(TEST_DIR) $(EXT_DIR)/*/src -type d)
-CFLAGS 			+= -g -ggdb -O0
-CPPFLAGS 		+= -DDEBUG
-endif
+# Build-specific flags
+CFLAGS_debug     := -g -O0 -Wall -Wextra -Wshadow -Wpedantic -Werror # -fsanitize=address,undefined
+CPPFLAGS_debug   := -DDEBUG
+LDFLAGS_debug    := # -fsanitize=address,undefined
+
+CFLAGS_release   := -O2
+CPPFLAGS_release := -DNDEBUG
+LDFLAGS_release  :=
 
 
 #######################################
-### Automatic variables
+# AUTOMATIC VARIABLES
 #######################################
-SRCS 			+= $(foreach e,\
-					$(shell find $(SRC_DIRS) -type f),\
-					$(filter $(addprefix %,$(SRC_EXT)),\
-						$e))
-OBJS 			:= $(SRCS:%=$(OBJ_DIR)/$(TARGET)/$(BUILD)/%.o)
-DEPS 			:= $(OBJS:.o=.d)
 
-USR_DIRS 		:= $(USR_DIR) $(patsubst %,%/local,$(USR_DIR))
+# Sources
+SRCS_app  := $(shell find $(SRC_DIR) -name '*.$(SRC_EXT)')
 
-LIB_DIRS 		+= $(patsubst %,%/lib,$(USR_DIRS))
-ifneq ($(LIB_DIR),)
-LIB_DIRS 		+= $(shell find $(LIB_DIR) -type d)
-endif
-
-INC_DIRS 		+= $(shell find $(SRC_DIR) -type d)
-ifeq ($(BUILD),test)
-INC_DIRS_SYS 	+= $(EXT_DIR)/Unity/src
-INC_DIRS 		+= $(shell find $(TEST_DIR) -type d)
-endif
-
-INC_DIRS_SYS 	+= $(patsubst %,%/include,$(USR_DIRS))
-INC_DIRS_SYS 	+= $(LIB_DIRS)
-
-INCFLAGS 		:= $(addprefix -I,$(INC_DIRS))
-INCFLAGS 		+= $(addprefix -isystem,$(INC_DIRS_SYS))
-LDFLAGS 		:= $(addprefix -L,$(LIB_DIRS))
-LDLIBS 			+= $(addprefix -l,$(LIBRARIES))
+# Includes
+INC_app  := $(shell find $(SRC_DIR) -type d)
 
 
 #######################################
-### TARGETS
+# MODULE: TEST
 #######################################
-.PHONY: all build clean compiledb cppcheck debug doxygen format publish release run test
 
-all: 
-	@$(MAKE) compiledb
-	@$(MAKE) debug
-	@$(MAKE) cppcheck
-	@$(MAKE) test
-	@$(MAKE) run
+# include $(MAKE_DIR)/test.mk
 
-build: $(BIN_DIR)/$(TARGET)/$(BUILD)/$(BIN)$(BIN_EXT)
+# Directories
+TEST_DIR := test
+
+# Entrypoint files
+MAIN_test := test
+BIN_test  := $(MAIN_test)
+
+# External includes
+EXT_INC_DIR += $(EXT_DIR)/Unity/src
+EXT_SRC_DIR += $(EXT_DIR)/Unity/src
+
+# Sources
+SRCS_test := $(filter-out $(SRC_DIR)/$(MAIN_app).$(SRC_EXT),$(SRCS_app)) \
+             $(shell find $(TEST_DIR) -name '*.$(SRC_EXT)') \
+             $(shell find $(EXT_SRC_DIR) -name '*.$(SRC_EXT)') 
+
+# Includes
+INC_test := $(shell find $(SRC_DIR) -type d) \
+            $(shell find $(TEST_DIR) -type d)
+
+# Targets
+.PHONY: test
+
+test:
+	@$(MAKE) MODE=test build
+	@$(MAKE) MODE=test run
+
+
+#######################################
+# DEPENDENT VARIABLES
+#######################################
+
+# Objects and dependencies
+OBJROOT := $(OBJ_DIR)/$(TARGET)/$(MODE)/$(BUILD)
+OBJS    := $(patsubst %.$(SRC_EXT),$(OBJROOT)/%.$(OBJ_EXT),$(SRCS_$(MODE)))
+DEPS    := $(OBJS:.$(OBJ_EXT)=.$(DEP_EXT))
+
+# Flags
+CFLAGS   := $(CFLAGS_CORE) $(CFLAGS_$(BUILD))
+CPPFLAGS := $(CPPFLAGS_CORE) $(CPPFLAGS_$(BUILD))
+LDLIBS   := $(LDLIBS_CORE)
+LDFLAGS  := $(LDFLAGS_CORE) $(LDFLAGS_$(BUILD))
+INCFLAGS += $(addprefix -I,$(INC_$(MODE)))
+INCFLAGS += $(addprefix -isystem,$(EXT_INC_DIR))
+
+
+#######################################
+# TARGETS
+#######################################
+
+.PHONY: all build checkhealth clean cppcheck compiledb debug doxygen format release run
+
+# Targets
+all: compiledb debug test cppcheck run
+
+build: $(BIN_DIR)/$(TARGET)/$(MODE)/$(BUILD)/$(BIN_$(MODE))
+
+# To test all targets
+checkhealth: clean doxygen format compiledb debug release test cppcheck run
 
 clean:
 	$(info )
-	$(info === CLEAN ===)
-	$(RM) $(OBJ_DIR)/* $(BIN_DIR)/*
+	$(info === Clean ===)
+	$(RM) $(OBJ_DIR) $(BIN_DIR)
+
+cppcheck:
+	$(info )
+	$(info === Run cppcheck ===)
+	@$(MKDIR) $(OBJ_DIR)/cppcheck
+	cppcheck \
+	  --quiet \
+	  --enable=all \
+	  --suppress=missingIncludeSystem \
+	  --suppress=unmatchedSuppression \
+	  --suppress=missingInclude \
+	  --inconclusive \
+	  --check-level=exhaustive \
+	  --error-exitcode=1 \
+	  --cppcheck-build-dir=$(OBJ_DIR)/cppcheck \
+	  --template=gcc \
+	  --std=c99 \
+	  -i $(EXT_DIR)/ \
+	  -i $(TEST_DIR)/ \
+	  $(SRC_DIR)/ \
+	  $(BIN_DIR)/$(BIN_app)
 
 compiledb:
 	$(info )
 	$(info === Build compilation database ===)
-	$(MKDB) make
-
-cppcheck:
-	@$(MKDIR) $(OBJ_DIR)/cppcheck
-	@cppcheck \
-		--quiet \
-		--enable=all \
-		--suppress=missingIncludeSystem \
-		--suppress=missingInclude \
-		--suppress=selfAssignment \
-		--suppress=cstyleCast \
-		--suppress=unmatchedSuppression \
-		--inconclusive \
-		--check-level=exhaustive \
-		--error-exitcode=1 \
-		--cppcheck-build-dir=$(OBJ_DIR)/cppcheck \
-		--template=gcc \
-		-I $(SRC_DIR)/ \
-		$(SRC_DIR)/ \
-		$(BIN)$(SRC_EXT)
+	compiledb -n make
 
 debug:
-	@$(MAKE) BUILD=debug build
+	@$(MAKE) BUILD=debug MODE=app build
 
 doxygen:
+	$(info )
+	$(info === Create documentation ===)
 	doxygen Doxyfile
 
 format:
@@ -166,35 +185,37 @@ format:
 	$(info === Format code ===)
 	clang-format -i -- $(SRC_DIR)/**.* $(TEST_DIR)/**.*
 
-publish: format release cppcheck test
-
 release:
-	@$(MAKE) BUILD=release build
+	@$(MAKE) BUILD=release MODE=app build
 
 run:
-	$(BIN_DIR)/$(TARGET)/$(BUILD)/$(BIN)$(BIN_EXT)
-
-test:
-	@$(MAKE) BUILD=test build run
-
-
-#######################################
-### Rules
-#######################################
-# === COMPILER COMMAND ===
-$(OBJ_DIR)/$(TARGET)/$(BUILD)/%.c.o : %.c
 	$(info )
-	$(info === Compile: TARGET=$(TARGET), BUILD=$(BUILD) ===)
-	@$(MKDIR) $(dir $@)
-	$(CC) -o $@ -c $< $(CFLAGS) $(CPPFLAGS) $(INCFLAGS)
+	$(info === Execute $(BIN_$(MODE)) ===)
+	$(BIN_DIR)/$(TARGET)/$(MODE)/$(BUILD)/$(BIN_$(MODE))
 
+
+#######################################
+# RULES
+#######################################
+
+# === COMPILER COMMAND ===
+$(OBJROOT)/%.$(OBJ_EXT): %.$(SRC_EXT)
+	$(info )
+	$(info === Compile: TARGET=$(TARGET), MODE=$(MODE), BUILD=$(BUILD) ===)
+	@$(MKDIR) $(dir $@)
+	$(CC) -c $< -o $@ $(CFLAGS) $(CPPFLAGS) $(INCFLAGS)
 
 # === LINKER COMMAND ===
-$(BIN_DIR)/$(TARGET)/$(BUILD)/$(BIN)$(BIN_EXT): $(OBJS)
+$(BIN_DIR)/$(TARGET)/$(MODE)/$(BUILD)/$(BIN_$(MODE)): $(OBJS)
 	$(info )
-	$(info === Link: TARGET=$(TARGET), BUILD=$(BUILD) ===)
+	$(info === Link: TARGET=$(TARGET), MODE=$(MODE), BUILD=$(BUILD) ===)
 	@$(MKDIR) $(dir $@)
-	$(CC) -o $@ $^ $(LDFLAGS) $(LDLIBS)
+	$(LD) $^ -o $@ $(LDFLAGS) $(LDLIBS)
 
-### "-" surpresses error for initial missing .d files
+
+#######################################
+# DEPENDENCIES
+#######################################
+
 -include $(DEPS)
+

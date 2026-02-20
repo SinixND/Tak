@@ -18,8 +18,8 @@ void testInitStones( void )
 
     //* VERIFY
     TEST_ASSERT_EQUAL_INT( 0, stones.inPlayCount );
-    TEST_ASSERT_EQUAL_INT( -1, stones.affiliationIdxs[0] );
-    TEST_ASSERT_EQUAL_INT( -1, stones.affiliationIdxs[1] );
+    TEST_ASSERT_EQUAL_INT( -1, stones.playerIdxs[0] );
+    TEST_ASSERT_EQUAL_INT( -1, stones.playerIdxs[1] );
     TEST_ASSERT_EQUAL_INT( -1, stones.captiveIdxs[0] );
     TEST_ASSERT_EQUAL_INT( -1, stones.captiveIdxs[1] );
 

@@ -2,7 +2,7 @@
 #define IG20260104182139
 
 #include "Board.h"
-#include "unity.h"
+#include <unity.h>
 
 void testInitBoard( void )
 {
@@ -13,7 +13,7 @@ void testInitBoard( void )
     Board board = initBoard( boardWidth );
 
     //* VERIFY
-    TEST_ASSERT_EQUAL_INT( ( boardWidth * boardWidth ), board.tileCount );
+    TEST_ASSERT_EQUAL_INT( boardWidth, board.width );
     TEST_ASSERT_EQUAL_INT( -1, board.stackIdxs[0] );
 
     //* CLEANUP
