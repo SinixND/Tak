@@ -87,9 +87,9 @@ Utilize the following concepts:
 #### Branches
 - Name: <branchtype>/<issue-tracker-number>/<title>
 - Rebase feature onto parent (feature or develop) before merging
-- Merge commit: Never: keep branches if history needed
-- Squash merge: For `feature` into `develop`
-- Rebase merge: For `develop` into `main`
+- Merge commit: Makes `git bisect` work better (really need clean history?)
+- Squash merge: Only for `develop` into `main` (prefer clear history on main)
+- Rebase merge: No. Prefer verbosity of merge commit
 
 #### Coding guideline
 (based on NASA's [`The Power of 10`](https:/spinroot.com/gerard/pdf/P10.pdf)
