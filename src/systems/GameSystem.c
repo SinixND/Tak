@@ -1,14 +1,37 @@
 #include "GameSystem.h"
 
 #include "GameConstants.h"
+#include "MatchConfigsSystem.h"
+#include "PlacementSystem.h"
+#include "PlayerSystem.h"
+#include "StacksSystem.h"
 
-int getRegularStoneCount( int const boardWidth )
+Game newGame( int boardWidth )
 {
-    return STONE_COUNTS_REGULAR[boardWidth - BOARD_WIDTH_MIN];
+    if ( !boardWidth )
+    {
+        boardWidth = BOARD_WIDTH_DEFAULT;
+    }
+
+    Game game = {
+        .matchConfigs = getMatchConfigs( boardWidth ),
+        .players = newPlayers( boardWidth ),
+        .stacks = newStacks( boardWidth ),
+    };
+
+    return game;
 }
 
-int getCapstoneCount( int const boardWidth )
+Game run( Game game )
 {
-    return STONE_COUNTS_CAPSTONE[boardWidth - BOARD_WIDTH_MIN];
+    placeStoneOnBoard(
+        game,
+        0,
+        0,
+        0,
+        FLAT
+    );
+
+    return game;
 }
 

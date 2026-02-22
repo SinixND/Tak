@@ -12,9 +12,4 @@ typedef struct
     Stacks stacks;
 } Game;
 
-/// Provide boardWidth 0 for default value
-Game initGame( int const boardWidth );
-
-Game run( Game game );
-
 #endif

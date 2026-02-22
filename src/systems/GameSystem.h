@@ -1,8 +1,15 @@
-#ifndef IG20260222175207
-#define IG20260222175207
+#ifndef IG20260222210840
+#define IG20260222210840
 
-int getRegularStoneCount( int const boardWidth );
+#include "Game.h"
 
-int getCapstoneCount( int const boardWdith );
+/**
+ * @brief: Provide boardWidth 0 for default value
+ *
+ * Return new Game SoA
+ */
+Game newGame( int boardWidth );
+
+Game run( Game game );
 
 #endif

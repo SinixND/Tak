@@ -1,18 +1,17 @@
-#include "Stacks.h"
+#include "StackSystem.h"
 
-#include "GameConstants.h"
+#include "Stacks.h"
 #include "StoneType.h"
 #include <assert.h>
 
-/// Set default values for Stacks
-Stacks initStacks( int const boardWidth )
+Stacks newStacks( int const boardWidth )
 {
-    Stacks stacks;
-
     assert( ( boardWidth >= (int)BOARD_WIDTH_MIN ) && "Board width value too small" );
     assert( ( boardWidth <= (int)BOARD_WIDTH_MAX ) && "Board width value too big" );
 
-    for ( int i = 0; i < STACKS_MAX; ++i )
+    Stacks stacks;
+
+    for ( int i = 0; i < STACKS_ARRAY_SIZE; ++i )
     {
         stacks.types[i] = NONE;
         stacks.heights[i] = 0;
@@ -25,3 +24,17 @@ Stacks initStacks( int const boardWidth )
     return stacks;
 }
 
+Stacks putStoneOnStack(
+    Stacks stacks,
+    int const stackIdx,
+    StoneType const type
+)
+{
+    //* Set played stone type
+    stacks.types[stackIdx] = type;
+
+    //* Increase stack height
+    ++stacks.heights[stackIdx];
+
+    return stacks;
+}

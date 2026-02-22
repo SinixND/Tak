@@ -1,10 +1,10 @@
-#include "MatchConfigs.h"
+#include "MatchConfigsSystem.h"
 
 #include "GameConstants.h"
-#include "GameSystem.h"
+#include "GameConstantsSystem.h"
 #include <assert.h>
 
-MatchConfigs defineMatchConfigs( int const boardWidth )
+MatchConfigs getMatchConfigs( int const boardWidth )
 {
     assert( ( boardWidth >= (int)BOARD_WIDTH_MIN ) && "Board width value too small" );
     assert( ( boardWidth <= (int)BOARD_WIDTH_MAX ) && "Board width value too big" );
@@ -18,6 +18,11 @@ MatchConfigs defineMatchConfigs( int const boardWidth )
     };
 
     return configs;
+}
+
+MatchConfigs getDefaultMatchConfigs( void )
+{
+    return getMatchConfigs( 5 );
 }
 
 int getTotalPlayerReserves( MatchConfigs const matchConfigs )

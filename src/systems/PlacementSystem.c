@@ -2,7 +2,7 @@
 
 #include "PlayerSystem.h"
 #include "PositionSystem.h"
-#include "StackSystem.h"
+#include "StacksSystem.h"
 #include "StoneType.h"
 #include <assert.h>
 

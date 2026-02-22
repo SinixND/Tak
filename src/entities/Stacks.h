@@ -15,14 +15,11 @@
 typedef struct
 {
     /// Types of stacks / top stones
-    StoneType types[STACKS_MAX + 1];
+    StoneType types[STACKS_ARRAY_SIZE];
     /// Heights of stacks
-    int heights[STACKS_MAX + 1];
+    int heights[STACKS_ARRAY_SIZE];
     /// Stone affiliations
-    int stones[STACKS_MAX + 1][STONES_MAX + 1];
+    int stones[STACKS_ARRAY_SIZE][STONES_MAX];
 } Stacks;
-
-/// Set default values for Stacks
-Stacks initStacks( int const boardWidth );
 
 #endif

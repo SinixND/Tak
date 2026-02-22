@@ -1,10 +1,11 @@
 #include "Game.h"
+#include "GameSystem.h"
 
 int main( void )
 {
-    Game game = initGame( 0 );
+    Game game = newGame( 0 );
 
-    run( game );
+    game = run( game );
 
     return 0;
 }

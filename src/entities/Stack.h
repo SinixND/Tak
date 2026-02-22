@@ -1,5 +1,5 @@
-#ifndef IG20251123234345
-#define IG20251123234345
+#ifndef IG20260222211441
+#define IG20260222211441
 
 #include "GameConstants.h"
 #include "StoneType.h"
@@ -18,10 +18,7 @@ typedef struct
     /// Height of active stack stones (= valid affiliations)
     int height;
     /// Stone affiliations
-    int affiliations[STONES_MAX + 1];
+    int affiliations[STONES_MAX];
 } Stack;
-
-/// Set default values for Stack
-Stack initStack( int const boardWidth );
 
 #endif

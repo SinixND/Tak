@@ -4,17 +4,21 @@
 #include "StoneType.h"
 #include <assert.h>
 
-Stacks putStoneOnStack(
-    Stacks stacks,
-    int const stackIdx,
-    StoneType const type
-)
+Stack newStack( int const boardWidth )
 {
-    //* Set played stone type
-    stacks.types[stackIdx] = type;
+    assert( ( boardWidth >= (int)BOARD_WIDTH_MIN ) && "Board width value too small" );
+    assert( ( boardWidth <= (int)BOARD_WIDTH_MAX ) && "Board width value too big" );
 
-    //* Increase stack height
-    ++stacks.heights[stackIdx];
+    Stack stack;
 
-    return stacks;
+    stack.type = NONE;
+    stack.height = 0;
+
+    for ( int i = 0; i < STONES_MAX; ++i )
+    {
+        stack.affiliations[i] = 0;
+    }
+
+    return stack;
 }
+
