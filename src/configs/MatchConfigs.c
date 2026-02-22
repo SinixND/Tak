@@ -1,22 +1,26 @@
 #include "MatchConfigs.h"
 
 #include "GameConstants.h"
+#include "GameSystem.h"
 #include <assert.h>
 
 MatchConfigs defineMatchConfigs( int const boardWidth )
 {
-    assert( boardWidth > ( BOARD_WIDTH_MIN - 1 ) );
-    assert( boardWidth < ( BOARD_WIDTH_MAX + 1 ) );
+    assert( ( boardWidth >= (int)BOARD_WIDTH_MIN ) && "Board width value too small" );
+    assert( ( boardWidth <= (int)BOARD_WIDTH_MAX ) && "Board width value too big" );
 
-    MatchConfigs constants = {
-        STONE_COUNTS_REGULAR[boardWidth - BOARD_WIDTH_MIN],
-        STONE_COUNTS_CAPSTONE[boardWidth - BOARD_WIDTH_MIN]
+    MatchConfigs configs = {
+        .boardWidth = boardWidth,
+        .regularStonePlayerReserves = STONE_COUNTS_REGULAR[boardWidth - BOARD_WIDTH_MIN],
+        .capstonePlayerReserves = STONE_COUNTS_CAPSTONE[boardWidth - BOARD_WIDTH_MIN],
+        .stonesTotal = 2 * getRegularStoneCount( boardWidth ) + 2 * getCapstoneCount( boardWidth ),
+        .boardTiles = boardWidth * boardWidth,
     };
 
-    return constants;
+    return configs;
 }
 
 int getTotalPlayerReserves( MatchConfigs const matchConfigs )
 {
-    return matchConfigs.regularStoneReserves + matchConfigs.capstoneReserves;
+    return matchConfigs.regularStonePlayerReserves + matchConfigs.capstonePlayerReserves;
 }

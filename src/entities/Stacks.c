@@ -1,57 +1,27 @@
 #include "Stacks.h"
 
+#include "GameConstants.h"
 #include "StoneType.h"
 #include <assert.h>
-#include <stdlib.h>
 
-/// Allocate memory
-Stacks allocateStackComponents( int const stackCount );
-
+/// Set default values for Stacks
 Stacks initStacks( int const boardWidth )
 {
-    int const tileCount = boardWidth * boardWidth;
+    Stacks stacks;
 
-    Stacks stacks = allocateStackComponents( tileCount );
+    assert( ( boardWidth >= (int)BOARD_WIDTH_MIN ) && "Board width value too small" );
+    assert( ( boardWidth <= (int)BOARD_WIDTH_MAX ) && "Board width value too big" );
 
-    for ( int idx = 0; idx < tileCount; ++idx )
+    for ( int i = 0; i < STACKS_MAX; ++i )
     {
-        stacks.boardIdxs[idx] = -1;
-        stacks.topStoneIdxs[idx] = -1;
-        stacks.heights[idx] = 0;
-        stacks.types[idx] = NONE;
+        stacks.types[i] = NONE;
+        stacks.heights[i] = 0;
+        for ( int j = 0; j < STONES_MAX; ++j )
+        {
+            stacks.stones[i][j] = 0;
+        }
     }
 
     return stacks;
 }
 
-void deinitStacks( Stacks* const stacks )
-{
-    free( stacks->boardIdxs );
-    free( stacks->topStoneIdxs );
-    free( stacks->heights );
-    free( stacks->types );
-}
-
-Stacks allocateStackComponents( int const stackCount )
-{
-    assert(
-        stackCount > 0
-        && "Invalid stackCount"
-    );
-
-    Stacks stacks = { .onBoardCount = 0 };
-
-    stacks.boardIdxs = calloc( stackCount, sizeof( int ) );
-    assert( stacks.boardIdxs && "Bad allocation" );
-
-    stacks.topStoneIdxs = calloc( stackCount, sizeof( int ) );
-    assert( stacks.topStoneIdxs && "Bad allocation" );
-
-    stacks.heights = calloc( stackCount, sizeof( int ) );
-    assert( stacks.heights && "Bad allocation" );
-
-    stacks.types = calloc( stackCount, sizeof( StoneType ) );
-    assert( stacks.types && "Bad allocation" );
-
-    return stacks;
-}

@@ -1,26 +1,18 @@
 #ifndef IG20251123234852
 #define IG20251123234852
 
+#include "GameConstants.h"
+
 /**
  * @brief Player stats
  */
 typedef struct
 {
-    /// Count of players
-    int const count;
-
-    int* regularReserves;
-    int* capstoneReserves;
+    /// Stones in play
+    int stonesInPlay[PLAYER_COUNT + 1];
+    /// Current reserves available
+    int regularReserves[PLAYER_COUNT + 1];
+    int capstoneReserves[PLAYER_COUNT + 1];
 } Players;
-
-/// Allocate memory and initialize values
-Players initPlayers(
-    int const playerCount,
-    int const regularReserves,
-    int const capstoneReserves
-);
-
-/// Free allocated memory
-void deinitPlayers( Players* const players );
 
 #endif

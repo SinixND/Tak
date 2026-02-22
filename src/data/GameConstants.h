@@ -43,6 +43,9 @@ enum
     /// Maximal board width/height
     BOARD_WIDTH_MAX = 8,
 
+    /// Default board width/height
+    BOARD_WIDTH_DEFAULT = 5,
+
     /* Maximum stacks possible in game
      * =: BOARD_WIDTH_MAX * BOARD_WIDTH_MAX + 1 // Max boardtiles + 1 temp stack
      */

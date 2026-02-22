@@ -3,22 +3,16 @@
 
 #include "Stacks.h"
 #include "StoneType.h"
-#include "Stones.h"
 
 /**
- * @brief Return (and create if necessary) stackIdx at board index
+ * @brief: Place stone on top of stack
+ *
+ * - Set new stone as topStone to stack
+ * - Set played stone type
+ * - Increase stack height
  */
-int createOrGetStackIdx(
-    int* const boardStackIdxs,
-    int* const stacksOnBoardCount,
-    int* const stackBoardIdxs,
-    int const boardIdx
-);
-
-void putStoneOnStack(
-    Stones* const stones,
-    Stacks* const stacks,
-    int const stoneIdx,
+Stacks putStoneOnStack(
+    Stacks stacks,
     int const stackIdx,
     StoneType const type
 );

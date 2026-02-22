@@ -1,58 +1,32 @@
 #include "Game.h"
 
-#include "Board.h"
 #include "GameConstants.h"
-#include "GameSettings.h"
 #include "MatchConfigs.h"
 #include "PlacementSystem.h"
-#include "Players.h"
-#include "Stacks.h"
-#include "Stones.h"
 
 Game initGame( int boardWidth )
 {
     if ( !boardWidth )
     {
-        boardWidth = getDefaultSettings().boardWidth;
+        boardWidth = BOARD_WIDTH_DEFAULT;
     }
 
     Game game = {
-        .gameSettings = { .boardWidth = boardWidth },
-        .matchConfigs = defineMatchConfigs( game.gameSettings.boardWidth ),
-        .players = initPlayers(
-            PLAYER_COUNT,
-            game.matchConfigs.regularStoneReserves,
-            game.matchConfigs.capstoneReserves
-        ),
-        .stones = initStones(
-            PLAYER_COUNT,
-            getTotalPlayerReserves( game.matchConfigs )
-        ),
-        .stacks = initStacks( game.gameSettings.boardWidth ),
-        .board = initBoard( game.gameSettings.boardWidth )
+        .matchConfigs = defineMatchConfigs( boardWidth ),
     };
 
     return game;
 }
 
-void run( Game* game )
+Game run( Game game )
 {
     placeStoneOnBoard(
-        &game->players,
-        &game->board,
-        &game->stacks,
-        &game->stones,
+        game,
         0,
         0,
         0,
         FLAT
     );
-}
 
-void deinitGame( Game* game )
-{
-    deinitPlayers( &game->players );
-    deinitStones( &game->stones );
-    deinitStacks( &game->stacks );
-    deinitBoard( &game->board );
+    return game;
 }

@@ -1,12 +1,11 @@
-#include "ReserveSystem.h"
+#include "PlayerSystem.h"
 
+#include "Players.h"
 #include "StoneType.h"
 #include <assert.h>
 
-int takeFromReserves(
-    int* const regularReserves,
-    int* const capstoneReserves,
-    int* const inPlayCount,
+Players takeFromReserves(
+    Players players,
     int const player,
     StoneType const type
 )
@@ -16,15 +15,16 @@ int takeFromReserves(
         case FLAT:
         case WALL:
         {
-            --regularReserves[player];
+            --players.regularReserves[player];
             break;
         }
 
         case CAP:
         {
-            --capstoneReserves[player];
+            --players.capstoneReserves[player];
             break;
         }
+
         default:
         {
             assert( 0 && "StoneType is required" );
@@ -32,6 +32,7 @@ int takeFromReserves(
         }
     }
 
-    //* Get index for taken stone before incrementing
-    return ( *inPlayCount )++;
+    players.stonesInPlay[player]++;
+
+    return players;
 }
