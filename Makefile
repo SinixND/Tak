@@ -59,6 +59,10 @@ CFLAGS_debug     := -g -O0 -Wall -Wextra -Wshadow -Wpedantic -Werror # -fsanitiz
 CPPFLAGS_debug   := -DDEBUG
 LDFLAGS_debug    := # -fsanitize=address,undefined
 
+CFLAGS_fatal     := -g -O0 -Wall -Wextra -Wshadow -Wpedantic -Werror -Wfatal-errors # -fsanitize=address,undefined
+CPPFLAGS_fatal   := -DDEBUG
+LDFLAGS_fatal    := # -fsanitize=address,undefined
+
 CFLAGS_release   := -O2
 CPPFLAGS_release := -DNDEBUG
 LDFLAGS_release  :=
@@ -177,6 +181,9 @@ doxygen:
 	$(info )
 	$(info === Create documentation ===)
 	doxygen Doxyfile
+
+fatal:
+	@$(MAKE) BUILD=fatal MODE=app debug test
 
 format:
 	$(info )
