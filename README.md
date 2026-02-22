@@ -4,11 +4,12 @@
 <h1> Tak </h1>
 <p> The boardgame from the "King Killer Chronicles" novel series </p>
 
+[![Issues](https://img.shields.io/github/issues/SinixND/Tak?style=for-the-badge)](https://github.com/SinixND/Tak/issues)
+[![Github-Projects](https://github.com/users/SinixND/projects/6)]
+
 [![MIT-License](https://img.shields.io/badge/MIT-License-yellow?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
 [![Stars](https://img.shields.io/github/stars/SinixND/Tak?style=for-the-badge)](https://github.com/SinixND/Tak/stargazers)
-[![Issues](https://img.shields.io/github/issues/SinixND/Tak?style=for-the-badge)](https://github.com/SinixND/Tak/issues)
-
 [![Contributors](https://img.shields.io/github/contributors/SinixND/Tak?style=for-the-badge)](https://github.com/SinixND/Tak/graphs/contributors)
 [![Forks](https://img.shields.io/github/forks/SinixND/Tak?style=for-the-badge)](https://github.com/SinixND/Tak/network/members)
 
@@ -21,22 +22,6 @@
 Implementation of the two player board game from the novel series "King Killer Chronicles" by Patrick Rothfuss.
 
 For more information about the game's rules, see [ustak.org](https://ustak.org/play-beautiful-game-tak/#)
-
-### Code & Directory Strcture
-- Components: Data only
-
-- Entities: SoAs that link Entities/Ids to (their) components/data
-
-- Systems: Logic only (on components/entities)
-
-- Data: Constant, shared variables
-
-- Configs: Changeable, shared variables
-
-- Utility: Shared functions
-
-<p align="right">(<a href="#readme-top">top</a>)</p>
-
 
 ### Dependencies
 Dependencies that are or are planned to be used:
@@ -52,9 +37,8 @@ Dependencies that are or are planned to be used:
 [![cppcheck](https://img.shields.io/badge/analyser-cppcheck-darkblue?style=for-the-badge)](https://cppcheck.sourceforge.io/)
 
 #### Libraries (provided)
-[![ncurses](https://img.shields.io/badge/library-ncurses-white?style=for-the-badge)](https://github.com/mirror/ncurses)
 [![raylib](https://img.shields.io/badge/library-raylib-white?style=for-the-badge)](https://github.com/raysan5/raylib)
-[![catch2](https://img.shields.io/badge/testing-catch2-red?style=for-the-badge)](https://github.com/catchorg/Catch2)
+[![Unity](https://img.shields.io/badge/testing-unity-red?style=for-the-badge)](https://github.com/ThrowTheSwitch/Unity)
 
 <!-- #### Excluded -->
 
@@ -70,18 +54,6 @@ Dependencies that are or are planned to be used:
 
 <p align="right">(<a href="#readme-top">top</a>)</p>
 
-
-### (Desired) Development workflow
-(Try first time with this project)
-
-Utilize the following concepts:
-1. Main / develop / feature branches
-1. Data first, logic next
-1. Test desired behaviour (like a demo)
-1. Bug? -> make new assertion
-1. Pull Requests (manage via browser)
-
-<p align="right">(<a href="#readme-top">top</a>)</p>
 
 ### Conventions
 #### Branches
@@ -111,12 +83,39 @@ Utilize the following concepts:
 - 2+ function parameters and arguments on separate lines
 - type _before_ const keyword (`int const`)
 - (*) to type (`int* pointer`)
+- Parameters: 
+    - `I/O` before `Output` before `Input`
+    - Returned `I/O` parameter always first
+
 
 <p align="right">(<a href="#readme-top">top</a>)</p>
 
 
-### Roadmap
-See the [open issues](https://github.com/SinixND/Tak/issues) for a full list of planned and implemented features as well as known issues.
+### Code & Directory Strcture
+- Components: Data only
+
+- Entities: SoAs that link Entities/Ids to (their) components/data
+
+- Systems: Logic only (on components/entities)
+
+- Data: Constant, shared variables
+
+- Configs: Changeable, shared variables
+
+- Utility: Shared functions
+
+<p align="right">(<a href="#readme-top">top</a>)</p>
+
+
+### (Desired) Development workflow
+(Try first time with this project)
+
+Utilize the following concepts:
+1. Main / develop / feature branches
+1. Data first, logic next
+1. Test desired behaviour (like a demo)
+1. Bug? -> make new assertion
+1. Pull Requests (manage via browser)
 
 <p align="right">(<a href="#readme-top">top</a>)</p>
 
