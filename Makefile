@@ -183,6 +183,11 @@ format:
 	$(info === Format code ===)
 	clang-format -i -- $(SRC_DIR)/**.* $(TEST_DIR)/**.*
 
+init:
+	$(info )
+	$(info === Update git submodulds ===)
+	@git submodule update --init --recursive
+
 release:
 	@$(MAKE) BUILD=release MODE=app build
 
@@ -191,7 +196,7 @@ run:
 	$(info === Execute $(BIN_$(MODE)) ===)
 	$(BIN_DIR)/$(TARGET)/$(MODE)/$(BUILD)/$(BIN_$(MODE))
 
-.PHONY: all build checkhealth clean cppcheck compiledb debug doxygen format release run
+.PHONY: all build checkhealth clean cppcheck compiledb debug doxygen format init release run
 
 
 #######################################
