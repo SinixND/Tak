@@ -2,21 +2,6 @@
 #define IG20251126113110
 
 /**
- * @brief Constant data for the core game
- *
- * aka. compiletime constants
- */
-
-/// Player count
-static int const PLAYER_COUNT = 2;
-
-/// Minimal board width/height
-static int const BOARD_WIDTH_MIN = 3;
-
-/// Maximal board width/height
-static int const BOARD_WIDTH_MAX = 8;
-
-/**
  * @brief Size of initial player reserves
  * Regular stones, by board size
  */
@@ -40,6 +25,33 @@ static int const STONE_COUNTS_CAPSTONE[] = {
     1, // Size: 6x6
     2, // Size: 7x7
     2, // Size: 8x8
+};
+
+/**
+ * @brief Constant data for the core game
+ *
+ * aka. compiletime constants
+ */
+enum
+{
+    /// Player count
+    PLAYER_COUNT = 2,
+
+    /// Minimal board width/height
+    BOARD_WIDTH_MIN = 3,
+
+    /// Maximal board width/height
+    BOARD_WIDTH_MAX = 8,
+
+    /* Maximum stacks possible in game
+     * =: BOARD_WIDTH_MAX * BOARD_WIDTH_MAX + 1 // Max boardtiles + 1 temp stack
+     */
+    STACKS_MAX = 65,
+
+    /* Maximum stones possible in game
+     * =: PLAYER_COUNT * ( STONE_COUNTS_REGULAR[5] + STONE_COUNTS_CAPSTONE[5] )
+     */
+    STONES_MAX = 104,
 };
 
 #endif
