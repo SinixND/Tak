@@ -1,6 +1,7 @@
 #ifndef IG20251123234345
 #define IG20251123234345
 
+#include "GameConstants.h"
 #include "StoneType.h"
 
 /**
@@ -23,6 +24,16 @@ typedef struct
     /// Types of stacks / top stones
     StoneType* types;
 } Stacks;
+
+typedef struct
+{
+    /// Types of stacks / top stones
+    StoneType type;
+    /// Heights of stacks including top stone
+    int height;
+    /// Stone affiliations
+    int affiliations[STONES_MAX];
+} Stack;
 
 /// Allocate memory and initialize values
 Stacks initStacks( int const boardWidth );
