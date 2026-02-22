@@ -9,7 +9,7 @@ typedef struct
 {
     MatchConfigs matchConfigs;
     Players players;
-    Stacks stacks;
+    Stacks board;
 } Game;
 
 #endif

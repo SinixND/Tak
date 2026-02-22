@@ -5,7 +5,7 @@
 
 void placeStoneOnBoard(
     Game game,
-    int const player,
+    int const playerIdx,
     int const positionX,
     int const positionY,
     StoneType const type

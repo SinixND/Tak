@@ -19,7 +19,7 @@ typedef struct
     /// Heights of stacks
     int heights[STACKS_ARRAY_SIZE];
     /// Stone affiliations
-    int stones[STACKS_ARRAY_SIZE][STONES_MAX];
+    int affiliations[STACKS_ARRAY_SIZE][STONES_MAX];
 } Stacks;
 
 #endif

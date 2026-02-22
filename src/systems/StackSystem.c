@@ -1,6 +1,5 @@
 #include "StackSystem.h"
 
-#include "Stacks.h"
 #include "StoneType.h"
 #include <assert.h>
 
@@ -14,9 +13,9 @@ Stack newStack( int const boardWidth )
     stack.type = NONE;
     stack.height = 0;
 
-    for ( int i = 0; i < STONES_MAX; ++i )
+    for ( int stoneIdx = 0; stoneIdx < STONES_MAX; ++stoneIdx )
     {
-        stack.affiliations[i] = 0;
+        stack.affiliations[stoneIdx] = 0;
     }
 
     return stack;

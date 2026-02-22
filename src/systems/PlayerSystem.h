@@ -10,7 +10,7 @@ Players newPlayers( int const boardWidth );
 /// Returns number/index of the stone taken
 Players takeFromReserves(
     Players players,
-    int const player,
+    int const playerIdx,
     StoneType const type
 );
 

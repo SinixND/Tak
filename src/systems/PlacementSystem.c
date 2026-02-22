@@ -8,7 +8,7 @@
 
 void placeStoneOnBoard(
     Game game,
-    int const player,
+    int const playerIdx,
     int const positionX,
     int const positionY,
     StoneType const type
@@ -22,20 +22,21 @@ void placeStoneOnBoard(
 
     //* Can it be placed?
     assert(
-        ( game.stacks.types[stackIdx] != CAP )
-        && !( ( type != CAP ) && ( game.stacks.types[stackIdx] == WALL ) )
+        ( game.board.types[stackIdx] != CAP )
+        && !( ( type != CAP ) && ( game.board.types[stackIdx] == WALL ) )
         && "Cant place stone"
     );
 
     game.players = takeFromReserves(
         game.players,
-        player,
+        playerIdx,
         type
     );
 
-    game.stacks = putStoneOnStack(
-        game.stacks,
+    game.board = putStoneOnStack(
+        game.board,
         stackIdx,
+        playerIdx,
         type
     );
 }

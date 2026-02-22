@@ -10,13 +10,14 @@ Stacks newStacks( int const boardWidth );
 /**
  * @brief: Place stone on top of stack
  *
- * - Set new stone as topStone to stack
+ * - Add stone affiliation
  * - Set played stone type
  * - Increase stack height
  */
 Stacks putStoneOnStack(
     Stacks stacks,
     int const stackIdx,
+    int const playerIdx,
     StoneType const type
 );
 

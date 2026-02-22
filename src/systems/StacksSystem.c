@@ -11,13 +11,14 @@ Stacks newStacks( int const boardWidth )
 
     Stacks stacks;
 
-    for ( int i = 0; i < STACKS_ARRAY_SIZE; ++i )
+    for ( int stackIdx = 0; stackIdx < STACKS_ARRAY_SIZE; ++stackIdx )
     {
-        stacks.types[i] = NONE;
-        stacks.heights[i] = 0;
-        for ( int j = 0; j < STONES_MAX; ++j )
+        stacks.types[stackIdx] = NONE;
+        stacks.heights[stackIdx] = 0;
+
+        for ( int stoneIdx = 0; stoneIdx < STONES_MAX; ++stoneIdx )
         {
-            stacks.stones[i][j] = 0;
+            stacks.affiliations[stackIdx][stoneIdx] = 0;
         }
     }
 
@@ -27,9 +28,16 @@ Stacks newStacks( int const boardWidth )
 Stacks putStoneOnStack(
     Stacks stacks,
     int const stackIdx,
+    int const playerIdx,
     StoneType const type
 )
 {
+    assert( playerIdx >= 1 && "PlayerIdx invalid" );
+    assert( playerIdx <= 2 && "PlayerIdx invalid" );
+
+    //* Add affiliation
+    stacks.affiliations[stackIdx][stacks.heights[stackIdx]] = playerIdx;
+
     //* Set played stone type
     stacks.types[stackIdx] = type;
 

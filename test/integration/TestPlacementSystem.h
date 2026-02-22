@@ -1,21 +1,21 @@
 #include "Game.h"
+
+#include "GameSystem.h"
 #include "PlacementSystem.h"
+#include "StoneType.h"
 #include "unity.h"
 
 void testPlaceStoneOnBoard( void )
 {
     //* SETUP
-    Game game = initGame( 3 );
+    Game game = newGame( 3 );
 
-    int const initialRegularReserves = game.matchConfigs.regularStoneReserves;
-    int const initialcapstoneReserves = game.matchConfigs.capstoneReserves;
+    int const initialRegularReserves = game.matchConfigs.regularStonePlayerReserves;
+    int const initialcapstoneReserves = game.matchConfigs.capstonePlayerReserves;
 
     //*EXECUTE
     placeStoneOnBoard(
-        &game.players,
-        &game.board,
-        &game.stacks,
-        &game.stones,
+        game,
         0,
         0,
         0,
@@ -30,20 +30,22 @@ void testPlaceStoneOnBoard( void )
 
     TEST_ASSERT_EQUAL_INT(
         1,
-        game.stacks.heights[game.board.stackIdxs[0]]
+        game.board.heights[0]
     );
 
     TEST_ASSERT_EQUAL_INT(
         0,
-        game.stacks.topStoneIdxs[game.board.stackIdxs[0]]
+        game.board.affiliations[0][0]
+    );
+
+    TEST_ASSERT_EQUAL_INT(
+        (int)FLAT,
+        game.board.types[0]
     );
 
     //*EXECUTE
     placeStoneOnBoard(
-        &game.players,
-        &game.board,
-        &game.stacks,
-        &game.stones,
+        game,
         1,
         0,
         0,
@@ -58,20 +60,22 @@ void testPlaceStoneOnBoard( void )
 
     TEST_ASSERT_EQUAL_INT(
         2,
-        game.stacks.heights[game.board.stackIdxs[0]]
+        game.board.heights[0]
     );
 
     TEST_ASSERT_EQUAL_INT(
         1,
-        game.stacks.topStoneIdxs[game.board.stackIdxs[0]]
+        game.board.affiliations[0][1]
+    );
+
+    TEST_ASSERT_EQUAL_INT(
+        (int)WALL,
+        game.board.types[0]
     );
 
     //*EXECUTE
     placeStoneOnBoard(
-        &game.players,
-        &game.board,
-        &game.stacks,
-        &game.stones,
+        game,
         0,
         0,
         0,
@@ -86,14 +90,16 @@ void testPlaceStoneOnBoard( void )
 
     TEST_ASSERT_EQUAL_INT(
         3,
-        game.stacks.heights[game.board.stackIdxs[0]]
+        game.board.heights[0]
     );
 
     TEST_ASSERT_EQUAL_INT(
         2,
-        game.stacks.topStoneIdxs[game.board.stackIdxs[0]]
+        game.board.affiliations[0][2]
     );
 
-    //* CLEANUP
-    deinitGame( &game );
+    TEST_ASSERT_EQUAL_INT(
+        (int)CAP,
+        game.board.types[0]
+    );
 }
