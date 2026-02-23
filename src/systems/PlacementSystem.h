@@ -3,7 +3,7 @@
 
 #include "Game.h"
 
-void placeStoneOnBoard(
+Game placeStoneOnBoard(
     Game game,
     int const playerIdx,
     int const positionX,
