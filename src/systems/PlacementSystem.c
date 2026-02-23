@@ -6,7 +6,7 @@
 #include "StoneType.h"
 #include <assert.h>
 
-void placeStoneOnBoard(
+Game placeStoneOnBoard(
     Game game,
     int const playerIdx,
     int const positionX,
@@ -39,4 +39,6 @@ void placeStoneOnBoard(
         playerIdx,
         type
     );
+
+    return game;
 }
