@@ -8,15 +8,12 @@
 void testPlaceStoneOnBoard( void )
 {
     //* SETUP
-    Game game = newGame( 3 );
-
-    int const initialRegularReserves = game.matchConfigs.regularStonePlayerReserves;
-    int const initialcapstoneReserves = game.matchConfigs.capstonePlayerReserves;
+    Game game = newGame( 0 );
 
     //*EXECUTE
     placeStoneOnBoard(
         game,
-        0,
+        1,
         0,
         0,
         FLAT
@@ -24,8 +21,8 @@ void testPlaceStoneOnBoard( void )
 
     //* VERIFY
     TEST_ASSERT_EQUAL_INT(
-        -1,
-        game.players.regularReserves[0] - initialRegularReserves
+        20,
+        game.players.regularReserves[1] - initialRegularReserves
     );
 
     TEST_ASSERT_EQUAL_INT(
@@ -34,7 +31,7 @@ void testPlaceStoneOnBoard( void )
     );
 
     TEST_ASSERT_EQUAL_INT(
-        0,
+        1,
         game.board.affiliations[0][0]
     );
 
@@ -46,7 +43,7 @@ void testPlaceStoneOnBoard( void )
     //*EXECUTE
     placeStoneOnBoard(
         game,
-        1,
+        2,
         0,
         0,
         WALL
@@ -54,8 +51,8 @@ void testPlaceStoneOnBoard( void )
 
     //* VERIFY
     TEST_ASSERT_EQUAL_INT(
-        -1,
-        game.players.regularReserves[1] - initialRegularReserves
+        20,
+        game.players.regularReserves[1]
     );
 
     TEST_ASSERT_EQUAL_INT(
@@ -64,7 +61,7 @@ void testPlaceStoneOnBoard( void )
     );
 
     TEST_ASSERT_EQUAL_INT(
-        1,
+        2,
         game.board.affiliations[0][1]
     );
 
@@ -76,7 +73,7 @@ void testPlaceStoneOnBoard( void )
     //*EXECUTE
     placeStoneOnBoard(
         game,
-        0,
+        1,
         0,
         0,
         CAP
@@ -84,8 +81,8 @@ void testPlaceStoneOnBoard( void )
 
     //* VERIFY
     TEST_ASSERT_EQUAL_INT(
-        -1,
-        game.players.capstoneReserves[0] - initialcapstoneReserves
+        0,
+        game.players.capstoneReserves[1] - initialcapstoneReserves
     );
 
     TEST_ASSERT_EQUAL_INT(
@@ -94,7 +91,7 @@ void testPlaceStoneOnBoard( void )
     );
 
     TEST_ASSERT_EQUAL_INT(
-        2,
+        1,
         game.board.affiliations[0][2]
     );
 
