@@ -16,44 +16,34 @@ int main( void )
 {
     UNITY_BEGIN();
 
-    //* === Unit tests ===
-
-    //* === Entities ===
-    //* Test Players
-    RUN_TEST( testNewPlayers );
-
-    //* Test Stack
-    RUN_TEST( testNewStack );
-
-    //* Test Stacks
-    RUN_TEST( testNewStacks );
-
-    //* Test Game
-    RUN_TEST( testNewGame );
-
-    //* === Systems ===
     //* Test GameConstantsSystem
     RUN_TEST( testGetRegularStoneCount );
     RUN_TEST( testGetCapstoneCount );
 
-    //* Test MatchConfigs
+    //* Test GameSystem
+    RUN_TEST( testNewGame );
+
+    //* Test MatchConfigsSystem
     RUN_TEST( testDefineMatchConfigs );
     RUN_TEST( testGetTotalPlayerReserves );
+
+    //* Test PlacementSystem
+    RUN_TEST( testPlaceStoneOnBoard );
+
+    //* Test PlayersSystem
+    RUN_TEST( testNewPlayers );
 
     //* Test PositionSystem
     RUN_TEST( testPositionToBoardIndex );
 
     //* Test StackSystem
+    RUN_TEST( testNewStack );
+
+    //* Test StacksSystem
+    RUN_TEST( testNewStacks );
     RUN_TEST( testCreateOrGetStackIdx );
     RUN_TEST( testTakeFromReserves );
     RUN_TEST( testPutStoneOnStack );
-
-    //* Test PlayerSystem
-    //* Test GameSystem
-
-    //* === Integration tests ===
-    //* Test PlacementSystem
-    RUN_TEST( testPlaceStoneOnBoard );
 
     return UNITY_END();
 }
