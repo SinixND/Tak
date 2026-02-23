@@ -16,13 +16,73 @@ void testNewGame( void )
         game0.matchConfigs.boardWidth
     );
 
+    TEST_ASSERT_EQUAL_INT(
+        0,
+        game0.players.stonesInPlay[1]
+    );
+
+    TEST_ASSERT_EQUAL_INT(
+        21,
+        game0.players.regularReserves[1]
+    );
+
+    TEST_ASSERT_EQUAL_INT(
+        2,
+        game0.players.capstoneReserves[1]
+    );
+
+    TEST_ASSERT_EQUAL_INT(
+        (int)NONE,
+        game0.board.types[1]
+    );
+
+    TEST_ASSERT_EQUAL_INT(
+        0,
+        game0.board.heights[1]
+    );
+
+    TEST_ASSERT_EQUAL_INT(
+        0,
+        game0.board.affiliations[1][0]
+    );
+
     //* EXECUTE
     Game game3 = newGame( 3 );
 
     //* VERIFY
     TEST_ASSERT_EQUAL_INT(
         3,
-        game3.matchConfigs.boardWidth
+        game0.matchConfigs.boardWidth
+    );
+
+    TEST_ASSERT_EQUAL_INT(
+        0,
+        game0.players.stonesInPlay[1]
+    );
+
+    TEST_ASSERT_EQUAL_INT(
+        10,
+        game0.players.regularReserves[1]
+    );
+
+    TEST_ASSERT_EQUAL_INT(
+        0,
+        game0.players.capstoneReserves[1]
+    );
+
+    TEST_ASSERT_EQUAL_INT(
+        (int)NONE,
+        game0.board.types[1]
+    );
+
+    TEST_ASSERT_EQUAL_INT(
+        0,
+        game0.board.heights[1]
+    );
+
+    TEST_ASSERT_EQUAL_INT(
+        0,
+        game0.board.affiliations[1][0]
     );
 }
 
