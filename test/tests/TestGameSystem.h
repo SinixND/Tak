@@ -27,7 +27,7 @@ void testNewGame( void )
     );
 
     TEST_ASSERT_EQUAL_INT(
-        2,
+        1,
         game0.players.capstoneReserves[1]
     );
 
@@ -52,37 +52,37 @@ void testNewGame( void )
     //* VERIFY
     TEST_ASSERT_EQUAL_INT(
         3,
-        game0.matchConfigs.boardWidth
+        game3.matchConfigs.boardWidth
     );
 
     TEST_ASSERT_EQUAL_INT(
         0,
-        game0.players.stonesInPlay[1]
+        game3.players.stonesInPlay[1]
     );
 
     TEST_ASSERT_EQUAL_INT(
         10,
-        game0.players.regularReserves[1]
+        game3.players.regularReserves[1]
     );
 
     TEST_ASSERT_EQUAL_INT(
         0,
-        game0.players.capstoneReserves[1]
+        game3.players.capstoneReserves[1]
     );
 
     TEST_ASSERT_EQUAL_INT(
         (int)NONE,
-        game0.board.types[1]
+        game3.board.types[1]
     );
 
     TEST_ASSERT_EQUAL_INT(
         0,
-        game0.board.heights[1]
+        game3.board.heights[1]
     );
 
     TEST_ASSERT_EQUAL_INT(
         0,
-        game0.board.affiliations[1][0]
+        game3.board.affiliations[1][0]
     );
 }
 

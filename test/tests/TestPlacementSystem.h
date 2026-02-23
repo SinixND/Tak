@@ -22,7 +22,7 @@ void testPlaceStoneOnBoard( void )
     //* VERIFY
     TEST_ASSERT_EQUAL_INT(
         20,
-        game.players.regularReserves[1] - initialRegularReserves
+        game.players.regularReserves[1]
     );
 
     TEST_ASSERT_EQUAL_INT(
@@ -82,7 +82,7 @@ void testPlaceStoneOnBoard( void )
     //* VERIFY
     TEST_ASSERT_EQUAL_INT(
         0,
-        game.players.capstoneReserves[1] - initialcapstoneReserves
+        game.players.capstoneReserves[1]
     );
 
     TEST_ASSERT_EQUAL_INT(

@@ -1,5 +1,5 @@
-#ifndef IG20251219004301
-#define IG20251219004301
+#ifndef IG20251219004302
+#define IG20251219004302
 
 #include "Stacks.h"
 #include "StoneType.h"

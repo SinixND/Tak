@@ -3,7 +3,7 @@
 #include "GameConstants.h"
 #include "MatchConfigsSystem.h"
 #include "PlacementSystem.h"
-#include "PlayerSystem.h"
+#include "PlayersSystem.h"
 #include "StacksSystem.h"
 
 Game newGame( int boardWidth )

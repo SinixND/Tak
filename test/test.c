@@ -2,7 +2,7 @@
 #include "TestGameSystem.h"
 #include "TestMatchConfigsSystem.h"
 #include "TestPlacementSystem.h"
-#include "TestPlayerSystem.h"
+#include "TestPlayersSystem.h"
 #include "TestPositionSystem.h"
 #include "TestStackSystem.h"
 #include "TestStacksSystem.h"
@@ -24,7 +24,8 @@ int main( void )
     RUN_TEST( testNewGame );
 
     //* Test MatchConfigsSystem
-    RUN_TEST( testDefineMatchConfigs );
+    RUN_TEST( testGetMatchConfigs );
+    RUN_TEST( testGetDefaultMatchConfigs );
     RUN_TEST( testGetTotalPlayerReserves );
 
     //* Test PlacementSystem
@@ -32,18 +33,17 @@ int main( void )
 
     //* Test PlayersSystem
     RUN_TEST( testNewPlayers );
+    RUN_TEST( testTakeFromReserves );
 
     //* Test PositionSystem
     RUN_TEST( testPositionToBoardIndex );
 
-    //* Test StackSystem
-    RUN_TEST( testNewStack );
-
     //* Test StacksSystem
     RUN_TEST( testNewStacks );
-    RUN_TEST( testCreateOrGetStackIdx );
-    RUN_TEST( testTakeFromReserves );
     RUN_TEST( testPutStoneOnStack );
+
+    //* Test StackSystem
+    RUN_TEST( testNewStack );
 
     return UNITY_END();
 }
