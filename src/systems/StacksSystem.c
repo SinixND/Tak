@@ -4,23 +4,13 @@
 #include "StoneType.h"
 #include <assert.h>
 
-Stacks newStacks( int const boardWidth )
+Stacks newStacks( void )
 {
-    assert( ( boardWidth >= (int)BOARD_WIDTH_MIN ) && "Board width value too small" );
-    assert( ( boardWidth <= (int)BOARD_WIDTH_MAX ) && "Board width value too big" );
-
-    Stacks stacks;
-
-    for ( int stackIdx = 0; stackIdx < STACKS_ARRAY_SIZE; ++stackIdx )
-    {
-        stacks.types[stackIdx] = NONE;
-        stacks.heights[stackIdx] = 0;
-
-        for ( int stoneIdx = 0; stoneIdx < STONES_MAX; ++stoneIdx )
-        {
-            stacks.affiliations[stackIdx][stoneIdx] = 0;
-        }
-    }
+    Stacks stacks = {
+        { NONE },
+        { 0 },
+        { { 0 } }
+    };
 
     return stacks;
 }

@@ -25,8 +25,6 @@ int main( void )
 
     //* Test MatchConfigsSystem
     RUN_TEST( testGetMatchConfigs );
-    RUN_TEST( testGetDefaultMatchConfigs );
-    RUN_TEST( testGetTotalPlayerReserves );
 
     //* Test PlacementSystem
     RUN_TEST( testPlaceStoneOnBoard );

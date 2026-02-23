@@ -3,6 +3,7 @@
 
 #include "MatchConfigs.h"
 #include "Players.h"
+#include "Stack.h"
 #include "Stacks.h"
 
 typedef struct
@@ -10,6 +11,7 @@ typedef struct
     MatchConfigs matchConfigs;
     Players players;
     Stacks board;
+    Stack tempStack;
 } Game;
 
 #endif

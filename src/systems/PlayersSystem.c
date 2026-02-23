@@ -10,7 +10,7 @@ Players newPlayers( int const boardWidth )
     assert( ( boardWidth >= (int)BOARD_WIDTH_MIN ) && "Board width value too small" );
     assert( ( boardWidth <= (int)BOARD_WIDTH_MAX ) && "Board width value too big" );
 
-    Players players;
+    Players players = { 0 };
 
     //* Init invalid player values
     players.stonesInPlay[0] = 0;
@@ -18,7 +18,7 @@ Players newPlayers( int const boardWidth )
     players.capstoneReserves[0] = 0;
 
     //* Init player values
-    for ( int playerIdx = 1; playerIdx < PLAYER_COUNT; ++playerIdx )
+    for ( int playerIdx = 1; playerIdx <= PLAYER_COUNT; ++playerIdx )
     {
         players.stonesInPlay[playerIdx] = 0;
         players.regularReserves[playerIdx] = getRegularStoneCount( boardWidth );
@@ -58,7 +58,7 @@ Players takeFromReserves(
         }
     }
 
-    players.stonesInPlay[playerIdx]++;
+    ++players.stonesInPlay[playerIdx];
 
     return players;
 }

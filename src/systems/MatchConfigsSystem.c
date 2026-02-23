@@ -19,13 +19,3 @@ MatchConfigs getMatchConfigs( int const boardWidth )
 
     return configs;
 }
-
-MatchConfigs getDefaultMatchConfigs( void )
-{
-    return getMatchConfigs( 5 );
-}
-
-int getTotalPlayerReserves( MatchConfigs const matchConfigs )
-{
-    return matchConfigs.regularStonePlayerReserves + matchConfigs.capstonePlayerReserves;
-}

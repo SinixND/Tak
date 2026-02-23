@@ -8,7 +8,7 @@
 void testNewStack( void )
 {
     //* EXECUTE
-    Stack stack = newStack( 5 );
+    Stack stack = newStack();
 
     //* VERIFY
     TEST_ASSERT_EQUAL_INT( (int)NONE, stack.type );

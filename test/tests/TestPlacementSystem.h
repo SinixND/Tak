@@ -11,7 +11,7 @@ void testPlaceStoneOnBoard( void )
     Game game = newGame( 0 );
 
     //*EXECUTE
-    placeStoneOnBoard(
+    game =placeStoneOnBoard(
         game,
         1,
         0,
@@ -41,7 +41,7 @@ void testPlaceStoneOnBoard( void )
     );
 
     //*EXECUTE
-    placeStoneOnBoard(
+    game = placeStoneOnBoard(
         game,
         2,
         0,
@@ -71,7 +71,7 @@ void testPlaceStoneOnBoard( void )
     );
 
     //*EXECUTE
-    placeStoneOnBoard(
+    game = placeStoneOnBoard(
         game,
         1,
         0,

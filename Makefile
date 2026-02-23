@@ -68,10 +68,10 @@ CPPFLAGS_release := -DNDEBUG
 LDFLAGS_release  :=
 
 # Targets
-all: compiledb debug test cppcheck run
+all: compiledb debug test cppcheck run-test run
 
 # To test all targets
-checkhealth: clean doxygen format compiledb debug release test cppcheck run
+checkhealth: clean doxygen format compiledb fatal debug release test cppcheck run-test run
 
 
 #######################################
@@ -116,6 +116,8 @@ INC_test := $(shell find $(SRC_DIR) -type d) \
 
 test:
 	@$(MAKE) MODE=test build
+
+run-test:
 	@$(MAKE) MODE=test run
 
 
@@ -203,7 +205,7 @@ run:
 	$(info === Execute $(BIN_$(MODE)) ===)
 	$(BIN_DIR)/$(TARGET)/$(MODE)/$(BUILD)/$(BIN_$(MODE))
 
-.PHONY: all build checkhealth clean cppcheck compiledb debug doxygen format init release run
+.PHONY: all build checkhealth clean cppcheck compiledb debug doxygen fatal format init release run run-test
 
 
 #######################################

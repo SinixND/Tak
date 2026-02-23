@@ -9,7 +9,7 @@
 void testNewStacks( void )
 {
     //* EXECUTE
-    Stacks stacks = newStacks( 5 );
+    Stacks stacks = newStacks();
 
     //* VERIFY
     TEST_ASSERT_EQUAL_INT( (int)NONE, stacks.types[0] );
@@ -23,7 +23,7 @@ void testNewStacks( void )
 void testPutStoneOnStack( void )
 {
     //* SETUP
-    Stacks stacks = newStacks( 5 );
+    Stacks stacks = newStacks();
 
     //* EXECUTE
     stacks = putStoneOnStack(

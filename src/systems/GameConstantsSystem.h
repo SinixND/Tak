@@ -3,6 +3,6 @@
 
 int getRegularStoneCount( int const boardWidth );
 
-int getCapstoneCount( int const boardWdith );
+int getCapstoneCount( int const boardWidth );
 
 #endif

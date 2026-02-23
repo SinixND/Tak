@@ -7,7 +7,7 @@
 void testGetMatchConfigs( void )
 {
     //* EXECUTE
-    MatchConfigs configs = getMatchConfigs(3);
+    MatchConfigs configs = getMatchConfigs( 3 );
 
     //* VERIFY
     TEST_ASSERT_EQUAL_INT( 3, configs.boardWidth );
@@ -17,7 +17,7 @@ void testGetMatchConfigs( void )
     TEST_ASSERT_EQUAL_INT( 9, configs.boardTiles );
 
     //* EXECUTE
-    configs = getMatchConfigs(4);
+    configs = getMatchConfigs( 4 );
 
     //* VERIFY
     TEST_ASSERT_EQUAL_INT( 4, configs.boardWidth );
@@ -27,7 +27,7 @@ void testGetMatchConfigs( void )
     TEST_ASSERT_EQUAL_INT( 16, configs.boardTiles );
 
     //* EXECUTE
-    configs = getMatchConfigs(5);
+    configs = getMatchConfigs( 5 );
 
     //* VERIFY
     TEST_ASSERT_EQUAL_INT( 5, configs.boardWidth );
@@ -37,7 +37,7 @@ void testGetMatchConfigs( void )
     TEST_ASSERT_EQUAL_INT( 25, configs.boardTiles );
 
     //* EXECUTE
-    configs = getMatchConfigs(6);
+    configs = getMatchConfigs( 6 );
 
     //* VERIFY
     TEST_ASSERT_EQUAL_INT( 6, configs.boardWidth );
@@ -47,7 +47,7 @@ void testGetMatchConfigs( void )
     TEST_ASSERT_EQUAL_INT( 36, configs.boardTiles );
 
     //* EXECUTE
-    configs = getMatchConfigs(7);
+    configs = getMatchConfigs( 7 );
 
     //* VERIFY
     TEST_ASSERT_EQUAL_INT( 7, configs.boardWidth );
@@ -57,7 +57,7 @@ void testGetMatchConfigs( void )
     TEST_ASSERT_EQUAL_INT( 49, configs.boardTiles );
 
     //* EXECUTE
-    configs = getMatchConfigs(8);
+    configs = getMatchConfigs( 8 );
 
     //* VERIFY
     TEST_ASSERT_EQUAL_INT( 8, configs.boardWidth );
@@ -67,25 +67,4 @@ void testGetMatchConfigs( void )
     TEST_ASSERT_EQUAL_INT( 64, configs.boardTiles );
 }
 
-void testGetDefaultMatchConfigs( void )
-{
-    //* EXECUTE
-    MatchConfigs configs = getMatchConfigs(5);
-
-    //* VERIFY
-    TEST_ASSERT_EQUAL_INT( 5, configs.boardWidth );
-    TEST_ASSERT_EQUAL_INT( 21, configs.regularStonePlayerReserves );
-    TEST_ASSERT_EQUAL_INT( 1, configs.capstonePlayerReserves );
-    TEST_ASSERT_EQUAL_INT( 44, configs.stonesTotal );
-    TEST_ASSERT_EQUAL_INT( 25, configs.boardTiles );
-}
-
-void testGetTotalPlayerReserves( void )
-{
-    //* EXECUTE
-    MatchConfigs configs = getMatchConfigs(5);
-
-    //* VERIFY
-    TEST_ASSERT_EQUAL_INT( 22, getTotalPlayerReserves( configs ) );
-}
 #endif

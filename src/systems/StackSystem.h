@@ -4,6 +4,6 @@
 #include "Stack.h"
 
 /// Return new Stack object
-Stack newStack( int const boardWidth );
+Stack newStack( void );
 
 #endif

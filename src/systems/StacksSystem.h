@@ -5,7 +5,7 @@
 #include "StoneType.h"
 
 /// Return new Stacks SoA
-Stacks newStacks( int const boardWidth );
+Stacks newStacks( void );
 
 /**
  * @brief: Place stone on top of stack
