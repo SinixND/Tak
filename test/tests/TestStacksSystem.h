@@ -5,7 +5,7 @@
 #include "StoneType.h"
 #include <unity.h>
 
-void testInitStacks( void )
+void testNewStacks( void )
 {
     //* EXECUTE
     Stacks stacks = newStacks( 5 );
