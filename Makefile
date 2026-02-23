@@ -183,7 +183,7 @@ doxygen:
 	doxygen Doxyfile
 
 fatal:
-	@$(MAKE) BUILD=fatal MODE=app debug test
+	@$(MAKE) BUILD=fatal MODE=app build test
 
 format:
 	$(info )
