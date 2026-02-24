@@ -36,8 +36,6 @@ enum
 {
     /// Player count
     PLAYER_COUNT = 2,
-    /// Index 0 for invalid player
-    PLAYER_ARRAY_SIZE = PLAYER_COUNT + 1,
 
     /// Minimal board width/height
     BOARD_WIDTH_MIN = 3,

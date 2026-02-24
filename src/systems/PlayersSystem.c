@@ -12,13 +12,8 @@ Players newPlayers( int const boardWidth )
 
     Players players = { 0 };
 
-    //* Init invalid player values
-    players.stonesInPlay[0] = 0;
-    players.regularReserves[0] = 0;
-    players.capstoneReserves[0] = 0;
-
     //* Init player values
-    for ( int playerIdx = 1; playerIdx <= PLAYER_COUNT; ++playerIdx )
+    for ( int playerIdx = 0; playerIdx < PLAYER_COUNT; ++playerIdx )
     {
         players.stonesInPlay[playerIdx] = 0;
         players.regularReserves[playerIdx] = getRegularStoneCount( boardWidth );

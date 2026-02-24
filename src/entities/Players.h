@@ -9,10 +9,10 @@
 typedef struct
 {
     /// Stones in play
-    int stonesInPlay[PLAYER_ARRAY_SIZE];
+    int stonesInPlay[PLAYER_COUNT];
     /// Current reserves available
-    int regularReserves[PLAYER_ARRAY_SIZE];
-    int capstoneReserves[PLAYER_ARRAY_SIZE];
+    int regularReserves[PLAYER_COUNT];
+    int capstoneReserves[PLAYER_COUNT];
 } Players;
 
 #endif
