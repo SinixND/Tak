@@ -32,7 +32,7 @@ void testNewGame( void )
     );
 
     TEST_ASSERT_EQUAL_INT(
-        (int)NONE,
+        (int)NO_STONE,
         game0.board.types[1]
     );
 
@@ -71,7 +71,7 @@ void testNewGame( void )
     );
 
     TEST_ASSERT_EQUAL_INT(
-        (int)NONE,
+        (int)NO_STONE,
         game3.board.types[1]
     );
 

@@ -11,7 +11,7 @@ void testNewStack( void )
     Stack stack = newStack();
 
     //* VERIFY
-    TEST_ASSERT_EQUAL_INT( (int)NONE, stack.type );
+    TEST_ASSERT_EQUAL_INT( (int)NO_STONE, stack.type );
     TEST_ASSERT_EQUAL_INT( 0, stack.height );
     TEST_ASSERT_EQUAL_INT( 0, stack.affiliations[0] );
     TEST_ASSERT_EQUAL_INT( 0, stack.affiliations[44] );

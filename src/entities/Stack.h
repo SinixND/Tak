@@ -2,6 +2,7 @@
 #define IG20260222211441
 
 #include "GameConstants.h"
+#include "PlayerId.h"
 #include "StoneType.h"
 
 /**
@@ -19,7 +20,7 @@ typedef struct
     /// Height of active stack stones (= valid affiliations)
     int height;
     /// Stone affiliations
-    int affiliations[STONES_MAX];
+    PlayerId affiliations[STONES_MAX];
 } Stack;
 
 #endif

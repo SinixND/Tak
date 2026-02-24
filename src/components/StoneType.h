@@ -6,7 +6,7 @@
  */
 typedef enum
 {
-    NONE = 0,
+    NO_STONE = 0,
     FLAT, // Type: regular
     WALL, // Type: regular
     CAP,  // Type: capstone

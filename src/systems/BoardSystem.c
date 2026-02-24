@@ -7,7 +7,7 @@
 Board newBoard( void )
 {
     Board board = {
-        { NONE },
+        { NO_STONE },
         { 0 },
         { { 0 } }
     };

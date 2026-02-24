@@ -6,7 +6,7 @@
 Stack newStack( void )
 {
     Stack stack = {
-        NONE,
+        NO_STONE,
         0,
         { 0 }
     };

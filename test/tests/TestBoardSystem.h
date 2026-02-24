@@ -12,8 +12,8 @@ void testNewStacks( void )
     Board board = newBoard();
 
     //* VERIFY
-    TEST_ASSERT_EQUAL_INT( (int)NONE, board.types[0] );
-    TEST_ASSERT_EQUAL_INT( (int)NONE, board.types[25] );
+    TEST_ASSERT_EQUAL_INT( (int)NO_STONE, board.types[0] );
+    TEST_ASSERT_EQUAL_INT( (int)NO_STONE, board.types[25] );
     TEST_ASSERT_EQUAL_INT( 0, board.heights[0] );
     TEST_ASSERT_EQUAL_INT( 0, board.heights[25] );
     TEST_ASSERT_EQUAL_INT( 0, board.stacks[0][0] );
