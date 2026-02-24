@@ -11,7 +11,7 @@ void testPlaceStoneOnBoard( void )
     Game game = newGame( 0 );
 
     //*EXECUTE
-    game =placeStoneOnBoard(
+    game = placeStoneOnBoard(
         game,
         1,
         0,
@@ -32,7 +32,7 @@ void testPlaceStoneOnBoard( void )
 
     TEST_ASSERT_EQUAL_INT(
         1,
-        game.board.affiliations[0][0]
+        game.board.stacks[0][0]
     );
 
     TEST_ASSERT_EQUAL_INT(
@@ -62,7 +62,7 @@ void testPlaceStoneOnBoard( void )
 
     TEST_ASSERT_EQUAL_INT(
         2,
-        game.board.affiliations[0][1]
+        game.board.stacks[0][1]
     );
 
     TEST_ASSERT_EQUAL_INT(
@@ -92,7 +92,7 @@ void testPlaceStoneOnBoard( void )
 
     TEST_ASSERT_EQUAL_INT(
         1,
-        game.board.affiliations[0][2]
+        game.board.stacks[0][2]
     );
 
     TEST_ASSERT_EQUAL_INT(

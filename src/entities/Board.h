@@ -5,7 +5,7 @@
 #include "StoneType.h"
 
 /**
- * @brief A stack is a pile of stones
+ * @brief A board consists of stacks of stones
  *
  * The affiliation of a stack is determined by the its top stone
  * Only the top stone of a stack can have a type other than `FLAT`
@@ -20,7 +20,7 @@ typedef struct
     /// Heights of stacks
     int heights[STACKS_MAX];
     /// Stone affiliations
-    int affiliations[STACKS_MAX][STONES_MAX];
-} Stacks;
+    int stacks[STACKS_MAX][STONES_MAX];
+} Board;
 
 #endif

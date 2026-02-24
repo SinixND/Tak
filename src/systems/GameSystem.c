@@ -1,11 +1,11 @@
 #include "GameSystem.h"
 
+#include "BoardSystem.h"
 #include "GameConstants.h"
 #include "MatchConfigsSystem.h"
 #include "PlacementSystem.h"
 #include "PlayersSystem.h"
 #include "StackSystem.h"
-#include "StacksSystem.h"
 
 Game newGame( int boardWidth )
 {
@@ -18,7 +18,7 @@ Game newGame( int boardWidth )
         .matchConfigs = getMatchConfigs( boardWidth ),
         .players = newPlayers( boardWidth ),
         .tempStack = newStack(),
-        .board = newStacks(),
+        .board = newBoard(),
     };
 
     return game;

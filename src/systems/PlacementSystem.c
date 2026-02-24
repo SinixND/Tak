@@ -1,8 +1,8 @@
 #include "PlacementSystem.h"
 
+#include "BoardSystem.h"
 #include "PlayersSystem.h"
 #include "PositionSystem.h"
-#include "StacksSystem.h"
 #include "StoneType.h"
 #include <assert.h>
 

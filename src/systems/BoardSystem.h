@@ -1,11 +1,11 @@
 #ifndef IG20251219004302
 #define IG20251219004302
 
-#include "Stacks.h"
+#include "Board.h"
 #include "StoneType.h"
 
 /// Return new Stacks SoA
-Stacks newStacks( void );
+Board newBoard( void );
 
 /**
  * @brief: Place stone on top of stack
@@ -14,8 +14,8 @@ Stacks newStacks( void );
  * - Set played stone type
  * - Increase stack height
  */
-Stacks putStoneOnStack(
-    Stacks stacks,
+Board putStoneOnStack(
+    Board board,
     int const stackIdx,
     int const playerIdx,
     StoneType const type

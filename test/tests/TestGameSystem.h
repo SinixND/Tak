@@ -43,7 +43,7 @@ void testNewGame( void )
 
     TEST_ASSERT_EQUAL_INT(
         0,
-        game0.board.affiliations[1][0]
+        game0.board.stacks[1][0]
     );
 
     //* EXECUTE
@@ -82,7 +82,7 @@ void testNewGame( void )
 
     TEST_ASSERT_EQUAL_INT(
         0,
-        game3.board.affiliations[1][0]
+        game3.board.stacks[1][0]
     );
 }
 

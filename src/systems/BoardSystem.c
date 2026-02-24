@@ -1,22 +1,22 @@
-#include "StacksSystem.h"
+#include "BoardSystem.h"
 
-#include "Stacks.h"
+#include "Board.h"
 #include "StoneType.h"
 #include <assert.h>
 
-Stacks newStacks( void )
+Board newBoard( void )
 {
-    Stacks stacks = {
+    Board board = {
         { NONE },
         { 0 },
         { { 0 } }
     };
 
-    return stacks;
+    return board;
 }
 
-Stacks putStoneOnStack(
-    Stacks stacks,
+Board putStoneOnStack(
+    Board board,
     int const stackIdx,
     int const playerIdx,
     StoneType const type
@@ -25,13 +25,13 @@ Stacks putStoneOnStack(
     assert( ( playerIdx == 1 || playerIdx == 2 ) && "PlayerIdx invalid" );
 
     //* Add affiliation
-    stacks.affiliations[stackIdx][stacks.heights[stackIdx]] = playerIdx;
+    board.stacks[stackIdx][board.heights[stackIdx]] = playerIdx;
 
     //* Set played stone type
-    stacks.types[stackIdx] = type;
+    board.types[stackIdx] = type;
 
     //* Increase stack height
-    ++stacks.heights[stackIdx];
+    ++board.heights[stackIdx];
 
-    return stacks;
+    return board;
 }

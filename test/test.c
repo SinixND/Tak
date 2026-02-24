@@ -1,3 +1,4 @@
+#include "TestBoardSystem.h"
 #include "TestGameConstantsSystem.h"
 #include "TestGameSystem.h"
 #include "TestMatchConfigsSystem.h"
@@ -5,7 +6,6 @@
 #include "TestPlayersSystem.h"
 #include "TestPositionSystem.h"
 #include "TestStackSystem.h"
-#include "TestStacksSystem.h"
 #include <unity.h>
 
 void setUp( void ) {}
@@ -36,7 +36,7 @@ int main( void )
     //* Test PositionSystem
     RUN_TEST( testPositionToBoardIndex );
 
-    //* Test StacksSystem
+    //* Test BoardSystem
     RUN_TEST( testNewStacks );
     RUN_TEST( testPutStoneOnStack );
 
