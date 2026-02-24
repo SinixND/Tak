@@ -22,8 +22,7 @@ Stacks putStoneOnStack(
     StoneType const type
 )
 {
-    assert( playerIdx >= 1 && "PlayerIdx invalid" );
-    assert( playerIdx <= 2 && "PlayerIdx invalid" );
+    assert( ( playerIdx == 1 || playerIdx == 2 ) && "PlayerIdx invalid" );
 
     //* Add affiliation
     stacks.affiliations[stackIdx][stacks.heights[stackIdx]] = playerIdx;

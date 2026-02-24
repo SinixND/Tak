@@ -10,8 +10,8 @@ typedef struct
 {
     MatchConfigs matchConfigs;
     Players players;
-    Stacks board;
     Stack tempStack;
+    Stacks board;
 } Game;
 
 #endif

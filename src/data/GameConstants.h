@@ -52,8 +52,6 @@ enum
      * =: BOARD_WIDTH_MAX * BOARD_WIDTH_MAX + 1 // Max boardtiles + 1 temp stack
      */
     STACKS_MAX = 65,
-    /// Index 0 for invalid stack
-    STACKS_ARRAY_SIZE = STACKS_MAX + 1,
 
     /* Maximum stones possible in game
      * =: PLAYER_COUNT * ( STONE_COUNTS_REGULAR[5] + STONE_COUNTS_CAPSTONE[5] )

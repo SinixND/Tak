@@ -17,8 +17,8 @@ Game newGame( int boardWidth )
     Game game = {
         .matchConfigs = getMatchConfigs( boardWidth ),
         .players = newPlayers( boardWidth ),
-        .board = newStacks(),
         .tempStack = newStack(),
+        .board = newStacks(),
     };
 
     return game;

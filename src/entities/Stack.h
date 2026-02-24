@@ -10,6 +10,7 @@
  * A stacks affiliation is determined by the its top stone
  * Only the top stone of a stack can have a type other than `FLAT`
  * In terms of code a single stone is a stack of height 1
+ * For the single temp stack Idx(0) == top
  */
 typedef struct
 {
