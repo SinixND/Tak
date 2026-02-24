@@ -2,6 +2,7 @@
 #define IG20251219004302
 
 #include "Board.h"
+#include "PlayerId.h"
 #include "StoneType.h"
 
 /// Return new Stacks SoA
@@ -17,7 +18,7 @@ Board newBoard( void );
 Board putStoneOnStack(
     Board board,
     int const stackIdx,
-    int const playerIdx,
+    PlayerId const playerId,
     StoneType const type
 );
 

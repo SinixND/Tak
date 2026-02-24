@@ -4,14 +4,14 @@
 #include "Board.h"
 #include "MatchConfigs.h"
 #include "Players.h"
-#include "Stack.h"
+#include "StackBuffer.h"
 
 typedef struct
 {
-    MatchConfigs matchConfigs;
-    Players players;
-    Stack tempStack;
     Board board;
+    StackBuffer stackBuffer;
+    Players players;
+    MatchConfigs matchConfigs;
 } Game;
 
 #endif

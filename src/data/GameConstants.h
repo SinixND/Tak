@@ -46,13 +46,15 @@ enum
     /// Default board width/height
     BOARD_WIDTH_DEFAULT = 5,
 
-    /* Maximum stacks possible in game
-     * =: BOARD_WIDTH_MAX * BOARD_WIDTH_MAX + 1 // Max boardtiles + 1 temp stack
+    /**
+     * Maximum stacks possible in game
+     * May be adjusted to improve alignment for cache
      */
     STACKS_MAX = 65,
 
-    /* Maximum stones possible in game
-     * =: PLAYER_COUNT * ( STONE_COUNTS_REGULAR[5] + STONE_COUNTS_CAPSTONE[5] )
+    /**
+     * Maximum stones possible in game: 104
+     * May be adjusted to improve alignment for cache
      */
     STONES_MAX = 104,
 };

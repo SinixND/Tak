@@ -27,12 +27,12 @@ void testPlaceStoneOnBoard( void )
 
     TEST_ASSERT_EQUAL_INT(
         1,
-        game.board.heights[0]
+        game.board.stacks[0].height
     );
 
     TEST_ASSERT_EQUAL_INT(
         1,
-        game.board.stacks[0][0]
+        game.board.stacks[0].affiliations[0]
     );
 
     TEST_ASSERT_EQUAL_INT(
@@ -57,12 +57,12 @@ void testPlaceStoneOnBoard( void )
 
     TEST_ASSERT_EQUAL_INT(
         2,
-        game.board.heights[0]
+        game.board.stacks[0].height
     );
 
     TEST_ASSERT_EQUAL_INT(
         2,
-        game.board.stacks[0][1]
+        game.board.stacks[0].affiliations[1]
     );
 
     TEST_ASSERT_EQUAL_INT(
@@ -87,12 +87,12 @@ void testPlaceStoneOnBoard( void )
 
     TEST_ASSERT_EQUAL_INT(
         3,
-        game.board.heights[0]
+        game.board.stacks[0].height
     );
 
     TEST_ASSERT_EQUAL_INT(
         1,
-        game.board.stacks[0][2]
+        game.board.stacks[0].affiliations[2]
     );
 
     TEST_ASSERT_EQUAL_INT(

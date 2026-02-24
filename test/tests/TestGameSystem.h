@@ -38,12 +38,12 @@ void testNewGame( void )
 
     TEST_ASSERT_EQUAL_INT(
         0,
-        game0.board.heights[1]
+        game0.board.stacks[1].height
     );
 
     TEST_ASSERT_EQUAL_INT(
         0,
-        game0.board.stacks[1][0]
+        game0.board.stacks[1].affiliations[0]
     );
 
     //* EXECUTE
@@ -77,12 +77,12 @@ void testNewGame( void )
 
     TEST_ASSERT_EQUAL_INT(
         0,
-        game3.board.heights[1]
+        game3.board.stacks[1].height
     );
 
     TEST_ASSERT_EQUAL_INT(
         0,
-        game3.board.stacks[1][0]
+        game3.board.stacks[1].affiliations[0]
     );
 }
 

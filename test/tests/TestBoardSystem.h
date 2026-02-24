@@ -6,7 +6,7 @@
 #include "StoneType.h"
 #include <unity.h>
 
-void testNewStacks( void )
+void testNewBoard( void )
 {
     //* EXECUTE
     Board board = newBoard();
@@ -14,10 +14,10 @@ void testNewStacks( void )
     //* VERIFY
     TEST_ASSERT_EQUAL_INT( (int)NO_STONE, board.types[0] );
     TEST_ASSERT_EQUAL_INT( (int)NO_STONE, board.types[25] );
-    TEST_ASSERT_EQUAL_INT( 0, board.heights[0] );
-    TEST_ASSERT_EQUAL_INT( 0, board.heights[25] );
-    TEST_ASSERT_EQUAL_INT( 0, board.stacks[0][0] );
-    TEST_ASSERT_EQUAL_INT( 0, board.stacks[25][43] );
+    TEST_ASSERT_EQUAL_INT( 0, board.stacks[0].height );
+    TEST_ASSERT_EQUAL_INT( 0, board.stacks[25].height );
+    TEST_ASSERT_EQUAL_INT( 0, board.stacks[0].affiliations[0] );
+    TEST_ASSERT_EQUAL_INT( 0, board.stacks[25].affiliations[43] );
 }
 
 void testPutStoneOnStack( void )
@@ -35,8 +35,8 @@ void testPutStoneOnStack( void )
 
     //* VERIFY
     TEST_ASSERT_EQUAL_INT( (int)FLAT, board.types[0] );
-    TEST_ASSERT_EQUAL_INT( 1, board.heights[0] );
-    TEST_ASSERT_EQUAL_INT( 1, board.stacks[0][0] );
+    TEST_ASSERT_EQUAL_INT( 1, board.stacks[0].height );
+    TEST_ASSERT_EQUAL_INT( 1, board.stacks[0].affiliations[0] );
 
     //* EXECUTE
     board = putStoneOnStack(
@@ -47,8 +47,8 @@ void testPutStoneOnStack( void )
     );
 
     TEST_ASSERT_EQUAL_INT( (int)WALL, board.types[0] );
-    TEST_ASSERT_EQUAL_INT( 2, board.heights[0] );
-    TEST_ASSERT_EQUAL_INT( 2, board.stacks[0][1] );
+    TEST_ASSERT_EQUAL_INT( 2, board.stacks[0].height );
+    TEST_ASSERT_EQUAL_INT( 2, board.stacks[0].affiliations[1] );
 
     //* EXECUTE
     board = putStoneOnStack(
@@ -60,8 +60,8 @@ void testPutStoneOnStack( void )
 
     //* VERIFY
     TEST_ASSERT_EQUAL_INT( (int)CAP, board.types[0] );
-    TEST_ASSERT_EQUAL_INT( 3, board.heights[0] );
-    TEST_ASSERT_EQUAL_INT( 1, board.stacks[0][2] );
+    TEST_ASSERT_EQUAL_INT( 3, board.stacks[0].height );
+    TEST_ASSERT_EQUAL_INT( 1, board.stacks[0].affiliations[2] );
 }
 
 #endif

@@ -1,6 +1,7 @@
 #include "PlacementSystem.h"
 
 #include "BoardSystem.h"
+#include "PlayerId.h"
 #include "PlayersSystem.h"
 #include "PositionSystem.h"
 #include "StoneType.h"
@@ -8,7 +9,7 @@
 
 Game placeStoneOnBoard(
     Game game,
-    int const playerIdx,
+    PlayerId const playerId,
     int const positionX,
     int const positionY,
     StoneType const type
@@ -29,14 +30,14 @@ Game placeStoneOnBoard(
 
     game.players = takeFromReserves(
         game.players,
-        playerIdx,
+        playerId,
         type
     );
 
     game.board = putStoneOnStack(
         game.board,
         stackIdx,
-        playerIdx,
+        playerId,
         type
     );
 

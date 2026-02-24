@@ -5,6 +5,7 @@
 #include "TestPlacementSystem.h"
 #include "TestPlayersSystem.h"
 #include "TestPositionSystem.h"
+#include "TestStackBufferSystem.h"
 #include "TestStackSystem.h"
 #include <unity.h>
 
@@ -37,8 +38,11 @@ int main( void )
     RUN_TEST( testPositionToBoardIndex );
 
     //* Test BoardSystem
-    RUN_TEST( testNewStacks );
+    RUN_TEST( testNewBoard );
     RUN_TEST( testPutStoneOnStack );
+
+    //* Test StackBufferSystem
+    RUN_TEST( testNewStackBuffer );
 
     //* Test StackSystem
     RUN_TEST( testNewStack );

@@ -2,6 +2,7 @@
 #define IG20251123234345
 
 #include "GameConstants.h"
+#include "Stack.h"
 #include "StoneType.h"
 
 /**
@@ -11,16 +12,14 @@
  * Only the top stone of a stack can have a type other than `FLAT`
  * In terms of code a single stone is a stack of height 1
  * The board is represented by its stacks.
- * For board stacks Idx(0) is bottom
+ * For board stacks Idx[0] is bottom
  */
 typedef struct
 {
+    /// Heights of stacks
+    Stack stacks[STACKS_MAX];
     /// Types of stacks / top stones
     StoneType types[STACKS_MAX];
-    /// Heights of stacks
-    int heights[STACKS_MAX];
-    /// Stone affiliations
-    int stacks[STACKS_MAX][STONES_MAX];
 } Board;
 
 #endif

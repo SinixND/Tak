@@ -5,7 +5,8 @@
 #include "MatchConfigsSystem.h"
 #include "PlacementSystem.h"
 #include "PlayersSystem.h"
-#include "StackSystem.h"
+#include "StackBufferSystem.h"
+#include "StoneType.h"
 
 Game newGame( int boardWidth )
 {
@@ -15,10 +16,10 @@ Game newGame( int boardWidth )
     }
 
     Game game = {
-        .matchConfigs = getMatchConfigs( boardWidth ),
-        .players = newPlayers( boardWidth ),
-        .tempStack = newStack(),
         .board = newBoard(),
+        .stackBuffer = newStackBuffer(),
+        .players = newPlayers( boardWidth ),
+        .matchConfigs = getMatchConfigs( boardWidth ),
     };
 
     return game;
