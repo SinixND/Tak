@@ -4,61 +4,61 @@
 #include "GameConstantsSystem.h"
 #include "unity.h"
 
-void testGetRegularStoneCount( void )
+void testGetBaseRegularStoneReserves( void )
 {
     //* VERIFY
     TEST_ASSERT_EQUAL_INT(
         10,
-        getRegularStoneCount( 3 )
+        getBaseRegularStoneReserves( 3 )
     );
     TEST_ASSERT_EQUAL_INT(
         15,
-        getRegularStoneCount( 4 )
+        getBaseRegularStoneReserves( 4 )
     );
     TEST_ASSERT_EQUAL_INT(
         21,
-        getRegularStoneCount( 5 )
+        getBaseRegularStoneReserves( 5 )
     );
     TEST_ASSERT_EQUAL_INT(
         30,
-        getRegularStoneCount( 6 )
+        getBaseRegularStoneReserves( 6 )
     );
     TEST_ASSERT_EQUAL_INT(
         40,
-        getRegularStoneCount( 7 )
+        getBaseRegularStoneReserves( 7 )
     );
     TEST_ASSERT_EQUAL_INT(
         50,
-        getRegularStoneCount( 8 )
+        getBaseRegularStoneReserves( 8 )
     );
 }
 
-void testGetCapstoneCount( void )
+void testGetBaseCapstoneReserves( void )
 {
     //* VERIFY
     TEST_ASSERT_EQUAL_INT(
         0,
-        getCapstoneCount( 3 )
+        getBaseCapstoneReserves( 3 )
     );
     TEST_ASSERT_EQUAL_INT(
         0,
-        getCapstoneCount( 4 )
+        getBaseCapstoneReserves( 4 )
     );
     TEST_ASSERT_EQUAL_INT(
         1,
-        getCapstoneCount( 5 )
+        getBaseCapstoneReserves( 5 )
     );
     TEST_ASSERT_EQUAL_INT(
         1,
-        getCapstoneCount( 6 )
+        getBaseCapstoneReserves( 6 )
     );
     TEST_ASSERT_EQUAL_INT(
         2,
-        getCapstoneCount( 7 )
+        getBaseCapstoneReserves( 7 )
     );
     TEST_ASSERT_EQUAL_INT(
         2,
-        getCapstoneCount( 8 )
+        getBaseCapstoneReserves( 8 )
     );
 }
 

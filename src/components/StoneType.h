@@ -6,10 +6,10 @@
  */
 typedef enum
 {
-    NO_STONE = 0,
-    FLAT, // Type: regular
-    WALL, // Type: regular
-    CAP,  // Type: capstone
+    STONE_TYPE_NONE = 0,
+    STONE_TYPE_FLAT, // Type: regular
+    STONE_TYPE_WALL, // Type: regular
+    STONE_TYPE_CAP,  // Type: capstone
 } StoneType;
 
 #endif

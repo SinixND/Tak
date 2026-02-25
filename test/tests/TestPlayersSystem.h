@@ -28,7 +28,7 @@ void testTakeFromReserves( void )
     players = takeFromReserves(
         players,
         0,
-        FLAT
+        STONE_TYPE_FLAT
     );
 
     //* VERIFY
@@ -46,7 +46,7 @@ void testTakeFromReserves( void )
     players = takeFromReserves(
         players,
         1,
-        CAP
+        STONE_TYPE_CAP
     );
 
     //* VERIFY

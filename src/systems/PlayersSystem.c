@@ -12,12 +12,15 @@ Players newPlayers( int const boardWidth )
 
     Players players = { 0 };
 
+    int initRegularReserves = getBaseRegularStoneReserves( boardWidth );
+    int initCapstoneReserves = getBaseCapstoneReserves( boardWidth );
+
     //* Init player values
-    for ( int playerIdx = 0; playerIdx < PLAYER_COUNT; ++playerIdx )
+    for ( int idx = 0; idx < PLAYER_COUNT; ++idx )
     {
-        players.stonesInPlay[playerIdx] = 0;
-        players.regularReserves[playerIdx] = getRegularStoneCount( boardWidth );
-        players.capstoneReserves[playerIdx] = getCapstoneCount( boardWidth );
+        players.stonesInPlay[idx] = 0;
+        players.regularReserves[idx] = initRegularReserves;
+        players.capstoneReserves[idx] = initCapstoneReserves;
     }
 
     return players;
@@ -31,15 +34,15 @@ Players takeFromReserves(
 {
     switch ( type )
     {
-        case FLAT:
-        case WALL:
+        case STONE_TYPE_FLAT:
+        case STONE_TYPE_WALL:
         {
             assert( players.regularReserves[playerIdx] > 0 && "No reserves left" );
             --players.regularReserves[playerIdx];
             break;
         }
 
-        case CAP:
+        case STONE_TYPE_CAP:
         {
             assert( players.capstoneReserves[playerIdx] > 0 && "No reserves left" );
             --players.capstoneReserves[playerIdx];

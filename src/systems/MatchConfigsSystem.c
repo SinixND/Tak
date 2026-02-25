@@ -13,7 +13,7 @@ MatchConfigs getMatchConfigs( int const boardWidth )
         .boardWidth = boardWidth,
         .regularStonePlayerReserves = STONE_COUNTS_REGULAR[boardWidth - BOARD_WIDTH_MIN],
         .capstonePlayerReserves = STONE_COUNTS_CAPSTONE[boardWidth - BOARD_WIDTH_MIN],
-        .stonesTotal = 2 * getRegularStoneCount( boardWidth ) + 2 * getCapstoneCount( boardWidth ),
+        .stonesTotal = 2 * getBaseRegularStoneReserves( boardWidth ) + 2 * getBaseCapstoneReserves( boardWidth ),
         .boardTiles = boardWidth * boardWidth,
     };
 

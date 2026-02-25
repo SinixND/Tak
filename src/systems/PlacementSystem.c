@@ -23,8 +23,8 @@ Game placeStoneOnBoard(
 
     //* Can it be placed?
     assert(
-        ( ( game.board.types[stackIdx] != CAP )
-          && !( ( type != CAP ) && ( game.board.types[stackIdx] == WALL ) ) )
+        ( ( game.board.types[stackIdx] != STONE_TYPE_CAP )
+          && !( ( type != STONE_TYPE_CAP ) && ( game.board.types[stackIdx] == STONE_TYPE_WALL ) ) )
         && "Cant place stone"
     );
 

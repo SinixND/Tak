@@ -7,7 +7,7 @@ StackBuffer newStackBuffer( void )
 {
     StackBuffer buffer = {
         newStack(),
-        NO_STONE
+        STONE_TYPE_NONE
     };
 
     return buffer;

@@ -3,6 +3,7 @@
 
 #include "Game.h"
 #include "GameSystem.h"
+#include "PlayerId.h"
 #include "unity.h"
 
 void testNewGame( void )
@@ -32,7 +33,7 @@ void testNewGame( void )
     );
 
     TEST_ASSERT_EQUAL_INT(
-        (int)NO_STONE,
+        (int)STONE_TYPE_NONE,
         game0.board.types[1]
     );
 
@@ -42,7 +43,7 @@ void testNewGame( void )
     );
 
     TEST_ASSERT_EQUAL_INT(
-        0,
+        PLAYER_NONE,
         game0.board.stacks[1].affiliations[0]
     );
 
@@ -71,7 +72,7 @@ void testNewGame( void )
     );
 
     TEST_ASSERT_EQUAL_INT(
-        (int)NO_STONE,
+        (int)STONE_TYPE_NONE,
         game3.board.types[1]
     );
 
@@ -81,7 +82,7 @@ void testNewGame( void )
     );
 
     TEST_ASSERT_EQUAL_INT(
-        0,
+        PLAYER_NONE,
         game3.board.stacks[1].affiliations[0]
     );
 }

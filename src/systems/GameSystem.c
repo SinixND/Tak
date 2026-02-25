@@ -32,7 +32,7 @@ Game run( Game game )
         1,
         0,
         0,
-        FLAT
+        STONE_TYPE_FLAT
     );
 
     return game;

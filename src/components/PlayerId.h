@@ -6,9 +6,9 @@
  */
 typedef enum
 {
-    NO_PLAYER = -1,
-    WHITE = 0,
-    BLACK = 1,
+    PLAYER_NONE = -1,
+    PLAYER_WHITE = 0,
+    PLAYER_BLACK = 1,
 } PlayerId;
 
 #endif

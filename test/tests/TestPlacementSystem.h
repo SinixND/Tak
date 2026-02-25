@@ -2,6 +2,7 @@
 
 #include "GameSystem.h"
 #include "PlacementSystem.h"
+#include "PlayerId.h"
 #include "StoneType.h"
 #include "unity.h"
 
@@ -13,10 +14,10 @@ void testPlaceStoneOnBoard( void )
     //*EXECUTE
     game = placeStoneOnBoard(
         game,
-        1,
+        PLAYER_WHITE,
         0,
         0,
-        FLAT
+        STONE_TYPE_FLAT
     );
 
     //* VERIFY
@@ -31,22 +32,22 @@ void testPlaceStoneOnBoard( void )
     );
 
     TEST_ASSERT_EQUAL_INT(
-        1,
+        PLAYER_WHITE,
         game.board.stacks[0].affiliations[0]
     );
 
     TEST_ASSERT_EQUAL_INT(
-        (int)FLAT,
+        (int)STONE_TYPE_FLAT,
         game.board.types[0]
     );
 
     //*EXECUTE
     game = placeStoneOnBoard(
         game,
-        2,
+        PLAYER_BLACK,
         0,
         0,
-        WALL
+        STONE_TYPE_WALL
     );
 
     //* VERIFY
@@ -61,22 +62,22 @@ void testPlaceStoneOnBoard( void )
     );
 
     TEST_ASSERT_EQUAL_INT(
-        2,
+        PLAYER_BLACK,
         game.board.stacks[0].affiliations[1]
     );
 
     TEST_ASSERT_EQUAL_INT(
-        (int)WALL,
+        (int)STONE_TYPE_WALL,
         game.board.types[0]
     );
 
     //*EXECUTE
     game = placeStoneOnBoard(
         game,
-        1,
+        PLAYER_WHITE,
         0,
         0,
-        CAP
+        STONE_TYPE_CAP
     );
 
     //* VERIFY
@@ -91,12 +92,12 @@ void testPlaceStoneOnBoard( void )
     );
 
     TEST_ASSERT_EQUAL_INT(
-        1,
+        PLAYER_WHITE,
         game.board.stacks[0].affiliations[2]
     );
 
     TEST_ASSERT_EQUAL_INT(
-        (int)CAP,
+        (int)STONE_TYPE_CAP,
         game.board.types[0]
     );
 }

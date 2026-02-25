@@ -18,8 +18,8 @@ int main( void )
     UNITY_BEGIN();
 
     //* Test GameConstantsSystem
-    RUN_TEST( testGetRegularStoneCount );
-    RUN_TEST( testGetCapstoneCount );
+    RUN_TEST( testGetBaseRegularStoneReserves );
+    RUN_TEST( testGetBaseCapstoneReserves );
 
     //* Test GameSystem
     RUN_TEST( testNewGame );
