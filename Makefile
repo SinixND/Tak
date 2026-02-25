@@ -59,9 +59,21 @@ CFLAGS_debug     := -g -O0 -Wall -Wextra -Wshadow -Wpedantic -Werror # -fsanitiz
 CPPFLAGS_debug   := -DDEBUG
 LDFLAGS_debug    := # -fsanitize=address,undefined
 
+CFLAGS_fatal     := -g -O0 -Wall -Wextra -Wshadow -Wpedantic -Werror -Wfatal-errors # -fsanitize=address,undefined
+CPPFLAGS_fatal   := -DDEBUG
+LDFLAGS_fatal    := # -fsanitize=address,undefined
+
 CFLAGS_release   := -O2
 CPPFLAGS_release := -DNDEBUG
 LDFLAGS_release  :=
+
+# Targets
+.PHONY: all
+all: compiledb debug test cppcheck run-test run
+
+# To test all targets
+.PHONY: checkhealth
+checkhealth: clean doxygen format compiledb fatal debug release test cppcheck run-test run
 
 
 #######################################
@@ -103,9 +115,11 @@ INC_test := $(shell find $(SRC_DIR) -type d) \
 
 # Targets
 .PHONY: test
-
 test:
 	@$(MAKE) MODE=test build
+
+.PHONY: run-test
+run-test:
 	@$(MAKE) MODE=test run
 
 
@@ -131,21 +145,17 @@ INCFLAGS += $(addprefix -isystem,$(EXT_INC_DIR))
 # TARGETS
 #######################################
 
-.PHONY: all build checkhealth clean cppcheck compiledb debug doxygen format release run
 
-# Targets
-all: compiledb debug test cppcheck run
-
+.PHONY: build 
 build: $(BIN_DIR)/$(TARGET)/$(MODE)/$(BUILD)/$(BIN_$(MODE))
 
-# To test all targets
-checkhealth: clean doxygen format compiledb debug release test cppcheck run
-
+.PHONY: clean 
 clean:
 	$(info )
 	$(info === Clean ===)
 	$(RM) $(OBJ_DIR) $(BIN_DIR)
 
+.PHONY: cppcheck 
 cppcheck:
 	$(info )
 	$(info === Run cppcheck ===)
@@ -167,27 +177,43 @@ cppcheck:
 	  $(SRC_DIR)/ \
 	  $(BIN_DIR)/$(BIN_app)
 
+.PHONY: compiledb
 compiledb:
 	$(info )
 	$(info === Build compilation database ===)
 	compiledb -n make
 
+.PHONY: debug
 debug:
 	@$(MAKE) BUILD=debug MODE=app build
 
+.PHONY: doxygen 
 doxygen:
 	$(info )
 	$(info === Create documentation ===)
 	doxygen Doxyfile
 
+.PHONY: fatal
+fatal:
+	@$(MAKE) BUILD=fatal MODE=app build test
+
+.PHONY: format
 format:
 	$(info )
 	$(info === Format code ===)
 	clang-format -i -- $(SRC_DIR)/**.* $(TEST_DIR)/**.*
 
+.PHONY: init
+init:
+	$(info )
+	$(info === Update git submodulds ===)
+	@git submodule update --init --recursive
+
+.PHONY: release
 release:
 	@$(MAKE) BUILD=release MODE=app build
 
+.PHONY: run
 run:
 	$(info )
 	$(info === Execute $(BIN_$(MODE)) ===)

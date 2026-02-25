@@ -2,33 +2,29 @@
 #define IG20260117152251
 
 #include "Game.h"
+#include "GameSystem.h"
+#include "PlayerId.h"
 #include "unity.h"
 
-void testInitGame( void )
+void testNewGame( void )
 {
     //* EXECUTE
-    Game game0 = initGame( 0 );
+    Game game0 = newGame( 0 );
 
     //* VERIFY
     TEST_ASSERT_EQUAL_INT(
         5,
-        game0.gameSettings.boardWidth
+        game0.matchConfigs.boardWidth
     );
 
-    //* CLEANUP
-    deinitGame( &game0 );
-
     //* EXECUTE
-    Game game3 = initGame( 3 );
+    Game game3 = newGame( 3 );
 
     //* VERIFY
     TEST_ASSERT_EQUAL_INT(
         3,
-        game3.gameSettings.boardWidth
+        game3.matchConfigs.boardWidth
     );
-
-    //* CLEANUP
-    deinitGame( &game3 );
 }
 
 #endif

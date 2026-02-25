@@ -1,17 +1,11 @@
 #ifndef IG20251203194322
 #define IG20251203194322
 
-#include "Board.h"
-#include "Players.h"
-#include "Stacks.h"
-#include "Stones.h"
+#include "Game.h"
 
-void placeStoneOnBoard(
-    Players* players,
-    Board* board,
-    Stacks* stacks,
-    Stones* stones,
-    int const player,
+Game placeStoneOnBoard(
+    Game game,
+    PlayerId const playerId,
     int const positionX,
     int const positionY,
     StoneType const type

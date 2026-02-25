@@ -1,26 +1,9 @@
-#ifndef IG20251219004301
-#define IG20251219004301
+#ifndef IG20260225005807
+#define IG20260225005807
 
-#include "Stacks.h"
-#include "StoneType.h"
-#include "Stones.h"
+#include "Stack.h"
 
-/**
- * @brief Return (and create if necessary) stackIdx at board index
- */
-int createOrGetStackIdx(
-    int* const boardStackIdxs,
-    int* const stacksOnBoardCount,
-    int* const stackBoardIdxs,
-    int const boardIdx
-);
-
-void putStoneOnStack(
-    Stones* const stones,
-    Stacks* const stacks,
-    int const stoneIdx,
-    int const stackIdx,
-    StoneType const type
-);
+/// Return new Stack object
+Stack newStack( void );
 
 #endif

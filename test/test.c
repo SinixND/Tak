@@ -1,14 +1,12 @@
-#include "TestBoard.h"
-#include "TestDefaultSettings.h"
-#include "TestGame.h"
-#include "TestMatchConfigs.h"
+#include "TestBoardSystem.h"
+#include "TestGameConstantsSystem.h"
+#include "TestGameSystem.h"
+#include "TestMatchConfigsSystem.h"
 #include "TestPlacementSystem.h"
-#include "TestPlayers.h"
+#include "TestPlayersSystem.h"
 #include "TestPositionSystem.h"
-#include "TestReserveSystem.h"
+#include "TestStackBufferSystem.h"
 #include "TestStackSystem.h"
-#include "TestStacks.h"
-#include "TestStones.h"
 #include <unity.h>
 
 void setUp( void ) {}
@@ -19,20 +17,35 @@ int main( void )
 {
     UNITY_BEGIN();
 
-    //* Unit tests
-    RUN_TEST( testInitBoard );
-    RUN_TEST( testInitPlayers );
-    RUN_TEST( testInitStacks );
-    RUN_TEST( testInitStones );
-    RUN_TEST( testPositionToBoardIndex );
-    RUN_TEST( testGetDefaultSettings );
-    RUN_TEST( testDefineMatchConfigs );
-    RUN_TEST( testGetTotalPlayerReserves );
-    RUN_TEST( testCreateOrGetStackIdx );
-    RUN_TEST( testTakeFromReserves );
-    RUN_TEST( testPutStoneOnStack );
-    RUN_TEST( testInitGame );
+    //* Test GameConstantsSystem
+    RUN_TEST( testGetBaseRegularStoneReserves );
+    RUN_TEST( testGetBaseCapstoneReserves );
+
+    //* Test GameSystem
+    RUN_TEST( testNewGame );
+
+    //* Test MatchConfigsSystem
+    RUN_TEST( testGetMatchConfigs );
+
+    //* Test PlacementSystem
     RUN_TEST( testPlaceStoneOnBoard );
+
+    //* Test PlayersSystem
+    RUN_TEST( testNewPlayers );
+    RUN_TEST( testTakeFromReserves );
+
+    //* Test PositionSystem
+    RUN_TEST( testPositionToBoardIndex );
+
+    //* Test BoardSystem
+    RUN_TEST( testNewBoard );
+    RUN_TEST( testPutStoneOnStack );
+
+    //* Test StackBufferSystem
+    RUN_TEST( testNewStackBuffer );
+
+    //* Test StackSystem
+    RUN_TEST( testNewStack );
 
     return UNITY_END();
 }

@@ -1,57 +1,45 @@
 #include "PlacementSystem.h"
 
-#include "Board.h"
-#include "Players.h"
+#include "BoardSystem.h"
+#include "PlayerId.h"
+#include "PlayersSystem.h"
 #include "PositionSystem.h"
-#include "ReserveSystem.h"
-#include "StackSystem.h"
-#include "Stacks.h"
 #include "StoneType.h"
-#include "Stones.h"
 #include <assert.h>
 
-void placeStoneOnBoard(
-    Players* const players,
-    Board* const board,
-    Stacks* const stacks,
-    Stones* const stones,
-    int const player,
+Game placeStoneOnBoard(
+    Game game,
+    PlayerId const playerId,
     int const positionX,
     int const positionY,
     StoneType const type
 )
 {
-    int const stackIdx = createOrGetStackIdx(
-        board->stackIdxs,
-        &stacks->onBoardCount,
-        stacks->boardIdxs,
-        positionToBoardIndex(
-            positionX,
-            positionY,
-            board->width
-        )
+    int const stackIdx = positionToBoardIndex(
+        positionX,
+        positionY,
+        game.matchConfigs.boardWidth
     );
 
     //* Can it be placed?
     assert(
-        ( stacks->types[stackIdx] != CAP )
-        && !( ( type != CAP ) && ( stacks->types[stackIdx] == WALL ) )
+        ( ( game.board.types[stackIdx] != STONE_TYPE_CAP )
+          && !( ( type != STONE_TYPE_CAP ) && ( game.board.types[stackIdx] == STONE_TYPE_WALL ) ) )
         && "Cant place stone"
     );
 
-    int const stoneIdx = takeFromReserves(
-        players->regularReserves,
-        players->capstoneReserves,
-        &stones->inPlayCount,
-        player,
+    game.players = takeFromReserves(
+        game.players,
+        playerId,
         type
     );
 
-    putStoneOnStack(
-        stones,
-        stacks,
-        stoneIdx,
+    game.board = putStoneOnStack(
+        game.board,
         stackIdx,
+        playerId,
         type
     );
+
+    return game;
 }

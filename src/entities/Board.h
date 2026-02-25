@@ -1,21 +1,25 @@
-#ifndef IG20251128150724
-#define IG20251128150724
+#ifndef IG20251123234345
+#define IG20251123234345
+
+#include "GameConstants.h"
+#include "Stack.h"
+#include "StoneType.h"
 
 /**
- * @brief A board holds stacks
+ * @brief A board consists of stacks of stones
+ *
+ * The affiliation of a stack is determined by the its top stone
+ * Only the top stone of a stack can have a type other than `FLAT`
+ * In terms of code a single stone is a stack of height 1
+ * The board is represented by its stacks.
+ * For board stacks Idx[0] is bottom
  */
 typedef struct
 {
-    /// Constant count of board tiles per side
-    int const width;
-    /// Stacks located at tile [(y * boardWidth ) + x]
-    int* stackIdxs;
+    /// Heights of stacks
+    Stack stacks[STACKS_MAX];
+    /// Types of stacks / top stones
+    StoneType types[STACKS_MAX];
 } Board;
-
-/// Allocate memory and initialize values
-Board initBoard( int const boardWidth );
-
-/// Free allocated memory
-void deinitBoard( Board* const board );
 
 #endif
