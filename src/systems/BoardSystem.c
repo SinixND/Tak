@@ -1,7 +1,6 @@
 #include "BoardSystem.h"
 
 #include "Board.h"
-#include "StackSystem.h"
 #include "StoneType.h"
 #include <assert.h>
 
@@ -24,16 +23,16 @@ Board putStoneOnStack(
 {
     assert( ( playerId == 1 || playerId == 2 ) && "PlayerIdx invalid" );
 
-    //* Add affiliation
-    int* const pHeight = &board.stacks[stackIdx].height;
+    Stack* const stack = &board.stacks[stackIdx];
 
-    board.stacks[stackIdx].affiliations[*pHeight] = playerId;
+    //* Add affiliation
+    stack->affiliations[stack->height] = playerId;
 
     //* Set played stone type
     board.types[stackIdx] = type;
 
     //* Increase stack height
-    ++( *pHeight );
+    ++stack->height;
     ;
 
     return board;

@@ -5,7 +5,7 @@
  * @brief Size of initial player reserves
  * Regular stones, by board size
  */
-static int const STONE_COUNTS_REGULAR[] = {
+static int const RESERVES_BASE_REGULAR[] = {
     10, // Size: 3x3
     15, // Size: 4x4
     21, // Size: 5x5
@@ -18,7 +18,7 @@ static int const STONE_COUNTS_REGULAR[] = {
  * @brief Size of initial player reserves
  * Capstones, by board size
  */
-static int const STONE_COUNTS_CAPSTONE[] = {
+static int const RESERVES_BASE_CAPSTONE[] = {
     0, // Size: 3x3
     0, // Size: 4x4
     1, // Size: 5x5

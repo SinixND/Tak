@@ -11,8 +11,8 @@ typedef struct
     /// Board width
     int boardWidth;
     /// Reserves per player
-    int regularStonePlayerReserves;
-    int capstonePlayerReserves;
+    int baseRegularReserves;
+    int baseCapstoneReserves;
     /// Total stones available
     int stonesTotal;
     /// Board tile count

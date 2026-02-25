@@ -68,9 +68,11 @@ CPPFLAGS_release := -DNDEBUG
 LDFLAGS_release  :=
 
 # Targets
+.PHONY: all
 all: compiledb debug test cppcheck run-test run
 
 # To test all targets
+.PHONY: checkhealth
 checkhealth: clean doxygen format compiledb fatal debug release test cppcheck run-test run
 
 
@@ -113,10 +115,10 @@ INC_test := $(shell find $(SRC_DIR) -type d) \
 
 # Targets
 .PHONY: test
-
 test:
 	@$(MAKE) MODE=test build
 
+.PHONY: run-test
 run-test:
 	@$(MAKE) MODE=test run
 
@@ -143,13 +145,17 @@ INCFLAGS += $(addprefix -isystem,$(EXT_INC_DIR))
 # TARGETS
 #######################################
 
+
+.PHONY: build 
 build: $(BIN_DIR)/$(TARGET)/$(MODE)/$(BUILD)/$(BIN_$(MODE))
 
+.PHONY: clean 
 clean:
 	$(info )
 	$(info === Clean ===)
 	$(RM) $(OBJ_DIR) $(BIN_DIR)
 
+.PHONY: cppcheck 
 cppcheck:
 	$(info )
 	$(info === Run cppcheck ===)
@@ -171,41 +177,47 @@ cppcheck:
 	  $(SRC_DIR)/ \
 	  $(BIN_DIR)/$(BIN_app)
 
+.PHONY: compiledb
 compiledb:
 	$(info )
 	$(info === Build compilation database ===)
 	compiledb -n make
 
+.PHONY: debug
 debug:
 	@$(MAKE) BUILD=debug MODE=app build
 
+.PHONY: doxygen 
 doxygen:
 	$(info )
 	$(info === Create documentation ===)
 	doxygen Doxyfile
 
+.PHONY: fatal
 fatal:
 	@$(MAKE) BUILD=fatal MODE=app build test
 
+.PHONY: format
 format:
 	$(info )
 	$(info === Format code ===)
 	clang-format -i -- $(SRC_DIR)/**.* $(TEST_DIR)/**.*
 
+.PHONY: init
 init:
 	$(info )
 	$(info === Update git submodulds ===)
 	@git submodule update --init --recursive
 
+.PHONY: release
 release:
 	@$(MAKE) BUILD=release MODE=app build
 
+.PHONY: run
 run:
 	$(info )
 	$(info === Execute $(BIN_$(MODE)) ===)
 	$(BIN_DIR)/$(TARGET)/$(MODE)/$(BUILD)/$(BIN_$(MODE))
-
-.PHONY: all build checkhealth clean cppcheck compiledb debug doxygen fatal format init release run run-test
 
 
 #######################################
