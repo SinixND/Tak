@@ -1,6 +1,7 @@
 #include "PlayersSystem.h"
 
 #include "GameConstantsSystem.h"
+#include "PlayerId.h"
 #include "Players.h"
 #include "StoneType.h"
 #include <assert.h>
@@ -8,7 +9,7 @@
 Players newPlayers( int const boardWidth )
 {
     assert( ( boardWidth >= BOARD_WIDTH_MIN ) && "Board width value too small" );
-    assert( ( boardWidth <= (int)BOARD_WIDTH_MAX ) && "Board width value too big" );
+    assert( ( boardWidth <= BOARD_WIDTH_MAX ) && "Board width value too big" );
 
     Players players = { 0 };
 
@@ -28,24 +29,26 @@ Players newPlayers( int const boardWidth )
 
 Players takeFromReserves(
     Players players,
-    int const playerIdx,
+    PlayerId const playerId,
     StoneType const type
 )
 {
+    assert( playerId >= 0 && "Invalid PlayerId" );
+
     switch ( type )
     {
         case STONE_TYPE_FLAT:
         case STONE_TYPE_WALL:
         {
-            assert( players.regularReserves[playerIdx] > 0 && "No reserves left" );
-            --players.regularReserves[playerIdx];
+            assert( players.regularReserves[playerId] > 0 && "No reserves left" );
+            --players.regularReserves[playerId];
             break;
         }
 
         case STONE_TYPE_CAP:
         {
-            assert( players.capstoneReserves[playerIdx] > 0 && "No reserves left" );
-            --players.capstoneReserves[playerIdx];
+            assert( players.capstoneReserves[playerId] > 0 && "No reserves left" );
+            --players.capstoneReserves[playerId];
             break;
         }
 
@@ -56,7 +59,7 @@ Players takeFromReserves(
         }
     }
 
-    ++players.stonesInPlay[playerIdx];
+    ++players.stonesInPlay[playerId];
 
     return players;
 }

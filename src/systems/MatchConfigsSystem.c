@@ -6,8 +6,8 @@
 
 MatchConfigs getMatchConfigs( int const boardWidth )
 {
-    assert( ( boardWidth >= (int)BOARD_WIDTH_MIN ) && "Board width value too small" );
-    assert( ( boardWidth <= (int)BOARD_WIDTH_MAX ) && "Board width value too big" );
+    assert( ( boardWidth >= BOARD_WIDTH_MIN ) && "Board width value too small" );
+    assert( ( boardWidth <= BOARD_WIDTH_MAX ) && "Board width value too big" );
 
     MatchConfigs configs = {
         .boardWidth = boardWidth,

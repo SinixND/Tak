@@ -1,6 +1,8 @@
 #include "BoardSystem.h"
 
 #include "Board.h"
+#include "GameConstants.h"
+#include "PlayerId.h"
 #include "StoneType.h"
 #include <assert.h>
 
@@ -10,6 +12,14 @@ Board newBoard( void )
         .stacks = { 0 },
         .types = { 0 },
     };
+
+    for ( int stackIdx = 0; stackIdx < STACKS_MAX; ++stackIdx )
+    {
+        for ( int stoneIdx = 0; stoneIdx < STONES_MAX; ++stoneIdx )
+        {
+            board.stacks[stackIdx].affiliations[stoneIdx] = PLAYER_NONE;
+        }
+    }
 
     return board;
 }
@@ -21,7 +31,7 @@ Board putStoneOnStack(
     StoneType const type
 )
 {
-    assert( ( playerId == 1 || playerId == 2 ) && "PlayerIdx invalid" );
+    assert( ( playerId == PLAYER_WHITE || playerId == PLAYER_BLACK ) && "PlayerIdx invalid" );
 
     Stack* const stack = &board.stacks[stackIdx];
 
