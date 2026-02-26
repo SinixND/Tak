@@ -42,27 +42,27 @@ void testPutStoneOnStack( void )
     //* EXECUTE
     board = putStoneOnStack(
         board,
-        0,
+        1,
         PLAYER_BLACK,
         STONE_TYPE_WALL
     );
 
-    TEST_ASSERT_EQUAL_INT( STONE_TYPE_WALL, board.types[0] );
-    TEST_ASSERT_EQUAL_INT( 2, board.stacks[0].height );
-    TEST_ASSERT_EQUAL_INT( PLAYER_BLACK, board.stacks[0].affiliations[1] );
+    TEST_ASSERT_EQUAL_INT( STONE_TYPE_WALL, board.types[1] );
+    TEST_ASSERT_EQUAL_INT( 1, board.stacks[1].height );
+    TEST_ASSERT_EQUAL_INT( PLAYER_BLACK, board.stacks[1].affiliations[0] );
 
     //* EXECUTE
     board = putStoneOnStack(
         board,
-        0,
+        3,
         PLAYER_WHITE,
         STONE_TYPE_CAP
     );
 
     //* VERIFY
-    TEST_ASSERT_EQUAL_INT( STONE_TYPE_CAP, board.types[0] );
-    TEST_ASSERT_EQUAL_INT( 3, board.stacks[0].height );
-    TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, board.stacks[0].affiliations[2] );
+    TEST_ASSERT_EQUAL_INT( STONE_TYPE_CAP, board.types[3] );
+    TEST_ASSERT_EQUAL_INT( 1, board.stacks[3].height );
+    TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, board.stacks[3].affiliations[0] );
 }
 
 #endif

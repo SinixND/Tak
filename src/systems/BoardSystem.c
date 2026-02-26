@@ -31,7 +31,13 @@ Board putStoneOnStack(
     StoneType const type
 )
 {
-    assert( ( playerId == PLAYER_WHITE || playerId == PLAYER_BLACK ) && "PlayerIdx invalid" );
+    assert( ( playerId == PLAYER_WHITE || playerId == PLAYER_BLACK ) && "PlayerId invalid" );
+
+    //* Stack needs to be empty
+    assert(
+        board.stacks[stackIdx].height == 0
+        && "Can only place on empty tile"
+    );
 
     Stack* const stack = &board.stacks[stackIdx];
 
@@ -43,7 +49,6 @@ Board putStoneOnStack(
 
     //* Increase stack height
     ++stack->height;
-    ;
 
     return board;
 }
