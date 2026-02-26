@@ -50,7 +50,7 @@ void testPlaceStoneOnBoard( void )
     game = placeStoneOnBoard(
         game,
         PLAYER_BLACK,
-        0,
+        1,
         0,
         STONE_TYPE_WALL
     );
@@ -62,35 +62,30 @@ void testPlaceStoneOnBoard( void )
     );
 
     TEST_ASSERT_EQUAL_INT(
-        2,
-        game.board.stacks[0].height
-    );
-
-    TEST_ASSERT_EQUAL_INT(
-        PLAYER_WHITE,
-        game.board.stacks[0].affiliations[0]
+        1,
+        game.board.stacks[1].height
     );
 
     TEST_ASSERT_EQUAL_INT(
         PLAYER_BLACK,
-        game.board.stacks[0].affiliations[1]
+        game.board.stacks[1].affiliations[0]
     );
 
     TEST_ASSERT_EQUAL_INT(
         PLAYER_NONE,
-        game.board.stacks[0].affiliations[2]
+        game.board.stacks[0].affiliations[1]
     );
 
     TEST_ASSERT_EQUAL_INT(
         STONE_TYPE_WALL,
-        game.board.types[0]
+        game.board.types[1]
     );
 
     //*EXECUTE
     game = placeStoneOnBoard(
         game,
         PLAYER_WHITE,
-        0,
+        3,
         0,
         STONE_TYPE_CAP
     );
@@ -102,27 +97,22 @@ void testPlaceStoneOnBoard( void )
     );
 
     TEST_ASSERT_EQUAL_INT(
-        3,
-        game.board.stacks[0].height
-    );
-
-    TEST_ASSERT_EQUAL_INT(
-        PLAYER_BLACK,
-        game.board.stacks[0].affiliations[1]
+        1,
+        game.board.stacks[3].height
     );
 
     TEST_ASSERT_EQUAL_INT(
         PLAYER_WHITE,
-        game.board.stacks[0].affiliations[2]
+        game.board.stacks[3].affiliations[0]
     );
 
     TEST_ASSERT_EQUAL_INT(
         PLAYER_NONE,
-        game.board.stacks[0].affiliations[3]
+        game.board.stacks[3].affiliations[1]
     );
 
     TEST_ASSERT_EQUAL_INT(
         STONE_TYPE_CAP,
-        game.board.types[0]
+        game.board.types[3]
     );
 }
