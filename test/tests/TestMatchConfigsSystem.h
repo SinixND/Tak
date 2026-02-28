@@ -15,7 +15,6 @@ void testGetMatchConfigs( void )
     TEST_ASSERT_EQUAL_INT( 0, configs.baseCapstoneReserves );
     TEST_ASSERT_EQUAL_INT( 20, configs.stonesTotal );
     TEST_ASSERT_EQUAL_INT( 9, configs.boardTiles );
-
     //* EXECUTE
     configs = getMatchConfigs( 4 );
 

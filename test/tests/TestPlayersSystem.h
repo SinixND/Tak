@@ -33,15 +33,8 @@ void testTakeFromReserves( void )
     );
 
     //* VERIFY
-    TEST_ASSERT_EQUAL_INT(
-        20,
-        players.regularReserves[PLAYER_WHITE]
-    );
-
-    TEST_ASSERT_EQUAL_INT(
-        21,
-        players.regularReserves[PLAYER_BLACK]
-    );
+    TEST_ASSERT_EQUAL_INT( 20, players.regularReserves[PLAYER_WHITE] );
+    TEST_ASSERT_EQUAL_INT( 21, players.regularReserves[PLAYER_BLACK] );
 
     //* Execute
     players = takeFromReserves(
@@ -51,15 +44,8 @@ void testTakeFromReserves( void )
     );
 
     //* VERIFY
-    TEST_ASSERT_EQUAL_INT(
-        1,
-        players.capstoneReserves[PLAYER_WHITE]
-    );
-
-    TEST_ASSERT_EQUAL_INT(
-        0,
-        players.capstoneReserves[PLAYER_BLACK]
-    );
+    TEST_ASSERT_EQUAL_INT( 1, players.capstoneReserves[PLAYER_WHITE] );
+    TEST_ASSERT_EQUAL_INT( 0, players.capstoneReserves[PLAYER_BLACK] );
 }
 
 #endif

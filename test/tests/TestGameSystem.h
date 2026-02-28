@@ -12,19 +12,13 @@ void testNewGame( void )
     Game game0 = newGame( 0 );
 
     //* VERIFY
-    TEST_ASSERT_EQUAL_INT(
-        5,
-        game0.matchConfigs.boardWidth
-    );
+    TEST_ASSERT_EQUAL_INT( 5, game0.matchConfigs.boardWidth );
 
     //* EXECUTE
     Game game3 = newGame( 3 );
 
     //* VERIFY
-    TEST_ASSERT_EQUAL_INT(
-        3,
-        game3.matchConfigs.boardWidth
-    );
+    TEST_ASSERT_EQUAL_INT( 3, game3.matchConfigs.boardWidth );
 }
 
 #endif

@@ -47,6 +47,7 @@ void testPutStoneOnStack( void )
         STONE_TYPE_WALL
     );
 
+    //* VERIFY
     TEST_ASSERT_EQUAL_INT( STONE_TYPE_WALL, board.types[1] );
     TEST_ASSERT_EQUAL_INT( 1, board.stacks[1].height );
     TEST_ASSERT_EQUAL_INT( PLAYER_BLACK, board.stacks[1].affiliations[0] );

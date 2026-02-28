@@ -15,6 +15,7 @@ void testNewStackBuffer( void )
     StackBuffer buffer = newStackBuffer();
 
     //* VERIFY
+
     TEST_ASSERT_EQUAL_INT( STONE_TYPE_NONE, buffer.type );
     TEST_ASSERT_EQUAL_INT( 0, buffer.stack.height );
     TEST_ASSERT_EQUAL_INT( PLAYER_NONE, buffer.stack.affiliations[0] );
