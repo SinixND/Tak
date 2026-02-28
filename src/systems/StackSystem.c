@@ -6,7 +6,7 @@
 
 Stack newStack( void )
 {
-    Stack stack = { 0 };
+    Stack stack = { .height = 0 };
 
     for ( int idx = 0; idx < STONES_MAX; ++idx )
     {
@@ -16,3 +16,21 @@ Stack newStack( void )
     return stack;
 }
 
+Stack addStoneToStack(
+    Stack stack,
+    PlayerId const playerId
+)
+{
+    assert(
+        ( playerId == PLAYER_WHITE || playerId == PLAYER_BLACK )
+        && "Invalid playerId"
+    );
+
+    //* Add affiliation
+    stack.affiliations[stack.height] = playerId;
+
+    //* Increase stack height
+    ++stack.height;
+
+    return stack;
+}
