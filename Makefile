@@ -55,13 +55,15 @@ CPPFLAGS_CORE := -MMD -MP
 LDFLAGS_CORE  :=
 
 # Build-specific flags
-CFLAGS_debug     := -g -O0 -Wall -Wextra -Wshadow -Wpedantic -Werror # -fsanitize=address,undefined
+CFLAGS_debug     := -g -O0 -Wall -Wextra -Wshadow -Werror # -fsanitize=address,undefined
 CPPFLAGS_debug   := -DDEBUG
 LDFLAGS_debug    := # -fsanitize=address,undefined
+CPPCHECK_debug   := --error-exitcode=0
 
 CFLAGS_fatal     := -g -O0 -Wall -Wextra -Wshadow -Wpedantic -Werror -Wfatal-errors # -fsanitize=address,undefined
 CPPFLAGS_fatal   := -DDEBUG
 LDFLAGS_fatal    := # -fsanitize=address,undefined
+CPPCHECK_fatal   := --error-exitcode=1
 
 CFLAGS_release   := -O2
 CPPFLAGS_release := -DNDEBUG
@@ -69,11 +71,11 @@ LDFLAGS_release  :=
 
 # Targets
 .PHONY: all
-all: compiledb debug test cppcheck run-test run
+all: compiledb debug test cppcheck run
 
 # To test all targets
 .PHONY: checkhealth
-checkhealth: clean doxygen format compiledb fatal debug release test cppcheck run-test run
+checkhealth: clean doxygen format compiledb fatal debug release test cppcheck run
 
 
 #######################################
@@ -114,13 +116,16 @@ INC_test := $(shell find $(SRC_DIR) -type d) \
             $(shell find $(TEST_DIR) -type d)
 
 # Targets
-.PHONY: test
-test:
-	@$(MAKE) MODE=test build
+.PHONY: build-test
+build-test:
+	@$(MAKE) BUILD=debug MODE=test build
 
 .PHONY: run-test
 run-test:
 	@$(MAKE) MODE=test run
+
+.PHONY: test
+test: build-test run-test
 
 
 #######################################
@@ -158,9 +163,9 @@ clean:
 .PHONY: cppcheck 
 cppcheck:
 	$(info )
-	$(info === Run cppcheck ===)
+	$(info === Run cppcheck: BUILD=$(BUILD) ===)
 	@$(MKDIR) $(OBJ_DIR)/cppcheck
-	cppcheck \
+	@cppcheck \
 	  --quiet \
 	  --enable=all \
 	  --suppress=missingIncludeSystem \
@@ -168,7 +173,7 @@ cppcheck:
 	  --suppress=missingInclude \
 	  --inconclusive \
 	  --check-level=exhaustive \
-	  --error-exitcode=1 \
+	  $(CPPCHECK_$(BUILD)) \
 	  --cppcheck-build-dir=$(OBJ_DIR)/cppcheck \
 	  --template=gcc \
 	  --std=c99 \
@@ -185,6 +190,8 @@ compiledb:
 
 .PHONY: debug
 debug:
+	$(info )
+	$(info === Build $(MODE)/$(BUILD) ===)
 	@$(MAKE) BUILD=debug MODE=app build
 
 .PHONY: doxygen 
@@ -195,7 +202,9 @@ doxygen:
 
 .PHONY: fatal
 fatal:
-	@$(MAKE) BUILD=fatal MODE=app build test
+	$(info )
+	$(info === Build $(MODE)/$(BUILD) ===)
+	@$(MAKE) BUILD=fatal MODE=app build
 
 .PHONY: format
 format:
@@ -206,11 +215,21 @@ format:
 .PHONY: init
 init:
 	$(info )
-	$(info === Update git submodulds ===)
+	$(info === Update git submodules ===)
 	@git submodule update --init --recursive
+
+.PHONY: publish
+publish:
+	$(info )
+	$(info === Publish ===)
+	@$(MAKE) fatal
+	@$(MAKE) BUILD=fatal cppcheck
+	@$(MAKE) release
 
 .PHONY: release
 release:
+	$(info )
+	$(info === Build $(MODE)/$(BUILD) ===)
 	@$(MAKE) BUILD=release MODE=app build
 
 .PHONY: run

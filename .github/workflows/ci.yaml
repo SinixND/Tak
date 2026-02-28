@@ -10,4 +10,4 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: "true"
-      - run: make release cppcheck
+      - run: make publish cppcheck
