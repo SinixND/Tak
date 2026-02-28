@@ -12,6 +12,7 @@ Players newPlayers( int const boardWidth )
         ( boardWidth >= BOARD_WIDTH_MIN )
         && "Board width value too small"
     );
+
     assert(
         ( boardWidth <= BOARD_WIDTH_MAX )
         && "Board width value too big"
@@ -40,8 +41,8 @@ Players takeFromReserves(
 )
 {
     assert(
-        playerId >= 0
-        && "Invalid PlayerId"
+        ( playerId == PLAYER_WHITE || playerId == PLAYER_BLACK )
+        && "Invalid playerId"
     );
 
     switch ( type )
@@ -53,7 +54,9 @@ Players takeFromReserves(
                 players.regularReserves[playerId] > 0
                 && "No reserves left"
             );
+
             --players.regularReserves[playerId];
+
             break;
         }
 
