@@ -1,4 +1,4 @@
-#include "PlacementSystem.h"
+#include "PlayerActionsSystem.h"
 
 #include "BoardSystem.h"
 #include "PlayerId.h"
@@ -7,12 +7,12 @@
 #include "StoneType.h"
 #include <assert.h>
 
-Game placeStoneOnBoard(
+Game playStone(
     Game game,
     PlayerId const playerId,
     int const positionX,
     int const positionY,
-    StoneType const type
+    StoneType const stoneType
 )
 {
     int const stackIdx = positionToBoardIndex(
@@ -21,7 +21,7 @@ Game placeStoneOnBoard(
         game.matchConfigs.boardWidth
     );
 
-    //* Can it be placed?
+    //* Rule: Can only place on empty tiles
     assert(
         game.board.stacks[stackIdx].height == 0
         && "Can only place on empty tile"
@@ -35,14 +35,14 @@ Game placeStoneOnBoard(
     game.players = takeFromReserves(
         game.players,
         playerId,
-        type
+        stoneType
     );
 
-    game.board = putStoneOnStack(
+    game.board = addStoneToBoard(
         game.board,
         stackIdx,
         playerId,
-        type
+        stoneType
     );
 
     return game;

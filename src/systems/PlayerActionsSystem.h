@@ -3,12 +3,12 @@
 
 #include "Game.h"
 
-Game placeStoneOnBoard(
+Game playStone(
     Game game,
     PlayerId const playerId,
     int const positionX,
     int const positionY,
-    StoneType const type
+    StoneType const stoneType
 );
 
 #endif
