@@ -8,8 +8,14 @@
 
 Players newPlayers( int const boardWidth )
 {
-    assert( ( boardWidth >= BOARD_WIDTH_MIN ) && "Board width value too small" );
-    assert( ( boardWidth <= BOARD_WIDTH_MAX ) && "Board width value too big" );
+    assert(
+        ( boardWidth >= BOARD_WIDTH_MIN )
+        && "Board width value too small"
+    );
+    assert(
+        ( boardWidth <= BOARD_WIDTH_MAX )
+        && "Board width value too big"
+    );
 
     Players players = { 0 };
 
@@ -33,28 +39,40 @@ Players takeFromReserves(
     StoneType const type
 )
 {
-    assert( playerId >= 0 && "Invalid PlayerId" );
+    assert(
+        playerId >= 0
+        && "Invalid PlayerId"
+    );
 
     switch ( type )
     {
         case STONE_TYPE_FLAT:
         case STONE_TYPE_WALL:
         {
-            assert( players.regularReserves[playerId] > 0 && "No reserves left" );
+            assert(
+                players.regularReserves[playerId] > 0
+                && "No reserves left"
+            );
             --players.regularReserves[playerId];
             break;
         }
 
         case STONE_TYPE_CAP:
         {
-            assert( players.capstoneReserves[playerId] > 0 && "No reserves left" );
+            assert(
+                players.capstoneReserves[playerId] > 0
+                && "No reserves left"
+            );
             --players.capstoneReserves[playerId];
             break;
         }
 
         default:
         {
-            assert( 0 && "StoneType is required" );
+            assert(
+                0
+                && "StoneType is required"
+            );
             break;
         }
     }
