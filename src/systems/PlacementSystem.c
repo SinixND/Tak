@@ -23,8 +23,12 @@ Game placeStoneOnBoard(
 
     //* Can it be placed?
     assert(
+        game.board.stacks[stackIdx].height == 0
+        && "Can only place on empty tile"
+    );
+
+    assert(
         game.board.types[stackIdx] == STONE_TYPE_NONE
-        && game.board.stacks[stackIdx].height == 0
         && "Can only place on empty tile"
     );
 

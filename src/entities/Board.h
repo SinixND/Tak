@@ -16,7 +16,7 @@
  */
 typedef struct
 {
-    /// Heights of stacks
+    /// Stacks on board
     Stack stacks[STACKS_MAX];
     /// Types of stacks / top stones
     StoneType types[STACKS_MAX];

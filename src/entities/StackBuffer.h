@@ -12,7 +12,7 @@
  */
 typedef struct
 {
-    /// The actual stack
+    /// The stack being moved
     Stack stack;
     /// Type of stack / top stone
     StoneType type;

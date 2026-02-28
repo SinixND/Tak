@@ -41,6 +41,7 @@ enum
     BOARD_WIDTH_MIN = 3,
 
     /// Maximal board width/height
+    /// equals max moved stack height
     BOARD_WIDTH_MAX = 8,
 
     /// Default board width/height
@@ -50,7 +51,7 @@ enum
      * Maximum stacks possible in game
      * May be adjusted to improve alignment for cache
      */
-    STACKS_MAX = 65,
+    STACKS_MAX = 64,
 
     /**
      * Maximum stones possible in game: 104

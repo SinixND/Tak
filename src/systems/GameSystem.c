@@ -29,7 +29,7 @@ Game run( Game game )
 {
     game = placeStoneOnBoard(
         game,
-        1,
+        PLAYER_WHITE,
         0,
         0,
         STONE_TYPE_FLAT
