@@ -1,6 +1,8 @@
 #ifndef IG20251203140133
 #define IG20251203140133
 
+#include "BoardWidthId.h"
+
 /**
  * @brief Constant data for a match, depend on settings
  *
@@ -9,7 +11,7 @@
 typedef struct
 {
     /// Board width
-    int boardWidth;
+    BoardWidthId boardWidthId;
     /// Reserves per player
     int baseRegularReserves;
     int baseCapstoneReserves;

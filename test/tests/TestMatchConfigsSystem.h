@@ -1,16 +1,17 @@
 #ifndef IG20260104183517
 #define IG20260104183517
 
+#include "BoardWidthId.h"
 #include "MatchConfigsSystem.h"
 #include <unity.h>
 
 void testGetMatchConfigs( void )
 {
     //* EXECUTE
-    MatchConfigs configs = getMatchConfigs( 3 );
+    MatchConfigs configs = getMatchConfigs( BWD_3 );
 
     //* VERIFY
-    TEST_ASSERT_EQUAL_INT( 3, configs.boardWidth );
+    TEST_ASSERT_EQUAL_INT( BWD_3, configs.boardWidthId );
     TEST_ASSERT_EQUAL_INT( 10, configs.baseRegularReserves );
     TEST_ASSERT_EQUAL_INT( 0, configs.baseCapstoneReserves );
     TEST_ASSERT_EQUAL_INT( 20, configs.stonesTotal );
@@ -19,7 +20,7 @@ void testGetMatchConfigs( void )
     configs = getMatchConfigs( 4 );
 
     //* VERIFY
-    TEST_ASSERT_EQUAL_INT( 4, configs.boardWidth );
+    TEST_ASSERT_EQUAL_INT( BWD_4, configs.boardWidthId );
     TEST_ASSERT_EQUAL_INT( 15, configs.baseRegularReserves );
     TEST_ASSERT_EQUAL_INT( 0, configs.baseCapstoneReserves );
     TEST_ASSERT_EQUAL_INT( 30, configs.stonesTotal );
@@ -29,7 +30,7 @@ void testGetMatchConfigs( void )
     configs = getMatchConfigs( 5 );
 
     //* VERIFY
-    TEST_ASSERT_EQUAL_INT( 5, configs.boardWidth );
+    TEST_ASSERT_EQUAL_INT( BWD_5, configs.boardWidthId );
     TEST_ASSERT_EQUAL_INT( 21, configs.baseRegularReserves );
     TEST_ASSERT_EQUAL_INT( 1, configs.baseCapstoneReserves );
     TEST_ASSERT_EQUAL_INT( 44, configs.stonesTotal );
@@ -39,7 +40,7 @@ void testGetMatchConfigs( void )
     configs = getMatchConfigs( 6 );
 
     //* VERIFY
-    TEST_ASSERT_EQUAL_INT( 6, configs.boardWidth );
+    TEST_ASSERT_EQUAL_INT( BWD_6, configs.boardWidthId );
     TEST_ASSERT_EQUAL_INT( 30, configs.baseRegularReserves );
     TEST_ASSERT_EQUAL_INT( 1, configs.baseCapstoneReserves );
     TEST_ASSERT_EQUAL_INT( 62, configs.stonesTotal );
@@ -49,7 +50,7 @@ void testGetMatchConfigs( void )
     configs = getMatchConfigs( 7 );
 
     //* VERIFY
-    TEST_ASSERT_EQUAL_INT( 7, configs.boardWidth );
+    TEST_ASSERT_EQUAL_INT( BWD_7, configs.boardWidthId );
     TEST_ASSERT_EQUAL_INT( 40, configs.baseRegularReserves );
     TEST_ASSERT_EQUAL_INT( 2, configs.baseCapstoneReserves );
     TEST_ASSERT_EQUAL_INT( 84, configs.stonesTotal );
@@ -59,7 +60,7 @@ void testGetMatchConfigs( void )
     configs = getMatchConfigs( 8 );
 
     //* VERIFY
-    TEST_ASSERT_EQUAL_INT( 8, configs.boardWidth );
+    TEST_ASSERT_EQUAL_INT( BWD_8, configs.boardWidthId );
     TEST_ASSERT_EQUAL_INT( 50, configs.baseRegularReserves );
     TEST_ASSERT_EQUAL_INT( 2, configs.baseCapstoneReserves );
     TEST_ASSERT_EQUAL_INT( 104, configs.stonesTotal );

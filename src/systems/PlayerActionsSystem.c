@@ -1,24 +1,26 @@
 #include "PlayerActionsSystem.h"
 
 #include "BoardSystem.h"
+#include "ColumnId.h"
 #include "PlayerId.h"
 #include "PlayersSystem.h"
 #include "PositionSystem.h"
+#include "RowId.h"
 #include "StoneType.h"
 #include <assert.h>
 
 Game playStone(
     Game game,
     PlayerId const playerId,
-    int const positionX,
-    int const positionY,
+    ColumnId const column,
+    RowId const row,
     StoneType const stoneType
 )
 {
     int const stackIdx = positionToBoardIndex(
-        positionX,
-        positionY,
-        game.matchConfigs.boardWidth
+        column,
+        row,
+        game.matchConfigs.boardWidthId
     );
 
     //* Rule: Can only place on empty tiles
@@ -51,8 +53,8 @@ Game playStone(
 Game undoPlayStone(
     Game game,
     PlayerId const playerId,
-    int const positionX,
-    int const positionY,
+    ColumnId const column,
+    RowId const row,
     StoneType const stoneType,
     StoneType const captiveType
 )
@@ -62,20 +64,10 @@ Game undoPlayStone(
         && "Invalid playerId"
     );
 
-    assert(
-        positionX >= 0
-        && "Invalid positionX"
-    );
-
-    assert(
-        positionX <= ( game.matchConfigs.boardWidth - 1 )
-        && "Invalid positionX"
-    );
-
     int const stackIdx = positionToBoardIndex(
-        positionX,
-        positionY,
-        game.matchConfigs.boardWidth
+        column,
+        row,
+        game.matchConfigs.boardWidthId
     );
 
     //* Can it be removed?

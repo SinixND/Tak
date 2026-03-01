@@ -1,5 +1,6 @@
 #include "Game.h"
 
+#include "BoardWidthId.h"
 #include "GameSystem.h"
 #include "PlayerActionsSystem.h"
 #include "PlayerId.h"
@@ -9,7 +10,7 @@
 void testPlayStone( void )
 {
     //* SETUP
-    Game game = newGame( 0 );
+    Game game = newGame( BWD_NONE );
 
     //*EXECUTE
     game = playStone(
@@ -63,7 +64,7 @@ void testPlayStone( void )
 void testUndoPlayStone( void )
 {
     //* SETUP
-    Game game = newGame( 0 );
+    Game game = newGame( BWD_NONE );
 
     //*EXECUTE
     game = playStone(

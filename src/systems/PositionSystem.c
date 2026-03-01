@@ -1,36 +1,19 @@
 #include "PositionSystem.h"
+
+#include "ColumnId.h"
+#include "RowId.h"
 #include <assert.h>
 
 int positionToBoardIndex(
-    int const x,
-    int const y,
-    int const boardWidth
+    ColumnId const column,
+    RowId const row,
+    BoardWidthId const boardWidthId
 )
 {
     assert(
-        ( x >= 0 )
-        && "Invalid position"
+        ( boardWidthId > 0 )
+        && "Invalid boardWidthId"
     );
 
-    assert(
-        ( y >= 0 )
-        && "Invalid position"
-    );
-
-    assert(
-        ( x < boardWidth )
-        && "Invalid position"
-    );
-
-    assert(
-        ( y < boardWidth )
-        && "Invalid position"
-    );
-
-    assert(
-        ( boardWidth > 0 )
-        && "Invalid boardWidth"
-    );
-
-    return ( y * boardWidth ) + x;
+    return ( row * boardWidthId ) + column;
 }

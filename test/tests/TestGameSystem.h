@@ -8,16 +8,16 @@
 void testNewGame( void )
 {
     //* EXECUTE
-    Game game0 = newGame( 0 );
+    Game game0 = newGame( BWD_NONE );
 
     //* VERIFY
-    TEST_ASSERT_EQUAL_INT( 5, game0.matchConfigs.boardWidth );
+    TEST_ASSERT_EQUAL_INT( BWD_5, game0.matchConfigs.boardWidthId );
 
     //* EXECUTE
-    Game game3 = newGame( 3 );
+    Game game3 = newGame( BWD_3 );
 
     //* VERIFY
-    TEST_ASSERT_EQUAL_INT( 3, game3.matchConfigs.boardWidth );
+    TEST_ASSERT_EQUAL_INT( BWD_3, game3.matchConfigs.boardWidthId );
 }
 
 #endif

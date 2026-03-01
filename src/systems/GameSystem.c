@@ -8,18 +8,18 @@
 #include "StackBufferSystem.h"
 #include "StoneType.h"
 
-Game newGame( int boardWidth )
+Game newGame( BoardWidthId boardWidthId )
 {
-    if ( !boardWidth )
+    if ( !boardWidthId )
     {
-        boardWidth = BOARD_WIDTH_DEFAULT;
+        boardWidthId = BOARD_WIDTH_DEFAULT;
     }
 
     Game game = {
         .board = newBoard(),
         .stackBuffer = newStackBuffer(),
-        .players = newPlayers( boardWidth ),
-        .matchConfigs = getMatchConfigs( boardWidth ),
+        .players = newPlayers( boardWidthId ),
+        .matchConfigs = getMatchConfigs( boardWidthId ),
     };
 
     return game;
