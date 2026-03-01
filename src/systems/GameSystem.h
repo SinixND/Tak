@@ -3,13 +3,31 @@
 
 #include "Game.h"
 
-/**
- * @brief: Provide boardWidth 0 for default value
- *
- * Return new Game SoA
- */
-Game newGame( int boardWidth );
+/// Provide boardWidth 0 for default value
+Game newGame( BoardWidthId boardWidthId );
 
 Game run( Game game );
+
+Game playStone(
+    Game game,
+    PlayerId const playerId,
+    FileId const file,
+    RankId const rank,
+    StoneType const stoneType
+);
+
+Game undoPlayStone(
+    Game game,
+    PlayerId const playerId,
+    FileId const file,
+    RankId const rank,
+    StoneType const stoneType,
+    StoneType const captiveType
+);
+
+// Game undoAction(
+//     Game game,
+//     PlayerAction const action
+// );
 
 #endif

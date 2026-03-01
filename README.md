@@ -46,7 +46,7 @@ Dependencies that are or are planned to be used:
 
 
 ### How to play
-/
+
 <p align="right">(<a href="#readme-top">top</a>)</p>
 
 

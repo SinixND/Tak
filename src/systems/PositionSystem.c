@@ -1,36 +1,19 @@
 #include "PositionSystem.h"
+
+#include "FileId.h"
+#include "RankId.h"
 #include <assert.h>
 
 int positionToBoardIndex(
-    int const x,
-    int const y,
-    int const boardWidth
+    FileId const file,
+    RankId const rank,
+    BoardWidthId const boardWidthId
 )
 {
     assert(
-        ( x >= 0 )
-        && "Invalid position"
+        ( boardWidthId > 0 )
+        && "Invalid boardWidthId"
     );
 
-    assert(
-        ( y >= 0 )
-        && "Invalid position"
-    );
-
-    assert(
-        ( x < boardWidth )
-        && "Invalid position"
-    );
-
-    assert(
-        ( y < boardWidth )
-        && "Invalid position"
-    );
-
-    assert(
-        ( boardWidth > 0 )
-        && "Invalid boardWidth"
-    );
-
-    return ( y * boardWidth ) + x;
+    return ( rank * boardWidthId ) + file;
 }

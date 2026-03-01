@@ -2,6 +2,7 @@
 #define IG20251123234852
 
 #include "GameConstants.h"
+#include <stdint.h>
 
 /**
  * @brief Player stats
@@ -9,10 +10,10 @@
 typedef struct
 {
     /// Stones in play
-    int stonesInPlay[PLAYER_COUNT];
+    uint8_t stonesInPlay[PLAYER_COUNT];
     /// Current reserves available
-    int regularReserves[PLAYER_COUNT];
-    int capstoneReserves[PLAYER_COUNT];
+    uint8_t regularReserves[PLAYER_COUNT];
+    uint8_t capstoneReserves[PLAYER_COUNT];
 } Players;
 
 #endif

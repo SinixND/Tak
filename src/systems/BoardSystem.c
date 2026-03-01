@@ -3,6 +3,7 @@
 #include "Board.h"
 #include "GameConstants.h"
 #include "PlayerId.h"
+#include "StackSystem.h"
 #include "StoneType.h"
 #include <assert.h>
 
@@ -15,40 +16,58 @@ Board newBoard( void )
 
     for ( int stackIdx = 0; stackIdx < STACKS_MAX; ++stackIdx )
     {
-        for ( int stoneIdx = 0; stoneIdx < STONES_MAX; ++stoneIdx )
-        {
-            board.stacks[stackIdx].affiliations[stoneIdx] = PLAYER_NONE;
-        }
+        board.stacks[stackIdx] = newStack();
     }
 
     return board;
 }
 
-Board putStoneOnStack(
+Board addStoneToBoard(
     Board board,
     int const stackIdx,
     PlayerId const playerId,
-    StoneType const type
+    StoneType const stoneType
 )
 {
-    assert( ( playerId == PLAYER_WHITE || playerId == PLAYER_BLACK ) && "PlayerId invalid" );
-
-    //* Stack needs to be empty
     assert(
-        board.stacks[stackIdx].height == 0
-        && "Can only place on empty tile"
+        ( playerId == PLAYER_WHITE || playerId == PLAYER_BLACK )
+        && "Invalid playerId"
     );
 
-    Stack* const stack = &board.stacks[stackIdx];
+    assert(
+        stoneType != STONE_TYPE_NONE
+        && "Invalid stoneType"
+    );
 
-    //* Add affiliation
-    stack->affiliations[stack->height] = playerId;
+    board.types[stackIdx] = stoneType;
 
-    //* Set played stone type
-    board.types[stackIdx] = type;
+    board.stacks[stackIdx] = addStoneToStack(
+        board.stacks[stackIdx],
+        playerId
+    );
 
-    //* Increase stack height
-    ++stack->height;
+    return board;
+}
+
+Board undoAddStoneToBoard(
+    Board board,
+    int const stackIdx,
+    StoneType const captiveType
+)
+{
+    assert(
+        stackIdx > -1
+        && "Invalid stackIdx"
+    );
+
+    assert(
+        captiveType != STONE_TYPE_CAP
+        && "Capstone cannot be captive"
+    );
+
+    board.stacks[stackIdx] = undoAddStoneToStack( board.stacks[stackIdx] );
+
+    board.types[stackIdx] = captiveType;
 
     return board;
 }

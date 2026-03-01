@@ -2,7 +2,7 @@
 #include "TestGameConstantsSystem.h"
 #include "TestGameSystem.h"
 #include "TestMatchConfigsSystem.h"
-#include "TestPlacementSystem.h"
+#include "TestPlayerActionSystem.h"
 #include "TestPlayersSystem.h"
 #include "TestPositionSystem.h"
 #include "TestStackBufferSystem.h"
@@ -27,12 +27,14 @@ int main( void )
     //* Test MatchConfigsSystem
     RUN_TEST( testGetMatchConfigs );
 
-    //* Test PlacementSystem
-    RUN_TEST( testPlaceStoneOnBoard );
+    //* Test PlayerActionSystem
+    RUN_TEST( testNewPlayerActionPlace );
+    // RUN_TEST( testNewPlayerActionMove );
 
     //* Test PlayersSystem
     RUN_TEST( testNewPlayers );
     RUN_TEST( testTakeFromReserves );
+    RUN_TEST( testUndoTakeFromReserves );
 
     //* Test PositionSystem
     RUN_TEST( testPositionToBoardIndex );
@@ -40,6 +42,7 @@ int main( void )
     //* Test BoardSystem
     RUN_TEST( testNewBoard );
     RUN_TEST( testPutStoneOnStack );
+    RUN_TEST( testUndoPutStoneOnStack );
 
     //* Test StackBufferSystem
     RUN_TEST( testNewStackBuffer );
