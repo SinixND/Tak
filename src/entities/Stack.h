@@ -3,6 +3,7 @@
 
 #include "GameConstants.h"
 #include "PlayerId.h"
+#include <stdint.h>
 
 /**
  * @brief A stack is a pile of stones
@@ -15,7 +16,7 @@ typedef struct
     /// Stone affiliations
     PlayerId affiliations[STONES_MAX];
     /// Count of active stack stones (= valid affiliations)
-    int count;
+    uint8_t count : 7;
 } Stack;
 
 #endif
