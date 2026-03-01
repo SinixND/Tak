@@ -3,7 +3,7 @@
 #include "BoardSystem.h"
 #include "GameConstants.h"
 #include "MatchConfigsSystem.h"
-#include "PlacementSystem.h"
+#include "PlayerActionsSystem.h"
 #include "PlayersSystem.h"
 #include "StackBufferSystem.h"
 #include "StoneType.h"
@@ -27,7 +27,7 @@ Game newGame( int boardWidth )
 
 Game run( Game game )
 {
-    game = placeStoneOnBoard(
+    game = playStone(
         game,
         PLAYER_WHITE,
         0,

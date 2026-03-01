@@ -11,4 +11,12 @@ Game playStone(
     StoneType const stoneType
 );
 
+Game undoPlayStone(
+    Game game,
+    PlayerId const playerId,
+    int const positionX,
+    int const positionY,
+    StoneType const stoneType
+);
+
 #endif

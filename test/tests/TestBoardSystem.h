@@ -27,7 +27,7 @@ void testPutStoneOnStack( void )
     Board board = newBoard();
 
     //* EXECUTE
-    board = putStoneOnStack(
+    board = addStoneToBoard(
         board,
         0,
         PLAYER_BLACK,
@@ -40,7 +40,7 @@ void testPutStoneOnStack( void )
     TEST_ASSERT_EQUAL_INT( PLAYER_BLACK, board.stacks[0].affiliations[0] );
 
     //* EXECUTE
-    board = putStoneOnStack(
+    board = addStoneToBoard(
         board,
         1,
         PLAYER_BLACK,
@@ -53,7 +53,7 @@ void testPutStoneOnStack( void )
     TEST_ASSERT_EQUAL_INT( PLAYER_BLACK, board.stacks[1].affiliations[0] );
 
     //* EXECUTE
-    board = putStoneOnStack(
+    board = addStoneToBoard(
         board,
         3,
         PLAYER_WHITE,
