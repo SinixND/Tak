@@ -6,7 +6,7 @@
 
 Stack newStack( void )
 {
-    Stack stack = { .height = 0 };
+    Stack stack = { .count = 0 };
 
     for ( int idx = 0; idx < STONES_MAX; ++idx )
     {
@@ -27,10 +27,10 @@ Stack addStoneToStack(
     );
 
     //* Add affiliation
-    stack.affiliations[stack.height] = playerId;
+    stack.affiliations[stack.count] = playerId;
 
-    //* Increase stack height
-    ++stack.height;
+    //* Increase stack count
+    ++stack.count;
 
     return stack;
 }
@@ -38,15 +38,15 @@ Stack addStoneToStack(
 Stack undoAddStoneToStack( Stack stack )
 {
     assert(
-        stack.height > 0
-        && "Can only undo from stack with height > 0"
+        stack.count > 0
+        && "Can only undo from stack with count > 0"
     );
 
-    //* Decrease stack height
-    --stack.height;
+    //* Decrease stack count
+    --stack.count;
 
     //* Remove affiliation
-    stack.affiliations[stack.height] = PLAYER_NONE;
+    stack.affiliations[stack.count] = PLAYER_NONE;
 
     return stack;
 }

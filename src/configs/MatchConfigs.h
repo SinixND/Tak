@@ -17,8 +17,8 @@ typedef struct
     int baseCapstoneReserves;
     /// Total stones available
     int stonesTotal;
-    /// Board tile count
-    int boardTiles;
+    /// Board square count
+    int boardSquares;
 } MatchConfigs;
 
 #endif

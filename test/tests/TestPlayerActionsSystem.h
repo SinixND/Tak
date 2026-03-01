@@ -23,7 +23,7 @@ void testPlayStone( void )
 
     //* VERIFY
     TEST_ASSERT_EQUAL_INT( 20, game.players.regularReserves[PLAYER_WHITE] );
-    TEST_ASSERT_EQUAL_INT( 1, game.board.stacks[0].height );
+    TEST_ASSERT_EQUAL_INT( 1, game.board.stacks[0].count );
     TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, game.board.stacks[0].affiliations[0] );
     TEST_ASSERT_EQUAL_INT( PLAYER_NONE, game.board.stacks[0].affiliations[1] );
     TEST_ASSERT_EQUAL_INT( STONE_TYPE_FLAT, game.board.types[0] );
@@ -34,15 +34,15 @@ void testPlayStone( void )
         PLAYER_BLACK,
         1,
         0,
-        STONE_TYPE_WALL
+        STONE_TYPE_STANDING
     );
 
     //* VERIFY
     TEST_ASSERT_EQUAL_INT( 20, game.players.regularReserves[PLAYER_BLACK] );
-    TEST_ASSERT_EQUAL_INT( 1, game.board.stacks[1].height );
+    TEST_ASSERT_EQUAL_INT( 1, game.board.stacks[1].count );
     TEST_ASSERT_EQUAL_INT( PLAYER_BLACK, game.board.stacks[1].affiliations[0] );
     TEST_ASSERT_EQUAL_INT( PLAYER_NONE, game.board.stacks[0].affiliations[1] );
-    TEST_ASSERT_EQUAL_INT( STONE_TYPE_WALL, game.board.types[1] );
+    TEST_ASSERT_EQUAL_INT( STONE_TYPE_STANDING, game.board.types[1] );
 
     //*EXECUTE
     game = playStone(
@@ -55,7 +55,7 @@ void testPlayStone( void )
 
     //* VERIFY
     TEST_ASSERT_EQUAL_INT( 0, game.players.capstoneReserves[PLAYER_WHITE] );
-    TEST_ASSERT_EQUAL_INT( 1, game.board.stacks[3].height );
+    TEST_ASSERT_EQUAL_INT( 1, game.board.stacks[3].count );
     TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, game.board.stacks[3].affiliations[0] );
     TEST_ASSERT_EQUAL_INT( PLAYER_NONE, game.board.stacks[3].affiliations[1] );
     TEST_ASSERT_EQUAL_INT( STONE_TYPE_CAP, game.board.types[3] );
@@ -86,7 +86,7 @@ void testUndoPlayStone( void )
 
     //* VERIFY
     TEST_ASSERT_EQUAL_INT( 21, game.players.regularReserves[PLAYER_WHITE] );
-    TEST_ASSERT_EQUAL_INT( 0, game.board.stacks[0].height );
+    TEST_ASSERT_EQUAL_INT( 0, game.board.stacks[0].count );
     TEST_ASSERT_EQUAL_INT( PLAYER_NONE, game.board.stacks[0].affiliations[0] );
     TEST_ASSERT_EQUAL_INT( STONE_TYPE_NONE, game.board.types[0] );
 }

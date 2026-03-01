@@ -21,7 +21,7 @@ MatchConfigs getMatchConfigs( BoardWidthId const boardWidthId )
         .baseRegularReserves = RESERVES_BASE_REGULAR[boardWidthId - BOARD_WIDTH_MIN],
         .baseCapstoneReserves = RESERVES_BASE_CAPSTONE[boardWidthId - BOARD_WIDTH_MIN],
         .stonesTotal = 2 * getBaseRegularStoneReserves( boardWidthId ) + 2 * getBaseCapstoneReserves( boardWidthId ),
-        .boardTiles = boardWidthId * boardWidthId,
+        .boardSquares = boardWidthId * boardWidthId,
     };
 
     return configs;

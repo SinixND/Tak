@@ -1,8 +1,8 @@
 #ifndef IG20260301185150
 #define IG20260301185150
 
-#include "ColumnId.h"
-#include "RowId.h"
+#include "FileId.h"
+#include "RankId.h"
 #include "StoneType.h"
 
 /**
@@ -15,9 +15,8 @@
 typedef struct
 {
     StoneType stackType;
-    ColumnId column;
-    RowId row;
-
+    FileId file; // Column
+    RankId rank; // Row
 } PortableTakNotion;
 
 #endif

@@ -48,7 +48,7 @@ Players takeFromReserves(
     switch ( type )
     {
         case STONE_TYPE_FLAT:
-        case STONE_TYPE_WALL:
+        case STONE_TYPE_STANDING:
         {
             assert(
                 players.regularReserves[playerId] > 0
@@ -99,7 +99,7 @@ Players undoTakeFromReserves(
     switch ( type )
     {
         case STONE_TYPE_FLAT:
-        case STONE_TYPE_WALL:
+        case STONE_TYPE_STANDING:
         {
             ++players.regularReserves[playerId];
 

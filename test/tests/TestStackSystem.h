@@ -13,7 +13,7 @@ void testNewStack( void )
     Stack stack = newStack();
 
     //* VERIFY
-    TEST_ASSERT_EQUAL_INT( 0, stack.height );
+    TEST_ASSERT_EQUAL_INT( 0, stack.count );
     TEST_ASSERT_EQUAL_INT( PLAYER_NONE, stack.affiliations[0] );
     TEST_ASSERT_EQUAL_INT( PLAYER_NONE, stack.affiliations[STONES_MAX - 1] );
 }

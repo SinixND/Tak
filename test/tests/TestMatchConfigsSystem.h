@@ -15,7 +15,7 @@ void testGetMatchConfigs( void )
     TEST_ASSERT_EQUAL_INT( 10, configs.baseRegularReserves );
     TEST_ASSERT_EQUAL_INT( 0, configs.baseCapstoneReserves );
     TEST_ASSERT_EQUAL_INT( 20, configs.stonesTotal );
-    TEST_ASSERT_EQUAL_INT( 9, configs.boardTiles );
+    TEST_ASSERT_EQUAL_INT( 9, configs.boardSquares );
     //* EXECUTE
     configs = getMatchConfigs( 4 );
 
@@ -24,7 +24,7 @@ void testGetMatchConfigs( void )
     TEST_ASSERT_EQUAL_INT( 15, configs.baseRegularReserves );
     TEST_ASSERT_EQUAL_INT( 0, configs.baseCapstoneReserves );
     TEST_ASSERT_EQUAL_INT( 30, configs.stonesTotal );
-    TEST_ASSERT_EQUAL_INT( 16, configs.boardTiles );
+    TEST_ASSERT_EQUAL_INT( 16, configs.boardSquares );
 
     //* EXECUTE
     configs = getMatchConfigs( 5 );
@@ -34,7 +34,7 @@ void testGetMatchConfigs( void )
     TEST_ASSERT_EQUAL_INT( 21, configs.baseRegularReserves );
     TEST_ASSERT_EQUAL_INT( 1, configs.baseCapstoneReserves );
     TEST_ASSERT_EQUAL_INT( 44, configs.stonesTotal );
-    TEST_ASSERT_EQUAL_INT( 25, configs.boardTiles );
+    TEST_ASSERT_EQUAL_INT( 25, configs.boardSquares );
 
     //* EXECUTE
     configs = getMatchConfigs( 6 );
@@ -44,7 +44,7 @@ void testGetMatchConfigs( void )
     TEST_ASSERT_EQUAL_INT( 30, configs.baseRegularReserves );
     TEST_ASSERT_EQUAL_INT( 1, configs.baseCapstoneReserves );
     TEST_ASSERT_EQUAL_INT( 62, configs.stonesTotal );
-    TEST_ASSERT_EQUAL_INT( 36, configs.boardTiles );
+    TEST_ASSERT_EQUAL_INT( 36, configs.boardSquares );
 
     //* EXECUTE
     configs = getMatchConfigs( 7 );
@@ -54,7 +54,7 @@ void testGetMatchConfigs( void )
     TEST_ASSERT_EQUAL_INT( 40, configs.baseRegularReserves );
     TEST_ASSERT_EQUAL_INT( 2, configs.baseCapstoneReserves );
     TEST_ASSERT_EQUAL_INT( 84, configs.stonesTotal );
-    TEST_ASSERT_EQUAL_INT( 49, configs.boardTiles );
+    TEST_ASSERT_EQUAL_INT( 49, configs.boardSquares );
 
     //* EXECUTE
     configs = getMatchConfigs( 8 );
@@ -64,7 +64,7 @@ void testGetMatchConfigs( void )
     TEST_ASSERT_EQUAL_INT( 50, configs.baseRegularReserves );
     TEST_ASSERT_EQUAL_INT( 2, configs.baseCapstoneReserves );
     TEST_ASSERT_EQUAL_INT( 104, configs.stonesTotal );
-    TEST_ASSERT_EQUAL_INT( 64, configs.boardTiles );
+    TEST_ASSERT_EQUAL_INT( 64, configs.boardSquares );
 }
 
 #endif

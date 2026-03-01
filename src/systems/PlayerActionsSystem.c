@@ -1,19 +1,19 @@
 #include "PlayerActionsSystem.h"
 
 #include "BoardSystem.h"
-#include "ColumnId.h"
+#include "FileId.h"
 #include "PlayerId.h"
 #include "PlayersSystem.h"
 #include "PositionSystem.h"
-#include "RowId.h"
+#include "RankId.h"
 #include "StoneType.h"
 #include <assert.h>
 
 Game playStone(
     Game game,
     PlayerId const playerId,
-    ColumnId const column,
-    RowId const row,
+    FileId const column,
+    RankId const row,
     StoneType const stoneType
 )
 {
@@ -23,15 +23,15 @@ Game playStone(
         game.matchConfigs.boardWidthId
     );
 
-    //* Rule: Can only place on empty tiles
+    //* Rule: Can only place on empty squares
     assert(
-        game.board.stacks[stackIdx].height == 0
-        && "Can only place on empty tile"
+        game.board.stacks[stackIdx].count == 0
+        && "Can only place on empty square"
     );
 
     assert(
         game.board.types[stackIdx] == STONE_TYPE_NONE
-        && "Can only place on empty tile"
+        && "Can only place on empty square"
     );
 
     game.players = takeFromReserves(
@@ -53,8 +53,8 @@ Game playStone(
 Game undoPlayStone(
     Game game,
     PlayerId const playerId,
-    ColumnId const column,
-    RowId const row,
+    FileId const column,
+    RankId const row,
     StoneType const stoneType,
     StoneType const captiveType
 )
@@ -72,8 +72,8 @@ Game undoPlayStone(
 
     //* Can it be removed?
     assert(
-        game.board.stacks[stackIdx].height > 0
-        && "Can only undo from stack with height > 0"
+        game.board.stacks[stackIdx].count > 0
+        && "Can only undo from stack with count > 0"
     );
 
     assert(

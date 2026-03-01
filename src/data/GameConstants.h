@@ -43,7 +43,7 @@ enum
     BOARD_WIDTH_MIN = BWD_3,
 
     /// Maximal board width/height
-    /// equals max moved stack height
+    /// equals max moved stone count
     BOARD_WIDTH_MAX = BWD_8,
 
     /// Default board width/height

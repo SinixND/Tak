@@ -8,14 +8,14 @@
  * @brief A stack is a pile of stones
  *
  * The affiliation of a stack is determined by the its top stone
- * In terms of code a single stone is a stack of height 1
+ * In terms of code a single stone is a stack of count 1
  */
 typedef struct
 {
     /// Stone affiliations
     PlayerId affiliations[STONES_MAX];
-    /// Height of active stack stones (= valid affiliations)
-    int height;
+    /// Count of active stack stones (= valid affiliations)
+    int count;
 } Stack;
 
 #endif

@@ -1,12 +1,12 @@
 #include "PositionSystem.h"
 
-#include "ColumnId.h"
-#include "RowId.h"
+#include "FileId.h"
+#include "RankId.h"
 #include <assert.h>
 
 int positionToBoardIndex(
-    ColumnId const column,
-    RowId const row,
+    FileId const column,
+    RankId const row,
     BoardWidthId const boardWidthId
 )
 {
