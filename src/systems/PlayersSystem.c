@@ -66,16 +66,16 @@ Players takeFromReserves(
                 players.capstoneReserves[playerId] > 0
                 && "No reserves left"
             );
+
             --players.capstoneReserves[playerId];
+
             break;
         }
 
         default:
         {
-            assert(
-                0
-                && "StoneType is required"
-            );
+            assert( !"StoneType is required" );
+
             break;
         }
     }

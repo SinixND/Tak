@@ -3,11 +3,7 @@
 
 #include "Game.h"
 
-/**
- * @brief: Provide boardWidth 0 for default value
- *
- * Return new Game SoA
- */
+/// Provide boardWidth 0 for default value
 Game newGame( int boardWidth );
 
 Game run( Game game );
