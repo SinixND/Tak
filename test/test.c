@@ -29,10 +29,12 @@ int main( void )
 
     //* Test PlayerActionsSystem
     RUN_TEST( testPlayStone );
+    RUN_TEST( testUndoPlayStone );
 
     //* Test PlayersSystem
     RUN_TEST( testNewPlayers );
     RUN_TEST( testTakeFromReserves );
+    RUN_TEST( testUndoTakeFromReserves );
 
     //* Test PositionSystem
     RUN_TEST( testPositionToBoardIndex );
@@ -40,6 +42,7 @@ int main( void )
     //* Test BoardSystem
     RUN_TEST( testNewBoard );
     RUN_TEST( testPutStoneOnStack );
+    RUN_TEST( testUndoPutStoneOnStack );
 
     //* Test StackBufferSystem
     RUN_TEST( testNewStackBuffer );

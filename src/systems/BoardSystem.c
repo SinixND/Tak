@@ -48,3 +48,26 @@ Board addStoneToBoard(
 
     return board;
 }
+
+Board undoAddStoneToBoard(
+    Board board,
+    int const stackIdx,
+    StoneType const captiveType
+)
+{
+    assert(
+        stackIdx > -1
+        && "Invalid stackIdx"
+    );
+
+    assert(
+        captiveType != STONE_TYPE_CAP
+        && "Capstone cannot be captive"
+    );
+
+    board.stacks[stackIdx] = undoAddStoneToStack( board.stacks[stackIdx] );
+
+    board.types[stackIdx] = captiveType;
+
+    return board;
+}

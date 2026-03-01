@@ -84,3 +84,44 @@ Players takeFromReserves(
 
     return players;
 }
+
+Players undoTakeFromReserves(
+    Players players,
+    PlayerId const playerId,
+    StoneType const type
+)
+{
+    assert(
+        ( playerId == PLAYER_WHITE || playerId == PLAYER_BLACK )
+        && "Invalid playerId"
+    );
+
+    switch ( type )
+    {
+        case STONE_TYPE_FLAT:
+        case STONE_TYPE_WALL:
+        {
+            ++players.regularReserves[playerId];
+
+            break;
+        }
+
+        case STONE_TYPE_CAP:
+        {
+            ++players.capstoneReserves[playerId];
+
+            break;
+        }
+
+        default:
+        {
+            assert( !"StoneType is required" );
+
+            break;
+        }
+    }
+
+    --players.stonesInPlay[playerId];
+
+    return players;
+}

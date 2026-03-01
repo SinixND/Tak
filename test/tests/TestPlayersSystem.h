@@ -48,4 +48,42 @@ void testTakeFromReserves( void )
     TEST_ASSERT_EQUAL_INT( 0, players.capstoneReserves[PLAYER_BLACK] );
 }
 
+void testUndoTakeFromReserves( void )
+{
+    //* SETUP
+    Players players = newPlayers( 5 );
+
+    //* Execute
+    players = takeFromReserves(
+        players,
+        PLAYER_WHITE,
+        STONE_TYPE_FLAT
+    );
+
+    players = undoTakeFromReserves(
+        players,
+        PLAYER_WHITE,
+        STONE_TYPE_FLAT
+    );
+
+    //* VERIFY
+    TEST_ASSERT_EQUAL_INT( 21, players.regularReserves[PLAYER_WHITE] );
+
+    //* Execute
+    players = takeFromReserves(
+        players,
+        PLAYER_BLACK,
+        STONE_TYPE_CAP
+    );
+
+    players = undoTakeFromReserves(
+        players,
+        PLAYER_BLACK,
+        STONE_TYPE_CAP
+    );
+
+    //* VERIFY
+    TEST_ASSERT_EQUAL_INT( 1, players.capstoneReserves[PLAYER_BLACK] );
+}
+
 #endif

@@ -34,3 +34,19 @@ Stack addStoneToStack(
 
     return stack;
 }
+
+Stack undoAddStoneToStack( Stack stack )
+{
+    assert(
+        stack.height > 0
+        && "Can only undo from stack with height > 0"
+    );
+
+    //* Decrease stack height
+    --stack.height;
+
+    //* Remove affiliation
+    stack.affiliations[stack.height] = PLAYER_NONE;
+
+    return stack;
+}

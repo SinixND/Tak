@@ -35,6 +35,15 @@ Game run( Game game )
         STONE_TYPE_FLAT
     );
 
+    game = undoPlayStone(
+        game,
+        PLAYER_WHITE,
+        0,
+        0,
+        STONE_TYPE_FLAT,
+        STONE_TYPE_NONE
+    );
+
     return game;
 }
 

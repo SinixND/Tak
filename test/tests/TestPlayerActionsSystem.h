@@ -59,3 +59,33 @@ void testPlayStone( void )
     TEST_ASSERT_EQUAL_INT( PLAYER_NONE, game.board.stacks[3].affiliations[1] );
     TEST_ASSERT_EQUAL_INT( STONE_TYPE_CAP, game.board.types[3] );
 }
+
+void testUndoPlayStone( void )
+{
+    //* SETUP
+    Game game = newGame( 0 );
+
+    //*EXECUTE
+    game = playStone(
+        game,
+        PLAYER_WHITE,
+        0,
+        0,
+        STONE_TYPE_FLAT
+    );
+
+    game = undoPlayStone(
+        game,
+        PLAYER_WHITE,
+        0,
+        0,
+        STONE_TYPE_FLAT,
+        STONE_TYPE_NONE
+    );
+
+    //* VERIFY
+    TEST_ASSERT_EQUAL_INT( 21, game.players.regularReserves[PLAYER_WHITE] );
+    TEST_ASSERT_EQUAL_INT( 0, game.board.stacks[0].height );
+    TEST_ASSERT_EQUAL_INT( PLAYER_NONE, game.board.stacks[0].affiliations[0] );
+    TEST_ASSERT_EQUAL_INT( STONE_TYPE_NONE, game.board.types[0] );
+}

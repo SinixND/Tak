@@ -13,4 +13,10 @@ Players takeFromReserves(
     StoneType const type
 );
 
+Players undoTakeFromReserves(
+    Players players,
+    PlayerId const playerId,
+    StoneType const type
+);
+
 #endif

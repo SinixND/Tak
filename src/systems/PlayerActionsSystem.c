@@ -53,7 +53,8 @@ Game undoPlayStone(
     PlayerId const playerId,
     int const positionX,
     int const positionY,
-    StoneType const stoneType
+    StoneType const stoneType,
+    StoneType const captiveType
 )
 {
     assert(
@@ -90,7 +91,8 @@ Game undoPlayStone(
 
     game.board = undoAddStoneToBoard(
         game.board,
-        stackIdx
+        stackIdx,
+        captiveType
     );
 
     game.players = undoTakeFromReserves(

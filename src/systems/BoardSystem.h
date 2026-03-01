@@ -13,6 +13,11 @@ Board addStoneToBoard(
     PlayerId const playerId,
     StoneType const stoneType
 );
+
+Board undoAddStoneToBoard(
+    Board board,
+    int const stackIdx,
+    StoneType const captiveType
 );
 
 #endif

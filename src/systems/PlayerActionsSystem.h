@@ -16,7 +16,8 @@ Game undoPlayStone(
     PlayerId const playerId,
     int const positionX,
     int const positionY,
-    StoneType const stoneType
+    StoneType const stoneType,
+    StoneType const captiveType
 );
 
 #endif
