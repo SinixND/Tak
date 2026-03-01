@@ -4,21 +4,19 @@
 #include "PlayerTurn.h"
 
 PlayerAction newPlayerActionPlace(
-    int count,
-    StoneType stackType,
-    FileId file,
-    RankId rank,
-    DirectionId direction,
-    int drops[BOARD_WIDTH_MAX]
+    StoneType const stoneType,
+    FileId const file,
+    RankId const rank
 );
 
-PlayerAction newPlayerActionMove(
-    int count,
-    StoneType stackType,
-    FileId file,
-    RankId rank,
-    DirectionId direction,
-    int drops[BOARD_WIDTH_MAX]
-);
+// PlayerAction newPlayerActionMove(
+//     int const count,
+//     StoneType const stoneType,
+//     FileId const file,
+//     RankId const rank,
+//     DirectionId const direction,
+//     int const flattened,
+//     int const* const drops
+// );
 
 #endif

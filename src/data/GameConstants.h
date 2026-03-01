@@ -60,6 +60,9 @@ enum
      * May be adjusted to improve alignment for cache
      */
     STONES_MAX = 104,
+
+    /// Undo/Redo history size
+    HISTORY_SIZE = 100,
 };
 
 #endif

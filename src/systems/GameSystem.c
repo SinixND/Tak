@@ -1,12 +1,18 @@
 #include "GameSystem.h"
 
 #include "BoardSystem.h"
+#include "DirectionId.h"
+#include "FileId.h"
 #include "GameConstants.h"
 #include "MatchConfigsSystem.h"
-#include "PlayerActionsSystem.h"
+#include "PlayerActionSystem.h"
+#include "PlayerTurn.h"
 #include "PlayersSystem.h"
+#include "PositionSystem.h"
+#include "RankId.h"
 #include "StackBufferSystem.h"
 #include "StoneType.h"
+#include <assert.h>
 
 Game newGame( BoardWidthId boardWidthId )
 {
@@ -44,20 +50,30 @@ Game run( Game game )
         STONE_TYPE_NONE
     );
 
+    // game.undoStack[0] = newPlayerActionMove(
+    //     1,
+    //     STONE_TYPE_FLAT,
+    //     FILE_A,
+    //     RANK_1,
+    //     DIR_RIGHT,
+    //     1,
+    //     (int[8]){ 1, 0, 0, 0, 0, 0, 0, 0 }
+    // );
+
     return game;
 }
 
 Game playStone(
     Game game,
     PlayerId const playerId,
-    FileId const column,
-    RankId const row,
+    FileId const file,
+    RankId const rank,
     StoneType const stoneType
 )
 {
     int const stackIdx = positionToBoardIndex(
-        column,
-        row,
+        file,
+        rank,
         game.matchConfigs.boardWidthId
     );
 
@@ -85,14 +101,22 @@ Game playStone(
         stoneType
     );
 
+    game.undoStack[game.undoStackSize] = newPlayerActionPlace(
+        stoneType,
+        file,
+        rank
+    );
+
+    ++game.undoStackSize;
+
     return game;
 }
 
 Game undoPlayStone(
     Game game,
     PlayerId const playerId,
-    FileId const column,
-    RankId const row,
+    FileId const file,
+    RankId const rank,
     StoneType const stoneType,
     StoneType const captiveType
 )
@@ -103,8 +127,8 @@ Game undoPlayStone(
     );
 
     int const stackIdx = positionToBoardIndex(
-        column,
-        row,
+        file,
+        rank,
         game.matchConfigs.boardWidthId
     );
 
@@ -133,4 +157,23 @@ Game undoPlayStone(
 
     return game;
 }
+
+// Game undoAction(
+//     Game game,
+//     PlayerAction const action
+// )
+// {
+//     // //* !Count == placement
+//     // if ( game.undoStack[game.undoStackSize - 1].count )
+//     // {
+//     //     //* TODO: undoMove
+//     // }
+//     // else
+//     // {
+//     //     undoPlayStone(
+//     //         game,
+//     //
+//     //     )
+//     // }
+// }
 

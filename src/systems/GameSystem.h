@@ -11,18 +11,23 @@ Game run( Game game );
 Game playStone(
     Game game,
     PlayerId const playerId,
-    FileId const column,
-    RankId const row,
+    FileId const file,
+    RankId const rank,
     StoneType const stoneType
 );
 
 Game undoPlayStone(
     Game game,
     PlayerId const playerId,
-    FileId const column,
-    RankId const row,
+    FileId const file,
+    RankId const rank,
     StoneType const stoneType,
     StoneType const captiveType
 );
+
+// Game undoAction(
+//     Game game,
+//     PlayerAction const action
+// );
 
 #endif

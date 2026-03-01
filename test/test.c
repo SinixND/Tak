@@ -2,7 +2,7 @@
 #include "TestGameConstantsSystem.h"
 #include "TestGameSystem.h"
 #include "TestMatchConfigsSystem.h"
-#include "TestPlayerActionsSystem.h"
+#include "TestPlayerActionSystem.h"
 #include "TestPlayersSystem.h"
 #include "TestPositionSystem.h"
 #include "TestStackBufferSystem.h"
@@ -27,9 +27,9 @@ int main( void )
     //* Test MatchConfigsSystem
     RUN_TEST( testGetMatchConfigs );
 
-    //* Test PlayerActionsSystem
-    RUN_TEST( testPlayStone );
-    RUN_TEST( testUndoPlayStone );
+    //* Test PlayerActionSystem
+    RUN_TEST( testNewPlayerActionPlace );
+    // RUN_TEST( testNewPlayerActionMove );
 
     //* Test PlayersSystem
     RUN_TEST( testNewPlayers );

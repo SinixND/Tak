@@ -5,8 +5,8 @@
 #include <assert.h>
 
 int positionToBoardIndex(
-    FileId const column,
-    RankId const row,
+    FileId const file,
+    RankId const rank,
     BoardWidthId const boardWidthId
 )
 {
@@ -15,5 +15,5 @@ int positionToBoardIndex(
         && "Invalid boardWidthId"
     );
 
-    return ( row * boardWidthId ) + column;
+    return ( rank * boardWidthId ) + file;
 }

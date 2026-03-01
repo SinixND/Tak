@@ -6,8 +6,8 @@
 #include "RankId.h"
 
 int positionToBoardIndex(
-    FileId const column,
-    RankId const row,
+    FileId const file,
+    RankId const rank,
     BoardWidthId const boardWidthId
 );
 
