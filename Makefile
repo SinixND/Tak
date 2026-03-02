@@ -55,7 +55,7 @@ CPPFLAGS_CORE := -MMD -MP
 LDFLAGS_CORE  :=
 
 # Build-specific flags
-CFLAGS_debug     := -g -O0 -Wall -Wextra -Wshadow -Werror # -fsanitize=address,undefined
+CFLAGS_debug     := -g -O0 -Wall -Wextra -Wshadow # -fsanitize=address,undefined
 CPPFLAGS_debug   := -DDEBUG
 LDFLAGS_debug    := # -fsanitize=address,undefined
 CPPCHECK_debug   := --error-exitcode=0
@@ -71,7 +71,7 @@ LDFLAGS_release  :=
 
 # Targets
 .PHONY: all
-all: compiledb debug test cppcheck run
+all: compiledb fatal test cppcheck run
 
 # To test all targets
 .PHONY: checkhealth
