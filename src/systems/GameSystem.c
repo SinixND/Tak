@@ -22,9 +22,13 @@ Game newGame( int boardWidth )
 
     Game game = {
         .board = newBoard(),
+        .undoStack = (PlayerAction[HISTORY_SIZE]),
+        .redoStack = (PlayerAction[HISTORY_SIZE]),
         .stackBuffer = newStackBuffer(),
         .players = newPlayers( boardWidth ),
         .matchConfigs = getMatchConfigs( boardWidth ),
+        .undoStackSize = HISTORY_SIZE,
+        .redoStackSize = HISTORY_SIZE,
     };
 
     return game;
