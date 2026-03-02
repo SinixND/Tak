@@ -41,8 +41,8 @@ int main( void )
 
     //* Test BoardSystem
     RUN_TEST( testNewBoard );
-    RUN_TEST( testPutStoneOnStack );
-    RUN_TEST( testTakeStoneFromStack );
+    RUN_TEST( testAddStoneToBoard );
+    RUN_TEST( testRemoveStoneFromBoard );
 
     //* Test StackBufferSystem
     RUN_TEST( testNewStackBuffer );

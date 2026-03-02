@@ -21,7 +21,7 @@ void testNewBoard( void )
     TEST_ASSERT_EQUAL_INT( PLAYER_NONE, board.stacks[25].affiliations[43] );
 }
 
-void testPutStoneOnStack( void )
+void testAddStoneToBoard( void )
 {
     //* SETUP
     Board board = newBoard();
@@ -66,7 +66,7 @@ void testPutStoneOnStack( void )
     TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, board.stacks[3].affiliations[0] );
 }
 
-void testTakeStoneFromStack( void )
+void testRemoveStoneFromBoard( void )
 {
     //* SETUP
     Board board = newBoard();

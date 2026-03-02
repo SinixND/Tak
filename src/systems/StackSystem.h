@@ -6,11 +6,11 @@
 /// Return new Stack object
 Stack newStack( void );
 
-Stack addStoneToTop(
+Stack putOnTop(
     Stack stack,
     PlayerId const playerId
 );
 
-Stack takeStoneFromStack( Stack stack );
+Stack takeFromTop( Stack stack );
 
 #endif

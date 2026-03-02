@@ -1,16 +1,15 @@
 #include "GameSystem.h"
 
 #include "BoardSystem.h"
-#include "DirectionId.h"
 #include "FileId.h"
 #include "GameConstants.h"
 #include "MatchConfigsSystem.h"
 #include "PlayerActionSystem.h"
-#include "PlayerTurn.h"
 #include "PlayersSystem.h"
 #include "PositionSystem.h"
 #include "RankId.h"
 #include "StackBufferSystem.h"
+#include "StackSystem.h"
 #include "StoneType.h"
 #include <assert.h>
 
@@ -154,6 +153,42 @@ Game undoPlayStone(
         playerId,
         stoneType
     );
+
+    return game;
+}
+
+Game pickUpStack(
+    Game game,
+    PlayerId const playerId,
+    FileId const file,
+    RankId const rank
+)
+{
+    int const boardWidth = game.matchConfigs.boardWidth;
+    int const stackIdx = positionToBoardIndex(
+        file,
+        rank,
+        boardWidth
+    );
+
+    Stack* stack = &game.board.stacks[stackIdx];
+
+    assert(
+        stack->affiliations[stack->count - 1] == playerId
+        && "Player can only move controlled stacks"
+    );
+
+    game.stackBuffer.type = game.board.types[stackIdx];
+
+    for ( int stoneIdx = 0; stoneIdx < boardWidth && stoneIdx < BOARD_WIDTH_MAX; ++stoneIdx )
+    {
+        game.stackBuffer = appendToBottom(
+            game.stackBuffer,
+            stack->affiliations[stack->count - ( 1 + stoneIdx )]
+        );
+
+        *stack = takeFromTop( *stack );
+    }
 
     return game;
 }

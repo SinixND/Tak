@@ -16,7 +16,7 @@ Stack newStack( void )
     return stack;
 }
 
-Stack addStoneToTop(
+Stack putOnTop(
     Stack stack,
     PlayerId const playerId
 )
@@ -35,7 +35,7 @@ Stack addStoneToTop(
     return stack;
 }
 
-Stack takeStoneFromStack( Stack stack )
+Stack takeFromTop( Stack stack )
 {
     assert(
         stack.count > 0

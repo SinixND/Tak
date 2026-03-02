@@ -5,4 +5,11 @@
 
 StackBuffer newStackBuffer( void );
 
+StackBuffer appendToBottom(
+    StackBuffer buffer,
+    PlayerId const playerId
+);
+
+StackBuffer dropFromBottom( StackBuffer buffer );
+
 #endif

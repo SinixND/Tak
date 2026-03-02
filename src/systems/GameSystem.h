@@ -25,6 +25,13 @@ Game undoPlayStone(
     StoneType const captiveType
 );
 
+Game pickUpStack(
+    Game game,
+    PlayerId const playerId,
+    FileId const file,
+    RankId const rank
+);
+
 // Game undoAction(
 //     Game game,
 //     PlayerAction const action

@@ -41,7 +41,7 @@ Board addStoneToBoard(
 
     board.types[stackIdx] = stoneType;
 
-    board.stacks[stackIdx] = addStoneToTop(
+    board.stacks[stackIdx] = putOnTop(
         board.stacks[stackIdx],
         playerId
     );
@@ -65,7 +65,7 @@ Board removeStoneFromBoard(
         && "Capstone cannot be captive"
     );
 
-    board.stacks[stackIdx] = takeStoneFromStack( board.stacks[stackIdx] );
+    board.stacks[stackIdx] = takeFromTop( board.stacks[stackIdx] );
 
     board.types[stackIdx] = captiveType;
 
