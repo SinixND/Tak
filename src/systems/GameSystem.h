@@ -4,7 +4,7 @@
 #include "Game.h"
 
 /// Provide boardWidth 0 for default value
-Game newGame( BoardWidthId boardWidthId );
+Game newGame( int boardWidth );
 
 Game run( Game game );
 

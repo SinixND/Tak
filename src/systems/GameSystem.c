@@ -14,18 +14,18 @@
 #include "StoneType.h"
 #include <assert.h>
 
-Game newGame( BoardWidthId boardWidthId )
+Game newGame( int boardWidth )
 {
-    if ( !boardWidthId )
+    if ( !boardWidth )
     {
-        boardWidthId = BOARD_WIDTH_DEFAULT;
+        boardWidth = BOARD_WIDTH_DEFAULT;
     }
 
     Game game = {
         .board = newBoard(),
         .stackBuffer = newStackBuffer(),
-        .players = newPlayers( boardWidthId ),
-        .matchConfigs = getMatchConfigs( boardWidthId ),
+        .players = newPlayers( boardWidth ),
+        .matchConfigs = getMatchConfigs( boardWidth ),
     };
 
     return game;
@@ -74,7 +74,7 @@ Game playStone(
     int const stackIdx = positionToBoardIndex(
         file,
         rank,
-        game.matchConfigs.boardWidthId
+        game.matchConfigs.boardWidth
     );
 
     //* Rule: Can only place on empty squares
@@ -129,7 +129,7 @@ Game undoPlayStone(
     int const stackIdx = positionToBoardIndex(
         file,
         rank,
-        game.matchConfigs.boardWidthId
+        game.matchConfigs.boardWidth
     );
 
     //* Can it be removed?

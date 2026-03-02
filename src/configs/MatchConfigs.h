@@ -1,7 +1,6 @@
 #ifndef IG20251203140133
 #define IG20251203140133
 
-#include "BoardWidthId.h"
 #include <stdint.h>
 
 /**
@@ -12,7 +11,7 @@
 typedef struct
 {
     /// Board width
-    BoardWidthId boardWidthId;
+    uint8_t boardWidth;
     /// Total stones available
     uint8_t stonesTotal : 7;
     /// Board square count

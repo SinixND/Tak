@@ -8,22 +8,22 @@
 void testNewGame( void )
 {
     //* EXECUTE
-    Game game0 = newGame( BWD_NONE );
+    Game game0 = newGame( 0 );
 
     //* VERIFY
-    TEST_ASSERT_EQUAL_INT( BWD_5, game0.matchConfigs.boardWidthId );
+    TEST_ASSERT_EQUAL_INT( 5, game0.matchConfigs.boardWidth );
 
     //* EXECUTE
-    Game game3 = newGame( BWD_3 );
+    Game game3 = newGame( 3 );
 
     //* VERIFY
-    TEST_ASSERT_EQUAL_INT( BWD_3, game3.matchConfigs.boardWidthId );
+    TEST_ASSERT_EQUAL_INT( 3, game3.matchConfigs.boardWidth );
 }
 
 void testPlayStone( void )
 {
     //* SETUP
-    Game game = newGame( BWD_NONE );
+    Game game = newGame( 0 );
 
     //*EXECUTE
     game = playStone(
@@ -77,7 +77,7 @@ void testPlayStone( void )
 void testUndoPlayStone( void )
 {
     //* SETUP
-    Game game = newGame( BWD_NONE );
+    Game game = newGame( 0 );
 
     //*EXECUTE
     game = playStone(

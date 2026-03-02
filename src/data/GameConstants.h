@@ -1,8 +1,6 @@
 #ifndef IG20251126113110
 #define IG20251126113110
 
-#include "BoardWidthId.h"
-
 /**
  * @brief Size of initial player reserves
  * Regular stones, by board size
@@ -40,14 +38,14 @@ enum
     PLAYER_COUNT = 2,
 
     /// Minimal board width/height
-    BOARD_WIDTH_MIN = BWD_3,
+    BOARD_WIDTH_MIN = 3,
 
     /// Maximal board width/height
     /// equals max moved stone count
-    BOARD_WIDTH_MAX = BWD_8,
+    BOARD_WIDTH_MAX = 8,
 
     /// Default board width/height
-    BOARD_WIDTH_DEFAULT = BWD_5,
+    BOARD_WIDTH_DEFAULT = 5,
 
     /**
      * Maximum stacks possible in game

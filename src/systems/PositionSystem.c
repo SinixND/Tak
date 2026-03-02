@@ -7,13 +7,13 @@
 int positionToBoardIndex(
     FileId const file,
     RankId const rank,
-    BoardWidthId const boardWidthId
+    int const boardWidth
 )
 {
     assert(
-        ( boardWidthId > 0 )
-        && "Invalid boardWidthId"
+        ( boardWidth > 0 )
+        && "Invalid boardWidth"
     );
 
-    return ( rank * boardWidthId ) + file;
+    return ( rank * boardWidth ) + file;
 }

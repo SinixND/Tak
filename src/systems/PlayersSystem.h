@@ -1,12 +1,11 @@
 #ifndef IG20251221041510
 #define IG20251221041510
 
-#include "BoardWidthId.h"
 #include "PlayerId.h"
 #include "Players.h"
 #include "StoneType.h"
 
-Players newPlayers( BoardWidthId const boardWidthId );
+Players newPlayers( int const boardWidth );
 
 Players takeFromReserves(
     Players players,

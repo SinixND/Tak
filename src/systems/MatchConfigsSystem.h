@@ -4,6 +4,6 @@
 #include "MatchConfigs.h"
 
 /// Valid boardWidths: 3 to 8
-MatchConfigs getMatchConfigs( BoardWidthId const boardWidthId );
+MatchConfigs getMatchConfigs( int const boardWidth );
 
 #endif

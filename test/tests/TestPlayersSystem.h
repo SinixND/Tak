@@ -1,7 +1,6 @@
 #ifndef IG20260104182445
 #define IG20260104182445
 
-#include "BoardWidthId.h"
 #include "PlayerId.h"
 #include "Players.h"
 #include "PlayersSystem.h"
@@ -10,7 +9,7 @@
 void testNewPlayers( void )
 {
     //* EXECUTE
-    Players players = newPlayers( BWD_3 );
+    Players players = newPlayers( 3 );
 
     //* VERIFY
     TEST_ASSERT_EQUAL_INT( 0, players.stonesInPlay[PLAYER_WHITE] );
@@ -24,7 +23,7 @@ void testNewPlayers( void )
 void testTakeFromReserves( void )
 {
     //* SETUP
-    Players players = newPlayers( BWD_5 );
+    Players players = newPlayers( 5 );
 
     //* Execute
     players = takeFromReserves(
@@ -52,7 +51,7 @@ void testTakeFromReserves( void )
 void testAddToReserves( void )
 {
     //* SETUP
-    Players players = newPlayers( BWD_5 );
+    Players players = newPlayers( 5 );
 
     //* Execute
     players = takeFromReserves(

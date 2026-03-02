@@ -2,13 +2,13 @@
 
 #include "GameConstants.h"
 
-int getBaseRegularStoneReserves( BoardWidthId const boardWidthId )
+int getBaseRegularStoneReserves( int const boardWidth )
 {
-    return RESERVES_BASE_REGULAR[boardWidthId - BOARD_WIDTH_MIN];
+    return RESERVES_BASE_REGULAR[boardWidth - BOARD_WIDTH_MIN];
 }
 
-int getBaseCapstoneReserves( BoardWidthId const boardWidthId )
+int getBaseCapstoneReserves( int const boardWidth )
 {
-    return RESERVES_BASE_CAPSTONE[boardWidthId - BOARD_WIDTH_MIN];
+    return RESERVES_BASE_CAPSTONE[boardWidth - BOARD_WIDTH_MIN];
 }
 
