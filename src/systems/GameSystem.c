@@ -143,13 +143,13 @@ Game undoPlayStone(
         && "Can only undo from stack with type != NONE"
     );
 
-    game.board = undoAddStoneToBoard(
+    game.board = removeStoneFromBoard(
         game.board,
         stackIdx,
         captiveType
     );
 
-    game.players = undoTakeFromReserves(
+    game.players = AddToReserves(
         game.players,
         playerId,
         stoneType

@@ -35,7 +35,7 @@ Stack addStoneToStack(
     return stack;
 }
 
-Stack undoAddStoneToStack( Stack stack )
+Stack takeStoneFromStack( Stack stack )
 {
     assert(
         stack.count > 0

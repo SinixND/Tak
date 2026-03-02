@@ -85,7 +85,7 @@ Players takeFromReserves(
     return players;
 }
 
-Players undoTakeFromReserves(
+Players AddToReserves(
     Players players,
     PlayerId const playerId,
     StoneType const type

@@ -49,7 +49,7 @@ Board addStoneToBoard(
     return board;
 }
 
-Board undoAddStoneToBoard(
+Board removeStoneFromBoard(
     Board board,
     int const stackIdx,
     StoneType const captiveType
@@ -65,7 +65,7 @@ Board undoAddStoneToBoard(
         && "Capstone cannot be captive"
     );
 
-    board.stacks[stackIdx] = undoAddStoneToStack( board.stacks[stackIdx] );
+    board.stacks[stackIdx] = takeStoneFromStack( board.stacks[stackIdx] );
 
     board.types[stackIdx] = captiveType;
 

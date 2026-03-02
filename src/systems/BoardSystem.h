@@ -14,7 +14,7 @@ Board addStoneToBoard(
     StoneType const stoneType
 );
 
-Board undoAddStoneToBoard(
+Board removeStoneFromBoard(
     Board board,
     int const stackIdx,
     StoneType const captiveType

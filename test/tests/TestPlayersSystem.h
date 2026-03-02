@@ -49,7 +49,7 @@ void testTakeFromReserves( void )
     TEST_ASSERT_EQUAL_INT( 0, players.capstoneReserves[PLAYER_BLACK] );
 }
 
-void testUndoTakeFromReserves( void )
+void testAddToReserves( void )
 {
     //* SETUP
     Players players = newPlayers( BWD_5 );
@@ -61,7 +61,7 @@ void testUndoTakeFromReserves( void )
         STONE_TYPE_FLAT
     );
 
-    players = undoTakeFromReserves(
+    players = AddToReserves(
         players,
         PLAYER_WHITE,
         STONE_TYPE_FLAT
@@ -77,7 +77,7 @@ void testUndoTakeFromReserves( void )
         STONE_TYPE_CAP
     );
 
-    players = undoTakeFromReserves(
+    players = AddToReserves(
         players,
         PLAYER_BLACK,
         STONE_TYPE_CAP

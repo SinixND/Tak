@@ -11,6 +11,6 @@ Stack addStoneToStack(
     PlayerId const playerId
 );
 
-Stack undoAddStoneToStack( Stack stack );
+Stack takeStoneFromStack( Stack stack );
 
 #endif

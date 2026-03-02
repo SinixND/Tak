@@ -66,7 +66,7 @@ void testPutStoneOnStack( void )
     TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, board.stacks[3].affiliations[0] );
 }
 
-void testUndoPutStoneOnStack( void )
+void testTakeStoneFromStack( void )
 {
     //* SETUP
     Board board = newBoard();
@@ -79,7 +79,7 @@ void testUndoPutStoneOnStack( void )
         STONE_TYPE_FLAT
     );
 
-    board = undoAddStoneToBoard(
+    board = removeStoneFromBoard(
         board,
         0,
         STONE_TYPE_NONE
@@ -106,7 +106,7 @@ void testUndoPutStoneOnStack( void )
         STONE_TYPE_CAP
     );
 
-    board = undoAddStoneToBoard(
+    board = removeStoneFromBoard(
         board,
         0,
         STONE_TYPE_STANDING
