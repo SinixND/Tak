@@ -41,7 +41,7 @@ Board addStoneToBoard(
 
     board.types[stackIdx] = stoneType;
 
-    board.stacks[stackIdx] = addStoneToStack(
+    board.stacks[stackIdx] = addStoneToTop(
         board.stacks[stackIdx],
         playerId
     );

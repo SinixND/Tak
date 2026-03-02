@@ -16,7 +16,7 @@ Stack newStack( void )
     return stack;
 }
 
-Stack addStoneToStack(
+Stack addStoneToTop(
     Stack stack,
     PlayerId const playerId
 )

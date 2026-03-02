@@ -6,7 +6,7 @@
 /// Return new Stack object
 Stack newStack( void );
 
-Stack addStoneToStack(
+Stack addStoneToTop(
     Stack stack,
     PlayerId const playerId
 );
