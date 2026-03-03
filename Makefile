@@ -30,8 +30,8 @@ MAKEFLAGS := --no-print-directory
 TARGET ?= unix
 # Binary mode ( app | test )
 MODE   ?= app
-# Build config ( debug | release )
-BUILD  ?= debug
+# Build config ( fatal | debug | release )
+BUILD  ?= fatal
 
 # Compiler & toolchain
 CC := clang
@@ -71,7 +71,7 @@ LDFLAGS_release  :=
 
 # Targets
 .PHONY: all
-all: compiledb fatal test cppcheck run
+all: compiledb build test cppcheck run
 
 # To test all targets
 .PHONY: checkhealth
@@ -118,7 +118,7 @@ INC_test := $(shell find $(SRC_DIR) -type d) \
 # Targets
 .PHONY: build-test
 build-test:
-	@$(MAKE) BUILD=debug MODE=test build
+	@$(MAKE) MODE=test build
 
 .PHONY: run-test
 run-test:

@@ -1,4 +1,4 @@
-<!-- PROJECT LOGO -->
+
 <div align="center">
 <!-- <img src="assets/favicon.ico" alt="Logo" width="80" height="80"> -->
 <h1> Tak </h1>
@@ -64,7 +64,7 @@ Dependencies that are or are planned to be used:
 - Rebase merge: No. Prefer verbosity of merge commit
 
 #### Coding guideline
-(based on NASA's [`The Power of 10`](https:/spinroot.com/gerard/pdf/P10.pdf)
+(based on NASA's [`The Power of 10`](https:/spinroot.com/gerard/pdf/P10.pdf))
 1. No recursion
 1. No dynamic memory allocation after app initialization
 1. No function longer than ~60 lines
@@ -129,5 +129,14 @@ Utilize the following concepts:
 ## Acknowledgements
 - [Artful Bytes' Youtube series](https://www.youtube.com/watch?v=HXd7g3RlCIs&list=PLS_iNJJVTtiRV0DZRDcTHnvAuDrKGPN40&index=6) about his Embedded System Project of building a sumobot
 - [The Modern Rogue - Tak](https://youtube.com/watch?v=Te0Wm_GCCAQ) Beautiful video explanation of the game
+
+<p align="right">(<a href="#readme-top">top</a>)</p>
+
+
+## ToDo notes
+- [ ] Pick up stack
+    - [ ] Clear/Set buffer
+    - [ ] Push to buffer
+    - [ ] Pop from stack
 
 <p align="right">(<a href="#readme-top">top</a>)</p>

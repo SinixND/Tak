@@ -48,13 +48,13 @@ enum
     BOARD_WIDTH_DEFAULT = 5,
 
     /**
-     * Maximum stacks possible in game
+     * Maximum stacks possible in game (= squares)
      * May be adjusted to improve alignment for cache
      */
     STACKS_MAX = 64,
 
     /**
-     * Maximum stones possible in game: 104
+     * Maximum stones possible in game: 104 (= both reserves)
      * May be adjusted to improve alignment for cache
      */
     STONES_MAX = 104,

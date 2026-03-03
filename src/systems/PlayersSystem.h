@@ -13,10 +13,4 @@ Players takeFromReserves(
     StoneType const type
 );
 
-Players AddToReserves(
-    Players players,
-    PlayerId const playerId,
-    StoneType const type
-);
-
 #endif

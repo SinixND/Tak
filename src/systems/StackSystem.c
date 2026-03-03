@@ -10,13 +10,13 @@ Stack newStack( void )
 
     for ( int idx = 0; idx < STONES_MAX; ++idx )
     {
-        stack.affiliations[idx] = PLAYER_NONE;
+        stack.stoneIds[idx] = PLAYER_NONE;
     }
 
     return stack;
 }
 
-Stack putOnTop(
+Stack pushOntoStack(
     Stack stack,
     PlayerId const playerId
 )
@@ -26,27 +26,11 @@ Stack putOnTop(
         && "Invalid playerId"
     );
 
-    //* Add affiliation
-    stack.affiliations[stack.count] = playerId;
+    //* Add playerId
+    stack.stoneIds[stack.count] = playerId;
 
     //* Increase stack count
     ++stack.count;
-
-    return stack;
-}
-
-Stack takeFromTop( Stack stack )
-{
-    assert(
-        stack.count > 0
-        && "Can only undo from stack with count > 0"
-    );
-
-    //* Decrease stack count
-    --stack.count;
-
-    //* Remove affiliation
-    stack.affiliations[stack.count] = PLAYER_NONE;
 
     return stack;
 }

@@ -4,7 +4,7 @@
 #include "RankId.h"
 #include <assert.h>
 
-int positionToBoardIndex(
+int positionToStackIndex(
     FileId const file,
     RankId const rank,
     int const boardWidth

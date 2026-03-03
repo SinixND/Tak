@@ -7,17 +7,11 @@
 
 Board newBoard( void );
 
-Board addStoneToBoard(
+Board placeStoneOnBoard(
     Board board,
     int const stackIdx,
     PlayerId const playerId,
     StoneType const stoneType
-);
-
-Board removeStoneFromBoard(
-    Board board,
-    int const stackIdx,
-    StoneType const captiveType
 );
 
 #endif

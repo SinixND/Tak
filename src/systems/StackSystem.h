@@ -6,11 +6,9 @@
 /// Return new Stack object
 Stack newStack( void );
 
-Stack putOnTop(
+Stack pushOntoStack(
     Stack stack,
     PlayerId const playerId
 );
-
-Stack takeFromTop( Stack stack );
 
 #endif

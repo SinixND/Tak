@@ -8,11 +8,11 @@
 /**
  * @brief A board consists of stacks of stones
  *
- * The affiliation of a stack is determined by the its top stone
+ * The playerId of a stack is determined by the its top stone
  * Only the top stone of a stack can have a type other than `FLAT`
  * In terms of code a single stone is a stack of count 1
  * The board is represented by its stacks.
- * For board stacks Idx[0] is bottom
+ * For board stacks index 0 is bottom
  */
 typedef struct
 {

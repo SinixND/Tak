@@ -8,7 +8,7 @@
  * @brief: This is the stack being moved
  *
  * Only the top stone of a stack can have a type other than `FLAT`
- * For this stacks Idx[0] is top
+ * For this stack index 0 is top
  */
 typedef struct
 {

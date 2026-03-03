@@ -22,7 +22,7 @@ Board newBoard( void )
     return board;
 }
 
-Board addStoneToBoard(
+Board placeStoneOnBoard(
     Board board,
     int const stackIdx,
     PlayerId const playerId,
@@ -39,35 +39,14 @@ Board addStoneToBoard(
         && "Invalid stoneType"
     );
 
+    //* Set stack type
     board.types[stackIdx] = stoneType;
 
-    board.stacks[stackIdx] = putOnTop(
+    //* Place stone on top of stack
+    board.stacks[stackIdx] = pushOntoStack(
         board.stacks[stackIdx],
         playerId
     );
-
-    return board;
-}
-
-Board removeStoneFromBoard(
-    Board board,
-    int const stackIdx,
-    StoneType const captiveType
-)
-{
-    assert(
-        stackIdx > -1
-        && "Invalid stackIdx"
-    );
-
-    assert(
-        captiveType != STONE_TYPE_CAP
-        && "Capstone cannot be captive"
-    );
-
-    board.stacks[stackIdx] = takeFromTop( board.stacks[stackIdx] );
-
-    board.types[stackIdx] = captiveType;
 
     return board;
 }

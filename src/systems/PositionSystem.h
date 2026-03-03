@@ -4,7 +4,7 @@
 #include "FileId.h"
 #include "RankId.h"
 
-int positionToBoardIndex(
+int positionToStackIndex(
     FileId const file,
     RankId const rank,
     int const boardWidth
