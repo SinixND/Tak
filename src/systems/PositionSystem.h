@@ -4,10 +4,25 @@
 #include "FileId.h"
 #include "RankId.h"
 
-int positionToStackIndex(
-    FileId const file,
-    RankId const rank,
+/// Returns number of square/tile/stack [0, 1, 2, ...]
+int positionToSquare(
+    FileId const fileX,
+    RankId const rankY,
     int const boardWidth
+);
+
+/// Returns index of first stone of stack
+int positionToStackIndex(
+    FileId const fileX,
+    RankId const rankY,
+    int const boardWidth,
+    int const stackCapacity
+);
+
+/// Returns index of first stone of stack
+int squareToStackIndex(
+    int const squareIdx,
+    int const stackCapacity
 );
 
 #endif

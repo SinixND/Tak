@@ -4,9 +4,9 @@
 #include "RankId.h"
 #include <assert.h>
 
-int positionToStackIndex(
-    FileId const file,
-    RankId const rank,
+int positionToSquare(
+    FileId const fileX,
+    RankId const rankY,
     int const boardWidth
 )
 {
@@ -15,5 +15,38 @@ int positionToStackIndex(
         && "Invalid boardWidth"
     );
 
-    return ( rank * boardWidth ) + file;
+    return ( rankY * boardWidth ) + fileX;
+}
+
+int positionToStackIndex(
+    FileId const fileX,
+    RankId const rankY,
+    int const boardWidth,
+    int const stackCapacity
+)
+{
+    assert(
+        ( stackCapacity > 0 )
+        && "Invalid stone count"
+    );
+
+    return positionToSquare(
+               fileX,
+               rankY,
+               boardWidth
+           )
+           * stackCapacity;
+}
+
+int squareToStackIndex(
+    int const squareIdx,
+    int const stackCapacity
+)
+{
+    assert(
+        ( squareIdx >= 0 )
+        && "Invalid square value"
+    );
+
+    return squareIdx * stackCapacity;
 }
