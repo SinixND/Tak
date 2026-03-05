@@ -51,13 +51,13 @@ enum
      * Maximum stacks possible in game (= squares)
      * May be adjusted to improve alignment for cache
      */
-    STACKS_MAX = 64,
+    SQUARES_MAX = 64,
 
     /**
-     * Maximum stones possible in game: 104 (= both reserves)
+     * Maximum stones possible in game: 104 (= all regular stones + 1 capstone)
      * May be adjusted to improve alignment for cache
      */
-    STONES_MAX = 104,
+    STONES_MAX = 101,
 
     /// Undo/Redo history size
     HISTORY_SIZE = 100,
