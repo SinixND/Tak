@@ -15,6 +15,7 @@ MAKE_DIR := tools/make
 
 # File extentions
 SRC_EXT  := c
+HDR_EXT  := h
 OBJ_EXT  := o
 DEP_EXT  := d
 
@@ -210,7 +211,7 @@ fatal:
 format:
 	$(info )
 	$(info === Format code ===)
-	clang-format -i -- $(SRC_DIR)/**.* $(TEST_DIR)/**.*
+	clang-format -i `find $(SRC_DIR) $(TEST_DIR) -name '*.$(SRC_EXT)' -o -name '*.$(HDR_EXT)'`
 
 .PHONY: init
 init:

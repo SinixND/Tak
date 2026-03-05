@@ -134,9 +134,12 @@ Utilize the following concepts:
 
 
 ## ToDo notes
+- [ ] Make board true SoA? Stack needed? (Instead of 2D array make stoneIds[squares x stones]
+    - Move match configs to entity? Yes, meta-data
 - [ ] Pick up stack
-    - [ ] Clear/Set buffer
-    - [ ] Push to buffer
-    - [ ] Pop from stack
+    - [ ] Set buffer
+    - [ ] Pop from board.stack
+    - [ ] |: Push to buffer.stack
+    - [ ] Pop from board.stack :|
 
 <p align="right">(<a href="#readme-top">top</a>)</p>
