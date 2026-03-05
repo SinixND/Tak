@@ -4,6 +4,14 @@
 #include "RankId.h"
 #include <assert.h>
 
+/// Returns index of first stone of stack
+int positionToStackIndex(
+    FileId const fileX,
+    RankId const rankY,
+    int const boardWidth,
+    int const stackCapacity
+);
+
 int positionToSquare(
     FileId const fileX,
     RankId const rankY,

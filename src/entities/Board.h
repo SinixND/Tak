@@ -15,11 +15,14 @@
  */
 typedef struct
 {
-    /// StoneId is the players Id/color
+    /// StoneId is the players Id/color;
+    /// Takes stone/stack index
     PlayerId stoneIds[SQUARES_MAX * STONES_MAX];
-    /// Active stone counts per stack
+    /// Active stone counts per stack;
+    /// Takes square index
     uint8_t counts[SQUARES_MAX];
     /// Types of stacks / top stones
+    /// Takes square index
     StoneType types[SQUARES_MAX];
 
     /// Board squares per side (rank/row and file/column)
