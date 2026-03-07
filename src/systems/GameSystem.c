@@ -86,5 +86,11 @@ void demo( Game* const pGame )
         &pGame->board,
         0
     );
+
+    pushOntoBuffer(
+        &pGame->stackBuffer,
+        // pGame->board.stoneIds[1]
+        PLAYER_BLACK
+    );
 }
 

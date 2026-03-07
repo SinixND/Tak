@@ -38,6 +38,7 @@ int main( void )
     //* Test StackBufferSystem
     RUN_TEST( testNewStackBuffer );
     RUN_TEST( testResetStackBuffer );
+    RUN_TEST( testPushOntoBuffer );
 
     return UNITY_END();
 }

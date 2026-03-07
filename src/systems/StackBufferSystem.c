@@ -34,3 +34,19 @@ void resetStackBuffer(
     pBuffer->stoneIds[0] = playerId;
 }
 
+void pushOntoBuffer(
+    StackBuffer* const pBuffer,
+    PlayerId const playerId
+)
+{
+    assert(
+        ( playerId == PLAYER_WHITE || playerId == PLAYER_BLACK )
+        && "Invalid playerId"
+    );
+
+    //* Add playerId
+    pBuffer->stoneIds[pBuffer->count] = playerId;
+
+    //* Increase stack count
+    ++pBuffer->count;
+}

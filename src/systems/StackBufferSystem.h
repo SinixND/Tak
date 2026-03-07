@@ -11,4 +11,9 @@ void resetStackBuffer(
     StoneType const stoneType
 );
 
+void pushOntoBuffer(
+    StackBuffer* const pBuffer,
+    PlayerId const playerId
+);
+
 #endif
