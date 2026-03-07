@@ -2,17 +2,20 @@
 #define IG20251219004302
 
 #include "Board.h"
-#include "FileId.h"
 #include "PlayerId.h"
-#include "RankId.h"
 #include "StoneType.h"
 
 Board newBoard( int const boardWidth );
 
-Board placeStoneOnBoard(
-    Board board,
-    FileId const fileX,
-    RankId const rankY,
+void pushOntoStack(
+    Board* const pBoard,
+    int const squareIdx,
+    PlayerId const playerId
+);
+
+void placeStoneOnBoard(
+    Board* const pBoard,
+    int const squareIdx,
     PlayerId const playerId,
     StoneType const stoneType
 );

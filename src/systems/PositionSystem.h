@@ -12,14 +12,6 @@ int positionToSquare(
 );
 
 /// Returns index of first stone of stack
-// int positionToStackIndex(
-//     FileId const fileX,
-//     RankId const rankY,
-//     int const boardWidth,
-//     int const stackCapacity
-// );
-
-/// Returns index of first stone of stack
 int squareToStackIndex(
     int const squareIdx,
     int const stackCapacity

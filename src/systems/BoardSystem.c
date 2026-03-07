@@ -1,20 +1,11 @@
 #include "BoardSystem.h"
 
 #include "Board.h"
-#include "FileId.h"
 #include "GameConstantsSystem.h"
 #include "PlayerId.h"
 #include "PositionSystem.h"
-#include "RankId.h"
 #include "StoneType.h"
 #include <assert.h>
-#include <string.h>
-
-Board pushOntoStack(
-    Board board,
-    int const squareIdx,
-    PlayerId const playerId
-);
 
 Board newBoard( int const boardWidth )
 {
@@ -22,57 +13,22 @@ Board newBoard( int const boardWidth )
         .stoneIds = { 0 },
         .counts = { 0 },
         .types = { 0 },
-        .stackCapacity = 2 * getBaseRegularStoneReserves( boardWidth ) + 2 * getBaseCapstoneReserves( boardWidth ),
+        .stackCapacity = 2 * getBaseRegularStoneReserves( boardWidth ) + ( 0 != getBaseCapstoneReserves( boardWidth ) ),
         .width = boardWidth
     };
 
-    memset(
-        board.stoneIds,
-        PLAYER_NONE,
-        sizeof( board.stoneIds ) / sizeof( board.stoneIds[0] )
-    );
+    int const arraySize = boardWidth * boardWidth * board.stackCapacity;
+
+    for ( int idx = 0; idx < arraySize; ++idx )
+    {
+        board.stoneIds[idx] = PLAYER_NONE;
+    }
 
     return board;
 }
 
-Board placeStoneOnBoard(
-    Board board,
-    FileId const fileX,
-    RankId const rankY,
-    PlayerId const playerId,
-    StoneType const stoneType
-)
-{
-    assert(
-        ( playerId == PLAYER_WHITE || playerId == PLAYER_BLACK )
-        && "Invalid playerId"
-    );
-
-    assert(
-        stoneType != STONE_TYPE_NONE
-        && "Invalid stoneType"
-    );
-
-    int const squareIdx = positionToSquare(
-        fileX,
-        rankY,
-        board.width
-    );
-
-    //* Set stack type
-    board.types[squareIdx] = stoneType;
-
-    board = pushOntoStack(
-        board,
-        squareIdx,
-        playerId
-    );
-
-    return board;
-}
-
-Board pushOntoStack(
-    Board board,
+void pushOntoStack(
+    Board* const pBoard,
     int const squareIdx,
     PlayerId const playerId
 )
@@ -89,15 +45,40 @@ Board pushOntoStack(
 
     int const stackIdx = squareToStackIndex(
         squareIdx,
-        board.stackCapacity
+        pBoard->stackCapacity
     );
 
     //* Add playerId
-    board.stoneIds[stackIdx + board.counts[squareIdx]] = playerId;
+    pBoard->stoneIds[stackIdx + pBoard->counts[squareIdx]] = playerId;
 
     //* Increase stack count
-    ++board.counts[squareIdx];
+    ++pBoard->counts[squareIdx];
+}
 
-    return board;
+void placeStoneOnBoard(
+    Board* const pBoard,
+    int const squareIdx,
+    PlayerId const playerId,
+    StoneType const stoneType
+)
+{
+    assert(
+        ( playerId == PLAYER_WHITE || playerId == PLAYER_BLACK )
+        && "Invalid playerId"
+    );
+
+    assert(
+        stoneType != STONE_TYPE_NONE
+        && "Invalid stoneType"
+    );
+
+    //* Set stack type
+    pBoard->types[squareIdx] = stoneType;
+
+    pushOntoStack(
+        pBoard,
+        squareIdx,
+        playerId
+    );
 }
 

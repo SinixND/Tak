@@ -3,7 +3,6 @@
 #include "BoardSystem.h"
 #include "FileId.h"
 #include "GameConstants.h"
-#include "MatchConfigsSystem.h"
 #include "PlayerId.h"
 #include "PlayersSystem.h"
 #include "PositionSystem.h"
@@ -20,66 +19,67 @@ Game newGame( int boardWidth )
     }
 
     Game game = {
-        .board = newBoard(),
+        .board = newBoard( boardWidth ),
         .stackBuffer = newStackBuffer(),
         .players = newPlayers( boardWidth ),
-        .matchConfigs = getMatchConfigs( boardWidth ),
     };
 
     return game;
 }
 
-Game run( Game game )
+void placeStone(
+    Game* const pGame,
+    PlayerId const playerId,
+    FileId const fileX,
+    RankId const rankY,
+    StoneType const stoneType
+)
 {
-    game = placeStone(
-        game,
+    int const squareIdx = positionToSquare(
+        fileX,
+        rankY,
+        pGame->board.width
+    );
+
+    //* Rule: Can only place on empty squares
+    assert(
+        pGame->board.counts[squareIdx] == 0
+        && "Can only place on empty square"
+    );
+
+    assert(
+        pGame->board.types[squareIdx] == STONE_TYPE_NONE
+        && "Can only place on empty square"
+    );
+
+    takeFromReserves(
+        &pGame->players,
+        playerId,
+        stoneType
+    );
+
+    placeStoneOnBoard(
+        &pGame->board,
+        squareIdx,
+        playerId,
+        stoneType
+    );
+}
+
+void demo( Game* const pGame )
+{
+    placeStone(
+        pGame,
         PLAYER_WHITE,
         0,
         0,
         STONE_TYPE_FLAT
     );
 
-    return game;
-}
-
-Game placeStone(
-    Game game,
-    PlayerId const playerId,
-    FileId const file,
-    RankId const rank,
-    StoneType const stoneType
-)
-{
-    int const stackIdx = positionToStackIndex(
-        file,
-        rank,
-        game.matchConfigs.boardWidth
+    resetStackBuffer(
+        &pGame->stackBuffer,
+        pGame->board.stoneIds[0],
+        pGame->board.types[0]
     );
-
-    //* Rule: Can only place on empty squares
-    assert(
-        game.board.stacks[stackIdx].count == 0
-        && "Can only place on empty square"
-    );
-
-    assert(
-        game.board.types[stackIdx] == STONE_TYPE_NONE
-        && "Can only place on empty square"
-    );
-
-    game.players = takeFromReserves(
-        game.players,
-        playerId,
-        stoneType
-    );
-
-    game.board = placeStoneOnBoard(
-        game.board,
-        stackIdx,
-        playerId,
-        stoneType
-    );
-
-    return game;
 }
 

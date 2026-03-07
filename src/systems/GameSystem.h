@@ -8,14 +8,14 @@
 /// Provide boardWidth 0 for default value
 Game newGame( int boardWidth );
 
-Game run( Game game );
-
-Game placeStone(
-    Game game,
+void placeStone(
+    Game* const pGame,
     PlayerId const playerId,
-    FileId const file,
-    RankId const rank,
+    FileId const fileX,
+    RankId const rankY,
     StoneType const stoneType
 );
+
+void demo( Game* const pGame );
 
 #endif

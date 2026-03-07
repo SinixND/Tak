@@ -18,14 +18,14 @@
  */
 typedef struct
 {
-    uint8_t count : 4;         // 0 for placement
-    StoneType stoneType : 2;   // F, S, C
-    FileId file : 3;           // Square: Column
-    RankId rank : 3;           // Square: Row
-    DirectionId direction : 2; // right, left, up, down
-    uint8_t flattend : 1;      // Bool: Flattened a standing stone/wall?
-    // uint8_t tak : 1;           // Bool: Road threat?
-    // uint8_t tinue : 1;         // Bool: Unavoidable road threat?
+    uint8_t count;         // 0 for placement
+    StoneType stoneType;   // F, S, C
+    FileId fileX;          // Square: Column
+    RankId rankY;          // Square: Row
+    DirectionId direction; // right, left, up, down
+    uint8_t flattend;      // Bool: Flattened a standing stone/wall?
+    // uint8_t tak;           // Bool: Road threat?
+    // uint8_t tinue;         // Bool: Unavoidable road threat?
     uint8_t drops[BOARD_WIDTH_MAX];
 } PlayerAction;
 

@@ -1,11 +1,9 @@
 #include "TestBoardSystem.h"
 #include "TestGameConstantsSystem.h"
 #include "TestGameSystem.h"
-#include "TestMatchConfigsSystem.h"
 #include "TestPlayersSystem.h"
 #include "TestPositionSystem.h"
 #include "TestStackBufferSystem.h"
-#include "TestStackSystem.h"
 #include <unity.h>
 
 void setUp( void ) {}
@@ -19,9 +17,7 @@ int main( void )
     //* Test BoardSystem
     RUN_TEST( testNewBoard );
     RUN_TEST( testPlaceStoneOnBoard );
-
-    //* Test StackBufferSystem
-    RUN_TEST( testNewStackBuffer );
+    RUN_TEST( testPushOntoStack );
 
     //* Test GameConstantsSystem
     RUN_TEST( testGetBaseRegularStoneReserves );
@@ -31,9 +27,6 @@ int main( void )
     RUN_TEST( testNewGame );
     RUN_TEST( testPlaceStone );
 
-    //* Test MatchConfigsSystem
-    RUN_TEST( testGetMatchConfigs );
-
     //* Test PlayersSystem
     RUN_TEST( testNewPlayers );
     RUN_TEST( testTakeFromReserves );
@@ -41,9 +34,9 @@ int main( void )
     //* Test PositionSystem
     RUN_TEST( testPositionToStackIndex );
 
-    //* Test StackSystem
-    RUN_TEST( testNewStack );
-    RUN_TEST( testPushOntoStack );
+    //* Test StackBufferSystem
+    RUN_TEST( testNewStackBuffer );
+    RUN_TEST( testResetStackBuffer );
 
     return UNITY_END();
 }

@@ -134,9 +134,6 @@ Utilize the following concepts:
 
 
 ## ToDo notes
-- [ ] Make board true SoA? Stack needed? (Instead of 2D array make stoneIds[squares x stones]
-    - [x] Move match configs to entity? Yes, meta-data
-    - [ ] Update tests
 - [ ] Pick up stack
     - [ ] Set buffer
     - [ ] Pop from board.stack

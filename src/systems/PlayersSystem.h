@@ -7,8 +7,8 @@
 
 Players newPlayers( int const boardWidth );
 
-Players takeFromReserves(
-    Players players,
+void takeFromReserves(
+    Players* const players,
     PlayerId const playerId,
     StoneType const type
 );

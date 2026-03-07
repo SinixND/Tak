@@ -5,4 +5,10 @@
 
 StackBuffer newStackBuffer( void );
 
+void resetStackBuffer(
+    StackBuffer* const pBuffer,
+    PlayerId const playerId,
+    StoneType const stoneType
+);
+
 #endif
