@@ -18,6 +18,7 @@ int main( void )
     RUN_TEST( testNewBoard );
     RUN_TEST( testPlaceStoneOnBoard );
     RUN_TEST( testPushOntoStack );
+    RUN_TEST( testPopFromStack );
 
     //* Test GameConstantsSystem
     RUN_TEST( testGetBaseRegularStoneReserves );

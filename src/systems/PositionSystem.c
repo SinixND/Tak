@@ -25,7 +25,7 @@ int squareToStackIndex(
 {
     assert(
         ( squareIdx >= 0 )
-        && "Invalid square value"
+        && "Invalid squareIdx"
     );
 
     return squareIdx * stackCapacity;

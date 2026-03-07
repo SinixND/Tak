@@ -35,7 +35,7 @@ void pushOntoStack(
 {
     assert(
         ( squareIdx >= 0 )
-        && "Invalid square value"
+        && "Invalid squareIdx"
     );
 
     assert(
@@ -82,3 +82,24 @@ void placeStoneOnBoard(
     );
 }
 
+void popFromStack(
+    Board* const pBoard,
+    int const squareIdx
+)
+{
+    assert(
+        squareIdx >= 0
+        && "Invalid squareIdx"
+    );
+
+    int const stackIdx = squareToStackIndex(
+        squareIdx,
+        pBoard->stackCapacity
+    );
+
+    //* Increase stack count
+    --pBoard->counts[squareIdx];
+
+    //* Add playerId
+    pBoard->stoneIds[stackIdx + pBoard->counts[squareIdx]] = PLAYER_NONE;
+}

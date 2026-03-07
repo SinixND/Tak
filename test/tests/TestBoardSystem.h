@@ -107,4 +107,23 @@ void testPushOntoStack( void )
     TEST_ASSERT_EQUAL_INT( PLAYER_BLACK, board.stoneIds[( ( 5 * 5 ) - 1 ) * 43] );
 }
 
+void testPopFromStack( void )
+{
+    Board board = newBoard( 5 );
+
+    pushOntoStack(
+        &board,
+        12,
+        PLAYER_WHITE
+    );
+
+    popFromStack(
+        &board,
+        12
+    );
+
+    TEST_ASSERT_EQUAL_INT( 0, board.counts[12] );
+    TEST_ASSERT_EQUAL_INT( PLAYER_NONE, board.stoneIds[( 12 * 43 ) + 1 - 1] );
+}
+
 #endif

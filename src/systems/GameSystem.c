@@ -81,5 +81,10 @@ void demo( Game* const pGame )
         pGame->board.stoneIds[0],
         pGame->board.types[0]
     );
+
+    popFromStack(
+        &pGame->board,
+        0
+    );
 }
 

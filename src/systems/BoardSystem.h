@@ -20,4 +20,9 @@ void placeStoneOnBoard(
     StoneType const stoneType
 );
 
+void popFromStack(
+    Board* const pBoard,
+    int const squareIdx
+);
+
 #endif
