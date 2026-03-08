@@ -4,9 +4,11 @@
 #include "History.h"
 #include "PlayerAction.h"
 
-void addAction(
+void recordAction(
     History* const pHistory,
     PlayerAction const pPlayerAction
 );
+
+void undoLastAction( History* const pHistory );
 
 #endif

@@ -7,9 +7,7 @@
 typedef struct
 {
     PlayerAction undoActions[HISTORY_SIZE];
-    PlayerAction redoActions[HISTORY_SIZE];
-    int undoCount;
-    int redoCount;
+    int lastActionIdx;
 } History;
 
 #endif
