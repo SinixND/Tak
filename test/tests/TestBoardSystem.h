@@ -32,7 +32,7 @@ void testPlaceOntoStack( void )
 {
     Board board = newBoard( 5 );
 
-    placeOntoStack(
+    putOntoStack(
         &board,
         0,
         PLAYER_BLACK,
@@ -43,7 +43,7 @@ void testPlaceOntoStack( void )
     TEST_ASSERT_EQUAL_INT( 1, board.counts[0] );
     TEST_ASSERT_EQUAL_INT( PLAYER_BLACK, board.stoneIds[0] );
 
-    placeOntoStack(
+    putOntoStack(
         &board,
         3,
         PLAYER_BLACK,
@@ -54,7 +54,7 @@ void testPlaceOntoStack( void )
     TEST_ASSERT_EQUAL_INT( 1, board.counts[3] );
     TEST_ASSERT_EQUAL_INT( PLAYER_BLACK, board.stoneIds[( ( 3 * 43 ) + 1 ) - 1] );
 
-    placeOntoStack(
+    putOntoStack(
         &board,
         3,
         PLAYER_WHITE,
@@ -70,21 +70,21 @@ void testTakeFromStack( void )
 {
     Board board = newBoard( 5 );
 
-    placeOntoStack(
+    putOntoStack(
         &board,
         0,
         PLAYER_BLACK,
         STONE_TYPE_FLAT
     );
 
-    placeOntoStack(
+    putOntoStack(
         &board,
         0,
         PLAYER_BLACK,
         STONE_TYPE_STANDING
     );
 
-    placeOntoStack(
+    putOntoStack(
         &board,
         0,
         PLAYER_WHITE,

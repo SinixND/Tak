@@ -82,21 +82,21 @@ void testPickUpStack( void )
         STONE_TYPE_FLAT
     );
 
-    placeOntoStack(
+    putOntoStack(
         &game.board,
         0,
         PLAYER_BLACK,
         STONE_TYPE_FLAT
     );
 
-    placeOntoStack(
+    putOntoStack(
         &game.board,
         0,
         PLAYER_WHITE,
         STONE_TYPE_STANDING
     );
 
-    placeOntoStack(
+    putOntoStack(
         &game.board,
         0,
         PLAYER_BLACK,

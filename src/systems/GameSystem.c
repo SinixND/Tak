@@ -58,7 +58,7 @@ void placeStone(
         stoneType
     );
 
-    placeOntoStack(
+    putOntoStack(
         &pGame->board,
         squareIdx,
         playerId,
@@ -140,7 +140,7 @@ void demo( Game* const pGame )
         STONE_TYPE_FLAT
     );
 
-    placeOntoStack(
+    putOntoStack(
         &pGame->board,
         0,
         PLAYER_BLACK,

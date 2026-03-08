@@ -27,7 +27,7 @@ Board newBoard( int const boardWidth )
     return board;
 }
 
-void placeOntoStack(
+void putOntoStack(
     Board* const pBoard,
     int const squareIdx,
     PlayerId const playerId,
