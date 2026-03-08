@@ -22,6 +22,12 @@ void pickUpStack(
     RankId const rankY
 );
 
+void dropStone(
+    Game* const pGame,
+    FileId const fileX,
+    RankId const rankY
+);
+
 void demo( Game* const pGame );
 
 #endif

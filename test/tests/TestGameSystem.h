@@ -74,34 +74,12 @@ void testPickUpStack( void )
 {
     Game game = newGame( 3 );
 
-    placeStone(
-        &game,
-        PLAYER_WHITE,
-        0,
-        0,
-        STONE_TYPE_FLAT
-    );
-
-    putOntoStack(
-        &game.board,
-        0,
-        PLAYER_BLACK,
-        STONE_TYPE_FLAT
-    );
-
-    putOntoStack(
-        &game.board,
-        0,
-        PLAYER_WHITE,
-        STONE_TYPE_STANDING
-    );
-
-    putOntoStack(
-        &game.board,
-        0,
-        PLAYER_BLACK,
-        STONE_TYPE_CAP
-    );
+    game.board.types[0] = STONE_TYPE_CAP;
+    game.board.counts[0] = 4;
+    game.board.stoneIds[0] = PLAYER_WHITE;
+    game.board.stoneIds[1] = PLAYER_BLACK;
+    game.board.stoneIds[2] = PLAYER_WHITE;
+    game.board.stoneIds[3] = PLAYER_BLACK;
 
     pickUpStack(
         &game,
@@ -120,5 +98,61 @@ void testPickUpStack( void )
     TEST_ASSERT_EQUAL_INT( STONE_TYPE_FLAT, game.board.types[0] );
     TEST_ASSERT_EQUAL_INT( 1, game.board.counts[0] );
     TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, game.board.stoneIds[0] );
+}
+
+void testDropStone( void )
+{
+    Game game = newGame( 3 );
+
+    game.board.types[0] = STONE_TYPE_FLAT;
+    game.board.counts[0] = 1;
+    game.board.stoneIds[0] = PLAYER_WHITE;
+
+    game.stackBuffer.type = STONE_TYPE_STANDING;
+    game.stackBuffer.count = 2;
+    game.stackBuffer.stoneIds[0] = PLAYER_WHITE;
+    game.stackBuffer.stoneIds[1] = PLAYER_BLACK;
+
+    dropStone(
+        &game,
+        0,
+        0
+    );
+
+    TEST_ASSERT_EQUAL_INT( STONE_TYPE_FLAT, game.board.types[0] );
+    TEST_ASSERT_EQUAL_INT( 2, game.board.counts[0] );
+    TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, game.board.stoneIds[0] );
+    TEST_ASSERT_EQUAL_INT( PLAYER_BLACK, game.board.stoneIds[1] );
+
+    dropStone(
+        &game,
+        0,
+        0
+    );
+
+    TEST_ASSERT_EQUAL_INT( STONE_TYPE_STANDING, game.board.types[0] );
+    TEST_ASSERT_EQUAL_INT( 3, game.board.counts[0] );
+    TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, game.board.stoneIds[0] );
+    TEST_ASSERT_EQUAL_INT( PLAYER_BLACK, game.board.stoneIds[1] );
+    TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, game.board.stoneIds[2] );
+
+    game.board.types[1] = STONE_TYPE_STANDING;
+    game.board.counts[1] = 1;
+    game.board.stoneIds[20] = PLAYER_WHITE;
+
+    game.stackBuffer.type = STONE_TYPE_CAP;
+    game.stackBuffer.count = 1;
+    game.stackBuffer.stoneIds[0] = PLAYER_BLACK;
+
+    dropStone(
+        &game,
+        1,
+        0
+    );
+
+    TEST_ASSERT_EQUAL_INT( STONE_TYPE_CAP, game.board.types[1] );
+    TEST_ASSERT_EQUAL_INT( 2, game.board.counts[1] );
+    TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, game.board.stoneIds[20] );
+    TEST_ASSERT_EQUAL_INT( PLAYER_BLACK, game.board.stoneIds[21] );
 }
 #endif

@@ -27,6 +27,7 @@ int main( void )
     RUN_TEST( testNewGame );
     RUN_TEST( testPlaceStone );
     RUN_TEST( testPickUpStack );
+    RUN_TEST( testDropStone );
 
     //* Test PlayersSystem
     RUN_TEST( testNewPlayers );
@@ -39,6 +40,7 @@ int main( void )
     RUN_TEST( testNewStackBuffer );
     RUN_TEST( testResetStackBuffer );
     RUN_TEST( testAppendToBuffer );
+    RUN_TEST( testDropFromBuffer );
 
     return UNITY_END();
 }

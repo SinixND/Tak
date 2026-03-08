@@ -130,6 +130,44 @@ void pickUpStack(
     }
 }
 
+void dropStone(
+    Game* const pGame,
+    FileId const fileX,
+    RankId const rankY
+)
+{
+    int const squareIdx = positionToSquare(
+        fileX,
+        rankY,
+        pGame->board.width
+    );
+
+    //* Type if last, else flat
+    StoneType const droppedStoneType = STONE_TYPE_FLAT + ( ( pGame->stackBuffer.type - STONE_TYPE_FLAT ) & -( pGame->stackBuffer.count <= 1 ) );
+    StoneType const stackType = pGame->board.types[squareIdx];
+
+    //* INFO: [Rule] Capstone can flatten stating stones
+    assert(
+        stackType != STONE_TYPE_CAP
+        && "No stone can be placed onto capstone"
+    );
+
+    assert(
+        !( droppedStoneType != STONE_TYPE_CAP
+           && stackType == STONE_TYPE_STANDING )
+        && "Only capstone can be placed on wall (=flatten)"
+    );
+
+    putOntoStack(
+        &pGame->board,
+        squareIdx,
+        pGame->stackBuffer.stoneIds[pGame->stackBuffer.count - 1],
+        droppedStoneType
+    );
+
+    dropFromBuffer( &pGame->stackBuffer );
+}
+
 void demo( Game* const pGame )
 {
     placeStone(
@@ -151,6 +189,12 @@ void demo( Game* const pGame )
         pGame,
         0,
         0
+    );
+
+    dropStone(
+        pGame,
+        0,
+        1
     );
 }
 

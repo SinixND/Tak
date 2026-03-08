@@ -19,4 +19,7 @@ void appendToBuffer(
     PlayerId const playerId
 );
 
+/// Drop from buffer
+void dropFromBuffer( StackBuffer* const pBuffer );
+
 #endif
