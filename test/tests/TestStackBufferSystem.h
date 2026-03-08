@@ -35,7 +35,7 @@ void testResetStackBuffer( void )
     TEST_ASSERT_EQUAL_INT( PLAYER_NONE, buffer.stoneIds[BOARD_WIDTH_MAX - 1] );
 }
 
-void testPushOntoBuffer( void )
+void testAppendToBuffer( void )
 {
     StackBuffer buffer = newStackBuffer();
 
@@ -45,7 +45,7 @@ void testPushOntoBuffer( void )
         STONE_TYPE_STANDING
     );
 
-    pushOntoBuffer(
+    appendToBuffer(
         &buffer,
         PLAYER_BLACK
     );

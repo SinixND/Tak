@@ -7,20 +7,14 @@
 
 Board newBoard( int const boardWidth );
 
-void pushOntoStack(
-    Board* const pBoard,
-    int const squareIdx,
-    PlayerId const playerId
-);
-
-void placeStoneOnBoard(
+void placeOntoStack(
     Board* const pBoard,
     int const squareIdx,
     PlayerId const playerId,
     StoneType const stoneType
 );
 
-void popFromStack(
+void takeFromStack(
     Board* const pBoard,
     int const squareIdx
 );

@@ -13,7 +13,7 @@ Board newBoard( int const boardWidth )
         .stoneIds = { 0 },
         .counts = { 0 },
         .types = { 0 },
-        .stackCapacity = 2 * getBaseRegularStoneReserves( boardWidth ) + ( 0 != getBaseCapstoneReserves( boardWidth ) ),
+        .stackCapacity = 2 * getBaseRegularStoneReserves( boardWidth ) + (int)( 0 != getBaseCapstoneReserves( boardWidth ) ),
         .width = boardWidth
     };
 
@@ -27,10 +27,11 @@ Board newBoard( int const boardWidth )
     return board;
 }
 
-void pushOntoStack(
+void placeOntoStack(
     Board* const pBoard,
     int const squareIdx,
-    PlayerId const playerId
+    PlayerId const playerId,
+    StoneType const stoneType
 )
 {
     assert(
@@ -38,30 +39,6 @@ void pushOntoStack(
         && "Invalid squareIdx"
     );
 
-    assert(
-        ( playerId == PLAYER_WHITE || playerId == PLAYER_BLACK )
-        && "Invalid playerId"
-    );
-
-    int const stackIdx = squareToStackIndex(
-        squareIdx,
-        pBoard->stackCapacity
-    );
-
-    //* Add playerId
-    pBoard->stoneIds[stackIdx + pBoard->counts[squareIdx]] = playerId;
-
-    //* Increase stack count
-    ++pBoard->counts[squareIdx];
-}
-
-void placeStoneOnBoard(
-    Board* const pBoard,
-    int const squareIdx,
-    PlayerId const playerId,
-    StoneType const stoneType
-)
-{
     assert(
         ( playerId == PLAYER_WHITE || playerId == PLAYER_BLACK )
         && "Invalid playerId"
@@ -75,14 +52,19 @@ void placeStoneOnBoard(
     //* Set stack type
     pBoard->types[squareIdx] = stoneType;
 
-    pushOntoStack(
-        pBoard,
+    int const stackIdx = squareToStackIndex(
         squareIdx,
-        playerId
+        pBoard->stackCapacity
     );
+
+    //* Add playerId
+    pBoard->stoneIds[stackIdx + pBoard->counts[squareIdx]] = playerId;
+
+    //* Increase stack count
+    ++pBoard->counts[squareIdx];
 }
 
-void popFromStack(
+void takeFromStack(
     Board* const pBoard,
     int const squareIdx
 )
@@ -102,4 +84,13 @@ void popFromStack(
 
     //* Add playerId
     pBoard->stoneIds[stackIdx + pBoard->counts[squareIdx]] = PLAYER_NONE;
+
+    //* Update stack type
+    pBoard->types[squareIdx] =
+        // default value
+        STONE_TYPE_NONE
+        // change to FLAT
+        + ( ( STONE_TYPE_FLAT - STONE_TYPE_NONE )
+            // &(AND) -1 (= 0x1111..) is like *1
+            & -( pBoard->counts[squareIdx] > 0 ) );
 }

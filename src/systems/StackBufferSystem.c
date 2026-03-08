@@ -34,7 +34,7 @@ void resetStackBuffer(
     pBuffer->stoneIds[0] = playerId;
 }
 
-void pushOntoBuffer(
+void appendToBuffer(
     StackBuffer* const pBuffer,
     PlayerId const playerId
 )

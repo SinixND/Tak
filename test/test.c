@@ -16,9 +16,8 @@ int main( void )
 
     //* Test BoardSystem
     RUN_TEST( testNewBoard );
-    RUN_TEST( testPlaceStoneOnBoard );
-    RUN_TEST( testPushOntoStack );
-    RUN_TEST( testPopFromStack );
+    RUN_TEST( testPlaceOntoStack );
+    RUN_TEST( testTakeFromStack );
 
     //* Test GameConstantsSystem
     RUN_TEST( testGetBaseRegularStoneReserves );
@@ -38,7 +37,7 @@ int main( void )
     //* Test StackBufferSystem
     RUN_TEST( testNewStackBuffer );
     RUN_TEST( testResetStackBuffer );
-    RUN_TEST( testPushOntoBuffer );
+    RUN_TEST( testAppendToBuffer );
 
     return UNITY_END();
 }
