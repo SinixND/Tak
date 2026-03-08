@@ -64,6 +64,8 @@ void placeStone(
         playerId,
         stoneType
     );
+
+    //* Add action to undo stack
 }
 
 void pickUpStack(

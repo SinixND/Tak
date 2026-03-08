@@ -6,8 +6,10 @@
 
 typedef struct
 {
-    PlayerAction undo[HISTORY_SIZE];
-    PlayerAction redo[HISTORY_SIZE];
+    PlayerAction undoActions[HISTORY_SIZE];
+    PlayerAction redoActions[HISTORY_SIZE];
+    int undoCount;
+    int redoCount;
 } History;
 
 #endif
