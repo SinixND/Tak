@@ -79,18 +79,18 @@ void takeFromStack(
         pBoard->stackCapacity
     );
 
-    //* Increase stack count
+    //* Decrease stack count
     --pBoard->counts[squareIdx];
 
-    //* Add playerId
+    //* Remove playerId
     pBoard->stoneIds[stackIdx + pBoard->counts[squareIdx]] = PLAYER_NONE;
 
     //* Update stack type
     pBoard->types[squareIdx] =
-        // default value
+        //* default value
         STONE_TYPE_NONE
-        // change to FLAT
+        //* change to FLAT
         + ( ( STONE_TYPE_FLAT - STONE_TYPE_NONE )
-            // &(AND) -1 (= 0x1111..) is like *1
+            //* &(AND) -1 (= 0x1111..) is like *1
             & -( pBoard->counts[squareIdx] > 0 ) );
 }

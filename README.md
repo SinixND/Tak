@@ -134,10 +134,6 @@ Utilize the following concepts:
 
 
 ## ToDo notes
-- [ ] Pick up stack
-    - [ ] Set buffer
-    - [ ] Pop from board.stack
-    - [ ] |: Push to buffer.stack
-    - [ ] Pop from board.stack :|
+- [ ] none
 
 <p align="right">(<a href="#readme-top">top</a>)</p>

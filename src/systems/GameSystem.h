@@ -22,6 +22,9 @@ void pickUpStack(
     RankId const rankY
 );
 
+//* NOTE: Dont forget to implement this (first undo drops from PlayerAction-Info) then drop all on origin?
+// void abortMove( Game* const pGame );
+
 void dropStone(
     Game* const pGame,
     FileId const fileX,
