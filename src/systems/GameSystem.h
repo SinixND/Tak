@@ -16,6 +16,12 @@ void placeStone(
     StoneType const stoneType
 );
 
+void pickUpStack(
+    Game* const pGame,
+    FileId const fileX,
+    RankId const rankY
+);
+
 void demo( Game* const pGame );
 
 #endif

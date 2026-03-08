@@ -26,6 +26,7 @@ int main( void )
     //* Test GameSystem
     RUN_TEST( testNewGame );
     RUN_TEST( testPlaceStone );
+    RUN_TEST( testPickUpStack );
 
     //* Test PlayersSystem
     RUN_TEST( testNewPlayers );

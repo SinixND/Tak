@@ -41,7 +41,7 @@ void placeStone(
         pGame->board.width
     );
 
-    //* Rule: Can only place on empty squares
+    //* INFO: [Rule] Can only place on empty squares
     assert(
         pGame->board.counts[squareIdx] == 0
         && "Can only place on empty square"
@@ -58,12 +58,76 @@ void placeStone(
         stoneType
     );
 
-    placeStoneOnBoard(
+    placeOntoStack(
         &pGame->board,
         squareIdx,
         playerId,
         stoneType
     );
+}
+
+void pickUpStack(
+    Game* const pGame,
+    FileId const fileX,
+    RankId const rankY
+)
+{
+    int const squareIdx = positionToSquare(
+        fileX,
+        rankY,
+        pGame->board.width
+    );
+
+    int stoneCount = pGame->board.counts[squareIdx];
+    int const boardWidth = pGame->board.width;
+
+    //* INFO: [Rule] StackBuffer stone count must cap at boardWidth
+    stoneCount -= ( stoneCount - boardWidth )
+                  & -( stoneCount > boardWidth );
+
+    assert(
+        pGame->board.counts[squareIdx] > 0
+        && "Cannot pick up empty stack"
+    );
+
+    //* Pick up first stone
+    int topStoneIdx = squareToStackIndex(
+                          squareIdx,
+                          pGame->board.stackCapacity
+                      )
+                      + pGame->board.counts[squareIdx]
+                      - 1;
+
+    resetStackBuffer(
+        &pGame->stackBuffer,
+        pGame->board.stoneIds[topStoneIdx],
+        pGame->board.types[squareIdx]
+    );
+
+    takeFromStack(
+        &pGame->board,
+        squareIdx
+    );
+
+    //* Adjust local variables: First stone was removed
+    --topStoneIdx;
+    --stoneCount;
+
+    //* Pick up remaining stones
+    for ( int i = 0; i < stoneCount; ++i )
+    {
+        appendToBuffer(
+            &pGame->stackBuffer,
+            pGame->board.stoneIds[topStoneIdx]
+        );
+
+        takeFromStack(
+            &pGame->board,
+            squareIdx
+        );
+
+        --topStoneIdx;
+    }
 }
 
 void demo( Game* const pGame )
@@ -76,21 +140,17 @@ void demo( Game* const pGame )
         STONE_TYPE_FLAT
     );
 
-    resetStackBuffer(
-        &pGame->stackBuffer,
-        pGame->board.stoneIds[0],
-        pGame->board.types[0]
-    );
-
-    popFromStack(
+    placeOntoStack(
         &pGame->board,
-        0
+        0,
+        PLAYER_BLACK,
+        STONE_TYPE_STANDING
     );
 
-    pushOntoBuffer(
-        &pGame->stackBuffer,
-        // pGame->board.stoneIds[1]
-        PLAYER_BLACK
+    pickUpStack(
+        pGame,
+        0,
+        0
     );
 }
 

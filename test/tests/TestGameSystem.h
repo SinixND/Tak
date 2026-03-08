@@ -1,8 +1,11 @@
 #ifndef IG20260117152251
 #define IG20260117152251
 
+#include "BoardSystem.h"
 #include "Game.h"
 #include "GameSystem.h"
+#include "PlayerId.h"
+#include "StoneType.h"
 #include "unity.h"
 
 void testNewGame( void )
@@ -14,6 +17,10 @@ void testNewGame( void )
     Game game3 = newGame( 3 );
 
     TEST_ASSERT_EQUAL_INT( 3, game3.board.width );
+
+    Game game8 = newGame( 8 );
+
+    TEST_ASSERT_EQUAL_INT( 8, game8.board.width );
 }
 
 void testPlaceStone( void )
@@ -63,4 +70,55 @@ void testPlaceStone( void )
     TEST_ASSERT_EQUAL_INT( STONE_TYPE_CAP, game.board.types[3] );
 }
 
+void testPickUpStack( void )
+{
+    Game game = newGame( 3 );
+
+    placeStone(
+        &game,
+        PLAYER_WHITE,
+        0,
+        0,
+        STONE_TYPE_FLAT
+    );
+
+    placeOntoStack(
+        &game.board,
+        0,
+        PLAYER_BLACK,
+        STONE_TYPE_FLAT
+    );
+
+    placeOntoStack(
+        &game.board,
+        0,
+        PLAYER_WHITE,
+        STONE_TYPE_STANDING
+    );
+
+    placeOntoStack(
+        &game.board,
+        0,
+        PLAYER_BLACK,
+        STONE_TYPE_CAP
+    );
+
+    pickUpStack(
+        &game,
+        0,
+        0
+    );
+
+    TEST_ASSERT_EQUAL_INT( STONE_TYPE_CAP, game.stackBuffer.type );
+    TEST_ASSERT_EQUAL_INT( 3, game.stackBuffer.count );
+    TEST_ASSERT_EQUAL_INT( PLAYER_BLACK, game.stackBuffer.stoneIds[0] );
+    TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, game.stackBuffer.stoneIds[1] );
+    TEST_ASSERT_EQUAL_INT( PLAYER_BLACK, game.stackBuffer.stoneIds[2] );
+    TEST_ASSERT_EQUAL_INT( PLAYER_NONE, game.stackBuffer.stoneIds[3] );
+    TEST_ASSERT_EQUAL_INT( PLAYER_NONE, game.stackBuffer.stoneIds[BOARD_WIDTH_MAX - 1] );
+
+    TEST_ASSERT_EQUAL_INT( STONE_TYPE_FLAT, game.board.types[0] );
+    TEST_ASSERT_EQUAL_INT( 1, game.board.counts[0] );
+    TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, game.board.stoneIds[0] );
+}
 #endif
