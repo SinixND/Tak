@@ -9,13 +9,10 @@
 
 void testNewStack( void )
 {
-    //* EXECUTE
     Stack stack = newStack();
 
-    //* VERIFY
-    TEST_ASSERT_EQUAL_INT( 0, stack.count );
-    TEST_ASSERT_EQUAL_INT( PLAYER_NONE, stack.affiliations[0] );
-    TEST_ASSERT_EQUAL_INT( PLAYER_NONE, stack.affiliations[STONES_MAX - 1] );
+    TEST_ASSERT_EQUAL_INT( 0, stack.counts );
+    TEST_ASSERT_EQUAL_INT( PLAYER_NONE, stack.stoneIds[0] );
+    TEST_ASSERT_EQUAL_INT( PLAYER_NONE, stack.stoneIds[STONES_MAX - 1] );
 }
 
-#endif

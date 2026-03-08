@@ -1,12 +1,9 @@
 #include "GameSystem.h"
 
 #include "BoardSystem.h"
-#include "DirectionId.h"
 #include "FileId.h"
 #include "GameConstants.h"
-#include "MatchConfigsSystem.h"
-#include "PlayerActionSystem.h"
-#include "PlayerTurn.h"
+#include "PlayerId.h"
 #include "PlayersSystem.h"
 #include "PositionSystem.h"
 #include "RankId.h"
@@ -14,166 +11,190 @@
 #include "StoneType.h"
 #include <assert.h>
 
-Game newGame( BoardWidthId boardWidthId )
+Game newGame( int boardWidth )
 {
-    if ( !boardWidthId )
+    if ( !boardWidth )
     {
-        boardWidthId = BOARD_WIDTH_DEFAULT;
+        boardWidth = BOARD_WIDTH_DEFAULT;
     }
 
     Game game = {
-        .board = newBoard(),
+        .board = newBoard( boardWidth ),
         .stackBuffer = newStackBuffer(),
-        .players = newPlayers( boardWidthId ),
-        .matchConfigs = getMatchConfigs( boardWidthId ),
+        .players = newPlayers( boardWidth ),
     };
 
     return game;
 }
 
-Game run( Game game )
+void placeStone(
+    Game* const pGame,
+    PlayerId const playerId,
+    FileId const fileX,
+    RankId const rankY,
+    StoneType const stoneType
+)
 {
-    game = playStone(
-        game,
+    int const squareIdx = positionToSquare(
+        fileX,
+        rankY,
+        pGame->board.width
+    );
+
+    //* INFO: [Rule] Can only place on empty squares
+    assert(
+        pGame->board.counts[squareIdx] == 0
+        && "Can only place on empty square"
+    );
+
+    assert(
+        pGame->board.types[squareIdx] == STONE_TYPE_NONE
+        && "Can only place on empty square"
+    );
+
+    takeFromReserves(
+        &pGame->players,
+        playerId,
+        stoneType
+    );
+
+    putOntoStack(
+        &pGame->board,
+        squareIdx,
+        playerId,
+        stoneType
+    );
+}
+
+void pickUpStack(
+    Game* const pGame,
+    FileId const fileX,
+    RankId const rankY
+)
+{
+    int const squareIdx = positionToSquare(
+        fileX,
+        rankY,
+        pGame->board.width
+    );
+
+    int stoneCount = pGame->board.counts[squareIdx];
+    int const boardWidth = pGame->board.width;
+
+    //* INFO: [Rule] StackBuffer stone count must cap at boardWidth
+    stoneCount -= ( stoneCount - boardWidth )
+                  & -( stoneCount > boardWidth );
+
+    assert(
+        pGame->board.counts[squareIdx] > 0
+        && "Cannot pick up empty stack"
+    );
+
+    //* Pick up first stone
+    int topStoneIdx = squareToStackIndex(
+                          squareIdx,
+                          pGame->board.stackCapacity
+                      )
+                      + pGame->board.counts[squareIdx]
+                      - 1;
+
+    resetStackBuffer(
+        &pGame->stackBuffer,
+        pGame->board.stoneIds[topStoneIdx],
+        pGame->board.types[squareIdx]
+    );
+
+    takeFromStack(
+        &pGame->board,
+        squareIdx
+    );
+
+    //* Adjust local variables: First stone was removed
+    --topStoneIdx;
+    --stoneCount;
+
+    //* Pick up remaining stones
+    for ( int i = 0; i < stoneCount; ++i )
+    {
+        appendToBuffer(
+            &pGame->stackBuffer,
+            pGame->board.stoneIds[topStoneIdx]
+        );
+
+        takeFromStack(
+            &pGame->board,
+            squareIdx
+        );
+
+        --topStoneIdx;
+    }
+}
+
+void dropStone(
+    Game* const pGame,
+    FileId const fileX,
+    RankId const rankY
+)
+{
+    int const squareIdx = positionToSquare(
+        fileX,
+        rankY,
+        pGame->board.width
+    );
+
+    //* Type if last, else flat
+    StoneType const droppedStoneType = STONE_TYPE_FLAT + ( ( pGame->stackBuffer.type - STONE_TYPE_FLAT ) & -( pGame->stackBuffer.count <= 1 ) );
+    StoneType const stackType = pGame->board.types[squareIdx];
+
+    //* INFO: [Rule] Capstone can flatten stating stones
+    assert(
+        stackType != STONE_TYPE_CAP
+        && "No stone can be placed onto capstone"
+    );
+
+    assert(
+        !( droppedStoneType != STONE_TYPE_CAP
+           && stackType == STONE_TYPE_STANDING )
+        && "Only capstone can be placed on wall (=flatten)"
+    );
+
+    putOntoStack(
+        &pGame->board,
+        squareIdx,
+        pGame->stackBuffer.stoneIds[pGame->stackBuffer.count - 1],
+        droppedStoneType
+    );
+
+    dropFromBuffer( &pGame->stackBuffer );
+}
+
+void demo( Game* const pGame )
+{
+    placeStone(
+        pGame,
         PLAYER_WHITE,
         0,
         0,
         STONE_TYPE_FLAT
     );
 
-    game = undoPlayStone(
-        game,
-        PLAYER_WHITE,
+    putOntoStack(
+        &pGame->board,
         0,
+        PLAYER_BLACK,
+        STONE_TYPE_STANDING
+    );
+
+    pickUpStack(
+        pGame,
         0,
-        STONE_TYPE_FLAT,
-        STONE_TYPE_NONE
+        0
     );
 
-    // game.undoStack[0] = newPlayerActionMove(
-    //     1,
-    //     STONE_TYPE_FLAT,
-    //     FILE_A,
-    //     RANK_1,
-    //     DIR_RIGHT,
-    //     1,
-    //     (int[8]){ 1, 0, 0, 0, 0, 0, 0, 0 }
-    // );
-
-    return game;
+    dropStone(
+        pGame,
+        0,
+        1
+    );
 }
-
-Game playStone(
-    Game game,
-    PlayerId const playerId,
-    FileId const file,
-    RankId const rank,
-    StoneType const stoneType
-)
-{
-    int const stackIdx = positionToBoardIndex(
-        file,
-        rank,
-        game.matchConfigs.boardWidthId
-    );
-
-    //* Rule: Can only place on empty squares
-    assert(
-        game.board.stacks[stackIdx].count == 0
-        && "Can only place on empty square"
-    );
-
-    assert(
-        game.board.types[stackIdx] == STONE_TYPE_NONE
-        && "Can only place on empty square"
-    );
-
-    game.players = takeFromReserves(
-        game.players,
-        playerId,
-        stoneType
-    );
-
-    game.board = addStoneToBoard(
-        game.board,
-        stackIdx,
-        playerId,
-        stoneType
-    );
-
-    game.undoStack[game.undoStackSize] = newPlayerActionPlace(
-        stoneType,
-        file,
-        rank
-    );
-
-    ++game.undoStackSize;
-
-    return game;
-}
-
-Game undoPlayStone(
-    Game game,
-    PlayerId const playerId,
-    FileId const file,
-    RankId const rank,
-    StoneType const stoneType,
-    StoneType const captiveType
-)
-{
-    assert(
-        ( playerId == PLAYER_WHITE || playerId == PLAYER_BLACK )
-        && "Invalid playerId"
-    );
-
-    int const stackIdx = positionToBoardIndex(
-        file,
-        rank,
-        game.matchConfigs.boardWidthId
-    );
-
-    //* Can it be removed?
-    assert(
-        game.board.stacks[stackIdx].count > 0
-        && "Can only undo from stack with count > 0"
-    );
-
-    assert(
-        game.board.types[stackIdx] != STONE_TYPE_NONE
-        && "Can only undo from stack with type != NONE"
-    );
-
-    game.board = undoAddStoneToBoard(
-        game.board,
-        stackIdx,
-        captiveType
-    );
-
-    game.players = undoTakeFromReserves(
-        game.players,
-        playerId,
-        stoneType
-    );
-
-    return game;
-}
-
-// Game undoAction(
-//     Game game,
-//     PlayerAction const action
-// )
-// {
-//     // //* !Count == placement
-//     // if ( game.undoStack[game.undoStackSize - 1].count )
-//     // {
-//     //     //* TODO: undoMove
-//     // }
-//     // else
-//     // {
-//     //     undoPlayStone(
-//     //         game,
-//     //
-//     //     )
-//     // }
-// }
 

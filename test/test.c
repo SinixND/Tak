@@ -1,12 +1,9 @@
 #include "TestBoardSystem.h"
 #include "TestGameConstantsSystem.h"
 #include "TestGameSystem.h"
-#include "TestMatchConfigsSystem.h"
-#include "TestPlayerActionSystem.h"
 #include "TestPlayersSystem.h"
 #include "TestPositionSystem.h"
 #include "TestStackBufferSystem.h"
-#include "TestStackSystem.h"
 #include <unity.h>
 
 void setUp( void ) {}
@@ -17,38 +14,33 @@ int main( void )
 {
     UNITY_BEGIN();
 
+    //* Test BoardSystem
+    RUN_TEST( testNewBoard );
+    RUN_TEST( testPlaceOntoStack );
+    RUN_TEST( testTakeFromStack );
+
     //* Test GameConstantsSystem
     RUN_TEST( testGetBaseRegularStoneReserves );
     RUN_TEST( testGetBaseCapstoneReserves );
 
     //* Test GameSystem
     RUN_TEST( testNewGame );
-
-    //* Test MatchConfigsSystem
-    RUN_TEST( testGetMatchConfigs );
-
-    //* Test PlayerActionSystem
-    RUN_TEST( testNewPlayerActionPlace );
-    // RUN_TEST( testNewPlayerActionMove );
+    RUN_TEST( testPlaceStone );
+    RUN_TEST( testPickUpStack );
+    RUN_TEST( testDropStone );
 
     //* Test PlayersSystem
     RUN_TEST( testNewPlayers );
     RUN_TEST( testTakeFromReserves );
-    RUN_TEST( testUndoTakeFromReserves );
 
     //* Test PositionSystem
-    RUN_TEST( testPositionToBoardIndex );
-
-    //* Test BoardSystem
-    RUN_TEST( testNewBoard );
-    RUN_TEST( testPutStoneOnStack );
-    RUN_TEST( testUndoPutStoneOnStack );
+    RUN_TEST( testPositionToStackIndex );
 
     //* Test StackBufferSystem
     RUN_TEST( testNewStackBuffer );
-
-    //* Test StackSystem
-    RUN_TEST( testNewStack );
+    RUN_TEST( testResetStackBuffer );
+    RUN_TEST( testAppendToBuffer );
+    RUN_TEST( testDropFromBuffer );
 
     return UNITY_END();
 }

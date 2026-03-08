@@ -9,112 +9,96 @@
 
 void testNewBoard( void )
 {
-    //* EXECUTE
-    Board board = newBoard();
+    Board board = newBoard( 3 );
 
-    //* VERIFY
     TEST_ASSERT_EQUAL_INT( STONE_TYPE_NONE, board.types[0] );
-    TEST_ASSERT_EQUAL_INT( STONE_TYPE_NONE, board.types[25] );
-    TEST_ASSERT_EQUAL_INT( 0, board.stacks[0].count );
-    TEST_ASSERT_EQUAL_INT( 0, board.stacks[25].count );
-    TEST_ASSERT_EQUAL_INT( PLAYER_NONE, board.stacks[0].affiliations[0] );
-    TEST_ASSERT_EQUAL_INT( PLAYER_NONE, board.stacks[25].affiliations[43] );
+    TEST_ASSERT_EQUAL_INT( STONE_TYPE_NONE, board.types[9 - 1] );
+    TEST_ASSERT_EQUAL_INT( 0, board.counts[0] );
+    TEST_ASSERT_EQUAL_INT( 0, board.counts[9 - 1] );
+    TEST_ASSERT_EQUAL_INT( PLAYER_NONE, board.stoneIds[0] );
+    TEST_ASSERT_EQUAL_INT( PLAYER_NONE, board.stoneIds[( 3 * 3 * 20 ) - 1] );
+
+    board = newBoard( 8 );
+
+    TEST_ASSERT_EQUAL_INT( STONE_TYPE_NONE, board.types[0] );
+    TEST_ASSERT_EQUAL_INT( STONE_TYPE_NONE, board.types[( 8 * 8 ) - 1] );
+    TEST_ASSERT_EQUAL_INT( 0, board.counts[0] );
+    TEST_ASSERT_EQUAL_INT( 0, board.counts[( 8 * 8 ) - 1] );
+    TEST_ASSERT_EQUAL_INT( PLAYER_NONE, board.stoneIds[0] );
+    TEST_ASSERT_EQUAL_INT( PLAYER_NONE, board.stoneIds[( 8 * 8 * 101 ) - 1] );
 }
 
-void testPutStoneOnStack( void )
+void testPlaceOntoStack( void )
 {
-    //* SETUP
-    Board board = newBoard();
+    Board board = newBoard( 5 );
 
-    //* EXECUTE
-    board = addStoneToBoard(
-        board,
+    putOntoStack(
+        &board,
         0,
         PLAYER_BLACK,
         STONE_TYPE_FLAT
     );
 
-    //* VERIFY
     TEST_ASSERT_EQUAL_INT( STONE_TYPE_FLAT, board.types[0] );
-    TEST_ASSERT_EQUAL_INT( 1, board.stacks[0].count );
-    TEST_ASSERT_EQUAL_INT( PLAYER_BLACK, board.stacks[0].affiliations[0] );
+    TEST_ASSERT_EQUAL_INT( 1, board.counts[0] );
+    TEST_ASSERT_EQUAL_INT( PLAYER_BLACK, board.stoneIds[0] );
 
-    //* EXECUTE
-    board = addStoneToBoard(
-        board,
-        1,
+    putOntoStack(
+        &board,
+        3,
         PLAYER_BLACK,
         STONE_TYPE_STANDING
     );
 
-    //* VERIFY
-    TEST_ASSERT_EQUAL_INT( STONE_TYPE_STANDING, board.types[1] );
-    TEST_ASSERT_EQUAL_INT( 1, board.stacks[1].count );
-    TEST_ASSERT_EQUAL_INT( PLAYER_BLACK, board.stacks[1].affiliations[0] );
+    TEST_ASSERT_EQUAL_INT( STONE_TYPE_STANDING, board.types[3] );
+    TEST_ASSERT_EQUAL_INT( 1, board.counts[3] );
+    TEST_ASSERT_EQUAL_INT( PLAYER_BLACK, board.stoneIds[( ( 3 * 43 ) + 1 ) - 1] );
 
-    //* EXECUTE
-    board = addStoneToBoard(
-        board,
+    putOntoStack(
+        &board,
         3,
         PLAYER_WHITE,
         STONE_TYPE_CAP
     );
 
-    //* VERIFY
     TEST_ASSERT_EQUAL_INT( STONE_TYPE_CAP, board.types[3] );
-    TEST_ASSERT_EQUAL_INT( 1, board.stacks[3].count );
-    TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, board.stacks[3].affiliations[0] );
+    TEST_ASSERT_EQUAL_INT( 2, board.counts[3] );
+    TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, board.stoneIds[( ( 3 * 43 ) + 2 ) - 1] );
 }
 
-void testUndoPutStoneOnStack( void )
+void testTakeFromStack( void )
 {
-    //* SETUP
-    Board board = newBoard();
+    Board board = newBoard( 5 );
 
-    //* EXECUTE
-    board = addStoneToBoard(
-        board,
+    putOntoStack(
+        &board,
         0,
         PLAYER_BLACK,
         STONE_TYPE_FLAT
     );
 
-    board = undoAddStoneToBoard(
-        board,
-        0,
-        STONE_TYPE_NONE
-    );
-
-    //* VERIFY
-    TEST_ASSERT_EQUAL_INT( STONE_TYPE_NONE, board.types[0] );
-    TEST_ASSERT_EQUAL_INT( 0, board.stacks[0].count );
-    TEST_ASSERT_EQUAL_INT( PLAYER_NONE, board.stacks[0].affiliations[0] );
-
-    //* EXECUTE
-    board = addStoneToBoard(
-        board,
+    putOntoStack(
+        &board,
         0,
         PLAYER_BLACK,
         STONE_TYPE_STANDING
     );
 
-    //* EXECUTE
-    board = addStoneToBoard(
-        board,
+    putOntoStack(
+        &board,
         0,
         PLAYER_WHITE,
         STONE_TYPE_CAP
     );
 
-    board = undoAddStoneToBoard(
-        board,
-        0,
-        STONE_TYPE_STANDING
+    takeFromStack(
+        &board,
+        0
     );
 
-    //* VERIFY
-    TEST_ASSERT_EQUAL_INT( STONE_TYPE_STANDING, board.types[0] );
-    TEST_ASSERT_EQUAL_INT( 1, board.stacks[0].count );
-    TEST_ASSERT_EQUAL_INT( PLAYER_BLACK, board.stacks[0].affiliations[0] );
+    TEST_ASSERT_EQUAL_INT( STONE_TYPE_FLAT, board.types[0] );
+    TEST_ASSERT_EQUAL_INT( 2, board.counts[0] );
+    TEST_ASSERT_EQUAL_INT( PLAYER_BLACK, board.stoneIds[( ( 0 * 43 ) + 2 ) - 1] );
 }
+
 #endif

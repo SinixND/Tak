@@ -6,22 +6,22 @@
 #include "StoneType.h"
 #include <assert.h>
 
-Players newPlayers( BoardWidthId const boardWidthId )
+Players newPlayers( int const boardWidth )
 {
     assert(
-        ( boardWidthId >= BOARD_WIDTH_MIN )
+        ( boardWidth >= BOARD_WIDTH_MIN )
         && "Board width value too small"
     );
 
     assert(
-        ( boardWidthId <= BOARD_WIDTH_MAX )
+        ( boardWidth <= BOARD_WIDTH_MAX )
         && "Board width value too big"
     );
 
     Players players = { 0 };
 
-    int initRegularReserves = getBaseRegularStoneReserves( boardWidthId );
-    int initCapstoneReserves = getBaseCapstoneReserves( boardWidthId );
+    int initRegularReserves = getBaseRegularStoneReserves( boardWidth );
+    int initCapstoneReserves = getBaseCapstoneReserves( boardWidth );
 
     //* Init player values
     for ( int idx = 0; idx < PLAYER_COUNT; ++idx )
@@ -34,8 +34,8 @@ Players newPlayers( BoardWidthId const boardWidthId )
     return players;
 }
 
-Players takeFromReserves(
-    Players players,
+void takeFromReserves(
+    Players* const players,
     PlayerId const playerId,
     StoneType const type
 )
@@ -51,11 +51,11 @@ Players takeFromReserves(
         case STONE_TYPE_STANDING:
         {
             assert(
-                players.regularReserves[playerId] > 0
+                players->regularReserves[playerId] > 0
                 && "No reserves left"
             );
 
-            --players.regularReserves[playerId];
+            --players->regularReserves[playerId];
 
             break;
         }
@@ -63,11 +63,11 @@ Players takeFromReserves(
         case STONE_TYPE_CAP:
         {
             assert(
-                players.capstoneReserves[playerId] > 0
+                players->capstoneReserves[playerId] > 0
                 && "No reserves left"
             );
 
-            --players.capstoneReserves[playerId];
+            --players->capstoneReserves[playerId];
 
             break;
         }
@@ -80,48 +80,5 @@ Players takeFromReserves(
         }
     }
 
-    ++players.stonesInPlay[playerId];
-
-    return players;
-}
-
-Players undoTakeFromReserves(
-    Players players,
-    PlayerId const playerId,
-    StoneType const type
-)
-{
-    assert(
-        ( playerId == PLAYER_WHITE || playerId == PLAYER_BLACK )
-        && "Invalid playerId"
-    );
-
-    switch ( type )
-    {
-        case STONE_TYPE_FLAT:
-        case STONE_TYPE_STANDING:
-        {
-            ++players.regularReserves[playerId];
-
-            break;
-        }
-
-        case STONE_TYPE_CAP:
-        {
-            ++players.capstoneReserves[playerId];
-
-            break;
-        }
-
-        default:
-        {
-            assert( !"StoneType is required" );
-
-            break;
-        }
-    }
-
-    --players.stonesInPlay[playerId];
-
-    return players;
+    ++players->stonesInPlay[playerId];
 }

@@ -15,6 +15,7 @@ MAKE_DIR := tools/make
 
 # File extentions
 SRC_EXT  := c
+HDR_EXT  := h
 OBJ_EXT  := o
 DEP_EXT  := d
 
@@ -30,8 +31,8 @@ MAKEFLAGS := --no-print-directory
 TARGET ?= unix
 # Binary mode ( app | test )
 MODE   ?= app
-# Build config ( debug | release )
-BUILD  ?= debug
+# Build config ( fatal | debug | release )
+BUILD  ?= fatal
 
 # Compiler & toolchain
 CC := clang
@@ -55,7 +56,7 @@ CPPFLAGS_CORE := -MMD -MP
 LDFLAGS_CORE  :=
 
 # Build-specific flags
-CFLAGS_debug     := -g -O0 -Wall -Wextra -Wshadow -Werror # -fsanitize=address,undefined
+CFLAGS_debug     := -g -O0 -Wall -Wextra -Wshadow # -fsanitize=address,undefined
 CPPFLAGS_debug   := -DDEBUG
 LDFLAGS_debug    := # -fsanitize=address,undefined
 CPPCHECK_debug   := --error-exitcode=0
@@ -71,7 +72,7 @@ LDFLAGS_release  :=
 
 # Targets
 .PHONY: all
-all: compiledb debug test cppcheck run
+all: compiledb build test cppcheck run
 
 # To test all targets
 .PHONY: checkhealth
@@ -118,7 +119,7 @@ INC_test := $(shell find $(SRC_DIR) -type d) \
 # Targets
 .PHONY: build-test
 build-test:
-	@$(MAKE) BUILD=debug MODE=test build
+	@$(MAKE) MODE=test build
 
 .PHONY: run-test
 run-test:
@@ -191,7 +192,7 @@ compiledb:
 .PHONY: debug
 debug:
 	$(info )
-	$(info === Build $(MODE)/$(BUILD) ===)
+	$(info === Build app/debug ===)
 	@$(MAKE) BUILD=debug MODE=app build
 
 .PHONY: doxygen 
@@ -203,14 +204,14 @@ doxygen:
 .PHONY: fatal
 fatal:
 	$(info )
-	$(info === Build $(MODE)/$(BUILD) ===)
+	$(info === Build app/fatal ===)
 	@$(MAKE) BUILD=fatal MODE=app build
 
 .PHONY: format
 format:
 	$(info )
 	$(info === Format code ===)
-	clang-format -i -- $(SRC_DIR)/**.* $(TEST_DIR)/**.*
+	clang-format -i `find $(SRC_DIR) $(TEST_DIR) -name '*.$(SRC_EXT)' -o -name '*.$(HDR_EXT)'`
 
 .PHONY: init
 init:
@@ -229,7 +230,7 @@ publish:
 .PHONY: release
 release:
 	$(info )
-	$(info === Build $(MODE)/$(BUILD) ===)
+	$(info === Build app/release ===)
 	@$(MAKE) BUILD=release MODE=app build
 
 .PHONY: run

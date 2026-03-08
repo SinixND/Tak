@@ -3,10 +3,18 @@
 #include "RankId.h"
 #include "unity.h"
 
-void testPositionToBoardIndex( void )
+void testPositionToStackIndex( void )
 {
-    //* VERIFY
-    TEST_ASSERT_EQUAL_INT( 0, positionToBoardIndex( FILE_A, RANK_1, BWD_3 ) );
-    TEST_ASSERT_EQUAL_INT( 8, positionToBoardIndex( FILE_C, RANK_3, BWD_3 ) );
-    TEST_ASSERT_EQUAL_INT( 63, positionToBoardIndex( FILE_H, RANK_8, BWD_8 ) );
+    TEST_ASSERT_EQUAL_INT( 0, positionToSquare( FILE_A, RANK_1, 3 ) );
+    TEST_ASSERT_EQUAL_INT( 8, positionToSquare( FILE_C, RANK_3, 3 ) );
+    TEST_ASSERT_EQUAL_INT( 63, positionToSquare( FILE_H, RANK_8, 8 ) );
 }
+
+void testSquareToStackIndex( void )
+{
+    TEST_ASSERT_EQUAL_INT( 0, squareToStackIndex( 0, 21 ) );
+    TEST_ASSERT_EQUAL_INT( 168, squareToStackIndex( 8, 21 ) );
+    TEST_ASSERT_EQUAL_INT( 1032, squareToStackIndex( 24, 43 ) );
+    TEST_ASSERT_EQUAL_INT( 6363, squareToStackIndex( 63, 101 ) );
+}
+

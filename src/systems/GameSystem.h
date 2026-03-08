@@ -1,33 +1,33 @@
 #ifndef IG20260222210840
 #define IG20260222210840
 
+#include "FileId.h"
 #include "Game.h"
+#include "RankId.h"
 
 /// Provide boardWidth 0 for default value
-Game newGame( BoardWidthId boardWidthId );
+Game newGame( int boardWidth );
 
-Game run( Game game );
-
-Game playStone(
-    Game game,
+void placeStone(
+    Game* const pGame,
     PlayerId const playerId,
-    FileId const file,
-    RankId const rank,
+    FileId const fileX,
+    RankId const rankY,
     StoneType const stoneType
 );
 
-Game undoPlayStone(
-    Game game,
-    PlayerId const playerId,
-    FileId const file,
-    RankId const rank,
-    StoneType const stoneType,
-    StoneType const captiveType
+void pickUpStack(
+    Game* const pGame,
+    FileId const fileX,
+    RankId const rankY
 );
 
-// Game undoAction(
-//     Game game,
-//     PlayerAction const action
-// );
+void dropStone(
+    Game* const pGame,
+    FileId const fileX,
+    RankId const rankY
+);
+
+void demo( Game* const pGame );
 
 #endif

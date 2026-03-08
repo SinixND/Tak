@@ -5,19 +5,18 @@
 #include "PlayerId.h"
 #include "StoneType.h"
 
-Board newBoard( void );
+Board newBoard( int const boardWidth );
 
-Board addStoneToBoard(
-    Board board,
-    int const stackIdx,
+void putOntoStack(
+    Board* const pBoard,
+    int const squareIdx,
     PlayerId const playerId,
     StoneType const stoneType
 );
 
-Board undoAddStoneToBoard(
-    Board board,
-    int const stackIdx,
-    StoneType const captiveType
+void takeFromStack(
+    Board* const pBoard,
+    int const squareIdx
 );
 
 #endif

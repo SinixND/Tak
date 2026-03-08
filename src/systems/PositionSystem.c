@@ -4,16 +4,34 @@
 #include "RankId.h"
 #include <assert.h>
 
-int positionToBoardIndex(
-    FileId const file,
-    RankId const rank,
-    BoardWidthId const boardWidthId
+int positionToSquare(
+    FileId const fileX,
+    RankId const rankY,
+    int const boardWidth
 )
 {
     assert(
-        ( boardWidthId > 0 )
-        && "Invalid boardWidthId"
+        ( boardWidth > 0 )
+        && "Invalid boardWidth"
     );
 
-    return ( rank * boardWidthId ) + file;
+    return ( rankY * boardWidth ) + fileX;
+}
+
+int squareToStackIndex(
+    int const squareIdx,
+    int const stackCapacity
+)
+{
+    assert(
+        ( squareIdx >= 0 )
+        && "Invalid squareIdx"
+    );
+
+    assert(
+        ( stackCapacity >= 0 )
+        && "Invalid stackCapacity"
+    );
+
+    return squareIdx * stackCapacity;
 }
