@@ -134,6 +134,20 @@ Utilize the following concepts:
 
 
 ## ToDo notes
-- [ ] none
+- [ ] Add tests for
+    - record (placement)
+    - undo (< 0)
+    - redo (> HISTORY_SIZE)
+- [ ] Record PlayerAction: Place stone
+
+- [ ] PickUp action: Leave at first square: included in max PickUp count?
+- [ ] Store origin and direction in StackBuffer? (for GameSystem:Drop verification)
+    - Set direction if is still 0;
+    - Add direction verification function to StackBuffer
+
+- [ ] Record PlayerAction: Move/Drop stone
+    - appendDropCount? consider squareIdx
+    - [ ] Add tests for
+        - record (move)
 
 <p align="right">(<a href="#readme-top">top</a>)</p>

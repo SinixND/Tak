@@ -7,6 +7,7 @@
 #include "RankId.h"
 #include "StoneType.h"
 #include <stdint.h>
+
 /**
  * @brief: PTN (Portable Tak Notion) object
  * Place: (stone)(square)

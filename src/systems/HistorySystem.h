@@ -10,5 +10,6 @@ void recordAction(
 );
 
 void undoLastAction( History* const pHistory );
+void redoNextAction( History* const pHistory );
 
 #endif
