@@ -192,7 +192,7 @@ compiledb:
 .PHONY: debug
 debug:
 	$(info )
-	$(info === Build $(MODE)/$(BUILD) ===)
+	$(info === Build app/debug ===)
 	@$(MAKE) BUILD=debug MODE=app build
 
 .PHONY: doxygen 
@@ -204,7 +204,7 @@ doxygen:
 .PHONY: fatal
 fatal:
 	$(info )
-	$(info === Build $(MODE)/$(BUILD) ===)
+	$(info === Build app/fatal ===)
 	@$(MAKE) BUILD=fatal MODE=app build
 
 .PHONY: format
@@ -230,7 +230,7 @@ publish:
 .PHONY: release
 release:
 	$(info )
-	$(info === Build $(MODE)/$(BUILD) ===)
+	$(info === Build app/release ===)
 	@$(MAKE) BUILD=release MODE=app build
 
 .PHONY: run
