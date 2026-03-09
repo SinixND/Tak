@@ -203,5 +203,7 @@ void demo( Game* const pGame )
         0,
         1
     );
+
+    stepBack( &pGame->history );
 }
 

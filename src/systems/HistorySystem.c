@@ -11,7 +11,7 @@ void recordPlacementAction(
 )
 {
     //* Increase counter
-    ++pHistory->lastActionIdx;
+    stepForward( pHistory );
 
     //* Push pPlayerAction
     pHistory->undoActions[pHistory->lastActionIdx % HISTORY_SIZE] = (PlayerAction){
@@ -25,7 +25,7 @@ void recordPlacementAction(
     };
 }
 
-void undoLastAction( History* const pHistory )
+void stepBack( History* const pHistory )
 {
     --pHistory->lastActionIdx;
 
@@ -33,7 +33,7 @@ void undoLastAction( History* const pHistory )
     pHistory->lastActionIdx = ( pHistory->lastActionIdx + HISTORY_SIZE ) % HISTORY_SIZE;
 }
 
-void redoNextAction( History* const pHistory )
+void stepForward( History* const pHistory )
 {
     ++pHistory->lastActionIdx;
 

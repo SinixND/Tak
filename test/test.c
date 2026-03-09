@@ -1,6 +1,7 @@
 #include "TestBoardSystem.h"
 #include "TestGameConstantsSystem.h"
 #include "TestGameSystem.h"
+#include "TestHistorySystem.h"
 #include "TestPlayersSystem.h"
 #include "TestPositionSystem.h"
 #include "TestStackBufferSystem.h"
@@ -28,6 +29,11 @@ int main( void )
     RUN_TEST( testPlaceStone );
     RUN_TEST( testPickUpStack );
     RUN_TEST( testDropStone );
+
+    //* Test HistorySystem
+    RUN_TEST( testRecordPlacementAction );
+    RUN_TEST( testStepBack );
+    RUN_TEST( testStepForward );
 
     //* Test PlayersSystem
     RUN_TEST( testNewPlayers );

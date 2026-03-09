@@ -138,8 +138,9 @@ Utilize the following concepts:
     - record (placement)
     - undo (< 0)
     - redo (> HISTORY_SIZE)
-- [ ] Record PlayerAction: Place stone
+- [ ] Remove unnecessary stack modifications (adjust count only)
 
+- [ ] Take/drop stone: adjust only count?
 - [x] PickUp action: Leave at first square: included in max PickUp count? - No "leave" required, but possible!
 - [ ] PickUp: Only owned!
 - [ ] Store origin and direction in StackBuffer? (for GameSystem:Drop verification)
