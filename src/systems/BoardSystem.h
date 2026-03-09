@@ -16,7 +16,8 @@ void putOntoStack(
 
 void takeFromStack(
     Board* const pBoard,
-    int const squareIdx
+    int const squareIdx,
+    int const stoneCount
 );
 
 #endif

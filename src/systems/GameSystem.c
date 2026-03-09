@@ -85,56 +85,48 @@ void pickUpStack(
         pGame->board.width
     );
 
-    int stoneCount = pGame->board.counts[squareIdx];
-    int const boardWidth = pGame->board.width;
-
-    //* INFO: [Rule] StackBuffer stone count must cap at boardWidth
-    stoneCount -= ( stoneCount - boardWidth )
-                  & -( stoneCount > boardWidth );
-
     assert(
         pGame->board.counts[squareIdx] > 0
         && "Cannot pick up empty stack"
     );
 
-    //* Pick up first stone
+    int const boardWidth = pGame->board.width;
+    int stoneCount = pGame->board.counts[squareIdx];
+
+    //* INFO: [Rule] StackBuffer stone count must cap at boardWidth
+    stoneCount = ( stoneCount > boardWidth ) ? boardWidth : stoneCount;
+
+    assert(
+        stoneCount <= boardWidth
+        && "Stone count must be smaller than board witdh"
+    );
+
     int topStoneIdx = squareToStackIndex(
                           squareIdx,
                           pGame->board.stackCapacity
                       )
-                      + pGame->board.counts[squareIdx]
-                      - 1;
+                      + ( pGame->board.counts[squareIdx] - 1 );
 
-    resetStackBuffer(
+    setBufferStoneType(
         &pGame->stackBuffer,
-        pGame->board.stoneIds[topStoneIdx],
         pGame->board.types[squareIdx]
     );
 
-    takeFromStack(
-        &pGame->board,
-        squareIdx
-    );
-
-    //* Adjust local variables: First stone was removed
-    --topStoneIdx;
-    --stoneCount;
-
-    //* Pick up remaining stones
+    //* Add stones to buffer
     for ( int i = 0; i < stoneCount; ++i )
     {
         appendToBuffer(
             &pGame->stackBuffer,
-            pGame->board.stoneIds[topStoneIdx]
+            pGame->board.stoneIds[topStoneIdx - i]
         );
-
-        takeFromStack(
-            &pGame->board,
-            squareIdx
-        );
-
-        --topStoneIdx;
     }
+
+    //* Remove stones from stack
+    takeFromStack(
+        &pGame->board,
+        squareIdx,
+        stoneCount
+    );
 }
 
 void dropStone(
@@ -149,16 +141,21 @@ void dropStone(
         pGame->board.width
     );
 
-    //* Type if last, else flat
-    StoneType const droppedStoneType = STONE_TYPE_FLAT + ( ( pGame->stackBuffer.type - STONE_TYPE_FLAT ) & -( pGame->stackBuffer.count <= 1 ) );
     StoneType const stackType = pGame->board.types[squareIdx];
 
-    //* INFO: [Rule] Capstone can flatten stating stones
+    //* INFO: [Rule] No stone can be put onto capstone
     assert(
         stackType != STONE_TYPE_CAP
         && "No stone can be placed onto capstone"
     );
 
+    StoneType const droppedStoneType =
+        //
+        ( pGame->stackBuffer.count <= 1 )
+            ? pGame->stackBuffer.type
+            : STONE_TYPE_FLAT;
+
+    //* INFO: [Rule] Capstone can flatten standing stones
     assert(
         !( droppedStoneType != STONE_TYPE_CAP
            && stackType == STONE_TYPE_STANDING )

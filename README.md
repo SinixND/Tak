@@ -134,10 +134,6 @@ Utilize the following concepts:
 
 
 ## ToDo notes
-- [ ] Add tests for
-    - record (placement)
-    - undo (< 0)
-    - redo (> HISTORY_SIZE)
 - [ ] Remove unnecessary stack modifications (adjust count only)
 
 - [ ] Take/drop stone: adjust only count?

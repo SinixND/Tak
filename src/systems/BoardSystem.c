@@ -66,7 +66,8 @@ void putOntoStack(
 
 void takeFromStack(
     Board* const pBoard,
-    int const squareIdx
+    int const squareIdx,
+    int const stoneCount
 )
 {
     assert(
@@ -74,23 +75,14 @@ void takeFromStack(
         && "Invalid squareIdx"
     );
 
-    int const stackIdx = squareToStackIndex(
-        squareIdx,
-        pBoard->stackCapacity
+    assert(
+        stoneCount <= pBoard->counts[squareIdx]
+        && "Invalid stoneCount"
     );
 
     //* Decrease stack count
-    --pBoard->counts[squareIdx];
+    pBoard->counts[squareIdx] -= stoneCount;
 
-    //* Remove playerId
-    pBoard->stoneIds[stackIdx + pBoard->counts[squareIdx]] = PLAYER_NONE;
-
-    //* Update stack type
-    pBoard->types[squareIdx] =
-        //* default value
-        STONE_TYPE_NONE
-        //* change to FLAT
-        + ( ( STONE_TYPE_FLAT - STONE_TYPE_NONE )
-            //* &(AND) -1 (= 0x1111..) is like *1
-            & -( pBoard->counts[squareIdx] > 0 ) );
+    //* Set stone type
+    pBoard->types[squareIdx] = STONE_TYPE_FLAT;
 }

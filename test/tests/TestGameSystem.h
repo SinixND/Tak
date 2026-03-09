@@ -92,8 +92,6 @@ void testPickUpStack( void )
     TEST_ASSERT_EQUAL_INT( PLAYER_BLACK, game.stackBuffer.stoneIds[0] );
     TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, game.stackBuffer.stoneIds[1] );
     TEST_ASSERT_EQUAL_INT( PLAYER_BLACK, game.stackBuffer.stoneIds[2] );
-    TEST_ASSERT_EQUAL_INT( PLAYER_NONE, game.stackBuffer.stoneIds[3] );
-    TEST_ASSERT_EQUAL_INT( PLAYER_NONE, game.stackBuffer.stoneIds[BOARD_WIDTH_MAX - 1] );
 
     TEST_ASSERT_EQUAL_INT( STONE_TYPE_FLAT, game.board.types[0] );
     TEST_ASSERT_EQUAL_INT( 1, game.board.counts[0] );

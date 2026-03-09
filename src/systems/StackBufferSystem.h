@@ -7,9 +7,8 @@
 StackBuffer newStackBuffer( void );
 
 /// Reset buffer to new type and first stone (=playerId)
-void resetStackBuffer(
+void setBufferStoneType(
     StackBuffer* const pBuffer,
-    PlayerId const playerId,
     StoneType const stoneType
 );
 
@@ -19,7 +18,7 @@ void appendToBuffer(
     PlayerId const playerId
 );
 
-/// Drop from buffer
+/// Drop one stone from buffer
 void dropFromBuffer( StackBuffer* const pBuffer );
 
 #endif
