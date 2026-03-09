@@ -1,11 +1,9 @@
 #include "GameSystem.h"
 
 #include "BoardSystem.h"
-#include "DirectionId.h"
 #include "FileId.h"
 #include "GameConstants.h"
 #include "HistorySystem.h"
-#include "PlayerAction.h"
 #include "PlayerId.h"
 #include "PlayersSystem.h"
 #include "PositionSystem.h"
@@ -21,13 +19,11 @@ Game newGame( int boardWidth )
         boardWidth = BOARD_WIDTH_DEFAULT;
     }
 
-    Game game = {
+    return (Game){
         .board = newBoard( boardWidth ),
         .stackBuffer = newStackBuffer(),
         .players = newPlayers( boardWidth ),
     };
-
-    return game;
 }
 
 void placeStone(
@@ -69,19 +65,11 @@ void placeStone(
     );
 
     //* Add action to undo stack
-    PlayerAction action = {
-        .count = 0,             // 0 for placement
-        .stoneType = stoneType, // F, S, C
-        .fileX = fileX,         // Square: Column
-        .rankY = rankY,         // Square: Row
-        .direction = DIR_NONE,  // right, left, up, down
-        .flattend = 0,          // Bool: Flattened a standing stone/wall?
-        .drops = { 0 }
-    };
-
-    recordAction(
+    recordPlacementAction(
         &pGame->history,
-        action
+        stoneType,
+        fileX,
+        rankY
     );
 }
 

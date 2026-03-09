@@ -140,7 +140,8 @@ Utilize the following concepts:
     - redo (> HISTORY_SIZE)
 - [ ] Record PlayerAction: Place stone
 
-- [ ] PickUp action: Leave at first square: included in max PickUp count?
+- [x] PickUp action: Leave at first square: included in max PickUp count? - No "leave" required, but possible!
+- [ ] PickUp: Only owned!
 - [ ] Store origin and direction in StackBuffer? (for GameSystem:Drop verification)
     - Set direction if is still 0;
     - Add direction verification function to StackBuffer

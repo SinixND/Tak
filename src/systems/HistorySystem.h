@@ -1,12 +1,16 @@
 #ifndef IG20260308214101
 #define IG20260308214101
 
+#include "FileId.h"
 #include "History.h"
-#include "PlayerAction.h"
+#include "RankId.h"
+#include "StoneType.h"
 
-void recordAction(
+void recordPlacementAction(
     History* const pHistory,
-    PlayerAction const pPlayerAction
+    StoneType const stoneType,
+    FileId const fileX,
+    RankId const rankY
 );
 
 void undoLastAction( History* const pHistory );

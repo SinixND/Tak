@@ -1,16 +1,28 @@
 #include "HistorySystem.h"
+#include "DirectionId.h"
 #include "GameConstants.h"
+#include "PlayerAction.h"
 
-void recordAction(
+void recordPlacementAction(
     History* const pHistory,
-    PlayerAction const pPlayerAction
+    StoneType const stoneType,
+    FileId const fileX,
+    RankId const rankY
 )
 {
     //* Increase counter
     ++pHistory->lastActionIdx;
 
     //* Push pPlayerAction
-    pHistory->undoActions[pHistory->lastActionIdx % HISTORY_SIZE] = pPlayerAction;
+    pHistory->undoActions[pHistory->lastActionIdx % HISTORY_SIZE] = (PlayerAction){
+        .count = 8,
+        .stoneType = stoneType,
+        .fileX = fileX,
+        .rankY = rankY,
+        .direction = DIR_NONE,
+        .flattend = 0,
+        .drops = { 0 }
+    };
 }
 
 void undoLastAction( History* const pHistory )
