@@ -134,10 +134,6 @@ Utilize the following concepts:
 
 
 ## ToDo notes
-- [ ] Remove unnecessary stack modifications (adjust count only)
-
-- [ ] Take/drop stone: adjust only count?
-- [x] PickUp action: Leave at first square: included in max PickUp count? - No "leave" required, but possible!
 - [ ] PickUp: Only owned!
 - [ ] Store origin and direction in StackBuffer? (for GameSystem:Drop verification)
     - Set direction if is still 0;

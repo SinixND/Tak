@@ -4,6 +4,7 @@
 #include "FileId.h"
 #include "GameConstants.h"
 #include "HistorySystem.h"
+#include "PlayerAction.h"
 #include "PlayerId.h"
 #include "PlayersSystem.h"
 #include "PositionSystem.h"
@@ -170,6 +171,33 @@ void dropStone(
     );
 
     dropFromBuffer( &pGame->stackBuffer );
+}
+
+void undoPlaceStone(
+    Game* const pGame,
+    PlayerAction const lastAction
+)
+{
+    //* Undo putOnStack
+    takeFromStack(
+        &pGame->board,
+        positionToSquare(
+            lastAction.fileX,
+            lastAction.rankY,
+            pGame->board.width
+        ),
+        1
+    );
+
+    //* Undo takeFromReserves
+    returnToReserves(
+        &pGame->players,
+        lastAction.playerId,
+        lastAction.stoneType
+    );
+
+    //* Go back in time
+    stepBack( &pGame->history );
 }
 
 void demo( Game* const pGame )

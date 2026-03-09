@@ -31,6 +31,17 @@ void dropStone(
     RankId const rankY
 );
 
+void undoPlaceStone(
+    Game* const pGame,
+    PlayerAction const lastAction
+);
+
+// void undo( Game* const pGame );
+//
+// void redoPlaceStone( Game* const pGame );
+//
+// void redo( Game* const pGame );
+
 void demo( Game* const pGame );
 
 #endif

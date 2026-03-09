@@ -13,4 +13,10 @@ void takeFromReserves(
     StoneType const type
 );
 
+void returnToReserves(
+    Players* const players,
+    PlayerId const playerId,
+    StoneType const type
+);
+
 #endif

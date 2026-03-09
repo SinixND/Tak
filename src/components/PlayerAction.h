@@ -4,6 +4,7 @@
 #include "DirectionId.h"
 #include "FileId.h"
 #include "GameConstants.h"
+#include "PlayerId.h"
 #include "RankId.h"
 #include "StoneType.h"
 #include <stdint.h>
@@ -19,6 +20,7 @@
  */
 typedef struct
 {
+    PlayerId playerId : 2;     // White or black
     uint8_t count : 4;         // 0 for placement
     StoneType stoneType : 2;   // F, S, C
     FileId fileX : 3;          // Square: Column

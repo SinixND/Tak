@@ -37,7 +37,7 @@ Players newPlayers( int const boardWidth )
 void takeFromReserves(
     Players* const players,
     PlayerId const playerId,
-    StoneType const type
+    StoneType const stoneType
 )
 {
     assert(
@@ -45,8 +45,20 @@ void takeFromReserves(
         && "Invalid playerId"
     );
 
-    switch ( type )
+    assert(
+        ( stoneType != STONE_TYPE_NONE )
+        && "Invalid playerId"
+    );
+
+    switch ( stoneType )
     {
+        default:
+        {
+            assert( !"StoneType is required" );
+
+            break;
+        }
+
         case STONE_TYPE_FLAT:
         case STONE_TYPE_STANDING:
         {
@@ -71,14 +83,46 @@ void takeFromReserves(
 
             break;
         }
+    }
 
+    ++players->stonesInPlay[playerId];
+}
+
+void addToReserves(
+    Players* const players,
+    PlayerId const playerId,
+    StoneType const stoneType
+)
+{
+    assert(
+        ( playerId == PLAYER_WHITE || playerId == PLAYER_BLACK )
+        && "Invalid playerId"
+    );
+
+    switch ( stoneType )
+    {
         default:
         {
             assert( !"StoneType is required" );
 
             break;
         }
+
+        case STONE_TYPE_FLAT:
+        case STONE_TYPE_STANDING:
+        {
+            ++players->regularReserves[playerId];
+
+            break;
+        }
+
+        case STONE_TYPE_CAP:
+        {
+            ++players->capstoneReserves[playerId];
+
+            break;
+        }
     }
 
-    ++players->stonesInPlay[playerId];
+    --players->stonesInPlay[playerId];
 }
