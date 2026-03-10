@@ -1,7 +1,9 @@
 #include "HistorySystem.h"
+
 #include "DirectionId.h"
 #include "GameConstants.h"
 #include "PlayerAction.h"
+#include <assert.h>
 
 void recordPlacementAction(
     History* const pHistory,
@@ -10,11 +12,20 @@ void recordPlacementAction(
     RankId const rankY
 )
 {
-    //* Increase counter
-    stepForward( pHistory );
+    //* Increase index
+    ++pHistory->lastActionIdx;
+
+    //* Might never trigger
+    assert(
+        pHistory->lastActionIdx < HISTORY_SIZE
+        && "Nothing to be undone"
+    );
+
+    //* Reset redo count
+    pHistory->redoCount = 0;
 
     //* Push pPlayerAction
-    pHistory->undoActions[pHistory->lastActionIdx % HISTORY_SIZE] = (PlayerAction){
+    pHistory->actions[pHistory->lastActionIdx] = (PlayerAction){
         .count = 0,
         .stoneType = stoneType,
         .fileX = fileX,
@@ -25,18 +36,24 @@ void recordPlacementAction(
     };
 }
 
-void stepBack( History* const pHistory )
+void undoHistory( History* const pHistory )
 {
-    --pHistory->lastActionIdx;
+    assert(
+        pHistory->lastActionIdx > 0
+        && "Nothing to be undone"
+    );
 
-    //* Ensure lastActionIdx is below HISTORY_SIZE
-    pHistory->lastActionIdx = ( pHistory->lastActionIdx + HISTORY_SIZE ) % HISTORY_SIZE;
+    --pHistory->lastActionIdx;
+    ++pHistory->redoCount;
 }
 
-void stepForward( History* const pHistory )
+void redoHistory( History* const pHistory )
 {
-    ++pHistory->lastActionIdx;
+    assert(
+        pHistory->redoCount > 0
+        && "Nothing to be redone"
+    );
 
-    //* Ensure lastActionIdx is below HISTORY_SIZE
-    pHistory->lastActionIdx = ( pHistory->lastActionIdx + HISTORY_SIZE ) % HISTORY_SIZE;
+    ++pHistory->lastActionIdx;
+    --pHistory->redoCount;
 }

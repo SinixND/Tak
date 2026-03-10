@@ -8,6 +8,7 @@
 /// Provide boardWidth 0 for default value
 Game newGame( int boardWidth );
 
+/// From Player to Board; Add to History
 void placeStone(
     Game* const pGame,
     PlayerId const playerId,
@@ -15,6 +16,12 @@ void placeStone(
     RankId const rankY,
     StoneType const stoneType
 );
+
+/// From Board to Player; Undo History
+void undoPlaceStone( Game* const pGame );
+
+/// From Player to Board; Redo History
+void redoPlaceStone( Game* const pGame );
 
 void pickUpStack(
     Game* const pGame,
@@ -28,12 +35,9 @@ void dropStone(
     RankId const rankY
 );
 
-void undoPlaceStone( Game* const pGame );
-
 void undo( Game* const pGame );
 
-// void redoPlaceStone( Game* const pGame );
-// void redo( Game* const pGame );
+void redo( Game* const pGame );
 
 void demo( Game* const pGame );
 

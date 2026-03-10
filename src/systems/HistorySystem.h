@@ -13,7 +13,7 @@ void recordPlacementAction(
     RankId const rankY
 );
 
-void stepBack( History* const pHistory );
-void stepForward( History* const pHistory );
+void undoHistory( History* const pHistory );
+void redoHistory( History* const pHistory );
 
 #endif

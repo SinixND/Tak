@@ -136,6 +136,7 @@ Utilize the following concepts:
 ## ToDo notes
 - [ ] Undo Placement
 - [ ] Redo Placement
+-[ ] Who, Where, What (params, actions)
 - [ ] PickUp: Only owned! -> input dependent
 - [ ] Store origin and direction in StackBuffer? (for GameSystem:Drop verification)
     - Set direction if is still 0;

@@ -10,9 +10,11 @@
 typedef struct
 {
     /// Stack to store the actions to be undone
-    PlayerAction undoActions[HISTORY_SIZE];
-    /// Track next action index to be undone
+    PlayerAction actions[HISTORY_SIZE];
+    /// Track index of last action that can be undone
     int lastActionIdx;
+    /// Track count of actions that can be redone
+    int redoCount;
 } History;
 
 #endif

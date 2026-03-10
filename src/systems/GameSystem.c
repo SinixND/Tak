@@ -47,11 +47,6 @@ void placeStone(
         && "Can only place on empty square"
     );
 
-    assert(
-        pGame->board.types[squareIdx] == STONE_TYPE_NONE
-        && "Can only place on empty square"
-    );
-
     takeFromReserves(
         &pGame->players,
         playerId,
@@ -71,6 +66,65 @@ void placeStone(
         stoneType,
         fileX,
         rankY
+    );
+}
+
+void undoPlaceStone( Game* const pGame )
+{
+    PlayerAction const lastAction = pGame->history.actions[pGame->history.lastActionIdx];
+
+    //* Undo putOnStack
+    takeFromStack(
+        &pGame->board,
+        positionToSquare(
+            lastAction.fileX,
+            lastAction.rankY,
+            pGame->board.width
+        ),
+        1
+    );
+
+    //* Undo takeFromReserves
+    returnToReserves(
+        &pGame->players,
+        lastAction.playerId,
+        lastAction.stoneType
+    );
+
+    //* Adjust history
+    undoHistory( &pGame->history );
+}
+
+void redoPlaceStone( Game* const pGame )
+{
+    //* Adjust history
+    redoHistory( &pGame->history );
+
+    PlayerAction const nextAction = pGame->history.actions[pGame->history.lastActionIdx];
+
+    int const squareIdx = positionToSquare(
+        nextAction.fileX,
+        nextAction.rankY,
+        pGame->board.width
+    );
+
+    //* INFO: [Rule] Can only place on empty squares
+    assert(
+        pGame->board.counts[squareIdx] == 0
+        && "Can only place on empty square"
+    );
+
+    takeFromReserves(
+        &pGame->players,
+        nextAction.playerId,
+        nextAction.stoneType
+    );
+
+    putOntoStack(
+        &pGame->board,
+        squareIdx,
+        nextAction.playerId,
+        nextAction.stoneType
     );
 }
 
@@ -173,32 +227,9 @@ void dropStone(
     dropFromBuffer( &pGame->stackBuffer );
 }
 
-void undoPlaceStone( Game* const pGame )
-{
-    PlayerAction const lastAction = pGame->history.undoActions[pGame->history.lastActionIdx];
-
-    //* Undo putOnStack
-    takeFromStack(
-        &pGame->board,
-        positionToSquare(
-            lastAction.fileX,
-            lastAction.rankY,
-            pGame->board.width
-        ),
-        1
-    );
-
-    //* Undo takeFromReserves
-    returnToReserves(
-        &pGame->players,
-        lastAction.playerId,
-        lastAction.stoneType
-    );
-}
-
 void undo( Game* const pGame )
 {
-    switch ( pGame->history.undoActions[pGame->history.lastActionIdx].count )
+    switch ( pGame->history.actions[pGame->history.lastActionIdx].count )
     {
         default:
         {
@@ -212,8 +243,25 @@ void undo( Game* const pGame )
             break;
         }
     }
+}
 
-    stepBack( &pGame->history );
+void redo( Game* const pGame )
+{
+    switch ( pGame->history.actions[pGame->history.lastActionIdx].count )
+    {
+        default:
+        {
+            assert( !"Missing case" );
+            break;
+        }
+
+        case 0:
+        {
+            redoPlaceStone( pGame );
+
+            break;
+        }
+    }
 }
 
 void demo( Game* const pGame )
@@ -225,6 +273,9 @@ void demo( Game* const pGame )
         0,
         STONE_TYPE_FLAT
     );
+
+    undo( pGame );
+    redo( pGame );
 
     putOntoStack(
         &pGame->board,
@@ -244,7 +295,5 @@ void demo( Game* const pGame )
         0,
         1
     );
-
-    undo( pGame );
 }
 

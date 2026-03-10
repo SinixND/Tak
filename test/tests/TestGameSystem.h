@@ -188,14 +188,10 @@ void testUndoPlaceStone( void )
     TEST_ASSERT_EQUAL_INT( 1, game.players.reservesCapstone[PLAYER_WHITE] );
     TEST_ASSERT_EQUAL_INT( 0, game.board.counts[2] );
 
-    stepBack( &game.history );
-
     undoPlaceStone( &game );
 
     TEST_ASSERT_EQUAL_INT( 20, game.players.reservesRegular[PLAYER_WHITE] );
     TEST_ASSERT_EQUAL_INT( 0, game.board.counts[1] );
-
-    stepBack( &game.history );
 
     undoPlaceStone( &game );
 
