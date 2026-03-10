@@ -10,13 +10,13 @@ Players newPlayers( int const boardWidth );
 void takeFromReserves(
     Players* const players,
     PlayerId const playerId,
-    StoneType const type
+    StoneType const stoneType
 );
 
 void returnToReserves(
     Players* const players,
     PlayerId const playerId,
-    StoneType const type
+    StoneType const stoneType
 );
 
 #endif

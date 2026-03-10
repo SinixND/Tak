@@ -29,6 +29,8 @@ int main( void )
     RUN_TEST( testPlaceStone );
     RUN_TEST( testPickUpStack );
     RUN_TEST( testDropStone );
+    RUN_TEST( testUndoPlaceStone );
+    RUN_TEST( testUndo );
 
     //* Test HistorySystem
     RUN_TEST( testRecordPlacementAction );

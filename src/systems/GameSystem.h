@@ -22,26 +22,22 @@ void pickUpStack(
     RankId const rankY
 );
 
-//* NOTE: Dont forget to implement this (first undo drops from PlayerAction-Info) then drop all on origin?
-// void abortMove( Game* const pGame );
-
 void dropStone(
     Game* const pGame,
     FileId const fileX,
     RankId const rankY
 );
 
-void undoPlaceStone(
-    Game* const pGame,
-    PlayerAction const lastAction
-);
+void undoPlaceStone( Game* const pGame );
 
-// void undo( Game* const pGame );
-//
+void undo( Game* const pGame );
+
 // void redoPlaceStone( Game* const pGame );
-//
 // void redo( Game* const pGame );
 
 void demo( Game* const pGame );
+
+//* NOTE: Dont forget to implement this (first undo drops from PlayerAction-Info) then drop all on origin?
+// void abortMove( Game* const pGame );
 
 #endif

@@ -15,7 +15,7 @@ void recordPlacementAction(
 
     //* Push pPlayerAction
     pHistory->undoActions[pHistory->lastActionIdx % HISTORY_SIZE] = (PlayerAction){
-        .count = 8,
+        .count = 0,
         .stoneType = stoneType,
         .fileX = fileX,
         .rankY = rankY,

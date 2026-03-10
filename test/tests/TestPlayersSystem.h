@@ -12,10 +12,10 @@ void testNewPlayers( void )
 
     TEST_ASSERT_EQUAL_INT( 0, players.stonesInPlay[PLAYER_WHITE] );
     TEST_ASSERT_EQUAL_INT( 0, players.stonesInPlay[PLAYER_BLACK] );
-    TEST_ASSERT_EQUAL_INT( 10, players.regularReserves[PLAYER_WHITE] );
-    TEST_ASSERT_EQUAL_INT( 10, players.regularReserves[PLAYER_BLACK] );
-    TEST_ASSERT_EQUAL_INT( 0, players.capstoneReserves[PLAYER_WHITE] );
-    TEST_ASSERT_EQUAL_INT( 0, players.capstoneReserves[PLAYER_BLACK] );
+    TEST_ASSERT_EQUAL_INT( 10, players.reservesRegular[PLAYER_WHITE] );
+    TEST_ASSERT_EQUAL_INT( 10, players.reservesRegular[PLAYER_BLACK] );
+    TEST_ASSERT_EQUAL_INT( 0, players.reservesCapstone[PLAYER_WHITE] );
+    TEST_ASSERT_EQUAL_INT( 0, players.reservesCapstone[PLAYER_BLACK] );
 }
 
 void testTakeFromReserves( void )
@@ -28,8 +28,8 @@ void testTakeFromReserves( void )
         STONE_TYPE_FLAT
     );
 
-    TEST_ASSERT_EQUAL_INT( 20, players.regularReserves[PLAYER_WHITE] );
-    TEST_ASSERT_EQUAL_INT( 21, players.regularReserves[PLAYER_BLACK] );
+    TEST_ASSERT_EQUAL_INT( 20, players.reservesRegular[PLAYER_WHITE] );
+    TEST_ASSERT_EQUAL_INT( 21, players.reservesRegular[PLAYER_BLACK] );
 
     takeFromReserves(
         &players,
@@ -37,8 +37,8 @@ void testTakeFromReserves( void )
         STONE_TYPE_CAP
     );
 
-    TEST_ASSERT_EQUAL_INT( 1, players.capstoneReserves[PLAYER_WHITE] );
-    TEST_ASSERT_EQUAL_INT( 0, players.capstoneReserves[PLAYER_BLACK] );
+    TEST_ASSERT_EQUAL_INT( 1, players.reservesCapstone[PLAYER_WHITE] );
+    TEST_ASSERT_EQUAL_INT( 0, players.reservesCapstone[PLAYER_BLACK] );
 }
 
 #endif

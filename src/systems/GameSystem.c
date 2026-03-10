@@ -173,11 +173,10 @@ void dropStone(
     dropFromBuffer( &pGame->stackBuffer );
 }
 
-void undoPlaceStone(
-    Game* const pGame,
-    PlayerAction const lastAction
-)
+void undoPlaceStone( Game* const pGame )
 {
+    PlayerAction const lastAction = pGame->history.undoActions[pGame->history.lastActionIdx];
+
     //* Undo putOnStack
     takeFromStack(
         &pGame->board,
@@ -195,8 +194,25 @@ void undoPlaceStone(
         lastAction.playerId,
         lastAction.stoneType
     );
+}
 
-    //* Go back in time
+void undo( Game* const pGame )
+{
+    switch ( pGame->history.undoActions[pGame->history.lastActionIdx].count )
+    {
+        default:
+        {
+            assert( !"Missing case" );
+            break;
+        }
+
+        case 0:
+        {
+            undoPlaceStone( pGame );
+            break;
+        }
+    }
+
     stepBack( &pGame->history );
 }
 
@@ -229,6 +245,6 @@ void demo( Game* const pGame )
         1
     );
 
-    stepBack( &pGame->history );
+    undo( pGame );
 }
 
