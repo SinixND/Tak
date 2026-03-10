@@ -1,10 +1,12 @@
 #ifndef IG20260309123925
 #define IG20260309123925
 
-#include "GameConstants.h"
+#include "FileId.h"
 #include "History.h"
 #include "HistorySystem.h"
 #include "PlayerAction.h"
+#include "PlayerId.h"
+#include "RankId.h"
 #include "StoneType.h"
 #include <unity.h>
 
@@ -14,53 +16,87 @@ void testRecordPlacementAction( void )
 
     recordPlacementAction(
         &history,
-        STONE_TYPE_FLAT,
-        0,
-        0
+        PLAYER_WHITE,
+        FILE_A,
+        RANK_1,
+        STONE_TYPE_FLAT
     );
+
+    TEST_ASSERT_EQUAL_INT( 1, history.lastActionIdx );
 
     PlayerAction action = history.actions[history.lastActionIdx];
 
     TEST_ASSERT_EQUAL_INT( STONE_TYPE_FLAT, action.stoneType );
-    TEST_ASSERT_EQUAL_INT( 0, action.fileX );
-    TEST_ASSERT_EQUAL_INT( 0, action.rankY );
+    TEST_ASSERT_EQUAL_INT( FILE_A, action.fileX );
+    TEST_ASSERT_EQUAL_INT( RANK_1, action.rankY );
 
     recordPlacementAction(
         &history,
-        STONE_TYPE_STANDING,
-        1,
-        0
+        PLAYER_WHITE,
+        FILE_B,
+        RANK_1,
+        STONE_TYPE_STANDING
     );
+
+    TEST_ASSERT_EQUAL_INT( 2, history.lastActionIdx );
 
     action = history.actions[history.lastActionIdx];
 
     TEST_ASSERT_EQUAL_INT( STONE_TYPE_STANDING, action.stoneType );
-    TEST_ASSERT_EQUAL_INT( 1, action.fileX );
-    TEST_ASSERT_EQUAL_INT( 0, action.rankY );
+    TEST_ASSERT_EQUAL_INT( FILE_B, action.fileX );
+    TEST_ASSERT_EQUAL_INT( RANK_1, action.rankY );
 
     recordPlacementAction(
         &history,
-        STONE_TYPE_CAP,
-        2,
-        0
+        PLAYER_WHITE,
+        FILE_C,
+        RANK_1,
+        STONE_TYPE_CAP
     );
+
+    TEST_ASSERT_EQUAL_INT( 3, history.lastActionIdx );
 
     action = history.actions[history.lastActionIdx];
 
+    TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, action.playerId );
     TEST_ASSERT_EQUAL_INT( STONE_TYPE_CAP, action.stoneType );
-    TEST_ASSERT_EQUAL_INT( 2, action.fileX );
-    TEST_ASSERT_EQUAL_INT( 0, action.rankY );
+    TEST_ASSERT_EQUAL_INT( FILE_C, action.fileX );
+    TEST_ASSERT_EQUAL_INT( RANK_1, action.rankY );
 }
 
-void testStepBack( void )
+void testRecordPickUpAction( void )
+{
+    History history = { 0 };
+
+    recordPickUpAction(
+        &history,
+        PLAYER_WHITE,
+        FILE_A,
+        RANK_1,
+        STONE_TYPE_STANDING,
+        5
+    );
+
+    TEST_ASSERT_EQUAL_INT( 1, history.lastActionIdx );
+
+    PlayerAction action = history.actions[history.lastActionIdx];
+
+    TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, action.playerId );
+    TEST_ASSERT_EQUAL_INT( STONE_TYPE_STANDING, action.stoneType );
+    TEST_ASSERT_EQUAL_INT( FILE_A, action.fileX );
+    TEST_ASSERT_EQUAL_INT( RANK_1, action.rankY );
+}
+
+void testUndoHistory( void )
 {
     History history = { 0 };
 
     recordPlacementAction(
         &history,
-        STONE_TYPE_CAP,
-        2,
-        0
+        PLAYER_WHITE,
+        FILE_C,
+        RANK_1,
+        STONE_TYPE_CAP
     );
 
     undoHistory( &history );
@@ -70,24 +106,26 @@ void testStepBack( void )
 
     recordPlacementAction(
         &history,
-        STONE_TYPE_STANDING,
-        2,
-        0
+        PLAYER_WHITE,
+        FILE_C,
+        RANK_1,
+        STONE_TYPE_STANDING
     );
 
     TEST_ASSERT_EQUAL_INT( 1, history.lastActionIdx );
     TEST_ASSERT_EQUAL_INT( 0, history.redoCount );
 }
 
-void testStepForward( void )
+void testRedoHistory( void )
 {
     History history = { 0 };
 
     recordPlacementAction(
         &history,
-        STONE_TYPE_CAP,
-        2,
-        0
+        PLAYER_WHITE,
+        FILE_C,
+        RANK_1,
+        STONE_TYPE_CAP
     );
 
     undoHistory( &history );

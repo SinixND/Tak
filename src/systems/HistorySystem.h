@@ -8,10 +8,26 @@
 
 void recordPlacementAction(
     History* const pHistory,
-    StoneType const stoneType,
+    PlayerId const playerId,
     FileId const fileX,
-    RankId const rankY
+    RankId const rankY,
+    StoneType const stoneType
 );
+
+void recordPickUpAction(
+    History* const pHistory,
+    PlayerId const playerId,
+    FileId const fileX,
+    RankId const rankY,
+    StoneType const stoneType,
+    int const stoneCount
+);
+
+// void appendDropAction(
+//     History* const pHistory,
+//     FileId const fileX,
+//     RankId const rankY
+// );
 
 void undoHistory( History* const pHistory );
 void redoHistory( History* const pHistory );

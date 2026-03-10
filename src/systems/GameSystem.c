@@ -35,11 +35,12 @@ void placeStone(
     StoneType const stoneType
 )
 {
-    int const squareIdx = positionToSquare(
-        fileX,
-        rankY,
-        pGame->board.width
-    );
+    int const squareIdx
+        = positionToSquare(
+            fileX,
+            rankY,
+            pGame->board.width
+        );
 
     //* INFO: [Rule] Can only place on empty squares
     assert(
@@ -63,9 +64,10 @@ void placeStone(
     //* Add action to undo stack
     recordPlacementAction(
         &pGame->history,
-        stoneType,
+        playerId,
         fileX,
-        rankY
+        rankY,
+        stoneType
     );
 }
 
@@ -102,11 +104,12 @@ void redoPlaceStone( Game* const pGame )
 
     PlayerAction const nextAction = pGame->history.actions[pGame->history.lastActionIdx];
 
-    int const squareIdx = positionToSquare(
-        nextAction.fileX,
-        nextAction.rankY,
-        pGame->board.width
-    );
+    int const squareIdx
+        = positionToSquare(
+            nextAction.fileX,
+            nextAction.rankY,
+            pGame->board.width
+        );
 
     //* INFO: [Rule] Can only place on empty squares
     assert(
@@ -130,41 +133,46 @@ void redoPlaceStone( Game* const pGame )
 
 void pickUpStack(
     Game* const pGame,
+    PlayerId const playerId,
     FileId const fileX,
     RankId const rankY
 )
 {
-    int const squareIdx = positionToSquare(
-        fileX,
-        rankY,
-        pGame->board.width
-    );
+    int const squareIdx
+        = positionToSquare(
+            fileX,
+            rankY,
+            pGame->board.width
+        );
 
     assert(
         pGame->board.counts[squareIdx] > 0
         && "Cannot pick up empty stack"
     );
 
-    int const boardWidth = pGame->board.width;
     int stoneCount = pGame->board.counts[squareIdx];
+    int const boardWidth = pGame->board.width;
 
     //* INFO: [Rule] StackBuffer stone count must cap at boardWidth
     stoneCount = ( stoneCount > boardWidth ) ? boardWidth : stoneCount;
 
+    int topStoneIdx
+        = squareToStackIndex(
+              squareIdx,
+              pGame->board.stackCapacity
+          )
+          + ( pGame->board.counts[squareIdx] - 1 );
+
     assert(
-        stoneCount <= boardWidth
-        && "Stone count must be smaller than board witdh"
+        playerId == pGame->board.stoneIds[topStoneIdx]
+        && "Only contolling player can pickup stack"
     );
 
-    int topStoneIdx = squareToStackIndex(
-                          squareIdx,
-                          pGame->board.stackCapacity
-                      )
-                      + ( pGame->board.counts[squareIdx] - 1 );
+    int const stoneType = pGame->board.types[squareIdx];
 
     setBufferStoneType(
         &pGame->stackBuffer,
-        pGame->board.types[squareIdx]
+        stoneType
     );
 
     //* Add stones to buffer
@@ -182,6 +190,16 @@ void pickUpStack(
         squareIdx,
         stoneCount
     );
+
+    //* Add action to undo stack
+    recordPickUpAction(
+        &pGame->history,
+        playerId,
+        fileX,
+        rankY,
+        stoneType,
+        stoneCount
+    );
 }
 
 void dropStone(
@@ -190,11 +208,12 @@ void dropStone(
     RankId const rankY
 )
 {
-    int const squareIdx = positionToSquare(
-        fileX,
-        rankY,
-        pGame->board.width
-    );
+    int const squareIdx
+        = positionToSquare(
+            fileX,
+            rankY,
+            pGame->board.width
+        );
 
     StoneType const stackType = pGame->board.types[squareIdx];
 
@@ -286,6 +305,7 @@ void demo( Game* const pGame )
 
     pickUpStack(
         pGame,
+        PLAYER_BLACK,
         0,
         0
     );

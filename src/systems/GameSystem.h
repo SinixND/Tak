@@ -25,6 +25,7 @@ void redoPlaceStone( Game* const pGame );
 
 void pickUpStack(
     Game* const pGame,
+    PlayerId const playerId,
     FileId const fileX,
     RankId const rankY
 );

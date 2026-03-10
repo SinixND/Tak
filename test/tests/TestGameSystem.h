@@ -1,11 +1,11 @@
 #ifndef IG20260117152251
 #define IG20260117152251
 
-#include "BoardSystem.h"
+#include "FileId.h"
 #include "Game.h"
 #include "GameSystem.h"
-#include "HistorySystem.h"
 #include "PlayerId.h"
+#include "RankId.h"
 #include "StoneType.h"
 #include "unity.h"
 
@@ -31,8 +31,8 @@ void testPlaceStone( void )
     placeStone(
         &game,
         PLAYER_WHITE,
-        0,
-        0,
+        FILE_A,
+        RANK_1,
         STONE_TYPE_FLAT
     );
 
@@ -45,8 +45,8 @@ void testPlaceStone( void )
     placeStone(
         &game,
         PLAYER_BLACK,
-        1,
-        0,
+        FILE_B,
+        RANK_1,
         STONE_TYPE_STANDING
     );
 
@@ -59,16 +59,16 @@ void testPlaceStone( void )
     placeStone(
         &game,
         PLAYER_WHITE,
-        3,
-        0,
+        FILE_C,
+        RANK_1,
         STONE_TYPE_CAP
     );
 
     TEST_ASSERT_EQUAL_INT( 0, game.players.reservesCapstone[PLAYER_WHITE] );
-    TEST_ASSERT_EQUAL_INT( 1, game.board.counts[3] );
-    TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, game.board.stoneIds[3 * 43] );
-    TEST_ASSERT_EQUAL_INT( PLAYER_NONE, game.board.stoneIds[3 * 43 + 1] );
-    TEST_ASSERT_EQUAL_INT( STONE_TYPE_CAP, game.board.types[3] );
+    TEST_ASSERT_EQUAL_INT( 1, game.board.counts[2] );
+    TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, game.board.stoneIds[2 * 43] );
+    TEST_ASSERT_EQUAL_INT( PLAYER_NONE, game.board.stoneIds[2 * 43 + 1] );
+    TEST_ASSERT_EQUAL_INT( STONE_TYPE_CAP, game.board.types[2] );
 }
 
 void testPickUpStack( void )
@@ -84,8 +84,9 @@ void testPickUpStack( void )
 
     pickUpStack(
         &game,
-        0,
-        0
+        PLAYER_BLACK,
+        FILE_A,
+        RANK_1
     );
 
     TEST_ASSERT_EQUAL_INT( STONE_TYPE_CAP, game.stackBuffer.type );
@@ -114,8 +115,8 @@ void testDropStone( void )
 
     dropStone(
         &game,
-        0,
-        0
+        FILE_A,
+        RANK_1
     );
 
     TEST_ASSERT_EQUAL_INT( STONE_TYPE_FLAT, game.board.types[0] );
@@ -125,8 +126,8 @@ void testDropStone( void )
 
     dropStone(
         &game,
-        0,
-        0
+        FILE_A,
+        RANK_1
     );
 
     TEST_ASSERT_EQUAL_INT( STONE_TYPE_STANDING, game.board.types[0] );
@@ -145,8 +146,8 @@ void testDropStone( void )
 
     dropStone(
         &game,
-        1,
-        0
+        FILE_B,
+        RANK_1
     );
 
     TEST_ASSERT_EQUAL_INT( STONE_TYPE_CAP, game.board.types[1] );
@@ -162,24 +163,24 @@ void testUndoPlaceStone( void )
     placeStone(
         &game,
         PLAYER_WHITE,
-        0,
-        0,
+        FILE_A,
+        RANK_1,
         STONE_TYPE_FLAT
     );
 
     placeStone(
         &game,
         PLAYER_WHITE,
-        1,
-        0,
+        FILE_B,
+        RANK_1,
         STONE_TYPE_STANDING
     );
 
     placeStone(
         &game,
         PLAYER_WHITE,
-        2,
-        0,
+        FILE_C,
+        RANK_1,
         STONE_TYPE_CAP
     );
 
@@ -206,24 +207,24 @@ void testUndo( void )
     placeStone(
         &game,
         PLAYER_WHITE,
-        0,
-        0,
+        FILE_A,
+        RANK_1,
         STONE_TYPE_FLAT
     );
 
     placeStone(
         &game,
         PLAYER_WHITE,
-        1,
-        0,
+        FILE_B,
+        RANK_1,
         STONE_TYPE_STANDING
     );
 
     placeStone(
         &game,
         PLAYER_WHITE,
-        2,
-        0,
+        FILE_C,
+        RANK_1,
         STONE_TYPE_CAP
     );
 

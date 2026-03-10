@@ -134,17 +134,10 @@ Utilize the following concepts:
 
 
 ## ToDo notes
-- [ ] Undo Placement
-- [ ] Redo Placement
--[ ] Who, Where, What (params, actions)
-- [ ] PickUp: Only owned! -> input dependent
-- [ ] Store origin and direction in StackBuffer? (for GameSystem:Drop verification)
-    - Set direction if is still 0;
-    - Add direction verification function to StackBuffer
+- [ ] Who, Where, What (params, actions)
+    - Update functions
 
-- [ ] Record PlayerAction: Move/Drop stone
-    - appendDropCount? consider squareIdx
-    - [ ] Add tests for
-        - record (move)
+- [x] Record PlayerAction: Pick up stone
+- [ ] Record PlayerAction: Drop stone
 
 <p align="right">(<a href="#readme-top">top</a>)</p>

@@ -34,8 +34,9 @@ int main( void )
 
     //* Test HistorySystem
     RUN_TEST( testRecordPlacementAction );
-    RUN_TEST( testStepBack );
-    RUN_TEST( testStepForward );
+    RUN_TEST( testRecordPickUpAction );
+    RUN_TEST( testUndoHistory );
+    RUN_TEST( testRedoHistory );
 
     //* Test PlayersSystem
     RUN_TEST( testNewPlayers );

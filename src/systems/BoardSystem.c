@@ -13,7 +13,8 @@ Board newBoard( int const boardWidth )
         .stoneIds = { 0 },
         .counts = { 0 },
         .types = { 0 },
-        .stackCapacity = 2 * getBaseRegularStoneReserves( boardWidth ) + (int)( 0 != getBaseCapstoneReserves( boardWidth ) ),
+        .stackCapacity = 2 * getBaseRegularStoneReserves( boardWidth )
+                         + (int)( 0 != getBaseCapstoneReserves( boardWidth ) ),
         .width = boardWidth
     };
 
@@ -52,10 +53,11 @@ void putOntoStack(
     //* Set stack type
     pBoard->types[squareIdx] = stoneType;
 
-    int const stackIdx = squareToStackIndex(
-        squareIdx,
-        pBoard->stackCapacity
-    );
+    int const stackIdx
+        = squareToStackIndex(
+            squareIdx,
+            pBoard->stackCapacity
+        );
 
     //* Add playerId
     pBoard->stoneIds[stackIdx + pBoard->counts[squareIdx]] = playerId;
