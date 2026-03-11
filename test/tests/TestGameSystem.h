@@ -200,6 +200,25 @@ void testUndoPlaceStone( void )
     TEST_ASSERT_EQUAL_INT( 0, game.board.counts[0] );
 }
 
+void testRedoPlaceStone( void )
+{
+    Game game = newGame( 5 );
+
+    placeStone(
+        &game,
+        PLAYER_WHITE,
+        FILE_A,
+        RANK_1,
+        STONE_TYPE_CAP
+    );
+
+    undoPlaceStone( &game );
+    redoPlaceStone( &game );
+
+    TEST_ASSERT_EQUAL_INT( 0, game.players.reservesCapstone[PLAYER_WHITE] );
+    TEST_ASSERT_EQUAL_INT( 1, game.board.counts[0] );
+}
+
 void testUndo( void )
 {
     Game game = newGame( 5 );

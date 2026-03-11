@@ -137,6 +137,12 @@ Utilize the following concepts:
 - [ ] Who, Where, What (params, actions)
     - Update functions
 
+- [x] Undo placement
+    - [x] function
+    - [x] test
+- [ ] Redo placement
+    - [x] function
+    - [ ] test
 - [x] Record PlayerAction: Pick up stone
 - [ ] Record PlayerAction: Drop stone
 

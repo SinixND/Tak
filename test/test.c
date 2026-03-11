@@ -27,9 +27,10 @@ int main( void )
     //* Test GameSystem
     RUN_TEST( testNewGame );
     RUN_TEST( testPlaceStone );
+    RUN_TEST( testUndoPlaceStone );
+    RUN_TEST( testRedoPlaceStone );
     RUN_TEST( testPickUpStack );
     RUN_TEST( testDropStone );
-    RUN_TEST( testUndoPlaceStone );
     RUN_TEST( testUndo );
 
     //* Test HistorySystem
