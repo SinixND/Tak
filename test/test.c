@@ -32,6 +32,7 @@ int main( void )
     RUN_TEST( testPickUpStack );
     RUN_TEST( testDropStone );
     RUN_TEST( testUndo );
+    RUN_TEST( testRedo );
 
     //* Test HistorySystem
     RUN_TEST( testRecordPlacementAction );

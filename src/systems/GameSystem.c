@@ -99,10 +99,7 @@ void undoPlaceStone( Game* const pGame )
 
 void redoPlaceStone( Game* const pGame )
 {
-    //* Adjust history
-    redoHistory( &pGame->history );
-
-    PlayerAction const nextAction = pGame->history.actions[pGame->history.lastActionIdx];
+    PlayerAction const nextAction = pGame->history.actions[pGame->history.lastActionIdx + 1];
 
     int const squareIdx
         = positionToSquare(
@@ -129,6 +126,9 @@ void redoPlaceStone( Game* const pGame )
         nextAction.playerId,
         nextAction.stoneType
     );
+
+    //* Adjust history
+    redoHistory( &pGame->history );
 }
 
 void pickUpStack(
@@ -248,11 +248,16 @@ void dropStone(
 
 void undo( Game* const pGame )
 {
+    assert(
+        pGame->history.lastActionIdx > 0
+        && "Nothing to undo"
+    );
+
     switch ( pGame->history.actions[pGame->history.lastActionIdx].count )
     {
         default:
         {
-            assert( !"Missing case" );
+            assert( !"Missing undo case" );
             break;
         }
 
@@ -266,11 +271,16 @@ void undo( Game* const pGame )
 
 void redo( Game* const pGame )
 {
-    switch ( pGame->history.actions[pGame->history.lastActionIdx].count )
+    assert(
+        pGame->history.redoCount > 0
+        && "Nothing to redo"
+    );
+
+    switch ( pGame->history.actions[pGame->history.lastActionIdx + 1].count )
     {
         default:
         {
-            assert( !"Missing case" );
+            assert( !"Missing redo case" );
             break;
         }
 

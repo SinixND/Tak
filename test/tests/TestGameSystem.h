@@ -263,4 +263,53 @@ void testUndo( void )
     TEST_ASSERT_EQUAL_INT( 0, game.board.counts[0] );
 }
 
+void testRedo( void )
+{
+    Game game = newGame( 5 );
+
+    placeStone(
+        &game,
+        PLAYER_WHITE,
+        FILE_A,
+        RANK_1,
+        STONE_TYPE_FLAT
+    );
+
+    placeStone(
+        &game,
+        PLAYER_WHITE,
+        FILE_B,
+        RANK_1,
+        STONE_TYPE_STANDING
+    );
+
+    placeStone(
+        &game,
+        PLAYER_WHITE,
+        FILE_C,
+        RANK_1,
+        STONE_TYPE_CAP
+    );
+
+    undo( &game );
+
+    undo( &game );
+
+    undo( &game );
+
+    redo( &game );
+
+    TEST_ASSERT_EQUAL_INT( 20, game.players.reservesRegular[PLAYER_WHITE] );
+    TEST_ASSERT_EQUAL_INT( 1, game.board.counts[FILE_A] );
+
+    redo( &game );
+
+    TEST_ASSERT_EQUAL_INT( 19, game.players.reservesRegular[PLAYER_WHITE] );
+    TEST_ASSERT_EQUAL_INT( 1, game.board.counts[FILE_B] );
+
+    redo( &game );
+
+    TEST_ASSERT_EQUAL_INT( 0, game.players.reservesCapstone[PLAYER_WHITE] );
+    TEST_ASSERT_EQUAL_INT( 1, game.board.counts[FILE_C] );
+}
 #endif
