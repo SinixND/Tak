@@ -152,7 +152,7 @@ Utilize the following concepts:
 
 
 ## ToDo notes
-- [ ] Rework History to atomic actions
+- [ ] Rework History/PlayerAction to atomic actions
 
 - [x] placement
     - [x] function
