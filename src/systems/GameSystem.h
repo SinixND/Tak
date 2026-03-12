@@ -6,7 +6,7 @@
 #include "RankId.h"
 
 /** 
- * @brief: Return new/clean game object
+ * @brief: Return initialized game object
  *
  * - Provide boardWidth 0 for default value
  */
