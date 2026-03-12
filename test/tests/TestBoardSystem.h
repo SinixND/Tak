@@ -34,8 +34,8 @@ void testPlaceOntoStack( void )
 
     putOntoStack(
         &board,
-        0,
         PLAYER_BLACK,
+        0,
         STONE_TYPE_FLAT
     );
 
@@ -45,8 +45,8 @@ void testPlaceOntoStack( void )
 
     putOntoStack(
         &board,
-        3,
         PLAYER_BLACK,
+        3,
         STONE_TYPE_STANDING
     );
 
@@ -56,8 +56,8 @@ void testPlaceOntoStack( void )
 
     putOntoStack(
         &board,
-        3,
         PLAYER_WHITE,
+        3,
         STONE_TYPE_CAP
     );
 

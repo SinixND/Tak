@@ -23,7 +23,7 @@ void recordPickUpAction(
     int const stoneCount
 );
 
-// void appendDropAction(
+// void recordDropAction(
 //     History* const pHistory,
 //     FileId const fileX,
 //     RankId const rankY

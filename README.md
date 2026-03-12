@@ -152,7 +152,6 @@ Utilize the following concepts:
 
 
 ## ToDo notes
-- [ ] Who, where, what
 - [ ] Add description to functions: What they do
 - [ ] Rework History to atomic actions
 

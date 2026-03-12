@@ -9,8 +9,8 @@ Board newBoard( int const boardWidth );
 
 void putOntoStack(
     Board* const pBoard,
-    int const squareIdx,
     PlayerId const playerId,
+    int const squareIdx,
     StoneType const stoneType
 );
 

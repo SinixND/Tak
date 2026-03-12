@@ -56,8 +56,8 @@ void placeStone(
 
     putOntoStack(
         &pGame->board,
-        squareIdx,
         playerId,
+        squareIdx,
         stoneType
     );
 
@@ -122,8 +122,8 @@ void redoPlaceStone( Game* const pGame )
 
     putOntoStack(
         &pGame->board,
-        squareIdx,
         nextAction.playerId,
+        squareIdx,
         nextAction.stoneType
     );
 
@@ -232,8 +232,8 @@ void undoPickUpStack( Game* const pGame )
     {
         putOntoStack(
             &pGame->board,
-            squareIdx,
             pGame->stackBuffer.stoneIds[( stoneCount - 1 ) - i],
+            squareIdx,
             //* Just use the final type, even if its set for every dropped stone
             pGame->stackBuffer.type
         );
@@ -285,8 +285,8 @@ void dropStone(
 
     putOntoStack(
         &pGame->board,
-        squareIdx,
         pGame->stackBuffer.stoneIds[pGame->stackBuffer.count - 1],
+        squareIdx,
         droppedStoneType
     );
 
@@ -355,8 +355,8 @@ void demo( Game* const pGame )
 
     putOntoStack(
         &pGame->board,
-        0,
         PLAYER_BLACK,
+        0,
         STONE_TYPE_STANDING
     );
 
