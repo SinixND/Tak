@@ -23,6 +23,7 @@ void undoPlaceStone( Game* const pGame );
 /// From Player to Board; Redo History
 void redoPlaceStone( Game* const pGame );
 
+/// From Board to Buffer; Add to History
 void pickUpStack(
     Game* const pGame,
     PlayerId const playerId,

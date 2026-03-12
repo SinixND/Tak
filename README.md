@@ -21,7 +21,25 @@
 
 Implementation of the two player board game from the novel series "King Killer Chronicles" by Patrick Rothfuss.
 
-For more information about the game's rules, see [ustak.org](https://ustak.org/play-beautiful-game-tak/#)
+For detailed information about the game's rules, see [ustak.org](https://ustak.org/play-beautiful-game-tak/#)
+
+### Game description
+- Tak is turn based `2 Player` board game
+- The board size is between `3x3` and `8x8` `squares`
+- Players have `reserves` of `regular` stones and `capstones` depending on the board size/width
+- Their goal is to connect two opposite board sides with a road
+- Each turn they can either `place()` or `move()` stones
+- Stones can be placed only on empty squares
+- Regular stones can be placed `flat` or `standing`
+- Only flat and capstones count towards roads
+- Stones can be moved onto other stones, building stacks
+- The top stone of a stack determines the owner of the stack
+- Only the `top stone` of a stack can have a type other than flat
+- Only the owner can move a stack
+- To move a stack, the players `pickUp()` a stack (up to [board width] pieces) and then `drop()` individual stones on subsequent squares (in a straight line)
+- [1,n] stones may be dropped onto a single square. 
+- No stone needs to be left at the original square
+- Only capstones can be dropped onto standing stones, flattening them.
 
 ### Dependencies
 Dependencies that are or are planned to be used:
@@ -134,6 +152,8 @@ Utilize the following concepts:
 
 
 ## ToDo notes
+- [ ] Who, where, what
+- [ ] Add description to functions: What they do
 - [ ] Rework History to atomic actions
 
 - [x] placement
