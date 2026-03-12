@@ -150,12 +150,6 @@ void pickUpStack(
         && "Cannot pick up empty stack"
     );
 
-    int stoneCount = pGame->board.counts[squareIdx];
-    int const boardWidth = pGame->board.width;
-
-    //* INFO: [Rule] StackBuffer stone count must cap at boardWidth
-    stoneCount = ( stoneCount > boardWidth ) ? boardWidth : stoneCount;
-
     int topStoneIdx
         = squareToStackIndex(
               squareIdx,
@@ -167,6 +161,12 @@ void pickUpStack(
         playerId == pGame->board.stoneIds[topStoneIdx]
         && "Only contolling player can pickup stack"
     );
+
+    int stoneCount = pGame->board.counts[squareIdx];
+    int const boardWidth = pGame->board.width;
+
+    //* INFO: [Rule] StackBuffer stone count must cap at boardWidth
+    stoneCount = ( stoneCount > boardWidth ) ? boardWidth : stoneCount;
 
     int const stoneType = pGame->board.types[squareIdx];
 
