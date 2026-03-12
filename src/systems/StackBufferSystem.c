@@ -14,13 +14,13 @@ StackBuffer newStackBuffer( void )
         buffer.stoneIds[stoneIdx] = PLAYER_NONE;
     }
 
-    buffer.type = STONE_TYPE_NONE;
-    buffer.count = 0;
+    buffer.stoneType = STONE_TYPE_NONE;
+    buffer.stoneCount = 0;
 
     return buffer;
 }
 
-void setBufferStoneType(
+void resetBuffer(
     StackBuffer* const pBuffer,
     StoneType const stoneType
 )
@@ -30,8 +30,8 @@ void setBufferStoneType(
         && "Invalid stoneId"
     );
 
-    pBuffer->type = stoneType;
-    pBuffer->count = 0;
+    pBuffer->stoneType = stoneType;
+    pBuffer->stoneCount = 0;
 
     // pBuffer->stoneIds[0] = playerId;
 }
@@ -47,19 +47,19 @@ void appendToBuffer(
     );
 
     //* Add playerId
-    pBuffer->stoneIds[pBuffer->count] = playerId;
+    pBuffer->stoneIds[pBuffer->stoneCount] = playerId;
 
     //* Increase stack count
-    ++pBuffer->count;
+    ++pBuffer->stoneCount;
 }
 
 void dropFromBuffer( StackBuffer* const pBuffer )
 {
     assert(
-        pBuffer->count > 0
+        pBuffer->stoneCount > 0
         && "Cannot drop from empty buffer"
     );
 
     //* Decrease stack count
-    --pBuffer->count;
+    --pBuffer->stoneCount;
 }

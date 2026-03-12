@@ -170,7 +170,7 @@ void pickUpStack(
 
     int const stoneType = pGame->board.types[squareIdx];
 
-    setBufferStoneType(
+    resetBuffer(
         &pGame->stackBuffer,
         stoneType
     );
@@ -216,7 +216,7 @@ void undoPickUpStack( Game* const pGame )
     );
 
     assert(
-        lastAction.count == pGame->stackBuffer.count
+        lastAction.count == pGame->stackBuffer.stoneCount
         && "Action count not equal buffer count"
     );
 
@@ -235,12 +235,12 @@ void undoPickUpStack( Game* const pGame )
             pGame->stackBuffer.stoneIds[( stoneCount - 1 ) - i],
             squareIdx,
             //* Just use the final type, even if its set for every dropped stone
-            pGame->stackBuffer.type
+            pGame->stackBuffer.stoneType
         );
     }
 
     //* Reset buffer
-    setBufferStoneType(
+    resetBuffer(
         &pGame->stackBuffer,
         STONE_TYPE_NONE
     );
@@ -272,9 +272,9 @@ void dropStone(
 
     StoneType const droppedStoneType =
         //
-        ( pGame->stackBuffer.count > 1 )
+        ( pGame->stackBuffer.stoneCount > 1 )
             ? STONE_TYPE_FLAT
-            : pGame->stackBuffer.type;
+            : pGame->stackBuffer.stoneType;
 
     //* INFO: [Rule] Capstone can flatten standing stones
     assert(
@@ -285,7 +285,7 @@ void dropStone(
 
     putOntoStack(
         &pGame->board,
-        pGame->stackBuffer.stoneIds[pGame->stackBuffer.count - 1],
+        pGame->stackBuffer.stoneIds[pGame->stackBuffer.stoneCount - 1],
         squareIdx,
         droppedStoneType
     );

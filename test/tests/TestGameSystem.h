@@ -89,8 +89,8 @@ void testPickUpStack( void )
         RANK_1
     );
 
-    TEST_ASSERT_EQUAL_INT( STONE_TYPE_CAP, game.stackBuffer.type );
-    TEST_ASSERT_EQUAL_INT( 3, game.stackBuffer.count );
+    TEST_ASSERT_EQUAL_INT( STONE_TYPE_CAP, game.stackBuffer.stoneType );
+    TEST_ASSERT_EQUAL_INT( 3, game.stackBuffer.stoneCount );
     TEST_ASSERT_EQUAL_INT( PLAYER_BLACK, game.stackBuffer.stoneIds[0] );
     TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, game.stackBuffer.stoneIds[1] );
     TEST_ASSERT_EQUAL_INT( PLAYER_BLACK, game.stackBuffer.stoneIds[2] );
@@ -108,8 +108,8 @@ void testDropStone( void )
     game.board.counts[0] = 1;
     game.board.stoneIds[0] = PLAYER_WHITE;
 
-    game.stackBuffer.type = STONE_TYPE_STANDING;
-    game.stackBuffer.count = 2;
+    game.stackBuffer.stoneType = STONE_TYPE_STANDING;
+    game.stackBuffer.stoneCount = 2;
     game.stackBuffer.stoneIds[0] = PLAYER_WHITE;
     game.stackBuffer.stoneIds[1] = PLAYER_BLACK;
 
@@ -140,8 +140,8 @@ void testDropStone( void )
     game.board.counts[1] = 1;
     game.board.stoneIds[20] = PLAYER_WHITE;
 
-    game.stackBuffer.type = STONE_TYPE_CAP;
-    game.stackBuffer.count = 1;
+    game.stackBuffer.stoneType = STONE_TYPE_CAP;
+    game.stackBuffer.stoneCount = 1;
     game.stackBuffer.stoneIds[0] = PLAYER_BLACK;
 
     dropStone(
