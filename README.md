@@ -134,16 +134,36 @@ Utilize the following concepts:
 
 
 ## ToDo notes
-- [ ] Who, Where, What (params, actions)
-    - Update functions
+- [ ] Rework History to atomic actions
 
-- [x] Undo placement
+- [x] placement
     - [x] function
-    - [x] test
-- [ ] Redo placement
+        - [x] test
+    - [x] record 
+        - [x] test
+    - [x] undo
+        - [x] test
+    - [x] redo
+        - [x] test
+
+- [ ] Pick up
     - [x] function
-    - [ ] test
-- [x] Record PlayerAction: Pick up stone
-- [ ] Record PlayerAction: Drop stone
+        - [x] test
+    - [x] record 
+        - [x] test
+    - [x] undo
+        - [x] test
+    - [ ] redo
+        - [ ] test
+
+- [ ] Drop stone
+    - [x] function
+        - [x] test
+    - [ ] record 
+        - [ ] test
+    - [ ] undo
+        - [ ] test
+    - [ ] redo
+        - [ ] test
 
 <p align="right">(<a href="#readme-top">top</a>)</p>

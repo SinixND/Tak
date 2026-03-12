@@ -202,6 +202,53 @@ void pickUpStack(
     );
 }
 
+void undoPickUpStack( Game* const pGame )
+{
+    PlayerAction const lastAction = pGame->history.actions[pGame->history.lastActionIdx];
+
+    int stoneCount = lastAction.count;
+
+    //* If drops remain, at least one stone had to
+    //* be dropped on the first non-origin square
+    assert(
+        ( lastAction.drops[0] + lastAction.drops[1] ) < 1
+        && "Cannot undo pickUp before all drops undone"
+    );
+
+    assert(
+        lastAction.count == pGame->stackBuffer.count
+        && "Action count not equal buffer count"
+    );
+
+    int const squareIdx
+        = positionToSquare(
+            lastAction.fileX,
+            lastAction.rankY,
+            pGame->board.width
+        );
+
+    //* Add stones to stack
+    for ( int i = 0; i < stoneCount; ++i )
+    {
+        putOntoStack(
+            &pGame->board,
+            squareIdx,
+            pGame->stackBuffer.stoneIds[( stoneCount - 1 ) - i],
+            //* Just use the final type, even if its set for every dropped stone
+            pGame->stackBuffer.type
+        );
+    }
+
+    //* Reset buffer
+    setBufferStoneType(
+        &pGame->stackBuffer,
+        STONE_TYPE_NONE
+    );
+
+    //* Adjust history
+    undoHistory( &pGame->history );
+}
+
 void dropStone(
     Game* const pGame,
     FileId const fileX,
@@ -225,14 +272,14 @@ void dropStone(
 
     StoneType const droppedStoneType =
         //
-        ( pGame->stackBuffer.count <= 1 )
-            ? pGame->stackBuffer.type
-            : STONE_TYPE_FLAT;
+        ( pGame->stackBuffer.count > 1 )
+            ? STONE_TYPE_FLAT
+            : pGame->stackBuffer.type;
 
     //* INFO: [Rule] Capstone can flatten standing stones
     assert(
-        !( droppedStoneType != STONE_TYPE_CAP
-           && stackType == STONE_TYPE_STANDING )
+        !( stackType == STONE_TYPE_STANDING
+           && droppedStoneType != STONE_TYPE_CAP )
         && "Only capstone can be placed on wall (=flatten)"
     );
 

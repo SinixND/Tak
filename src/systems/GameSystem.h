@@ -30,6 +30,10 @@ void pickUpStack(
     RankId const rankY
 );
 
+/// From Buffer to Board; Undo History
+void undoPickUpStack( Game* const pGame );
+
+/// From Buffer to Board
 void dropStone(
     Game* const pGame,
     FileId const fileX,

@@ -2,7 +2,7 @@
 .git/
 bin/
 build/
-docs/html/
+docs/html/*
 worktrees/
 *.json
 *.vim
