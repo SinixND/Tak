@@ -206,18 +206,11 @@ void undoPickUpStack( Game* const pGame )
 {
     PlayerAction const lastAction = pGame->history.actions[pGame->history.lastActionIdx];
 
-    int stoneCount = lastAction.count;
-
-    //* If drops remain, at least one stone had to
-    //* be dropped on the first non-origin square
-    assert(
-        ( lastAction.drops[0] + lastAction.drops[1] ) < 1
-        && "Cannot undo pickUp before all drops undone"
-    );
+    int stoneCount = pGame->stackBuffer.stoneCount;
 
     assert(
-        lastAction.count == pGame->stackBuffer.stoneCount
-        && "Action count not equal buffer count"
+        stoneCount > 0
+        && "Cannot undo pickup of empty buffer"
     );
 
     int const squareIdx
@@ -300,7 +293,7 @@ void undo( Game* const pGame )
         && "Nothing to undo"
     );
 
-    switch ( pGame->history.actions[pGame->history.lastActionIdx].count )
+    switch ( pGame->history.actions[pGame->history.lastActionIdx].stoneCount )
     {
         default:
         {
@@ -323,7 +316,7 @@ void redo( Game* const pGame )
         && "Nothing to redo"
     );
 
-    switch ( pGame->history.actions[pGame->history.lastActionIdx + 1].count )
+    switch ( pGame->history.actions[pGame->history.lastActionIdx + 1].stoneCount )
     {
         default:
         {

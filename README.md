@@ -152,7 +152,7 @@ Utilize the following concepts:
 
 
 ## ToDo notes
-- [ ] Rework History/PlayerAction to atomic actions
+- [ ] Pickup
 
 - [x] placement
     - [x] function
@@ -170,7 +170,7 @@ Utilize the following concepts:
     - [x] record 
         - [x] test
     - [x] undo
-        - [x] test
+        - [ ] test
     - [ ] redo
         - [ ] test
 

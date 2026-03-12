@@ -26,9 +26,10 @@ void testRecordPlacementAction( void )
 
     PlayerAction action = history.actions[history.lastActionIdx];
 
-    TEST_ASSERT_EQUAL_INT( STONE_TYPE_FLAT, action.stoneType );
+    TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, action.playerId );
     TEST_ASSERT_EQUAL_INT( FILE_A, action.fileX );
     TEST_ASSERT_EQUAL_INT( RANK_1, action.rankY );
+    TEST_ASSERT_EQUAL_INT( STONE_TYPE_FLAT, action.stoneType );
 
     recordPlacementAction(
         &history,
@@ -42,9 +43,10 @@ void testRecordPlacementAction( void )
 
     action = history.actions[history.lastActionIdx];
 
-    TEST_ASSERT_EQUAL_INT( STONE_TYPE_STANDING, action.stoneType );
+    TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, action.playerId );
     TEST_ASSERT_EQUAL_INT( FILE_B, action.fileX );
     TEST_ASSERT_EQUAL_INT( RANK_1, action.rankY );
+    TEST_ASSERT_EQUAL_INT( STONE_TYPE_STANDING, action.stoneType );
 
     recordPlacementAction(
         &history,
@@ -59,9 +61,9 @@ void testRecordPlacementAction( void )
     action = history.actions[history.lastActionIdx];
 
     TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, action.playerId );
-    TEST_ASSERT_EQUAL_INT( STONE_TYPE_CAP, action.stoneType );
     TEST_ASSERT_EQUAL_INT( FILE_C, action.fileX );
     TEST_ASSERT_EQUAL_INT( RANK_1, action.rankY );
+    TEST_ASSERT_EQUAL_INT( STONE_TYPE_CAP, action.stoneType );
 }
 
 void testRecordPickUpAction( void )
@@ -82,9 +84,10 @@ void testRecordPickUpAction( void )
     PlayerAction action = history.actions[history.lastActionIdx];
 
     TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, action.playerId );
-    TEST_ASSERT_EQUAL_INT( STONE_TYPE_STANDING, action.stoneType );
     TEST_ASSERT_EQUAL_INT( FILE_A, action.fileX );
     TEST_ASSERT_EQUAL_INT( RANK_1, action.rankY );
+    TEST_ASSERT_EQUAL_INT( STONE_TYPE_STANDING, action.stoneType );
+    TEST_ASSERT_EQUAL_INT( 5, action.stoneCount );
 }
 
 void testUndoHistory( void )
@@ -96,20 +99,33 @@ void testUndoHistory( void )
         PLAYER_WHITE,
         FILE_C,
         RANK_1,
+        STONE_TYPE_STANDING
+    );
+
+    recordPlacementAction(
+        &history,
+        PLAYER_WHITE,
+        FILE_B,
+        RANK_1,
         STONE_TYPE_CAP
     );
 
     undoHistory( &history );
 
-    TEST_ASSERT_EQUAL_INT( 0, history.lastActionIdx );
+    TEST_ASSERT_EQUAL_INT( 1, history.lastActionIdx );
     TEST_ASSERT_EQUAL_INT( 1, history.redoCount );
+
+    undoHistory( &history );
+
+    TEST_ASSERT_EQUAL_INT( 0, history.lastActionIdx );
+    TEST_ASSERT_EQUAL_INT( 2, history.redoCount );
 
     recordPlacementAction(
         &history,
         PLAYER_WHITE,
         FILE_C,
         RANK_1,
-        STONE_TYPE_STANDING
+        STONE_TYPE_FLAT
     );
 
     TEST_ASSERT_EQUAL_INT( 1, history.lastActionIdx );

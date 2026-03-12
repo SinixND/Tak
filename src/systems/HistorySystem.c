@@ -1,10 +1,10 @@
 #include "HistorySystem.h"
 
-#include "DirectionId.h"
 #include "GameConstants.h"
 #include "PlayerAction.h"
 #include "PlayerId.h"
 #include <assert.h>
+#include <stdbool.h>
 
 void recordPlacementAction(
     History* const pHistory,
@@ -30,13 +30,11 @@ void recordPlacementAction(
     pHistory->actions[pHistory->lastActionIdx]
         = (PlayerAction){
             .playerId = playerId,
-            .stoneType = stoneType,
-            .count = 0,
             .fileX = fileX,
             .rankY = rankY,
-            .direction = DIR_NONE,
-            .drops = { 0 },
-            .flattend = 0,
+            .stoneType = stoneType,
+            .stoneCount = 0,
+            .flattened = false,
         };
 }
 
@@ -65,13 +63,11 @@ void recordPickUpAction(
     pHistory->actions[pHistory->lastActionIdx]
         = (PlayerAction){
             .playerId = playerId,
-            .stoneType = stoneType,
-            .count = stoneCount,
             .fileX = fileX,
             .rankY = rankY,
-            .direction = DIR_NONE,
-            .drops = { 0 },
-            .flattend = 0,
+            .stoneType = stoneType,
+            .stoneCount = stoneCount,
+            .flattened = false,
         };
 }
 
