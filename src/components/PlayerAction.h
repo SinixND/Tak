@@ -5,6 +5,7 @@
 #include "PlayerId.h"
 #include "RankId.h"
 #include "StoneType.h"
+#include <stdint.h>
 
 /**
  * @brief: Action to be stored in history to enable undo/redo
@@ -13,10 +14,10 @@
  * Inputs: PlayerId, Position, StoneType
  * 
  * Action: PickUp
- * Inputs: Position
+ * Inputs: Position, StoneCount
  * 
  * Action: Drop
- * Inputs: Position
+ * Inputs: Position, Captive
  * 
  */
 typedef struct
@@ -25,6 +26,8 @@ typedef struct
     FileId fileX;          // Square: Column
     RankId rankY;          // Square: Row
     StoneType stoneType;   // F, S, C
+    uint8_t stoneCount;    // Max: board width
+    StoneType captive;     // StoneType dropped onto
 } PlayerAction;
 
 #endif
