@@ -5,7 +5,11 @@
 #include "Game.h"
 #include "RankId.h"
 
-/// Provide boardWidth 0 for default value
+/** 
+ * @brief: Return new/clean game object
+ *
+ * - Provide boardWidth 0 for default value
+ */
 Game newGame( int boardWidth );
 
 /** 

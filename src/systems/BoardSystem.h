@@ -5,7 +5,7 @@
 #include "PlayerId.h"
 #include "StoneType.h"
 
-/// Return new, empty board object
+/// Return new/clean board object
 Board newBoard( int const boardWidth );
 
 /** 
