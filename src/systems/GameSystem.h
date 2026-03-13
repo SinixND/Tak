@@ -55,7 +55,6 @@ void redoPlaceStone( Game* const pGame );
  */
 void pickUpStack(
     Game* const pGame,
-    PlayerId const playerId,
     FileId const fileX,
     RankId const rankY
 );
@@ -67,7 +66,7 @@ void pickUpStack(
  * - Reset buffer
  * - Adjust history index
  */
-void undoPickUpStack( Game* const pGame );
+void undoPickupStack( Game* const pGame );
 
 /**
  * @brief: From Buffer to Board

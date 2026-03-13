@@ -152,7 +152,7 @@ Utilize the following concepts:
 
 
 ## ToDo notes
-- [ ] Pickup
+- [ ] undoPickup test (more? check undo place)
 
 - [x] placement
     - [x] function

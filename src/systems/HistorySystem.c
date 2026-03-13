@@ -38,7 +38,7 @@ void recordPlacementAction(
         };
 }
 
-void recordPickUpAction(
+void recordPickupAction(
     History* const pHistory,
     PlayerId const playerId,
     FileId const fileX,

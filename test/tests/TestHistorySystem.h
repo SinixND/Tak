@@ -66,11 +66,11 @@ void testRecordPlacementAction( void )
     TEST_ASSERT_EQUAL_INT( STONE_TYPE_CAP, action.stoneType );
 }
 
-void testRecordPickUpAction( void )
+void testRecordPickupAction( void )
 {
     History history = { 0 };
 
-    recordPickUpAction(
+    recordPickupAction(
         &history,
         PLAYER_WHITE,
         FILE_A,

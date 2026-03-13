@@ -28,7 +28,7 @@ void recordPlacementAction(
  * - Reset redo count
  * - Add player action with pickup input
  */
-void recordPickUpAction(
+void recordPickupAction(
     History* const pHistory,
     PlayerId const playerId,
     FileId const fileX,

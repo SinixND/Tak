@@ -71,7 +71,7 @@ void testPlaceStone( void )
     TEST_ASSERT_EQUAL_INT( STONE_TYPE_CAP, game.board.types[2] );
 }
 
-void testPickUpStack( void )
+void testPickupStack( void )
 {
     Game game = newGame( 3 );
 
@@ -84,7 +84,6 @@ void testPickUpStack( void )
 
     pickUpStack(
         &game,
-        PLAYER_BLACK,
         FILE_A,
         RANK_1
     );
@@ -98,6 +97,35 @@ void testPickUpStack( void )
     TEST_ASSERT_EQUAL_INT( STONE_TYPE_FLAT, game.board.types[0] );
     TEST_ASSERT_EQUAL_INT( 1, game.board.counts[0] );
     TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, game.board.stoneIds[0] );
+}
+
+void testUndoPickupStack( void )
+{
+    Game game = newGame( 3 );
+
+    game.board.types[0] = STONE_TYPE_CAP;
+    game.board.counts[0] = 4;
+    game.board.stoneIds[0] = PLAYER_WHITE;
+    game.board.stoneIds[1] = PLAYER_BLACK;
+    game.board.stoneIds[2] = PLAYER_WHITE;
+    game.board.stoneIds[3] = PLAYER_BLACK;
+
+    pickUpStack(
+        &game,
+        FILE_A,
+        RANK_1
+    );
+
+    undoPickupStack( &game );
+
+    TEST_ASSERT_EQUAL_INT( 0, game.stackBuffer.stoneCount );
+
+    TEST_ASSERT_EQUAL_INT( STONE_TYPE_CAP, game.board.types[0] );
+    TEST_ASSERT_EQUAL_INT( 4, game.board.counts[0] );
+    TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, game.board.stoneIds[0] );
+    TEST_ASSERT_EQUAL_INT( PLAYER_BLACK, game.board.stoneIds[1] );
+    TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, game.board.stoneIds[2] );
+    TEST_ASSERT_EQUAL_INT( PLAYER_BLACK, game.board.stoneIds[3] );
 }
 
 void testDropStone( void )

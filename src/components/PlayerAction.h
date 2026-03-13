@@ -14,7 +14,7 @@
  * Action: Placement
  * Inputs: PlayerId, Position, StoneType
  *
- * Action: PickUp
+ * Action: Pickup
  * Inputs: Position, StoneCount
  *
  * Action: Drop

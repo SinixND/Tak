@@ -133,7 +133,6 @@ void redoPlaceStone( Game* const pGame )
 
 void pickUpStack(
     Game* const pGame,
-    PlayerId const playerId,
     FileId const fileX,
     RankId const rankY
 )
@@ -156,11 +155,6 @@ void pickUpStack(
               pGame->board.stackCapacity
           )
           + ( pGame->board.counts[squareIdx] - 1 );
-
-    assert(
-        playerId == pGame->board.stoneIds[topStoneIdx]
-        && "Only contolling player can pickup stack"
-    );
 
     int stoneCount = pGame->board.counts[squareIdx];
     int const boardWidth = pGame->board.width;
@@ -191,8 +185,10 @@ void pickUpStack(
         stoneCount
     );
 
+    PlayerId playerId = pGame->stackBuffer.stoneIds[0];
+
     //* Add action to undo stack
-    recordPickUpAction(
+    recordPickupAction(
         &pGame->history,
         playerId,
         fileX,
@@ -202,7 +198,7 @@ void pickUpStack(
     );
 }
 
-void undoPickUpStack( Game* const pGame )
+void undoPickupStack( Game* const pGame )
 {
     PlayerAction const lastAction = pGame->history.actions[pGame->history.lastActionIdx];
 
@@ -232,11 +228,8 @@ void undoPickUpStack( Game* const pGame )
         );
     }
 
-    //* Reset buffer
-    resetBuffer(
-        &pGame->stackBuffer,
-        STONE_TYPE_NONE
-    );
+    //* Empty buffer
+    pGame->stackBuffer.stoneCount = 0;
 
     //* Adjust history
     undoHistory( &pGame->history );
@@ -355,7 +348,6 @@ void demo( Game* const pGame )
 
     pickUpStack(
         pGame,
-        PLAYER_BLACK,
         0,
         0
     );
