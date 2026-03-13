@@ -1,5 +1,6 @@
 #include "HistorySystem.h"
 
+#include "ActionType.h"
 #include "GameConstants.h"
 #include "PlayerAction.h"
 #include "PlayerId.h"
@@ -29,6 +30,7 @@ void recordPlacementAction(
     //* Push playerAction
     pHistory->actions[pHistory->lastActionIdx]
         = (PlayerAction){
+            .actionType = ACTION_TYPE_PLACE,
             .playerId = playerId,
             .fileX = fileX,
             .rankY = rankY,
@@ -62,6 +64,7 @@ void recordPickupAction(
     //* Push playerAction
     pHistory->actions[pHistory->lastActionIdx]
         = (PlayerAction){
+            .actionType = ACTION_TYPE_PICKUP,
             .playerId = playerId,
             .fileX = fileX,
             .rankY = rankY,

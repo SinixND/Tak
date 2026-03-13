@@ -69,6 +69,16 @@ void pickUpStack(
 void undoPickupStack( Game* const pGame );
 
 /**
+ * @brief: From Board to Buffer; Redo History
+ *
+ * - Set stone type of buffer
+ * - Loop: Add stones to buffer
+ * - Remove stones from square
+ * - Adjust history index
+ */
+void redoPickupStack( Game* const pGame );
+
+/**
  * @brief: From Buffer to Board
  *
  * - Add single stone to stack/square

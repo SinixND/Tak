@@ -152,7 +152,7 @@ Utilize the following concepts:
 
 
 ## ToDo notes
-- [ ] undoPickup test (more? check undo place)
+- [ ] drop record, undo, redo
 
 - [x] placement
     - [x] function
@@ -164,15 +164,23 @@ Utilize the following concepts:
     - [x] redo
         - [x] test
 
+- [x] Update Game
+    - [x] undo
+    - [x] redo
+
 - [ ] Pick up
     - [x] function
         - [x] test
     - [x] record 
         - [x] test
     - [x] undo
-        - [ ] test
-    - [ ] redo
-        - [ ] test
+        - [x] test
+    - [x] redo
+        - [x] test
+
+- [x] Update Game
+    - [x] undo
+    - [x] redo
 
 - [ ] Drop stone
     - [x] function
@@ -183,5 +191,9 @@ Utilize the following concepts:
         - [ ] test
     - [ ] redo
         - [ ] test
+
+- [ ] Update Game
+    - [ ] undo
+    - [ ] redo
 
 <p align="right">(<a href="#readme-top">top</a>)</p>

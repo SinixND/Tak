@@ -1,6 +1,7 @@
 #ifndef IG20260301185150
 #define IG20260301185150
 
+#include "ActionType.h"
 #include "FileId.h"
 #include "PlayerId.h"
 #include "RankId.h"
@@ -14,7 +15,7 @@
  * Action: Placement
  * Inputs: PlayerId, Position, StoneType
  *
- * Action: Pickup
+ * Action: Lift/Pickup
  * Inputs: Position, StoneCount
  *
  * Action: Drop
@@ -23,12 +24,13 @@
  */
 typedef struct
 {
-    PlayerId playerId;   // White or black
-    FileId fileX;        // Square: Column
-    RankId rankY;        // Square: Row
-    StoneType stoneType; // F, S, C
-    uint8_t stoneCount;  // Max: board width
-    bool flattened;      // Capstone flattened standing
+    ActionType actionType; // P, L, D
+    PlayerId playerId;     // White or black
+    FileId fileX;          // Square: Column
+    RankId rankY;          // Square: Row
+    StoneType stoneType;   // F, S, C
+    uint8_t stoneCount;    // Max: board width
+    bool flattened;        // Capstone flattened standing
 } PlayerAction;
 
 #endif

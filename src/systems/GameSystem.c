@@ -1,5 +1,6 @@
 #include "GameSystem.h"
 
+#include "ActionType.h"
 #include "BoardSystem.h"
 #include "FileId.h"
 #include "GameConstants.h"
@@ -99,6 +100,10 @@ void undoPlaceStone( Game* const pGame )
 
 void redoPlaceStone( Game* const pGame )
 {
+    assert(
+        pGame->history.redoCount > 0 && "Nothing to redo"
+    );
+
     PlayerAction const nextAction = pGame->history.actions[pGame->history.lastActionIdx + 1];
 
     int const squareIdx
@@ -235,6 +240,66 @@ void undoPickupStack( Game* const pGame )
     undoHistory( &pGame->history );
 }
 
+void redoPickupStack( Game* const pGame )
+{
+    assert(
+        pGame->history.redoCount > 0 && "Nothing to redo"
+    );
+
+    PlayerAction const nextAction = pGame->history.actions[pGame->history.lastActionIdx + 1];
+
+    int const squareIdx
+        = positionToSquare(
+            nextAction.fileX,
+            nextAction.rankY,
+            pGame->board.width
+        );
+
+    assert(
+        pGame->board.counts[squareIdx] > 0
+        && "Cannot pick up empty stack"
+    );
+
+    int topStoneIdx
+        = squareToStackIndex(
+              squareIdx,
+              pGame->board.stackCapacity
+          )
+          + ( pGame->board.counts[squareIdx] - 1 );
+
+    int stoneCount = pGame->board.counts[squareIdx];
+    int const boardWidth = pGame->board.width;
+
+    //* INFO: [Rule] StackBuffer stone count must cap at boardWidth
+    stoneCount = ( stoneCount > boardWidth ) ? boardWidth : stoneCount;
+
+    int const stoneType = pGame->board.types[squareIdx];
+
+    resetBuffer(
+        &pGame->stackBuffer,
+        stoneType
+    );
+
+    //* Add stones to buffer
+    for ( int i = 0; i < stoneCount; ++i )
+    {
+        appendToBuffer(
+            &pGame->stackBuffer,
+            pGame->board.stoneIds[topStoneIdx - i]
+        );
+    }
+
+    //* Remove stones from stack
+    takeFromStack(
+        &pGame->board,
+        squareIdx,
+        stoneCount
+    );
+
+    //* Adjust history
+    redoHistory( &pGame->history );
+}
+
 void dropStone(
     Game* const pGame,
     FileId const fileX,
@@ -286,7 +351,7 @@ void undo( Game* const pGame )
         && "Nothing to undo"
     );
 
-    switch ( pGame->history.actions[pGame->history.lastActionIdx].stoneCount )
+    switch ( pGame->history.actions[pGame->history.lastActionIdx].actionType )
     {
         default:
         {
@@ -294,9 +359,15 @@ void undo( Game* const pGame )
             break;
         }
 
-        case 0:
+        case ACTION_TYPE_PLACE:
         {
             undoPlaceStone( pGame );
+            break;
+        }
+
+        case ACTION_TYPE_PICKUP:
+        {
+            undoPickupStack( pGame );
             break;
         }
     }
@@ -309,7 +380,7 @@ void redo( Game* const pGame )
         && "Nothing to redo"
     );
 
-    switch ( pGame->history.actions[pGame->history.lastActionIdx + 1].stoneCount )
+    switch ( pGame->history.actions[pGame->history.lastActionIdx + 1].actionType )
     {
         default:
         {
@@ -317,9 +388,16 @@ void redo( Game* const pGame )
             break;
         }
 
-        case 0:
+        case ACTION_TYPE_PLACE:
         {
             redoPlaceStone( pGame );
+
+            break;
+        }
+
+        case ACTION_TYPE_PICKUP:
+        {
+            redoPickupStack( pGame );
 
             break;
         }
