@@ -199,7 +199,7 @@ void undoPickupStack( Game* const pGame )
     {
         putOntoStack(
             &pGame->board,
-            lastAction.playerId,
+            pGame->stackBuffer.stoneIds[( lastAction.stoneCount - 1 ) - i],
             lastAction.squareIdx,
             lastAction.stoneType
         );
@@ -271,11 +271,10 @@ void dropStone(
         && "No stone can be placed onto capstone"
     );
 
-    StoneType const droppedStoneType =
-        //
-        ( pGame->stackBuffer.stoneCount > 1 )
-            ? STONE_TYPE_FLAT
-            : pGame->stackBuffer.stoneType;
+    StoneType const droppedStoneType
+        = ( pGame->stackBuffer.stoneCount > 1 )
+              ? STONE_TYPE_FLAT
+              : pGame->stackBuffer.stoneType;
 
     //* INFO: [Rule] Capstone can flatten standing stones
     assert(
@@ -284,9 +283,11 @@ void dropStone(
         && "Only capstone can be placed on wall (=flatten)"
     );
 
+    PlayerId const playerId = pGame->stackBuffer.stoneIds[pGame->stackBuffer.stoneCount - 1];
+
     putOntoStack(
         &pGame->board,
-        pGame->stackBuffer.stoneIds[pGame->stackBuffer.stoneCount - 1],
+        playerId,
         squareIdx,
         droppedStoneType
     );
@@ -296,7 +297,9 @@ void dropStone(
     //* Add action to undo stack
     recordDropAction(
         &pGame->history,
+        playerId,
         squareIdx,
+        droppedStoneType,
         (bool)( ( droppedStoneType == STONE_TYPE_CAP ) && ( captiveStoneType == STONE_TYPE_STANDING ) )
     );
 }
@@ -322,6 +325,12 @@ void undoDropStone( Game* const pGame )
         lastAction.stoneCount
     );
 
+    //* Make stackType 'standing' if drop flattened
+    pGame->board.types[lastAction.squareIdx]
+        = lastAction.flattened
+              ? STONE_TYPE_STANDING
+              : STONE_TYPE_FLAT;
+
     //* Adjust history
     undoHistory( &pGame->history );
 }
@@ -332,7 +341,16 @@ void redoDropStone( Game* const pGame )
         pGame->history.redoCount > 0 && "Nothing to redo"
     );
 
-    // PlayerAction const nextAction = pGame->history.actions[pGame->history.lastActionIdx + 1];
+    PlayerAction const nextAction = pGame->history.actions[pGame->history.lastActionIdx + 1];
+
+    putOntoStack(
+        &pGame->board,
+        nextAction.playerId,
+        nextAction.squareIdx,
+        nextAction.stoneType
+    );
+
+    dropFromBuffer( &pGame->stackBuffer );
 
     //* Adjust history
     redoHistory( &pGame->history );

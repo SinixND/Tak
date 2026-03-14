@@ -44,7 +44,9 @@ void recordPickupAction(
  */
 void recordDropAction(
     History* const pHistory,
+    PlayerId const playerId,
     int const squareIdx,
+    StoneType const stoneType,
     bool const flattened
 );
 

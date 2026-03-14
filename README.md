@@ -190,7 +190,7 @@ Utilize the following concepts:
         - [x] test
     - [x] undo
         - [ ] test
-    - [ ] redo
+    - [x] redo
         - [ ] test
 
 - [ ] Update Game
