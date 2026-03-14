@@ -38,8 +38,8 @@ void recordPlacementAction(
 
 void recordPickupAction(
     History* const pHistory,
-    PlayerId const playerId,
     int const squareIdx,
+    int const topStoneIdx,
     StoneType const stoneType,
     int const stoneCount
 )
@@ -60,8 +60,8 @@ void recordPickupAction(
     pHistory->actions[pHistory->lastActionIdx]
         = (PlayerAction){
             .actionType = ACTION_TYPE_PICKUP,
-            .playerId = playerId,
             .squareIdx = squareIdx,
+            .topStoneIdx = topStoneIdx,
             .stoneType = stoneType,
             .stoneCount = stoneCount,
             .flattened = false,

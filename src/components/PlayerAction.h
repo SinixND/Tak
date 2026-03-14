@@ -25,6 +25,7 @@ typedef struct
     ActionType actionType; // P, L, D
     PlayerId playerId;     // White or black
     int squareIdx;         // Square
+    int topStoneIdx;       // Top stone of stack
     StoneType stoneType;   // F, S, C
     uint8_t stoneCount;    // Max: board width
     bool flattened;        // Capstone flattened standing

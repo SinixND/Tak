@@ -29,8 +29,8 @@ void recordPlacementAction(
  */
 void recordPickupAction(
     History* const pHistory,
-    PlayerId const playerId,
     int const squareIdx,
+    int const topStoneIdx,
     StoneType const stoneType,
     int const stoneCount
 );

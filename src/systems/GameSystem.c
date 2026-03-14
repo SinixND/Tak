@@ -143,18 +143,19 @@ void pickUpStack(
         && "Cannot pick up empty stack"
     );
 
-    int topStoneIdx
+    int const topStoneIdx
         = squareToStackIndex(
               squareIdx,
               pGame->board.stackCapacity
           )
           + ( pGame->board.counts[squareIdx] - 1 );
 
-    int stoneCount = pGame->board.counts[squareIdx];
-    int const boardWidth = pGame->board.width;
-
     //* INFO: [Rule] StackBuffer stone count must cap at boardWidth
-    stoneCount = ( stoneCount > boardWidth ) ? boardWidth : stoneCount;
+    int const stoneCount
+        = ( pGame->board.counts[squareIdx]
+            > pGame->board.width )
+              ? pGame->board.width
+              : pGame->board.counts[squareIdx];
 
     int const stoneType = pGame->board.types[squareIdx];
 
@@ -179,13 +180,11 @@ void pickUpStack(
         stoneCount
     );
 
-    PlayerId playerId = pGame->stackBuffer.stoneIds[0];
-
     //* Add action to undo stack
     recordPickupAction(
         &pGame->history,
-        playerId,
         squareIdx,
+        topStoneIdx,
         stoneType,
         stoneCount
     );
@@ -195,22 +194,14 @@ void undoPickupStack( Game* const pGame )
 {
     PlayerAction const lastAction = pGame->history.actions[pGame->history.lastActionIdx];
 
-    int stoneCount = pGame->stackBuffer.stoneCount;
-
-    assert(
-        stoneCount > 0
-        && "Cannot undo pickup of empty buffer"
-    );
-
     //* Add stones to stack
-    for ( int i = 0; i < stoneCount; ++i )
+    for ( int i = 0; i < lastAction.stoneCount; ++i )
     {
         putOntoStack(
             &pGame->board,
-            pGame->stackBuffer.stoneIds[( stoneCount - 1 ) - i],
+            lastAction.playerId,
             lastAction.squareIdx,
-            //* Just use the final type, even if its set for every dropped stone
-            pGame->stackBuffer.stoneType
+            lastAction.stoneType
         );
     }
 
@@ -234,32 +225,17 @@ void redoPickupStack( Game* const pGame )
         && "Cannot pick up empty stack"
     );
 
-    int topStoneIdx
-        = squareToStackIndex(
-              nextAction.squareIdx,
-              pGame->board.stackCapacity
-          )
-          + ( pGame->board.counts[nextAction.squareIdx] - 1 );
-
-    int stoneCount = pGame->board.counts[nextAction.squareIdx];
-    int const boardWidth = pGame->board.width;
-
-    //* INFO: [Rule] StackBuffer stone count must cap at boardWidth
-    stoneCount = ( stoneCount > boardWidth ) ? boardWidth : stoneCount;
-
-    int const stoneType = pGame->board.types[nextAction.squareIdx];
-
     resetBuffer(
         &pGame->stackBuffer,
-        stoneType
+        nextAction.stoneType
     );
 
     //* Add stones to buffer
-    for ( int i = 0; i < stoneCount; ++i )
+    for ( int i = 0; i < nextAction.stoneCount; ++i )
     {
         appendToBuffer(
             &pGame->stackBuffer,
-            pGame->board.stoneIds[topStoneIdx - i]
+            pGame->board.stoneIds[nextAction.topStoneIdx - i]
         );
     }
 
@@ -267,7 +243,7 @@ void redoPickupStack( Game* const pGame )
     takeFromStack(
         &pGame->board,
         nextAction.squareIdx,
-        stoneCount
+        nextAction.stoneCount
     );
 
     //* Adjust history
@@ -337,13 +313,13 @@ void undoDropStone( Game* const pGame )
 
     appendToBuffer(
         &pGame->stackBuffer,
-        pGame->board.stoneIds[( lastAction.squareIdx * pGame->board.stackCapacity ) + ( pGame->board.counts[lastAction.squareIdx] - 1 )]
+        lastAction.playerId
     );
 
     takeFromStack(
         &pGame->board,
         lastAction.squareIdx,
-        1
+        lastAction.stoneCount
     );
 
     //* Adjust history
