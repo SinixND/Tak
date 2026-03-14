@@ -152,7 +152,8 @@ Utilize the following concepts:
 
 
 ## ToDo notes
-- [ ] drop record, undo, redo
+- [ ] Refactor undo/redo: Store necessary, already known information in PlayerAction
+- [ ] drop test: undo + redo
 
 - [x] placement
     - [x] function
@@ -187,7 +188,7 @@ Utilize the following concepts:
         - [x] test
     - [x] record 
         - [x] test
-    - [ ] undo
+    - [x] undo
         - [ ] test
     - [ ] redo
         - [ ] test

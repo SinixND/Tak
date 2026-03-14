@@ -2,9 +2,7 @@
 #define IG20260301185150
 
 #include "ActionType.h"
-#include "FileId.h"
 #include "PlayerId.h"
-#include "RankId.h"
 #include "StoneType.h"
 #include <stdbool.h>
 #include <stdint.h>
@@ -26,8 +24,7 @@ typedef struct
 {
     ActionType actionType; // P, L, D
     PlayerId playerId;     // White or black
-    FileId fileX;          // Square: Column
-    RankId rankY;          // Square: Row
+    int squareIdx;         // Square
     StoneType stoneType;   // F, S, C
     uint8_t stoneCount;    // Max: board width
     bool flattened;        // Capstone flattened standing

@@ -67,8 +67,7 @@ void placeStone(
     recordPlacementAction(
         &pGame->history,
         playerId,
-        fileX,
-        rankY,
+        squareIdx,
         stoneType
     );
 }
@@ -80,11 +79,7 @@ void undoPlaceStone( Game* const pGame )
     //* Undo putOnStack
     takeFromStack(
         &pGame->board,
-        positionToSquare(
-            lastAction.fileX,
-            lastAction.rankY,
-            pGame->board.width
-        ),
+        lastAction.squareIdx,
         1
     );
 
@@ -107,16 +102,9 @@ void redoPlaceStone( Game* const pGame )
 
     PlayerAction const nextAction = pGame->history.actions[pGame->history.lastActionIdx + 1];
 
-    int const squareIdx
-        = positionToSquare(
-            nextAction.fileX,
-            nextAction.rankY,
-            pGame->board.width
-        );
-
     //* INFO: [Rule] Can only place on empty squares
     assert(
-        pGame->board.counts[squareIdx] == 0
+        pGame->board.counts[nextAction.squareIdx] == 0
         && "Can only place on empty square"
     );
 
@@ -129,7 +117,7 @@ void redoPlaceStone( Game* const pGame )
     putOntoStack(
         &pGame->board,
         nextAction.playerId,
-        squareIdx,
+        nextAction.squareIdx,
         nextAction.stoneType
     );
 
@@ -197,8 +185,7 @@ void pickUpStack(
     recordPickupAction(
         &pGame->history,
         playerId,
-        fileX,
-        rankY,
+        squareIdx,
         stoneType,
         stoneCount
     );
@@ -215,20 +202,13 @@ void undoPickupStack( Game* const pGame )
         && "Cannot undo pickup of empty buffer"
     );
 
-    int const squareIdx
-        = positionToSquare(
-            lastAction.fileX,
-            lastAction.rankY,
-            pGame->board.width
-        );
-
     //* Add stones to stack
     for ( int i = 0; i < stoneCount; ++i )
     {
         putOntoStack(
             &pGame->board,
             pGame->stackBuffer.stoneIds[( stoneCount - 1 ) - i],
-            squareIdx,
+            lastAction.squareIdx,
             //* Just use the final type, even if its set for every dropped stone
             pGame->stackBuffer.stoneType
         );
@@ -249,32 +229,25 @@ void redoPickupStack( Game* const pGame )
 
     PlayerAction const nextAction = pGame->history.actions[pGame->history.lastActionIdx + 1];
 
-    int const squareIdx
-        = positionToSquare(
-            nextAction.fileX,
-            nextAction.rankY,
-            pGame->board.width
-        );
-
     assert(
-        pGame->board.counts[squareIdx] > 0
+        pGame->board.counts[nextAction.squareIdx] > 0
         && "Cannot pick up empty stack"
     );
 
     int topStoneIdx
         = squareToStackIndex(
-              squareIdx,
+              nextAction.squareIdx,
               pGame->board.stackCapacity
           )
-          + ( pGame->board.counts[squareIdx] - 1 );
+          + ( pGame->board.counts[nextAction.squareIdx] - 1 );
 
-    int stoneCount = pGame->board.counts[squareIdx];
+    int stoneCount = pGame->board.counts[nextAction.squareIdx];
     int const boardWidth = pGame->board.width;
 
     //* INFO: [Rule] StackBuffer stone count must cap at boardWidth
     stoneCount = ( stoneCount > boardWidth ) ? boardWidth : stoneCount;
 
-    int const stoneType = pGame->board.types[squareIdx];
+    int const stoneType = pGame->board.types[nextAction.squareIdx];
 
     resetBuffer(
         &pGame->stackBuffer,
@@ -293,7 +266,7 @@ void redoPickupStack( Game* const pGame )
     //* Remove stones from stack
     takeFromStack(
         &pGame->board,
-        squareIdx,
+        nextAction.squareIdx,
         stoneCount
     );
 
@@ -314,11 +287,11 @@ void dropStone(
             pGame->board.width
         );
 
-    StoneType const stackType = pGame->board.types[squareIdx];
+    StoneType const captiveStoneType = pGame->board.types[squareIdx];
 
     //* INFO: [Rule] No stone can be put onto capstone
     assert(
-        stackType != STONE_TYPE_CAP
+        captiveStoneType != STONE_TYPE_CAP
         && "No stone can be placed onto capstone"
     );
 
@@ -330,7 +303,7 @@ void dropStone(
 
     //* INFO: [Rule] Capstone can flatten standing stones
     assert(
-        !( stackType == STONE_TYPE_STANDING
+        !( captiveStoneType == STONE_TYPE_STANDING
            && droppedStoneType != STONE_TYPE_CAP )
         && "Only capstone can be placed on wall (=flatten)"
     );
@@ -347,10 +320,46 @@ void dropStone(
     //* Add action to undo stack
     recordDropAction(
         &pGame->history,
-        fileX,
-        rankY,
-        (bool)( ( droppedStoneType == STONE_TYPE_CAP ) && ( stackType == STONE_TYPE_STANDING ) )
+        squareIdx,
+        (bool)( ( droppedStoneType == STONE_TYPE_CAP ) && ( captiveStoneType == STONE_TYPE_STANDING ) )
     );
+}
+
+void undoDropStone( Game* const pGame )
+{
+    PlayerAction const lastAction = pGame->history.actions[pGame->history.lastActionIdx];
+
+    //* INFO: [Rule] No stone can be put onto capstone
+    assert(
+        pGame->board.counts[lastAction.squareIdx] > 0
+        && "Cant undo drop from emtpy square"
+    );
+
+    appendToBuffer(
+        &pGame->stackBuffer,
+        pGame->board.stoneIds[( lastAction.squareIdx * pGame->board.stackCapacity ) + ( pGame->board.counts[lastAction.squareIdx] - 1 )]
+    );
+
+    takeFromStack(
+        &pGame->board,
+        lastAction.squareIdx,
+        1
+    );
+
+    //* Adjust history
+    undoHistory( &pGame->history );
+}
+
+void redoDropStone( Game* const pGame )
+{
+    assert(
+        pGame->history.redoCount > 0 && "Nothing to redo"
+    );
+
+    // PlayerAction const nextAction = pGame->history.actions[pGame->history.lastActionIdx + 1];
+
+    //* Adjust history
+    redoHistory( &pGame->history );
 }
 
 void undo( Game* const pGame )

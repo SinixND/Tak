@@ -16,8 +16,7 @@
 void recordPlacementAction(
     History* const pHistory,
     PlayerId const playerId,
-    FileId const fileX,
-    RankId const rankY,
+    int const squareIdx,
     StoneType const stoneType
 );
 
@@ -31,8 +30,7 @@ void recordPlacementAction(
 void recordPickupAction(
     History* const pHistory,
     PlayerId const playerId,
-    FileId const fileX,
-    RankId const rankY,
+    int const squareIdx,
     StoneType const stoneType,
     int const stoneCount
 );
@@ -46,8 +44,7 @@ void recordPickupAction(
  */
 void recordDropAction(
     History* const pHistory,
-    FileId const fileX,
-    RankId const rankY,
+    int const squareIdx,
     bool const flattened
 );
 

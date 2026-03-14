@@ -91,6 +91,22 @@ void dropStone(
 );
 
 /**
+ * @brief: From Board to Buffer
+ *
+ * - Add single stone to buffer
+ * - Remove single stone from stack/square
+ */
+void undoDropStone( Game* const pGame );
+
+/**
+ * @brief: From Buffer to Board
+ *
+ * - Add single stone to stack/square
+ * - Remove single stone from buffer
+ */
+void redoDropStone( Game* const pGame );
+
+/**
  * @brief: Undo last action performed by a player
  *
  * - Read history

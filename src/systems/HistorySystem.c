@@ -1,8 +1,6 @@
 #include "HistorySystem.h"
 
-#include "ActionType.h"
 #include "GameConstants.h"
-#include "PlayerAction.h"
 #include "PlayerId.h"
 #include <assert.h>
 #include <stdbool.h>
@@ -10,8 +8,7 @@
 void recordPlacementAction(
     History* const pHistory,
     PlayerId const playerId,
-    FileId const fileX,
-    RankId const rankY,
+    int const squareIdx,
     StoneType const stoneType
 )
 {
@@ -32,8 +29,7 @@ void recordPlacementAction(
         = (PlayerAction){
             .actionType = ACTION_TYPE_PLACE,
             .playerId = playerId,
-            .fileX = fileX,
-            .rankY = rankY,
+            .squareIdx = squareIdx,
             .stoneType = stoneType,
             .stoneCount = 0,
             .flattened = false,
@@ -43,8 +39,7 @@ void recordPlacementAction(
 void recordPickupAction(
     History* const pHistory,
     PlayerId const playerId,
-    FileId const fileX,
-    RankId const rankY,
+    int const squareIdx,
     StoneType const stoneType,
     int const stoneCount
 )
@@ -66,8 +61,7 @@ void recordPickupAction(
         = (PlayerAction){
             .actionType = ACTION_TYPE_PICKUP,
             .playerId = playerId,
-            .fileX = fileX,
-            .rankY = rankY,
+            .squareIdx = squareIdx,
             .stoneType = stoneType,
             .stoneCount = stoneCount,
             .flattened = false,
@@ -76,8 +70,7 @@ void recordPickupAction(
 
 void recordDropAction(
     History* const pHistory,
-    FileId const fileX,
-    RankId const rankY,
+    int const squareIdx,
     bool const flattened
 )
 {
@@ -97,8 +90,7 @@ void recordDropAction(
     pHistory->actions[pHistory->lastActionIdx]
         = (PlayerAction){
             .actionType = ACTION_TYPE_DROP,
-            .fileX = fileX,
-            .rankY = rankY,
+            .squareIdx = squareIdx,
             .stoneCount = 1,
             .flattened = flattened,
         };
