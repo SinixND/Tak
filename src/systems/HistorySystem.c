@@ -74,6 +74,36 @@ void recordPickupAction(
         };
 }
 
+void recordDropAction(
+    History* const pHistory,
+    FileId const fileX,
+    RankId const rankY,
+    bool const flattened
+)
+{
+    //* Increase index
+    ++pHistory->lastActionIdx;
+
+    //* Might never trigger
+    assert(
+        pHistory->lastActionIdx < HISTORY_SIZE
+        && "History size exceeded"
+    );
+
+    //* Reset redo count
+    pHistory->redoCount = 0;
+
+    //* Push playerAction
+    pHistory->actions[pHistory->lastActionIdx]
+        = (PlayerAction){
+            .actionType = ACTION_TYPE_DROP,
+            .fileX = fileX,
+            .rankY = rankY,
+            .stoneCount = 1,
+            .flattened = flattened,
+        };
+}
+
 void undoHistory( History* const pHistory )
 {
     assert(

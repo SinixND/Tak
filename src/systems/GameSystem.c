@@ -13,6 +13,7 @@
 #include "StackBufferSystem.h"
 #include "StoneType.h"
 #include <assert.h>
+#include <stdbool.h>
 
 Game newGame( int boardWidth )
 {
@@ -342,6 +343,14 @@ void dropStone(
     );
 
     dropFromBuffer( &pGame->stackBuffer );
+
+    //* Add action to undo stack
+    recordDropAction(
+        &pGame->history,
+        fileX,
+        rankY,
+        (bool)( ( droppedStoneType == STONE_TYPE_CAP ) && ( stackType == STONE_TYPE_STANDING ) )
+    );
 }
 
 void undo( Game* const pGame )

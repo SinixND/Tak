@@ -168,7 +168,7 @@ Utilize the following concepts:
     - [x] undo
     - [x] redo
 
-- [ ] Pick up
+- [x] Pick up
     - [x] function
         - [x] test
     - [x] record 
@@ -185,8 +185,8 @@ Utilize the following concepts:
 - [ ] Drop stone
     - [x] function
         - [x] test
-    - [ ] record 
-        - [ ] test
+    - [x] record 
+        - [x] test
     - [ ] undo
         - [ ] test
     - [ ] redo

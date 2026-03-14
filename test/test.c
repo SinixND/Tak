@@ -39,6 +39,7 @@ int main( void )
     //* Test HistorySystem
     RUN_TEST( testRecordPlacementAction );
     RUN_TEST( testRecordPickupAction );
+    RUN_TEST( testRecordDropAction );
     RUN_TEST( testUndoHistory );
     RUN_TEST( testRedoHistory );
 

@@ -44,11 +44,12 @@ void recordPickupAction(
  * - Reset redo count
  * - Add player action with drop input
  */
-// void recordDropAction(
-//     History* const pHistory,
-//     FileId const fileX,
-//     RankId const rankY
-// );
+void recordDropAction(
+    History* const pHistory,
+    FileId const fileX,
+    RankId const rankY,
+    bool const flattened
+);
 
 /**
  * @brief: Adjust history index and counter

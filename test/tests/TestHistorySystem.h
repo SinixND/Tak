@@ -8,6 +8,7 @@
 #include "PlayerId.h"
 #include "RankId.h"
 #include "StoneType.h"
+#include <stdbool.h>
 #include <unity.h>
 
 void testRecordPlacementAction( void )
@@ -88,6 +89,27 @@ void testRecordPickupAction( void )
     TEST_ASSERT_EQUAL_INT( RANK_1, action.rankY );
     TEST_ASSERT_EQUAL_INT( STONE_TYPE_STANDING, action.stoneType );
     TEST_ASSERT_EQUAL_INT( 5, action.stoneCount );
+}
+
+void testRecordDropAction( void )
+{
+    History history = { 0 };
+
+    recordDropAction(
+        &history,
+        FILE_A,
+        RANK_1,
+        true
+    );
+
+    TEST_ASSERT_EQUAL_INT( 1, history.lastActionIdx );
+
+    PlayerAction action = history.actions[history.lastActionIdx];
+
+    TEST_ASSERT_EQUAL_INT( FILE_A, action.fileX );
+    TEST_ASSERT_EQUAL_INT( RANK_1, action.rankY );
+    TEST_ASSERT_EQUAL_INT( 1, action.stoneCount );
+    TEST_ASSERT_EQUAL_INT( true, action.flattened );
 }
 
 void testUndoHistory( void )
