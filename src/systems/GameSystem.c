@@ -73,7 +73,7 @@ void placeStone(
     );
 }
 
-void pickUpStack(
+void liftStack(
     Game* const pGame,
     FileId const fileX,
     RankId const rankY
@@ -129,7 +129,7 @@ void pickUpStack(
     );
 
     //* Add action to undo stack
-    recordPickupAction(
+    recordLiftAction(
         &pGame->history,
         squareIdx,
         topStoneIdx,
@@ -164,7 +164,7 @@ void dropStone(
               ? STONE_TYPE_FLAT
               : pGame->stackBuffer.stoneType;
 
-    //* INFO: [Rule] Capstone can flatten standing stones
+    //* INFO: [Rule] Only capstone can flatten standing stones
     assert(
         !( captiveStoneType == STONE_TYPE_STANDING
            && droppedStoneType != STONE_TYPE_CAP )
@@ -215,7 +215,7 @@ void undoPlaceStone( Game* const pGame )
     undoHistory( &pGame->history );
 }
 
-void undoPickupStack( Game* const pGame )
+void undoLiftStack( Game* const pGame )
 {
     PlayerAction const lastAction = pGame->history.actions[pGame->history.lastActionIdx];
 
@@ -289,9 +289,9 @@ void undo( Game* const pGame )
             break;
         }
 
-        case ACTION_TYPE_PICKUP:
+        case ACTION_TYPE_LIFT:
         {
-            undoPickupStack( pGame );
+            undoLiftStack( pGame );
             break;
         }
 
@@ -335,7 +335,7 @@ void redoPlaceStone( Game* const pGame )
     redoHistory( &pGame->history );
 }
 
-void redoPickupStack( Game* const pGame )
+void redoLiftStack( Game* const pGame )
 {
     assert(
         pGame->history.redoCount > 0 && "Nothing to redo"
@@ -416,9 +416,9 @@ void redo( Game* const pGame )
             break;
         }
 
-        case ACTION_TYPE_PICKUP:
+        case ACTION_TYPE_LIFT:
         {
-            redoPickupStack( pGame );
+            redoLiftStack( pGame );
 
             break;
         }
@@ -452,7 +452,7 @@ void demo( Game* const pGame )
         STONE_TYPE_STANDING
     );
 
-    pickUpStack(
+    liftStack(
         pGame,
         0,
         0

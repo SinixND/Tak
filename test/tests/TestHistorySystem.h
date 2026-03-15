@@ -1,12 +1,10 @@
 #ifndef IG20260309123925
 #define IG20260309123925
 
-#include "FileId.h"
 #include "History.h"
 #include "HistorySystem.h"
 #include "PlayerAction.h"
 #include "PlayerId.h"
-#include "RankId.h"
 #include "StoneType.h"
 #include <stdbool.h>
 #include <unity.h>
@@ -61,11 +59,11 @@ void testRecordPlacementAction( void )
     TEST_ASSERT_EQUAL_INT( STONE_TYPE_CAP, action.stoneType );
 }
 
-void testRecordPickupAction( void )
+void testRecordLiftAction( void )
 {
     History history = { 0 };
 
-    recordPickupAction(
+    recordLiftAction(
         &history,
         PLAYER_WHITE,
         0,

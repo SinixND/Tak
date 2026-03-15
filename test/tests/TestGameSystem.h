@@ -134,7 +134,7 @@ void testRedoPlaceStone( void )
     TEST_ASSERT_EQUAL_INT( 1, game.board.counts[0] );
 }
 
-void testPickupStack( void )
+void testLiftStack( void )
 {
     Game game = newGame( 3 );
 
@@ -145,7 +145,7 @@ void testPickupStack( void )
     game.board.stoneIds[2] = PLAYER_WHITE;
     game.board.stoneIds[3] = PLAYER_BLACK;
 
-    pickUpStack(
+    liftStack(
         &game,
         FILE_A,
         RANK_1
@@ -162,7 +162,7 @@ void testPickupStack( void )
     TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, game.board.stoneIds[0] );
 }
 
-void testUndoPickupStack( void )
+void testUndoLiftStack( void )
 {
     Game game = newGame( 3 );
 
@@ -173,13 +173,13 @@ void testUndoPickupStack( void )
     game.board.stoneIds[2] = PLAYER_WHITE;
     game.board.stoneIds[3] = PLAYER_BLACK;
 
-    pickUpStack(
+    liftStack(
         &game,
         FILE_A,
         RANK_1
     );
 
-    undoPickupStack( &game );
+    undoLiftStack( &game );
 
     TEST_ASSERT_EQUAL_INT( 0, game.stackBuffer.stoneCount );
 
@@ -191,7 +191,7 @@ void testUndoPickupStack( void )
     TEST_ASSERT_EQUAL_INT( PLAYER_BLACK, game.board.stoneIds[3] );
 }
 
-void testRedoPickupStack( void )
+void testRedoLiftStack( void )
 {
     Game game = newGame( 3 );
 
@@ -202,14 +202,14 @@ void testRedoPickupStack( void )
     game.board.stoneIds[2] = PLAYER_WHITE;
     game.board.stoneIds[3] = PLAYER_BLACK;
 
-    pickUpStack(
+    liftStack(
         &game,
         FILE_A,
         RANK_1
     );
 
-    undoPickupStack( &game );
-    redoPickupStack( &game );
+    undoLiftStack( &game );
+    redoLiftStack( &game );
 
     TEST_ASSERT_EQUAL_INT( STONE_TYPE_CAP, game.stackBuffer.stoneType );
     TEST_ASSERT_EQUAL_INT( 3, game.stackBuffer.stoneCount );
@@ -306,7 +306,7 @@ void testUndo( void )
         STONE_TYPE_CAP
     );
 
-    pickUpStack(
+    liftStack(
         &game,
         FILE_A,
         RANK_1
@@ -372,7 +372,7 @@ void testRedo( void )
         STONE_TYPE_CAP
     );
 
-    pickUpStack(
+    liftStack(
         &game,
         FILE_A,
         RANK_1

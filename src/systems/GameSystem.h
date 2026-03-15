@@ -37,7 +37,7 @@ void placeStone(
  * - Remove stones from square
  * - Add action to history
  */
-void pickUpStack(
+void liftStack(
     Game* const pGame,
     FileId const fileX,
     RankId const rankY
@@ -73,7 +73,7 @@ void undoPlaceStone( Game* const pGame );
  * - Reset buffer
  * - Adjust history index
  */
-void undoPickupStack( Game* const pGame );
+void undoLiftStack( Game* const pGame );
 
 /**
  * @brief: From Board to Buffer
@@ -111,7 +111,7 @@ void redoPlaceStone( Game* const pGame );
  * - Remove stones from square
  * - Adjust history index
  */
-void redoPickupStack( Game* const pGame );
+void redoLiftStack( Game* const pGame );
 
 /**
  * @brief: From Buffer to Board

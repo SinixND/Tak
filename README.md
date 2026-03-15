@@ -35,7 +35,7 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 - The top stone of a stack determines the owner of the stack
 - Only the `top stone` of a stack can have a type other than flat
 - Only the owner can move a stack
-- To move a stack, the players `pickUp()` a stack (up to [board width] pieces) and then `drop()` individual stones on subsequent squares (in a straight line)
+- To move a stack, the players `lift()` a stack (up to [board width] pieces) and then `drop()` individual stones on subsequent squares (in a straight line)
 - [1,n] stones may be dropped onto a single square. 
 - No stone needs to be left at the original square
 - Only capstones can be dropped onto standing stones, flattening them.
@@ -150,10 +150,9 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 
 
 ## ToDo notes
-- [ ] Pickup -> Lift
-- [ ] Multi-drop
 - [ ] ncurses mode input, print PTN
 
+- [ ] Add keybindings to readme
 - [ ] Render modes: test, tui, 2d, iso?, 3d
 
 <p align="right">(<a href="#readme-top">top</a>)</p>

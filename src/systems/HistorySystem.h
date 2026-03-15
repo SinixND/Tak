@@ -21,13 +21,13 @@ void recordPlacementAction(
 );
 
 /**
- * @brief: Add pickup action to history
+ * @brief: Add lift action to history
  *
  * - Increase history index
  * - Reset redo count
- * - Add player action with pickup input
+ * - Add player action with lift input
  */
-void recordPickupAction(
+void recordLiftAction(
     History* const pHistory,
     int const squareIdx,
     int const topStoneIdx,

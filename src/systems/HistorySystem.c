@@ -1,5 +1,6 @@
 #include "HistorySystem.h"
 
+#include "ActionType.h"
 #include "GameConstants.h"
 #include "PlayerId.h"
 #include "StoneType.h"
@@ -37,7 +38,7 @@ void recordPlacementAction(
         };
 }
 
-void recordPickupAction(
+void recordLiftAction(
     History* const pHistory,
     int const squareIdx,
     int const topStoneIdx,
@@ -60,7 +61,7 @@ void recordPickupAction(
     //* Push playerAction
     pHistory->actions[pHistory->lastActionIdx]
         = (PlayerAction){
-            .actionType = ACTION_TYPE_PICKUP,
+            .actionType = ACTION_TYPE_LIFT,
             .squareIdx = squareIdx,
             .topStoneIdx = topStoneIdx,
             .stoneType = stoneType,

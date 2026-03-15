@@ -29,16 +29,16 @@ int main( void )
     RUN_TEST( testPlaceStone );
     RUN_TEST( testUndoPlaceStone );
     RUN_TEST( testRedoPlaceStone );
-    RUN_TEST( testPickupStack );
-    RUN_TEST( testUndoPickupStack );
-    RUN_TEST( testRedoPickupStack );
+    RUN_TEST( testLiftStack );
+    RUN_TEST( testUndoLiftStack );
+    RUN_TEST( testRedoLiftStack );
     RUN_TEST( testDropStone );
     RUN_TEST( testUndo );
     RUN_TEST( testRedo );
 
     //* Test HistorySystem
     RUN_TEST( testRecordPlacementAction );
-    RUN_TEST( testRecordPickupAction );
+    RUN_TEST( testRecordLiftAction );
     RUN_TEST( testRecordDropAction );
     RUN_TEST( testUndoHistory );
     RUN_TEST( testRedoHistory );
