@@ -4,14 +4,14 @@
 #include "FileId.h"
 #include "RankId.h"
 
-/// Returns number of square/tile/stack [0, 1, 2, ...]
+/// Return square index for given file/rank
 int positionToSquare(
     FileId const fileX,
     RankId const rankY,
     int const boardWidth
 );
 
-/// Returns index of first stone of stack
+/// Returns index of first stone of stack for given square index
 int squareToStackIndex(
     int const squareIdx,
     int const stackCapacity

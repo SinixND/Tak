@@ -60,7 +60,7 @@ enum
     STONES_MAX = 101,
 
     /// Undo/Redo history size
-    HISTORY_SIZE = 100,
+    HISTORY_SIZE = 1000,
 };
 
 #endif

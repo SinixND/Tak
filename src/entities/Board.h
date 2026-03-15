@@ -19,6 +19,7 @@ typedef struct
     /// Takes stone/stack index
     PlayerId stoneIds[SQUARES_MAX * STONES_MAX];
     /// Active stone counts per stack;
+    /// Used to determine status!;
     /// Takes square index
     uint8_t counts[SQUARES_MAX];
     /// Types of stacks / top stones

@@ -3,23 +3,36 @@
 
 #include "StackBuffer.h"
 
-/// Return new StackBuffer object
+/// Return initialized StackBuffer object
 StackBuffer newStackBuffer( void );
 
-/// Reset buffer to new type and first stone (=playerId)
-void resetStackBuffer(
+/**
+ * @brief: Reset buffer and set stone type
+ *
+ * - Set buffer stone type
+ * - Reset stone count to 0
+ */
+void resetBuffer(
     StackBuffer* const pBuffer,
-    PlayerId const playerId,
     StoneType const stoneType
 );
 
-/// Add stone to buffer ("below")
+/**
+ * @brief: Add stone to buffer
+ *
+ * - Add stone to buffer
+ * - Increase stone count
+ */
 void appendToBuffer(
     StackBuffer* const pBuffer,
     PlayerId const playerId
 );
 
-/// Drop from buffer
+/**
+ * @brief: Remove stone from buffer
+ *
+ * - Decrease stone count
+ */
 void dropFromBuffer( StackBuffer* const pBuffer );
 
 #endif
