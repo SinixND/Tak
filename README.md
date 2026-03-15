@@ -1,4 +1,3 @@
-
 <div align="center">
 <!-- <img src="assets/favicon.ico" alt="Logo" width="80" height="80"> -->
 <h1> Tak </h1>
@@ -40,6 +39,16 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 - [1,n] stones may be dropped onto a single square. 
 - No stone needs to be left at the original square
 - Only capstones can be dropped onto standing stones, flattening them.
+
+<p align="right">(<a href="#readme-top">top</a>)</p>
+
+
+### Input
+- Place stone: place, stone type, file, rank (eg. `psa1`)
+- Move stack: move, file, rank, direction, drop counts (eg. `ma1u132`)
+
+<p align="right">(<a href="#readme-top">top</a>)</p>
+
 
 ### Dependencies
 Dependencies that are or are planned to be used:
@@ -139,6 +148,7 @@ Dependencies that are or are planned to be used:
 
 
 ## ToDo notes
-- [ ] raylib input?
+- [ ] Render modes: test, tui, 2d, iso?, 3d
+- [ ] ncurses mode input, print PTN
 
 <p align="right">(<a href="#readme-top">top</a>)</p>
