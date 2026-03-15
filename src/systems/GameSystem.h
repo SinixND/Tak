@@ -12,6 +12,8 @@
  */
 Game newGame( int boardWidth );
 
+//* Core functions
+
 /**
  * @brief: From Player to Board; Add to history
  *
@@ -28,24 +30,6 @@ void placeStone(
 );
 
 /**
- * @brief: From Board to Player; Undo History
- *
- * - Take one stone from stack/square
- * - Increase reserves
- * - Adjust history index
- */
-void undoPlaceStone( Game* const pGame );
-
-/**
- * @brief: From Player to Board; Redo History
- *
- * - Reduce reserves
- * - Put stone on stack/square
- * - Adjust history index
- */
-void redoPlaceStone( Game* const pGame );
-
-/**
  * @brief: From Board to Buffer; Add to History
  *
  * - Set stone type of buffer
@@ -60,6 +44,29 @@ void pickUpStack(
 );
 
 /**
+ * @brief: From Buffer to Board
+ *
+ * - Add single stone to stack/square
+ * - Remove single stone from buffer
+ */
+void dropStone(
+    Game* const pGame,
+    FileId const fileX,
+    RankId const rankY
+);
+
+//* Undo functions
+
+/**
+ * @brief: From Board to Player; Undo History
+ *
+ * - Take one stone from stack/square
+ * - Increase reserves
+ * - Adjust history index
+ */
+void undoPlaceStone( Game* const pGame );
+
+/**
  * @brief: From Buffer to Board; Undo History
  *
  * - Loop: Add stones to stack/square
@@ -67,6 +74,34 @@ void pickUpStack(
  * - Adjust history index
  */
 void undoPickupStack( Game* const pGame );
+
+/**
+ * @brief: From Board to Buffer
+ *
+ * - Add single stone to buffer
+ * - Remove single stone from stack/square
+ */
+void undoDropStone( Game* const pGame );
+
+/**
+ * @brief: Undo last action performed by a player
+ *
+ * - Read history
+ * - Switch case and call appropriate function
+ * - Adjust history index
+ */
+void undo( Game* const pGame );
+
+//* Redo functions
+
+/**
+ * @brief: From Player to Board; Redo History
+ *
+ * - Reduce reserves
+ * - Put stone on stack/square
+ * - Adjust history index
+ */
+void redoPlaceStone( Game* const pGame );
 
 /**
  * @brief: From Board to Buffer; Redo History
@@ -84,36 +119,7 @@ void redoPickupStack( Game* const pGame );
  * - Add single stone to stack/square
  * - Remove single stone from buffer
  */
-void dropStone(
-    Game* const pGame,
-    FileId const fileX,
-    RankId const rankY
-);
-
-/**
- * @brief: From Board to Buffer
- *
- * - Add single stone to buffer
- * - Remove single stone from stack/square
- */
-void undoDropStone( Game* const pGame );
-
-/**
- * @brief: From Buffer to Board
- *
- * - Add single stone to stack/square
- * - Remove single stone from buffer
- */
 void redoDropStone( Game* const pGame );
-
-/**
- * @brief: Undo last action performed by a player
- *
- * - Read history
- * - Switch case and call appropriate function
- * - Adjust history index
- */
-void undo( Game* const pGame );
 
 /**
  * @brief: Redo next action performed by a player
@@ -123,6 +129,8 @@ void undo( Game* const pGame );
  * - Adjust history index
  */
 void redo( Game* const pGame );
+
+//* Demo function
 
 /// Currently used to avoid unused function warnings
 void demo( Game* const pGame );

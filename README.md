@@ -150,7 +150,10 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 
 
 ## ToDo notes
-- [ ] Render modes: test, tui, 2d, iso?, 3d
+- [ ] Pickup -> Lift
+- [ ] Multi-drop
 - [ ] ncurses mode input, print PTN
+
+- [ ] Render modes: test, tui, 2d, iso?, 3d
 
 <p align="right">(<a href="#readme-top">top</a>)</p>
