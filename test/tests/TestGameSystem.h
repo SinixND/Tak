@@ -312,6 +312,17 @@ void testUndo( void )
         RANK_1
     );
 
+    dropStone(
+        &game,
+        FILE_D,
+        RANK_1
+    );
+
+    undo( &game );
+
+    TEST_ASSERT_EQUAL_INT( 1, game.stackBuffer.stoneCount );
+    TEST_ASSERT_EQUAL_INT( 0, game.board.counts[3] );
+
     undo( &game );
 
     TEST_ASSERT_EQUAL_INT( 0, game.stackBuffer.stoneCount );
@@ -367,6 +378,13 @@ void testRedo( void )
         RANK_1
     );
 
+    dropStone(
+        &game,
+        FILE_D,
+        RANK_1
+    );
+
+    undo( &game );
     undo( &game );
     undo( &game );
     undo( &game );
@@ -375,21 +393,26 @@ void testRedo( void )
     redo( &game );
 
     TEST_ASSERT_EQUAL_INT( 20, game.players.reservesRegular[PLAYER_WHITE] );
-    TEST_ASSERT_EQUAL_INT( 1, game.board.counts[FILE_A] );
+    TEST_ASSERT_EQUAL_INT( 1, game.board.counts[0] );
 
     redo( &game );
 
     TEST_ASSERT_EQUAL_INT( 19, game.players.reservesRegular[PLAYER_WHITE] );
-    TEST_ASSERT_EQUAL_INT( 1, game.board.counts[FILE_B] );
+    TEST_ASSERT_EQUAL_INT( 1, game.board.counts[1] );
 
     redo( &game );
 
     TEST_ASSERT_EQUAL_INT( 0, game.players.reservesCapstone[PLAYER_WHITE] );
-    TEST_ASSERT_EQUAL_INT( 1, game.board.counts[FILE_C] );
+    TEST_ASSERT_EQUAL_INT( 1, game.board.counts[2] );
 
     redo( &game );
 
     TEST_ASSERT_EQUAL_INT( 1, game.stackBuffer.stoneCount );
-    TEST_ASSERT_EQUAL_INT( 0, game.board.counts[FILE_A] );
+    TEST_ASSERT_EQUAL_INT( 0, game.board.counts[0] );
+
+    redo( &game );
+
+    TEST_ASSERT_EQUAL_INT( 0, game.stackBuffer.stoneCount );
+    TEST_ASSERT_EQUAL_INT( 1, game.board.counts[3] );
 }
 #endif

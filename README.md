@@ -125,19 +125,6 @@ Dependencies that are or are planned to be used:
 <p align="right">(<a href="#readme-top">top</a>)</p>
 
 
-### (Desired) Development workflow
-(Try first time with this project)
-
-Utilize the following concepts:
-1. Main / develop / feature branches
-1. Data first, logic next
-1. Test desired behaviour (like a demo)
-1. Bug? -> make new assertion
-1. Pull Requests (manage via browser)
-
-<p align="right">(<a href="#readme-top">top</a>)</p>
-
-
 ## References
 - [Tak terminology](https://ustak.org/tak-terminology/) Official Tak rules
 
@@ -152,49 +139,6 @@ Utilize the following concepts:
 
 
 ## ToDo notes
-- [ ] Refactor undo/redo: Store necessary, already known information in PlayerAction
-- [ ] drop test: undo + redo
-
-- [x] placement
-    - [x] function
-        - [x] test
-    - [x] record 
-        - [x] test
-    - [x] undo
-        - [x] test
-    - [x] redo
-        - [x] test
-
-- [x] Update Game
-    - [x] undo
-    - [x] redo
-
-- [x] Pick up
-    - [x] function
-        - [x] test
-    - [x] record 
-        - [x] test
-    - [x] undo
-        - [x] test
-    - [x] redo
-        - [x] test
-
-- [x] Update Game
-    - [x] undo
-    - [x] redo
-
-- [ ] Drop stone
-    - [x] function
-        - [x] test
-    - [x] record 
-        - [x] test
-    - [x] undo
-        - [ ] test
-    - [x] redo
-        - [ ] test
-
-- [ ] Update Game
-    - [ ] undo
-    - [ ] redo
+- [ ] raylib input?
 
 <p align="right">(<a href="#readme-top">top</a>)</p>

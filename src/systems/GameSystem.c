@@ -382,6 +382,12 @@ void undo( Game* const pGame )
             undoPickupStack( pGame );
             break;
         }
+
+        case ACTION_TYPE_DROP:
+        {
+            undoDropStone( pGame );
+            break;
+        }
     }
 }
 
@@ -411,6 +417,12 @@ void redo( Game* const pGame )
         {
             redoPickupStack( pGame );
 
+            break;
+        }
+
+        case ACTION_TYPE_DROP:
+        {
+            redoDropStone( pGame );
             break;
         }
     }
