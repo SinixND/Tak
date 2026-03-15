@@ -6,6 +6,9 @@
 #include "Players.h"
 #include "StackBuffer.h"
 
+/**
+ * @brief: Object to handle game state
+ */
 typedef struct
 {
     Board board;

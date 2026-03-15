@@ -33,6 +33,8 @@ TARGET ?= unix
 MODE   ?= app
 # Build config ( fatal | debug | release )
 BUILD  ?= fatal
+# Backend ( ncurses | raylib )
+BACKEND ?= ncurses
 
 # Compiler & toolchain
 CC := clang
@@ -44,7 +46,7 @@ MAIN_app  := main
 BIN_app  := $(MAIN_app)
 
 # Libraries
-LDLIBS_CORE :=
+LIBS_CORE :=
 
 # External includes
 EXT_INC_DIR :=
@@ -76,7 +78,7 @@ all: compiledb build test cppcheck run
 
 # To test all targets
 .PHONY: checkhealth
-checkhealth: clean doxygen format compiledb fatal debug release test cppcheck run
+checkhealth: clean doxygen format compiledb fatal debug release setup test cppcheck run
 
 
 #######################################
@@ -89,6 +91,14 @@ SRCS_app  := $(shell find $(SRC_DIR) -name '*.$(SRC_EXT)')
 # Includes
 INC_app  := $(shell find $(SRC_DIR) -type d)
 
+
+#######################################
+# MODULE: NCURSES
+#######################################
+
+LIBS_ncurses := ncurses
+
+CPPFLAGS_ncurses   := -DBACKEND_NCURSES
 
 #######################################
 # MODULE: TEST
@@ -133,15 +143,19 @@ test: build-test run-test
 # DEPENDENT VARIABLES
 #######################################
 
+# Build config
+BUILD_CONFIG := $(TARGET)/$(MODE)/$(BACKEND)/$(BUILD)
+
 # Objects and dependencies
-OBJROOT := $(OBJ_DIR)/$(TARGET)/$(MODE)/$(BUILD)
+OBJROOT := $(OBJ_DIR)/$(BUILD_CONFIG)
 OBJS    := $(patsubst %.$(SRC_EXT),$(OBJROOT)/%.$(OBJ_EXT),$(SRCS_$(MODE)))
 DEPS    := $(OBJS:.$(OBJ_EXT)=.$(DEP_EXT))
 
 # Flags
 CFLAGS   := $(CFLAGS_CORE) $(CFLAGS_$(BUILD))
-CPPFLAGS := $(CPPFLAGS_CORE) $(CPPFLAGS_$(BUILD))
-LDLIBS   := $(LDLIBS_CORE)
+CPPFLAGS := $(CPPFLAGS_CORE) $(CPPFLAGS_$(BUILD)) $(CPPFLAGS_$(BACKEND))
+LIBS 	 := $(LIBS_CORE) $(LIBS_$(BACKEND))
+LDLIBS   := $(addprefix -l,$(LIBS))
 LDFLAGS  := $(LDFLAGS_CORE) $(LDFLAGS_$(BUILD))
 INCFLAGS += $(addprefix -I,$(INC_$(MODE)))
 INCFLAGS += $(addprefix -isystem,$(EXT_INC_DIR))
@@ -153,7 +167,7 @@ INCFLAGS += $(addprefix -isystem,$(EXT_INC_DIR))
 
 
 .PHONY: build 
-build: $(BIN_DIR)/$(TARGET)/$(MODE)/$(BUILD)/$(BIN_$(MODE))
+build: $(BIN_DIR)/$(BUILD_CONFIG)/$(BIN_$(MODE))
 
 .PHONY: clean 
 clean:
@@ -233,11 +247,18 @@ release:
 	$(info === Build app/release ===)
 	@$(MAKE) BUILD=release MODE=app build
 
+.PHONY: setup
+setup:
+	$(info )
+	$(info === Setup project ===)
+	./$(SCRIPTS_DIR)/setupRaylib.sh
+
+
 .PHONY: run
 run:
 	$(info )
 	$(info === Execute $(BIN_$(MODE)) ===)
-	$(BIN_DIR)/$(TARGET)/$(MODE)/$(BUILD)/$(BIN_$(MODE))
+	$(BIN_DIR)/$(BUILD_CONFIG)/$(BIN_$(MODE))
 
 
 #######################################
@@ -252,7 +273,7 @@ $(OBJROOT)/%.$(OBJ_EXT): %.$(SRC_EXT)
 	$(CC) -c $< -o $@ $(CFLAGS) $(CPPFLAGS) $(INCFLAGS)
 
 # === LINKER COMMAND ===
-$(BIN_DIR)/$(TARGET)/$(MODE)/$(BUILD)/$(BIN_$(MODE)): $(OBJS)
+$(BIN_DIR)/$(BUILD_CONFIG)/$(BIN_$(MODE)): $(OBJS)
 	$(info )
 	$(info === Link: TARGET=$(TARGET), MODE=$(MODE), BUILD=$(BUILD) ===)
 	@$(MKDIR) $(dir $@)

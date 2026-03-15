@@ -44,14 +44,13 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 
 
 ### Input
-- Place stone: place, stone type, file, rank (eg. `psa1`)
-- Move stack: move, file, rank, direction, drop counts (eg. `ma1u132`)
+- Place stone: player, place, stone type, file, rank (eg. `psa1`)
+- Move stack: player, move, file, rank, direction, drop counts (eg. `ma1u132`)
 
 <p align="right">(<a href="#readme-top">top</a>)</p>
 
 
 ### Dependencies
-Dependencies that are or are planned to be used:
 #### Toolchains (not provided)
 [![make](https://img.shields.io/badge/toolchain-gnumake-darkred?style=for-the-badge)](https://www.gnu.org/software/make/)
 [![clang](https://img.shields.io/badge/compiler-clang-blue?style=for-the-badge)](https://clang.llvm.org)
@@ -63,8 +62,11 @@ Dependencies that are or are planned to be used:
 [![doxygen](https://img.shields.io/badge/generator-doxygen-blue?style=for-the-badge)](https://www.doxygen.nl/)
 [![cppcheck](https://img.shields.io/badge/analyser-cppcheck-darkblue?style=for-the-badge)](https://cppcheck.sourceforge.io/)
 
-#### Libraries (provided)
+#### Libraries (not provided)
+[![ncurses](https://img.shields.io/badge/library-raylib-white?style=for-the-badge)](https://github.com/raysan5/raylib)
 [![raylib](https://img.shields.io/badge/library-raylib-white?style=for-the-badge)](https://github.com/raysan5/raylib)
+
+#### Libraries (provided)
 [![Unity](https://img.shields.io/badge/testing-unity-red?style=for-the-badge)](https://github.com/ThrowTheSwitch/Unity)
 
 <!-- #### Excluded -->
