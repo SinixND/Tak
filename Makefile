@@ -78,7 +78,7 @@ all: compiledb build test cppcheck run
 
 # To test all targets
 .PHONY: checkhealth
-checkhealth: clean doxygen format compiledb fatal debug release setup test cppcheck run
+checkhealth: clean doxygen format compiledb fatal debug release test cppcheck run
 
 
 #######################################
@@ -246,13 +246,6 @@ release:
 	$(info )
 	$(info === Build app/release ===)
 	@$(MAKE) BUILD=release MODE=app build
-
-.PHONY: setup
-setup:
-	$(info )
-	$(info === Setup project ===)
-	./$(SCRIPTS_DIR)/setupRaylib.sh
-
 
 .PHONY: run
 run:

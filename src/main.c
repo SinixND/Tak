@@ -1,11 +1,19 @@
-#include "Application.h"
-#include "ApplicationSystem.h"
+#include "App.h"
+#include "AppSystem.h"
+#include "Game.h"
+#include "GameSystem.h"
+#include "MainLoopSystem.h"
 
 int main( void )
 {
-    Application app = newApp();
+    Game game = newGame( 0 );
+    demo( &game );
 
-    runApp( &app );
+    App app = newApp( 0 );
+
+    initApp();
+    runMainLoop( &app );
+    deinitApp();
 
     return 0;
 }
