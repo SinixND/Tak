@@ -13,7 +13,7 @@ App newApp( int const boardWidth )
 {
     App app = {
         .game = newGame( boardWidth ),
-        .input = { .last = INPUT_NONE },
+        .inputBuffer = { .lastInput = INPUT_NONE },
         .shoudClose = false,
     };
 

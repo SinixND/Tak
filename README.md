@@ -150,8 +150,7 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 
 
 ## ToDo notes
-- [ ] ncurses mode input, print PTN
-- [ ] Add "Game" API (extract from GameSystem)
+- [ ] Tests for input handling
 
 - [ ] Add keybindings to readme
 - [ ] Render modes: test, tui, 2d, iso?, 3d

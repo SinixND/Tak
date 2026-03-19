@@ -6,6 +6,6 @@
 void render( App* const app )
 {
     clear();
-    printw( "%i\n", (int)app->input.last );
+    printw( "%i\n", (int)app->inputBuffer.lastInput );
     refresh();
 }

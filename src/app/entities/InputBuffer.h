@@ -5,7 +5,7 @@
 
 typedef struct
 {
-    InputId last;
+    InputId lastInput;
 } InputBuffer;
 
 #endif

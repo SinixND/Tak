@@ -1,7 +1,7 @@
 #include "MainLoopSystem.h"
 
 #include "App.h"
-#include "InputBufferSystem.h"
+#include "InputSystem.h"
 #include "RenderSystem.h"
 #include "UpdateSystem.h"
 
@@ -16,7 +16,7 @@ void runMainLoop( App* const app )
 
 void processFrame( App* const app )
 {
-    bufferInput( app );
+    getInput( &app->inputBuffer );
     updateApp( app );
     renderApp( app );
 }

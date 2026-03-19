@@ -13,9 +13,9 @@ typedef struct
     /// Stack to store the actions to be undone
     PlayerAction actions[HISTORY_SIZE];
     /// Track index of last action that can be undone
-    uint8_t lastActionIdx;
+    uint16_t lastActionIdx;
     /// Track count of actions that can be redone
-    uint8_t redoCount;
+    uint16_t redoCount;
 } History;
 
 #endif
