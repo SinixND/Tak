@@ -1,14 +1,14 @@
 #include "InputBufferSystem.h"
 
-#include "App.h"
+#include "InputBuffer.h"
 
 //* Choose backend
 #ifdef BACKEND_NCURSES
 #include "InputSystem_NCurses.h"
 #endif
 
-void handleInput( App* const app )
+void bufferInput( InputBuffer* const inputBuffer )
 {
-    app->input.last = pollInput();
+    buffer->last = pollInput();
 }
 

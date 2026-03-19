@@ -16,7 +16,7 @@ void runMainLoop( App* const app )
 
 void processFrame( App* const app )
 {
-    handleInput( app );
+    bufferInput( app );
     updateApp( app );
     renderApp( app );
 }

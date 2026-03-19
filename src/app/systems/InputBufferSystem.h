@@ -1,9 +1,9 @@
 #ifndef IG20260317235159
 #define IG20260317235159
 
-#include "App.h"
+#include "InputBuffer.h"
 
 /// Process user input
-void handleInput( App* const app );
+void bufferInput( InputBuffer* const inputBuffer );
 
 #endif
