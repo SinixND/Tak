@@ -13,31 +13,12 @@
  */
 typedef struct
 {
-    PlayerId playerId;     // white, black
-    ActionType actionType; // place, lift, drop
-
-    union
-    {
-        struct
-        {
-            FileId fileX;
-            RankId rankY;
-            StoneType stoneType;
-        } Place;
-
-        struct
-        {
-            FileId fileX;
-            RankId rankY;
-            DirectionId direction;
-        } Lift;
-
-        struct
-        {
-            FileId fileX;
-            RankId rankY;
-        } Drop;
-    } Action;
+    PlayerId playerId;
+    ActionType actionType;
+    FileId fileX;
+    RankId rankY;
+    StoneType stoneType;
+    DirectionId direction;
 } GameEvent;
 
 #endif

@@ -26,7 +26,7 @@ Game newGame( int boardWidth )
         .board = newBoard( boardWidth ),
         .stackBuffer = newStackBuffer(),
         .players = newPlayers( boardWidth ),
-        .activePlayer = PLAYER_NONE,
+        .activePlayer = PLAYER_BLACK,
     };
 }
 

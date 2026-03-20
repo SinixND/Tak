@@ -4,6 +4,7 @@
 /// Row
 typedef enum
 {
+    RANK_NONE = -1,
     RANK_1 = 0,
     RANK_2 = 1,
     RANK_3 = 2,

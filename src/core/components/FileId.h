@@ -4,6 +4,7 @@
 /// Column
 typedef enum
 {
+    FILE_NONE = -1,
     FILE_A = 0,
     FILE_B = 1,
     FILE_C = 2,
