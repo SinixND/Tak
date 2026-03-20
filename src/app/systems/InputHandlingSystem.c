@@ -31,7 +31,7 @@ void handleStateInput( App* const app )
 
             if ( app->inputBuffer.gameEvent.fileX >= FILE_A )
             {
-                app->state = STATE_FIRST_TURN_CHOOSE_RANK_Y;
+                // app->state = STATE_FIRST_TURN_CHOOSE_RANK_Y;
             }
 
             return;

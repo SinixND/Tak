@@ -7,6 +7,8 @@
 
 void runMainLoop( App* const app )
 {
+    renderStaticContent( app );
+
     while ( !app->shoudClose )
     {
         //* Have dedicated funciton called in the loop for emscripten
@@ -16,7 +18,7 @@ void runMainLoop( App* const app )
 
 void processFrame( App* const app )
 {
+    renderApp( app );
     getInput( &app->inputBuffer );
     updateApp( app );
-    renderApp( app );
 }

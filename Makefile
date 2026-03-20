@@ -74,7 +74,7 @@ LDFLAGS_release  :=
 
 # Targets
 .PHONY: all
-all: compiledb build test cppcheck run
+all: compiledb build test cppcheck
 
 # To test all targets
 .PHONY: checkhealth

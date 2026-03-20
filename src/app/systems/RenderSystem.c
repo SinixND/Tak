@@ -9,3 +9,8 @@ void renderApp( App* const app )
 {
     render( app );
 }
+
+void renderStaticContent( App* const app )
+{
+    renderStatic( app );
+}

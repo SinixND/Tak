@@ -8,4 +8,7 @@
  */
 void render( App* const app );
 
+/// Render static, non-changing content
+void renderStatic( App* const app );
+
 #endif

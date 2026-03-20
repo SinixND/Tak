@@ -150,6 +150,7 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 
 
 ## ToDo notes
+- [ ] Render app
 - [ ] Tests for input handling
 
 - [ ] Add keybindings to readme

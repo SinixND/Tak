@@ -5,4 +5,7 @@
 
 void renderApp( App* const app );
 
+/// Render static, non-changing content
+void renderStaticContent( App* const app );
+
 #endif
