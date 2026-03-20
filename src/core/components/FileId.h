@@ -15,4 +15,15 @@ typedef enum
     FILE_H = 7,
 } FileId;
 
+static char const FILE_CHARS[] = {
+    ' ',
+    'a',
+    'b',
+    'c',
+    'd',
+    'e',
+    'f',
+    'g',
+    'h',
+};
 #endif

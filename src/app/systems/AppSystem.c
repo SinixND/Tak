@@ -14,7 +14,11 @@ App newApp( int const boardWidth )
 {
     App app = {
         .game = newGame( boardWidth ),
-        .inputBuffer = { .lastInput = INPUT_NONE },
+        .inputBuffer = {
+                        .gameEvent = { 0 },
+                        .lastInput = INPUT_NONE,
+                        .currentInput = " ",
+                        },
         .state = STATE_FIRST_TURN_CHOOSE_FILE_X,
         .shoudClose = false,
     };

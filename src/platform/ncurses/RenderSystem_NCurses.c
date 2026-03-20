@@ -1,6 +1,7 @@
 #include "RenderSystem_NCurses.h"
 
 #include "App.h"
+#include "AppState.h"
 #include "Layout.h"
 #include "PlayerId.h"
 #include <ncurses.h>
@@ -157,11 +158,125 @@ void render( App* const app )
 
 void renderInfoPaneContent( App* const app )
 {
-    /// Print white regular reserves
+    //* Print white regular reserves
     mvprintw(
         POSITION_WHITE_RESERVES_REGULAR[0],
         POSITION_WHITE_RESERVES_REGULAR[1],
         "%i",
         app->game.players.reservesRegular[PLAYER_WHITE]
+    );
+
+    //* Print white capston reserves
+    mvprintw(
+        POSITION_WHITE_RESERVES_CAPSTONE[0],
+        POSITION_WHITE_RESERVES_CAPSTONE[1],
+        "%i",
+        app->game.players.reservesCapstone[PLAYER_WHITE]
+    );
+
+    //* Print black regular reserves
+    mvprintw(
+        POSITION_BLACK_RESERVES_REGULAR[0],
+        POSITION_BLACK_RESERVES_REGULAR[1],
+        "%i",
+        app->game.players.reservesRegular[PLAYER_BLACK]
+    );
+
+    //* Print black capston reserves
+    mvprintw(
+        POSITION_BLACK_RESERVES_CAPSTONE[0],
+        POSITION_BLACK_RESERVES_CAPSTONE[1],
+        "%i",
+        app->game.players.reservesCapstone[PLAYER_BLACK]
+    );
+
+    //* Print active player
+    mvprintw(
+        POSITION_TURN[0],
+        POSITION_TURN[1],
+        "%s",
+        ( app->game.activePlayer == PLAYER_WHITE ) ? "WHITE" : "BLACK"
+    );
+
+    char* input = "-";
+    char* opts = "-";
+
+    switch ( app->state )
+    {
+        default:
+        {
+            //* Do nonthing
+            break;
+        }
+
+        case STATE_SELECT_ACTION:
+        {
+            input = "Action";
+            opts = "P, L, D";
+
+            break;
+        }
+
+        case STATE_FIRST_TURN_CHOOSE_FILE_X:
+        case STATE_SECOND_TURN_CHOOSE_FILE_X:
+        case STATE_CHOOSE_FILE_X:
+        {
+            input = "File";
+            opts = "A-H";
+
+            break;
+        }
+
+        case STATE_FIRST_TURN_CHOOSE_RANK_Y:
+        case STATE_SECOND_TURN_CHOOSE_RANK_Y:
+        case STATE_CHOOSE_RANK_Y:
+        {
+            input = "Rank";
+            opts = "1-8";
+
+            break;
+        }
+
+        case STATE_CHOOSE_STONE_TYPE:
+        {
+            input = "SType";
+            opts = "F, S, C";
+
+            break;
+        }
+
+        case STATE_CHOOSE_DIRECTION:
+        {
+            input = "Dir";
+            opts = "N, W, E, S";
+
+            break;
+        }
+    }
+
+    //* Print required input
+    mvprintw(
+        POSITION_INPUT_TYPE[0],
+        POSITION_INPUT_TYPE[1],
+        "%s",
+        input
+    );
+
+    //* Print possible input options
+    mvprintw(
+        POSITION_INPUT_OPTIONS[0],
+        POSITION_INPUT_OPTIONS[1],
+        "%s",
+        opts
+    );
+
+    //* Print current player input
+    //* W:@c#
+    //* B:#c#+########
+    mvprintw(
+        POSITION_INPUT_CURRENT[0],
+        POSITION_INPUT_CURRENT[1],
+        "%s",
+        app->inputBuffer.currentInput
     );
 }
