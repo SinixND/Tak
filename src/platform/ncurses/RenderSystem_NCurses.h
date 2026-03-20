@@ -3,7 +3,15 @@
 
 #include "App.h"
 
-/// Render static, non-changing content
+/**
+ * @brief: Render static, non-changing content
+ *
+ * Renders:
+ * - Board w/ edges and square corners
+ * - Board headers (file/rank display)
+ * - Info pane (static content)
+ * - Separator line
+ */
 void renderStatic( App* const app );
 
 /**
@@ -11,4 +19,6 @@ void renderStatic( App* const app );
  */
 void render( App* const app );
 
+/// Render info pane content
+void renderInfoPaneContent( App* const app );
 #endif

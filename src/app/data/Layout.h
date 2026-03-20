@@ -65,9 +65,9 @@ static char* const LAYOUT_BOARD_SQUARE[] = {
 };
 
 static char* const LAYOUT_INFO_PANE[] = {
-    "      N",
-    "    W + E",
-    "      S",
+    "    N",
+    "  W + E",
+    "    S",
     "       R |C|Sc",
     "White:   | |",
     "Black:   | |",
