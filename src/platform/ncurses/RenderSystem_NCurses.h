@@ -3,12 +3,12 @@
 
 #include "App.h"
 
+/// Render static, non-changing content
+void renderStatic( App* const app );
+
 /**
  * @brief: Backend dependent rendering system
  */
 void render( App* const app );
-
-/// Render static, non-changing content
-void renderStatic( App* const app );
 
 #endif

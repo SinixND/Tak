@@ -2,19 +2,8 @@
 
 #include "App.h"
 #include "Layout.h"
+#include "PlayerId.h"
 #include <ncurses.h>
-
-void render( App* const app )
-{
-    mvprintw(
-        37,
-        0,
-        "Last input: %i",
-        (int)app->inputBuffer.lastInput
-    );
-
-    refresh();
-}
 
 void renderStatic( App* const app )
 {
@@ -99,3 +88,16 @@ void renderStatic( App* const app )
         );
     }
 }
+
+void render( App* const app )
+{
+    mvprintw(
+        POSITION_WHITE_RESERVES_REGULAR[0],
+        POSITION_WHITE_RESERVES_REGULAR[1],
+        "%i",
+        app->game.players.reservesRegular[PLAYER_WHITE]
+    );
+
+    refresh();
+}
+
