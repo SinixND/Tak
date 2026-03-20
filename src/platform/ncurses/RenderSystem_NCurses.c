@@ -248,7 +248,7 @@ void renderInfoPaneContent( App* const app )
         case STATE_CHOOSE_DIRECTION:
         {
             input = "Dir";
-            opts = "N, W, E, S";
+            opts = "N, E, S, W";
 
             break;
         }

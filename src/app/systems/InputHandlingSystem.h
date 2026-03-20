@@ -10,7 +10,10 @@ void handleGlobalInput( App* const app );
 /// Handle input depending on app state
 void handleStateInput( App* const app );
 
-/// Set fileX in input buffer
+void parseInputForAction( InputBuffer* const inputBuffer );
 void parseInputForFileX( InputBuffer* const inputBuffer );
+void parseInputForRankY( InputBuffer* const inputBuffer );
+void parseInputForStoneType( InputBuffer* const inputBuffer );
+void parseInputForDirection( InputBuffer* const inputBuffer );
 
 #endif
