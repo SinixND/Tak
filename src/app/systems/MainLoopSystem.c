@@ -1,7 +1,7 @@
 #include "MainLoopSystem.h"
 
 #include "App.h"
-#include "InputSystem.h"
+#include "InputPollingSystem.h"
 #include "RenderSystem.h"
 #include "UpdateSystem.h"
 

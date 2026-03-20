@@ -1,8 +1,8 @@
 #include "UpdateSystem.h"
+#include "InputHandlingSystem.h"
 
 void updateApp( App* const app )
 {
-    //* Check for app close input
-    app->shoudClose = ( app->inputBuffer.lastInput == INPUT_Q ) ? true : false;
+    handleGlobalInput( app );
 }
 
