@@ -4,5 +4,6 @@
 #include "App.h"
 
 void handleGlobalInput( App* const app );
+void handleStateInput( App* const app );
 
 #endif

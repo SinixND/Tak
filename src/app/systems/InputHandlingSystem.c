@@ -9,3 +9,10 @@ void handleGlobalInput( App* const app )
               ? true
               : false;
 }
+
+void handleStateInput( App* const app )
+{
+    switch ( app - state )
+    {
+    }
+}

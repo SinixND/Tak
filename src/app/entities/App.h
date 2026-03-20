@@ -9,6 +9,7 @@ typedef struct
 {
     Game game;
     InputBuffer inputBuffer;
+    AppState appState;
     bool shoudClose;
 } App;
 

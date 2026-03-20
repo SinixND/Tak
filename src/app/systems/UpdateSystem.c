@@ -4,5 +4,6 @@
 void updateApp( App* const app )
 {
     handleGlobalInput( app );
+    handleStateInput( app );
 }
 
