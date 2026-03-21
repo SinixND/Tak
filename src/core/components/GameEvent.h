@@ -15,8 +15,7 @@
  */
 typedef struct
 {
-    /// PlayerId for the placed stone!
-    PlayerId playerId;
+    PlayerId stonePlayerId;
     ActionType actionType;
     FileId fileX;
     RankId rankY;

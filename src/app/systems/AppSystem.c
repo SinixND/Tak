@@ -8,6 +8,7 @@
 #include "GameSystem.h"
 #include "InputBufferSystem.h"
 #include "PlayerId.h"
+#include "StoneType.h"
 #include <assert.h>
 #include <stdint.h>
 
@@ -25,8 +26,9 @@ App newApp( int const boardWidth )
         .shoudClose = false,
     };
 
-    app.inputBuffer.gameEvent.playerId = PLAYER_BLACK;
+    app.inputBuffer.gameEvent.stonePlayerId = PLAYER_BLACK;
     app.inputBuffer.gameEvent.actionType = ACTION_TYPE_PLACE;
+    app.inputBuffer.gameEvent.stoneType = STONE_TYPE_FLAT;
 
     return app;
 }
@@ -347,10 +349,13 @@ void updateStateChooseAmount( App* const app )
     );
 
     //* Check if all dropped
-    if ( app->inputBuffer.gameEvent.droppedCount >= app->inputBuffer.gameEvent.liftCount )
+    if ( app->inputBuffer.gameEvent.droppedCount < app->inputBuffer.gameEvent.liftCount )
     {
-        app->state = STATE_UPDATE_GAME;
+        return;
     }
+
+    //* Update state
+        app->state = STATE_UPDATE_GAME;
 }
 
 void appendToCurrentInput(
@@ -364,20 +369,13 @@ void appendToCurrentInput(
     ++( *inputLength );
 }
 
-void updateStateUpdateGame( App* const app )
-{
-    resetCurrentInput( &app->inputBuffer );
-    updateGame(
-        app,
-        &app->inputBuffer.gameEvent
-    );
-}
-
 void updateGame(
     App* const app,
     GameEvent const* const gameEvent
 )
 {
+    resetCurrentInput( &app->inputBuffer );
+
     //* Update game
     //* TODO: Implement rules
     switch ( gameEvent->actionType )
@@ -393,7 +391,7 @@ void updateGame(
         {
             placeStone(
                 &app->game,
-                gameEvent->playerId,
+                gameEvent->stonePlayerId,
                 gameEvent->fileX,
                 gameEvent->rankY,
                 gameEvent->stoneType
@@ -459,17 +457,6 @@ void endTurn( App* const app )
     //* Reset input buffer
     app->inputBuffer = newInputBuffer();
 
-    //* Ouch, has to be checked once in first turn, then is always false
-    if ( app->game.history.lastActionIdx == 1 )
-    {
-        app->state = STATE_SECOND_TURN_CHOOSE_FILE_X;
-
-        //* Second stone placed is white
-        app->inputBuffer.gameEvent.actionType = ACTION_TYPE_PLACE;
-        app->inputBuffer.gameEvent.playerId = PLAYER_WHITE;
-
-        return;
-    }
-
+    //* Set first state of new turn
     app->state = STATE_CHOOSE_ACTION;
 }

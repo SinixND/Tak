@@ -11,7 +11,7 @@ GameEvent newGameEvent( void )
         0
     };
 
-    event.playerId = PLAYER_NONE;
+    event.stonePlayerId = PLAYER_NONE;
 
     for ( int idx = 0; idx < BOARD_WIDTH_MAX; ++idx )
     {

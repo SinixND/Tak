@@ -165,9 +165,8 @@ INCFLAGS += $(addprefix -isystem,$(EXT_INC_DIR))
 # TARGETS
 #######################################
 
-
 .PHONY: build 
-build: $(BIN_DIR)/$(BUILD_CONFIG)/$(BIN_$(MODE))
+build: $(BIN_DIR)/$(BIN_$(MODE))
 
 .PHONY: clean 
 clean:
@@ -194,8 +193,7 @@ cppcheck:
 	  --std=c99 \
 	  -i $(EXT_DIR)/ \
 	  -i $(TEST_DIR)/ \
-	  $(SRC_DIR)/ \
-	  $(BIN_DIR)/$(BIN_app)
+	  $(SRC_DIR)/ 
 
 .PHONY: compiledb
 compiledb:
@@ -251,7 +249,7 @@ release:
 run:
 	$(info )
 	$(info === Execute $(BIN_$(MODE)) ===)
-	$(BIN_DIR)/$(BUILD_CONFIG)/$(BIN_$(MODE))
+	$(BIN_DIR)/$(BIN_$(MODE))
 
 
 #######################################
@@ -266,7 +264,7 @@ $(OBJROOT)/%.$(OBJ_EXT): %.$(SRC_EXT)
 	$(CC) -c $< -o $@ $(CFLAGS) $(CPPFLAGS) $(INCFLAGS)
 
 # === LINKER COMMAND ===
-$(BIN_DIR)/$(BUILD_CONFIG)/$(BIN_$(MODE)): $(OBJS)
+$(BIN_DIR)/$(BIN_$(MODE)): $(OBJS)
 	$(info )
 	$(info === Link: TARGET=$(TARGET), MODE=$(MODE), BUILD=$(BUILD) ===)
 	@$(MKDIR) $(dir $@)
