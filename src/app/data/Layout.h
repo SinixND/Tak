@@ -2,18 +2,18 @@
 #define IG20260320143947
 
 //* Positions
-static int const POSITION_WHITE_RESERVES_REGULAR[] = { 4, 45 };
-static int const POSITION_WHITE_RESERVES_CAPSTONE[] = { 4, 48 };
-static int const POSITION_WHITE_SCORE[] = { 4, 50 };
-static int const POSITION_BLACK_RESERVES_REGULAR[] = { 5, 45 };
-static int const POSITION_BLACK_RESERVES_CAPSTONE[] = { 5, 48 };
-static int const POSITION_SCORE_BLACK[] = { 5, 50 };
-static int const POSITION_TURN[] = { 6, 45 };
-static int const POSITION_PLAYER_SYMBOL[] = { 6, 51 };
-static int const POSITION_INPUT_TYPE[] = { 7, 45 };
-static int const POSITION_INPUT_OPTIONS[] = { 8, 45 };
-static int const POSITION_INPUT_CURRENT[] = { 9, 41 };
-static int const POSITION_HISTORY_TOP_LEFT[] = { 11, 39 };
+static int const POSITION_WHITE_RESERVES_REGULAR[] = { 6, 25 };
+static int const POSITION_WHITE_RESERVES_CAPSTONE[] = { 6, 28 };
+static int const POSITION_WHITE_SCORE[] = { 6, 30 };
+static int const POSITION_BLACK_RESERVES_REGULAR[] = { 7, 25 };
+static int const POSITION_BLACK_RESERVES_CAPSTONE[] = { 7, 28 };
+static int const POSITION_SCORE_BLACK[] = { 7, 30 };
+static int const POSITION_TURN[] = { 8, 25 };
+static int const POSITION_PLAYER_SYMBOL[] = { 8, 31 };
+static int const POSITION_INPUT_TYPE[] = { 9, 25 };
+static int const POSITION_INPUT_OPTIONS[] = { 10, 25 };
+static int const POSITION_INPUT_CURRENT[] = { 11, 21 };
+static int const POSITION_HISTORY_TOP_LEFT[] = { 13, 19 };
 
 static char* const LAYOUT_BOARD_HEADER_RANK = {
     "   A   B   C   D   E   F   G   H",
@@ -65,10 +65,12 @@ static char* const LAYOUT_BOARD_SQUARE[] = {
 };
 
 static char* const LAYOUT_INFO_PANE[] = {
-    "    N",
-    "  W + E",
-    "    S",
-    "        R|C",
+    "SBuffer     N  ",
+    " +   +    W + E",
+    "            S  ",
+    "",
+    "",
+    " +   +  R|C",
     "White:   |",
     "Black:   |",
     "Turn :      [ ]",

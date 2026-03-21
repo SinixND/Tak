@@ -7,7 +7,10 @@
 
 void runMainLoop( App* const app )
 {
+    //* Run everything once for proper initialization
     renderStaticContent( app );
+    updateApp( app );
+    renderApp( app );
 
     while ( !app->shoudClose )
     {
@@ -18,7 +21,7 @@ void runMainLoop( App* const app )
 
 void processFrame( App* const app )
 {
-    renderApp( app );
     getInput( &app->inputBuffer );
     updateApp( app );
+    renderApp( app );
 }

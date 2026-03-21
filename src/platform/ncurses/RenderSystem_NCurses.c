@@ -11,7 +11,7 @@
 void renderStatic( App* const app )
 {
     //* Render UI / Layout
-    int const boardWidth = app->game.board.width + 3; // WARN: Temporary +3 for 8x8 default
+    int const boardWidth = app->game.board.width;
 
     //* Precompute constants
     //* Sizes
@@ -154,24 +154,27 @@ void renderStatic( App* const app )
 void render( App* const app )
 {
     renderInfoPaneContent( app );
+    // renderChangedBoardSquare( app );
 
     refresh();
 }
 
 void renderInfoPaneContent( App* const app )
 {
+    int const paneOffset = ( app->game.board.width - 3 ) * ( (int)( sizeof( LAYOUT_BOARD_SQUARE ) / sizeof( LAYOUT_BOARD_SQUARE[0] ) ) - 1 );
+
     //* Print white regular reserves
     mvprintw(
         POSITION_WHITE_RESERVES_REGULAR[0],
-        POSITION_WHITE_RESERVES_REGULAR[1],
-        "%i",
+        POSITION_WHITE_RESERVES_REGULAR[1] + paneOffset,
+        "%2i",
         app->game.players.reservesRegular[PLAYER_WHITE]
     );
 
     //* Print white capston reserves
     mvprintw(
         POSITION_WHITE_RESERVES_CAPSTONE[0],
-        POSITION_WHITE_RESERVES_CAPSTONE[1],
+        POSITION_WHITE_RESERVES_CAPSTONE[1] + paneOffset,
         "%i",
         app->game.players.reservesCapstone[PLAYER_WHITE]
     );
@@ -179,15 +182,15 @@ void renderInfoPaneContent( App* const app )
     //* Print black regular reserves
     mvprintw(
         POSITION_BLACK_RESERVES_REGULAR[0],
-        POSITION_BLACK_RESERVES_REGULAR[1],
-        "%i",
+        POSITION_BLACK_RESERVES_REGULAR[1] + paneOffset,
+        "%2i",
         app->game.players.reservesRegular[PLAYER_BLACK]
     );
 
     //* Print black capston reserves
     mvprintw(
         POSITION_BLACK_RESERVES_CAPSTONE[0],
-        POSITION_BLACK_RESERVES_CAPSTONE[1],
+        POSITION_BLACK_RESERVES_CAPSTONE[1] + paneOffset,
         "%i",
         app->game.players.reservesCapstone[PLAYER_BLACK]
     );
@@ -195,7 +198,7 @@ void renderInfoPaneContent( App* const app )
     //* Print active player
     mvprintw(
         POSITION_TURN[0],
-        POSITION_TURN[1],
+        POSITION_TURN[1] + paneOffset,
         "%s",
         ( app->game.activePlayer == PLAYER_WHITE ) ? "WHITE" : "BLACK"
     );
@@ -203,12 +206,12 @@ void renderInfoPaneContent( App* const app )
     //* Print active player symbol
     mvprintw(
         POSITION_PLAYER_SYMBOL[0],
-        POSITION_PLAYER_SYMBOL[1],
+        POSITION_PLAYER_SYMBOL[1] + paneOffset,
         "%c",
         PLAYER_CHARS[app->game.activePlayer]
     );
 
-    char* input = "      ";
+    char* input = "       ";
     char* opts = "          ";
 
     switch ( app->state )
@@ -223,7 +226,7 @@ void renderInfoPaneContent( App* const app )
         case STATE_SECOND_TURN_CHOOSE_FILE_X:
         case STATE_CHOOSE_FILE_X:
         {
-            input = "File X";
+            input = "File X ";
             opts = "a-h       ";
 
             break;
@@ -233,7 +236,7 @@ void renderInfoPaneContent( App* const app )
         case STATE_SECOND_TURN_CHOOSE_RANK_Y:
         case STATE_CHOOSE_RANK_Y:
         {
-            input = "Rank Y";
+            input = "Rank Y ";
             opts = "1-8       ";
 
             break;
@@ -241,7 +244,7 @@ void renderInfoPaneContent( App* const app )
 
         case STATE_CHOOSE_ACTION:
         {
-            input = "Action";
+            input = "Action ";
             opts = "p, l      ";
 
             break;
@@ -249,7 +252,7 @@ void renderInfoPaneContent( App* const app )
 
         case STATE_CHOOSE_STONE_TYPE:
         {
-            input = "StType";
+            input = "StType ";
             opts = "f, s, c   ";
 
             break;
@@ -257,7 +260,7 @@ void renderInfoPaneContent( App* const app )
 
         case STATE_CHOOSE_DIRECTION:
         {
-            input = "Direc.";
+            input = "Direct.";
             opts = "n, e, s, w";
 
             break;
@@ -265,7 +268,7 @@ void renderInfoPaneContent( App* const app )
 
         case STATE_CHOOSE_FIRST_DROP_AMOUNT:
         {
-            input = "Amount";
+            input = "Amount ";
             opts = "0-8       ";
 
             break;
@@ -273,8 +276,9 @@ void renderInfoPaneContent( App* const app )
 
         case STATE_CHOOSE_AMOUNT:
         {
-            input = "Amount";
-            opts = "1-8       ";
+            input = "Amount ";
+            opts
+                = "1-8       ";
 
             break;
         }
@@ -283,7 +287,7 @@ void renderInfoPaneContent( App* const app )
     //* Print required input
     mvprintw(
         POSITION_INPUT_TYPE[0],
-        POSITION_INPUT_TYPE[1],
+        POSITION_INPUT_TYPE[1] + paneOffset,
         "%s",
         input
     );
@@ -291,7 +295,7 @@ void renderInfoPaneContent( App* const app )
     //* Print possible input options
     mvprintw(
         POSITION_INPUT_OPTIONS[0],
-        POSITION_INPUT_OPTIONS[1],
+        POSITION_INPUT_OPTIONS[1] + paneOffset,
         "%s",
         opts
     );
@@ -303,8 +307,12 @@ void renderInfoPaneContent( App* const app )
     //* B:#c#+#######
     mvprintw(
         POSITION_INPUT_CURRENT[0],
-        POSITION_INPUT_CURRENT[1],
+        POSITION_INPUT_CURRENT[1] + paneOffset,
         "%s",
         app->inputBuffer.currentInput
     );
 }
+
+// void renderChangedBoardSquare( App* const app )
+// {
+// }

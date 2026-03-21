@@ -16,7 +16,6 @@ typedef enum
 } FileId;
 
 static char const FILE_CHARS[] = {
-    ' ',
     'a',
     'b',
     'c',

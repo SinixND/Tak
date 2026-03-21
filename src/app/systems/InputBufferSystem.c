@@ -17,10 +17,12 @@ InputBuffer newInputBuffer( void )
 
 void resetCurrentInput( InputBuffer* const inputBuffer )
 {
-    for ( int idx = 0; idx < 11; ++idx )
+    for ( int idx = 0; idx < 10; ++idx )
     {
         inputBuffer->currentInput[idx] = ' ';
     }
+
+    inputBuffer->currentInput[10] = '\0';
 }
 
 bool parseInputForAction( InputBuffer* const inputBuffer )

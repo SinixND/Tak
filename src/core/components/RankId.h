@@ -16,7 +16,6 @@ typedef enum
 } RankId;
 
 static char const RANK_CHARS[] = {
-    ' ',
     '1',
     '2',
     '3',

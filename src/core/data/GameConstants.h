@@ -45,8 +45,7 @@ enum
     BOARD_WIDTH_MAX = 8,
 
     /// Default board width/height
-    BOARD_WIDTH_DEFAULT = 5,
-
+    BOARD_WIDTH_DEFAULT = 3, // WARN: Temporary board size adjustment for development
     /**
      * Maximum stacks possible in game (= squares)
      * May be adjusted to improve alignment for cache

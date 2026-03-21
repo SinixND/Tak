@@ -13,7 +13,7 @@ void testNewGame( void )
 {
     Game game0 = newGame( 0 );
 
-    TEST_ASSERT_EQUAL_INT( 5, game0.board.width );
+    TEST_ASSERT_EQUAL_INT( BOARD_WIDTH_DEFAULT, game0.board.width );
 
     Game game3 = newGame( 3 );
 
@@ -26,7 +26,7 @@ void testNewGame( void )
 
 void testPlaceStone( void )
 {
-    Game game = newGame( 0 );
+    Game game = newGame( 5 );
 
     placeStone(
         &game,

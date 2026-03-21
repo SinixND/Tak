@@ -46,10 +46,6 @@ void appendToCurrentInput(
 
 /// Update game with complete gameEvent
 void updateStateUpdateGame( App* const app );
-void updateGame(
-    App* const app,
-    GameEvent const* const gameEvent
-);
 
 void endTurn( App* const app );
 

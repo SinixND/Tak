@@ -4,10 +4,12 @@
 #include "App.h"
 #include "AppState.h"
 #include "DirectionId.h"
+#include "FileId.h"
 #include "GameEvent.h"
 #include "GameSystem.h"
 #include "InputBufferSystem.h"
 #include "PlayerId.h"
+#include "RankId.h"
 #include "StoneType.h"
 #include <assert.h>
 #include <stdint.h>
@@ -151,6 +153,12 @@ void updateStateFirstTurnChooseFileX( App* const app )
         return;
     }
 
+    appendToCurrentInput(
+        app->inputBuffer.currentInput,
+        &app->inputBuffer.inputLength,
+        FILE_CHARS[app->inputBuffer.gameEvent.fileX]
+    );
+
     //* Change state
     app->state = STATE_FIRST_TURN_CHOOSE_RANK_Y;
 }
@@ -164,8 +172,24 @@ void updateStateFirstTurnChooseRankY( App* const app )
         return;
     }
 
+    appendToCurrentInput(
+        app->inputBuffer.currentInput,
+        &app->inputBuffer.inputLength,
+        RANK_CHARS[app->inputBuffer.gameEvent.rankY]
+    );
+
+    //* Set inputBuffer for first turn
+    app->inputBuffer.gameEvent.actionType = ACTION_TYPE_PLACE;
+    app->inputBuffer.gameEvent.stonePlayerId = PLAYER_BLACK;
+    app->inputBuffer.gameEvent.stoneType = STONE_TYPE_FLAT;
+
+    //* Update game without changing state to avoid unnecessary input polling
+    updateStateUpdateGame( app );
+
+    resetCurrentInput( &app->inputBuffer );
+
     //* Change state
-    app->state = STATE_UPDATE_GAME;
+    app->state = STATE_SECOND_TURN_CHOOSE_FILE_X;
 }
 
 void updateStateSecondTurnChooseFileX( App* const app )
@@ -176,6 +200,12 @@ void updateStateSecondTurnChooseFileX( App* const app )
     {
         return;
     }
+
+    appendToCurrentInput(
+        app->inputBuffer.currentInput,
+        &app->inputBuffer.inputLength,
+        FILE_CHARS[app->inputBuffer.gameEvent.fileX]
+    );
 
     //* Change state
     app->state = STATE_SECOND_TURN_CHOOSE_RANK_Y;
@@ -190,8 +220,24 @@ void updateStateSecondTurnChooseRankY( App* const app )
         return;
     }
 
+    appendToCurrentInput(
+        app->inputBuffer.currentInput,
+        &app->inputBuffer.inputLength,
+        RANK_CHARS[app->inputBuffer.gameEvent.rankY]
+    );
+
+    //* Set inputBuffer for second turn
+    app->inputBuffer.gameEvent.actionType = ACTION_TYPE_PLACE;
+    app->inputBuffer.gameEvent.stonePlayerId = PLAYER_WHITE;
+    app->inputBuffer.gameEvent.stoneType = STONE_TYPE_FLAT;
+
+    //* Update game without separate state to avoid input polling
+    updateStateUpdateGame( app );
+
+    resetCurrentInput( &app->inputBuffer );
+
     //* Change state
-    app->state = STATE_UPDATE_GAME;
+    app->state = STATE_CHOOSE_ACTION;
 }
 
 void updateStateChooseAction( App* const app )
@@ -201,6 +247,10 @@ void updateStateChooseAction( App* const app )
     {
         return;
     }
+
+    //* Reset on beginning of new turn to allow renderer
+    //* to see input at end of turn
+    resetCurrentInput( &app->inputBuffer );
 
     //* Update current input
     appendToCurrentInput(
@@ -287,11 +337,14 @@ void updateStateChooseRankY( App* const app )
         RANK_CHARS[app->inputBuffer.gameEvent.rankY]
     );
 
+    //* Update game without separate state to avoid input polling
+    updateStateUpdateGame( app );
+
     //* Update state
     app->state
         = ( app->inputBuffer.currentInput[0]
             == ACTION_TYPE_CHARS[ACTION_TYPE_PLACE] )
-              ? STATE_UPDATE_GAME
+              ? STATE_CHOOSE_ACTION
               : STATE_CHOOSE_DIRECTION;
 }
 
@@ -354,8 +407,11 @@ void updateStateChooseAmount( App* const app )
         return;
     }
 
+    //* Update game without separate state to avoid input polling
+    updateStateUpdateGame( app );
+
     //* Update state
-        app->state = STATE_UPDATE_GAME;
+    app->state = STATE_CHOOSE_ACTION;
 }
 
 void appendToCurrentInput(
@@ -369,16 +425,11 @@ void appendToCurrentInput(
     ++( *inputLength );
 }
 
-void updateGame(
-    App* const app,
-    GameEvent const* const gameEvent
-)
+void updateStateUpdateGame( App* const app )
 {
-    resetCurrentInput( &app->inputBuffer );
-
     //* Update game
     //* TODO: Implement rules
-    switch ( gameEvent->actionType )
+    switch ( app->inputBuffer.gameEvent.actionType )
     {
         default:
         {
@@ -391,10 +442,10 @@ void updateGame(
         {
             placeStone(
                 &app->game,
-                gameEvent->stonePlayerId,
-                gameEvent->fileX,
-                gameEvent->rankY,
-                gameEvent->stoneType
+                app->inputBuffer.gameEvent.stonePlayerId,
+                app->inputBuffer.gameEvent.fileX,
+                app->inputBuffer.gameEvent.rankY,
+                app->inputBuffer.gameEvent.stoneType
             );
 
             endTurn( app );
@@ -406,8 +457,8 @@ void updateGame(
         {
             liftStack(
                 &app->game,
-                gameEvent->fileX,
-                gameEvent->rankY
+                app->inputBuffer.gameEvent.fileX,
+                app->inputBuffer.gameEvent.rankY
             );
 
             return;
@@ -415,7 +466,7 @@ void updateGame(
 
         case ACTION_TYPE_DROP:
         {
-            int const dir = (int)gameEvent->direction;
+            int const dir = (int)app->inputBuffer.gameEvent.direction;
 
             int const offsetX = !( dir % 2 )
                                 * ( dir - 3 );
@@ -423,18 +474,18 @@ void updateGame(
             int const offsetY = ( dir % 2 )
                                 * ( dir - 2 );
 
-            int const dropsDone = gameEvent->dropsDone;
+            int const dropsDone = app->inputBuffer.gameEvent.dropsDone;
 
             for ( int n = 0; n < dropsDone; ++n )
             {
-                int const dropCount = gameEvent->dropCounts[n];
+                int const dropCount = app->inputBuffer.gameEvent.dropCounts[n];
 
                 for ( int m = 0; m < dropCount; ++m )
                 {
                     dropStone(
                         &app->game,
-                        gameEvent->fileX + offsetX,
-                        gameEvent->rankY + offsetY
+                        app->inputBuffer.gameEvent.fileX + offsetX,
+                        app->inputBuffer.gameEvent.rankY + offsetY
                     );
                 }
             }
