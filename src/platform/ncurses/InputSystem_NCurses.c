@@ -13,127 +13,127 @@ InputId pollInput( void )
             return INPUT_NONE;
         }
 
-        case 'a': 
+        case 'a':
         {
             return INPUT_A;
         }
 
-        case 'b': 
+        case 'b':
         {
             return INPUT_B;
         }
 
-        case 'c': 
+        case 'c':
         {
             return INPUT_C;
         }
 
-        case 'd': 
+        case 'd':
         {
             return INPUT_D;
         }
 
-        case 'e': 
+        case 'e':
         {
             return INPUT_E;
         }
 
-        case 'f': 
+        case 'f':
         {
             return INPUT_F;
         }
 
-        case 'g': 
+        case 'g':
         {
             return INPUT_G;
         }
 
-        case 'h': 
+        case 'h':
         {
             return INPUT_H;
         }
 
-        case 'l': 
+        case 'l':
         {
             return INPUT_L;
         }
 
-        case 'n': 
+        case 'n':
         {
             return INPUT_N;
         }
 
-        case 'p': 
+        case 'p':
         {
             return INPUT_P;
         }
 
-        case 'Q': 
+        case 'Q':
         {
             return INPUT_Q;
         }
 
-        case 'r': 
+        case 'r':
         {
             return INPUT_R;
         }
 
-        case 's': 
+        case 's':
         {
             return INPUT_S;
         }
 
-        case 'u': 
+        case 'u':
         {
             return INPUT_U;
         }
 
-        case 'w': 
+        case 'w':
         {
             return INPUT_W;
         }
 
-        case 'o': 
+        case '0':
         {
             return INPUT_0;
         }
 
-        case '1': 
+        case '1':
         {
             return INPUT_1;
         }
 
-        case '2': 
+        case '2':
         {
             return INPUT_2;
         }
 
-        case '3': 
+        case '3':
         {
             return INPUT_3;
         }
 
-        case '4': 
+        case '4':
         {
             return INPUT_4;
         }
 
-        case '5': 
+        case '5':
         {
             return INPUT_5;
         }
 
-        case '6': 
+        case '6':
         {
             return INPUT_6;
         }
 
-        case '7': 
+        case '7':
         {
             return INPUT_7;
         }
 
-        case '8': 
+        case '8':
         {
             return INPUT_8;
         }

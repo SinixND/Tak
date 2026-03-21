@@ -1,9 +1,11 @@
 #include "RenderSystem_NCurses.h"
 
+#include "ActionType.h"
 #include "App.h"
 #include "AppState.h"
 #include "Layout.h"
 #include "PlayerId.h"
+#include <assert.h>
 #include <ncurses.h>
 
 void renderStatic( App* const app )
@@ -198,8 +200,8 @@ void renderInfoPaneContent( App* const app )
         ( app->game.activePlayer == PLAYER_WHITE ) ? "WHITE" : "BLACK"
     );
 
-    char* input = "-";
-    char* opts = "-";
+    char* input = "      ";
+    char* opts = "          ";
 
     switch ( app->state )
     {
@@ -209,20 +211,12 @@ void renderInfoPaneContent( App* const app )
             break;
         }
 
-        case STATE_SELECT_ACTION:
-        {
-            input = "Action";
-            opts = "P, L, D";
-
-            break;
-        }
-
         case STATE_FIRST_TURN_CHOOSE_FILE_X:
         case STATE_SECOND_TURN_CHOOSE_FILE_X:
         case STATE_CHOOSE_FILE_X:
         {
-            input = "File";
-            opts = "A-H";
+            input = "File X";
+            opts = "A-H       ";
 
             break;
         }
@@ -231,24 +225,48 @@ void renderInfoPaneContent( App* const app )
         case STATE_SECOND_TURN_CHOOSE_RANK_Y:
         case STATE_CHOOSE_RANK_Y:
         {
-            input = "Rank";
-            opts = "1-8";
+            input = "Rank Y";
+            opts = "1-8       ";
+
+            break;
+        }
+
+        case STATE_CHOOSE_ACTION:
+        {
+            input = "Action";
+            opts = "P, L      ";
 
             break;
         }
 
         case STATE_CHOOSE_STONE_TYPE:
         {
-            input = "SType";
-            opts = "F, S, C";
+            input = "StType";
+            opts = "F, S, C   ";
 
             break;
         }
 
         case STATE_CHOOSE_DIRECTION:
         {
-            input = "Dir";
+            input = "Direc.";
             opts = "N, E, S, W";
+
+            break;
+        }
+
+        case STATE_CHOOSE_FIRST_DROP_AMOUNT:
+        {
+            input = "Amount";
+            opts = "0-8       ";
+
+            break;
+        }
+
+        case STATE_CHOOSE_AMOUNT:
+        {
+            input = "Amount";
+            opts = "1-8       ";
 
             break;
         }
@@ -270,9 +288,11 @@ void renderInfoPaneContent( App* const app )
         opts
     );
 
+    //* TODO: Print history
+
     //* Print current player input
     //* W:@c#
-    //* B:#c#+########
+    //* B:#c#+#######
     mvprintw(
         POSITION_INPUT_CURRENT[0],
         POSITION_INPUT_CURRENT[1],

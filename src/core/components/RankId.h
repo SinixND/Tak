@@ -15,4 +15,16 @@ typedef enum
     RANK_8 = 7,
 } RankId;
 
+static char const RANK_CHARS[] = {
+    ' ',
+    '1',
+    '2',
+    '3',
+    '4',
+    '5',
+    '6',
+    '6',
+    '8',
+};
+
 #endif

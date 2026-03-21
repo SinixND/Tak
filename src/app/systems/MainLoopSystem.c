@@ -1,9 +1,9 @@
 #include "MainLoopSystem.h"
 
 #include "App.h"
+#include "AppSystem.h"
 #include "InputPollingSystem.h"
 #include "RenderSystem.h"
-#include "UpdateSystem.h"
 
 void runMainLoop( App* const app )
 {

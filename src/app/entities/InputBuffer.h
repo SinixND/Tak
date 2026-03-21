@@ -8,7 +8,8 @@ typedef struct
 {
     GameEvent gameEvent;
     InputId lastInput;
-    char* currentInput;
+    char currentInput[11];
+    int8_t inputLength;
 } InputBuffer;
 
 #endif

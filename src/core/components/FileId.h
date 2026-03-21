@@ -26,4 +26,5 @@ static char const FILE_CHARS[] = {
     'g',
     'h',
 };
+
 #endif

@@ -3,7 +3,7 @@
 
 #include "InputBuffer.h"
 
-/// Process user input
+/// Buffer current user input
 void getInput( InputBuffer* const inputBuffer );
 
 #endif

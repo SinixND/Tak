@@ -12,4 +12,11 @@ typedef enum
     STONE_TYPE_CAP = 3,      // Type: capstone
 } StoneType;
 
+static char const STONE_TYPE_CHARS[] = {
+    ' ',
+    'F',
+    'S',
+    'C',
+};
+
 #endif
