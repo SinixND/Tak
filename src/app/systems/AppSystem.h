@@ -37,16 +37,13 @@ void updateStateChooseRankY( App* const app );
 void updateStateChooseDirection( App* const app );
 void updateStateChooseFirstDropAmount( App* const app );
 void updateStateChooseAmount( App* const app );
+void updateStateUpdateGame( App* const app );
+void updateStateEndTurn( App* const app );
 
 void appendToCurrentInput(
     char* currentInput,
     int8_t* const inputLength,
     char const ch
 );
-
-/// Update game with complete gameEvent
-void updateStateUpdateGame( App* const app );
-
-void endTurn( App* const app );
 
 #endif

@@ -2,6 +2,7 @@
 
 #include "GameEventSystem.h"
 #include "InputBuffer.h"
+#include "Layout.h"
 #include <assert.h>
 #include <stdbool.h>
 
@@ -17,12 +18,13 @@ InputBuffer newInputBuffer( void )
 
 void resetCurrentInput( InputBuffer* const inputBuffer )
 {
-    for ( int idx = 0; idx < 10; ++idx )
+    for ( int idx = 0; idx < INPUT_LENGTH; ++idx )
     {
         inputBuffer->currentInput[idx] = ' ';
     }
+    inputBuffer->currentInput[INPUT_LENGTH - 1] = 0;
 
-    inputBuffer->currentInput[10] = '\0';
+    inputBuffer->inputLength = 0;
 }
 
 bool parseInputForAction( InputBuffer* const inputBuffer )
@@ -41,16 +43,23 @@ bool parseInputForAction( InputBuffer* const inputBuffer )
             return true;
         }
 
-        case INPUT_L:
+        // case INPUT_L:
+        // {
+        //     inputBuffer->gameEvent.actionType = ACTION_TYPE_LIFT;
+        //
+        //     return true;
+        // }
+        //
+        // case INPUT_D:
+        // {
+        //     inputBuffer->gameEvent.actionType = ACTION_TYPE_DROP;
+        //
+        //     return true;
+        // }
+        //
+        case INPUT_M:
         {
             inputBuffer->gameEvent.actionType = ACTION_TYPE_LIFT;
-
-            return true;
-        }
-
-        case INPUT_D:
-        {
-            inputBuffer->gameEvent.actionType = ACTION_TYPE_DROP;
 
             return true;
         }

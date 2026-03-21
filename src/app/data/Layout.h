@@ -15,6 +15,11 @@ static int const POSITION_INPUT_OPTIONS[] = { 10, 25 };
 static int const POSITION_INPUT_CURRENT[] = { 11, 21 };
 static int const POSITION_HISTORY_TOP_LEFT[] = { 13, 19 };
 
+enum
+{
+    INPUT_LENGTH = 11,
+};
+
 static char* const LAYOUT_BOARD_HEADER_RANK = {
     "   A   B   C   D   E   F   G   H",
 };

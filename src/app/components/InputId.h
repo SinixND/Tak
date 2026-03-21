@@ -7,14 +7,15 @@ typedef enum
     INPUT_A, //* Used for file
     INPUT_B, //* Used for file
     INPUT_C, //* Used for file and capstone
-    INPUT_D, //* Used for file and action drop
+    INPUT_D, //* Used for file and action
     INPUT_E, //* Used for file and direction
     INPUT_F, //* Used for file and flat stones
     INPUT_G, //* Used for file
     INPUT_H, //* Used for file
-    INPUT_L, //* Used for action lift
+    INPUT_L, //* Used for action
+    INPUT_M, //* Used for action
     INPUT_N, //* Used for direction
-    INPUT_P, //* Used for action place
+    INPUT_P, //* Used for action
     INPUT_Q, //* Used for quit
     INPUT_R, //* Used for redo
     INPUT_S, //* Used for standing stones and direction

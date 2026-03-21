@@ -5,6 +5,8 @@
 #include "AppState.h"
 #include "Layout.h"
 #include "PlayerId.h"
+#include "PositionSystem.h"
+#include "StoneType.h"
 #include <assert.h>
 #include <ncurses.h>
 
@@ -151,10 +153,10 @@ void renderStatic( App* const app )
     );
 }
 
-void render( App* const app )
+void renderDynamic( App* const app )
 {
     renderInfoPaneContent( app );
-    // renderChangedBoardSquare( app );
+    renderChangedBoardSquare( app );
 
     refresh();
 }
@@ -245,7 +247,7 @@ void renderInfoPaneContent( App* const app )
         case STATE_CHOOSE_ACTION:
         {
             input = "Action ";
-            opts = "p, l      ";
+            opts = "p, m      ";
 
             break;
         }
@@ -313,6 +315,30 @@ void renderInfoPaneContent( App* const app )
     );
 }
 
-// void renderChangedBoardSquare( App* const app )
-// {
-// }
+void renderChangedBoardSquare( App* const app )
+{
+    int const layoutSquareSize = (int)( sizeof( LAYOUT_BOARD_SQUARE ) / sizeof( LAYOUT_BOARD_SQUARE[0] ) ) - 1;
+
+    int const dir = (int)app->inputBuffer.gameEvent.direction;
+
+    int const offsetY
+        = !!dir
+          * ( dir % 2 )
+          * ( dir - 2 );
+
+    int const offsetX
+        = !!dir
+          * !( dir % 2 )
+          * ( dir - 3 );
+
+    int const posY = 2 + ( ( app->inputBuffer.gameEvent.rankY + offsetY ) * layoutSquareSize );
+
+    int const posX = 4 + ( ( app->inputBuffer.gameEvent.fileX + offsetX ) * layoutSquareSize );
+
+    //* Render buffer type
+    mvaddch(
+        posY,
+        posX,
+        STONE_TYPE_CHARS[app->game.stackBuffer.stoneType]
+    );
+}

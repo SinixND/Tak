@@ -13,7 +13,7 @@ typedef enum
 } StoneType;
 
 static char const STONE_TYPE_CHARS[] = {
-    ' ',
+    '-',
     'F',
     'S',
     'C',

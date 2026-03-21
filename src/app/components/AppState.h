@@ -15,6 +15,7 @@ typedef enum
     STATE_CHOOSE_FIRST_DROP_AMOUNT,  // Choose 0-8
     STATE_CHOOSE_AMOUNT,             // Choose 1-8
     STATE_UPDATE_GAME,               // Update game from gameEvent
+    STATE_END_TURN,                  // Reset turn data
 } AppState;
 
 #endif

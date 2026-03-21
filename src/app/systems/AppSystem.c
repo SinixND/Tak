@@ -79,66 +79,84 @@ void updateState( App* const app )
         case STATE_FIRST_TURN_CHOOSE_RANK_Y:
         {
             updateStateFirstTurnChooseRankY( app );
+
             return;
         }
 
         case STATE_SECOND_TURN_CHOOSE_FILE_X:
         {
             updateStateSecondTurnChooseFileX( app );
+
             return;
         }
 
         case STATE_SECOND_TURN_CHOOSE_RANK_Y:
         {
             updateStateSecondTurnChooseRankY( app );
+
             return;
         }
 
         case STATE_CHOOSE_ACTION:
         {
             updateStateChooseAction( app );
+
             return;
         }
 
         case STATE_CHOOSE_FILE_X:
         {
             updateStateChooseFileX( app );
+
             return;
         }
 
         case STATE_CHOOSE_RANK_Y:
         {
             updateStateChooseRankY( app );
+
             return;
         }
 
         case STATE_CHOOSE_STONE_TYPE:
         {
             updateStateChooseStoneType( app );
+
             return;
         }
 
         case STATE_CHOOSE_DIRECTION:
         {
             updateStateChooseDirection( app );
+
             return;
         }
 
         case STATE_CHOOSE_FIRST_DROP_AMOUNT:
         {
             updateStateChooseFirstDropAmount( app );
+
             return;
         }
 
         case STATE_CHOOSE_AMOUNT:
         {
             updateStateChooseAmount( app );
+
             return;
         }
 
         case STATE_UPDATE_GAME:
         {
             updateStateUpdateGame( app );
+
+            return;
+        }
+
+        case STATE_END_TURN:
+        {
+            updateStateEndTurn( app );
+
             return;
         }
     }
@@ -185,8 +203,7 @@ void updateStateFirstTurnChooseRankY( App* const app )
 
     //* Update game without changing state to avoid unnecessary input polling
     updateStateUpdateGame( app );
-
-    resetCurrentInput( &app->inputBuffer );
+    updateStateEndTurn( app );
 
     //* Change state
     app->state = STATE_SECOND_TURN_CHOOSE_FILE_X;
@@ -231,10 +248,9 @@ void updateStateSecondTurnChooseRankY( App* const app )
     app->inputBuffer.gameEvent.stonePlayerId = PLAYER_WHITE;
     app->inputBuffer.gameEvent.stoneType = STONE_TYPE_FLAT;
 
-    //* Update game without separate state to avoid input polling
+    //* Update game without changing state to avoid unnecessary input polling
     updateStateUpdateGame( app );
-
-    resetCurrentInput( &app->inputBuffer );
+    updateStateEndTurn( app );
 
     //* Change state
     app->state = STATE_CHOOSE_ACTION;
@@ -247,10 +263,6 @@ void updateStateChooseAction( App* const app )
     {
         return;
     }
-
-    //* Reset on beginning of new turn to allow renderer
-    //* to see input at end of turn
-    resetCurrentInput( &app->inputBuffer );
 
     //* Update current input
     appendToCurrentInput(
@@ -337,15 +349,8 @@ void updateStateChooseRankY( App* const app )
         RANK_CHARS[app->inputBuffer.gameEvent.rankY]
     );
 
-    //* Update game without separate state to avoid input polling
-    updateStateUpdateGame( app );
-
     //* Update state
-    app->state
-        = ( app->inputBuffer.currentInput[0]
-            == ACTION_TYPE_CHARS[ACTION_TYPE_PLACE] )
-              ? STATE_CHOOSE_ACTION
-              : STATE_CHOOSE_DIRECTION;
+    app->state = STATE_UPDATE_GAME;
 }
 
 void updateStateChooseDirection( App* const app )
@@ -407,22 +412,8 @@ void updateStateChooseAmount( App* const app )
         return;
     }
 
-    //* Update game without separate state to avoid input polling
-    updateStateUpdateGame( app );
-
     //* Update state
-    app->state = STATE_CHOOSE_ACTION;
-}
-
-void appendToCurrentInput(
-    char* currentInput,
-    int8_t* const inputLength,
-    char const ch
-)
-{
-    currentInput[*inputLength] = ch;
-
-    ++( *inputLength );
+    app->state = STATE_UPDATE_GAME;
 }
 
 void updateStateUpdateGame( App* const app )
@@ -448,7 +439,8 @@ void updateStateUpdateGame( App* const app )
                 app->inputBuffer.gameEvent.stoneType
             );
 
-            endTurn( app );
+            //* Update state
+            app->state = STATE_END_TURN;
 
             return;
         }
@@ -461,6 +453,11 @@ void updateStateUpdateGame( App* const app )
                 app->inputBuffer.gameEvent.rankY
             );
 
+            //* Set liftCount
+            app->inputBuffer.gameEvent.liftCount = app->game.stackBuffer.stoneCount;
+
+            app->state = STATE_CHOOSE_DIRECTION;
+
             return;
         }
 
@@ -468,11 +465,15 @@ void updateStateUpdateGame( App* const app )
         {
             int const dir = (int)app->inputBuffer.gameEvent.direction;
 
-            int const offsetX = !( dir % 2 )
-                                * ( dir - 3 );
+            int const offsetY
+                = !!dir
+                  * ( dir % 2 )
+                  * ( dir - 2 );
 
-            int const offsetY = ( dir % 2 )
-                                * ( dir - 2 );
+            int const offsetX
+                = !!dir
+                  * !( dir % 2 )
+                  * ( dir - 3 );
 
             int const dropsDone = app->inputBuffer.gameEvent.dropsDone;
 
@@ -490,14 +491,15 @@ void updateStateUpdateGame( App* const app )
                 }
             }
 
-            endTurn( app );
+            //* Update state
+            app->state = STATE_END_TURN;
 
             return;
         }
     }
 }
 
-void endTurn( App* const app )
+void updateStateEndTurn( App* const app )
 {
     //* End turn, change active player
     app->game.activePlayer
@@ -507,7 +509,22 @@ void endTurn( App* const app )
 
     //* Reset input buffer
     app->inputBuffer = newInputBuffer();
+    app->inputBuffer.gameEvent.stonePlayerId = app->game.activePlayer;
+
+    resetCurrentInput( &app->inputBuffer );
 
     //* Set first state of new turn
     app->state = STATE_CHOOSE_ACTION;
 }
+
+void appendToCurrentInput(
+    char* currentInput,
+    int8_t* const inputLength,
+    char const ch
+)
+{
+    currentInput[*inputLength] = ch;
+
+    ++( *inputLength );
+}
+

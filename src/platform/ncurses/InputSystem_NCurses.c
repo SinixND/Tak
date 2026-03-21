@@ -58,6 +58,11 @@ InputId pollInput( void )
             return INPUT_L;
         }
 
+        case 'm':
+        {
+            return INPUT_M;
+        }
+
         case 'n':
         {
             return INPUT_N;

@@ -15,8 +15,8 @@ typedef enum
 static char const ACTION_TYPE_CHARS[] = {
     ' ',
     'P',
-    'L',
-    'D',
+    'M', // Lift displayed as move
+    'M', // Drop displayed as move
 };
 
 #endif

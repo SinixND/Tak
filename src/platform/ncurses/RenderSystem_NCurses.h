@@ -17,12 +17,12 @@ void renderStatic( App* const app );
 /**
  * @brief: Backend dependent rendering system
  */
-void render( App* const app );
+void renderDynamic( App* const app );
 
 /// Render info pane content
 void renderInfoPaneContent( App* const app );
 
 /// Render last changed board square
-// void renderChangedBoardSquare( App* const app );
+void renderChangedBoardSquare( App* const app );
 
 #endif

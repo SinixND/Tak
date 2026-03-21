@@ -7,7 +7,7 @@
 
 void renderApp( App* const app )
 {
-    render( app );
+    renderDynamic( app );
 }
 
 void renderStaticContent( App* const app )
