@@ -4,8 +4,10 @@
 #include "App.h"
 #include "AppState.h"
 #include "DirectionId.h"
+#include "GameEvent.h"
 #include "GameSystem.h"
 #include "InputBufferSystem.h"
+#include "PlayerId.h"
 #include <assert.h>
 #include <stdint.h>
 
@@ -22,6 +24,9 @@ App newApp( int const boardWidth )
         .state = STATE_FIRST_TURN_CHOOSE_FILE_X,
         .shoudClose = false,
     };
+
+    app.inputBuffer.gameEvent.playerId = PLAYER_BLACK;
+    app.inputBuffer.gameEvent.actionType = ACTION_TYPE_PLACE;
 
     return app;
 }
@@ -126,6 +131,12 @@ void updateState( App* const app )
             updateStateChooseAmount( app );
             return;
         }
+
+        case STATE_UPDATE_GAME:
+        {
+            updateStateUpdateGame( app );
+            return;
+        }
     }
 }
 
@@ -138,6 +149,7 @@ void updateStateFirstTurnChooseFileX( App* const app )
         return;
     }
 
+    //* Change state
     app->state = STATE_FIRST_TURN_CHOOSE_RANK_Y;
 }
 
@@ -150,7 +162,8 @@ void updateStateFirstTurnChooseRankY( App* const app )
         return;
     }
 
-    app->state = STATE_SECOND_TURN_CHOOSE_FILE_X;
+    //* Change state
+    app->state = STATE_UPDATE_GAME;
 }
 
 void updateStateSecondTurnChooseFileX( App* const app )
@@ -162,6 +175,7 @@ void updateStateSecondTurnChooseFileX( App* const app )
         return;
     }
 
+    //* Change state
     app->state = STATE_SECOND_TURN_CHOOSE_RANK_Y;
 }
 
@@ -174,7 +188,8 @@ void updateStateSecondTurnChooseRankY( App* const app )
         return;
     }
 
-    app->state = STATE_CHOOSE_ACTION;
+    //* Change state
+    app->state = STATE_UPDATE_GAME;
 }
 
 void updateStateChooseAction( App* const app )
@@ -338,13 +353,6 @@ void updateStateChooseAmount( App* const app )
     }
 }
 
-//* TODO:
-// void updateStateUpdateGame( App* const app )
-// {
-//     //* Reset current input
-//
-// }
-
 void appendToCurrentInput(
     char* currentInput,
     int8_t* const inputLength,
@@ -354,4 +362,114 @@ void appendToCurrentInput(
     currentInput[*inputLength] = ch;
 
     ++( *inputLength );
+}
+
+void updateStateUpdateGame( App* const app )
+{
+    resetCurrentInput( &app->inputBuffer );
+    updateGame(
+        app,
+        &app->inputBuffer.gameEvent
+    );
+}
+
+void updateGame(
+    App* const app,
+    GameEvent const* const gameEvent
+)
+{
+    //* Update game
+    //* TODO: Implement rules
+    switch ( gameEvent->actionType )
+    {
+        default:
+        {
+            assert( !"No valid action type to update game with" );
+
+            return;
+        }
+
+        case ACTION_TYPE_PLACE:
+        {
+            placeStone(
+                &app->game,
+                gameEvent->playerId,
+                gameEvent->fileX,
+                gameEvent->rankY,
+                gameEvent->stoneType
+            );
+
+            endTurn( app );
+
+            return;
+        }
+
+        case ACTION_TYPE_LIFT:
+        {
+            liftStack(
+                &app->game,
+                gameEvent->fileX,
+                gameEvent->rankY
+            );
+
+            return;
+        }
+
+        case ACTION_TYPE_DROP:
+        {
+            int const dir = (int)gameEvent->direction;
+
+            int const offsetX = !( dir % 2 )
+                                * ( dir - 3 );
+
+            int const offsetY = ( dir % 2 )
+                                * ( dir - 2 );
+
+            int const dropsDone = gameEvent->dropsDone;
+
+            for ( int n = 0; n < dropsDone; ++n )
+            {
+                int const dropCount = gameEvent->dropCounts[n];
+
+                for ( int m = 0; m < dropCount; ++m )
+                {
+                    dropStone(
+                        &app->game,
+                        gameEvent->fileX + offsetX,
+                        gameEvent->rankY + offsetY
+                    );
+                }
+            }
+
+            endTurn( app );
+
+            return;
+        }
+    }
+}
+
+void endTurn( App* const app )
+{
+    //* End turn, change active player
+    app->game.activePlayer
+        = ( app->game.activePlayer == PLAYER_WHITE )
+              ? PLAYER_BLACK
+              : PLAYER_WHITE;
+
+    //* Reset input buffer
+    app->inputBuffer = newInputBuffer();
+
+    //* Ouch, has to be checked once in first turn, then is always false
+    if ( app->game.history.lastActionIdx == 1 )
+    {
+        app->state = STATE_SECOND_TURN_CHOOSE_FILE_X;
+
+        //* Second stone placed is white
+        app->inputBuffer.gameEvent.actionType = ACTION_TYPE_PLACE;
+        app->inputBuffer.gameEvent.playerId = PLAYER_WHITE;
+
+        return;
+    }
+
+    app->state = STATE_CHOOSE_ACTION;
 }

@@ -2,6 +2,8 @@
 #define IG20260317220146
 
 #include "App.h"
+#include "Game.h"
+#include "GameEvent.h"
 #include <stdint.h>
 
 App newApp( int const boardWidth );
@@ -36,13 +38,19 @@ void updateStateChooseDirection( App* const app );
 void updateStateChooseFirstDropAmount( App* const app );
 void updateStateChooseAmount( App* const app );
 
-/// Update game with complete gameEvent
-void updateStateUpdateGame( App* const app );
-
 void appendToCurrentInput(
     char* currentInput,
     int8_t* const inputLength,
     char const ch
 );
+
+/// Update game with complete gameEvent
+void updateStateUpdateGame( App* const app );
+void updateGame(
+    App* const app,
+    GameEvent const* const gameEvent
+);
+
+void endTurn( App* const app );
 
 #endif

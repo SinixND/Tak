@@ -2,6 +2,7 @@
 
 #include "GameConstants.h"
 #include "GameEvent.h"
+#include "PlayerId.h"
 #include <stdbool.h>
 
 GameEvent newGameEvent( void )
@@ -9,6 +10,8 @@ GameEvent newGameEvent( void )
     GameEvent event = {
         0
     };
+
+    event.playerId = PLAYER_NONE;
 
     for ( int idx = 0; idx < BOARD_WIDTH_MAX; ++idx )
     {

@@ -6,6 +6,8 @@
 
 InputBuffer newInputBuffer( void );
 
+void resetCurrentInput( InputBuffer* const inputBuffer );
+
 /// Handle input depending on app state
 
 /// Returns if input was valid

@@ -15,6 +15,14 @@ InputBuffer newInputBuffer( void )
     };
 }
 
+void resetCurrentInput( InputBuffer* const inputBuffer )
+{
+    for ( int idx = 0; idx < 11; ++idx )
+    {
+        inputBuffer->currentInput[idx] = ' ';
+    }
+}
+
 bool parseInputForAction( InputBuffer* const inputBuffer )
 {
     switch ( inputBuffer->lastInput )

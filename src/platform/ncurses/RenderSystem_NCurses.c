@@ -200,6 +200,14 @@ void renderInfoPaneContent( App* const app )
         ( app->game.activePlayer == PLAYER_WHITE ) ? "WHITE" : "BLACK"
     );
 
+    //* Print active player symbol
+    mvprintw(
+        POSITION_PLAYER_SYMBOL[0],
+        POSITION_PLAYER_SYMBOL[1],
+        "%c",
+        PLAYER_CHARS[app->game.activePlayer]
+    );
+
     char* input = "      ";
     char* opts = "          ";
 
@@ -216,7 +224,7 @@ void renderInfoPaneContent( App* const app )
         case STATE_CHOOSE_FILE_X:
         {
             input = "File X";
-            opts = "A-H       ";
+            opts = "a-h       ";
 
             break;
         }
@@ -234,7 +242,7 @@ void renderInfoPaneContent( App* const app )
         case STATE_CHOOSE_ACTION:
         {
             input = "Action";
-            opts = "P, L      ";
+            opts = "p, l      ";
 
             break;
         }
@@ -242,7 +250,7 @@ void renderInfoPaneContent( App* const app )
         case STATE_CHOOSE_STONE_TYPE:
         {
             input = "StType";
-            opts = "F, S, C   ";
+            opts = "f, s, c   ";
 
             break;
         }
@@ -250,7 +258,7 @@ void renderInfoPaneContent( App* const app )
         case STATE_CHOOSE_DIRECTION:
         {
             input = "Direc.";
-            opts = "N, E, S, W";
+            opts = "n, e, s, w";
 
             break;
         }
