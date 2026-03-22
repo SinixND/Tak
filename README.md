@@ -150,10 +150,11 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 
 
 ## ToDo notes
-- [ ] Add buffer to layout
 - [ ] Add Statusline?
 - [ ] Check 'new' functions for anonymous object usage
+- [ ] Group/Split files?
 - [ ] Tests for input handling
+    - [ ] Check parameter scopes
 
 - [ ] Add keybindings to readme
 - [ ] Render modes: test, tui, 2d, iso?, 3d

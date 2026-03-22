@@ -2,8 +2,8 @@
 #define IG20260317220146
 
 #include "App.h"
-#include "Game.h"
-#include "GameEvent.h"
+#include "AppState.h"
+#include <stdbool.h>
 #include <stdint.h>
 
 App newApp( int const boardWidth );
@@ -25,25 +25,46 @@ void handleGlobalInput( App* const app );
 void updateApp( App* const app );
 
 void updateState( App* const app );
-
-void updateStateFirstTurnChooseFileX( App* const app );
-void updateStateFirstTurnChooseRankY( App* const app );
-void updateStateSecondTurnChooseFileX( App* const app );
-void updateStateSecondTurnChooseRankY( App* const app );
-void updateStateChooseAction( App* const app );
-void updateStateChooseStoneType( App* const app );
-void updateStateChooseFileX( App* const app );
-void updateStateChooseRankY( App* const app );
-void updateStateChooseDirection( App* const app );
-void updateStateChooseFirstDropAmount( App* const app );
-void updateStateChooseAmount( App* const app );
-void updateStateUpdateGame( App* const app );
-void updateStateEndTurn( App* const app );
-
-void appendToCurrentInput(
-    char* currentInput,
-    int8_t* const inputLength,
-    char const ch
+/// Resets phase
+void changeState(
+    App* const app,
+    AppState const state
 );
+
+//* State handling
+/// White places black flat
+void handleStateFirstTurn( App* const app );
+/// Black places white flat
+void handleStateSecondTurn( App* const app );
+/// Choose what game event to prepare
+void handleStateChooseAction( App* const app );
+/// Get data for stone placement
+void handleStatePrepareEventPlace( App* const app );
+/// Get data for stack lift
+void handleStatePrepareEventLift( App* const app );
+/// Get data for stone drops from lifted stack
+void handleStatePrepareEventDrop( App* const app );
+/// Check built event serves rules
+// TODO:
+//  void handleStateEventCheck( App* const app );
+
+/// Execute built game event
+void handleStateUpdateGame( App* const app );
+/// Prepare/Reset data for next turn
+void handleStateEndTurn( App* const app );
+
+//* Return true if successful
+/// Get stone type
+bool handleInputStoneType( App* const app );
+/// Get column of target square
+bool handleInputFileX( App* const app );
+/// Get row of target square
+bool handleInputRankY( App* const app );
+/// Get direction to move stack
+bool handleInputDirection( App* const app );
+/// Get drop count (can be 0 on initial square)
+bool handleInputFirstDropAmount( App* const app );
+/// Get drop count
+bool handleInputDropAmount( App* const app );
 
 #endif

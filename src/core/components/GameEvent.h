@@ -20,11 +20,11 @@ typedef struct
     FileId fileX;
     RankId rankY;
     StoneType stoneType;
-    DirectionId direction;
     int8_t liftCount;
-    int8_t droppedCount;
+    DirectionId direction;
     int8_t dropCounts[BOARD_WIDTH_MAX];
-    int8_t dropsDone;
+    int8_t dropCountsSize;
+    int8_t droppedCount;
 } GameEvent;
 
 #endif

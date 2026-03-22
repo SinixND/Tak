@@ -11,23 +11,35 @@ InputBuffer newInputBuffer( void )
     return (InputBuffer){
         .gameEvent = newGameEvent(),
         .lastInput = INPUT_NONE,
-        .currentInput = { 0 },
-        .inputLength = 0,
+        .currentCommand = { 0 },
+        .currentCommandSize = 0,
     };
 }
 
-void resetCurrentInput( InputBuffer* const inputBuffer )
+void appendToCurrentCommand(
+    InputBuffer* const inputBuffer,
+    char const ch
+)
 {
-    for ( int idx = 0; idx < INPUT_LENGTH; ++idx )
-    {
-        inputBuffer->currentInput[idx] = ' ';
-    }
-    inputBuffer->currentInput[INPUT_LENGTH - 1] = 0;
+    inputBuffer->currentCommand[inputBuffer->currentCommandSize] = ch;
 
-    inputBuffer->inputLength = 0;
+    ++inputBuffer->currentCommandSize;
 }
 
-bool parseInputForAction( InputBuffer* const inputBuffer )
+void resetCurrentCommand( InputBuffer* const inputBuffer )
+{
+    for ( int idx = 0; idx < MAX_COMMAND_LENGTH; ++idx )
+    {
+        inputBuffer->currentCommand[idx] = ' ';
+    }
+
+    //* Null terminate command
+    inputBuffer->currentCommand[MAX_COMMAND_LENGTH - 1] = 0;
+
+    inputBuffer->currentCommandSize = 0;
+}
+
+bool parseInputAction( InputBuffer* const inputBuffer )
 {
     switch ( inputBuffer->lastInput )
     {
@@ -43,6 +55,7 @@ bool parseInputForAction( InputBuffer* const inputBuffer )
             return true;
         }
 
+        //* TODO: Check if necessary
         // case INPUT_L:
         // {
         //     inputBuffer->gameEvent.actionType = ACTION_TYPE_LIFT;
@@ -66,7 +79,7 @@ bool parseInputForAction( InputBuffer* const inputBuffer )
     }
 }
 
-bool parseInputForFileX( InputBuffer* const inputBuffer )
+bool parseInputFileX( InputBuffer* const inputBuffer )
 {
     switch ( inputBuffer->lastInput )
     {
@@ -133,7 +146,7 @@ bool parseInputForFileX( InputBuffer* const inputBuffer )
     }
 }
 
-bool parseInputForRankY( InputBuffer* const inputBuffer )
+bool parseInputRankY( InputBuffer* const inputBuffer )
 {
     switch ( inputBuffer->lastInput )
     {
@@ -200,7 +213,7 @@ bool parseInputForRankY( InputBuffer* const inputBuffer )
     }
 }
 
-bool parseInputForStoneType( InputBuffer* const inputBuffer )
+bool parseInputStoneType( InputBuffer* const inputBuffer )
 {
     switch ( inputBuffer->lastInput )
     {
@@ -232,7 +245,7 @@ bool parseInputForStoneType( InputBuffer* const inputBuffer )
     }
 }
 
-bool parseInputForDirection( InputBuffer* const inputBuffer )
+bool parseInputDirection( InputBuffer* const inputBuffer )
 {
     switch ( inputBuffer->lastInput )
     {
@@ -271,11 +284,11 @@ bool parseInputForDirection( InputBuffer* const inputBuffer )
     }
 }
 
-bool parseInputForFirstDropAmount( InputBuffer* const inputBuffer )
+bool parseInputFirstDropAmount( InputBuffer* const inputBuffer )
 {
     assert(
-        inputBuffer->gameEvent.dropsDone >= 0
-        && inputBuffer->gameEvent.dropsDone < BOARD_WIDTH_MAX
+        inputBuffer->gameEvent.dropCountsSize >= 0
+        && inputBuffer->gameEvent.dropCountsSize < BOARD_WIDTH_MAX
         && "Invalid dropsDone value"
     );
 
@@ -284,10 +297,7 @@ bool parseInputForFirstDropAmount( InputBuffer* const inputBuffer )
     switch ( inputBuffer->lastInput )
     {
         default:
-        {
-            //* Do nothing
             return false;
-        }
 
         case INPUT_0:
         {
@@ -358,18 +368,18 @@ bool parseInputForFirstDropAmount( InputBuffer* const inputBuffer )
         return false;
     }
 
-    inputBuffer->gameEvent.dropCounts[inputBuffer->gameEvent.dropsDone] = dropCount;
+    inputBuffer->gameEvent.dropCounts[inputBuffer->gameEvent.dropCountsSize] = dropCount;
     inputBuffer->gameEvent.droppedCount += dropCount;
-    ++inputBuffer->gameEvent.dropsDone;
+    ++inputBuffer->gameEvent.dropCountsSize;
 
     return true;
 }
 
-bool parseInputForAmount( InputBuffer* const inputBuffer )
+bool parseInputAmount( InputBuffer* const inputBuffer )
 {
     assert(
-        inputBuffer->gameEvent.dropsDone >= 0
-        && inputBuffer->gameEvent.dropsDone < BOARD_WIDTH_MAX
+        inputBuffer->gameEvent.dropCountsSize >= 0
+        && inputBuffer->gameEvent.dropCountsSize < BOARD_WIDTH_MAX
         && "Invalid dropsDone value"
     );
 
@@ -378,10 +388,7 @@ bool parseInputForAmount( InputBuffer* const inputBuffer )
     switch ( inputBuffer->lastInput )
     {
         default:
-        {
-            //* Do nothing
             return false;
-        }
 
         case INPUT_1:
         {
@@ -445,9 +452,9 @@ bool parseInputForAmount( InputBuffer* const inputBuffer )
         return false;
     }
 
-    inputBuffer->gameEvent.dropCounts[inputBuffer->gameEvent.dropsDone] += dropCount;
+    inputBuffer->gameEvent.dropCounts[inputBuffer->gameEvent.dropCountsSize] += dropCount;
     inputBuffer->gameEvent.droppedCount += dropCount;
-    ++inputBuffer->gameEvent.dropsDone;
+    ++inputBuffer->gameEvent.dropCountsSize;
 
     return true;
 }

@@ -1,24 +1,26 @@
-#ifndef IG20260320234908
-#define IG20260320234908
+#ifndef IG20260322034600
+#define IG20260322034600
 
 #include "InputBuffer.h"
 #include <stdbool.h>
 
 InputBuffer newInputBuffer( void );
 
-void resetCurrentInput( InputBuffer* const inputBuffer );
+void appendToCurrentCommand(
+    InputBuffer* const inputBuffer,
+    char const ch
+);
 
-/// Handle input depending on app state
+void resetCurrentCommand( InputBuffer* const inputBuffer );
 
+/// Parse input depending on app state
 /// Returns if input was valid
-bool parseInputForAction( InputBuffer* const inputBuffer );
-bool parseInputForFileX( InputBuffer* const inputBuffer );
-bool parseInputForRankY( InputBuffer* const inputBuffer );
-bool parseInputForStoneType( InputBuffer* const inputBuffer );
-bool parseInputForDirection( InputBuffer* const inputBuffer );
-/// Get first drop amount (0-8)
-bool parseInputForFirstDropAmount( InputBuffer* const inputBuffer );
-/// Get drop amount (1-8)
-bool parseInputForAmount( InputBuffer* const inputBuffer );
+bool parseInputAction( InputBuffer* const inputBuffer );
+bool parseInputFileX( InputBuffer* const inputBuffer );
+bool parseInputRankY( InputBuffer* const inputBuffer );
+bool parseInputStoneType( InputBuffer* const inputBuffer );
+bool parseInputDirection( InputBuffer* const inputBuffer );
+bool parseInputFirstDropAmount( InputBuffer* const inputBuffer );
+bool parseInputAmount( InputBuffer* const inputBuffer );
 
 #endif

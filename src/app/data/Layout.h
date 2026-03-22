@@ -17,7 +17,7 @@ static int const POSITION_HISTORY_TOP_LEFT[] = { 13, 19 };
 
 enum
 {
-    INPUT_LENGTH = 11,
+    MAX_COMMAND_LENGTH = 11,
 };
 
 static char* const LAYOUT_BOARD_HEADER_RANK = {
@@ -70,12 +70,12 @@ static char* const LAYOUT_BOARD_SQUARE[] = {
 };
 
 static char* const LAYOUT_INFO_PANE[] = {
-    "SBuffer     N  ",
-    " +   +    W + E",
-    "            S  ",
-    "",
-    "",
-    " +   +  R|C",
+    "StackBuffer      ",
+    "  +   +       N  ",
+    "            W + E",
+    "              S  ",
+    "                 ",
+    "  +   +   R|C",
     "White:   |",
     "Black:   |",
     "Turn :      [ ]",

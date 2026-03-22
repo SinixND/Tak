@@ -1,11 +1,10 @@
 #include "RenderSystem_NCurses.h"
 
-#include "ActionType.h"
 #include "App.h"
 #include "AppState.h"
 #include "Layout.h"
 #include "PlayerId.h"
-#include "PositionSystem.h"
+#include "StatePhase.h"
 #include "StoneType.h"
 #include <assert.h>
 #include <ncurses.h>
@@ -20,8 +19,6 @@ void renderStatic( App* const app )
     int const layoutSquareSize = (int)( sizeof( LAYOUT_BOARD_SQUARE ) / sizeof( LAYOUT_BOARD_SQUARE[0] ) ) - 1;
 
     int const layoutPaneHeight = (int)( sizeof( LAYOUT_INFO_PANE ) / sizeof( LAYOUT_INFO_PANE[0] ) );
-
-    int const windowHeight = ( boardWidth * layoutSquareSize ) + 3; // Add 2x Header & 1 extra square edge
 
     //* Render top board header
     mvprintw(
@@ -131,26 +128,26 @@ void renderStatic( App* const app )
     );
 
     //* Render separator
-    mvaddch(
-        0,
-        ( boardWidth * layoutSquareSize ) + 4, // Add 2x header  & 1 extra square edge & gap
-        '@'
-    );
-
-    for ( int y = 0; y < windowHeight - 2; ++y ) // Subtract 2x header
-    {
-        mvaddch(
-            y + 1,                                 // Add header
-            ( boardWidth * layoutSquareSize ) + 4, // Add 2x header  & 1 extra square edge & gap
-            '|'
-        );
-    }
-
-    mvaddch(
-        windowHeight - 1,                      // Subtract header
-        ( boardWidth * layoutSquareSize ) + 4, // Add 2x header  & 1 extra square edge & gap
-        '@'
-    );
+    // mvaddch(
+    //     0,
+    //     ( boardWidth * layoutSquareSize ) + 4, // Add 2x header  & 1 extra square edge & gap
+    //     '@'
+    // );
+    //
+    // for ( int y = 0; y < windowHeight - 2; ++y ) // Subtract 2x header
+    // {
+    //     mvaddch(
+    //         y + 1,                                 // Add header
+    //         ( boardWidth * layoutSquareSize ) + 4, // Add 2x header  & 1 extra square edge & gap
+    //         '|'
+    //     );
+    // }
+    //
+    // mvaddch(
+    //     windowHeight - 1,                      // Subtract header
+    //     ( boardWidth * layoutSquareSize ) + 4, // Add 2x header  & 1 extra square edge & gap
+    //     '@'
+    // );
 }
 
 void renderDynamic( App* const app )
@@ -213,74 +210,63 @@ void renderInfoPaneContent( App* const app )
         PLAYER_CHARS[app->game.activePlayer]
     );
 
-    char* input = "       ";
+    char* input = "          ";
     char* opts = "          ";
 
-    switch ( app->state )
+    switch ( app->phase )
     {
-        default:
+        default: // STATE_CHOOSE_ACTION
         {
-            //* Do nonthing
-            break;
-        }
-
-        case STATE_FIRST_TURN_CHOOSE_FILE_X:
-        case STATE_SECOND_TURN_CHOOSE_FILE_X:
-        case STATE_CHOOSE_FILE_X:
-        {
-            input = "File X ";
-            opts = "a-h       ";
+            input = "Action    ";
+            opts = "P, M      ";
 
             break;
         }
 
-        case STATE_FIRST_TURN_CHOOSE_RANK_Y:
-        case STATE_SECOND_TURN_CHOOSE_RANK_Y:
-        case STATE_CHOOSE_RANK_Y:
+        case PHASE_GET_FILE_X:
         {
-            input = "Rank Y ";
-            opts = "1-8       ";
+            input = "File / Col";
+            opts = "A - H     ";
 
             break;
         }
 
-        case STATE_CHOOSE_ACTION:
+        case PHASE_GET_RANK_Y:
         {
-            input = "Action ";
-            opts = "p, m      ";
+            input = "Rank / Row";
+            opts = "1 - 8     ";
 
             break;
         }
 
-        case STATE_CHOOSE_STONE_TYPE:
+        case PHASE_GET_STONE_TYPE:
         {
-            input = "StType ";
-            opts = "f, s, c   ";
+            input = "Stone Type";
+            opts = "F, S, C   ";
 
             break;
         }
 
-        case STATE_CHOOSE_DIRECTION:
+        case PHASE_GET_DIRECTION:
         {
-            input = "Direct.";
-            opts = "n, e, s, w";
+            input = "Direction ";
+            opts = "N, E, S, W";
 
             break;
         }
 
-        case STATE_CHOOSE_FIRST_DROP_AMOUNT:
+        case PHASE_GET_FIRST_DROP_AMOUNT:
         {
-            input = "Amount ";
-            opts = "0-8       ";
+            input = "Amount    ";
+            opts = "0 - 8     ";
 
             break;
         }
 
-        case STATE_CHOOSE_AMOUNT:
+        case PHASE_GET_DROP_AMOUNT:
         {
-            input = "Amount ";
-            opts
-                = "1-8       ";
+            input = "Amount    ";
+            opts = "1 - 8     ";
 
             break;
         }
@@ -311,7 +297,7 @@ void renderInfoPaneContent( App* const app )
         POSITION_INPUT_CURRENT[0],
         POSITION_INPUT_CURRENT[1] + paneOffset,
         "%s",
-        app->inputBuffer.currentInput
+        app->inputBuffer.currentCommand
     );
 }
 

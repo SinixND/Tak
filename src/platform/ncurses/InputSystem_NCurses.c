@@ -8,10 +8,7 @@ InputId pollInput( void )
     switch ( getch() )
     {
         default:
-        {
-            //* Do nothing
             return INPUT_NONE;
-        }
 
         case 'a':
         {
