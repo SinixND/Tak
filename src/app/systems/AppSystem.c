@@ -11,7 +11,6 @@
 #include "InputBufferSystem.h"
 #include "PlayerId.h"
 #include "RankId.h"
-#include "StatePhase.h"
 #include "StoneType.h"
 #include <assert.h>
 #include <stdbool.h>
@@ -28,7 +27,6 @@ App newApp( int const boardWidth )
         .game = newGame( boardWidth ),
         .inputBuffer = newInputBuffer(),
         .state = STATE_FIRST_TURN,
-        .phase = PHASE_GET_FILE_X,
         .shoudClose = false,
     };
 
@@ -96,30 +94,51 @@ void updateState( App* const app )
             return;
         }
 
-        case STATE_PREPARE_EVENT_PLACE:
+        case STATE_GET_STONE_TYPE:
         {
-            handleStatePrepareEventPlace( app );
+            handleStateGetStoneType( app );
 
             return;
         }
 
-        case STATE_PREPARE_EVENT_LIFT:
+        case STATE_GET_FILE_X:
         {
-            handleStatePrepareEventLift( app );
+            handleStateGetFileX( app );
 
             return;
         }
 
-        case STATE_PREPARE_EVENT_DROP:
+        case STATE_GET_RANK_Y:
         {
-            handleStatePrepareEventDrop( app );
+            handleStateGetRankY( app );
 
             return;
         }
 
-        case STATE_UPDATE_GAME:
+        case STATE_GET_DIRECTION:
         {
-            handleStateUpdateGame( app );
+            handleStateGetDirection( app );
+
+            return;
+        }
+
+        case STATE_GET_FIRST_DROP_AMOUNT:
+        {
+            handleStateGetFirstDropAmount( app );
+
+            return;
+        }
+
+        case STATE_GET_DROP_AMOUNT:
+        {
+            handleStateGetDropAmount( app );
+
+            return;
+        }
+
+        case STATE_RESOLVE_ACTION:
+        {
+            handleStateResolveAction( app );
 
             return;
         }
@@ -133,105 +152,62 @@ void updateState( App* const app )
     }
 }
 
-void changeState(
-    App* const app,
-    AppState const state
-)
-{
-    app->phase = PHASE_NONE;
-    app->state = state;
-}
-
 void handleStateFirstTurn( App* const app )
 {
-    switch ( app->phase )
+    //* Call state functions explicitly for this one time only state
+    if ( app->inputBuffer.gameEvent.fileX < FILE_A )
     {
-        default:
-        {
-            app->phase = PHASE_GET_FILE_X;
-        }
+        handleStateGetFileX( app );
 
-        case PHASE_GET_FILE_X:
-        {
-            if ( !handleInputFileX( app ) )
-            {
-                return;
-            }
-
-            app->phase = PHASE_GET_RANK_Y;
-
-            return;
-        }
-
-        case PHASE_GET_RANK_Y:
-        {
-            if ( !handleInputRankY( app ) )
-            {
-                return;
-            }
-
-            //* Prepare game event for first turn
-            app->inputBuffer.gameEvent.actionType = ACTION_TYPE_PLACE;
-            app->inputBuffer.gameEvent.stonePlayerId = PLAYER_BLACK;
-            app->inputBuffer.gameEvent.stoneType = STONE_TYPE_FLAT;
-
-            //* Update game without changing state to default for new turn
-            handleStateUpdateGame( app );
-            handleStateEndTurn( app );
-
-            changeState(
-                app,
-                STATE_SECOND_TURN
-            );
-
-            app->phase = PHASE_GET_FILE_X;
-
-            return;
-        }
+        return;
     }
+
+    if ( app->inputBuffer.gameEvent.rankY < RANK_1 )
+    {
+        handleStateGetRankY( app );
+
+        return;
+    }
+
+    //* Prepare game event for first turn
+    app->inputBuffer.gameEvent.actionType = ACTION_TYPE_PLACE;
+    app->inputBuffer.gameEvent.stonePlayerId = PLAYER_BLACK;
+    app->inputBuffer.gameEvent.stoneType = STONE_TYPE_FLAT;
+
+    handleStateResolveAction( app );
+    handleStateEndTurn( app );
+
+    app->state = STATE_SECOND_TURN;
+
+    return;
 }
 
 void handleStateSecondTurn( App* const app )
 {
-    switch ( app->phase )
+    //* Call state functions explicitly for this one time only state
+    if ( app->inputBuffer.gameEvent.fileX < FILE_A )
     {
-        default:
-        {
-            app->phase = PHASE_GET_FILE_X;
-        }
+        handleStateGetFileX( app );
 
-        case PHASE_GET_FILE_X:
-        {
-            if ( !handleInputFileX( app ) )
-            {
-                return;
-            }
-
-            app->phase = PHASE_GET_RANK_Y;
-
-            return;
-        }
-
-        case PHASE_GET_RANK_Y:
-        {
-            if ( !handleInputRankY( app ) )
-            {
-                return;
-            }
-
-            //* Prepare game event for first turn
-            app->inputBuffer.gameEvent.actionType = ACTION_TYPE_PLACE;
-            app->inputBuffer.gameEvent.stonePlayerId = PLAYER_WHITE;
-            app->inputBuffer.gameEvent.stoneType = STONE_TYPE_FLAT;
-
-            changeState(
-                app,
-                STATE_UPDATE_GAME
-            );
-
-            return;
-        }
+        return;
     }
+
+    if ( app->inputBuffer.gameEvent.rankY < RANK_1 )
+    {
+        handleStateGetRankY( app );
+
+        return;
+    }
+
+    //* Prepare game event for first turn
+    app->inputBuffer.gameEvent.actionType = ACTION_TYPE_PLACE;
+    app->inputBuffer.gameEvent.stonePlayerId = PLAYER_WHITE;
+    app->inputBuffer.gameEvent.stoneType = STONE_TYPE_FLAT;
+
+    //* Enter general game loop
+    app->state = STATE_RESOLVE_ACTION;
+
+    return;
 }
 
 void handleStateChooseAction( App* const app )
@@ -259,175 +235,141 @@ void handleStateChooseAction( App* const app )
 
         case ACTION_TYPE_PLACE:
         {
-            app->state = STATE_PREPARE_EVENT_PLACE;
+            app->state = STATE_GET_STONE_TYPE;
 
             return;
         }
 
         case ACTION_TYPE_LIFT:
         {
-            app->state = STATE_PREPARE_EVENT_LIFT;
+            app->state = STATE_GET_FILE_X;
 
             return;
         }
     }
 }
 
-void handleStatePrepareEventPlace( App* const app )
+void handleStateGetStoneType( App* const app )
 {
-    switch ( app->phase )
+    if ( !parseInputStoneType( &app->inputBuffer ) )
+    {
+        return;
+    }
+
+    appendToCurrentCommand(
+        &app->inputBuffer,
+        STONE_TYPE_CHARS[app->inputBuffer.gameEvent.stoneType]
+    );
+
+    app->state = STATE_GET_FILE_X;
+
+    return;
+}
+
+void handleStateGetFileX( App* const app )
+{
+    if ( !parseInputFileX( &app->inputBuffer ) )
+    {
+        return;
+    }
+
+    appendToCurrentCommand(
+        &app->inputBuffer,
+        FILE_CHARS[app->inputBuffer.gameEvent.fileX]
+    );
+
+    app->state = STATE_GET_RANK_Y;
+
+    return;
+}
+
+void handleStateGetRankY( App* const app )
+{
+    if ( !parseInputRankY( &app->inputBuffer ) )
+    {
+        return;
+    }
+
+    appendToCurrentCommand(
+        &app->inputBuffer,
+        RANK_CHARS[app->inputBuffer.gameEvent.rankY]
+    );
+
+    switch ( app->inputBuffer.gameEvent.actionType )
     {
         default:
-        {
-            app->phase = PHASE_GET_STONE_TYPE;
-        }
+            return;
 
-        case PHASE_GET_STONE_TYPE:
+        case ACTION_TYPE_PLACE:
         {
-            if ( !handleInputStoneType( app ) )
-            {
-                return;
-            }
-
-            app->phase = PHASE_GET_FILE_X;
+            app->state = STATE_RESOLVE_ACTION;
 
             return;
         }
 
-        case PHASE_GET_FILE_X:
+        case ACTION_TYPE_LIFT:
         {
-            if ( !handleInputFileX( app ) )
-            {
-                return;
-            }
-
-            app->phase = PHASE_GET_RANK_Y;
-
-            return;
-        }
-
-        case PHASE_GET_RANK_Y:
-        {
-            if ( !handleInputRankY( app ) )
-            {
-                return;
-            }
-
-            changeState(
-                app,
-                STATE_UPDATE_GAME
-            );
+            app->state = STATE_GET_DIRECTION;
 
             return;
         }
     }
+
+    return;
 }
-void handleStatePrepareEventLift( App* const app )
+
+void handleStateGetDirection( App* const app )
 {
-    switch ( app->phase )
+    if ( !parseInputDirection( &app->inputBuffer ) )
     {
-        default:
-        {
-            app->phase = PHASE_GET_FILE_X;
-        }
-
-        case PHASE_GET_FILE_X:
-        {
-            if ( !handleInputFileX( app ) )
-            {
-                return;
-            }
-
-            app->phase = PHASE_GET_RANK_Y;
-
-            return;
-        }
-
-        case PHASE_GET_RANK_Y:
-        {
-            if ( !handleInputRankY( app ) )
-            {
-                return;
-            }
-
-            app->phase = PHASE_GET_DIRECTION;
-
-            return;
-        }
-
-        case PHASE_GET_DIRECTION:
-        {
-            if ( !handleInputDirection( app ) )
-            {
-                return;
-            }
-
-            changeState(
-                app,
-                STATE_UPDATE_GAME
-            );
-
-            return;
-        }
+        return;
     }
+
+    appendToCurrentCommand(
+        &app->inputBuffer,
+        DIRECTION_CHARS[app->inputBuffer.gameEvent.direction]
+    );
+
+    app->state = STATE_GET_FIRST_DROP_AMOUNT;
+
+    return;
 }
 
-void handleStatePrepareEventDrop( App* const app )
+void handleStateGetFirstDropAmount( App* const app )
 {
-    switch ( app->phase )
+    if ( !parseInputFirstDropAmount( &app->inputBuffer ) )
     {
-        default:
-        {
-            app->phase = PHASE_GET_FIRST_DROP_AMOUNT;
-        }
-
-        case PHASE_GET_FIRST_DROP_AMOUNT:
-        {
-            if ( !handleInputFirstDropAmount( app ) )
-            {
-                return;
-            }
-
-            //* Check stones remain to be dropped
-            if ( app->inputBuffer.gameEvent.droppedCount < app->inputBuffer.gameEvent.liftCount )
-            {
-                app->phase = PHASE_GET_DROP_AMOUNT;
-
-                return;
-            }
-
-            changeState(
-                app,
-                STATE_UPDATE_GAME
-            );
-
-            return;
-        }
-
-        case PHASE_GET_DROP_AMOUNT:
-        {
-            if ( !handleInputDropAmount( app ) )
-            {
-                return;
-            }
-
-            //* Check stones remain to be dropped
-            if ( app->inputBuffer.gameEvent.droppedCount < app->inputBuffer.gameEvent.liftCount )
-            {
-                return;
-            }
-
-            changeState(
-                app,
-                STATE_UPDATE_GAME
-            );
-
-            return;
-        }
+        return;
     }
+
+    appendToCurrentCommand(
+        &app->inputBuffer,
+        app->inputBuffer.gameEvent.dropCounts[app->inputBuffer.gameEvent.dropCountsSize - 1] + '0'
+    );
+
+    app->state = STATE_RESOLVE_ACTION;
+
+    return;
 }
 
-void handleStateUpdateGame( App* const app )
+void handleStateGetDropAmount( App* const app )
+{
+    if ( !parseInputAmount( &app->inputBuffer ) )
+    {
+        return;
+    }
+
+    appendToCurrentCommand(
+        &app->inputBuffer,
+        app->inputBuffer.gameEvent.dropCounts[app->inputBuffer.gameEvent.dropCountsSize - 1] + '0'
+    );
+
+    app->state = STATE_RESOLVE_ACTION;
+
+    return;
+}
+
+void handleStateResolveAction( App* const app )
 {
     //* TODO: Implement rules
 
@@ -465,10 +407,9 @@ void handleStateUpdateGame( App* const app )
                 app->inputBuffer.gameEvent.rankY
             );
 
-            //* Set liftCount
             app->inputBuffer.gameEvent.liftCount = app->game.stackBuffer.stoneCount;
-
-            app->state = STATE_PREPARE_EVENT_DROP;
+            app->inputBuffer.gameEvent.actionType = ACTION_TYPE_DROP;
+            app->state = STATE_GET_FIRST_DROP_AMOUNT;
 
             return;
         }
@@ -504,7 +445,11 @@ void handleStateUpdateGame( App* const app )
             }
 
             //* Update state
-            app->state = STATE_END_TURN;
+            app->state
+                = ( app->inputBuffer.gameEvent.liftCount
+                    > app->inputBuffer.gameEvent.droppedCount )
+                      ? STATE_GET_DROP_AMOUNT
+                      : STATE_END_TURN;
 
             return;
         }
@@ -527,95 +472,5 @@ void handleStateEndTurn( App* const app )
 
     //* Set first state of new turn
     app->state = STATE_CHOOSE_ACTION;
-}
-
-bool handleInputStoneType( App* const app )
-{
-    if ( !parseInputStoneType( &app->inputBuffer ) )
-    {
-        return false;
-    }
-
-    appendToCurrentCommand(
-        &app->inputBuffer,
-        STONE_TYPE_CHARS[app->inputBuffer.gameEvent.stoneType]
-    );
-
-    return true;
-}
-
-bool handleInputFileX( App* const app )
-{
-    if ( !parseInputFileX( &app->inputBuffer ) )
-    {
-        return false;
-    }
-
-    appendToCurrentCommand(
-        &app->inputBuffer,
-        FILE_CHARS[app->inputBuffer.gameEvent.fileX]
-    );
-
-    return true;
-}
-
-bool handleInputRankY( App* const app )
-{
-    if ( !parseInputRankY( &app->inputBuffer ) )
-    {
-        return false;
-    }
-
-    appendToCurrentCommand(
-        &app->inputBuffer,
-        RANK_CHARS[app->inputBuffer.gameEvent.rankY]
-    );
-
-    return true;
-}
-
-bool handleInputDirection( App* const app )
-{
-    if ( !parseInputDirection( &app->inputBuffer ) )
-    {
-        return false;
-    }
-
-    appendToCurrentCommand(
-        &app->inputBuffer,
-        DIRECTION_CHARS[app->inputBuffer.gameEvent.direction]
-    );
-
-    return true;
-}
-
-bool handleInputFirstDropAmount( App* const app )
-{
-    if ( !parseInputFirstDropAmount( &app->inputBuffer ) )
-    {
-        return false;
-    }
-
-    appendToCurrentCommand(
-        &app->inputBuffer,
-        app->inputBuffer.gameEvent.dropCounts[app->inputBuffer.gameEvent.dropCountsSize - 1] + '0'
-    );
-
-    return true;
-}
-
-bool handleInputDropAmount( App* const app )
-{
-    if ( !parseInputAmount( &app->inputBuffer ) )
-    {
-        return false;
-    }
-
-    appendToCurrentCommand(
-        &app->inputBuffer,
-        app->inputBuffer.gameEvent.dropCounts[app->inputBuffer.gameEvent.dropCountsSize - 1] + '0'
-    );
-
-    return true;
 }
 

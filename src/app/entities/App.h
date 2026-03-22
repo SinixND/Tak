@@ -4,7 +4,6 @@
 #include "AppState.h"
 #include "Game.h"
 #include "InputBuffer.h"
-#include "StatePhase.h"
 #include <stdbool.h>
 
 typedef struct
@@ -12,7 +11,6 @@ typedef struct
     Game game;
     InputBuffer inputBuffer;
     AppState state;
-    StatePhase phase;
     bool shoudClose;
 } App;
 

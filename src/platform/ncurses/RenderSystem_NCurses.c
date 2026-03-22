@@ -4,7 +4,6 @@
 #include "AppState.h"
 #include "Layout.h"
 #include "PlayerId.h"
-#include "StatePhase.h"
 #include "StoneType.h"
 #include <assert.h>
 #include <ncurses.h>
@@ -213,9 +212,12 @@ void renderInfoPaneContent( App* const app )
     char* input = "          ";
     char* opts = "          ";
 
-    switch ( app->phase )
+    switch ( app->state )
     {
-        default: // STATE_CHOOSE_ACTION
+        default:
+            return;
+
+        case STATE_CHOOSE_ACTION:
         {
             input = "Action    ";
             opts = "P, M      ";
@@ -223,7 +225,7 @@ void renderInfoPaneContent( App* const app )
             break;
         }
 
-        case PHASE_GET_FILE_X:
+        case STATE_GET_FILE_X:
         {
             input = "File / Col";
             opts = "A - H     ";
@@ -231,7 +233,7 @@ void renderInfoPaneContent( App* const app )
             break;
         }
 
-        case PHASE_GET_RANK_Y:
+        case STATE_GET_RANK_Y:
         {
             input = "Rank / Row";
             opts = "1 - 8     ";
@@ -239,7 +241,7 @@ void renderInfoPaneContent( App* const app )
             break;
         }
 
-        case PHASE_GET_STONE_TYPE:
+        case STATE_GET_STONE_TYPE:
         {
             input = "Stone Type";
             opts = "F, S, C   ";
@@ -247,7 +249,7 @@ void renderInfoPaneContent( App* const app )
             break;
         }
 
-        case PHASE_GET_DIRECTION:
+        case STATE_GET_DIRECTION:
         {
             input = "Direction ";
             opts = "N, E, S, W";
@@ -255,7 +257,7 @@ void renderInfoPaneContent( App* const app )
             break;
         }
 
-        case PHASE_GET_FIRST_DROP_AMOUNT:
+        case STATE_GET_FIRST_DROP_AMOUNT:
         {
             input = "Amount    ";
             opts = "0 - 8     ";
@@ -263,7 +265,7 @@ void renderInfoPaneContent( App* const app )
             break;
         }
 
-        case PHASE_GET_DROP_AMOUNT:
+        case STATE_GET_DROP_AMOUNT:
         {
             input = "Amount    ";
             opts = "1 - 8     ";

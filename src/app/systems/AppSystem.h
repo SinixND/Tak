@@ -2,7 +2,6 @@
 #define IG20260317220146
 
 #include "App.h"
-#include "AppState.h"
 #include <stdbool.h>
 #include <stdint.h>
 
@@ -25,11 +24,6 @@ void handleGlobalInput( App* const app );
 void updateApp( App* const app );
 
 void updateState( App* const app );
-/// Resets phase
-void changeState(
-    App* const app,
-    AppState const state
-);
 
 //* State handling
 /// White places black flat
@@ -38,33 +32,26 @@ void handleStateFirstTurn( App* const app );
 void handleStateSecondTurn( App* const app );
 /// Choose what game event to prepare
 void handleStateChooseAction( App* const app );
-/// Get data for stone placement
-void handleStatePrepareEventPlace( App* const app );
-/// Get data for stack lift
-void handleStatePrepareEventLift( App* const app );
-/// Get data for stone drops from lifted stack
-void handleStatePrepareEventDrop( App* const app );
+/// Get stone type
+void handleStateGetStoneType( App* const app );
+/// Get column of target square
+void handleStateGetFileX( App* const app );
+/// Get row of target square
+void handleStateGetRankY( App* const app );
+/// Get direction to move stack
+void handleStateGetDirection( App* const app );
+/// Get drop count (can be 0 on initial square)
+void handleStateGetFirstDropAmount( App* const app );
+/// Get drop count
+void handleStateGetDropAmount( App* const app );
+
 /// Check built event serves rules
 // TODO:
 //  void handleStateEventCheck( App* const app );
 
 /// Execute built game event
-void handleStateUpdateGame( App* const app );
+void handleStateResolveAction( App* const app );
 /// Prepare/Reset data for next turn
 void handleStateEndTurn( App* const app );
-
-//* Return true if successful
-/// Get stone type
-bool handleInputStoneType( App* const app );
-/// Get column of target square
-bool handleInputFileX( App* const app );
-/// Get row of target square
-bool handleInputRankY( App* const app );
-/// Get direction to move stack
-bool handleInputDirection( App* const app );
-/// Get drop count (can be 0 on initial square)
-bool handleInputFirstDropAmount( App* const app );
-/// Get drop count
-bool handleInputDropAmount( App* const app );
 
 #endif

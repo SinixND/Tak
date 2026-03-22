@@ -9,7 +9,6 @@ void runMainLoop( App* const app )
 {
     //* Run everything once for proper initialization
     renderStaticContent( app );
-    updateApp( app );
     renderApp( app );
 
     while ( !app->shoudClose )

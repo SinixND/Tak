@@ -150,8 +150,9 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 
 
 ## ToDo notes
-- [ ] Add Statusline?
 - [ ] Check 'new' functions for anonymous object usage
+- [ ] Remove all = { 0 } with explicit initialization
+- [ ] Add Statusline?
 - [ ] Group/Split files?
 - [ ] Tests for input handling
     - [ ] Check parameter scopes
