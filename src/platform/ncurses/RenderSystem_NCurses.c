@@ -209,77 +209,12 @@ void renderInfoPaneContent( App* const app )
         PLAYER_CHARS[app->game.activePlayer]
     );
 
-    char* input = "          ";
-    char* opts = "          ";
-
-    switch ( app->state )
-    {
-        default:
-            return;
-
-        case STATE_CHOOSE_ACTION:
-        {
-            input = "Action    ";
-            opts = "P, M      ";
-
-            break;
-        }
-
-        case STATE_GET_FILE_X:
-        {
-            input = "File / Col";
-            opts = "A - H     ";
-
-            break;
-        }
-
-        case STATE_GET_RANK_Y:
-        {
-            input = "Rank / Row";
-            opts = "1 - 8     ";
-
-            break;
-        }
-
-        case STATE_GET_STONE_TYPE:
-        {
-            input = "Stone Type";
-            opts = "F, S, C   ";
-
-            break;
-        }
-
-        case STATE_GET_DIRECTION:
-        {
-            input = "Direction ";
-            opts = "N, E, S, W";
-
-            break;
-        }
-
-        case STATE_GET_FIRST_DROP_AMOUNT:
-        {
-            input = "Amount    ";
-            opts = "0 - 8     ";
-
-            break;
-        }
-
-        case STATE_GET_DROP_AMOUNT:
-        {
-            input = "Amount    ";
-            opts = "1 - 8     ";
-
-            break;
-        }
-    }
-
     //* Print required input
     mvprintw(
         POSITION_INPUT_TYPE[0],
         POSITION_INPUT_TYPE[1] + paneOffset,
         "%s",
-        input
+        app->prompt.input
     );
 
     //* Print possible input options
@@ -287,7 +222,7 @@ void renderInfoPaneContent( App* const app )
         POSITION_INPUT_OPTIONS[0],
         POSITION_INPUT_OPTIONS[1] + paneOffset,
         "%s",
-        opts
+        app->prompt.options
     );
 
     //* TODO: Print history

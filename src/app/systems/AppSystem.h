@@ -24,6 +24,10 @@ void handleGlobalInput( App* const app );
 void updateApp( App* const app );
 
 void updateState( App* const app );
+void changeState(
+    App* const app,
+    AppState const state
+);
 
 //* State handling
 /// White places black flat

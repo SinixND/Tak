@@ -4,6 +4,7 @@
 #include "AppState.h"
 #include "Game.h"
 #include "InputBuffer.h"
+#include "Prompt.h"
 #include <stdbool.h>
 
 typedef struct
@@ -11,6 +12,7 @@ typedef struct
     Game game;
     InputBuffer inputBuffer;
     AppState state;
+    Prompt prompt;
     bool shoudClose;
 } App;
 

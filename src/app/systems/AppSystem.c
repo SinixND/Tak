@@ -10,6 +10,8 @@
 #include "InputBuffer.h"
 #include "InputBufferSystem.h"
 #include "PlayerId.h"
+#include "Prompt.h"
+#include "Prompts.h"
 #include "RankId.h"
 #include "StoneType.h"
 #include <assert.h>
@@ -27,6 +29,11 @@ App newApp( int const boardWidth )
         .game = newGame( boardWidth ),
         .inputBuffer = newInputBuffer(),
         .state = STATE_FIRST_TURN,
+        .prompt
+        = {
+           .input = "File / Col",
+           .options = "A - H     ",
+           },
         .shoudClose = false,
     };
 
@@ -152,12 +159,28 @@ void updateState( App* const app )
     }
 }
 
+void changeState(
+    App* const app,
+    AppState const state
+)
+{
+    app->prompt = PROMPTS[state];
+
+    app->state = state;
+}
+
 void handleStateFirstTurn( App* const app )
 {
     //* Call state functions explicitly for this one time only state
     if ( app->inputBuffer.gameEvent.fileX < FILE_A )
     {
+        app->prompt.input = "File / Col";
+        app->prompt.options = "A - H     ";
+
         handleStateGetFileX( app );
+
+        // Keep state
+        app->state = STATE_FIRST_TURN;
 
         return;
     }
@@ -165,6 +188,9 @@ void handleStateFirstTurn( App* const app )
     if ( app->inputBuffer.gameEvent.rankY < RANK_1 )
     {
         handleStateGetRankY( app );
+
+        // Keep state
+        app->state = STATE_FIRST_TURN;
 
         return;
     }
@@ -177,7 +203,10 @@ void handleStateFirstTurn( App* const app )
     handleStateResolveAction( app );
     handleStateEndTurn( app );
 
-    app->state = STATE_SECOND_TURN;
+    changeState(
+        app,
+        STATE_SECOND_TURN
+    );
 
     return;
 }
@@ -189,12 +218,18 @@ void handleStateSecondTurn( App* const app )
     {
         handleStateGetFileX( app );
 
+        // Keep state
+        app->state = STATE_SECOND_TURN;
+
         return;
     }
 
     if ( app->inputBuffer.gameEvent.rankY < RANK_1 )
     {
         handleStateGetRankY( app );
+
+        // Keep state
+        app->state = STATE_SECOND_TURN;
 
         return;
     }
@@ -205,7 +240,10 @@ void handleStateSecondTurn( App* const app )
     app->inputBuffer.gameEvent.stoneType = STONE_TYPE_FLAT;
 
     //* Enter general game loop
-    app->state = STATE_RESOLVE_ACTION;
+    changeState(
+        app,
+        STATE_RESOLVE_ACTION
+    );
 
     return;
 }
@@ -235,14 +273,20 @@ void handleStateChooseAction( App* const app )
 
         case ACTION_TYPE_PLACE:
         {
-            app->state = STATE_GET_STONE_TYPE;
+            changeState(
+                app,
+                STATE_GET_STONE_TYPE
+            );
 
             return;
         }
 
         case ACTION_TYPE_LIFT:
         {
-            app->state = STATE_GET_FILE_X;
+            changeState(
+                app,
+                STATE_GET_FILE_X
+            );
 
             return;
         }
@@ -261,7 +305,10 @@ void handleStateGetStoneType( App* const app )
         STONE_TYPE_CHARS[app->inputBuffer.gameEvent.stoneType]
     );
 
-    app->state = STATE_GET_FILE_X;
+    changeState(
+        app,
+        STATE_GET_FILE_X
+    );
 
     return;
 }
@@ -278,7 +325,10 @@ void handleStateGetFileX( App* const app )
         FILE_CHARS[app->inputBuffer.gameEvent.fileX]
     );
 
-    app->state = STATE_GET_RANK_Y;
+    changeState(
+        app,
+        STATE_GET_RANK_Y
+    );
 
     return;
 }
@@ -302,14 +352,20 @@ void handleStateGetRankY( App* const app )
 
         case ACTION_TYPE_PLACE:
         {
-            app->state = STATE_RESOLVE_ACTION;
+            changeState(
+                app,
+                STATE_RESOLVE_ACTION
+            );
 
             return;
         }
 
         case ACTION_TYPE_LIFT:
         {
-            app->state = STATE_GET_DIRECTION;
+            changeState(
+                app,
+                STATE_GET_DIRECTION
+            );
 
             return;
         }
@@ -330,7 +386,10 @@ void handleStateGetDirection( App* const app )
         DIRECTION_CHARS[app->inputBuffer.gameEvent.direction]
     );
 
-    app->state = STATE_GET_FIRST_DROP_AMOUNT;
+    changeState(
+        app,
+        STATE_GET_FIRST_DROP_AMOUNT
+    );
 
     return;
 }
@@ -347,7 +406,10 @@ void handleStateGetFirstDropAmount( App* const app )
         app->inputBuffer.gameEvent.dropCounts[app->inputBuffer.gameEvent.dropCountsSize - 1] + '0'
     );
 
-    app->state = STATE_RESOLVE_ACTION;
+    changeState(
+        app,
+        STATE_RESOLVE_ACTION
+    );
 
     return;
 }
@@ -364,7 +426,10 @@ void handleStateGetDropAmount( App* const app )
         app->inputBuffer.gameEvent.dropCounts[app->inputBuffer.gameEvent.dropCountsSize - 1] + '0'
     );
 
-    app->state = STATE_RESOLVE_ACTION;
+    changeState(
+        app,
+        STATE_RESOLVE_ACTION
+    );
 
     return;
 }
@@ -393,8 +458,10 @@ void handleStateResolveAction( App* const app )
                 app->inputBuffer.gameEvent.stoneType
             );
 
-            //* Update state
-            app->state = STATE_END_TURN;
+            changeState(
+                app,
+                STATE_END_TURN
+            );
 
             return;
         }
@@ -409,7 +476,11 @@ void handleStateResolveAction( App* const app )
 
             app->inputBuffer.gameEvent.liftCount = app->game.stackBuffer.stoneCount;
             app->inputBuffer.gameEvent.actionType = ACTION_TYPE_DROP;
-            app->state = STATE_GET_FIRST_DROP_AMOUNT;
+
+            changeState(
+                app,
+                STATE_GET_FIRST_DROP_AMOUNT
+            );
 
             return;
         }
@@ -444,12 +515,13 @@ void handleStateResolveAction( App* const app )
                 }
             }
 
-            //* Update state
-            app->state
-                = ( app->inputBuffer.gameEvent.liftCount
-                    > app->inputBuffer.gameEvent.droppedCount )
-                      ? STATE_GET_DROP_AMOUNT
-                      : STATE_END_TURN;
+            changeState(
+                app,
+                ( app->inputBuffer.gameEvent.liftCount
+                  > app->inputBuffer.gameEvent.droppedCount )
+                    ? STATE_GET_DROP_AMOUNT
+                    : STATE_END_TURN
+            );
 
             return;
         }
@@ -470,7 +542,13 @@ void handleStateEndTurn( App* const app )
 
     resetCurrentCommand( &app->inputBuffer );
 
-    //* Set first state of new turn
-    app->state = STATE_CHOOSE_ACTION;
+    //* Start new turn
+    changeState(
+        app,
+        STATE_CHOOSE_ACTION
+    );
 }
 
+Prompt const p[] = {
+    { .input = "A", .options = "B" }
+};
