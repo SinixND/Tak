@@ -152,6 +152,7 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 ## ToDo notes
 - [ ] Check 'new' functions for anonymous object usage
 - [ ] Remove all = { 0 } with explicit initialization
+- [ ] Swap Info pane and board -> pane const pos
 - [ ] Add Statusline?
 - [ ] Group/Split files?
 - [ ] Tests for input handling

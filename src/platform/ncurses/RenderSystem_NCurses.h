@@ -22,7 +22,7 @@ void renderDynamic( App* const app );
 /// Render info pane content
 void renderInfoPaneContent( App* const app );
 
-/// Render last changed board square
-void renderChangedBoardSquare( App* const app );
+/// Render stack buffer
+void renderStackBuffer( App* const app );
 
 #endif
