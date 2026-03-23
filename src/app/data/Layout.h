@@ -1,20 +1,6 @@
 #ifndef IG20260320143947
 #define IG20260320143947
 
-//* Positions
-static int const POSITION_WHITE_RESERVES_REGULAR[] = { 6, 9 };
-static int const POSITION_WHITE_RESERVES_CAPSTONE[] = { 6, 12 };
-static int const POSITION_WHITE_SCORE[] = { 6, 14 };
-static int const POSITION_BLACK_RESERVES_REGULAR[] = { 7, 9 };
-static int const POSITION_BLACK_RESERVES_CAPSTONE[] = { 7, 12 };
-static int const POSITION_SCORE_BLACK[] = { 7, 14 };
-static int const POSITION_TURN[] = { 8, 9 };
-static int const POSITION_PLAYER_SYMBOL[] = { 8, 15 };
-static int const POSITION_INPUT_TYPE[] = { 9, 9 };
-static int const POSITION_INPUT_OPTIONS[] = { 10, 9 };
-static int const POSITION_INPUT_CURRENT[] = { 11, 5 };
-static int const POSITION_HISTORY_TOP_LEFT[] = { 13, 3 };
-
 enum
 {
     LAYOUT_PANE_HEIGHT = 13,
@@ -24,15 +10,30 @@ enum
     MAX_COMMAND_LENGTH = 11,
 };
 
+//* Positions
+static int const POSITION_STACK_BUFFER[] = { 2, 3 };
+static int const POSITION_WHITE_RESERVES_REGULAR[] = { 6, 8 };
+static int const POSITION_WHITE_RESERVES_CAPSTONE[] = { 6, 11 };
+// static int const POSITION_WHITE_SCORE[] = { 6, 13 };
+static int const POSITION_BLACK_RESERVES_REGULAR[] = { 7, 8 };
+static int const POSITION_BLACK_RESERVES_CAPSTONE[] = { 7, 11 };
+// static int const POSITION_SCORE_BLACK[] = { 7, 13 };
+static int const POSITION_TURN[] = { 8, 7 };
+static int const POSITION_PLAYER_SYMBOL[] = { 8, 13 };
+static int const POSITION_INPUT_TYPE[] = { 9, 7 };
+static int const POSITION_INPUT_OPTIONS[] = { 10, 7 };
+static int const POSITION_INPUT_CURRENT[] = { 11, 3 };
+static int const POSITION_HISTORY_TOP_LEFT[] = { 13, 1 };
+
 static char* const LAYOUT_INFO_PANE[] = {
-    "StackBuffer      ",
-    "  +   +       N  ",
-    "            W + E",
+    "StackBuffer   N  ",
+    "  +   +     W + E",
     "              S  ",
-    "                 ",
-    "  +   +   R|C",
-    "White:     |",
-    "Black:     |",
+    "",
+    "",
+    "  +   +  R|C",
+    "White:    |",
+    "Black:    |",
     "Turn :      [ ]",
     "Input:",
     "Opts :",

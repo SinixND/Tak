@@ -25,4 +25,7 @@ void renderInfoPaneContent( App* const app );
 /// Render stack buffer
 void renderStackBuffer( App* const app );
 
+/// Render content of a square
+void renderSquare( App* const app );
+
 #endif

@@ -123,6 +123,7 @@ void renderDynamic( App* const app )
 {
     renderInfoPaneContent( app );
     renderStackBuffer( app );
+    renderSquare( app );
 
     refresh();
 }
@@ -174,7 +175,7 @@ void renderInfoPaneContent( App* const app )
         POSITION_PLAYER_SYMBOL[0],
         POSITION_PLAYER_SYMBOL[1],
         "%c",
-        PLAYER_CHARS[app->game.activePlayer]
+        PLAYER_CHARS[app->game.activePlayer + 1]
     );
 
     //* Print required input
@@ -208,6 +209,29 @@ void renderInfoPaneContent( App* const app )
 
 void renderStackBuffer( App* const app )
 {
+    //* Render buffer type
+    mvaddch(
+        POSITION_STACK_BUFFER[0],
+        POSITION_STACK_BUFFER[1],
+        STONE_TYPE_CHARS[app->game.stackBuffer.stoneType]
+    );
+
+    for ( int idx = 0; idx < app->game.stackBuffer.stoneCount + 8; ++idx )
+    {
+        mvaddch(
+            POSITION_STACK_BUFFER[0]
+                + ( ( 1 + idx )
+                    % ( LAYOUT_BOARD_SQUARE_SIZE - 1 ) ),
+            POSITION_STACK_BUFFER[1]
+                + ( ( 1 + idx )
+                    / ( LAYOUT_BOARD_SQUARE_SIZE - 1 ) ),
+            PLAYER_CHARS[app->game.stackBuffer.stoneIds[idx] + 1]
+        );
+    }
+}
+
+void renderSquare( App* const app )
+{
     int const dir = (int)app->inputBuffer.gameEvent.direction;
 
     int const offsetY
@@ -226,8 +250,8 @@ void renderStackBuffer( App* const app )
 
     //* Render buffer type
     mvaddch(
-        posY,
-        posX,
+        posY - 999,
+        posX - 999,
         STONE_TYPE_CHARS[app->game.stackBuffer.stoneType]
     );
 }
