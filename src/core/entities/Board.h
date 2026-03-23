@@ -21,7 +21,7 @@ typedef struct
     /// Active stone counts per stack;
     /// Used to determine status!;
     /// Takes square index
-    uint8_t counts[SQUARES_MAX];
+    uint8_t stoneCounts[SQUARES_MAX];
     /// Types of stacks / top stones
     /// Takes square index
     StoneType types[SQUARES_MAX];

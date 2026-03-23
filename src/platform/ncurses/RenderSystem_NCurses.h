@@ -2,6 +2,7 @@
 #define IG20260317224649
 
 #include "App.h"
+#include "FileId.h"
 
 /**
  * @brief: Render static, non-changing content
@@ -25,7 +26,14 @@ void renderInfoPaneContent( App* const app );
 /// Render stack buffer
 void renderStackBuffer( App* const app );
 
+/// Render board squares
+void renderBoard( App* const app );
+
 /// Render content of a square
-void renderSquare( App* const app );
+void renderSquare(
+    App* const app,
+    FileId const fileX,
+    RankId const rankY
+);
 
 #endif

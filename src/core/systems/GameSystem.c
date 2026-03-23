@@ -48,7 +48,7 @@ void placeStone(
 
     //* INFO: [Rule] Can only place on empty squares
     assert(
-        pGame->board.counts[squareIdx] == 0
+        pGame->board.stoneCounts[squareIdx] == 0
         && "Can only place on empty square"
     );
 
@@ -88,7 +88,7 @@ void liftStack(
         );
 
     assert(
-        pGame->board.counts[squareIdx] > 0
+        pGame->board.stoneCounts[squareIdx] > 0
         && "Cannot pick up empty stack"
     );
 
@@ -97,14 +97,14 @@ void liftStack(
               squareIdx,
               pGame->board.stackCapacity
           )
-          + ( pGame->board.counts[squareIdx] - 1 );
+          + ( pGame->board.stoneCounts[squareIdx] - 1 );
 
     //* INFO: [Rule] StackBuffer stone count must cap at boardWidth
     int const stoneCount
-        = ( pGame->board.counts[squareIdx]
+        = ( pGame->board.stoneCounts[squareIdx]
             > pGame->board.width )
               ? pGame->board.width
-              : pGame->board.counts[squareIdx];
+              : pGame->board.stoneCounts[squareIdx];
 
     int const stoneType = pGame->board.types[squareIdx];
 
@@ -244,7 +244,7 @@ void undoDropStone( Game* const pGame )
 
     //* INFO: [Rule] No stone can be put onto capstone
     assert(
-        pGame->board.counts[lastAction.squareIdx] > 0
+        pGame->board.stoneCounts[lastAction.squareIdx] > 0
         && "Cant undo drop from emtpy square"
     );
 
@@ -315,7 +315,7 @@ void redoPlaceStone( Game* const pGame )
 
     //* INFO: [Rule] Can only place on empty squares
     assert(
-        pGame->board.counts[nextAction.squareIdx] == 0
+        pGame->board.stoneCounts[nextAction.squareIdx] == 0
         && "Can only place on empty square"
     );
 
@@ -345,7 +345,7 @@ void redoLiftStack( Game* const pGame )
     PlayerAction const nextAction = pGame->history.actions[pGame->history.lastActionIdx + 1];
 
     assert(
-        pGame->board.counts[nextAction.squareIdx] > 0
+        pGame->board.stoneCounts[nextAction.squareIdx] > 0
         && "Cannot pick up empty stack"
     );
 

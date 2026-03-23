@@ -3,6 +3,7 @@
 #include "App.h"
 #include "Layout.h"
 #include "PlayerId.h"
+#include "PositionSystem.h"
 #include "StoneType.h"
 #include <assert.h>
 #include <ncurses.h>
@@ -123,7 +124,7 @@ void renderDynamic( App* const app )
 {
     renderInfoPaneContent( app );
     renderStackBuffer( app );
-    renderSquare( app );
+    renderBoard( app );
 
     refresh();
 }
@@ -216,7 +217,7 @@ void renderStackBuffer( App* const app )
         STONE_TYPE_CHARS[app->game.stackBuffer.stoneType]
     );
 
-    for ( int idx = 0; idx < app->game.stackBuffer.stoneCount + 8; ++idx )
+    for ( int idx = 0; idx < app->game.stackBuffer.stoneCount; ++idx )
     {
         mvaddch(
             POSITION_STACK_BUFFER[0]
@@ -230,28 +231,55 @@ void renderStackBuffer( App* const app )
     }
 }
 
-void renderSquare( App* const app )
+void renderBoard( App* const app )
 {
-    int const dir = (int)app->inputBuffer.gameEvent.direction;
+    for ( int fileX = 0; fileX < app->game.board.width; ++fileX )
+    {
+        for ( int rankY = 0; rankY < app->game.board.width; ++rankY )
+        {
+            renderSquare( app, fileX, rankY );
+        }
+    }
+}
 
-    int const offsetY
-        = !!dir
-          * ( dir % 2 )
-          * ( dir - 2 );
+void renderSquare(
+    App* const app,
+    FileId const fileX,
+    RankId const rankY
+)
+{
+    int const squarePosY
+        = 2 + ( rankY * LAYOUT_BOARD_SQUARE_SIZE );
 
-    int const offsetX
-        = !!dir
-          * !( dir % 2 )
-          * ( dir - 3 );
+    int const squarePosX
+        = BOARD_OFFSET + 2
+          + ( fileX * LAYOUT_BOARD_SQUARE_SIZE );
 
-    int const posY = 2 + ( ( app->inputBuffer.gameEvent.rankY + offsetY ) * LAYOUT_BOARD_SQUARE_SIZE );
-
-    int const posX = 4 + ( ( app->inputBuffer.gameEvent.fileX + offsetX ) * LAYOUT_BOARD_SQUARE_SIZE );
-
-    //* Render buffer type
-    mvaddch(
-        posY - 999,
-        posX - 999,
-        STONE_TYPE_CHARS[app->game.stackBuffer.stoneType]
+    int const squareIdx = positionToSquare(
+        fileX,
+        rankY,
+        app->game.board.width
     );
+
+    //* Render stack type
+    mvaddch(
+        squarePosY,
+        squarePosX,
+        STONE_TYPE_CHARS[app->game.board.types[squareIdx]]
+    );
+
+    int const stoneCount = app->game.board.stoneCounts[squareIdx];
+
+    for ( int idx = 0; idx < stoneCount; ++idx )
+    {
+        mvaddch(
+            squarePosY
+                + ( ( 1 + idx )
+                    % ( LAYOUT_BOARD_SQUARE_SIZE - 1 ) ),
+            squarePosX
+                + ( ( 1 + idx )
+                    / ( LAYOUT_BOARD_SQUARE_SIZE - 1 ) ),
+            PLAYER_CHARS[app->game.board.stoneIds[positionToSquare( fileX, rankY, app->game.board.width ) + ( stoneCount - idx - 1 )] + 1]
+        );
+    }
 }

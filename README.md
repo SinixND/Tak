@@ -43,13 +43,6 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 <p align="right">(<a href="#readme-top">top</a>)</p>
 
 
-### Input
-- Place stone: player, place, stone type, file, rank (eg. `psa1`)
-- Move stack: player, move, file, rank, direction, drop counts (eg. `ma1u132`)
-
-<p align="right">(<a href="#readme-top">top</a>)</p>
-
-
 ### Dependencies
 #### Toolchains (not provided)
 [![make](https://img.shields.io/badge/toolchain-gnumake-darkred?style=for-the-badge)](https://www.gnu.org/software/make/)
@@ -75,11 +68,17 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 
 
 ### How to play
+#### Input a player turn
+- Place stone: place, stone type, file, rank (eg. `psa1`)
+- Move stack: move, file, rank, direction, drop counts (eg. `ma1w132`)
 
 <p align="right">(<a href="#readme-top">top</a>)</p>
 
 
 ### Features
+- [ ] Terminal mode
+- [ ] 2D mode
+- [ ] 3D mode
 
 <p align="right">(<a href="#readme-top">top</a>)</p>
 
@@ -151,12 +150,12 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 
 ## ToDo notes
 - [ ] Check 'new' functions for anonymous object usage
+- [ ] Check parameter scope
+- [ ] Add dirty map
 - [ ] Remove all = { 0 } with explicit initialization
-- [ ] Swap Info pane and board -> pane const pos
 - [ ] Add Statusline?
 - [ ] Group/Split files?
 - [ ] Tests for input handling
-    - [ ] Check parameter scopes
 
 - [ ] Add keybindings to readme
 - [ ] Render modes: test, tui, 2d, iso?, 3d

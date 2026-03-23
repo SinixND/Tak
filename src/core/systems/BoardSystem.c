@@ -11,7 +11,7 @@ Board newBoard( int const boardWidth )
 {
     Board board = {
         .stoneIds = { 0 },
-        .counts = { 0 },
+        .stoneCounts = { 0 },
         .types = { 0 },
         .stackCapacity = 2 * getBaseRegularStoneReserves( boardWidth )
                          + (int)( 0 != getBaseCapstoneReserves( boardWidth ) ),
@@ -60,10 +60,10 @@ void putOntoStack(
         );
 
     //* Add playerId
-    pBoard->stoneIds[stackIdx + pBoard->counts[squareIdx]] = playerId;
+    pBoard->stoneIds[stackIdx + pBoard->stoneCounts[squareIdx]] = playerId;
 
     //* Increase stack count
-    ++pBoard->counts[squareIdx];
+    ++pBoard->stoneCounts[squareIdx];
 }
 
 void takeFromStack(
@@ -78,12 +78,12 @@ void takeFromStack(
     );
 
     assert(
-        stoneCount <= pBoard->counts[squareIdx]
+        stoneCount <= pBoard->stoneCounts[squareIdx]
         && "Invalid stoneCount"
     );
 
     //* Decrease stack count
-    pBoard->counts[squareIdx] -= stoneCount;
+    pBoard->stoneCounts[squareIdx] -= stoneCount;
 
     //* Set stack type
     pBoard->types[squareIdx] = STONE_TYPE_FLAT;
