@@ -149,10 +149,11 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 
 
 ## ToDo notes
+- [ ] -1 as default invalid
+- [ ] Remove all = { 0 } with explicit initialization
 - [ ] Check 'new' functions for anonymous object usage
 - [ ] Check parameter scope
 - [ ] Add dirty map
-- [ ] Remove all = { 0 } with explicit initialization
 - [ ] Add Statusline?
 - [ ] Group/Split files?
 - [ ] Tests for input handling

@@ -15,13 +15,13 @@
  */
 typedef struct
 {
-    PlayerId stonePlayerId;
+    PlayerId stoneId;
     ActionType actionType;
+    StoneType stoneType;
     FileId fileX;
     RankId rankY;
-    StoneType stoneType;
-    int8_t liftCount;
     DirectionId direction;
+    int8_t liftCount;
     int8_t dropCounts[BOARD_WIDTH_MAX];
     int8_t dropCountsSize;
     int8_t droppedCount;
