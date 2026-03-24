@@ -37,7 +37,7 @@ App newApp( int const boardWidth )
         .shoudClose = false,
     };
 
-    app.inputBuffer.gameEvent.stonePlayerId = PLAYER_BLACK;
+    app.inputBuffer.gameEvent.stoneId = PLAYER_BLACK;
     app.inputBuffer.gameEvent.actionType = ACTION_TYPE_PLACE;
     app.inputBuffer.gameEvent.stoneType = STONE_TYPE_FLAT;
 
@@ -197,7 +197,7 @@ void handleStateFirstTurn( App* const app )
 
     //* Prepare game event for first turn
     app->inputBuffer.gameEvent.actionType = ACTION_TYPE_PLACE;
-    app->inputBuffer.gameEvent.stonePlayerId = PLAYER_BLACK;
+    app->inputBuffer.gameEvent.stoneId = PLAYER_BLACK;
     app->inputBuffer.gameEvent.stoneType = STONE_TYPE_FLAT;
 
     handleStateResolveAction( app );
@@ -236,7 +236,7 @@ void handleStateSecondTurn( App* const app )
 
     //* Prepare game event for first turn
     app->inputBuffer.gameEvent.actionType = ACTION_TYPE_PLACE;
-    app->inputBuffer.gameEvent.stonePlayerId = PLAYER_WHITE;
+    app->inputBuffer.gameEvent.stoneId = PLAYER_WHITE;
     app->inputBuffer.gameEvent.stoneType = STONE_TYPE_FLAT;
 
     //* Enter general game loop
@@ -452,7 +452,7 @@ void handleStateResolveAction( App* const app )
         {
             placeStone(
                 &app->game,
-                app->inputBuffer.gameEvent.stonePlayerId,
+                app->inputBuffer.gameEvent.stoneId,
                 app->inputBuffer.gameEvent.fileX,
                 app->inputBuffer.gameEvent.rankY,
                 app->inputBuffer.gameEvent.stoneType
@@ -538,7 +538,7 @@ void handleStateEndTurn( App* const app )
 
     //* Reset input buffer
     app->inputBuffer = newInputBuffer();
-    app->inputBuffer.gameEvent.stonePlayerId = app->game.activePlayer;
+    app->inputBuffer.gameEvent.stoneId = app->game.activePlayer;
 
     resetCurrentCommand( &app->inputBuffer );
 

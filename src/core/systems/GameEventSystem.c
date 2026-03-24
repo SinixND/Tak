@@ -10,7 +10,7 @@ GameEvent newGameEvent( void )
 {
     GameEvent event = { 0 };
 
-    event.stonePlayerId = PLAYER_NONE;
+    event.stoneId = PLAYER_NONE;
     event.fileX = FILE_NONE;
     event.rankY = RANK_NONE;
 
