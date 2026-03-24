@@ -6,12 +6,12 @@
 static Prompt const PROMPTS[] = {
     {
      .input = "File / Col",
-     .options = "A - H     ",
+     .options = "A -       ",
 
      },
     {
      .input = "File / Col",
-     .options = "A - H     ",
+     .options = "A, B, ... ",
 
      },
     {
@@ -35,11 +35,11 @@ static Prompt const PROMPTS[] = {
      },
     {
      .input = "File / Col",
-     .options = "A - H     ",
+     .options = "A, B, ... ",
      },
     {
      .input = "Rank / Row",
-     .options = "1 - 8     ",
+     .options = "1, 2, ... ",
      },
     {
      .input = "Direction ",
@@ -47,11 +47,11 @@ static Prompt const PROMPTS[] = {
      },
     {
      .input = "Amount    ",
-     .options = "0 - 8     ",
+     .options = "0, 1, ... ",
      },
     {
      .input = "Amount    ",
-     .options = "1 - 8     ",
+     .options = "1, 2, ... ",
 
      },
 };
