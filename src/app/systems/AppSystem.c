@@ -549,6 +549,3 @@ void handleStateEndTurn( App* const app )
     );
 }
 
-Prompt const p[] = {
-    { .input = "A", .options = "B" }
-};

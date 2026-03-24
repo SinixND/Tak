@@ -176,7 +176,7 @@ void renderInfoPaneContent( App* const app )
         POSITION_PLAYER_SYMBOL[0],
         POSITION_PLAYER_SYMBOL[1],
         "%c",
-        PLAYER_CHARS[app->game.activePlayer + 1]
+        PLAYER_CHARS[app->game.activePlayer]
     );
 
     //* Print required input
@@ -226,7 +226,7 @@ void renderStackBuffer( App* const app )
             POSITION_STACK_BUFFER[1]
                 + ( ( 1 + idx )
                     / ( LAYOUT_BOARD_SQUARE_SIZE - 1 ) ),
-            PLAYER_CHARS[app->game.stackBuffer.stoneIds[idx] + 1]
+            PLAYER_CHARS[app->game.stackBuffer.stoneIds[idx]]
         );
     }
 }
@@ -249,7 +249,7 @@ void renderSquare(
 )
 {
     int const squarePosY
-        = 2 + ( rankY * LAYOUT_BOARD_SQUARE_SIZE );
+        = 2 + ( ( app->game.board.width - 1 - rankY ) * LAYOUT_BOARD_SQUARE_SIZE );
 
     int const squarePosX
         = BOARD_OFFSET + 2
@@ -279,7 +279,7 @@ void renderSquare(
             squarePosX
                 + ( ( 1 + idx )
                     / ( LAYOUT_BOARD_SQUARE_SIZE - 1 ) ),
-            PLAYER_CHARS[app->game.board.stoneIds[positionToSquare( fileX, rankY, app->game.board.width ) + ( stoneCount - idx - 1 )] + 1]
+            PLAYER_CHARS[app->game.board.stoneIds[positionToSquare( fileX, rankY, app->game.board.width ) + ( stoneCount - idx - 1 )]]
         );
     }
 }
