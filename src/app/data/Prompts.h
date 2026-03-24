@@ -1,59 +1,67 @@
 #ifndef IG20260323100845
 #define IG20260323100845
 
+#include "AppState.h"
 #include "Prompt.h"
 
 static Prompt const PROMPTS[] = {
-    {
-     .input = "File / Col",
-     .options = "A -       ",
-
-     },
-    {
-     .input = "File / Col",
-     .options = "A, B, ... ",
-
-     },
-    {
-     .input = "Action    ",
-     .options = "P, M      ",
-
-     },
-    {
-     .input = "          ",
-     .options = "          ",
-
-     },
-    {
-     .input = "          ",
-     .options = "          ",
-
-     },
-    {
-     .input = "Stone Type",
-     .options = "F, S, C   ",
-     },
-    {
-     .input = "File / Col",
-     .options = "A, B, ... ",
-     },
-    {
-     .input = "Rank / Row",
-     .options = "1, 2, ... ",
-     },
-    {
-     .input = "Direction ",
-     .options = "N, E, S, W",
-     },
-    {
-     .input = "Amount    ",
-     .options = "0, 1, ... ",
-     },
-    {
-     .input = "Amount    ",
-     .options = "1, 2, ... ",
-
-     },
+    // clang-format off
+    [STATE_FIRST_TURN] 
+        = {
+            .input = "File / Col",
+            .options = "A, B, ... "
+        },
+    [STATE_SECOND_TURN] 
+        = { 
+            .input = "File / Col", 
+            .options = "A, B, ... " 
+        },
+    [STATE_CHOOSE_ACTION] 
+        = { 
+            .input = "Action    ", 
+            .options = "P, M      " 
+        },
+    [STATE_RESOLVE_ACTION] 
+        = {
+            .input = "          ",
+            .options = "          ",
+        },
+    [STATE_END_TURN] 
+        = {
+            .input = "          ",
+            .options = "          ",
+        },
+    [STATE_GET_STONE_TYPE] 
+        = {
+            .input = "Stone Type",
+            .options = "F, S, C   ",
+        },
+    [STATE_GET_FILE_X] 
+        = {
+            .input = "File / Col",
+            .options = "A, B, ... ",
+        },
+    [STATE_GET_RANK_Y] 
+        = {
+            .input = "Rank / Row",
+            .options = "1, 2, ... ",
+        },
+    [STATE_GET_DIRECTION] 
+        = {
+            .input = "Direction ",
+            .options = "N, E, S, W",
+        },
+    [STATE_GET_FIRST_DROP_AMOUNT] 
+        = {
+            .input = "Amount    ",
+            .options = "0, 1, ... ",
+        },
+    [STATE_GET_DROP_AMOUNT] 
+        = {
+            .input = "Amount    ",
+            .options = "1, 2, ... ",
+        },
+    // clang-format on
 };
 
 #endif

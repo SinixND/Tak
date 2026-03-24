@@ -149,7 +149,6 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 
 
 ## ToDo notes
-- [ ] -1 as default invalid
 - [ ] Remove all = { 0 } with explicit initialization
 - [ ] Check parameter scope
 
