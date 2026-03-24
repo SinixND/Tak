@@ -3,7 +3,7 @@
 
 typedef enum
 {
-    INPUT_NONE = 0,
+    INPUT_NONE,
     INPUT_A, //* Used for file
     INPUT_B, //* Used for file
     INPUT_C, //* Used for file and capstone

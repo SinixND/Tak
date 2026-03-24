@@ -9,15 +9,14 @@
  */
 typedef enum
 {
-    DIR_NONE = 0,
-    DIR_DOWN = 1,  /// -, decrease rank
-    DIR_LEFT = 2,  /// <, decrease file
-    DIR_UP = 3,    /// +, increase rank
-    DIR_RIGHT = 4, /// >, increase file
+    DIR_NONE = -1, // No direction is invalid input
+    DIR_DOWN = 0,  // '-': decrease rank
+    DIR_LEFT = 1,  // '<': decrease file
+    DIR_UP = 2,    // '+': increase rank
+    DIR_RIGHT = 3, // '>': increase file
 } DirectionId;
 
 static char const DIRECTION_CHARS[] = {
-    ' ',
     '-',
     '<',
     '+',

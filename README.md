@@ -151,14 +151,17 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 ## ToDo notes
 - [ ] -1 as default invalid
 - [ ] Remove all = { 0 } with explicit initialization
-- [ ] Check 'new' functions for anonymous object usage
 - [ ] Check parameter scope
+
+- [ ] InputBuffer has to much content?
+- [ ] Extract char arrays? (is data, not component)
+
+- [ ] Tests for input handling
+
 - [ ] Add dirty map
 - [ ] Add Statusline?
 - [ ] Group/Split files?
-- [ ] Tests for input handling
 
 - [ ] Add keybindings to readme
-- [ ] Render modes: test, tui, 2d, iso?, 3d
 
 <p align="right">(<a href="#readme-top">top</a>)</p>
