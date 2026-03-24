@@ -1,6 +1,7 @@
 #include "BoardSystem.h"
 
 #include "Board.h"
+#include "GameConstants.h"
 #include "GameConstantsSystem.h"
 #include "PlayerId.h"
 #include "PositionSystem.h"
@@ -10,15 +11,19 @@
 Board newBoard( int const boardWidth )
 {
     Board board = {
-        .stoneIds = { 0 },
-        .stoneCounts = { 0 },
-        .types = { 0 },
         .stackCapacity = 2 * getBaseRegularStoneReserves( boardWidth )
-                         + (int)( 0 != getBaseCapstoneReserves( boardWidth ) ),
+                         + (int)( 0 != getBaseCapstoneReserves( boardWidth ) ), // can only have one per stack
         .width = boardWidth
     };
 
-    int const arraySize = boardWidth * boardWidth * board.stackCapacity;
+    int const squareCount = boardWidth * boardWidth;
+    int const arraySize = squareCount * board.stackCapacity;
+
+    for ( int idx = 0; idx < squareCount; ++idx )
+    {
+        board.types[idx] = STONE_TYPE_NONE;
+        board.stoneCounts[idx] = 0;
+    }
 
     for ( int idx = 0; idx < arraySize; ++idx )
     {

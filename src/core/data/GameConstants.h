@@ -53,7 +53,7 @@ enum
     SQUARES_MAX = 64,
 
     /**
-     * Maximum stones possible in game: 104 (= all regular stones + 1 capstone)
+     * Maximum stones possible in game: 101 (= all regular stones + 1 capstone)
      * May be adjusted to improve alignment for cache
      */
     STONES_MAX = 101,

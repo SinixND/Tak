@@ -14,7 +14,6 @@ typedef enum
 static char const PLAYER_CHARS[] = {
     'x',
     'o',
-    '-',
 };
 
 #endif
