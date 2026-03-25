@@ -29,11 +29,7 @@ App newApp( int const boardWidth )
         .game = newGame( boardWidth ),
         .inputBuffer = newInputBuffer(),
         .state = STATE_FIRST_TURN,
-        .prompt
-        = {
-           .input = "File / Col",
-           .options = "A - H     ",
-           },
+        .prompt = PROMPTS[STATE_FIRST_TURN],
         .shoudClose = false,
     };
 
