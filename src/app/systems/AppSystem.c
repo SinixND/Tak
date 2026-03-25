@@ -25,6 +25,16 @@
 
 App newApp( int const boardWidth )
 {
+    assert(
+        ( boardWidth >= BOARD_WIDTH_MIN )
+        && "Board width value too small"
+    );
+
+    assert(
+        ( boardWidth <= BOARD_WIDTH_MAX )
+        && "Board width value too big"
+    );
+
     App app = {
         .game = newGame( boardWidth ),
         .inputBuffer = newInputBuffer(),
@@ -33,9 +43,10 @@ App newApp( int const boardWidth )
         .shoudClose = false,
     };
 
-    app.inputBuffer.gameEvent.stoneId = PLAYER_BLACK;
-    app.inputBuffer.gameEvent.actionType = ACTION_TYPE_PLACE;
-    app.inputBuffer.gameEvent.stoneType = STONE_TYPE_FLAT;
+    // TODO: check if needed
+    // app.inputBuffer.gameEvent.stoneId = PLAYER_BLACK;
+    // app.inputBuffer.gameEvent.actionType = ACTION_TYPE_PLACE;
+    // app.inputBuffer.gameEvent.stoneType = STONE_TYPE_FLAT;
 
     return app;
 }
