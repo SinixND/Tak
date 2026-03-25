@@ -2,10 +2,26 @@
 
 #include "ActionType.h"
 #include "GameConstants.h"
+#include "History.h"
 #include "PlayerId.h"
 #include "StoneType.h"
 #include <assert.h>
 #include <stdbool.h>
+
+History newHistory( void )
+{
+    History history = {
+        .lastActionIdx = -1,
+        .redoCount = 0,
+    };
+
+    for ( int idx = 0; idx < HISTORY_SIZE; ++idx )
+    {
+        // history.actions[idx] = newPlayerAction();
+    }
+
+    return history;
+}
 
 void recordPlacementAction(
     History* const pHistory,
@@ -105,7 +121,7 @@ void recordDropAction(
 void undoHistory( History* const pHistory )
 {
     assert(
-        pHistory->lastActionIdx > 0
+        pHistory->lastActionIdx >= 0
         && "Nothing to be undone"
     );
 

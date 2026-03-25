@@ -24,6 +24,7 @@ Game newGame( int boardWidth )
 
     return (Game){
         .board = newBoard( boardWidth ),
+        .history = newHistory(),
         .stackBuffer = newStackBuffer(),
         .players = newPlayers( boardWidth ),
         .activePlayer = PLAYER_WHITE,

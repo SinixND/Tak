@@ -6,6 +6,7 @@
 
 int main( void )
 {
+    // TODO: Remove
     Game game = newGame( 0 );
     demo( &game );
 

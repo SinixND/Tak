@@ -6,6 +6,9 @@
 #include "RankId.h"
 #include "StoneType.h"
 
+/// Return initialized board object
+History newHistory( void );
+
 /**
  * @brief: Add placement action to history
  *

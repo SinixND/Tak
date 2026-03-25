@@ -11,7 +11,7 @@ InputBuffer newInputBuffer( void )
     return (InputBuffer){
         .gameEvent = newGameEvent(),
         .lastInput = INPUT_NONE,
-        .currentCommand = { 0 },
+        .currentCommand = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
         .currentCommandSize = 0,
     };
 }

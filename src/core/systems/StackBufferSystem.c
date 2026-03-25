@@ -7,15 +7,15 @@
 
 StackBuffer newStackBuffer( void )
 {
-    StackBuffer buffer = { 0 };
+    StackBuffer buffer = {
+        .stoneType = STONE_TYPE_NONE,
+        .stoneCount = 0,
+    };
 
     for ( int stoneIdx = 0; stoneIdx < BOARD_WIDTH_MAX; ++stoneIdx )
     {
         buffer.stoneIds[stoneIdx] = PLAYER_NONE;
     }
-
-    buffer.stoneType = STONE_TYPE_NONE;
-    buffer.stoneCount = 0;
 
     return buffer;
 }
