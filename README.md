@@ -149,77 +149,50 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 
 
 ## ToDo notes
-- [ ] Remove all = { 0 } with explicit initialization
-- [ ] Check parameter scope
+- [ ] "What data is needed to get user input?"
+  - Per frame inputBuffer
+  - System-In: backend
+  - System-Out: inputBuffer (normalized app input)
+  - No state
 
-- [ ] InputBuffer has to much content?
+Module eventBuilder(FSM):
+- [ ] "What data is needed to build a game event?"
+  - Multiple inputs (FSM built)
+  - Module-In: inputBuffer
+  - State data: relevant GameEvent content
+  - Module-Out: isEventComplete(), buildGameEvent(), buildCommand()
+
+- [ ] "What data is needed to update the game?"
+  - GameEvent holding information for place, lift, drop
+  - System-In: GameEvent
+  - System-Out: Game (?) -> modify
+  - No state
+
 ```
-Structure suggestion from chatGPT:
-InputBuffer has too many concerns - split into 3:
-- Frame level input (last input, eg. struct InputFrame)
-    - lives for one frame
-    - produced by input
-- UI state (currentCommand)
-    - belongs to UI/App layer
-- Player intent: GameEvent
-    - FSM output
-    - consumed by core
-
-Then App looks like this:
-typedef struct
-{
-    Game game;
-
-    InputFrame input;        // raw input (per frame)
-    CommandBuffer command;   // UI state
-    (Player Intent) GameEvent intent;     // result of FSM
-
-    AppState state;
-    Prompt prompt;
-
-    bool shouldClose;
-} App;
-
 The job of App is to
 - own global state
-- orchestrate logic flow:
-    Input → “What key was pressed?”
-    CommandBuffer → “What is the user typing?”
-    FSM → “What does it mean right now?”
-    Intent → “What action should happen?”
-    Core → “Apply rules”
-    Render -> display app state
-- Route data between modules
-    input -> command
+- Handle data flow
+- Handle logic flow (FSM):
 
-- Make command its own module?
-    Data pipeline:
-    InputId → CommandBuffer (until command is complete)→ GameEvent → Game
-
-- the renderer calls formatCommandToPTN
-
-
-Implementation order:
-- [x] Core (done) 
-- [ ] GameEvent (necessary user information for a turn) 
-- [ ] applyGameEvent() 
-    - Should now be able to simulate one turn (testable)
-- [ ] Command (aka. input Buffer) 
-- [ ] commandParser(): command to event 
-    - check for complete command
-    - Shoudl be testable
-- [ ] Rule verification -> 
-    - compare core + event against rules
-- [ ] FSM: States: build command, process command
+app.setup()
+app.loop() {
+    input()
+    update(){
+        case(!fsm.eventComplete() / build event){
+            runFSM(FSM object) // request info
+        }
+        case(fsm.eventComplete() / handle event){
+            validateEvent()
+            applyEvent()
+        }
+    }
+    render()
+}
+app.close()
 ```
-- [ ] Extract char arrays? (is data, not component)
-
-- [ ] Tests for input handling
 
 - [ ] Add dirty map
 - [ ] Add Statusline?
-- [ ] Group/Split files?
-
 - [ ] Add keybindings to readme
 
 <p align="right">(<a href="#readme-top">top</a>)</p>

@@ -1,7 +1,9 @@
+ Architectural layers:
+ 
  ___________________________________________________________
 | Application                                               |
 | --------------------------------------------------------- |
-| Manages timing and interaction of sub layers              |
+| Manages timing and interaction of modules / sub-layers    |
 |___________________________________________________________|
             |               |                   |
             |               |                   |

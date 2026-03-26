@@ -171,8 +171,10 @@ void changeState(
     AppState const state
 )
 {
+    //* Update prompt
     app->prompt = PROMPTS[state];
 
+    //* Change state
     app->state = state;
 }
 
