@@ -18,7 +18,7 @@ Players newPlayers( int const boardWidth )
         && "Board width value too big"
     );
 
-    Players players;
+    Players players = { 0 };
 
     int initRegularReserves = getBaseRegularStoneReserves( boardWidth );
     int initCapstoneReserves = getBaseCapstoneReserves( boardWidth );

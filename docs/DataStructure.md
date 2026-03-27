@@ -31,7 +31,5 @@ struct App
 |       + (int) stackCapacity
 |       + (int) width
 | 
-+ struct(InputBuffer)
-| 
-+ struct(GameEvent)
++ 
 ```

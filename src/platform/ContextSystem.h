@@ -2,7 +2,7 @@
 #define IG20260315171332
 
 /// Initialize ncurses
-void initBackend( void );
+void setupBackend( void );
 
 /// Close ncurses
 void closeBackend( void );

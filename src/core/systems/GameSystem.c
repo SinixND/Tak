@@ -273,7 +273,7 @@ void undoDropStone( Game* const pGame )
 void undo( Game* const pGame )
 {
     assert(
-        pGame->history.lastActionIdx > 0
+        pGame->history.lastActionIdx >= 0
         && "Nothing to undo"
     );
 

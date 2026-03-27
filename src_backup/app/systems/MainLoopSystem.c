@@ -5,7 +5,7 @@
 #include "InputPollingSystem.h"
 #include "RenderSystem.h"
 
-void runMainLoop( App* const app )
+void runApp( App* const app )
 {
     //* Run everything once for proper initialization
     renderStaticContent( app );

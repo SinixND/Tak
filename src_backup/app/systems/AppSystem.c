@@ -51,9 +51,9 @@ App newApp( int const boardWidth )
     return app;
 }
 
-void initApp( void )
+void setupApp( void )
 {
-    initBackend();
+    setupBackend();
 }
 
 void closeApp( void )

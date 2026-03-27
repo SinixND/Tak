@@ -7,7 +7,7 @@
 
 App newApp( int const boardWidth );
 
-void initApp( void );
+void setupApp( void );
 void closeApp( void );
 
 /// Handle input independent of app state
