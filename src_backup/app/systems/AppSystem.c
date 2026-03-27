@@ -20,7 +20,7 @@
 
 //* Choose backend
 #ifdef BACKEND_NCURSES
-#include "ContextSystem_NCurses.h"
+#include "ContextSystem.h"
 #endif
 
 App newApp( int const boardWidth )

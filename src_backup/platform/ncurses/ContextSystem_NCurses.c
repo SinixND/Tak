@@ -1,4 +1,4 @@
-#include "ContextSystem_NCurses.h"
+#include "ContextSystem.h"
 
 #include <ncurses.h>
 

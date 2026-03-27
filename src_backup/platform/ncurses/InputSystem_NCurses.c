@@ -1,4 +1,4 @@
-#include "InputSystem_NCurses.h"
+#include "InputSystem.h"
 
 #include "InputId.h"
 #include <ncurses.h>

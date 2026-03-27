@@ -4,7 +4,7 @@
 
 //* Choose backend
 #ifdef BACKEND_NCURSES
-#include "InputSystem_NCurses.h"
+#include "InputSystem.h"
 #endif
 
 void getInput( InputBuffer* const inputBuffer )

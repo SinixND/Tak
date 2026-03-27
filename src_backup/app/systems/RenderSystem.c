@@ -2,7 +2,7 @@
 
 //* Choose backend
 #ifdef BACKEND_NCURSES
-#include "RenderSystem_NCurses.h"
+#include "RenderSystem.h"
 #endif
 
 void renderApp( App* const app )

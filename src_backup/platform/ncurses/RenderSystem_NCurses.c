@@ -1,4 +1,4 @@
-#include "RenderSystem_NCurses.h"
+#include "RenderSystem.h"
 
 #include "App.h"
 #include "Layout.h"
