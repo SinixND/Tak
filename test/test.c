@@ -1,6 +1,7 @@
 #include "TestAppSystem.h"
 #include "TestBoardSystem.h"
 #include "TestGameConstantsSystem.h"
+#include "TestGameEventSystem.h"
 #include "TestGameSystem.h"
 #include "TestHistorySystem.h"
 #include "TestInputSystem.h"
@@ -63,6 +64,9 @@ int main( void )
 
     //* Test InputSystem
     RUN_TEST( testHandleGlobalInput );
+
+    //* Test GameEventSystem
+    RUN_TEST( testNewGameEvent );
 
     return UNITY_END();
 }

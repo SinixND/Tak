@@ -149,23 +149,23 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 
 
 ## ToDo notes
-- [ ] "What data is needed to get user input?"
-  - Per frame inputBuffer
-  - System-In: backend
-  - System-Out: inputBuffer (normalized app input)
-  - No state
-
-Module eventBuilder(FSM):
-- [ ] "What data is needed to build a game event?"
-  - Multiple inputs (FSM built)
-  - Module-In: inputBuffer
-  - State data: relevant GameEvent content
-  - Module-Out: isEventComplete(), buildGameEvent(), buildCommand()
-
 - [ ] "What data is needed to update the game?"
   - GameEvent holding information for place, lift, drop
   - System-In: GameEvent
   - System-Out: Game (?) -> modify
+  - No state
+
+Module eventBuilder(FSM):
+- [ ] "What data is needed to build a game event?"
+  - Multiple inputs -> User command (FSM built)
+  - Module-In: inputBuffer
+  - State data: relevant GameEvent content
+  - Module-Out: isEventComplete(), buildGameEvent(), buildCommand()
+
+- [x] "What data is needed to get user input?"
+  - Per frame inputBuffer
+  - System-In: backend
+  - System-Out: inputBuffer (normalized app input)
   - No state
 
 ```
