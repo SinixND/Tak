@@ -40,7 +40,7 @@ App newApp( int const boardWidth )
         .inputBuffer = newInputBuffer(),
         .state = STATE_FIRST_TURN,
         .prompt = PROMPTS[STATE_FIRST_TURN],
-        .shoudClose = false,
+        .shouldClose = false,
     };
 
     // TODO: check if needed
@@ -72,7 +72,7 @@ void handleGlobalInput( App* const app )
     //* Conditionally terminate by
     //* changing main while loop condition
     //* NOTE: Maybe extract into separate function later
-    app->shoudClose
+    app->shouldClose
         = ( app->inputBuffer.lastInput == INPUT_Q )
               ? true
               : false;

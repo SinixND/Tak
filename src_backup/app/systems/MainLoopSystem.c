@@ -11,7 +11,7 @@ void runApp( App* const app )
     renderStaticContent( app );
     renderApp( app );
 
-    while ( !app->shoudClose )
+    while ( !app->shouldClose )
     {
         //* Have dedicated funciton called in the loop for emscripten
         processFrame( app );

@@ -1,12 +1,13 @@
 #include "AppSystem.h"
 
 #include "GameSystem.h"
+#include "InputId.h"
+#include "InputSystem.h"
 #include <assert.h>
 
 //* Choose backend
 #ifdef BACKEND_NCURSES
-#include "ContextSystem.h"
-#include "LoopSystem.h"
+#include "BackendInterface.h"
 #endif
 
 App newApp( int const boardWidth )
@@ -24,6 +25,7 @@ App newApp( int const boardWidth )
 
     App app = {
         .game = newGame( boardWidth ),
+        .input = { .keyboard = INPUT_NONE },
         .shouldClose = false,
     };
 
@@ -47,5 +49,7 @@ void closeApp( void )
 
 void updateFrame( App* const app )
 {
-    app->shouldClose = true;
+    pollInput( &app->input );
+    handleGlobalInput( app );
 }
+

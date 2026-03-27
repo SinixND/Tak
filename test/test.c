@@ -1,7 +1,9 @@
+#include "TestAppSystem.h"
 #include "TestBoardSystem.h"
 #include "TestGameConstantsSystem.h"
 #include "TestGameSystem.h"
 #include "TestHistorySystem.h"
+#include "TestInputSystem.h"
 #include "TestPlayersSystem.h"
 #include "TestPositionSystem.h"
 #include "TestStackBufferSystem.h"
@@ -55,6 +57,12 @@ int main( void )
     RUN_TEST( testResetStackBuffer );
     RUN_TEST( testAppendToBuffer );
     RUN_TEST( testDropFromBuffer );
+
+    //* Test AppSystem
+    RUN_TEST( testNewApp );
+
+    //* Test InputSystem
+    RUN_TEST( testHandleGlobalInput );
 
     return UNITY_END();
 }

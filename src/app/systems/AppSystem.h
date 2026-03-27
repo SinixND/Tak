@@ -3,12 +3,19 @@
 
 #include "App.h"
 
+/// Setup before running the application loop
 void setupApp( void );
+
+/// Run main application loop, ticking frames
 void runApp( App* const app );
+
+/// Clean up before closing the application
 void closeApp( void );
 
+/// Return initialized history object
 App newApp( int const boardWidth );
 
-void updateFrame(App* const app);
+/// Tick next frame
+void updateFrame( App* const app );
 
 #endif
