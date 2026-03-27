@@ -1,4 +1,6 @@
 #include "GameEventSystem.h"
+#include "ActionType.h"
+#include "GameEvent.h"
 
 GameEvent newGameEvent( void )
 {
@@ -21,4 +23,64 @@ GameEvent newGameEvent( void )
     }
 
     return event;
+}
+
+bool validateEvent(
+    GameEvent const* const event,
+    Game const* const game
+)
+{
+    switch ( event->actionType )
+    {
+        default:
+            return false;
+
+        case ACTION_TYPE_PLACE:
+        {
+            return validateEventPlace(
+                event,
+                game
+            );
+        }
+
+        case ACTION_TYPE_LIFT:
+        {
+            return validateEventLift(
+                event,
+                game
+            );
+        }
+
+        case ACTION_TYPE_DROP:
+        {
+            return validateEventDrop(
+                event,
+                game
+            );
+        }
+    }
+
+    return false;
+}
+
+bool validateEventPlace(
+    GameEvent const* const event,
+    Game const* const game
+)
+{
+    //
+}
+
+bool validateEventLift(
+    GameEvent const* const event,
+    Game const* const game
+)
+{
+}
+
+bool validateEventDrop(
+    GameEvent const* const event,
+    Game const* const game
+)
+{
 }

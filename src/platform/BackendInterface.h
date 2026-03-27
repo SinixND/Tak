@@ -18,6 +18,4 @@ void loopBackend( App* const app );
 /// Normalize user input from backend
 void pollInput( InputBuffer* const input );
 
-//* Rendering
-
 #endif

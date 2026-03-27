@@ -154,6 +154,9 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
   - System-In: GameEvent
   - System-Out: Game (?) -> modify
   - No state
+    - [x] newEvent()
+    - [ ] validateEvent()
+    - [ ] applyEvent()
 
 Module eventBuilder(FSM):
 - [ ] "What data is needed to build a game event?"
