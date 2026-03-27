@@ -4,7 +4,7 @@
 /// Initialize ncurses
 void initBackend( void );
 
-/// Deinitialize ncurses
-void deinitBackend( void );
+/// Close ncurses
+void closeBackend( void );
 
 #endif

@@ -15,7 +15,7 @@ void initBackend( void )
     keypad( stdscr, TRUE ); // Enable arrow keys and function keys
 }
 
-void deinitBackend( void )
+void closeBackend( void )
 {
     endwin(); // Restore terminal
 }

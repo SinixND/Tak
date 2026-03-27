@@ -56,9 +56,9 @@ void initApp( void )
     initBackend();
 }
 
-void deinitApp( void )
+void closeApp( void )
 {
-    deinitBackend();
+    closeBackend();
 }
 
 void updateApp( App* const app )

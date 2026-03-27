@@ -14,7 +14,7 @@ int main( void )
 
     initApp();
     runMainLoop( &app );
-    deinitApp();
+    closeApp();
 
     return 0;
 }

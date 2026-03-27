@@ -8,7 +8,7 @@
 App newApp( int const boardWidth );
 
 void initApp( void );
-void deinitApp( void );
+void closeApp( void );
 
 /// Handle input independent of app state
 void handleGlobalInput( App* const app );
