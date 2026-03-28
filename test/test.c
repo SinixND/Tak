@@ -1,5 +1,6 @@
 #include "TestAppSystem.h"
 #include "TestBoardSystem.h"
+#include "TestDirectionSystem.h"
 #include "TestGameConstantsSystem.h"
 #include "TestGameEventSystem.h"
 #include "TestGameSystem.h"
@@ -67,6 +68,10 @@ int main( void )
 
     //* Test GameEventSystem
     RUN_TEST( testNewGameEvent );
+
+    //* Test DirectionSystem
+    RUN_TEST( testGetOffsetX );
+    RUN_TEST( testGetOffsetY );
 
     return UNITY_END();
 }
