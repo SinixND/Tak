@@ -4,6 +4,7 @@
 #include "GameEvent.h"
 #include "GameEventSystem.h"
 #include "GameSystem.h"
+#include "Players.h"
 #include <unity.h>
 
 void testNewGameEvent( void )
@@ -25,7 +26,26 @@ void testNewGameEvent( void )
 
 void testIsStoneTypeAvailable( void )
 {
-    GameEvent event = newGameEvent();
+    GameEvent event = {
+        .stoneId,
+        .actionType,
+        .stoneType,
+        .fileX,
+        .rankY,
+        .direction,
+        .liftCount,
+        .dropCounts{ 0, 0, 0, 0, 0, 0, 0, 0 },
+        .dropCountsSize,
+        .droppedCount,
+    };
+
+    Players players = {
+        .stonesInPlay{0, 0},
+        .reservesRegular{1, 1},
+        .reservesCapstone{1, 1}
+    };
+
+    TEST_ASSERT_EQUAL_INT( true, isStoneTypeAvailable( &event, &players ) );
 }
 
 void testIsFileXOnBoard( void )
