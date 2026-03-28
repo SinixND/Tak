@@ -5,7 +5,7 @@
 #include "HistorySystem.h"
 #include "PlayerAction.h"
 #include "PlayerId.h"
-#include "StoneType.h"
+#include "StoneTypeId.h"
 #include <stdbool.h>
 #include <unity.h>
 

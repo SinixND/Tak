@@ -3,7 +3,7 @@
 
 #include "Board.h"
 #include "PlayerId.h"
-#include "StoneType.h"
+#include "StoneTypeId.h"
 
 /// Return initialized board object
 Board newBoard( int const boardWidth );

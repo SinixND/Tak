@@ -5,7 +5,7 @@
 #include "PlayerId.h"
 #include "StackBuffer.h"
 #include "StackBufferSystem.h"
-#include "StoneType.h"
+#include "StoneTypeId.h"
 #include <unity.h>
 
 void testNewStackBuffer( void )

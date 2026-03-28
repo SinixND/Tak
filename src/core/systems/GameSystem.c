@@ -1,6 +1,6 @@
 #include "GameSystem.h"
 
-#include "ActionType.h"
+#include "ActionTypeId.h"
 #include "BoardSystem.h"
 #include "FileId.h"
 #include "GameConstants.h"
@@ -11,7 +11,7 @@
 #include "PositionSystem.h"
 #include "RankId.h"
 #include "StackBufferSystem.h"
-#include "StoneType.h"
+#include "StoneTypeId.h"
 #include <assert.h>
 #include <stdbool.h>
 

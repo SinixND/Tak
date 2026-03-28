@@ -1,10 +1,10 @@
 #include "HistorySystem.h"
 
-#include "ActionType.h"
+#include "ActionTypeId.h"
 #include "GameConstants.h"
 #include "History.h"
 #include "PlayerId.h"
-#include "StoneType.h"
+#include "StoneTypeId.h"
 #include <assert.h>
 #include <stdbool.h>
 

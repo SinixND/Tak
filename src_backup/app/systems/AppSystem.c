@@ -1,19 +1,17 @@
 #include "AppSystem.h"
 
-#include "ActionType.h"
+#include "ActionTypeId.h"
 #include "App.h"
 #include "AppState.h"
 #include "DirectionId.h"
 #include "FileId.h"
-#include "GameEvent.h"
 #include "GameSystem.h"
-#include "InputBuffer.h"
 #include "InputBufferSystem.h"
 #include "PlayerId.h"
 #include "Prompt.h"
 #include "Prompts.h"
 #include "RankId.h"
-#include "StoneType.h"
+#include "StoneTypeId.h"
 #include <assert.h>
 #include <stdbool.h>
 #include <stdint.h>

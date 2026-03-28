@@ -6,7 +6,7 @@
 #include "GameSystem.h"
 #include "PlayerId.h"
 #include "RankId.h"
-#include "StoneType.h"
+#include "StoneTypeId.h"
 #include "unity.h"
 
 void testNewGame( void )

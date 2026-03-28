@@ -2,7 +2,7 @@
 
 #include "PlayerId.h"
 #include "StackBuffer.h"
-#include "StoneType.h"
+#include "StoneTypeId.h"
 #include <assert.h>
 
 StackBuffer newStackBuffer( void )

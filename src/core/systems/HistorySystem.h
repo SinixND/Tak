@@ -2,7 +2,7 @@
 #define IG20260308214101
 
 #include "History.h"
-#include "StoneType.h"
+#include "StoneTypeId.h"
 
 /// Return initialized history object
 History newHistory( void );

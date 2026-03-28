@@ -1,13 +1,13 @@
 #ifndef IG20260315154123
 #define IG20260315154123
 
-#include "ActionType.h"
+#include "ActionTypeId.h"
 #include "DirectionId.h"
 #include "FileId.h"
 #include "GameConstants.h"
 #include "PlayerId.h"
 #include "RankId.h"
-#include "StoneType.h"
+#include "StoneTypeId.h"
 #include <stdint.h>
 
 /**

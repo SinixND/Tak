@@ -3,7 +3,7 @@
 
 #include "GameConstants.h"
 #include "PlayerId.h"
-#include "StoneType.h"
+#include "StoneTypeId.h"
 #include <stdint.h>
 
 /**

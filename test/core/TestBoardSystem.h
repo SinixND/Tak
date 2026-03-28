@@ -4,7 +4,7 @@
 #include "Board.h"
 #include "BoardSystem.h"
 #include "PlayerId.h"
-#include "StoneType.h"
+#include "StoneTypeId.h"
 #include <unity.h>
 
 void testNewBoard( void )

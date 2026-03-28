@@ -3,7 +3,7 @@
 #include "GameConstantsSystem.h"
 #include "PlayerId.h"
 #include "Players.h"
-#include "StoneType.h"
+#include "StoneTypeId.h"
 #include <assert.h>
 
 Players newPlayers( int const boardWidth )

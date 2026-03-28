@@ -1,9 +1,9 @@
 #ifndef IG20260301185150
 #define IG20260301185150
 
-#include "ActionType.h"
+#include "ActionTypeId.h"
 #include "PlayerId.h"
-#include "StoneType.h"
+#include "StoneTypeId.h"
 #include <stdbool.h>
 #include <stdint.h>
 
@@ -24,8 +24,8 @@ typedef struct
 {
     ActionType actionType; // P, L, D
     PlayerId playerId;     // White or black
-    uint8_t squareIdx;         // Square
-    uint8_t topStoneIdx;       // Top stone of stack
+    uint8_t squareIdx;     // Square
+    uint8_t topStoneIdx;   // Top stone of stack
     StoneType stoneType;   // F, S, C
     uint8_t stoneCount;    // Max: board width
     bool flattened;        // Capstone flattened standing

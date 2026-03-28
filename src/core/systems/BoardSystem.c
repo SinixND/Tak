@@ -5,7 +5,7 @@
 #include "GameConstantsSystem.h"
 #include "PlayerId.h"
 #include "PositionSystem.h"
-#include "StoneType.h"
+#include "StoneTypeId.h"
 #include <assert.h>
 
 Board newBoard( int const boardWidth )
