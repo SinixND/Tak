@@ -1,12 +1,14 @@
 #ifndef IG20260327200417
 #define IG20260327200417
 
+#include "Board.h"
 #include "FileId.h"
 #include "GameEvent.h"
 #include "GameEventSystem.h"
 #include "GameSystem.h"
 #include "PlayerId.h"
 #include "Players.h"
+#include "PositionSystem.h"
 #include "RankId.h"
 #include "StoneTypeId.h"
 #include <unity.h>
@@ -166,47 +168,59 @@ void testIsRankYOnBoard( void )
     TEST_ASSERT_EQUAL_INT( true, isRankYOnBoard( &event, boardWidth ) );
 }
 
-// void testIsSquareEmpty( void )
-// {
-//     GameEvent event = newGameEvent();
-// }
+void testIsSquareEmpty( void )
+{
+    GameEvent event;
+    Board board;
+
+    board.width = 3;
+    event.fileX = FILE_B;
+    event.rankY = RANK_2;
+    int squareIdx = positionToSquare( event.fileX, event.rankY, board.width );
+
+    TEST_ASSERT_EQUAL_INT( true, isSquareEmpty( &event, &board ) );
+
+    board.stoneCounts[squareIdx] = 1;
+
+    TEST_ASSERT_EQUAL_INT( false, isSquareEmpty( &event, &board ) );
+}
 
 // void testDoesPlayerOwnStack( void )
 // {
-//     GameEvent event = newGameEvent();
+//     GameEvent event ;
 // }
 
 // void testIsCaptiveValid( void )
 // {
-//     GameEvent event = newGameEvent();
+//     GameEvent event ;
 // }
 
 // void testIsOffsetXOnBoard( void )
 // {
-//     GameEvent event = newGameEvent();
+//     GameEvent event ;
 // }
 
 // void testIsOffsetYOnBoard( void )
 // {
-//     GameEvent event = newGameEvent();
+//     GameEvent event ;
 // }
 
 // void testValidateEventPlace( void )
 // {
-//     GameEvent event = newGameEvent();
-//     Game game = newGame( 0 );
+//     GameEvent event ;
+//     Game game ;
 // }
 
 // void testValidateEventLift( void )
 // {
-//     GameEvent event = newGameEvent();
-//     Game game = newGame( 0 );
+//     GameEvent event ;
+//     Game game ;
 // }
 
 // void testValidateEventDrop( void )
 // {
-//     GameEvent event = newGameEvent();
-//     Game game = newGame( 0 );
+//     GameEvent event ;
+//     Game game ;
 // }
 
 #endif

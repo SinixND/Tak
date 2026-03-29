@@ -71,6 +71,7 @@ int main( void )
     RUN_TEST( testIsStoneTypeAvailable );
     RUN_TEST( testIsFileXOnBoard );
     RUN_TEST( testIsRankYOnBoard );
+    RUN_TEST( testIsSquareEmpty );
 
     //* Test DirectionSystem
     RUN_TEST( testGetOffsetX );
