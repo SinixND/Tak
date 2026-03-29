@@ -76,6 +76,7 @@ int main( void )
     RUN_TEST( testIsCaptiveValid );
     RUN_TEST( testIsOffsetXOnBoard );
     RUN_TEST( testIsOffsetYOnBoard );
+    RUN_TEST( testValidateEventPlace );
 
     //* Test DirectionSystem
     RUN_TEST( testGetOffsetX );

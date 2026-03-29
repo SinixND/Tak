@@ -5,6 +5,7 @@
 #include "GameEvent.h"
 #include "PositionSystem.h"
 #include "StoneTypeId.h"
+#include <assert.h>
 #include <stdbool.h>
 
 GameEvent newGameEvent( void )
@@ -101,9 +102,12 @@ bool validateEventPlace(
     }
 
     //* Can only place on empty square
-    if ( !isSquareEmpty( event, &game->board ) )
+    if ( !isSquareEmpty(
+             event,
+             &game->board
+         ) )
     {
-        return true;
+        return false;
     }
 
     return true;
@@ -142,7 +146,7 @@ bool validateEventLift(
     }
 
     //* Player must own square
-    if ( doesPlayerOwnStack(
+    if ( !doesPlayerOwnStack(
              event,
              &game->board
          ) )
@@ -302,6 +306,11 @@ bool isOffsetXOnBoard(
     int const boardWidth
 )
 {
+    assert(
+        event->dropCountsSize > 0
+        && "dropCountsSize must be greater than 0"
+    );
+
     int const pos
         = event->fileX
           + ( getOffsetX( event->direction )
@@ -318,10 +327,10 @@ bool isOffsetYOnBoard(
     int const boardWidth
 )
 {
-    if ( event->dropCountsSize < 1 )
-    {
-        return false;
-    }
+    assert(
+        event->dropCountsSize > 0
+        && "dropCountsSize must be greater than 0"
+    );
 
     int const pos
         = event->fileX

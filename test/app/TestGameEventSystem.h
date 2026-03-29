@@ -34,348 +34,144 @@ void testNewGameEvent( void )
 
 void testIsStoneTypeAvailable( void )
 {
-    GameEvent event;
+    GameEvent event = { 0 };
     Players players = { 0 };
 
     event.stoneId = PLAYER_WHITE;
     event.stoneType = STONE_TYPE_FLAT;
-    TEST_ASSERT_EQUAL_INT(
-        false,
-        isStoneTypeAvailable(
-            &event,
-            &players
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( false, isStoneTypeAvailable( &event, &players ) );
 
     event.stoneType = STONE_TYPE_STANDING;
-    TEST_ASSERT_EQUAL_INT(
-        false,
-        isStoneTypeAvailable(
-            &event,
-            &players
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( false, isStoneTypeAvailable( &event, &players ) );
 
     event.stoneType = STONE_TYPE_CAP;
-    TEST_ASSERT_EQUAL_INT(
-        false,
-        isStoneTypeAvailable(
-            &event,
-            &players
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( false, isStoneTypeAvailable( &event, &players ) );
 
     players.reservesRegular[event.stoneId] = 1;
     players.reservesCapstone[event.stoneId] = 1;
 
     event.stoneType = STONE_TYPE_FLAT;
-    TEST_ASSERT_EQUAL_INT(
-        true,
-        isStoneTypeAvailable(
-            &event,
-            &players
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( true, isStoneTypeAvailable( &event, &players ) );
 
     event.stoneType = STONE_TYPE_STANDING;
-    TEST_ASSERT_EQUAL_INT(
-        true,
-        isStoneTypeAvailable(
-            &event,
-            &players
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( true, isStoneTypeAvailable( &event, &players ) );
 
     event.stoneType = STONE_TYPE_CAP;
-    TEST_ASSERT_EQUAL_INT(
-        true,
-        isStoneTypeAvailable(
-            &event,
-            &players
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( true, isStoneTypeAvailable( &event, &players ) );
 
     event.stoneId = PLAYER_BLACK;
 
     event.stoneType = STONE_TYPE_FLAT;
-    TEST_ASSERT_EQUAL_INT(
-        false,
-        isStoneTypeAvailable(
-            &event,
-            &players
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( false, isStoneTypeAvailable( &event, &players ) );
 
     event.stoneType = STONE_TYPE_STANDING;
-    TEST_ASSERT_EQUAL_INT(
-        false,
-        isStoneTypeAvailable(
-            &event,
-            &players
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( false, isStoneTypeAvailable( &event, &players ) );
 
     event.stoneType = STONE_TYPE_CAP;
-    TEST_ASSERT_EQUAL_INT(
-        false,
-        isStoneTypeAvailable(
-            &event,
-            &players
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( false, isStoneTypeAvailable( &event, &players ) );
 
     players.reservesRegular[event.stoneId] = 1;
     players.reservesCapstone[event.stoneId] = 1;
 
     event.stoneType = STONE_TYPE_FLAT;
-    TEST_ASSERT_EQUAL_INT(
-        true,
-        isStoneTypeAvailable(
-            &event,
-            &players
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( true, isStoneTypeAvailable( &event, &players ) );
 
     event.stoneType = STONE_TYPE_STANDING;
-    TEST_ASSERT_EQUAL_INT(
-        true,
-        isStoneTypeAvailable(
-            &event,
-            &players
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( true, isStoneTypeAvailable( &event, &players ) );
 
     event.stoneType = STONE_TYPE_CAP;
-    TEST_ASSERT_EQUAL_INT(
-        true,
-        isStoneTypeAvailable(
-            &event,
-            &players
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( true, isStoneTypeAvailable( &event, &players ) );
 }
 
 void testIsFileXOnBoard( void )
 {
-    GameEvent event;
+    GameEvent event = { 0 };
     int boardWidth = 3;
 
     event.fileX = FILE_NONE;
-    TEST_ASSERT_EQUAL_INT(
-        false,
-        isFileXOnBoard(
-            &event,
-            boardWidth
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( false, isFileXOnBoard( &event, boardWidth ) );
 
     event.fileX = FILE_A;
-    TEST_ASSERT_EQUAL_INT(
-        true,
-        isFileXOnBoard(
-            &event,
-            boardWidth
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( true, isFileXOnBoard( &event, boardWidth ) );
 
     event.fileX = FILE_C;
-    TEST_ASSERT_EQUAL_INT(
-        true,
-        isFileXOnBoard(
-            &event,
-            boardWidth
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( true, isFileXOnBoard( &event, boardWidth ) );
 
     event.fileX = FILE_D;
-    TEST_ASSERT_EQUAL_INT(
-        false,
-        isFileXOnBoard(
-            &event,
-            boardWidth
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( false, isFileXOnBoard( &event, boardWidth ) );
 
     boardWidth = 7;
 
     event.fileX = FILE_NONE;
-    TEST_ASSERT_EQUAL_INT(
-        false,
-        isFileXOnBoard(
-            &event,
-            boardWidth
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( false, isFileXOnBoard( &event, boardWidth ) );
 
     event.fileX = FILE_A;
-    TEST_ASSERT_EQUAL_INT(
-        true,
-        isFileXOnBoard(
-            &event,
-            boardWidth
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( true, isFileXOnBoard( &event, boardWidth ) );
 
     event.fileX = FILE_G;
-    TEST_ASSERT_EQUAL_INT(
-        true,
-        isFileXOnBoard(
-            &event,
-            boardWidth
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( true, isFileXOnBoard( &event, boardWidth ) );
 
     event.fileX = FILE_H;
-    TEST_ASSERT_EQUAL_INT(
-        false,
-        isFileXOnBoard(
-            &event,
-            boardWidth
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( false, isFileXOnBoard( &event, boardWidth ) );
 
     boardWidth = 8;
 
     event.fileX = FILE_NONE;
-    TEST_ASSERT_EQUAL_INT(
-        false,
-        isFileXOnBoard(
-            &event,
-            boardWidth
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( false, isFileXOnBoard( &event, boardWidth ) );
 
     event.fileX = FILE_A;
-    TEST_ASSERT_EQUAL_INT(
-        true,
-        isFileXOnBoard(
-            &event,
-            boardWidth
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( true, isFileXOnBoard( &event, boardWidth ) );
 
     event.fileX = FILE_H;
-    TEST_ASSERT_EQUAL_INT(
-        true,
-        isFileXOnBoard(
-            &event,
-            boardWidth
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( true, isFileXOnBoard( &event, boardWidth ) );
 }
 
 void testIsRankYOnBoard( void )
 {
-    GameEvent event;
+    GameEvent event = { 0 };
     int boardWidth = 3;
 
     event.rankY = RANK_NONE;
-    TEST_ASSERT_EQUAL_INT(
-        false,
-        isRankYOnBoard(
-            &event,
-            boardWidth
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( false, isRankYOnBoard( &event, boardWidth ) );
 
     event.rankY = RANK_1;
-    TEST_ASSERT_EQUAL_INT(
-        true,
-        isRankYOnBoard(
-            &event,
-            boardWidth
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( true, isRankYOnBoard( &event, boardWidth ) );
 
     event.rankY = RANK_3;
-    TEST_ASSERT_EQUAL_INT(
-        true,
-        isRankYOnBoard(
-            &event,
-            boardWidth
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( true, isRankYOnBoard( &event, boardWidth ) );
 
     event.rankY = RANK_4;
-    TEST_ASSERT_EQUAL_INT(
-        false,
-        isRankYOnBoard(
-            &event,
-            boardWidth
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( false, isRankYOnBoard( &event, boardWidth ) );
 
     boardWidth = 7;
 
     event.rankY = RANK_NONE;
-    TEST_ASSERT_EQUAL_INT(
-        false,
-        isRankYOnBoard(
-            &event,
-            boardWidth
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( false, isRankYOnBoard( &event, boardWidth ) );
 
     event.rankY = RANK_1;
-    TEST_ASSERT_EQUAL_INT(
-        true,
-        isRankYOnBoard(
-            &event,
-            boardWidth
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( true, isRankYOnBoard( &event, boardWidth ) );
 
     event.rankY = RANK_7;
-    TEST_ASSERT_EQUAL_INT(
-        true,
-        isRankYOnBoard(
-            &event,
-            boardWidth
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( true, isRankYOnBoard( &event, boardWidth ) );
 
     event.rankY = RANK_8;
-    TEST_ASSERT_EQUAL_INT(
-        false,
-        isRankYOnBoard(
-            &event,
-            boardWidth
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( false, isRankYOnBoard( &event, boardWidth ) );
 
     boardWidth = 8;
 
     event.rankY = RANK_NONE;
-    TEST_ASSERT_EQUAL_INT(
-        false,
-        isRankYOnBoard(
-            &event,
-            boardWidth
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( false, isRankYOnBoard( &event, boardWidth ) );
 
     event.rankY = RANK_1;
-    TEST_ASSERT_EQUAL_INT(
-        true,
-        isRankYOnBoard(
-            &event,
-            boardWidth
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( true, isRankYOnBoard( &event, boardWidth ) );
 
     event.rankY = RANK_8;
-    TEST_ASSERT_EQUAL_INT(
-        true,
-        isRankYOnBoard(
-            &event,
-            boardWidth
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( true, isRankYOnBoard( &event, boardWidth ) );
 }
 
 void testIsSquareEmpty( void )
 {
-    GameEvent event;
+    GameEvent event = { 0 };
     Board board;
 
     board.width = 3;
@@ -387,28 +183,16 @@ void testIsSquareEmpty( void )
         board.width
     );
 
-    TEST_ASSERT_EQUAL_INT(
-        true,
-        isSquareEmpty(
-            &event,
-            &board
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( true, isSquareEmpty( &event, &board ) );
 
     board.stoneCounts[squareIdx] = 1;
 
-    TEST_ASSERT_EQUAL_INT(
-        false,
-        isSquareEmpty(
-            &event,
-            &board
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( false, isSquareEmpty( &event, &board ) );
 }
 
 void testDoesPlayerOwnStack( void )
 {
-    GameEvent event;
+    GameEvent event = { 0 };
     Board board;
     board.width = 3;
     event.stoneId = PLAYER_WHITE;
@@ -421,28 +205,16 @@ void testDoesPlayerOwnStack( void )
     );
     board.stoneCounts[squareIdx] = 1;
     board.stoneIds[squareIdx + board.stoneCounts[squareIdx] - 1] = PLAYER_WHITE;
-    TEST_ASSERT_EQUAL_INT(
-        true,
-        doesPlayerOwnStack(
-            &event,
-            &board
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( true, doesPlayerOwnStack( &event, &board ) );
 
     event.stoneId = PLAYER_BLACK;
-    TEST_ASSERT_EQUAL_INT(
-        false,
-        doesPlayerOwnStack(
-            &event,
-            &board
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( false, doesPlayerOwnStack( &event, &board ) );
 }
 
 void testIsCaptiveValid( void )
 {
-    GameEvent event;
-    Board board;
+    GameEvent event = { 0 };
+    Board board = { 0 };
 
     event.fileX = FILE_B;
     event.rankY = RANK_2;
@@ -457,314 +229,165 @@ void testIsCaptiveValid( void )
     );
 
     board.types[squareIdx] = STONE_TYPE_FLAT;
-    TEST_ASSERT_EQUAL_INT(
-        true,
-        isCaptiveValid(
-            &event,
-            &board
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( true, isCaptiveValid( &event, &board ) );
 
     event.stoneType = STONE_TYPE_STANDING;
-    TEST_ASSERT_EQUAL_INT(
-        true,
-        isCaptiveValid(
-            &event,
-            &board
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( true, isCaptiveValid( &event, &board ) );
 
     event.stoneType = STONE_TYPE_CAP;
-    TEST_ASSERT_EQUAL_INT(
-        true,
-        isCaptiveValid(
-            &event,
-            &board
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( true, isCaptiveValid( &event, &board ) );
 
     board.types[squareIdx] = STONE_TYPE_STANDING;
     event.stoneType = STONE_TYPE_FLAT;
-    TEST_ASSERT_EQUAL_INT(
-        false,
-        isCaptiveValid(
-            &event,
-            &board
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( false, isCaptiveValid( &event, &board ) );
 
     event.stoneType = STONE_TYPE_STANDING;
-    TEST_ASSERT_EQUAL_INT(
-        false,
-        isCaptiveValid(
-            &event,
-            &board
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( false, isCaptiveValid( &event, &board ) );
 
     event.stoneType = STONE_TYPE_CAP;
-    TEST_ASSERT_EQUAL_INT(
-        true,
-        isCaptiveValid(
-            &event,
-            &board
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( true, isCaptiveValid( &event, &board ) );
 
     board.types[squareIdx] = STONE_TYPE_CAP;
     event.stoneType = STONE_TYPE_FLAT;
-    TEST_ASSERT_EQUAL_INT(
-        false,
-        isCaptiveValid(
-            &event,
-            &board
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( false, isCaptiveValid( &event, &board ) );
 
     event.stoneType = STONE_TYPE_STANDING;
-    TEST_ASSERT_EQUAL_INT(
-        false,
-        isCaptiveValid(
-            &event,
-            &board
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( false, isCaptiveValid( &event, &board ) );
 
     event.stoneType = STONE_TYPE_CAP;
-    TEST_ASSERT_EQUAL_INT(
-        false,
-        isCaptiveValid(
-            &event,
-            &board
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( false, isCaptiveValid( &event, &board ) );
 }
 
 void testIsOffsetXOnBoard( void )
 {
-    GameEvent event;
+    GameEvent event = { 0 };
     int boardWidth = 3;
 
     event.fileX = FILE_B;
     event.rankY = RANK_2;
-    event.dropCountsSize = 0;
-
-    TEST_ASSERT_EQUAL_INT(
-        false,
-        isOffsetXOnBoard(
-            &event,
-            boardWidth
-        )
-    );
 
     event.dropCountsSize = 1;
     event.direction = DIR_NONE;
-    TEST_ASSERT_EQUAL_INT(
-        true,
-        isOffsetXOnBoard(
-            &event,
-            boardWidth
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( true, isOffsetXOnBoard( &event, boardWidth ) );
 
     event.direction = DIR_LEFT;
-    TEST_ASSERT_EQUAL_INT(
-        true,
-        isOffsetXOnBoard(
-            &event,
-            boardWidth
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( true, isOffsetXOnBoard( &event, boardWidth ) );
 
     event.direction = DIR_RIGHT;
-    TEST_ASSERT_EQUAL_INT(
-        true,
-        isOffsetXOnBoard(
-            &event,
-            boardWidth
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( true, isOffsetXOnBoard( &event, boardWidth ) );
 
     event.direction = DIR_UP;
-    TEST_ASSERT_EQUAL_INT(
-        true,
-        isOffsetXOnBoard(
-            &event,
-            boardWidth
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( true, isOffsetXOnBoard( &event, boardWidth ) );
 
     event.direction = DIR_DOWN;
-    TEST_ASSERT_EQUAL_INT(
-        true,
-        isOffsetXOnBoard(
-            &event,
-            boardWidth
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( true, isOffsetXOnBoard( &event, boardWidth ) );
 
     event.dropCountsSize = 2;
     event.direction = DIR_NONE;
-    TEST_ASSERT_EQUAL_INT(
-        true,
-        isOffsetXOnBoard(
-            &event,
-            boardWidth
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( true, isOffsetXOnBoard( &event, boardWidth ) );
 
     event.direction = DIR_LEFT;
-    TEST_ASSERT_EQUAL_INT(
-        false,
-        isOffsetXOnBoard(
-            &event,
-            boardWidth
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( true, isOffsetXOnBoard( &event, boardWidth ) );
 
     event.direction = DIR_RIGHT;
-    TEST_ASSERT_EQUAL_INT(
-        false,
-        isOffsetXOnBoard(
-            &event,
-            boardWidth
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( true, isOffsetXOnBoard( &event, boardWidth ) );
 
     event.direction = DIR_UP;
-    TEST_ASSERT_EQUAL_INT(
-        true,
-        isOffsetXOnBoard(
-            &event,
-            boardWidth
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( true, isOffsetXOnBoard( &event, boardWidth ) );
 
     event.direction = DIR_DOWN;
-    TEST_ASSERT_EQUAL_INT(
-        true,
-        isOffsetXOnBoard(
-            &event,
-            boardWidth
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( true, isOffsetXOnBoard( &event, boardWidth ) );
+
+    event.dropCountsSize = 3;
+    event.direction = DIR_NONE;
+    TEST_ASSERT_EQUAL_INT( true, isOffsetXOnBoard( &event, boardWidth ) );
+
+    event.direction = DIR_LEFT;
+    TEST_ASSERT_EQUAL_INT( false, isOffsetXOnBoard( &event, boardWidth ) );
+
+    event.direction = DIR_RIGHT;
+    TEST_ASSERT_EQUAL_INT( false, isOffsetXOnBoard( &event, boardWidth ) );
+
+    event.direction = DIR_UP;
+    TEST_ASSERT_EQUAL_INT( true, isOffsetXOnBoard( &event, boardWidth ) );
+
+    event.direction = DIR_DOWN;
+    TEST_ASSERT_EQUAL_INT( true, isOffsetXOnBoard( &event, boardWidth ) );
 }
 
 void testIsOffsetYOnBoard( void )
 {
-    GameEvent event;
+    GameEvent event = { 0 };
     int boardWidth = 3;
 
     event.fileX = FILE_B;
     event.rankY = RANK_2;
-    event.dropCountsSize = 0;
-
-    TEST_ASSERT_EQUAL_INT(
-        false,
-        isOffsetXOnBoard(
-            &event,
-            boardWidth
-        )
-    );
 
     event.dropCountsSize = 1;
     event.direction = DIR_NONE;
-    TEST_ASSERT_EQUAL_INT(
-        true,
-        isOffsetXOnBoard(
-            &event,
-            boardWidth
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( true, isOffsetYOnBoard( &event, boardWidth ) );
 
     event.direction = DIR_LEFT;
-    TEST_ASSERT_EQUAL_INT(
-        true,
-        isOffsetXOnBoard(
-            &event,
-            boardWidth
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( true, isOffsetYOnBoard( &event, boardWidth ) );
 
     event.direction = DIR_RIGHT;
-    TEST_ASSERT_EQUAL_INT(
-        true,
-        isOffsetXOnBoard(
-            &event,
-            boardWidth
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( true, isOffsetYOnBoard( &event, boardWidth ) );
 
     event.direction = DIR_UP;
-    TEST_ASSERT_EQUAL_INT(
-        true,
-        isOffsetXOnBoard(
-            &event,
-            boardWidth
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( true, isOffsetYOnBoard( &event, boardWidth ) );
 
     event.direction = DIR_DOWN;
-    TEST_ASSERT_EQUAL_INT(
-        true,
-        isOffsetXOnBoard(
-            &event,
-            boardWidth
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( true, isOffsetYOnBoard( &event, boardWidth ) );
 
     event.dropCountsSize = 2;
     event.direction = DIR_NONE;
-    TEST_ASSERT_EQUAL_INT(
-        true,
-        isOffsetXOnBoard(
-            &event,
-            boardWidth
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( true, isOffsetYOnBoard( &event, boardWidth ) );
 
     event.direction = DIR_LEFT;
-    TEST_ASSERT_EQUAL_INT(
-        true,
-        isOffsetXOnBoard(
-            &event,
-            boardWidth
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( true, isOffsetYOnBoard( &event, boardWidth ) );
 
     event.direction = DIR_RIGHT;
-    TEST_ASSERT_EQUAL_INT(
-        true,
-        isOffsetXOnBoard(
-            &event,
-            boardWidth
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( true, isOffsetYOnBoard( &event, boardWidth ) );
 
     event.direction = DIR_UP;
-    TEST_ASSERT_EQUAL_INT(
-        false,
-        isOffsetXOnBoard(
-            &event,
-            boardWidth
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( true, isOffsetYOnBoard( &event, boardWidth ) );
 
     event.direction = DIR_DOWN;
-    TEST_ASSERT_EQUAL_INT(
-        false,
-        isOffsetXOnBoard(
-            &event,
-            boardWidth
-        )
-    );
+    TEST_ASSERT_EQUAL_INT( true, isOffsetYOnBoard( &event, boardWidth ) );
+
+    event.dropCountsSize = 3;
+    event.direction = DIR_NONE;
+    TEST_ASSERT_EQUAL_INT( true, isOffsetYOnBoard( &event, boardWidth ) );
+
+    event.direction = DIR_LEFT;
+    TEST_ASSERT_EQUAL_INT( true, isOffsetYOnBoard( &event, boardWidth ) );
+
+    event.direction = DIR_RIGHT;
+    TEST_ASSERT_EQUAL_INT( true, isOffsetYOnBoard( &event, boardWidth ) );
+
+    event.direction = DIR_UP;
+    TEST_ASSERT_EQUAL_INT( false, isOffsetYOnBoard( &event, boardWidth ) );
+
+    event.direction = DIR_DOWN;
+    TEST_ASSERT_EQUAL_INT( false, isOffsetYOnBoard( &event, boardWidth ) );
 }
 
-// void testValidateEventPlace( void )
-// {
-//     GameEvent event ;
-//     Game game ;
-// }
+void testValidateEventPlace( void )
+{
+    // GameEvent event = { 0 };
+    // Game game = { 0 };
+    //
+    // event.stoneType = STONE_TYPE_FLAT;
+    // event.stoneId = PLAYER_WHITE;
+    // event.fileX = FILE_B;
+    // event.rankY = RANK_2;
+    //
+    // game.activePlayer = PLAYER_WHITE;
+    // game.players.reservesRegular[game.activePlayer] = 1;
+    // game.board.width = 3;
+    //
+    // TEST_ASSERT_EQUAL_INT( true, validateEventPlace( &event, &game ) );
+}
 
 // void testValidateEventLift( void )
 // {
