@@ -73,6 +73,7 @@ int main( void )
     RUN_TEST( testIsRankYOnBoard );
     RUN_TEST( testIsSquareEmpty );
     RUN_TEST( testDoesPlayerOwnStack );
+    RUN_TEST( testIsCaptiveValid );
 
     //* Test DirectionSystem
     RUN_TEST( testGetOffsetX );

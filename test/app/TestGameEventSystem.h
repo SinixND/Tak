@@ -11,6 +11,7 @@
 #include "PositionSystem.h"
 #include "RankId.h"
 #include "StoneTypeId.h"
+#include <stdbool.h>
 #include <unity.h>
 
 void testNewGameEvent( void )
@@ -203,10 +204,51 @@ void testDoesPlayerOwnStack( void )
     TEST_ASSERT_EQUAL_INT( false, doesPlayerOwnStack( &event, &board ) );
 }
 
-// void testIsCaptiveValid( void )
-// {
-//     GameEvent event ;
-// }
+void testIsCaptiveValid( void )
+{
+    GameEvent event;
+    Board board;
+
+    event.fileX = FILE_B;
+    event.rankY = RANK_2;
+    board.width = 3;
+
+    int const squareIdx = positionToSquare(
+        event.fileX,
+        event.rankY,
+        board.width
+    );
+
+    board.types[squareIdx] = STONE_TYPE_FLAT;
+    event.stoneType = STONE_TYPE_FLAT;
+    TEST_ASSERT_EQUAL_INT( true, isCaptiveValid( &event, &board ) );
+
+    event.stoneType = STONE_TYPE_STANDING;
+    TEST_ASSERT_EQUAL_INT( true, isCaptiveValid( &event, &board ) );
+
+    event.stoneType = STONE_TYPE_CAP;
+    TEST_ASSERT_EQUAL_INT( true, isCaptiveValid( &event, &board ) );
+
+    board.types[squareIdx] = STONE_TYPE_STANDING;
+    event.stoneType = STONE_TYPE_FLAT;
+    TEST_ASSERT_EQUAL_INT( false, isCaptiveValid( &event, &board ) );
+
+    event.stoneType = STONE_TYPE_STANDING;
+    TEST_ASSERT_EQUAL_INT( false, isCaptiveValid( &event, &board ) );
+
+    event.stoneType = STONE_TYPE_CAP;
+    TEST_ASSERT_EQUAL_INT( true, isCaptiveValid( &event, &board ) );
+
+    board.types[squareIdx] = STONE_TYPE_CAP;
+    event.stoneType = STONE_TYPE_FLAT;
+    TEST_ASSERT_EQUAL_INT( false, isCaptiveValid( &event, &board ) );
+
+    event.stoneType = STONE_TYPE_STANDING;
+    TEST_ASSERT_EQUAL_INT( false, isCaptiveValid( &event, &board ) );
+
+    event.stoneType = STONE_TYPE_CAP;
+    TEST_ASSERT_EQUAL_INT( false, isCaptiveValid( &event, &board ) );
+}
 
 // void testIsOffsetXOnBoard( void )
 // {
