@@ -185,10 +185,23 @@ void testIsSquareEmpty( void )
     TEST_ASSERT_EQUAL_INT( false, isSquareEmpty( &event, &board ) );
 }
 
-// void testDoesPlayerOwnStack( void )
-// {
-//     GameEvent event ;
-// }
+void testDoesPlayerOwnStack( void )
+{
+    GameEvent event;
+    Board board;
+    board.width = 3;
+    event.stoneId = PLAYER_WHITE;
+    event.fileX = FILE_B;
+    event.rankY = RANK_2;
+    int squareIdx = positionToSquare( event.fileX, event.rankY, board.width );
+    board.stoneCounts[squareIdx] = 1;
+    board.stoneIds[squareIdx + board.stoneCounts[squareIdx] - 1] = PLAYER_WHITE;
+
+    TEST_ASSERT_EQUAL_INT( true, doesPlayerOwnStack( &event, &board ) );
+
+    event.stoneId = PLAYER_BLACK;
+    TEST_ASSERT_EQUAL_INT( false, doesPlayerOwnStack( &event, &board ) );
+}
 
 // void testIsCaptiveValid( void )
 // {

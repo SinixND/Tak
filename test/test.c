@@ -72,6 +72,7 @@ int main( void )
     RUN_TEST( testIsFileXOnBoard );
     RUN_TEST( testIsRankYOnBoard );
     RUN_TEST( testIsSquareEmpty );
+    RUN_TEST( testDoesPlayerOwnStack );
 
     //* Test DirectionSystem
     RUN_TEST( testGetOffsetX );
