@@ -374,19 +374,38 @@ void testIsOffsetYOnBoard( void )
 
 void testValidateEventPlace( void )
 {
-    // GameEvent event = { 0 };
-    // Game game = { 0 };
-    //
-    // event.stoneType = STONE_TYPE_FLAT;
-    // event.stoneId = PLAYER_WHITE;
-    // event.fileX = FILE_B;
-    // event.rankY = RANK_2;
-    //
-    // game.activePlayer = PLAYER_WHITE;
-    // game.players.reservesRegular[game.activePlayer] = 1;
-    // game.board.width = 3;
-    //
-    // TEST_ASSERT_EQUAL_INT( true, validateEventPlace( &event, &game ) );
+    GameEvent event = { 0 };
+    Game game = { 0 };
+
+    event.stoneType = STONE_TYPE_FLAT;
+    event.stoneId = PLAYER_WHITE;
+    event.fileX = FILE_B;
+    event.rankY = RANK_2;
+
+    game.activePlayer = PLAYER_WHITE;
+    game.players.reservesRegular[game.activePlayer] = 1;
+    game.board.width = 3;
+
+    TEST_ASSERT_EQUAL_INT( true, validateEventPlace( &event, &game ) );
+
+    int const squareIdx = positionToSquare(
+        event.fileX,
+        event.rankY,
+        game.board.width
+    );
+
+    game.board.stoneCounts[squareIdx] = 1;
+
+    TEST_ASSERT_EQUAL_INT( false, validateEventPlace( &event, &game ) );
+
+    event.fileX = FILE_D;
+
+    TEST_ASSERT_EQUAL_INT( false, validateEventPlace( &event, &game ) );
+
+    event.fileX = FILE_C;
+    game.players.reservesRegular[event.stoneId] = 0;
+
+    TEST_ASSERT_EQUAL_INT( false, validateEventPlace( &event, &game ) );
 }
 
 // void testValidateEventLift( void )
