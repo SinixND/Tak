@@ -15,7 +15,7 @@ Players newPlayers( int const boardWidth );
  * - Increase stones in play
  */
 void takeFromReserves(
-    Players* const players,
+    Players* const  pPlayers,
     PlayerId const playerId,
     StoneType const stoneType
 );
@@ -27,7 +27,7 @@ void takeFromReserves(
  * - Decrease stones in play
  */
 void returnToReserves(
-    Players* const players,
+    Players* const  pPlayers,
     PlayerId const playerId,
     StoneType const stoneType
 );

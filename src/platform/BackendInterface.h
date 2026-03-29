@@ -12,10 +12,10 @@ void closeBackend( void );
 
 //* Timing
 /// Run backend loop
-void loopBackend( App* const app );
+void loopBackend( App* const  pApp );
 
 //* Input
 /// Normalize user input from backend
-void pollInput( InputBuffer* const input );
+void pollInput( InputBuffer* const  pInput );
 
 #endif

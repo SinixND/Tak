@@ -7,7 +7,7 @@
 void setupApp( void );
 
 /// Run main application loop, ticking frames
-void runApp( App* const app );
+void runApp( App* const  pApp );
 
 /// Clean up before closing the application
 void closeApp( void );
@@ -16,6 +16,6 @@ void closeApp( void );
 App newApp( int const boardWidth );
 
 /// Tick next frame
-void updateFrame( App* const app );
+void updateFrame( App* const  pApp );
 
 #endif

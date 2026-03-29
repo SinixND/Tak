@@ -37,9 +37,9 @@ void setupApp( void )
     setupBackend();
 }
 
-void runApp( App* const app )
+void runApp( App* const pApp )
 {
-    loopBackend( app );
+    loopBackend( pApp );
 }
 
 void closeApp( void )
@@ -47,9 +47,9 @@ void closeApp( void )
     closeBackend();
 }
 
-void updateFrame( App* const app )
+void updateFrame( App* const pApp )
 {
-    pollInput( &app->input );
-    handleGlobalInput( app );
+    pollInput( &pApp->input );
+    handleGlobalInput( pApp );
 }
 

@@ -4,6 +4,6 @@
 #include "App.h"
 
 /// WARN: Currently used to avoid unused function warnings
-void demo( App* const app );
+void demo( App* const  pApp );
 
 #endif

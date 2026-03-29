@@ -35,7 +35,7 @@ Players newPlayers( int const boardWidth )
 }
 
 void takeFromReserves(
-    Players* const players,
+    Players* const pPlayers,
     PlayerId const playerId,
     StoneType const stoneType
 )
@@ -63,11 +63,11 @@ void takeFromReserves(
         case STONE_TYPE_STANDING:
         {
             assert(
-                players->reservesRegular[playerId] > 0
+                pPlayers->reservesRegular[playerId] > 0
                 && "No reserves left"
             );
 
-            --players->reservesRegular[playerId];
+            --pPlayers->reservesRegular[playerId];
 
             break;
         }
@@ -75,21 +75,21 @@ void takeFromReserves(
         case STONE_TYPE_CAP:
         {
             assert(
-                players->reservesCapstone[playerId] > 0
+                pPlayers->reservesCapstone[playerId] > 0
                 && "No reserves left"
             );
 
-            --players->reservesCapstone[playerId];
+            --pPlayers->reservesCapstone[playerId];
 
             break;
         }
     }
 
-    ++players->stonesInPlay[playerId];
+    ++pPlayers->stonesInPlay[playerId];
 }
 
 void returnToReserves(
-    Players* const players,
+    Players* const pPlayers,
     PlayerId const playerId,
     StoneType const stoneType
 )
@@ -111,19 +111,19 @@ void returnToReserves(
         case STONE_TYPE_FLAT:
         case STONE_TYPE_STANDING:
         {
-            ++players->reservesRegular[playerId];
+            ++pPlayers->reservesRegular[playerId];
 
             break;
         }
 
         case STONE_TYPE_CAP:
         {
-            ++players->reservesCapstone[playerId];
+            ++pPlayers->reservesCapstone[playerId];
 
             break;
         }
     }
 
-    --players->stonesInPlay[playerId];
+    --pPlayers->stonesInPlay[playerId];
 }
 

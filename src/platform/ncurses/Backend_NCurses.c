@@ -22,177 +22,177 @@ void closeBackend( void )
     endwin(); // Restore terminal
 }
 
-void loopBackend( App* const app )
+void loopBackend( App* const pApp )
 {
-    while ( !app->shouldClose )
+    while ( !pApp->shouldClose )
     {
-        updateFrame( app );
+        updateFrame( pApp );
     }
 }
 
-void pollInput( InputBuffer* const input )
+void pollInput( InputBuffer* const pInput )
 {
     switch ( getch() )
     {
         default:
         {
-            input->keyboard = INPUT_NONE;
+            pInput->keyboard = INPUT_NONE;
             return;
         }
 
         case 'a':
         {
-            input->keyboard = INPUT_A;
+            pInput->keyboard = INPUT_A;
             return;
         }
 
         case 'b':
         {
-            input->keyboard = INPUT_B;
+            pInput->keyboard = INPUT_B;
             return;
         }
 
         case 'c':
         {
-            input->keyboard = INPUT_C;
+            pInput->keyboard = INPUT_C;
             return;
         }
 
         case 'd':
         {
-            input->keyboard = INPUT_D;
+            pInput->keyboard = INPUT_D;
             return;
         }
 
         case 'e':
         {
-            input->keyboard = INPUT_E;
+            pInput->keyboard = INPUT_E;
             return;
         }
 
         case 'f':
         {
-            input->keyboard = INPUT_F;
+            pInput->keyboard = INPUT_F;
             return;
         }
 
         case 'g':
         {
-            input->keyboard = INPUT_G;
+            pInput->keyboard = INPUT_G;
             return;
         }
 
         case 'h':
         {
-            input->keyboard = INPUT_H;
+            pInput->keyboard = INPUT_H;
             return;
         }
 
         case 'l':
         {
-            input->keyboard = INPUT_L;
+            pInput->keyboard = INPUT_L;
             return;
         }
 
         case 'm':
         {
-            input->keyboard = INPUT_M;
+            pInput->keyboard = INPUT_M;
             return;
         }
 
         case 'n':
         {
-            input->keyboard = INPUT_N;
+            pInput->keyboard = INPUT_N;
             return;
         }
 
         case 'p':
         {
-            input->keyboard = INPUT_P;
+            pInput->keyboard = INPUT_P;
             return;
         }
 
         case 'Q':
         {
-            input->keyboard = INPUT_Q;
+            pInput->keyboard = INPUT_Q;
             return;
         }
 
         case 'r':
         {
-            input->keyboard = INPUT_R;
+            pInput->keyboard = INPUT_R;
             return;
         }
 
         case 's':
         {
-            input->keyboard = INPUT_S;
+            pInput->keyboard = INPUT_S;
             return;
         }
 
         case 'u':
         {
-            input->keyboard = INPUT_U;
+            pInput->keyboard = INPUT_U;
             return;
         }
 
         case 'w':
         {
-            input->keyboard = INPUT_W;
+            pInput->keyboard = INPUT_W;
             return;
         }
 
         case '0':
         {
-            input->keyboard = INPUT_0;
+            pInput->keyboard = INPUT_0;
             return;
         }
 
         case '1':
         {
-            input->keyboard = INPUT_1;
+            pInput->keyboard = INPUT_1;
             return;
         }
 
         case '2':
         {
-            input->keyboard = INPUT_2;
+            pInput->keyboard = INPUT_2;
             return;
         }
 
         case '3':
         {
-            input->keyboard = INPUT_3;
+            pInput->keyboard = INPUT_3;
             return;
         }
 
         case '4':
         {
-            input->keyboard = INPUT_4;
+            pInput->keyboard = INPUT_4;
             return;
         }
 
         case '5':
         {
-            input->keyboard = INPUT_5;
+            pInput->keyboard = INPUT_5;
             return;
         }
 
         case '6':
         {
-            input->keyboard = INPUT_6;
+            pInput->keyboard = INPUT_6;
             return;
         }
 
         case '7':
         {
-            input->keyboard = INPUT_7;
+            pInput->keyboard = INPUT_7;
             return;
         }
 
         case '8':
         {
-            input->keyboard = INPUT_8;
+            pInput->keyboard = INPUT_8;
             return;
         }
     }

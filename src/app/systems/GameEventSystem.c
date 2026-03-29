@@ -32,11 +32,11 @@ GameEvent newGameEvent( void )
 }
 
 bool validateEvent(
-    GameEvent const* const event,
-    Game const* const game
+    GameEvent const* const pEvent,
+    Game const* const pGame
 )
 {
-    switch ( event->actionType )
+    switch ( pEvent->actionType )
     {
         default:
             return false;
@@ -44,24 +44,24 @@ bool validateEvent(
         case ACTION_TYPE_PLACE:
         {
             return validateEventPlace(
-                event,
-                game
+                pEvent,
+                pGame
             );
         }
 
         case ACTION_TYPE_LIFT:
         {
             return validateEventLift(
-                event,
-                game
+                pEvent,
+                pGame
             );
         }
 
         case ACTION_TYPE_DROP:
         {
             return validateEventDrop(
-                event,
-                game
+                pEvent,
+                pGame
             );
         }
     }
@@ -70,14 +70,14 @@ bool validateEvent(
 }
 
 bool validateEventPlace(
-    GameEvent const* const event,
-    Game const* const game
+    GameEvent const* const pEvent,
+    Game const* const pGame
 )
 {
     //* Stone type available
     if ( !isStoneTypeAvailable(
-             event,
-             &game->players
+             pEvent,
+             &pGame->players
          ) )
     {
         return false;
@@ -85,8 +85,8 @@ bool validateEventPlace(
 
     //* FileX on board
     if ( !isFileXOnBoard(
-             event,
-             game->board.width
+             pEvent,
+             pGame->board.width
          ) )
     {
         return false;
@@ -94,8 +94,8 @@ bool validateEventPlace(
 
     //* RankY on board
     if ( !isRankYOnBoard(
-             event,
-             game->board.width
+             pEvent,
+             pGame->board.width
          ) )
     {
         return false;
@@ -103,8 +103,8 @@ bool validateEventPlace(
 
     //* Can only place on empty square
     if ( !isSquareEmpty(
-             event,
-             &game->board
+             pEvent,
+             &pGame->board
          ) )
     {
         return false;
@@ -114,14 +114,14 @@ bool validateEventPlace(
 }
 
 bool validateEventLift(
-    GameEvent const* const event,
-    Game const* const game
+    GameEvent const* const pEvent,
+    Game const* const pGame
 )
 {
     //* FileX on board
     if ( !isFileXOnBoard(
-             event,
-             game->board.width
+             pEvent,
+             pGame->board.width
          ) )
     {
         return false;
@@ -129,8 +129,8 @@ bool validateEventLift(
 
     //* RankY on board
     if ( !isRankYOnBoard(
-             event,
-             game->board.width
+             pEvent,
+             pGame->board.width
          ) )
     {
         return false;
@@ -138,8 +138,8 @@ bool validateEventLift(
 
     //* Must lift at least one stone
     if ( isSquareEmpty(
-             event,
-             &game->board
+             pEvent,
+             &pGame->board
          ) )
     {
         return false;
@@ -147,8 +147,8 @@ bool validateEventLift(
 
     //* Player must own square
     if ( !doesPlayerOwnStack(
-             event,
-             &game->board
+             pEvent,
+             &pGame->board
          ) )
     {
         return false;
@@ -158,22 +158,22 @@ bool validateEventLift(
 }
 
 bool validateEventDrop(
-    GameEvent const* const event,
-    Game const* const game
+    GameEvent const* const pEvent,
+    Game const* const pGame
 )
 {
     //* Validate position
     if ( !isOffsetXOnBoard(
-             event,
-             game->board.width
+             pEvent,
+             pGame->board.width
          ) )
     {
         return false;
     }
 
     if ( !isOffsetYOnBoard(
-             event,
-             game->board.width
+             pEvent,
+             pGame->board.width
          ) )
     {
         return false;
@@ -181,8 +181,8 @@ bool validateEventDrop(
 
     //* Top vs. captive must obey rules
     if ( !isCaptiveValid(
-             event,
-             &game->board
+             pEvent,
+             &pGame->board
          ) )
     {
         return false;
@@ -192,20 +192,20 @@ bool validateEventDrop(
 }
 
 bool isStoneTypeAvailable(
-    GameEvent const* const event,
-    Players const* const players
+    GameEvent const* const pEvent,
+    Players const* const pPlayers
 )
 {
-    if ( event->stoneType != STONE_TYPE_CAP )
+    if ( pEvent->stoneType != STONE_TYPE_CAP )
     {
-        if ( players->reservesRegular[event->stoneId] > 0 )
+        if ( pPlayers->reservesRegular[pEvent->stoneId] > 0 )
         {
             return true;
         }
     }
     else
     {
-        if ( players->reservesCapstone[event->stoneId] > 0 )
+        if ( pPlayers->reservesCapstone[pEvent->stoneId] > 0 )
         {
             return true;
         }
@@ -215,11 +215,11 @@ bool isStoneTypeAvailable(
 }
 
 bool isFileXOnBoard(
-    GameEvent const* const event,
+    GameEvent const* const pEvent,
     int const boardWidth
 )
 {
-    int const pos = event->fileX;
+    int const pos = pEvent->fileX;
 
     return ( pos < boardWidth
              && pos >= 0 )
@@ -228,11 +228,11 @@ bool isFileXOnBoard(
 }
 
 bool isRankYOnBoard(
-    GameEvent const* const event,
+    GameEvent const* const pEvent,
     int const boardWidth
 )
 {
-    int const pos = event->rankY;
+    int const pos = pEvent->rankY;
 
     return ( pos < boardWidth
              && pos >= 0 )
@@ -241,14 +241,14 @@ bool isRankYOnBoard(
 }
 
 bool isSquareEmpty(
-    GameEvent const* const event,
-    Board const* const board
+    GameEvent const* const pEvent,
+    Board const* const pBoard
 )
 {
-    return ( board->stoneCounts[positionToSquare(
-                 event->fileX,
-                 event->rankY,
-                 board->width
+    return ( pBoard->stoneCounts[positionToSquare(
+                 pEvent->fileX,
+                 pEvent->rankY,
+                 pBoard->width
              )]
              > 0 )
                ? false
@@ -256,35 +256,35 @@ bool isSquareEmpty(
 }
 
 bool doesPlayerOwnStack(
-    GameEvent const* const event,
-    Board const* const board
+    GameEvent const* const pEvent,
+    Board const* const pBoard
 )
 {
     int const squareIdx = positionToSquare(
-        event->fileX,
-        event->rankY,
-        board->width
+        pEvent->fileX,
+        pEvent->rankY,
+        pBoard->width
     );
 
-    return ( board->stoneIds[squareIdx + board->stoneCounts[squareIdx] - 1]
-             == event->stoneId )
+    return ( pBoard->stoneIds[squareIdx + pBoard->stoneCounts[squareIdx] - 1]
+             == pEvent->stoneId )
                ? true
                : false;
 }
 
 bool isCaptiveValid(
-    GameEvent const* const event,
-    Board const* const board
+    GameEvent const* const pEvent,
+    Board const* const pBoard
 )
 {
     int const squareIdx = positionToSquare(
-        event->fileX,
-        event->rankY,
-        board->width
+        pEvent->fileX,
+        pEvent->rankY,
+        pBoard->width
     );
 
-    StoneType const captiveType = board->types[squareIdx];
-    StoneType const droppedType = event->stoneType;
+    StoneType const captiveType = pBoard->types[squareIdx];
+    StoneType const droppedType = pEvent->stoneType;
 
     /// Nothing can be placed on capstone
     if ( captiveType == STONE_TYPE_CAP )
@@ -302,19 +302,19 @@ bool isCaptiveValid(
 }
 
 bool isOffsetXOnBoard(
-    GameEvent const* const event,
+    GameEvent const* const pEvent,
     int const boardWidth
 )
 {
     assert(
-        event->dropCountsSize > 0
+        pEvent->dropCountsSize > 0
         && "dropCountsSize must be greater than 0"
     );
 
     int const pos
-        = event->fileX
-          + ( getOffsetX( event->direction )
-              * ( event->dropCountsSize - 1 ) );
+        = pEvent->fileX
+          + ( getOffsetX( pEvent->direction )
+              * ( pEvent->dropCountsSize - 1 ) );
 
     return ( pos < boardWidth
              && pos >= 0 )
@@ -323,19 +323,19 @@ bool isOffsetXOnBoard(
 }
 
 bool isOffsetYOnBoard(
-    GameEvent const* const event,
+    GameEvent const* const pEvent,
     int const boardWidth
 )
 {
     assert(
-        event->dropCountsSize > 0
+        pEvent->dropCountsSize > 0
         && "dropCountsSize must be greater than 0"
     );
 
     int const pos
-        = event->fileX
-          + ( getOffsetY( event->direction )
-              * ( event->dropCountsSize - 1 ) );
+        = pEvent->fileX
+          + ( getOffsetY( pEvent->direction )
+              * ( pEvent->dropCountsSize - 1 ) );
 
     return ( pos < boardWidth
              && pos >= 0 )

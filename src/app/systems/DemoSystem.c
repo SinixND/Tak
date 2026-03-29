@@ -4,34 +4,34 @@
 #include "BoardSystem.h"
 #include "GameSystem.h"
 
-void demo( App* const app )
+void demo( App* const pApp )
 {
     placeStone(
-        &app->game,
+        &pApp->game,
         PLAYER_WHITE,
         0,
         0,
         STONE_TYPE_FLAT
     );
 
-    undo( &app->game );
-    redo( &app->game );
+    undo( &pApp->game );
+    redo( &pApp->game );
 
     putOntoStack(
-        &app->game.board,
+        &pApp->game.board,
         PLAYER_BLACK,
         0,
         STONE_TYPE_STANDING
     );
 
     liftStack(
-        &app->game,
+        &pApp->game,
         0,
         0
     );
 
     dropStone(
-        &app->game,
+        &pApp->game,
         0,
         1
     );
