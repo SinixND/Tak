@@ -68,6 +68,9 @@ int main( void )
 
     //* Test GameEventSystem
     RUN_TEST( testNewGameEvent );
+    RUN_TEST( testIsStoneTypeAvailable );
+    RUN_TEST( testIsFileXOnBoard );
+    RUN_TEST( testIsRankYOnBoard );
 
     //* Test DirectionSystem
     RUN_TEST( testGetOffsetX );

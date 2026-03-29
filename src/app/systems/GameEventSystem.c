@@ -58,10 +58,10 @@ bool validateEvent(
 
         case ACTION_TYPE_DROP:
         {
-            // return validateEventDrop(
-            //     event,
-            //     game
-            // );
+            return validateEventDrop(
+                event,
+                game
+            );
         }
     }
 
@@ -192,16 +192,16 @@ bool isStoneTypeAvailable(
     Players const* const players
 )
 {
-    if ( event->stoneType == STONE_TYPE_CAP )
+    if ( event->stoneType != STONE_TYPE_CAP )
     {
-        if ( players->reservesCapstone[event->stoneId] > 0 )
+        if ( players->reservesRegular[event->stoneId] > 0 )
         {
             return true;
         }
     }
     else
     {
-        if ( players->reservesRegular[event->stoneId] > 0 )
+        if ( players->reservesCapstone[event->stoneId] > 0 )
         {
             return true;
         }
@@ -228,7 +228,7 @@ bool isRankYOnBoard(
     int const boardWidth
 )
 {
-    int const pos = event->fileX;
+    int const pos = event->rankY;
 
     return ( pos < boardWidth
              && pos >= 0 )
