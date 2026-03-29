@@ -65,8 +65,6 @@ bool validateEvent(
             );
         }
     }
-
-    return false;
 }
 
 bool validateEventPlace(

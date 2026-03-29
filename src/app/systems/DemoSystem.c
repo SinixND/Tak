@@ -2,6 +2,8 @@
 
 #include "App.h"
 #include "BoardSystem.h"
+#include "GameEvent.h"
+#include "GameEventSystem.h"
 #include "GameSystem.h"
 
 void demo( App* const pApp )
@@ -34,5 +36,12 @@ void demo( App* const pApp )
         &pApp->game,
         0,
         1
+    );
+
+    GameEvent event = newGameEvent();
+
+    validateEvent(
+        &event,
+        &pApp->game
     );
 }
