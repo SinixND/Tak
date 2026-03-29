@@ -74,6 +74,8 @@ int main( void )
     RUN_TEST( testIsSquareEmpty );
     RUN_TEST( testDoesPlayerOwnStack );
     RUN_TEST( testIsCaptiveValid );
+    RUN_TEST( testIsOffsetXOnBoard );
+    RUN_TEST( testIsOffsetYOnBoard );
 
     //* Test DirectionSystem
     RUN_TEST( testGetOffsetX );

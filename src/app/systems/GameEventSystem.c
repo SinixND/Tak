@@ -318,6 +318,11 @@ bool isOffsetYOnBoard(
     int const boardWidth
 )
 {
+    if ( event->dropCountsSize < 1 )
+    {
+        return false;
+    }
+
     int const pos
         = event->fileX
           + ( getOffsetY( event->direction )
