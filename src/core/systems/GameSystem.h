@@ -130,9 +130,4 @@ void redoDropStone( Game* const pGame );
  */
 void redo( Game* const pGame );
 
-//* Demo function
-
-/// Currently used to avoid unused function warnings
-void demo( Game* const pGame );
-
 #endif

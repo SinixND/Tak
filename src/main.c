@@ -1,13 +1,13 @@
 #include "App.h"
 #include "AppSystem.h"
-#include "GameSystem.h"
+#include "DemoSystem.h"
 
 int main( void )
 {
     App app = newApp( 0 );
 
     // TODO: Remove
-    demo( &app.game );
+    demo( &app );
 
     setupApp();
     runApp( &app );

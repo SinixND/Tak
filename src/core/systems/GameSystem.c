@@ -433,37 +433,3 @@ void redo( Game* const pGame )
     }
 }
 
-//* Demo function
-void demo( Game* const pGame )
-{
-    placeStone(
-        pGame,
-        PLAYER_WHITE,
-        0,
-        0,
-        STONE_TYPE_FLAT
-    );
-
-    undo( pGame );
-    redo( pGame );
-
-    putOntoStack(
-        &pGame->board,
-        PLAYER_BLACK,
-        0,
-        STONE_TYPE_STANDING
-    );
-
-    liftStack(
-        pGame,
-        0,
-        0
-    );
-
-    dropStone(
-        pGame,
-        0,
-        1
-    );
-}
-
