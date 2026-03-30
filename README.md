@@ -35,7 +35,9 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 - The top stone of a stack determines the owner of the stack
 - Only the `top stone` of a stack can have a type other than flat
 - Only the owner can move a stack
-- To move a stack, the players `lift()` a stack (up to [board width] pieces) and then `drop()` individual stones on subsequent squares (in a straight line)
+- To move a stack, the players 
+    1) `lift()` a stack (up to `board width` pieces) and then 
+    1) `drop()` individual stones on subsequent squares (in a straight line)
 - [1,n] stones may be dropped onto a single square. 
 - No stone needs to be left at the original square
 - Only capstones can be dropped onto standing stones, flattening them.
@@ -149,9 +151,8 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 
 
 ## ToDo notes
-- Check all non-void return values
-- Cant drop more than lifted
-- Make whole application work with board.width
+- Check headers for API declarations only
+- Union for GameEvent/History?
 
 - [ ] "What data is needed to update the game?"
   - GameEvent holding information for place, lift, drop

@@ -4,7 +4,6 @@
 #include "ActionTypeId.h"
 #include "DirectionId.h"
 #include "FileId.h"
-#include "GameConstants.h"
 #include "PlayerId.h"
 #include "RankId.h"
 #include "StoneTypeId.h"
@@ -20,10 +19,9 @@ typedef struct
     StoneType stoneType;
     FileId fileX;
     RankId rankY;
-    DirectionId direction;
-    int8_t dropCounts[BOARD_WIDTH_MAX];
-    int8_t dropCountsSize;
-    int8_t droppedCount;
+    DirectionId direction; // Offset is dir * dropsDone
+    int8_t dropsDone;      // Dropping none counts as drop
+    int8_t stonesToDrop;
 } GameEvent;
 
 #endif

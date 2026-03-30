@@ -6,12 +6,10 @@
 #include "FileId.h"
 #include "GameEvent.h"
 #include "GameEventSystem.h"
-#include "GameSystem.h"
 #include "PlayerId.h"
 #include "Players.h"
 #include "PositionSystem.h"
 #include "RankId.h"
-#include "StackBuffer.h"
 #include "StoneTypeId.h"
 #include <stdbool.h>
 #include <unity.h>
@@ -26,10 +24,8 @@ void testNewGameEvent( void )
     TEST_ASSERT_EQUAL_INT( FILE_NONE, event.fileX );
     TEST_ASSERT_EQUAL_INT( RANK_NONE, event.rankY );
     TEST_ASSERT_EQUAL_INT( DIR_NONE, event.direction );
-    TEST_ASSERT_EQUAL_INT( -1, event.dropCounts[0] );
-    TEST_ASSERT_EQUAL_INT( -1, event.dropCounts[BOARD_WIDTH_MAX - 1] );
-    TEST_ASSERT_EQUAL_INT( 0, event.dropCountsSize );
-    TEST_ASSERT_EQUAL_INT( 0, event.droppedCount );
+    TEST_ASSERT_EQUAL_INT( 0, event.dropsDone );
+    TEST_ASSERT_EQUAL_INT( -1, event.stonesToDrop );
 }
 
 void testIsStoneTypeAvailable( void )
@@ -266,7 +262,7 @@ void testIsOffsetXOnBoard( void )
     event.fileX = FILE_B;
     event.rankY = RANK_2;
 
-    event.dropCountsSize = 1;
+    event.dropsDone = 0;
     event.direction = DIR_NONE;
     TEST_ASSERT_EQUAL_INT( true, isOffsetXOnBoard( &event, boardWidth ) );
 
@@ -282,7 +278,7 @@ void testIsOffsetXOnBoard( void )
     event.direction = DIR_DOWN;
     TEST_ASSERT_EQUAL_INT( true, isOffsetXOnBoard( &event, boardWidth ) );
 
-    event.dropCountsSize = 2;
+    event.dropsDone = 1;
     event.direction = DIR_NONE;
     TEST_ASSERT_EQUAL_INT( true, isOffsetXOnBoard( &event, boardWidth ) );
 
@@ -298,7 +294,7 @@ void testIsOffsetXOnBoard( void )
     event.direction = DIR_DOWN;
     TEST_ASSERT_EQUAL_INT( true, isOffsetXOnBoard( &event, boardWidth ) );
 
-    event.dropCountsSize = 3;
+    event.dropsDone = 2;
     event.direction = DIR_NONE;
     TEST_ASSERT_EQUAL_INT( true, isOffsetXOnBoard( &event, boardWidth ) );
 
@@ -323,7 +319,7 @@ void testIsOffsetYOnBoard( void )
     event.fileX = FILE_B;
     event.rankY = RANK_2;
 
-    event.dropCountsSize = 1;
+    event.dropsDone = 0;
     event.direction = DIR_NONE;
     TEST_ASSERT_EQUAL_INT( true, isOffsetYOnBoard( &event, boardWidth ) );
 
@@ -339,7 +335,7 @@ void testIsOffsetYOnBoard( void )
     event.direction = DIR_DOWN;
     TEST_ASSERT_EQUAL_INT( true, isOffsetYOnBoard( &event, boardWidth ) );
 
-    event.dropCountsSize = 2;
+    event.dropsDone = 1;
     event.direction = DIR_NONE;
     TEST_ASSERT_EQUAL_INT( true, isOffsetYOnBoard( &event, boardWidth ) );
 
@@ -355,7 +351,7 @@ void testIsOffsetYOnBoard( void )
     event.direction = DIR_DOWN;
     TEST_ASSERT_EQUAL_INT( true, isOffsetYOnBoard( &event, boardWidth ) );
 
-    event.dropCountsSize = 3;
+    event.dropsDone = 2;
     event.direction = DIR_NONE;
     TEST_ASSERT_EQUAL_INT( true, isOffsetYOnBoard( &event, boardWidth ) );
 
@@ -377,8 +373,7 @@ void testIsDropCountValid( void )
     GameEvent event = { 0 };
     int stackBufferStoneCount = 0;
 
-    event.dropCounts[0] = 1;
-    event.dropCountsSize = 1;
+    event.stonesToDrop = 1;
 
     TEST_ASSERT_EQUAL_INT( false, isDropCountValid( &event, stackBufferStoneCount ) );
 

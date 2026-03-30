@@ -10,24 +10,16 @@
 
 GameEvent newGameEvent( void )
 {
-    GameEvent event = {
+    return (GameEvent){
         .stoneId = PLAYER_NONE,
         .actionType = ACTION_TYPE_NONE,
         .stoneType = STONE_TYPE_NONE,
         .fileX = FILE_NONE,
         .rankY = RANK_NONE,
         .direction = DIR_NONE,
-        .dropCounts = { 0 },
-        .dropCountsSize = 0,
-        .droppedCount = 0
+        .dropsDone = 0,
+        .stonesToDrop = -1
     };
-
-    for ( int idx = 0; idx < BOARD_WIDTH_MAX; ++idx )
-    {
-        event.dropCounts[idx] = -1;
-    }
-
-    return event;
 }
 
 bool validateEvent(
@@ -314,14 +306,14 @@ bool isOffsetXOnBoard(
 )
 {
     assert(
-        pEvent->dropCountsSize > 0
-        && "dropCountsSize must be greater than 0"
+        pEvent->dropsDone >= 0
+        && "dropCountsSize must be positive"
     );
 
     int const pos
         = pEvent->fileX
           + ( getOffsetX( pEvent->direction )
-              * ( pEvent->dropCountsSize - 1 ) );
+              * ( pEvent->dropsDone ) );
 
     return ( pos < boardWidth
              && pos >= 0 )
@@ -335,14 +327,14 @@ bool isOffsetYOnBoard(
 )
 {
     assert(
-        pEvent->dropCountsSize > 0
-        && "dropCountsSize must be greater than 0"
+        pEvent->dropsDone >= 0
+        && "dropCountsSize must be positive"
     );
 
     int const pos
         = pEvent->fileX
           + ( getOffsetY( pEvent->direction )
-              * ( pEvent->dropCountsSize - 1 ) );
+              * ( pEvent->dropsDone ) );
 
     return ( pos < boardWidth
              && pos >= 0 )
@@ -355,7 +347,7 @@ bool isDropCountValid(
     int const stackBufferStoneCount
 )
 {
-    return ( pEvent->dropCounts[pEvent->dropCountsSize - 1]
+    return ( pEvent->stonesToDrop
              > stackBufferStoneCount )
                ? false
                : true;
