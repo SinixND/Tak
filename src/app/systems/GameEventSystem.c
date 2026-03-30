@@ -299,7 +299,8 @@ bool isCaptiveValid(
     }
 
     /// Only capstone can flatten standing
-    if ( captiveType == STONE_TYPE_STANDING && droppedType != STONE_TYPE_CAP )
+    if ( captiveType == STONE_TYPE_STANDING
+         && droppedType != STONE_TYPE_CAP )
     {
         return false;
     }

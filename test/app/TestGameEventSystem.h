@@ -417,16 +417,56 @@ void testValidateEventPlace( void )
     TEST_ASSERT_EQUAL_INT( false, validateEventPlace( &event, &game ) );
 
     event.fileX = FILE_C;
+    event.rankY = RANK_4;
+
+    TEST_ASSERT_EQUAL_INT( false, validateEventPlace( &event, &game ) );
+
+    event.rankY = RANK_3;
     game.players.reservesRegular[event.stoneId] = 0;
 
     TEST_ASSERT_EQUAL_INT( false, validateEventPlace( &event, &game ) );
 }
 
-// void testValidateEventLift( void )
-// {
-//     GameEvent event ;
-//     Game game ;
-// }
+void testValidateEventLift( void )
+{
+    GameEvent event = { 0 };
+    Game game = { 0 };
+
+    event.fileX = FILE_B;
+    event.rankY = RANK_2;
+
+    game.board.width = 3;
+
+    int const squareIdx = positionToSquare(
+        event.fileX,
+        event.rankY,
+        game.board.width
+    );
+
+    game.board.stoneCounts[squareIdx] = 1;
+    game.board.stoneIds[squareIdx + game.board.stoneCounts[squareIdx] - 1] = PLAYER_WHITE;
+
+    TEST_ASSERT_EQUAL_INT( true, validateEventLift( &event, &game ) );
+
+    event.fileX = FILE_D;
+
+    TEST_ASSERT_EQUAL_INT( false, validateEventLift( &event, &game ) );
+
+    event.fileX = FILE_C;
+    event.rankY = RANK_4;
+
+    TEST_ASSERT_EQUAL_INT( false, validateEventLift( &event, &game ) );
+
+    event.rankY = RANK_3;
+    game.board.stoneCounts[squareIdx] = 0;
+
+    TEST_ASSERT_EQUAL_INT( false, validateEventLift( &event, &game ) );
+
+    game.board.stoneCounts[squareIdx] = 1;
+    game.board.stoneIds[squareIdx + game.board.stoneCounts[squareIdx] - 1] = PLAYER_BLACK;
+
+    TEST_ASSERT_EQUAL_INT( false, validateEventLift( &event, &game ) );
+}
 
 // void testValidateEventDrop( void )
 // {

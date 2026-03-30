@@ -149,6 +149,7 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 
 
 ## ToDo notes
+- Check all non-void return values
 - Cant drop more than lifted
 - Make whole application work with board.width
 

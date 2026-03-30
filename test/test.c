@@ -78,6 +78,7 @@ int main( void )
     RUN_TEST( testIsOffsetYOnBoard );
     RUN_TEST( testIsDropCountValid );
     RUN_TEST( testValidateEventPlace );
+    RUN_TEST( testValidateEventLift );
 
     //* Test DirectionSystem
     RUN_TEST( testGetOffsetX );
