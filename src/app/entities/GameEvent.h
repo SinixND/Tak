@@ -21,7 +21,6 @@ typedef struct
     FileId fileX;
     RankId rankY;
     DirectionId direction;
-    int8_t liftCount;
     int8_t dropCounts[BOARD_WIDTH_MAX];
     int8_t dropCountsSize;
     int8_t droppedCount;

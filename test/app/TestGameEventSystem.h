@@ -11,6 +11,7 @@
 #include "Players.h"
 #include "PositionSystem.h"
 #include "RankId.h"
+#include "StackBuffer.h"
 #include "StoneTypeId.h"
 #include <stdbool.h>
 #include <unity.h>
@@ -25,7 +26,6 @@ void testNewGameEvent( void )
     TEST_ASSERT_EQUAL_INT( FILE_NONE, event.fileX );
     TEST_ASSERT_EQUAL_INT( RANK_NONE, event.rankY );
     TEST_ASSERT_EQUAL_INT( DIR_NONE, event.direction );
-    TEST_ASSERT_EQUAL_INT( 0, event.liftCount );
     TEST_ASSERT_EQUAL_INT( -1, event.dropCounts[0] );
     TEST_ASSERT_EQUAL_INT( -1, event.dropCounts[BOARD_WIDTH_MAX - 1] );
     TEST_ASSERT_EQUAL_INT( 0, event.dropCountsSize );
@@ -370,6 +370,20 @@ void testIsOffsetYOnBoard( void )
 
     event.direction = DIR_DOWN;
     TEST_ASSERT_EQUAL_INT( false, isOffsetYOnBoard( &event, boardWidth ) );
+}
+
+void testIsDropCountValid( void )
+{
+    GameEvent event = { 0 };
+    int stackBufferStoneCount = 0;
+
+    event.dropCounts[0] = 1;
+    event.dropCountsSize = 1;
+
+    TEST_ASSERT_EQUAL_INT( false, isDropCountValid( &event, stackBufferStoneCount ) );
+
+    stackBufferStoneCount = 1;
+    TEST_ASSERT_EQUAL_INT( true, isDropCountValid( &event, stackBufferStoneCount ) );
 }
 
 void testValidateEventPlace( void )

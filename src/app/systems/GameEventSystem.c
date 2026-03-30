@@ -17,7 +17,6 @@ GameEvent newGameEvent( void )
         .fileX = FILE_NONE,
         .rankY = RANK_NONE,
         .direction = DIR_NONE,
-        .liftCount = 0,
         .dropCounts = { 0 },
         .dropCountsSize = 0,
         .droppedCount = 0
@@ -160,6 +159,15 @@ bool validateEventDrop(
     Game const* const pGame
 )
 {
+    //* Cant drop more than currently lifted
+    if ( !isDropCountValid(
+             pEvent,
+             pGame->stackBuffer.stoneCount
+         ) )
+    {
+        return false;
+    }
+
     //* Validate position
     if ( !isOffsetXOnBoard(
              pEvent,
@@ -339,4 +347,15 @@ bool isOffsetYOnBoard(
              && pos >= 0 )
                ? true
                : false;
+}
+
+bool isDropCountValid(
+    GameEvent const* const pEvent,
+    int const stackBufferStoneCount
+)
+{
+    return ( pEvent->dropCounts[pEvent->dropCountsSize - 1]
+             > stackBufferStoneCount )
+               ? false
+               : true;
 }
