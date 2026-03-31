@@ -93,13 +93,6 @@ void liftStack(
         && "Cannot pick up empty stack"
     );
 
-    int const topStoneIdx
-        = squareToStackIndex(
-              squareIdx,
-              pGame->board.stackCapacity
-          )
-          + ( pGame->board.stoneCounts[squareIdx] - 1 );
-
     //* INFO: [Rule] StackBuffer stone count must cap at boardWidth
     int const stoneCount
         = ( pGame->board.stoneCounts[squareIdx]
@@ -115,6 +108,13 @@ void liftStack(
     );
 
     //* Add stones to buffer
+    int const topStoneIdx
+        = squareToStackIndex(
+              squareIdx,
+              pGame->board.stackCapacity
+          )
+          + ( pGame->board.stoneCounts[squareIdx] - 1 );
+
     for ( int i = 0; i < stoneCount; ++i )
     {
         appendToBuffer(
@@ -134,7 +134,6 @@ void liftStack(
     recordLiftAction(
         &pGame->history,
         squareIdx,
-        topStoneIdx,
         stoneType,
         stoneCount
     );
@@ -356,11 +355,18 @@ void redoLiftStack( Game* const pGame )
     );
 
     //* Add stones to buffer
+    int const topStoneIdx
+        = squareToStackIndex(
+              nextAction.squareIdx,
+              pGame->board.stackCapacity
+          )
+          + ( pGame->board.stoneCounts[nextAction.squareIdx] - 1 );
+
     for ( int i = 0; i < nextAction.stoneCount; ++i )
     {
         appendToBuffer(
             &pGame->stackBuffer,
-            pGame->board.stoneIds[nextAction.topStoneIdx - i]
+            pGame->board.stoneIds[topStoneIdx - i]
         );
     }
 

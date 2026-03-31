@@ -57,7 +57,6 @@ void recordPlacementAction(
 void recordLiftAction(
     History* const pHistory,
     int const squareIdx,
-    int const topStoneIdx,
     StoneType const stoneType,
     int const stoneCount
 )
@@ -79,7 +78,6 @@ void recordLiftAction(
         = (PlayerAction){
             .actionType = ACTION_TYPE_LIFT,
             .squareIdx = squareIdx,
-            .topStoneIdx = topStoneIdx,
             .stoneType = stoneType,
             .stoneCount = stoneCount,
             .flattened = false,

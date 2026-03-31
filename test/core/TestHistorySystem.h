@@ -66,7 +66,6 @@ void testRecordLiftAction( void )
     recordLiftAction(
         &history,
         PLAYER_WHITE,
-        0,
         STONE_TYPE_STANDING,
         5
     );

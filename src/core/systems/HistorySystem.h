@@ -31,7 +31,6 @@ void recordPlacementAction(
 void recordLiftAction(
     History* const pHistory,
     int const squareIdx,
-    int const topStoneIdx,
     StoneType const stoneType,
     int const stoneCount
 );

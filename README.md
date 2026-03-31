@@ -151,7 +151,9 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 
 
 ## ToDo notes
-- Union for GameEvent/History?
+- Union for GameEvent?
+- History does not belong to Game
+- Union for History?
 
 - [ ] "What data is needed to update the game?"
   - GameEvent holding information for place, lift, drop
