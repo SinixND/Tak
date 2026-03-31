@@ -151,7 +151,6 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 
 
 ## ToDo notes
-- Check headers for API declarations only
 - Union for GameEvent/History?
 
 - [ ] "What data is needed to update the game?"

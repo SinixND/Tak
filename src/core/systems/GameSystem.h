@@ -55,34 +55,6 @@ void dropStone(
     RankId const rankY
 );
 
-//* Undo functions
-
-/**
- * @brief: From Board to Player; Undo History
- *
- * - Take one stone from stack/square
- * - Increase reserves
- * - Adjust history index
- */
-void undoPlaceStone( Game* const pGame );
-
-/**
- * @brief: From Buffer to Board; Undo History
- *
- * - Loop: Add stones to stack/square
- * - Reset buffer
- * - Adjust history index
- */
-void undoLiftStack( Game* const pGame );
-
-/**
- * @brief: From Board to Buffer
- *
- * - Add single stone to buffer
- * - Remove single stone from stack/square
- */
-void undoDropStone( Game* const pGame );
-
 /**
  * @brief: Undo last action performed by a player
  *
@@ -91,35 +63,6 @@ void undoDropStone( Game* const pGame );
  * - Adjust history index
  */
 void undo( Game* const pGame );
-
-//* Redo functions
-
-/**
- * @brief: From Player to Board; Redo History
- *
- * - Reduce reserves
- * - Put stone on stack/square
- * - Adjust history index
- */
-void redoPlaceStone( Game* const pGame );
-
-/**
- * @brief: From Board to Buffer; Redo History
- *
- * - Set stone type of buffer
- * - Loop: Add stones to buffer
- * - Remove stones from square
- * - Adjust history index
- */
-void redoLiftStack( Game* const pGame );
-
-/**
- * @brief: From Buffer to Board
- *
- * - Add single stone to stack/square
- * - Remove single stone from buffer
- */
-void redoDropStone( Game* const pGame );
 
 /**
  * @brief: Redo next action performed by a player

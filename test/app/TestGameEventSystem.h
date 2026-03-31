@@ -200,7 +200,7 @@ void testDoesPlayerOwnStack( void )
         board.width
     );
     board.stoneCounts[squareIdx] = 1;
-    board.stoneIds[squareIdx + board.stoneCounts[squareIdx] - 1] = PLAYER_WHITE;
+    board.stoneIds[squareToStackIdx(squareIdx, board.stackCapacity) + board.stoneCounts[squareIdx] - 1] = PLAYER_WHITE;
     TEST_ASSERT_EQUAL_INT( true, doesPlayerOwnStack( &event, &board ) );
 
     event.stoneId = PLAYER_BLACK;
@@ -439,7 +439,7 @@ void testValidateEventLift( void )
     );
 
     game.board.stoneCounts[squareIdx] = 1;
-    game.board.stoneIds[squareIdx + game.board.stoneCounts[squareIdx] - 1] = PLAYER_WHITE;
+    game.board.stoneIds[squareToStackIdx(squareIdx, board.stackCapacity) + game.board.stoneCounts[squareIdx] - 1] = PLAYER_WHITE;
 
     TEST_ASSERT_EQUAL_INT( true, validateEventLift( &event, &game ) );
 
@@ -458,7 +458,7 @@ void testValidateEventLift( void )
     TEST_ASSERT_EQUAL_INT( false, validateEventLift( &event, &game ) );
 
     game.board.stoneCounts[squareIdx] = 1;
-    game.board.stoneIds[squareIdx + game.board.stoneCounts[squareIdx] - 1] = PLAYER_BLACK;
+    game.board.stoneIds[squareToStackIdx(squareIdx, board.stackCapacity) + game.board.stoneCounts[squareIdx] - 1] = PLAYER_BLACK;
 
     TEST_ASSERT_EQUAL_INT( false, validateEventLift( &event, &game ) );
 }
