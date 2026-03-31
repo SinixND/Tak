@@ -264,7 +264,7 @@ bool doesPlayerOwnStack(
         pBoard->width
     );
 
-    return ( pBoard->stoneIds[squareToStackIdx(squareIdx, pBoard->stackCapacity) + pBoard->stoneCounts[squareIdx] - 1]
+    return ( pBoard->stoneIds[squareToStackIndex( squareIdx, pBoard->stackCapacity ) + pBoard->stoneCounts[squareIdx] - 1]
              == pEvent->stoneId )
                ? true
                : false;
