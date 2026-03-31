@@ -3,7 +3,7 @@
 
 #include "InputId.h"
 
-typedef struct
+typedef struct InputBuffer
 {
     InputId keyboard;
 } InputBuffer;

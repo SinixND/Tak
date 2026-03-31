@@ -2,7 +2,7 @@
 #define IG20260301185229
 
 /// Column
-typedef enum
+typedef enum FileId
 {
     FILE_NONE = -1,
     FILE_A = 0,

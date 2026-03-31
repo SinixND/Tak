@@ -12,7 +12,7 @@
  * Only the top stone of a stack can have a type other than `FLAT`
  * For this stack index 0 is top
  */
-typedef struct
+typedef struct StackBuffer
 {
     /// StoneId is the players Id/color
     PlayerId stoneIds[BOARD_WIDTH_MAX];

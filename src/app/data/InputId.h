@@ -1,7 +1,7 @@
 #ifndef IG20260317162853
 #define IG20260317162853
 
-typedef enum
+typedef enum InputId
 {
     INPUT_NONE,
     INPUT_A, //* Used for file

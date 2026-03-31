@@ -7,7 +7,7 @@
 /**
  * @brief Player stats
  */
-typedef struct
+typedef struct Players
 {
     /// Stones in play
     uint8_t stonesInPlay[PLAYER_COUNT];

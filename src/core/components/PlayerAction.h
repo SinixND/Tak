@@ -20,7 +20,7 @@
  * Inputs: Position, Captive
  *
  */
-typedef struct
+typedef struct PlayerAction
 {
     ActionType actionType; // P, L, D
     PlayerId playerId;     // White or black

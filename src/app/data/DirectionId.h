@@ -2,7 +2,7 @@
 #define IG20260301194525
 
 /// Direction relative to fileX/rankY
-typedef enum
+typedef enum DirectionId
 {
     DIR_NONE = -1, // No direction is invalid input
     DIR_DOWN = 0,  // '-': decrease rank

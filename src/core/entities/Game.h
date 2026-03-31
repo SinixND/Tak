@@ -10,7 +10,7 @@
 /**
  * @brief: Object to handle game state
  */
-typedef struct
+typedef struct Game
 {
     Board board;
     History history;

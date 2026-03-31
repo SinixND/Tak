@@ -13,7 +13,7 @@
  * Only the top stone of a stack can have a type other than `FLAT`
  * In terms of code a single stone is a stack of count 1
  */
-typedef struct
+typedef struct Board
 {
     /// StoneId is the players Id/color;
     /// Takes stone/stack index

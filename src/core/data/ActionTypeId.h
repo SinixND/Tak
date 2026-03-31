@@ -4,7 +4,7 @@
 /**
  * @brief Type of action
  */
-typedef enum
+typedef enum ActionType
 {
     ACTION_TYPE_NONE = -1, // Invalid input
     ACTION_TYPE_PLACE = 0, // [P]lace stone

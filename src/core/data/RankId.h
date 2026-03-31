@@ -2,7 +2,7 @@
 #define IG20260301185429
 
 /// Row
-typedef enum
+typedef enum RankId
 {
     RANK_NONE = -1,
     RANK_1 = 0,

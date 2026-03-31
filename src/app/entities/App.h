@@ -5,7 +5,7 @@
 #include "InputBuffer.h"
 #include <stdbool.h>
 
-typedef struct
+typedef struct App
 {
     Game game;
     InputBuffer input;

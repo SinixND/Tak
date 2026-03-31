@@ -12,7 +12,7 @@
 /**
  * @brief: Store multiple user inputs needed for a complete game event
  */
-typedef struct
+typedef struct GameEvent
 {
     PlayerId stoneId;
     ActionType actionType;

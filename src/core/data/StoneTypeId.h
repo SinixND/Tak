@@ -4,7 +4,7 @@
 /**
  * @brief Type and/or status of (placed) stones
  */
-typedef enum
+typedef enum StoneType
 {
     STONE_TYPE_NONE = -1,
     STONE_TYPE_FLAT = 0,     // Type: regular

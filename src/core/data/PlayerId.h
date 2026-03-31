@@ -4,7 +4,7 @@
 /**
  * @brief Player identifier
  */
-typedef enum
+typedef enum PlayerId
 {
     PLAYER_NONE = -1,
     PLAYER_WHITE = 0,

@@ -6,9 +6,9 @@
 #include <stdint.h>
 
 /**
- * @brief: Stack to store player turns
+ * @brief: Stack to store player actions
  */
-typedef struct
+typedef struct History
 {
     /// Stack to store the actions to be undone
     PlayerAction actions[HISTORY_SIZE];
