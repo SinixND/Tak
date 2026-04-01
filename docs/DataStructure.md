@@ -2,7 +2,7 @@
 struct App
 +  shouldClose
 + struct(Game) game
-|   + struct(Players) players
+|   + struct(Reserves) reserves
 |   |   + (int)[players] reservesRegular
 |   |   + (int)[players] reservesCapstone
 |   |   + (int) stonesInPlay

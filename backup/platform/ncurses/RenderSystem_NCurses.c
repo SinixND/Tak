@@ -136,7 +136,7 @@ void renderInfoPaneContent( App* const app )
         POSITION_WHITE_RESERVES_REGULAR[0],
         POSITION_WHITE_RESERVES_REGULAR[1],
         "%2i",
-        app->game.players.reservesRegular[PLAYER_WHITE]
+        app->game.reserves.regular[PLAYER_WHITE]
     );
 
     //* Print white capston reserves
@@ -144,7 +144,7 @@ void renderInfoPaneContent( App* const app )
         POSITION_WHITE_RESERVES_CAPSTONE[0],
         POSITION_WHITE_RESERVES_CAPSTONE[1],
         "%i",
-        app->game.players.reservesCapstone[PLAYER_WHITE]
+        app->game.reserves.capstone[PLAYER_WHITE]
     );
 
     //* Print black regular reserves
@@ -152,7 +152,7 @@ void renderInfoPaneContent( App* const app )
         POSITION_BLACK_RESERVES_REGULAR[0],
         POSITION_BLACK_RESERVES_REGULAR[1],
         "%2i",
-        app->game.players.reservesRegular[PLAYER_BLACK]
+        app->game.reserves.regular[PLAYER_BLACK]
     );
 
     //* Print black capston reserves
@@ -160,7 +160,7 @@ void renderInfoPaneContent( App* const app )
         POSITION_BLACK_RESERVES_CAPSTONE[0],
         POSITION_BLACK_RESERVES_CAPSTONE[1],
         "%i",
-        app->game.players.reservesCapstone[PLAYER_BLACK]
+        app->game.reserves.capstone[PLAYER_BLACK]
     );
 
     //* Print active player

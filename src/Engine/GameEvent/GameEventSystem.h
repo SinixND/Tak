@@ -4,7 +4,7 @@
 #include "Board.h"
 #include "Game.h"
 #include "GameEvent.h"
-#include "Players.h"
+#include "Reserves.h"
 #include <stdbool.h>
 
 /// Return initialized game event object
@@ -31,7 +31,7 @@ bool validateEventDrop(
 /// Validate stone type against reserves
 bool isStoneTypeAvailable(
     GameEvent const* const pEvent,
-    Players const* const pPlayers
+    Reserves const* const pReserves
 );
 
 /// Validate fileX against board width

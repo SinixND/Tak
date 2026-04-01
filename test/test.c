@@ -4,8 +4,8 @@
 #include "TestGameSystem.h"
 #include "TestHistorySystem.h"
 #include "TestInputSystem.h"
-#include "TestPlayersSystem.h"
 #include "TestPositionSystem.h"
+#include "TestReservesSystem.h"
 #include "TestStackBufferSystem.h"
 #include <unity.h>
 
@@ -41,8 +41,8 @@ int main( void )
     RUN_TEST( testUndoHistory );
     RUN_TEST( testRedoHistory );
 
-    //* Test PlayersSystem
-    RUN_TEST( testNewPlayers );
+    //* Test ReservesSystem
+    RUN_TEST( testNewReserves );
     RUN_TEST( testTakeFromReserves );
 
     //* Test PositionSystem

@@ -64,7 +64,7 @@ bool validateEventPlace(
     //* Stone type available
     if ( !isStoneTypeAvailable(
              pEvent,
-             &pGame->players
+             &pGame->reserves
          ) )
     {
         return false;
@@ -172,19 +172,19 @@ bool validateEventDrop(
 
 bool isStoneTypeAvailable(
     GameEvent const* const pEvent,
-    Players const* const pPlayers
+    Reserves const* const pReserves
 )
 {
     if ( pEvent->stoneType != STONE_TYPE_CAP )
     {
-        if ( pPlayers->reservesRegular[pEvent->stoneId] > 0 )
+        if ( pReserves->regular[pEvent->stoneId] > 0 )
         {
             return true;
         }
     }
     else
     {
-        if ( pPlayers->reservesCapstone[pEvent->stoneId] > 0 )
+        if ( pReserves->capstone[pEvent->stoneId] > 0 )
         {
             return true;
         }

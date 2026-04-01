@@ -7,9 +7,9 @@
 #include "HistorySystem.h"
 #include "PlayerAction.h"
 #include "PlayerId.h"
-#include "PlayersSystem.h"
 #include "PositionSystem.h"
 #include "RankId.h"
+#include "ReservesSystem.h"
 #include "StackBufferSystem.h"
 #include "StoneTypeId.h"
 #include <assert.h>
@@ -26,7 +26,7 @@ Game newGame( int boardWidth )
         .board = newBoard( boardWidth ),
         .history = newHistory(),
         .stackBuffer = newStackBuffer(),
-        .players = newPlayers( boardWidth ),
+        .reserves = newReserves( boardWidth ),
         .activePlayer = PLAYER_WHITE,
     };
 }
@@ -54,7 +54,7 @@ void placeStone(
     );
 
     takeFromReserves(
-        &pGame->players,
+        &pGame->reserves,
         playerId,
         stoneType
     );
@@ -207,7 +207,7 @@ void undoPlaceStone( Game* const pGame )
 
     //* Undo takeFromReserves
     returnToReserves(
-        &pGame->players,
+        &pGame->reserves,
         lastAction.playerId,
         lastAction.stoneType
     );
@@ -320,7 +320,7 @@ void redoPlaceStone( Game* const pGame )
     );
 
     takeFromReserves(
-        &pGame->players,
+        &pGame->reserves,
         nextAction.playerId,
         nextAction.stoneType
     );

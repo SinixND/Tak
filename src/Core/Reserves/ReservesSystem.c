@@ -1,12 +1,12 @@
-#include "PlayersSystem.h"
+#include "ReservesSystem.h"
 
 #include "GameConstants.h"
 #include "PlayerId.h"
-#include "Players.h"
+#include "Reserves.h"
 #include "StoneTypeId.h"
 #include <assert.h>
 
-Players newPlayers( int const boardWidth )
+Reserves newReserves( int const boardWidth )
 {
     assert(
         ( boardWidth >= BOARD_WIDTH_MIN )
@@ -18,23 +18,23 @@ Players newPlayers( int const boardWidth )
         && "Board width value too big"
     );
 
-    Players players = { 0 };
+    Reserves reserves = { 0 };
 
-    int initRegularReserves = RESERVES_BASE_REGULAR[boardWidth - BOARD_WIDTH_MIN];
-    int initCapstoneReserves = RESERVES_BASE_CAPSTONE[boardWidth - BOARD_WIDTH_MIN];
+    int regularReserves = RESERVES_BASE_REGULAR[boardWidth - BOARD_WIDTH_MIN];
+    int capstoneReserves = RESERVES_BASE_CAPSTONE[boardWidth - BOARD_WIDTH_MIN];
 
     //* Init player values
     for ( int idx = 0; idx < PLAYER_COUNT; ++idx )
     {
-        players.reservesRegular[idx] = initRegularReserves;
-        players.reservesCapstone[idx] = initCapstoneReserves;
+        reserves.regular[idx] = regularReserves;
+        reserves.capstone[idx] = capstoneReserves;
     }
 
-    return players;
+    return reserves;
 }
 
 void takeFromReserves(
-    Players* const pPlayers,
+    Reserves* const pReserves,
     PlayerId const playerId,
     StoneType const stoneType
 )
@@ -62,11 +62,11 @@ void takeFromReserves(
         case STONE_TYPE_STANDING:
         {
             assert(
-                pPlayers->reservesRegular[playerId] > 0
+                pReserves->regular[playerId] > 0
                 && "No reserves left"
             );
 
-            --pPlayers->reservesRegular[playerId];
+            --pReserves->regular[playerId];
 
             break;
         }
@@ -74,11 +74,11 @@ void takeFromReserves(
         case STONE_TYPE_CAP:
         {
             assert(
-                pPlayers->reservesCapstone[playerId] > 0
+                pReserves->capstone[playerId] > 0
                 && "No reserves left"
             );
 
-            --pPlayers->reservesCapstone[playerId];
+            --pReserves->capstone[playerId];
 
             break;
         }
@@ -86,7 +86,7 @@ void takeFromReserves(
 }
 
 void returnToReserves(
-    Players* const pPlayers,
+    Reserves* const pReserves,
     PlayerId const playerId,
     StoneType const stoneType
 )
@@ -108,14 +108,14 @@ void returnToReserves(
         case STONE_TYPE_FLAT:
         case STONE_TYPE_STANDING:
         {
-            ++pPlayers->reservesRegular[playerId];
+            ++pReserves->regular[playerId];
 
             break;
         }
 
         case STONE_TYPE_CAP:
         {
-            ++pPlayers->reservesCapstone[playerId];
+            ++pReserves->capstone[playerId];
 
             break;
         }

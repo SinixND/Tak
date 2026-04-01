@@ -4,7 +4,7 @@
 #include "Board.h"
 #include "History.h"
 #include "PlayerId.h"
-#include "Players.h"
+#include "Reserves.h"
 #include "StackBuffer.h"
 
 /**
@@ -15,7 +15,7 @@ typedef struct Game
     Board board;
     History history;
     StackBuffer stackBuffer;
-    Players players;
+    Reserves reserves;
     PlayerId activePlayer;
 } Game;
 

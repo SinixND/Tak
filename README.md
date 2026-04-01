@@ -151,9 +151,9 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 
 
 ## ToDo notes
-- GameEvent for History
-    - History does not belong to Game
-- Extract check/validations into Rules module
+- [ ] Move history to engine
+- [ ] Use GameEvent for history
+- [ ] Extract check/validations into Rules module
 
 - [ ] "What data is needed to update the game?"
   - GameEvent holding information for place, lift, drop
@@ -161,8 +161,8 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
   - System-Out: Game (?) -> modify
   - No state
     - [x] newEvent()
-    - [ ] applyEvent()
     - [ ] validateEvent()
+    - [ ] applyEvent()
 
 Module eventBuilder(FSM):
 - [ ] "What data is needed to build a game event?"

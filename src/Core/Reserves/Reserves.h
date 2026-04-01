@@ -7,11 +7,11 @@
 /**
  * @brief Player stats
  */
-typedef struct Players
+typedef struct Reserves
 {
     /// Current reserves available
-    uint8_t reservesRegular[PLAYER_COUNT];
-    uint8_t reservesCapstone[PLAYER_COUNT];
-} Players;
+    uint8_t regular[PLAYER_COUNT];
+    uint8_t capstone[PLAYER_COUNT];
+} Reserves;
 
 #endif

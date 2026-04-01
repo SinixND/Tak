@@ -6,9 +6,9 @@
 #include "GameEvent.h"
 #include "GameEventSystem.h"
 #include "PlayerId.h"
-#include "Players.h"
 #include "PositionSystem.h"
 #include "RankId.h"
+#include "Reserves.h"
 #include "StoneTypeId.h"
 #include <stdbool.h>
 #include <unity.h>
@@ -29,52 +29,52 @@ void testNewGameEvent( void )
 void testIsStoneTypeAvailable( void )
 {
     GameEvent event = { 0 };
-    Players players = { 0 };
+    Reserves reserves = { 0 };
 
     event.stoneId = PLAYER_WHITE;
     event.stoneType = STONE_TYPE_FLAT;
-    TEST_ASSERT_EQUAL_INT( false, isStoneTypeAvailable( &event, &players ) );
+    TEST_ASSERT_EQUAL_INT( false, isStoneTypeAvailable( &event, &reserves ) );
 
     event.stoneType = STONE_TYPE_STANDING;
-    TEST_ASSERT_EQUAL_INT( false, isStoneTypeAvailable( &event, &players ) );
+    TEST_ASSERT_EQUAL_INT( false, isStoneTypeAvailable( &event, &reserves ) );
 
     event.stoneType = STONE_TYPE_CAP;
-    TEST_ASSERT_EQUAL_INT( false, isStoneTypeAvailable( &event, &players ) );
+    TEST_ASSERT_EQUAL_INT( false, isStoneTypeAvailable( &event, &reserves ) );
 
-    players.reservesRegular[event.stoneId] = 1;
-    players.reservesCapstone[event.stoneId] = 1;
+    reserves.regular[event.stoneId] = 1;
+    reserves.capstone[event.stoneId] = 1;
 
     event.stoneType = STONE_TYPE_FLAT;
-    TEST_ASSERT_EQUAL_INT( true, isStoneTypeAvailable( &event, &players ) );
+    TEST_ASSERT_EQUAL_INT( true, isStoneTypeAvailable( &event, &reserves ) );
 
     event.stoneType = STONE_TYPE_STANDING;
-    TEST_ASSERT_EQUAL_INT( true, isStoneTypeAvailable( &event, &players ) );
+    TEST_ASSERT_EQUAL_INT( true, isStoneTypeAvailable( &event, &reserves ) );
 
     event.stoneType = STONE_TYPE_CAP;
-    TEST_ASSERT_EQUAL_INT( true, isStoneTypeAvailable( &event, &players ) );
+    TEST_ASSERT_EQUAL_INT( true, isStoneTypeAvailable( &event, &reserves ) );
 
     event.stoneId = PLAYER_BLACK;
 
     event.stoneType = STONE_TYPE_FLAT;
-    TEST_ASSERT_EQUAL_INT( false, isStoneTypeAvailable( &event, &players ) );
+    TEST_ASSERT_EQUAL_INT( false, isStoneTypeAvailable( &event, &reserves ) );
 
     event.stoneType = STONE_TYPE_STANDING;
-    TEST_ASSERT_EQUAL_INT( false, isStoneTypeAvailable( &event, &players ) );
+    TEST_ASSERT_EQUAL_INT( false, isStoneTypeAvailable( &event, &reserves ) );
 
     event.stoneType = STONE_TYPE_CAP;
-    TEST_ASSERT_EQUAL_INT( false, isStoneTypeAvailable( &event, &players ) );
+    TEST_ASSERT_EQUAL_INT( false, isStoneTypeAvailable( &event, &reserves ) );
 
-    players.reservesRegular[event.stoneId] = 1;
-    players.reservesCapstone[event.stoneId] = 1;
+    reserves.regular[event.stoneId] = 1;
+    reserves.capstone[event.stoneId] = 1;
 
     event.stoneType = STONE_TYPE_FLAT;
-    TEST_ASSERT_EQUAL_INT( true, isStoneTypeAvailable( &event, &players ) );
+    TEST_ASSERT_EQUAL_INT( true, isStoneTypeAvailable( &event, &reserves ) );
 
     event.stoneType = STONE_TYPE_STANDING;
-    TEST_ASSERT_EQUAL_INT( true, isStoneTypeAvailable( &event, &players ) );
+    TEST_ASSERT_EQUAL_INT( true, isStoneTypeAvailable( &event, &reserves ) );
 
     event.stoneType = STONE_TYPE_CAP;
-    TEST_ASSERT_EQUAL_INT( true, isStoneTypeAvailable( &event, &players ) );
+    TEST_ASSERT_EQUAL_INT( true, isStoneTypeAvailable( &event, &reserves ) );
 }
 
 void testIsFileXOnBoard( void )
@@ -276,7 +276,7 @@ void testValidateEventPlace( void )
     event.rankY = RANK_2;
 
     game.activePlayer = PLAYER_WHITE;
-    game.players.reservesRegular[game.activePlayer] = 1;
+    game.reserves.regular[game.activePlayer] = 1;
     game.board.width = 3;
 
     TEST_ASSERT_EQUAL_INT( true, validateEventPlace( &event, &game ) );
@@ -301,7 +301,7 @@ void testValidateEventPlace( void )
     TEST_ASSERT_EQUAL_INT( false, validateEventPlace( &event, &game ) );
 
     event.rankY = RANK_3;
-    game.players.reservesRegular[event.stoneId] = 0;
+    game.reserves.regular[event.stoneId] = 0;
 
     TEST_ASSERT_EQUAL_INT( false, validateEventPlace( &event, &game ) );
 }

@@ -2,11 +2,11 @@
 #define IG20251221041510
 
 #include "PlayerId.h"
-#include "Players.h"
+#include "Reserves.h"
 #include "StoneTypeId.h"
 
-/// Return initialized Players object
-Players newPlayers( int const boardWidth );
+/// Return initialized Reserves object
+Reserves newReserves( int const boardWidth );
 
 /**
  * @brief: Reduce reserves for given player and stone type
@@ -15,7 +15,7 @@ Players newPlayers( int const boardWidth );
  * - Increase stones in play
  */
 void takeFromReserves(
-    Players* const  pPlayers,
+    Reserves* const pReserves,
     PlayerId const playerId,
     StoneType const stoneType
 );
@@ -27,7 +27,7 @@ void takeFromReserves(
  * - Decrease stones in play
  */
 void returnToReserves(
-    Players* const  pPlayers,
+    Reserves* const pReserves,
     PlayerId const playerId,
     StoneType const stoneType
 );
