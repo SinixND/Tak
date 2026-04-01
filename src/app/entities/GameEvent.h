@@ -12,16 +12,31 @@
 /**
  * @brief: Store multiple user inputs needed for a complete game event
  */
-typedef struct GameEvent
+typedef union GameEvent
 {
-    PlayerId stoneId;
     ActionType actionType;
-    StoneType stoneType;
-    FileId fileX;
-    RankId rankY;
-    DirectionId direction; // Offset is dir * dropsDone
-    int8_t dropsDone;      // Dropping none counts as drop
-    int8_t stonesToDrop;
+
+    struct
+    {
+        PlayerId stoneId;
+        StoneType stoneType;
+        FileId fileX;
+        RankId rankY;
+    } Place;
+
+    struct
+    {
+        FileId fileX;
+        RankId rankY;
+    } Lift;
+
+    struct
+    {
+        FileId fileX;
+        RankId rankY;
+        int8_t dropsDone; // Dropping none counts as drop
+        int8_t stonesToDrop;
+    } Drop;
 } GameEvent;
 
 #endif

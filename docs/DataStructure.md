@@ -7,18 +7,6 @@ struct App
 |   |   + (int)[players] reservesCapstone
 |   |   + (int) stonesInPlay
 |   |   
-|   + struct(History) history
-|   |   + (int) lastActionIdx
-|   |   + (int) redoCount
-|   |   + struct(PlayerAction)[historySize]
-|   |       + enum(ActionType) actionType
-|   |       + enum(PlayerId) playerId
-|   |       + enum(StoneType) stoneType
-|   |       + (int) squareIdx 
-|   |       + (int) topStoneIndex
-|   |       + (int) stoneCount
-|   |       + (bool) flattened
-|   |       
 |   + struct(StackBuffer) stackBuffer
 |   |   + enum(PlayerId)[maxBoardWidth] stoneType
 |   |   + enum(StoneType) stoneType
@@ -31,5 +19,16 @@ struct App
 |       + (int) stackCapacity
 |       + (int) width
 | 
-+ 
++ struct(History) history
+|   + (int) lastActionIdx
+|   + (int) redoCount
+|   + struct(PlayerAction)[historySize]
+|       + enum(ActionType) actionType
+|       + enum(PlayerId) playerId
+|       + enum(StoneType) stoneType
+|       + (int) squareIdx 
+|       + (int) topStoneIndex
+|       + (int) stoneCount
+|       + (bool) flattened
+|       
 ```
