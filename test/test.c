@@ -1,7 +1,5 @@
 #include "TestAppSystem.h"
 #include "TestBoardSystem.h"
-#include "TestDirectionSystem.h"
-#include "TestGameConstantsSystem.h"
 #include "TestGameEventSystem.h"
 #include "TestGameSystem.h"
 #include "TestHistorySystem.h"
@@ -23,10 +21,6 @@ int main( void )
     RUN_TEST( testNewBoard );
     RUN_TEST( testPlaceOntoStack );
     RUN_TEST( testTakeFromStack );
-
-    //* Test GameConstantsSystem
-    RUN_TEST( testGetBaseRegularStoneReserves );
-    RUN_TEST( testGetBaseCapstoneReserves );
 
     //* Test GameSystem
     RUN_TEST( testNewGame );
@@ -77,10 +71,6 @@ int main( void )
     RUN_TEST( testIsDropCountValid );
     RUN_TEST( testValidateEventPlace );
     RUN_TEST( testValidateEventLift );
-
-    //* Test DirectionSystem
-    RUN_TEST( testGetOffsetX );
-    RUN_TEST( testGetOffsetY );
 
     return UNITY_END();
 }

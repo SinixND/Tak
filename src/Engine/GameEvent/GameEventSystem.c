@@ -1,7 +1,6 @@
 #include "GameEventSystem.h"
 
 #include "ActionTypeId.h"
-#include "DirectionSystem.h"
 #include "GameEvent.h"
 #include "PositionSystem.h"
 #include "StoneTypeId.h"

@@ -10,8 +10,6 @@ void testNewPlayers( void )
 {
     Players players = newPlayers( 3 );
 
-    TEST_ASSERT_EQUAL_INT( 0, players.stonesInPlay[PLAYER_WHITE] );
-    TEST_ASSERT_EQUAL_INT( 0, players.stonesInPlay[PLAYER_BLACK] );
     TEST_ASSERT_EQUAL_INT( 10, players.reservesRegular[PLAYER_WHITE] );
     TEST_ASSERT_EQUAL_INT( 10, players.reservesRegular[PLAYER_BLACK] );
     TEST_ASSERT_EQUAL_INT( 0, players.reservesCapstone[PLAYER_WHITE] );

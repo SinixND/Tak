@@ -9,8 +9,6 @@
  */
 typedef struct Players
 {
-    /// Stones in play
-    uint8_t stonesInPlay[PLAYER_COUNT];
     /// Current reserves available
     uint8_t reservesRegular[PLAYER_COUNT];
     uint8_t reservesCapstone[PLAYER_COUNT];

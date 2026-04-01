@@ -2,7 +2,6 @@
 
 #include "Board.h"
 #include "GameConstants.h"
-#include "GameConstantsSystem.h"
 #include "PlayerId.h"
 #include "PositionSystem.h"
 #include "StoneTypeId.h"
@@ -11,8 +10,8 @@
 Board newBoard( int const boardWidth )
 {
     Board board = {
-        .stackCapacity = 2 * getBaseRegularStoneReserves( boardWidth )
-                         + (int)( 0 != getBaseCapstoneReserves( boardWidth ) ), // can only have one per stack
+        .stackCapacity = 2 * RESERVES_BASE_REGULAR[boardWidth - BOARD_WIDTH_MIN]
+                         + (int)( 0 != RESERVES_BASE_CAPSTONE[boardWidth - BOARD_WIDTH_MIN] ), // can only have one per stack
         .width = boardWidth
     };
 

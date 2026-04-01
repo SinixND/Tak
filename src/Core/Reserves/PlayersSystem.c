@@ -1,6 +1,6 @@
 #include "PlayersSystem.h"
 
-#include "GameConstantsSystem.h"
+#include "GameConstants.h"
 #include "PlayerId.h"
 #include "Players.h"
 #include "StoneTypeId.h"
@@ -20,13 +20,12 @@ Players newPlayers( int const boardWidth )
 
     Players players = { 0 };
 
-    int initRegularReserves = getBaseRegularStoneReserves( boardWidth );
-    int initCapstoneReserves = getBaseCapstoneReserves( boardWidth );
+    int initRegularReserves = RESERVES_BASE_REGULAR[boardWidth - BOARD_WIDTH_MIN];
+    int initCapstoneReserves = RESERVES_BASE_CAPSTONE[boardWidth - BOARD_WIDTH_MIN];
 
     //* Init player values
     for ( int idx = 0; idx < PLAYER_COUNT; ++idx )
     {
-        players.stonesInPlay[idx] = 0;
         players.reservesRegular[idx] = initRegularReserves;
         players.reservesCapstone[idx] = initCapstoneReserves;
     }
@@ -84,8 +83,6 @@ void takeFromReserves(
             break;
         }
     }
-
-    ++pPlayers->stonesInPlay[playerId];
 }
 
 void returnToReserves(
@@ -123,7 +120,5 @@ void returnToReserves(
             break;
         }
     }
-
-    --pPlayers->stonesInPlay[playerId];
 }
 
