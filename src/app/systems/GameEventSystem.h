@@ -5,7 +5,6 @@
 #include "Game.h"
 #include "GameEvent.h"
 #include "Players.h"
-#include "StackBuffer.h"
 #include <stdbool.h>
 
 /// Return initialized game event object
@@ -63,18 +62,6 @@ bool doesPlayerOwnStack(
 bool isCaptiveValid(
     GameEvent const* const pEvent,
     Board const* const pBoard
-);
-
-/// Validate direction offset against board width
-bool isOffsetXOnBoard(
-    GameEvent const* const pEvent,
-    int const boardWidth
-);
-
-/// Validate direction offset against board width
-bool isOffsetYOnBoard(
-    GameEvent const* const pEvent,
-    int const boardWidth
 );
 
 /// Validate drop count against stack buffer

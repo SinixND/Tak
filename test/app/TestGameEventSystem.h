@@ -23,7 +23,6 @@ void testNewGameEvent( void )
     TEST_ASSERT_EQUAL_INT( STONE_TYPE_NONE, event.stoneType );
     TEST_ASSERT_EQUAL_INT( FILE_NONE, event.fileX );
     TEST_ASSERT_EQUAL_INT( RANK_NONE, event.rankY );
-    TEST_ASSERT_EQUAL_INT( DIR_NONE, event.direction );
     TEST_ASSERT_EQUAL_INT( 0, event.dropsDone );
     TEST_ASSERT_EQUAL_INT( -1, event.stonesToDrop );
 }
@@ -252,120 +251,6 @@ void testIsCaptiveValid( void )
 
     event.stoneType = STONE_TYPE_CAP;
     TEST_ASSERT_EQUAL_INT( false, isCaptiveValid( &event, &board ) );
-}
-
-void testIsOffsetXOnBoard( void )
-{
-    GameEvent event = { 0 };
-    int boardWidth = 3;
-
-    event.fileX = FILE_B;
-    event.rankY = RANK_2;
-
-    event.dropsDone = 0;
-    event.direction = DIR_NONE;
-    TEST_ASSERT_EQUAL_INT( true, isOffsetXOnBoard( &event, boardWidth ) );
-
-    event.direction = DIR_LEFT;
-    TEST_ASSERT_EQUAL_INT( true, isOffsetXOnBoard( &event, boardWidth ) );
-
-    event.direction = DIR_RIGHT;
-    TEST_ASSERT_EQUAL_INT( true, isOffsetXOnBoard( &event, boardWidth ) );
-
-    event.direction = DIR_UP;
-    TEST_ASSERT_EQUAL_INT( true, isOffsetXOnBoard( &event, boardWidth ) );
-
-    event.direction = DIR_DOWN;
-    TEST_ASSERT_EQUAL_INT( true, isOffsetXOnBoard( &event, boardWidth ) );
-
-    event.dropsDone = 1;
-    event.direction = DIR_NONE;
-    TEST_ASSERT_EQUAL_INT( true, isOffsetXOnBoard( &event, boardWidth ) );
-
-    event.direction = DIR_LEFT;
-    TEST_ASSERT_EQUAL_INT( true, isOffsetXOnBoard( &event, boardWidth ) );
-
-    event.direction = DIR_RIGHT;
-    TEST_ASSERT_EQUAL_INT( true, isOffsetXOnBoard( &event, boardWidth ) );
-
-    event.direction = DIR_UP;
-    TEST_ASSERT_EQUAL_INT( true, isOffsetXOnBoard( &event, boardWidth ) );
-
-    event.direction = DIR_DOWN;
-    TEST_ASSERT_EQUAL_INT( true, isOffsetXOnBoard( &event, boardWidth ) );
-
-    event.dropsDone = 2;
-    event.direction = DIR_NONE;
-    TEST_ASSERT_EQUAL_INT( true, isOffsetXOnBoard( &event, boardWidth ) );
-
-    event.direction = DIR_LEFT;
-    TEST_ASSERT_EQUAL_INT( false, isOffsetXOnBoard( &event, boardWidth ) );
-
-    event.direction = DIR_RIGHT;
-    TEST_ASSERT_EQUAL_INT( false, isOffsetXOnBoard( &event, boardWidth ) );
-
-    event.direction = DIR_UP;
-    TEST_ASSERT_EQUAL_INT( true, isOffsetXOnBoard( &event, boardWidth ) );
-
-    event.direction = DIR_DOWN;
-    TEST_ASSERT_EQUAL_INT( true, isOffsetXOnBoard( &event, boardWidth ) );
-}
-
-void testIsOffsetYOnBoard( void )
-{
-    GameEvent event = { 0 };
-    int boardWidth = 3;
-
-    event.fileX = FILE_B;
-    event.rankY = RANK_2;
-
-    event.dropsDone = 0;
-    event.direction = DIR_NONE;
-    TEST_ASSERT_EQUAL_INT( true, isOffsetYOnBoard( &event, boardWidth ) );
-
-    event.direction = DIR_LEFT;
-    TEST_ASSERT_EQUAL_INT( true, isOffsetYOnBoard( &event, boardWidth ) );
-
-    event.direction = DIR_RIGHT;
-    TEST_ASSERT_EQUAL_INT( true, isOffsetYOnBoard( &event, boardWidth ) );
-
-    event.direction = DIR_UP;
-    TEST_ASSERT_EQUAL_INT( true, isOffsetYOnBoard( &event, boardWidth ) );
-
-    event.direction = DIR_DOWN;
-    TEST_ASSERT_EQUAL_INT( true, isOffsetYOnBoard( &event, boardWidth ) );
-
-    event.dropsDone = 1;
-    event.direction = DIR_NONE;
-    TEST_ASSERT_EQUAL_INT( true, isOffsetYOnBoard( &event, boardWidth ) );
-
-    event.direction = DIR_LEFT;
-    TEST_ASSERT_EQUAL_INT( true, isOffsetYOnBoard( &event, boardWidth ) );
-
-    event.direction = DIR_RIGHT;
-    TEST_ASSERT_EQUAL_INT( true, isOffsetYOnBoard( &event, boardWidth ) );
-
-    event.direction = DIR_UP;
-    TEST_ASSERT_EQUAL_INT( true, isOffsetYOnBoard( &event, boardWidth ) );
-
-    event.direction = DIR_DOWN;
-    TEST_ASSERT_EQUAL_INT( true, isOffsetYOnBoard( &event, boardWidth ) );
-
-    event.dropsDone = 2;
-    event.direction = DIR_NONE;
-    TEST_ASSERT_EQUAL_INT( true, isOffsetYOnBoard( &event, boardWidth ) );
-
-    event.direction = DIR_LEFT;
-    TEST_ASSERT_EQUAL_INT( true, isOffsetYOnBoard( &event, boardWidth ) );
-
-    event.direction = DIR_RIGHT;
-    TEST_ASSERT_EQUAL_INT( true, isOffsetYOnBoard( &event, boardWidth ) );
-
-    event.direction = DIR_UP;
-    TEST_ASSERT_EQUAL_INT( false, isOffsetYOnBoard( &event, boardWidth ) );
-
-    event.direction = DIR_DOWN;
-    TEST_ASSERT_EQUAL_INT( false, isOffsetYOnBoard( &event, boardWidth ) );
 }
 
 void testIsDropCountValid( void )

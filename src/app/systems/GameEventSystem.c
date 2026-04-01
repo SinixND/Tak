@@ -16,7 +16,6 @@ GameEvent newGameEvent( void )
         .stoneType = STONE_TYPE_NONE,
         .fileX = FILE_NONE,
         .rankY = RANK_NONE,
-        .direction = DIR_NONE,
         .dropsDone = 0,
         .stonesToDrop = -1
     };
@@ -160,23 +159,6 @@ bool validateEventDrop(
         return false;
     }
 
-    //* Validate position
-    if ( !isOffsetXOnBoard(
-             pEvent,
-             pGame->board.width
-         ) )
-    {
-        return false;
-    }
-
-    if ( !isOffsetYOnBoard(
-             pEvent,
-             pGame->board.width
-         ) )
-    {
-        return false;
-    }
-
     //* Top vs. captive must obey rules
     if ( !isCaptiveValid(
              pEvent,
@@ -298,48 +280,6 @@ bool isCaptiveValid(
     }
 
     return true;
-}
-
-bool isOffsetXOnBoard(
-    GameEvent const* const pEvent,
-    int const boardWidth
-)
-{
-    assert(
-        pEvent->dropsDone >= 0
-        && "dropCountsSize must be positive"
-    );
-
-    int const pos
-        = pEvent->fileX
-          + ( getOffsetX( pEvent->direction )
-              * ( pEvent->dropsDone ) );
-
-    return ( pos < boardWidth
-             && pos >= 0 )
-               ? true
-               : false;
-}
-
-bool isOffsetYOnBoard(
-    GameEvent const* const pEvent,
-    int const boardWidth
-)
-{
-    assert(
-        pEvent->dropsDone >= 0
-        && "dropCountsSize must be positive"
-    );
-
-    int const pos
-        = pEvent->fileX
-          + ( getOffsetY( pEvent->direction )
-              * ( pEvent->dropsDone ) );
-
-    return ( pos < boardWidth
-             && pos >= 0 )
-               ? true
-               : false;
 }
 
 bool isDropCountValid(

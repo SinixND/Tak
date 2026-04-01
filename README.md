@@ -151,7 +151,6 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 
 
 ## ToDo notes
-- Union for GameEvent
 - GameEvent for History
     - History does not belong to Game
 - Extract check/validations into Rules module

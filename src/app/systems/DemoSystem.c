@@ -2,6 +2,8 @@
 
 #include "App.h"
 #include "BoardSystem.h"
+#include "DirectionId.h"
+#include "DirectionSystem.h"
 #include "GameEvent.h"
 #include "GameEventSystem.h"
 #include "GameSystem.h"
@@ -34,8 +36,8 @@ void demo( App* const pApp )
 
     dropStone(
         &pApp->game,
-        0,
-        1
+        1 + getOffsetX( DIR_LEFT ),
+        2 + getOffsetY( DIR_DOWN )
     );
 
     GameEvent event = newGameEvent();
