@@ -71,6 +71,8 @@ int main( void )
     RUN_TEST( testIsDropCountValid );
     RUN_TEST( testValidateEventPlace );
     RUN_TEST( testValidateEventLift );
+    RUN_TEST( testValidateEventDrop );
+    RUN_TEST( testValidateEvent );
 
     return UNITY_END();
 }

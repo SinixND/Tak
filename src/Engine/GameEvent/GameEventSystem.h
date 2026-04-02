@@ -10,6 +10,12 @@
 /// Return initialized game event object
 GameEvent newGameEvent( void );
 
+/// Validate event against game rules
+bool validateEvent(
+    GameEvent const* const pEvent,
+    Game const* const pGame
+);
+
 /// Validate placement event against game rules
 bool validateEventPlace(
     GameEvent const* const pEvent,
@@ -58,22 +64,16 @@ bool doesPlayerOwnStack(
     Board const* const pBoard
 );
 
-/// Validate dropped stone against (new) captive
-bool isCaptiveValid(
-    GameEvent const* const pEvent,
-    Board const* const pBoard
-);
-
 /// Validate drop count against stack buffer
 bool isDropCountValid(
     GameEvent const* const pEvent,
     int const stackBufferStoneCount
 );
 
-/// Validate event against game rules
-bool validateEvent(
+/// Validate dropped stone against (new) captive
+bool isCaptiveValid(
     GameEvent const* const pEvent,
-    Game const* const pGame
+    Board const* const pBoard
 );
 
 #endif

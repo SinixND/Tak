@@ -251,6 +251,17 @@ bool doesPlayerOwnStack(
                : false;
 }
 
+bool isDropCountValid(
+    GameEvent const* const pEvent,
+    int const stackBufferStoneCount
+)
+{
+    return ( pEvent->dropCount
+             > stackBufferStoneCount )
+               ? false
+               : true;
+}
+
 bool isCaptiveValid(
     GameEvent const* const pEvent,
     Board const* const pBoard
@@ -281,13 +292,3 @@ bool isCaptiveValid(
     return true;
 }
 
-bool isDropCountValid(
-    GameEvent const* const pEvent,
-    int const stackBufferStoneCount
-)
-{
-    return ( pEvent->dropCount
-             > stackBufferStoneCount )
-               ? false
-               : true;
-}
