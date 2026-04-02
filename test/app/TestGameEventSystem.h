@@ -24,7 +24,6 @@ void testNewGameEvent( void )
     TEST_ASSERT_EQUAL_INT( FILE_NONE, event.fileX );
     TEST_ASSERT_EQUAL_INT( RANK_NONE, event.rankY );
     TEST_ASSERT_EQUAL_INT( 0, event.dropCount );
-    TEST_ASSERT_EQUAL_INT( false, event.flattened );
 }
 
 void testIsStoneTypeAvailable( void )

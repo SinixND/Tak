@@ -10,7 +10,7 @@
 #include <stdint.h>
 
 /**
- * @brief: Store multiple user inputs needed for a complete game event
+ * @brief: User inputs to modify game state
  */
 typedef struct GameEvent
 {
@@ -20,7 +20,6 @@ typedef struct GameEvent
     FileId fileX;
     RankId rankY;
     int8_t dropCount;
-    bool flattened;
 } GameEvent;
 
 #endif

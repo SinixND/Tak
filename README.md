@@ -157,12 +157,12 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
   - System-Out: Game (?) -> modify
   - No state
     - [x] newEvent()
-    - [ ] validateEvent()
+    - [x] validateEvent()
     - [ ] applyEvent()
 
 Module History:
 - [ ] Move history to engine
-- [ ] Use GameEvent for history
+- [ ] Use GameEvent for history (or separate record w/ flattened?)
 
 - [ ] Extract check/validations into Rules module
 

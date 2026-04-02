@@ -16,7 +16,6 @@ GameEvent newGameEvent( void )
         .fileX = FILE_NONE,
         .rankY = RANK_NONE,
         .dropCount = 0,
-        .flattened = false,
     };
 }
 
