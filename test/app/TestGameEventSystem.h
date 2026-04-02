@@ -22,8 +22,8 @@ void testNewGameEvent( void )
     TEST_ASSERT_EQUAL_INT( STONE_TYPE_NONE, event.stoneType );
     TEST_ASSERT_EQUAL_INT( FILE_NONE, event.fileX );
     TEST_ASSERT_EQUAL_INT( RANK_NONE, event.rankY );
-    TEST_ASSERT_EQUAL_INT( 0, event.dropsDone );
-    TEST_ASSERT_EQUAL_INT( -1, event.stonesToDrop );
+    TEST_ASSERT_EQUAL_INT( 0, event.dropCount );
+    TEST_ASSERT_EQUAL_INT( false, event.flattened );
 }
 
 void testIsStoneTypeAvailable( void )
@@ -257,7 +257,7 @@ void testIsDropCountValid( void )
     GameEvent event = { 0 };
     int stackBufferStoneCount = 0;
 
-    event.stonesToDrop = 1;
+    event.dropCount = 1;
 
     TEST_ASSERT_EQUAL_INT( false, isDropCountValid( &event, stackBufferStoneCount ) );
 

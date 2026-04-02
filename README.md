@@ -151,10 +151,6 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 
 
 ## ToDo notes
-- [ ] Move history to engine
-- [ ] Use GameEvent for history
-- [ ] Extract check/validations into Rules module
-
 - [ ] "What data is needed to update the game?"
   - GameEvent holding information for place, lift, drop
   - System-In: GameEvent
@@ -163,6 +159,12 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
     - [x] newEvent()
     - [ ] validateEvent()
     - [ ] applyEvent()
+
+Module History:
+- [ ] Move history to engine
+- [ ] Use GameEvent for history
+
+- [ ] Extract check/validations into Rules module
 
 Module eventBuilder(FSM):
 - [ ] "What data is needed to build a game event?"

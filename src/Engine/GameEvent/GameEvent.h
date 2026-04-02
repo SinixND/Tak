@@ -6,6 +6,7 @@
 #include "PlayerId.h"
 #include "RankId.h"
 #include "StoneTypeId.h"
+#include <stdbool.h>
 #include <stdint.h>
 
 /**
@@ -14,12 +15,12 @@
 typedef struct GameEvent
 {
     ActionType actionType;
-    FileId fileX;
-    RankId rankY;
     PlayerId stoneId;
     StoneType stoneType;
-    int8_t dropsDone; // Dropping none counts as drop
-    int8_t stonesToDrop;
+    FileId fileX;
+    RankId rankY;
+    int8_t dropCount;
+    bool flattened;
 } GameEvent;
 
 #endif

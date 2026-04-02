@@ -15,8 +15,8 @@ GameEvent newGameEvent( void )
         .stoneType = STONE_TYPE_NONE,
         .fileX = FILE_NONE,
         .rankY = RANK_NONE,
-        .dropsDone = 0,
-        .stonesToDrop = -1
+        .dropCount = 0,
+        .flattened = false,
     };
 }
 
@@ -286,7 +286,7 @@ bool isDropCountValid(
     int const stackBufferStoneCount
 )
 {
-    return ( pEvent->stonesToDrop
+    return ( pEvent->dropCount
              > stackBufferStoneCount )
                ? false
                : true;
