@@ -151,6 +151,8 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 
 
 ## ToDo notes
+- [ ] testUndoDropStone
+
 - [ ] "What data is needed to update the game?"
   - GameEvent holding information for place, lift, drop
   - System-In: GameEvent

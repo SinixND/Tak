@@ -10,9 +10,6 @@
 #include "StoneTypeId.h"
 #include <stdint.h>
 
-/**
- * @brief: Store multiple user inputs needed for a complete game event
- */
 typedef struct
 {
     PlayerId stoneId;

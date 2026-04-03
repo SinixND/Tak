@@ -1,8 +1,10 @@
 #ifndef IG20260117152251
 #define IG20260117152251
 
+#include "ActionTypeId.h"
 #include "FileId.h"
 #include "Game.h"
+#include "GameEvent.h"
 #include "GameSystem.h"
 #include "PlayerId.h"
 #include "RankId.h"
@@ -415,4 +417,28 @@ void testRedo( void )
     TEST_ASSERT_EQUAL_INT( 0, game.stackBuffer.stoneCount );
     TEST_ASSERT_EQUAL_INT( 1, game.board.stoneCounts[3] );
 }
+
+void testApplyEvent( void )
+{
+    Game game = newGame( 5 );
+    GameEvent event = { 0 };
+
+    event.playerId = PLAYER_WHITE;
+    event.actionType = ACTION_TYPE_PLACE;
+    event.fileX = FILE_A;
+    event.rankY = RANK_1;
+    event.stoneType = STONE_TYPE_FLAT;
+
+    applyEvent(
+        &game,
+        &event
+    );
+
+    TEST_ASSERT_EQUAL_INT( 20, game.reserves.regular[PLAYER_WHITE] );
+    TEST_ASSERT_EQUAL_INT( 1, game.board.stoneCounts[0] );
+    TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, game.board.stoneIds[0] );
+    TEST_ASSERT_EQUAL_INT( PLAYER_NONE, game.board.stoneIds[1] );
+    TEST_ASSERT_EQUAL_INT( STONE_TYPE_FLAT, game.board.types[0] );
+}
+
 #endif
