@@ -30,6 +30,7 @@ Game newGame( int boardWidth )
     };
 }
 
+//* Core functions
 void applyEvent(
     Game* const pGame,
     GameEvent const* const pEvent
@@ -84,7 +85,6 @@ void applyEvent(
     }
 }
 
-//* Core functions
 void placeStone(
     Game* const pGame,
     PlayerId const playerId,

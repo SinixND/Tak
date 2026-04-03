@@ -24,14 +24,16 @@ int main( void )
 
     //* Test GameSystem
     RUN_TEST( testNewGame );
-    RUN_TEST( testApplyEvent );
     RUN_TEST( testPlaceStone );
     RUN_TEST( testLiftStack );
     RUN_TEST( testDropStone );
+    RUN_TEST( testApplyEvent );
     RUN_TEST( testUndoPlaceStone );
-    RUN_TEST( testRedoPlaceStone );
     RUN_TEST( testUndoLiftStack );
+    RUN_TEST( testUndoDropStone );
+    RUN_TEST( testRedoPlaceStone );
     RUN_TEST( testRedoLiftStack );
+    RUN_TEST( testRedoDropStone );
     RUN_TEST( testUndo );
     RUN_TEST( testRedo );
 
