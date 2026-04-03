@@ -11,13 +11,13 @@
 History newHistory( void )
 {
     History history = {
-        .lastActionIdx = -1,
+        .lastRecordIdx = -1,
         .redoCount = 0,
     };
 
     for ( int idx = 0; idx < HISTORY_SIZE; ++idx )
     {
-        // history.actions[idx] = newPlayerAction();
+        // history.actions[idx] = newHistoryRecord();
     }
 
     return history;
@@ -31,11 +31,11 @@ void recordPlacementAction(
 )
 {
     //* Increase index
-    ++pHistory->lastActionIdx;
+    ++pHistory->lastRecordIdx;
 
     //* Might never trigger
     assert(
-        pHistory->lastActionIdx < HISTORY_SIZE
+        pHistory->lastRecordIdx < HISTORY_SIZE
         && "History size exceeded"
     );
 
@@ -43,8 +43,8 @@ void recordPlacementAction(
     pHistory->redoCount = 0;
 
     //* Push playerAction
-    pHistory->actions[pHistory->lastActionIdx]
-        = (PlayerAction){
+    pHistory->records[pHistory->lastRecordIdx]
+        = (HistoryRecord){
             .actionType = ACTION_TYPE_PLACE,
             .playerId = playerId,
             .squareIdx = squareIdx,
@@ -62,11 +62,11 @@ void recordLiftAction(
 )
 {
     //* Increase index
-    ++pHistory->lastActionIdx;
+    ++pHistory->lastRecordIdx;
 
     //* Might never trigger
     assert(
-        pHistory->lastActionIdx < HISTORY_SIZE
+        pHistory->lastRecordIdx < HISTORY_SIZE
         && "History size exceeded"
     );
 
@@ -74,8 +74,8 @@ void recordLiftAction(
     pHistory->redoCount = 0;
 
     //* Push playerAction
-    pHistory->actions[pHistory->lastActionIdx]
-        = (PlayerAction){
+    pHistory->records[pHistory->lastRecordIdx]
+        = (HistoryRecord){
             .actionType = ACTION_TYPE_LIFT,
             .squareIdx = squareIdx,
             .stoneType = stoneType,
@@ -93,11 +93,11 @@ void recordDropAction(
 )
 {
     //* Increase index
-    ++pHistory->lastActionIdx;
+    ++pHistory->lastRecordIdx;
 
     //* Might never trigger
     assert(
-        pHistory->lastActionIdx < HISTORY_SIZE
+        pHistory->lastRecordIdx < HISTORY_SIZE
         && "History size exceeded"
     );
 
@@ -105,8 +105,8 @@ void recordDropAction(
     pHistory->redoCount = 0;
 
     //* Push playerAction
-    pHistory->actions[pHistory->lastActionIdx]
-        = (PlayerAction){
+    pHistory->records[pHistory->lastRecordIdx]
+        = (HistoryRecord){
             .actionType = ACTION_TYPE_DROP,
             .playerId = playerId,
             .squareIdx = squareIdx,
@@ -119,11 +119,11 @@ void recordDropAction(
 void undoHistory( History* const pHistory )
 {
     assert(
-        pHistory->lastActionIdx >= 0
+        pHistory->lastRecordIdx >= 0
         && "Nothing to be undone"
     );
 
-    --pHistory->lastActionIdx;
+    --pHistory->lastRecordIdx;
     ++pHistory->redoCount;
 }
 
@@ -134,6 +134,6 @@ void redoHistory( History* const pHistory )
         && "Nothing to be redone"
     );
 
-    ++pHistory->lastActionIdx;
+    ++pHistory->lastRecordIdx;
     --pHistory->redoCount;
 }

@@ -4,8 +4,8 @@
 #include "BoardSystem.h"
 #include "FileId.h"
 #include "GameConstants.h"
+#include "HistoryRecord.h"
 #include "HistorySystem.h"
-#include "PlayerAction.h"
 #include "PlayerId.h"
 #include "PositionSystem.h"
 #include "RankId.h"
@@ -249,7 +249,7 @@ void dropStone(
 //* Undo functions
 void undoPlaceStone( Game* const pGame )
 {
-    PlayerAction const lastAction = pGame->history.actions[pGame->history.lastActionIdx];
+    HistoryRecord const lastAction = pGame->history.records[pGame->history.lastRecordIdx];
 
     //* Undo putOnStack
     takeFromStack(
@@ -271,7 +271,7 @@ void undoPlaceStone( Game* const pGame )
 
 void undoLiftStack( Game* const pGame )
 {
-    PlayerAction const lastAction = pGame->history.actions[pGame->history.lastActionIdx];
+    HistoryRecord const lastAction = pGame->history.records[pGame->history.lastRecordIdx];
 
     //* Add stones to stack
     for ( int i = 0; i < lastAction.stoneCount; ++i )
@@ -293,7 +293,7 @@ void undoLiftStack( Game* const pGame )
 
 void undoDropStone( Game* const pGame )
 {
-    PlayerAction const lastAction = pGame->history.actions[pGame->history.lastActionIdx];
+    HistoryRecord const lastAction = pGame->history.records[pGame->history.lastRecordIdx];
 
     //* INFO: [Rule] No stone can be put onto capstone
     assert(
@@ -325,11 +325,11 @@ void undoDropStone( Game* const pGame )
 void undo( Game* const pGame )
 {
     assert(
-        pGame->history.lastActionIdx >= 0
+        pGame->history.lastRecordIdx >= 0
         && "Nothing to undo"
     );
 
-    switch ( pGame->history.actions[pGame->history.lastActionIdx].actionType )
+    switch ( pGame->history.records[pGame->history.lastRecordIdx].actionType )
     {
         default:
         {
@@ -364,7 +364,7 @@ void redoPlaceStone( Game* const pGame )
         pGame->history.redoCount > 0 && "Nothing to redo"
     );
 
-    PlayerAction const nextAction = pGame->history.actions[pGame->history.lastActionIdx + 1];
+    HistoryRecord const nextAction = pGame->history.records[pGame->history.lastRecordIdx + 1];
 
     //* INFO: [Rule] Can only place on empty squares
     assert(
@@ -395,7 +395,7 @@ void redoLiftStack( Game* const pGame )
         pGame->history.redoCount > 0 && "Nothing to redo"
     );
 
-    PlayerAction const nextAction = pGame->history.actions[pGame->history.lastActionIdx + 1];
+    HistoryRecord const nextAction = pGame->history.records[pGame->history.lastRecordIdx + 1];
 
     assert(
         pGame->board.stoneCounts[nextAction.squareIdx] > 0
@@ -440,7 +440,7 @@ void redoDropStone( Game* const pGame )
         pGame->history.redoCount > 0 && "Nothing to redo"
     );
 
-    PlayerAction const nextAction = pGame->history.actions[pGame->history.lastActionIdx + 1];
+    HistoryRecord const nextAction = pGame->history.records[pGame->history.lastRecordIdx + 1];
 
     putOntoStack(
         &pGame->board,
@@ -462,7 +462,7 @@ void redo( Game* const pGame )
         && "Nothing to redo"
     );
 
-    switch ( pGame->history.actions[pGame->history.lastActionIdx + 1].actionType )
+    switch ( pGame->history.records[pGame->history.lastRecordIdx + 1].actionType )
     {
         default:
         {

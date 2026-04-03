@@ -22,7 +22,7 @@ struct App
 + struct(History) history
 |   + (int) lastActionIdx
 |   + (int) redoCount
-|   + struct(PlayerAction)[historySize]
+|   + struct(HistoryRecord)[historySize]
 |       + enum(ActionType) actionType
 |       + enum(PlayerId) playerId
 |       + enum(StoneType) stoneType

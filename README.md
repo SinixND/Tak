@@ -151,20 +151,12 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 
 
 ## ToDo notes
-- [ ] "What data is needed to update the game?"
-  - GameEvent holding information for place, lift, drop
-  - System-In: GameEvent
-  - System-Out: Game (?) -> modify
-  - No state
-    - [x] newEvent()
-    - [x] validateEvent()
-    - [x] applyEvent()
-
-Module History:
-- [ ] Move history to engine
-- [ ] Use GameEvent for history (or separate record w/ flattened?)
-
-- [ ] Extract check/validations into Rules module
+Module TurnLogic:
+- [ ] Move undo/redo to AppSystem
+- [ ] Refactor undo*/redo* to atomic action
+- [ ] Extract History from Game to App
+- [ ] Extract GameEvent from InputBuffer to App
+- [ ] validate event -> modify game (applyEvent()) -> record action
 
 Module eventBuilder(FSM):
 - [ ] "What data is needed to build a game event?"

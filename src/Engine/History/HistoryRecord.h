@@ -20,7 +20,7 @@
  * Inputs: Position, Captive
  *
  */
-typedef struct PlayerAction
+typedef struct HistoryRecord
 {
     PlayerId playerId;     // White or black
     ActionType actionType; // P, L, D
@@ -28,6 +28,6 @@ typedef struct PlayerAction
     StoneType stoneType;   // F, S, C
     uint8_t stoneCount;    // Max: board width
     bool flattened;        // Capstone flattened standing
-} PlayerAction;
+} HistoryRecord;
 
 #endif
