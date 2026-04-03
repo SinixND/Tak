@@ -24,6 +24,7 @@ int main( void )
 
     //* Test GameSystem
     RUN_TEST( testNewGame );
+    RUN_TEST( testApplyEvent );
     RUN_TEST( testPlaceStone );
     RUN_TEST( testLiftStack );
     RUN_TEST( testDropStone );
