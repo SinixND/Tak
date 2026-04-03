@@ -10,7 +10,7 @@
 GameEvent newGameEvent( void )
 {
     return (GameEvent){
-        .stoneId = PLAYER_NONE,
+        .playerId = PLAYER_NONE,
         .actionType = ACTION_TYPE_NONE,
         .stoneType = STONE_TYPE_NONE,
         .fileX = FILE_NONE,
@@ -176,14 +176,14 @@ bool isStoneTypeAvailable(
 {
     if ( pEvent->stoneType != STONE_TYPE_CAP )
     {
-        if ( pReserves->regular[pEvent->stoneId] > 0 )
+        if ( pReserves->regular[pEvent->playerId] > 0 )
         {
             return true;
         }
     }
     else
     {
-        if ( pReserves->capstone[pEvent->stoneId] > 0 )
+        if ( pReserves->capstone[pEvent->playerId] > 0 )
         {
             return true;
         }
@@ -245,7 +245,7 @@ bool doesPlayerOwnStack(
     );
 
     return ( pBoard->stoneIds[squareToStackIndex( squareIdx, pBoard->stackCapacity ) + pBoard->stoneCounts[squareIdx] - 1]
-             == pEvent->stoneId )
+             == pEvent->playerId )
                ? true
                : false;
 }

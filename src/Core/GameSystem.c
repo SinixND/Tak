@@ -27,9 +27,16 @@ Game newGame( int boardWidth )
         .history = newHistory(),
         .stackBuffer = newStackBuffer(),
         .reserves = newReserves( boardWidth ),
-        .activePlayer = PLAYER_WHITE,
     };
 }
+
+// void applyEvent(
+//     Game* const pGame,
+//     GameEvent const* const pEvent
+// )
+// {
+//
+// }
 
 //* Core functions
 void placeStone(

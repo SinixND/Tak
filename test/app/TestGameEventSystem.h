@@ -18,7 +18,7 @@ void testNewGameEvent( void )
 {
     GameEvent event = newGameEvent();
 
-    TEST_ASSERT_EQUAL_INT( PLAYER_NONE, event.stoneId );
+    TEST_ASSERT_EQUAL_INT( PLAYER_NONE, event.playerId );
     TEST_ASSERT_EQUAL_INT( ACTION_TYPE_NONE, event.actionType );
     TEST_ASSERT_EQUAL_INT( STONE_TYPE_NONE, event.stoneType );
     TEST_ASSERT_EQUAL_INT( FILE_NONE, event.fileX );
@@ -31,7 +31,7 @@ void testIsStoneTypeAvailable( void )
     GameEvent event = { 0 };
     Reserves reserves = { 0 };
 
-    event.stoneId = PLAYER_WHITE;
+    event.playerId = PLAYER_WHITE;
     event.stoneType = STONE_TYPE_FLAT;
     TEST_ASSERT_EQUAL_INT( false, isStoneTypeAvailable( &event, &reserves ) );
 
@@ -41,8 +41,8 @@ void testIsStoneTypeAvailable( void )
     event.stoneType = STONE_TYPE_CAP;
     TEST_ASSERT_EQUAL_INT( false, isStoneTypeAvailable( &event, &reserves ) );
 
-    reserves.regular[event.stoneId] = 1;
-    reserves.capstone[event.stoneId] = 1;
+    reserves.regular[event.playerId] = 1;
+    reserves.capstone[event.playerId] = 1;
 
     event.stoneType = STONE_TYPE_FLAT;
     TEST_ASSERT_EQUAL_INT( true, isStoneTypeAvailable( &event, &reserves ) );
@@ -53,7 +53,7 @@ void testIsStoneTypeAvailable( void )
     event.stoneType = STONE_TYPE_CAP;
     TEST_ASSERT_EQUAL_INT( true, isStoneTypeAvailable( &event, &reserves ) );
 
-    event.stoneId = PLAYER_BLACK;
+    event.playerId = PLAYER_BLACK;
 
     event.stoneType = STONE_TYPE_FLAT;
     TEST_ASSERT_EQUAL_INT( false, isStoneTypeAvailable( &event, &reserves ) );
@@ -64,8 +64,8 @@ void testIsStoneTypeAvailable( void )
     event.stoneType = STONE_TYPE_CAP;
     TEST_ASSERT_EQUAL_INT( false, isStoneTypeAvailable( &event, &reserves ) );
 
-    reserves.regular[event.stoneId] = 1;
-    reserves.capstone[event.stoneId] = 1;
+    reserves.regular[event.playerId] = 1;
+    reserves.capstone[event.playerId] = 1;
 
     event.stoneType = STONE_TYPE_FLAT;
     TEST_ASSERT_EQUAL_INT( true, isStoneTypeAvailable( &event, &reserves ) );
@@ -189,7 +189,7 @@ void testDoesPlayerOwnStack( void )
     GameEvent event = { 0 };
     Board board;
     board.width = 3;
-    event.stoneId = PLAYER_WHITE;
+    event.playerId = PLAYER_WHITE;
     event.fileX = FILE_B;
     event.rankY = RANK_2;
     int squareIdx = positionToSquare(
@@ -201,7 +201,7 @@ void testDoesPlayerOwnStack( void )
     board.stoneIds[squareToStackIndex( squareIdx, board.stackCapacity ) + board.stoneCounts[squareIdx] - 1] = PLAYER_WHITE;
     TEST_ASSERT_EQUAL_INT( true, doesPlayerOwnStack( &event, &board ) );
 
-    event.stoneId = PLAYER_BLACK;
+    event.playerId = PLAYER_BLACK;
     TEST_ASSERT_EQUAL_INT( false, doesPlayerOwnStack( &event, &board ) );
 }
 
@@ -271,12 +271,11 @@ void testValidateEventPlace( void )
     Game game = { 0 };
 
     event.stoneType = STONE_TYPE_FLAT;
-    event.stoneId = PLAYER_WHITE;
+    event.playerId = PLAYER_WHITE;
     event.fileX = FILE_B;
     event.rankY = RANK_2;
 
-    game.activePlayer = PLAYER_WHITE;
-    game.reserves.regular[game.activePlayer] = 1;
+    game.reserves.regular[event.playerId] = 1;
     game.board.width = 3;
 
     TEST_ASSERT_EQUAL_INT( true, validateEventPlace( &event, &game ) );
@@ -301,7 +300,7 @@ void testValidateEventPlace( void )
     TEST_ASSERT_EQUAL_INT( false, validateEventPlace( &event, &game ) );
 
     event.rankY = RANK_3;
-    game.reserves.regular[event.stoneId] = 0;
+    game.reserves.regular[event.playerId] = 0;
 
     TEST_ASSERT_EQUAL_INT( false, validateEventPlace( &event, &game ) );
 }
@@ -385,13 +384,12 @@ void testValidateEvent( void )
     Game game = { 0 };
 
     event.stoneType = STONE_TYPE_FLAT;
-    event.stoneId = PLAYER_WHITE;
+    event.playerId = PLAYER_WHITE;
     event.fileX = FILE_B;
     event.rankY = RANK_2;
 
-    game.activePlayer = PLAYER_WHITE;
     game.board.width = 3;
-    game.reserves.regular[game.activePlayer] = 1;
+    game.reserves.regular[event.playerId] = 1;
     game.stackBuffer.stoneCount = 1;
 
     int const squareIdx = positionToSquare(
@@ -402,10 +400,10 @@ void testValidateEvent( void )
 
     event.actionType = ACTION_TYPE_PLACE;
 
-    game.reserves.regular[game.activePlayer] = 0;
+    game.reserves.regular[event.playerId] = 0;
     TEST_ASSERT_EQUAL_INT( false, validateEvent( &event, &game ) );
 
-    game.reserves.regular[game.activePlayer] = 1;
+    game.reserves.regular[event.playerId] = 1;
     TEST_ASSERT_EQUAL_INT( true, validateEvent( &event, &game ) );
 
     event.actionType = ACTION_TYPE_LIFT;

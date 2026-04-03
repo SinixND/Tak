@@ -3,7 +3,6 @@
 
 #include "Board.h"
 #include "History.h"
-#include "PlayerId.h"
 #include "Reserves.h"
 #include "StackBuffer.h"
 
@@ -16,7 +15,6 @@ typedef struct Game
     History history;
     StackBuffer stackBuffer;
     Reserves reserves;
-    PlayerId activePlayer;
 } Game;
 
 #endif

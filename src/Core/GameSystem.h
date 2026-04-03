@@ -3,6 +3,7 @@
 
 #include "FileId.h"
 #include "Game.h"
+#include "GameEvent.h"
 #include "RankId.h"
 
 /**
@@ -12,7 +13,13 @@
  */
 Game newGame( int boardWidth );
 
-//* Core functions
+/**
+ * @brief: Apply game event data to game state
+ */
+void applyEvent(
+    Game* const pGame,
+    GameEvent const* const pEvent
+);
 
 /**
  * @brief: From Player to Board; Add to history

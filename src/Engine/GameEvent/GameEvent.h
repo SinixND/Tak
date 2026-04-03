@@ -15,7 +15,7 @@
 typedef struct GameEvent
 {
     ActionType actionType;
-    PlayerId stoneId;
+    PlayerId playerId;
     StoneType stoneType;
     FileId fileX;
     RankId rankY;
