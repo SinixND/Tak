@@ -34,8 +34,6 @@ int main( void )
     RUN_TEST( testRedoPlaceStone );
     RUN_TEST( testRedoLiftStack );
     RUN_TEST( testRedoDropStone );
-    RUN_TEST( testUndo );
-    RUN_TEST( testRedo );
 
     //* Test HistorySystem
     RUN_TEST( testRecordPlacementAction );
@@ -59,6 +57,8 @@ int main( void )
 
     //* Test AppSystem
     RUN_TEST( testNewApp );
+    RUN_TEST( testUndo );
+    RUN_TEST( testRedo );
 
     //* Test InputSystem
     RUN_TEST( testHandleGlobalInput );

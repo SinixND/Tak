@@ -63,24 +63,6 @@ void dropStone(
 );
 
 /**
- * @brief: Undo last action performed by a player
- *
- * - Read history
- * - Switch case and call appropriate function
- * - Adjust history index
- */
-void undo( Game* const pGame );
-
-/**
- * @brief: Redo next action performed by a player
- *
- * - Read history
- * - Switch case and call appropriate function
- * - Adjust history index
- */
-void redo( Game* const pGame );
-
-/**
  * @brief: From Board to Player; Undo History
  *
  * - Take one stone from stack/square

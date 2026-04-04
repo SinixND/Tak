@@ -10,7 +10,8 @@
 void testHandleGlobalInput( void )
 {
     App app = newApp( 0 );
-    app.input.keyboard = INPUT_Q;
+    //* TODO: Remove
+    app.inputBuffer.keyboard = INPUT_Q;
 
     handleGlobalInput( &app );
 

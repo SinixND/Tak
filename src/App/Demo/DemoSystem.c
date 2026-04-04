@@ -1,6 +1,7 @@
 #include "DemoSystem.h"
 
 #include "App.h"
+#include "AppSystem.h"
 #include "BoardSystem.h"
 #include "GameEvent.h"
 #include "GameEventSystem.h"
@@ -16,8 +17,8 @@ void demo( App* const pApp )
         STONE_TYPE_FLAT
     );
 
-    undo( &pApp->game );
-    redo( &pApp->game );
+    undo( pApp );
+    redo( pApp );
 
     putOntoStack(
         &pApp->game.board,

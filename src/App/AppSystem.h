@@ -7,7 +7,7 @@
 void setupApp( void );
 
 /// Run main application loop, ticking frames
-void runApp( App* const  pApp );
+void runApp( App* const pApp );
 
 /// Clean up before closing the application
 void closeApp( void );
@@ -16,6 +16,25 @@ void closeApp( void );
 App newApp( int const boardWidth );
 
 /// Tick next frame
-void updateFrame( App* const  pApp );
+void updateFrame( App* const pApp );
+
+//* TODO: Extract into module/*systems
+/**
+ * @brief: Undo last action performed by a player
+ *
+ * - Read history
+ * - Change game state
+ * - Adjust history index
+ */
+void undo( App* const pApp );
+
+/**
+ * @brief: Redo next action performed by a player
+ *
+ * - Read history
+ * - Change game state
+ * - Adjust history index
+ */
+void redo( App* const pApp );
 
 #endif

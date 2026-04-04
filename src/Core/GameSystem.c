@@ -321,42 +321,6 @@ void undoDropStone( Game* const pGame )
     //* Adjust history
     undoHistory( &pGame->history );
 }
-
-void undo( Game* const pGame )
-{
-    assert(
-        pGame->history.lastRecordIdx >= 0
-        && "Nothing to undo"
-    );
-
-    switch ( pGame->history.records[pGame->history.lastRecordIdx].actionType )
-    {
-        default:
-        {
-            assert( !"Missing undo case" );
-            break;
-        }
-
-        case ACTION_TYPE_PLACE:
-        {
-            undoPlaceStone( pGame );
-            break;
-        }
-
-        case ACTION_TYPE_LIFT:
-        {
-            undoLiftStack( pGame );
-            break;
-        }
-
-        case ACTION_TYPE_DROP:
-        {
-            undoDropStone( pGame );
-            break;
-        }
-    }
-}
-
 //* Redo functions
 void redoPlaceStone( Game* const pGame )
 {
@@ -453,42 +417,5 @@ void redoDropStone( Game* const pGame )
 
     //* Adjust history
     redoHistory( &pGame->history );
-}
-
-void redo( Game* const pGame )
-{
-    assert(
-        pGame->history.redoCount > 0
-        && "Nothing to redo"
-    );
-
-    switch ( pGame->history.records[pGame->history.lastRecordIdx + 1].actionType )
-    {
-        default:
-        {
-            assert( !"Missing redo case" );
-            break;
-        }
-
-        case ACTION_TYPE_PLACE:
-        {
-            redoPlaceStone( pGame );
-
-            break;
-        }
-
-        case ACTION_TYPE_LIFT:
-        {
-            redoLiftStack( pGame );
-
-            break;
-        }
-
-        case ACTION_TYPE_DROP:
-        {
-            redoDropStone( pGame );
-            break;
-        }
-    }
 }
 

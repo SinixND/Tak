@@ -1,7 +1,7 @@
 #include "AppSystem.h"
 
 #include "GameSystem.h"
-#include "InputId.h"
+#include "InputBufferSystem.h"
 #include "InputSystem.h"
 #include <assert.h>
 
@@ -25,7 +25,7 @@ App newApp( int const boardWidth )
 
     App app = {
         .game = newGame( boardWidth ),
-        .input = { .keyboard = INPUT_NONE },
+        .inputBuffer = newInputBuffer(),
         .shouldClose = false,
     };
 
@@ -49,7 +49,78 @@ void closeApp( void )
 
 void updateFrame( App* const pApp )
 {
-    pollInput( &pApp->input );
+    pollInput( &pApp->inputBuffer );
     handleGlobalInput( pApp );
 }
 
+void undo( App* const pApp )
+{
+    assert(
+        pApp->game.history.lastRecordIdx >= 0
+        && "Nothing to undo"
+    );
+
+    switch ( pApp->game.history.records[pApp->game.history.lastRecordIdx].actionType )
+    {
+        default:
+        {
+            assert( !"Missing undo case" );
+            break;
+        }
+
+        case ACTION_TYPE_PLACE:
+        {
+            undoPlaceStone( &pApp->game );
+            break;
+        }
+
+        case ACTION_TYPE_LIFT:
+        {
+            undoLiftStack( &pApp->game );
+            break;
+        }
+
+        case ACTION_TYPE_DROP:
+        {
+            undoDropStone( &pApp->game );
+            break;
+        }
+    }
+}
+
+void redo( App* const pApp )
+{
+    assert(
+        pApp->game.history.redoCount > 0
+        && "Nothing to redo"
+    );
+
+    switch ( pApp->game.history.records[pApp->game.history.lastRecordIdx + 1].actionType )
+    {
+        default:
+        {
+            assert( !"Missing redo case" );
+            break;
+        }
+
+        case ACTION_TYPE_PLACE:
+        {
+            redoPlaceStone( &pApp->game );
+
+            break;
+        }
+
+        case ACTION_TYPE_LIFT:
+        {
+            redoLiftStack( &pApp->game );
+
+            break;
+        }
+
+        case ACTION_TYPE_DROP:
+        {
+            redoDropStone( &pApp->game );
+            break;
+        }
+    }
+}

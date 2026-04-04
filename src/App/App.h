@@ -8,7 +8,7 @@
 typedef struct App
 {
     Game game;
-    InputBuffer input;
+    InputBuffer inputBuffer;
     bool shouldClose;
 } App;
 
