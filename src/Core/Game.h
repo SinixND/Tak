@@ -2,7 +2,6 @@
 #define IG20251205132519
 
 #include "Board.h"
-#include "History.h"
 #include "Reserves.h"
 #include "StackBuffer.h"
 
@@ -12,7 +11,6 @@
 typedef struct Game
 {
     Board board;
-    History history;
     StackBuffer stackBuffer;
     Reserves reserves;
 } Game;

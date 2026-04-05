@@ -1,11 +1,14 @@
 #include "DemoSystem.h"
 
 #include "App.h"
-#include "AppSystem.h"
 #include "BoardSystem.h"
 #include "GameEvent.h"
 #include "GameEventSystem.h"
 #include "GameSystem.h"
+#include "History.h"
+#include "HistorySystem.h"
+#include "PlayerId.h"
+#include "StoneTypeId.h"
 
 void demo( App* const pApp )
 {
@@ -16,9 +19,6 @@ void demo( App* const pApp )
         0,
         STONE_TYPE_FLAT
     );
-
-    undo( pApp );
-    redo( pApp );
 
     putOntoStack(
         &pApp->game.board,
@@ -45,4 +45,31 @@ void demo( App* const pApp )
         &event,
         &pApp->game
     );
+
+    History history = newHistory();
+
+    recordPlacementAction(
+        &history,
+        PLAYER_WHITE,
+        0,
+        STONE_TYPE_FLAT
+    );
+
+    recordLiftAction(
+        &history,
+        0,
+        STONE_TYPE_FLAT,
+        1
+    );
+
+    recordDropAction(
+        &history,
+        PLAYER_WHITE,
+        0,
+        STONE_TYPE_FLAT,
+        false
+    );
+
+    undoHistory( &history );
+    redoHistory( &history );
 }

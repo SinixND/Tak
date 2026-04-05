@@ -4,8 +4,6 @@
 #include "BoardSystem.h"
 #include "FileId.h"
 #include "GameConstants.h"
-#include "HistoryRecord.h"
-#include "HistorySystem.h"
 #include "PlayerId.h"
 #include "PositionSystem.h"
 #include "RankId.h"
@@ -24,7 +22,6 @@ Game newGame( int boardWidth )
 
     return (Game){
         .board = newBoard( boardWidth ),
-        .history = newHistory(),
         .stackBuffer = newStackBuffer(),
         .reserves = newReserves( boardWidth ),
     };
@@ -118,14 +115,6 @@ void placeStone(
         squareIdx,
         stoneType
     );
-
-    //* Add action to undo stack
-    recordPlacementAction(
-        &pGame->history,
-        playerId,
-        squareIdx,
-        stoneType
-    );
 }
 
 void liftStack(
@@ -182,14 +171,6 @@ void liftStack(
         squareIdx,
         stoneCount
     );
-
-    //* Add action to undo stack
-    recordLiftAction(
-        &pGame->history,
-        squareIdx,
-        stoneType,
-        stoneCount
-    );
 }
 
 void dropStone(
@@ -235,187 +216,5 @@ void dropStone(
     );
 
     dropFromBuffer( &pGame->stackBuffer );
-
-    //* Add action to undo stack
-    recordDropAction(
-        &pGame->history,
-        playerId,
-        squareIdx,
-        droppedStoneType,
-        (bool)( ( droppedStoneType == STONE_TYPE_CAP ) && ( captiveStoneType == STONE_TYPE_STANDING ) )
-    );
-}
-
-//* Undo functions
-void undoPlaceStone( Game* const pGame )
-{
-    HistoryRecord const lastAction = pGame->history.records[pGame->history.lastRecordIdx];
-
-    //* Undo putOnStack
-    takeFromStack(
-        &pGame->board,
-        lastAction.squareIdx,
-        1
-    );
-
-    //* Undo takeFromReserves
-    returnToReserves(
-        &pGame->reserves,
-        lastAction.playerId,
-        lastAction.stoneType
-    );
-
-    //* Adjust history
-    undoHistory( &pGame->history );
-}
-
-void undoLiftStack( Game* const pGame )
-{
-    HistoryRecord const lastAction = pGame->history.records[pGame->history.lastRecordIdx];
-
-    //* Add stones to stack
-    for ( int i = 0; i < lastAction.stoneCount; ++i )
-    {
-        putOntoStack(
-            &pGame->board,
-            pGame->stackBuffer.stoneIds[( lastAction.stoneCount - 1 ) - i],
-            lastAction.squareIdx,
-            lastAction.stoneType
-        );
-    }
-
-    //* Empty buffer
-    pGame->stackBuffer.stoneCount = 0;
-
-    //* Adjust history
-    undoHistory( &pGame->history );
-}
-
-void undoDropStone( Game* const pGame )
-{
-    HistoryRecord const lastAction = pGame->history.records[pGame->history.lastRecordIdx];
-
-    //* INFO: [Rule] No stone can be put onto capstone
-    assert(
-        pGame->board.stoneCounts[lastAction.squareIdx] > 0
-        && "Cant undo drop from emtpy square"
-    );
-
-    appendToBuffer(
-        &pGame->stackBuffer,
-        lastAction.playerId
-    );
-
-    takeFromStack(
-        &pGame->board,
-        lastAction.squareIdx,
-        lastAction.stoneCount
-    );
-
-    //* Make stackType 'standing' if drop flattened
-    pGame->board.types[lastAction.squareIdx]
-        = lastAction.flattened
-              ? STONE_TYPE_STANDING
-              : STONE_TYPE_FLAT;
-
-    //* Adjust history
-    undoHistory( &pGame->history );
-}
-//* Redo functions
-void redoPlaceStone( Game* const pGame )
-{
-    assert(
-        pGame->history.redoCount > 0 && "Nothing to redo"
-    );
-
-    HistoryRecord const nextAction = pGame->history.records[pGame->history.lastRecordIdx + 1];
-
-    //* INFO: [Rule] Can only place on empty squares
-    assert(
-        pGame->board.stoneCounts[nextAction.squareIdx] == 0
-        && "Can only place on empty square"
-    );
-
-    takeFromReserves(
-        &pGame->reserves,
-        nextAction.playerId,
-        nextAction.stoneType
-    );
-
-    putOntoStack(
-        &pGame->board,
-        nextAction.playerId,
-        nextAction.squareIdx,
-        nextAction.stoneType
-    );
-
-    //* Adjust history
-    redoHistory( &pGame->history );
-}
-
-void redoLiftStack( Game* const pGame )
-{
-    assert(
-        pGame->history.redoCount > 0 && "Nothing to redo"
-    );
-
-    HistoryRecord const nextAction = pGame->history.records[pGame->history.lastRecordIdx + 1];
-
-    assert(
-        pGame->board.stoneCounts[nextAction.squareIdx] > 0
-        && "Cannot pick up empty stack"
-    );
-
-    resetBuffer(
-        &pGame->stackBuffer,
-        nextAction.stoneType
-    );
-
-    //* Add stones to buffer
-    int const topStoneIdx
-        = squareToStackIndex(
-              nextAction.squareIdx,
-              pGame->board.stackCapacity
-          )
-          + ( pGame->board.stoneCounts[nextAction.squareIdx] - 1 );
-
-    for ( int i = 0; i < nextAction.stoneCount; ++i )
-    {
-        appendToBuffer(
-            &pGame->stackBuffer,
-            pGame->board.stoneIds[topStoneIdx - i]
-        );
-    }
-
-    //* Remove stones from stack
-    takeFromStack(
-        &pGame->board,
-        nextAction.squareIdx,
-        nextAction.stoneCount
-    );
-
-    //* Adjust history
-    redoHistory( &pGame->history );
-}
-
-void redoDropStone( Game* const pGame )
-{
-    assert(
-        pGame->history.redoCount > 0 && "Nothing to redo"
-    );
-
-    HistoryRecord const nextAction = pGame->history.records[pGame->history.lastRecordIdx + 1];
-
-    putOntoStack(
-        &pGame->board,
-        nextAction.playerId,
-        nextAction.squareIdx,
-        nextAction.stoneType
-    );
-
-    dropFromBuffer( &pGame->stackBuffer );
-
-    //* Adjust history
-    redoHistory( &pGame->history );
 }
 

@@ -3,6 +3,9 @@
 
 #include "App.h"
 
+/// Return initialized history object
+App newApp( int const boardWidth );
+
 /// Setup before running the application loop
 void setupApp( void );
 
@@ -11,9 +14,6 @@ void runApp( App* const pApp );
 
 /// Clean up before closing the application
 void closeApp( void );
-
-/// Return initialized history object
-App newApp( int const boardWidth );
 
 /// Tick next frame
 void updateFrame( App* const pApp );
@@ -26,7 +26,7 @@ void updateFrame( App* const pApp );
  * - Change game state
  * - Adjust history index
  */
-void undo( App* const pApp );
+// void undo( App* const pApp );
 
 /**
  * @brief: Redo next action performed by a player
@@ -35,6 +35,6 @@ void undo( App* const pApp );
  * - Change game state
  * - Adjust history index
  */
-void redo( App* const pApp );
+// void redo( App* const pApp );
 
 #endif
