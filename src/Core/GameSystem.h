@@ -14,14 +14,6 @@
 Game newGame( int boardWidth );
 
 /**
- * @brief: Apply game event data to game state
- */
-void applyEvent(
-    Game* const pGame,
-    GameEvent const* const pEvent
-);
-
-/**
  * @brief: From Player to Board; Add to history
  *
  * - Reduce reserves

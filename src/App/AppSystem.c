@@ -1,14 +1,12 @@
 #include "AppSystem.h"
 
+#include "BackendInterface.h"
+#include "GameEventSystem.h"
 #include "GameSystem.h"
+#include "HistorySystem.h"
 #include "InputBufferSystem.h"
 #include "InputSystem.h"
 #include <assert.h>
-
-//* Choose backend
-#ifdef BACKEND_NCURSES
-#include "BackendInterface.h"
-#endif
 
 App newApp( int const boardWidth )
 {
@@ -26,6 +24,8 @@ App newApp( int const boardWidth )
     App app = {
         .game = newGame( boardWidth ),
         .inputBuffer = newInputBuffer(),
+        .gameEvent = newGameEvent(),
+        .history = newHistory(),
         .shouldClose = false,
     };
 
@@ -51,5 +51,97 @@ void updateFrame( App* const pApp )
 {
     pollInput( &pApp->inputBuffer );
     handleGlobalInput( pApp );
+}
+
+void applyEvent(
+    Game* const pGame,
+    GameEvent const* const pEvent
+)
+{
+    switch ( pEvent->actionType )
+    {
+        default:
+        {
+            assert( !"No action type set" );
+
+            return;
+        }
+
+        case ACTION_TYPE_PLACE:
+        {
+            applyEventPlace(
+                pGame,
+                pEvent
+            );
+
+            return;
+        }
+
+        case ACTION_TYPE_LIFT:
+        {
+            applyEventLift(
+                pGame,
+                pEvent
+            );
+            return;
+        }
+
+        case ACTION_TYPE_DROP:
+        {
+            applyEventDrop(
+                pGame,
+                pEvent
+            );
+
+            return;
+        }
+    }
+}
+
+void applyEventPlace(
+    Game* const pGame,
+    GameEvent const* const pEvent
+)
+{
+    placeStone(
+        pGame,
+        pEvent->playerId,
+        pEvent->fileX,
+        pEvent->rankY,
+        pEvent->stoneType
+    );
+
+    return;
+}
+
+void applyEventLift(
+    Game* const pGame,
+    GameEvent const* const pEvent
+)
+{
+    liftStack(
+        pGame,
+        pEvent->fileX,
+        pEvent->rankY
+    );
+
+    return;
+}
+
+void applyEventDrop(
+    Game* const pGame,
+    GameEvent const* const pEvent
+)
+{
+    for ( int i = 0; i < pEvent->dropCount; ++i )
+    {
+        dropStone(
+            pGame,
+            pEvent->fileX,
+            pEvent->rankY
+        );
+    }
+
+    return;
 }
 

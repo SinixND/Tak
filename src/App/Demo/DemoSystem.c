@@ -1,8 +1,8 @@
 #include "DemoSystem.h"
 
 #include "App.h"
+#include "AppSystem.h"
 #include "BoardSystem.h"
-#include "GameEvent.h"
 #include "GameEventSystem.h"
 #include "GameSystem.h"
 #include "History.h"
@@ -39,11 +39,16 @@ void demo( App* const pApp )
         1
     );
 
-    GameEvent event = newGameEvent();
-
     validateEvent(
-        &event,
+        &pApp->gameEvent,
         &pApp->game
+    );
+
+    pApp->gameEvent.actionType = ACTION_TYPE_PLACE;
+
+    applyEvent(
+        &pApp->game,
+        &pApp->gameEvent
     );
 
     History history = newHistory();

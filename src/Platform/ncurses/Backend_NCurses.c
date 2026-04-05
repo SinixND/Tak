@@ -1,9 +1,10 @@
 #include "BackendInterface.h"
 
+#ifdef BACKEND_NCURSES
+
 #include "AppSystem.h"
 #include "InputBuffer.h"
 
-#ifdef BACKEND_NCURSES
 #include <ncurses.h>
 
 void setupBackend( void )

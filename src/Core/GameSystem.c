@@ -27,61 +27,6 @@ Game newGame( int boardWidth )
     };
 }
 
-//* Core functions
-void applyEvent(
-    Game* const pGame,
-    GameEvent const* const pEvent
-)
-{
-    switch ( pEvent->actionType )
-    {
-        default:
-        {
-            assert( !"No actiontype set" );
-
-            return;
-        }
-
-        case ACTION_TYPE_PLACE:
-        {
-            placeStone(
-                pGame,
-                pEvent->playerId,
-                pEvent->fileX,
-                pEvent->rankY,
-                pEvent->stoneType
-            );
-
-            return;
-        }
-
-        case ACTION_TYPE_LIFT:
-        {
-            liftStack(
-                pGame,
-                pEvent->fileX,
-                pEvent->rankY
-            );
-
-            return;
-        }
-
-        case ACTION_TYPE_DROP:
-        {
-            for ( int i = 0; i < pEvent->dropCount; ++i )
-            {
-                dropStone(
-                    pGame,
-                    pEvent->fileX,
-                    pEvent->rankY
-                );
-            }
-
-            return;
-        }
-    }
-}
-
 void placeStone(
     Game* const pGame,
     PlayerId const playerId,
