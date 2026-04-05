@@ -5,9 +5,7 @@
 #include "HistoryRecord.h"
 #include <stdint.h>
 
-/**
- * @brief: Stack to store player actions
- */
+/// Stack to store player actions
 typedef struct History
 {
     /// Stack to store the records to be undone

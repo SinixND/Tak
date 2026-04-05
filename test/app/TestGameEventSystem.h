@@ -424,4 +424,5 @@ void testValidateEvent( void )
     game.stackBuffer.stoneCount = 1;
     TEST_ASSERT_EQUAL_INT( true, validateEvent( &event, &game ) );
 }
+
 #endif

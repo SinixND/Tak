@@ -152,10 +152,6 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 
 ## ToDo notes
 Module TurnLogic:
-<!-- - [ ] Refactor undo*/redo* to atomic action -->
-<!-- - [ ] Extract History from Game to App -->
-- [ ] Remove history functions for now 
-- [ ] Extract GameEvent from InputBuffer to App
 - [ ] validate event -> modify game (applyEvent()) -> record action
 
 Module eventBuilder(FSM):

@@ -9,9 +9,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-/**
- * @brief: User inputs to modify game state
- */
+/// User inputs to modify game state
 typedef struct GameEvent
 {
     ActionType actionType;

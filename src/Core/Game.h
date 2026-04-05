@@ -5,9 +5,7 @@
 #include "Reserves.h"
 #include "StackBuffer.h"
 
-/**
- * @brief: Object to handle game state
- */
+/// Object to handle game state
 typedef struct Game
 {
     Board board;
