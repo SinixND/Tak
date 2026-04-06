@@ -151,9 +151,6 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 
 
 ## ToDo notes
-Module TurnLogic:
-- [ ] validate event -> modify game (applyEvent()) -> record action
-
 Module eventBuilder(FSM):
 - [ ] "What data is needed to build a game event?"
   - Multiple inputs -> User command (FSM built)

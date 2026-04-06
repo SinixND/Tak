@@ -2,7 +2,7 @@
 
 #include "App.h"
 #include "Game.h"
-#include "HistoryRecord.h"
+#include "Record.h"
 #include "StackBuffer.h"
 #include "StoneTypeId.h"
 #include <assert.h>
@@ -46,7 +46,7 @@ void undo( App* const pApp )
 
 void undoPlaceStone( App* const pApp )
 {
-    HistoryRecord const lastRecord = pApp->history.records[pApp->history.lastRecordIdx];
+    Record const lastRecord = pApp->history.records[pApp->history.lastRecordIdx];
 
     takeStone(
         &pApp->game,
@@ -59,7 +59,7 @@ void undoPlaceStone( App* const pApp )
 
 void undoLiftStack( App* const pApp )
 {
-    HistoryRecord const lastRecord = pApp->history.records[pApp->history.lastRecordIdx];
+    Record const lastRecord = pApp->history.records[pApp->history.lastRecordIdx];
 
     dropStack(
         &pApp->game,
@@ -72,7 +72,7 @@ void undoLiftStack( App* const pApp )
 
 void undoDropStone( App* const pApp )
 {
-    HistoryRecord const lastRecord = pApp->history.records[pApp->history.lastRecordIdx];
+    Record const lastRecord = pApp->history.records[pApp->history.lastRecordIdx];
 
     liftStone(
         &pApp->game,

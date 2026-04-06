@@ -16,7 +16,7 @@ History newHistory( void )
 
     for ( int idx = 0; idx < HISTORY_SIZE; ++idx )
     {
-        // history.actions[idx] = newHistoryRecord();
+        // history.actions[idx] = newRecord();
     }
 
     return history;
@@ -43,7 +43,7 @@ void recordActionPlacement(
 
     //* Push playerAction
     pHistory->records[pHistory->lastRecordIdx]
-        = (HistoryRecord){
+        = (Record){
             .actionType = ACTION_TYPE_PLACE,
             .playerId = playerId,
             .squareIdx = squareIdx,
@@ -70,7 +70,7 @@ void recordActionLift(
 
     //* Push playerAction
     pHistory->records[pHistory->lastRecordIdx]
-        = (HistoryRecord){
+        = (Record){
             .actionType = ACTION_TYPE_LIFT,
             .squareIdx = squareIdx,
         };
@@ -96,7 +96,7 @@ void recordActionDrop(
 
     //* Push playerAction
     pHistory->records[pHistory->lastRecordIdx]
-        = (HistoryRecord){
+        = (Record){
             .actionType = ACTION_TYPE_DROP,
             .squareIdx = squareIdx,
             .flattened = flattened,

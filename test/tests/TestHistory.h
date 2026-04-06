@@ -2,8 +2,8 @@
 #define IG20260309123925
 
 #include "History.h"
-#include "HistoryRecord.h"
 #include "PlayerId.h"
+#include "Record.h"
 #include "StoneTypeId.h"
 #include <stdbool.h>
 #include <unity.h>
@@ -21,7 +21,7 @@ void testRecordActionPlacement( void )
 
     TEST_ASSERT_EQUAL_INT( 1, history.lastRecordIdx );
 
-    HistoryRecord record = history.records[history.lastRecordIdx];
+    Record record = history.records[history.lastRecordIdx];
 
     TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, record.playerId );
     TEST_ASSERT_EQUAL_INT( 0, record.squareIdx );
@@ -69,7 +69,7 @@ void testRecordActionLift( void )
 
     TEST_ASSERT_EQUAL_INT( 1, history.lastRecordIdx );
 
-    HistoryRecord record = history.records[history.lastRecordIdx];
+    Record record = history.records[history.lastRecordIdx];
 
     TEST_ASSERT_EQUAL_INT( 0, record.squareIdx );
 }
@@ -86,7 +86,7 @@ void testRecordActionDrop( void )
 
     TEST_ASSERT_EQUAL_INT( 1, history.lastRecordIdx );
 
-    HistoryRecord record = history.records[history.lastRecordIdx];
+    Record record = history.records[history.lastRecordIdx];
 
     TEST_ASSERT_EQUAL_INT( 0, record.squareIdx );
     TEST_ASSERT_EQUAL_INT( true, record.flattened );

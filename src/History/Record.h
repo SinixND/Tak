@@ -20,13 +20,13 @@
  * Inputs: Position, StoneCount, flattened
  *
  */
-typedef struct HistoryRecord
+typedef struct Record
 {
     ActionType actionType; // P, L, D
     PlayerId playerId;     // White or black
     uint8_t squareIdx;     // File & Rank
     StoneType stoneType;   // F, S, C
     bool flattened;        // Capstone flattened standing
-} HistoryRecord;
+} Record;
 
 #endif

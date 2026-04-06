@@ -51,7 +51,7 @@ void redoPlaceStone( App* const pApp )
         pHistory->redoCount > 0 && "Nothing to redo"
     );
 
-    HistoryRecord const nextRecord = pHistory->records[pHistory->lastRecordIdx + 1];
+    Record const nextRecord = pHistory->records[pHistory->lastRecordIdx + 1];
 
     placeStone(
         pGame,
@@ -73,7 +73,7 @@ void redoLiftStack( App* const pApp )
         pHistory->redoCount > 0 && "Nothing to redo"
     );
 
-    HistoryRecord const nextRecord = pHistory->records[pHistory->lastRecordIdx + 1];
+    Record const nextRecord = pHistory->records[pHistory->lastRecordIdx + 1];
 
     liftStack(
         pGame,
@@ -93,7 +93,7 @@ void redoDropStone( App* const pApp )
         pHistory->redoCount > 0 && "Nothing to redo"
     );
 
-    HistoryRecord const nextRecord = pHistory->records[pHistory->lastRecordIdx + 1];
+    Record const nextRecord = pHistory->records[pHistory->lastRecordIdx + 1];
 
     dropStone(
         pGame,
