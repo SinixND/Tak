@@ -1,12 +1,12 @@
 #include "TestApp.h"
 #include "TestBoard.h"
 #include "TestEvent.h"
-#include "TestEventValidation.h"
 #include "TestGame.h"
 #include "TestHistory.h"
 #include "TestInputSystem.h"
 #include "TestPositionSystem.h"
 #include "TestReserves.h"
+#include "TestRuleValidation.h"
 #include "TestStackBuffer.h"
 #include <unity.h>
 
@@ -18,10 +18,23 @@ int main( void )
 {
     UNITY_BEGIN();
 
+    //* Test PositionSystem
+    RUN_TEST( testPositionToStackIndex );
+
     //* Test Board
     RUN_TEST( testNewBoard );
     RUN_TEST( testPlaceOntoStack );
     RUN_TEST( testTakeFromStack );
+
+    //* Test Reserves
+    RUN_TEST( testNewReserves );
+    RUN_TEST( testTakeFromReserves );
+
+    //* Test StackBuffer
+    RUN_TEST( testNewStackBuffer );
+    RUN_TEST( testResetStackBuffer );
+    RUN_TEST( testAppendToBuffer );
+    RUN_TEST( testDropFromBuffer );
 
     //* Test Game
     RUN_TEST( testNewGame );
@@ -38,28 +51,17 @@ int main( void )
     RUN_TEST( testRecordActionDrop );
     RUN_TEST( testUndoHistory );
     RUN_TEST( testRedoHistory );
-
-    //* Test Reserves
-    RUN_TEST( testNewReserves );
-    RUN_TEST( testTakeFromReserves );
-
-    //* Test PositionSystem
-    RUN_TEST( testPositionToStackIndex );
-
-    //* Test StackBuffer
-    RUN_TEST( testNewStackBuffer );
-    RUN_TEST( testResetStackBuffer );
-    RUN_TEST( testAppendToBuffer );
-    RUN_TEST( testDropFromBuffer );
-
-    //* Test App
-    RUN_TEST( testNewApp );
+    // TODO:
+    //  RUN_TEST( testUndo );
+    //  RUN_TEST( testRedo );
 
     //* Test InputSystem
     RUN_TEST( testHandleGlobalInput );
 
     //* Test Event
     RUN_TEST( testNewEvent );
+
+    //* Test RuleValidation
     RUN_TEST( testIsStoneTypeAvailable );
     RUN_TEST( testIsFileXOnBoard );
     RUN_TEST( testIsRankYOnBoard );
@@ -70,6 +72,16 @@ int main( void )
     RUN_TEST( testValidateEventPlace );
     RUN_TEST( testValidateEventLift );
     RUN_TEST( testValidateEventDrop );
+
+    //* TurnExecution
+    // TODO:
+    // RUN_TEST( testExecuteTurn );
+    // RUN_TEST( testApplyEventPlace );
+    // RUN_TEST( testApplyEventLift );
+    // RUN_TEST( testApplyEventDrop );
+
+    //* Test App
+    RUN_TEST( testNewApp );
 
     return UNITY_END();
 }
