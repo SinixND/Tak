@@ -56,7 +56,8 @@ void placeStone(
     putOntoStack(
         &pGame->board,
         playerId,
-        squareIdx,
+        fileX,
+        rankY,
         stoneType
     );
 }
@@ -112,7 +113,8 @@ void liftStack(
     //* Remove stones from stack
     takeFromStack(
         &pGame->board,
-        squareIdx,
+        fileX,
+        rankY,
         stoneCount
     );
 }
@@ -155,7 +157,8 @@ void dropStone(
     putOntoStack(
         &pGame->board,
         playerId,
-        squareIdx,
+        fileX,
+        rankY,
         droppedStoneType
     );
 

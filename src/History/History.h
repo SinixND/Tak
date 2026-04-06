@@ -1,8 +1,10 @@
 #ifndef IG20260308205300
 #define IG20260308205300
 
+#include "FileId.h"
 #include "GameConstants.h"
 #include "HistoryRecord.h"
+#include "RankId.h"
 #include <stdint.h>
 
 /// Stack to store player actions
@@ -26,10 +28,11 @@ History newHistory( void );
  * - Reset redo count
  * - Add player action with placement input
  */
-void recordPlacementAction(
+void recordActionPlacement(
     History* const pHistory,
     PlayerId const playerId,
-    int const squareIdx,
+    FileId const fileX,
+    RankId const rankY,
     StoneType const stoneType
 );
 
@@ -40,11 +43,10 @@ void recordPlacementAction(
  * - Reset redo count
  * - Add player action with lift input
  */
-void recordLiftAction(
+void recordActionLift(
     History* const pHistory,
-    int const squareIdx,
-    StoneType const stoneType,
-    int const stoneCount
+    FileId const fileX,
+    RankId const rankY
 );
 
 /**
@@ -54,10 +56,11 @@ void recordLiftAction(
  * - Reset redo count
  * - Add player action with drop input
  */
-void recordDropAction(
+void recordActionDrop(
     History* const pHistory,
     PlayerId const playerId,
-    int const squareIdx,
+    FileId const fileX,
+    RankId const rankY,
     StoneType const stoneType,
     bool const flattened
 );

@@ -2,7 +2,9 @@
 #define IG20260301185150
 
 #include "ActionTypeId.h"
+#include "FileId.h"
 #include "PlayerId.h"
+#include "RankId.h"
 #include "StoneTypeId.h"
 #include <stdbool.h>
 #include <stdint.h>
@@ -14,17 +16,18 @@
  * Inputs: PlayerId, Position, StoneType
  *
  * Action: Lift
- * Inputs: Position, StoneCount
+ * Inputs: Position
  *
  * Action: Drop
- * Inputs: Position, Captive
+ * Inputs: Position, StoneCount, flattened
  *
  */
 typedef struct HistoryRecord
 {
     PlayerId playerId;     // White or black
     ActionType actionType; // P, L, D
-    uint8_t squareIdx;     // Square
+    FileId fileX;          // A-H
+    RankId rankY;          // 1-8
     StoneType stoneType;   // F, S, C
     uint8_t stoneCount;    // Max: board width
     bool flattened;        // Capstone flattened standing

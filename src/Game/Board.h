@@ -1,8 +1,10 @@
 #ifndef IG20251123234345
 #define IG20251123234345
 
+#include "FileId.h"
 #include "GameConstants.h"
 #include "PlayerId.h"
+#include "RankId.h"
 #include "StoneTypeId.h"
 #include <stdint.h>
 
@@ -44,7 +46,8 @@ Board newBoard( int const boardWidth );
 void putOntoStack(
     Board* const pBoard,
     PlayerId const playerId,
-    int const squareIdx,
+    FileId const fileX,
+    RankId const rankY,
     StoneType const stoneType
 );
 
@@ -56,7 +59,8 @@ void putOntoStack(
  */
 void takeFromStack(
     Board* const pBoard,
-    int const squareIdx,
+    FileId const fileX,
+    RankId const rankY,
     int const stoneCount
 );
 

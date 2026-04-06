@@ -5,12 +5,6 @@
 #include "GameEvent.h"
 #include <stdbool.h>
 
-/// Validate event against game rules
-bool validateEvent(
-    GameEvent const* const pEvent,
-    Game const* const pGame
-);
-
 /// Validate placement event against game rules
 bool validateEventPlace(
     GameEvent const* const pEvent,

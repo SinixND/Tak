@@ -5,42 +5,6 @@
 #include "PositionSystem.h"
 #include <stdbool.h>
 
-bool validateEvent(
-    GameEvent const* const pEvent,
-    Game const* const pGame
-)
-{
-    switch ( pEvent->actionType )
-    {
-        default:
-            return false;
-
-        case ACTION_TYPE_PLACE:
-        {
-            return validateEventPlace(
-                pEvent,
-                pGame
-            );
-        }
-
-        case ACTION_TYPE_LIFT:
-        {
-            return validateEventLift(
-                pEvent,
-                pGame
-            );
-        }
-
-        case ACTION_TYPE_DROP:
-        {
-            return validateEventDrop(
-                pEvent,
-                pGame
-            );
-        }
-    }
-}
-
 bool validateEventPlace(
     GameEvent const* const pEvent,
     Game const* const pGame

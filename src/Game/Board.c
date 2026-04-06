@@ -34,10 +34,17 @@ Board newBoard( int const boardWidth )
 void putOntoStack(
     Board* const pBoard,
     PlayerId const playerId,
-    int const squareIdx,
+    FileId const fileX,
+    RankId const rankY,
     StoneType const stoneType
 )
 {
+    int const squareIdx
+        = positionToSquare(
+            fileX,
+            rankY,
+            pBoard->width
+        );
     assert(
         ( squareIdx >= 0 )
         && "Invalid squareIdx"
@@ -71,7 +78,8 @@ void putOntoStack(
 
 void takeFromStack(
     Board* const pBoard,
-    int const squareIdx,
+    FileId const fileX,
+    RankId const rankY,
     int const stoneCount
 )
 {

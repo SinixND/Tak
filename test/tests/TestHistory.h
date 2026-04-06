@@ -12,7 +12,7 @@ void testRecordPlacementAction( void )
 {
     History history = { 0 };
 
-    recordPlacementAction(
+    recordActionPlacement(
         &history,
         PLAYER_WHITE,
         0,
@@ -27,7 +27,7 @@ void testRecordPlacementAction( void )
     TEST_ASSERT_EQUAL_INT( 0, action.squareIdx );
     TEST_ASSERT_EQUAL_INT( STONE_TYPE_FLAT, action.stoneType );
 
-    recordPlacementAction(
+    recordActionPlacement(
         &history,
         PLAYER_WHITE,
         1,
@@ -42,7 +42,7 @@ void testRecordPlacementAction( void )
     TEST_ASSERT_EQUAL_INT( 1, action.squareIdx );
     TEST_ASSERT_EQUAL_INT( STONE_TYPE_STANDING, action.stoneType );
 
-    recordPlacementAction(
+    recordActionPlacement(
         &history,
         PLAYER_WHITE,
         2,
@@ -104,14 +104,14 @@ void testUndoHistory( void )
 {
     History history = { 0 };
 
-    recordPlacementAction(
+    recordActionPlacement(
         &history,
         PLAYER_WHITE,
         2,
         STONE_TYPE_STANDING
     );
 
-    recordPlacementAction(
+    recordActionPlacement(
         &history,
         PLAYER_WHITE,
         1,
@@ -128,7 +128,7 @@ void testUndoHistory( void )
     TEST_ASSERT_EQUAL_INT( 0, history.lastRecordIdx );
     TEST_ASSERT_EQUAL_INT( 2, history.redoCount );
 
-    recordPlacementAction(
+    recordActionPlacement(
         &history,
         PLAYER_WHITE,
         2,
@@ -143,7 +143,7 @@ void testRedoHistory( void )
 {
     History history = { 0 };
 
-    recordPlacementAction(
+    recordActionPlacement(
         &history,
         PLAYER_WHITE,
         2,
