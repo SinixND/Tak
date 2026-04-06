@@ -8,4 +8,7 @@ typedef struct InputBuffer
     InputId keyboard;
 } InputBuffer;
 
+/// Return initialized InputBuffer object
+InputBuffer newInputBuffer( void );
+
 #endif

@@ -1,5 +1,4 @@
 #include "App.h"
-#include "AppSystem.h"
 #include "DemoSystem.h"
 
 int main( void )

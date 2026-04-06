@@ -1,12 +1,14 @@
-#include "TestAppSystem.h"
-#include "TestBoardSystem.h"
-#include "TestGameEventSystem.h"
-#include "TestGameSystem.h"
-#include "TestHistorySystem.h"
+#include "TestApp.h"
+#include "TestBoard.h"
+#include "TestGame.h"
+#include "TestGameEvent.h"
+#include "TestGameEventExecution.h"
+#include "TestGameEventValidation.h"
+#include "TestHistory.h"
 #include "TestInputSystem.h"
 #include "TestPositionSystem.h"
-#include "TestReservesSystem.h"
-#include "TestStackBufferSystem.h"
+#include "TestReserves.h"
+#include "TestStackBuffer.h"
 #include <unity.h>
 
 void setUp( void ) {}
@@ -17,45 +19,45 @@ int main( void )
 {
     UNITY_BEGIN();
 
-    //* Test BoardSystem
+    //* Test Board
     RUN_TEST( testNewBoard );
     RUN_TEST( testPlaceOntoStack );
     RUN_TEST( testTakeFromStack );
 
-    //* Test GameSystem
+    //* Test Game
     RUN_TEST( testNewGame );
     RUN_TEST( testPlaceStone );
     RUN_TEST( testLiftStack );
     RUN_TEST( testDropStone );
     RUN_TEST( testApplyEvent );
 
-    //* Test HistorySystem
+    //* Test History
     RUN_TEST( testRecordPlacementAction );
     RUN_TEST( testRecordLiftAction );
     RUN_TEST( testRecordDropAction );
     RUN_TEST( testUndoHistory );
     RUN_TEST( testRedoHistory );
 
-    //* Test ReservesSystem
+    //* Test Reserves
     RUN_TEST( testNewReserves );
     RUN_TEST( testTakeFromReserves );
 
     //* Test PositionSystem
     RUN_TEST( testPositionToStackIndex );
 
-    //* Test StackBufferSystem
+    //* Test StackBuffer
     RUN_TEST( testNewStackBuffer );
     RUN_TEST( testResetStackBuffer );
     RUN_TEST( testAppendToBuffer );
     RUN_TEST( testDropFromBuffer );
 
-    //* Test AppSystem
+    //* Test App
     RUN_TEST( testNewApp );
 
     //* Test InputSystem
     RUN_TEST( testHandleGlobalInput );
 
-    //* Test GameEventSystem
+    //* Test GameEvent
     RUN_TEST( testNewGameEvent );
     RUN_TEST( testIsStoneTypeAvailable );
     RUN_TEST( testIsFileXOnBoard );

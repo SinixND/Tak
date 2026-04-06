@@ -2,7 +2,7 @@
 
 #ifdef BACKEND_NCURSES
 
-#include "AppSystem.h"
+#include "App.h"
 #include "InputBuffer.h"
 
 #include <ncurses.h>
