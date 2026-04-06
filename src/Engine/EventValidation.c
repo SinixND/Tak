@@ -1,12 +1,12 @@
-#include "GameEventValidation.h"
+#include "EventValidation.h"
 
+#include "Event.h"
 #include "Game.h"
-#include "GameEvent.h"
 #include "PositionSystem.h"
 #include <stdbool.h>
 
 bool validateEventPlace(
-    GameEvent const* const pEvent,
+    Event const* const pEvent,
     Game const* const pGame
 )
 {
@@ -52,7 +52,7 @@ bool validateEventPlace(
 }
 
 bool validateEventLift(
-    GameEvent const* const pEvent,
+    Event const* const pEvent,
     Game const* const pGame
 )
 {
@@ -98,7 +98,7 @@ bool validateEventLift(
 }
 
 bool validateEventDrop(
-    GameEvent const* const pEvent,
+    Event const* const pEvent,
     Game const* const pGame
 )
 {
@@ -124,7 +124,7 @@ bool validateEventDrop(
 }
 
 bool isStoneTypeAvailable(
-    GameEvent const* const pEvent,
+    Event const* const pEvent,
     Reserves const* const pReserves
 )
 {
@@ -147,7 +147,7 @@ bool isStoneTypeAvailable(
 }
 
 bool isFileXOnBoard(
-    GameEvent const* const pEvent,
+    Event const* const pEvent,
     int const boardWidth
 )
 {
@@ -160,7 +160,7 @@ bool isFileXOnBoard(
 }
 
 bool isRankYOnBoard(
-    GameEvent const* const pEvent,
+    Event const* const pEvent,
     int const boardWidth
 )
 {
@@ -173,7 +173,7 @@ bool isRankYOnBoard(
 }
 
 bool isSquareEmpty(
-    GameEvent const* const pEvent,
+    Event const* const pEvent,
     Board const* const pBoard
 )
 {
@@ -188,7 +188,7 @@ bool isSquareEmpty(
 }
 
 bool doesPlayerOwnStack(
-    GameEvent const* const pEvent,
+    Event const* const pEvent,
     Board const* const pBoard
 )
 {
@@ -205,7 +205,7 @@ bool doesPlayerOwnStack(
 }
 
 bool isDropCountValid(
-    GameEvent const* const pEvent,
+    Event const* const pEvent,
     int const stackBufferStoneCount
 )
 {
@@ -216,7 +216,7 @@ bool isDropCountValid(
 }
 
 bool isCaptiveValid(
-    GameEvent const* const pEvent,
+    Event const* const pEvent,
     Board const* const pBoard
 )
 {

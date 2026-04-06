@@ -3,9 +3,9 @@
 
 #include "ActionTypeId.h"
 #include "Board.h"
+#include "Event.h"
+#include "EventValidation.h"
 #include "FileId.h"
-#include "GameEvent.h"
-#include "GameEventValidation.h"
 #include "PlayerId.h"
 #include "PositionSystem.h"
 #include "RankId.h"
@@ -14,9 +14,9 @@
 #include <stdbool.h>
 #include <unity.h>
 
-void testNewGameEvent( void )
+void testNewEvent( void )
 {
-    GameEvent event = newGameEvent();
+    Event event = newEvent();
 
     TEST_ASSERT_EQUAL_INT( PLAYER_NONE, event.playerId );
     TEST_ASSERT_EQUAL_INT( ACTION_TYPE_NONE, event.actionType );
@@ -28,7 +28,7 @@ void testNewGameEvent( void )
 
 void testIsStoneTypeAvailable( void )
 {
-    GameEvent event = { 0 };
+    Event event = { 0 };
     Reserves reserves = { 0 };
 
     event.playerId = PLAYER_WHITE;
@@ -79,7 +79,7 @@ void testIsStoneTypeAvailable( void )
 
 void testIsFileXOnBoard( void )
 {
-    GameEvent event = { 0 };
+    Event event = { 0 };
     int boardWidth = 3;
 
     event.fileX = FILE_NONE;
@@ -122,7 +122,7 @@ void testIsFileXOnBoard( void )
 
 void testIsRankYOnBoard( void )
 {
-    GameEvent event = { 0 };
+    Event event = { 0 };
     int boardWidth = 3;
 
     event.rankY = RANK_NONE;
@@ -165,7 +165,7 @@ void testIsRankYOnBoard( void )
 
 void testIsSquareEmpty( void )
 {
-    GameEvent event = { 0 };
+    Event event = { 0 };
     Board board;
 
     board.width = 3;
@@ -186,7 +186,7 @@ void testIsSquareEmpty( void )
 
 void testDoesPlayerOwnStack( void )
 {
-    GameEvent event = { 0 };
+    Event event = { 0 };
     Board board;
     board.width = 3;
     event.playerId = PLAYER_WHITE;
@@ -207,7 +207,7 @@ void testDoesPlayerOwnStack( void )
 
 void testIsCaptiveValid( void )
 {
-    GameEvent event = { 0 };
+    Event event = { 0 };
     Board board = { 0 };
 
     event.fileX = FILE_B;
@@ -254,7 +254,7 @@ void testIsCaptiveValid( void )
 
 void testIsDropCountValid( void )
 {
-    GameEvent event = { 0 };
+    Event event = { 0 };
     int stackBufferStoneCount = 0;
 
     event.dropCount = 1;

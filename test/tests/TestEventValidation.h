@@ -1,15 +1,15 @@
 #ifndef IG20260406172817
 #define IG20260406172817
 
+#include "Event.h"
+#include "EventValidation.h"
 #include "Game.h"
-#include "GameEvent.h"
-#include "GameEventValidation.h"
 #include "PositionSystem.h"
 #include <unity.h>
 
 void testValidateEventPlace( void )
 {
-    GameEvent event = { 0 };
+    Event event = { 0 };
     Game game = { 0 };
 
     event.stoneType = STONE_TYPE_FLAT;
@@ -49,7 +49,7 @@ void testValidateEventPlace( void )
 
 void testValidateEventLift( void )
 {
-    GameEvent event = { 0 };
+    Event event = { 0 };
     Game game = { 0 };
 
     event.fileX = FILE_B;
@@ -90,7 +90,7 @@ void testValidateEventLift( void )
 
 void testValidateEventDrop( void )
 {
-    GameEvent event = { 0 };
+    Event event = { 0 };
     Game game = { 0 };
 
     event.dropCount = 1;

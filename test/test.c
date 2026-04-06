@@ -1,8 +1,8 @@
 #include "TestApp.h"
 #include "TestBoard.h"
+#include "TestEvent.h"
+#include "TestEventValidation.h"
 #include "TestGame.h"
-#include "TestGameEvent.h"
-#include "TestGameEventValidation.h"
 #include "TestHistory.h"
 #include "TestInputSystem.h"
 #include "TestPositionSystem.h"
@@ -58,8 +58,8 @@ int main( void )
     //* Test InputSystem
     RUN_TEST( testHandleGlobalInput );
 
-    //* Test GameEvent
-    RUN_TEST( testNewGameEvent );
+    //* Test Event
+    RUN_TEST( testNewEvent );
     RUN_TEST( testIsStoneTypeAvailable );
     RUN_TEST( testIsFileXOnBoard );
     RUN_TEST( testIsRankYOnBoard );

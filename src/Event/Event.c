@@ -1,14 +1,13 @@
-#include "GameEvent.h"
+#include "Event.h"
 
 #include "ActionTypeId.h"
-#include "GameEvent.h"
 #include "StoneTypeId.h"
 #include <assert.h>
 #include <stdbool.h>
 
-GameEvent newGameEvent( void )
+Event newEvent( void )
 {
-    return (GameEvent){
+    return (Event){
         .playerId = PLAYER_NONE,
         .actionType = ACTION_TYPE_NONE,
         .stoneType = STONE_TYPE_NONE,

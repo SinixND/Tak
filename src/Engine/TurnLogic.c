@@ -1,7 +1,7 @@
 #include "TurnLogic.h"
 
 #include "App.h"
-#include "GameEventValidation.h"
+#include "EventValidation.h"
 #include "History.h"
 #include "PositionSystem.h"
 #include <assert.h>
@@ -42,7 +42,7 @@ void executeTurn( App* const pApp )
 
 void applyEventPlace( App* const pApp )
 {
-    GameEvent const* const pEvent = &pApp->gameEvent;
+    Event const* const pEvent = &pApp->gameEvent;
 
     validateEventPlace(
         pEvent,
@@ -76,7 +76,7 @@ void applyEventPlace( App* const pApp )
 
 void applyEventLift( App* const pApp )
 {
-    GameEvent const* const pEvent = &pApp->gameEvent;
+    Event const* const pEvent = &pApp->gameEvent;
 
     validateEventLift(
         pEvent,
@@ -106,7 +106,7 @@ void applyEventLift( App* const pApp )
 
 void applyEventDrop( App* const pApp )
 {
-    GameEvent const* const pEvent = &pApp->gameEvent;
+    Event const* const pEvent = &pApp->gameEvent;
     Game const* const pGame = &pApp->game;
 
     int const squareIdx

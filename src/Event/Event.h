@@ -10,7 +10,7 @@
 #include <stdint.h>
 
 /// User inputs to modify game state
-typedef struct GameEvent
+typedef struct Event
 {
     ActionType actionType;
     PlayerId playerId;
@@ -18,9 +18,9 @@ typedef struct GameEvent
     FileId fileX;
     RankId rankY;
     int8_t dropCount;
-} GameEvent;
+} Event;
 
 /// Return initialized game event object
-GameEvent newGameEvent( void );
+Event newEvent( void );
 
 #endif

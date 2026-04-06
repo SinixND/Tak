@@ -6,13 +6,13 @@
 
 void demo( App* pApp )
 {
-    GameEvent* pGameEvent = &pApp->gameEvent;
+    Event* pEvent = &pApp->gameEvent;
 
-    pGameEvent->actionType = ACTION_TYPE_PLACE;
-    pGameEvent->playerId = PLAYER_WHITE;
-    pGameEvent->stoneType = STONE_TYPE_FLAT;
-    pGameEvent->fileX = FILE_A;
-    pGameEvent->rankY = RANK_1;
+    pEvent->actionType = ACTION_TYPE_PLACE;
+    pEvent->playerId = PLAYER_WHITE;
+    pEvent->stoneType = STONE_TYPE_FLAT;
+    pEvent->fileX = FILE_A;
+    pEvent->rankY = RANK_1;
 
     executeTurn( pApp );
 
