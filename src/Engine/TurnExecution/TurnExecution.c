@@ -1,9 +1,9 @@
-#include "TurnLogic.h"
+#include "TurnExecution.h"
 
 #include "App.h"
-#include "EventValidation.h"
 #include "History.h"
 #include "PositionSystem.h"
+#include "RuleValidation.h"
 #include <assert.h>
 
 void executeTurn( App* const pApp )

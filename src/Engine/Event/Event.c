@@ -13,7 +13,7 @@ Event newEvent( void )
         .stoneType = STONE_TYPE_NONE,
         .fileX = FILE_NONE,
         .rankY = RANK_NONE,
-        .dropCount = 0,
+        .dropCount = -1,
     };
 }
 

@@ -2,9 +2,9 @@
 #define IG20260406172817
 
 #include "Event.h"
-#include "EventValidation.h"
 #include "Game.h"
 #include "PositionSystem.h"
+#include "RuleValidation.h"
 #include <unity.h>
 
 void testValidateEventPlace( void )

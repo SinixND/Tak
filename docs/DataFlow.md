@@ -4,7 +4,7 @@ InputBuffer
     ↓
 TurnState
     ↓
-GameEvent
+Event
     ↓
 Rules Validation
     ↓

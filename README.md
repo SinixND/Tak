@@ -155,8 +155,8 @@ Module eventBuilder(FSM):
 - [ ] "What data is needed to build a game event?"
   - Multiple inputs -> User command (FSM built)
   - Module-In: inputBuffer
-  - State data: relevant GameEvent content
-  - Module-Out: isEventComplete(), buildGameEvent(), buildCommand()
+  - State data: relevant Event content
+  - Module-Out: isEventComplete(), buildEvent(), buildCommand()
 
 - [x] "What data is needed to get user input?"
   - Per frame inputBuffer
@@ -164,29 +164,8 @@ Module eventBuilder(FSM):
   - System-Out: inputBuffer (normalized app input)
   - No state
 
-```
-The job of App is to
-- own global state
-- Handle data flow
-- Handle logic flow (FSM):
 
-app.setup()
-app.loop() {
-    input()
-    update(){
-        case(!fsm.eventComplete() / build event){
-            runFSM(FSM object) // request info
-        }
-        case(fsm.eventComplete() / handle event){
-            validateEvent()
-            applyEvent()
-        }
-    }
-    render()
-}
-app.close()
-```
-
+- [ ] Move TurnExecution to App?
 - [ ] Add dirty map
 - [ ] Add Statusline?
 - [ ] Add keybindings to readme
