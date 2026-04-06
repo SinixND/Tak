@@ -9,12 +9,14 @@
 
 void undo( App* const pApp )
 {
+    History const* const pHistory = &pApp->history;
+
     assert(
-        pApp->history.lastRecordIdx >= 0
+        pHistory->lastRecordIdx >= 0
         && "Nothing to undo"
     );
 
-    switch ( pApp->history.records[pApp->history.lastRecordIdx].actionType )
+    switch ( pHistory->records[pHistory->lastRecordIdx].actionType )
     {
         default:
         {

@@ -151,9 +151,6 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 
 
 ## ToDo notes
-- [ ] Test atomic undo functions
-- [ ] Replace access nesting with pointers
-
 Module TurnLogic:
 - [ ] validate event -> modify game (applyEvent()) -> record action
 

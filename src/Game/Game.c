@@ -59,7 +59,7 @@ void takeStone(
     Board* const pBoard = &pGame->board;
 
     assert(
-        pGame->board.stoneCounts[squareIdx] == 1
+        pBoard->stoneCounts[squareIdx] == 1
         && "Can only take single stone"
     );
 
@@ -83,19 +83,21 @@ void liftStack(
     int const squareIdx
 )
 {
+    Board* const pBoard = &pGame->board;
+
     assert(
-        pGame->board.stoneCounts[squareIdx] > 0
+        pBoard->stoneCounts[squareIdx] > 0
         && "Cannot pick up empty stack"
     );
 
     //* INFO: [Rule] StackBuffer stone count must cap at boardWidth
     int const stoneCount
-        = ( pGame->board.stoneCounts[squareIdx]
-            > pGame->board.width )
-              ? pGame->board.width
-              : pGame->board.stoneCounts[squareIdx];
+        = ( pBoard->stoneCounts[squareIdx]
+            > pBoard->width )
+              ? pBoard->width
+              : pBoard->stoneCounts[squareIdx];
 
-    int const stoneType = pGame->board.stackTypes[squareIdx];
+    int const stoneType = pBoard->stackTypes[squareIdx];
 
     resetBuffer(
         &pGame->stackBuffer,
@@ -106,21 +108,21 @@ void liftStack(
     int const topStoneIdx
         = squareToStackIndex(
               squareIdx,
-              pGame->board.stackCapacity
+              pBoard->stackCapacity
           )
-          + ( pGame->board.stoneCounts[squareIdx] - 1 );
+          + ( pBoard->stoneCounts[squareIdx] - 1 );
 
     for ( int i = 0; i < stoneCount; ++i )
     {
         appendToBuffer(
             &pGame->stackBuffer,
-            pGame->board.stoneIds[topStoneIdx - i]
+            pBoard->stoneIds[topStoneIdx - i]
         );
     }
 
     //* Remove stones from stack
     takeFromStack(
-        &pGame->board,
+        pBoard,
         squareIdx,
         stoneCount
     );
@@ -161,6 +163,7 @@ void dropStone(
     int const squareIdx
 )
 {
+    StackBuffer* const stackBuffer = &pGame->stackBuffer;
     StoneType const captiveStoneType = pGame->board.stackTypes[squareIdx];
 
     //* INFO: [Rule] No stone can be put onto capstone
@@ -170,9 +173,9 @@ void dropStone(
     );
 
     StoneType const droppedStoneType
-        = ( pGame->stackBuffer.stoneCount > 1 )
+        = ( stackBuffer->stoneCount > 1 )
               ? STONE_TYPE_FLAT
-              : pGame->stackBuffer.stoneType;
+              : stackBuffer->stoneType;
 
     //* INFO: [Rule] Only capstone can flatten standing stones
     assert(
@@ -181,7 +184,7 @@ void dropStone(
         && "Only capstone can be placed on wall (=flatten)"
     );
 
-    PlayerId const playerId = pGame->stackBuffer.stoneIds[pGame->stackBuffer.stoneCount - 1];
+    PlayerId const playerId = stackBuffer->stoneIds[stackBuffer->stoneCount - 1];
 
     putOntoStack(
         &pGame->board,

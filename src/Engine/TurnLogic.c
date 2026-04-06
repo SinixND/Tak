@@ -42,31 +42,33 @@ void executeTurn( App* const pApp )
 
 void applyEventPlace( App* const pApp )
 {
+    GameEvent const* const pEvent = &pApp->gameEvent;
+
     validateEventPlace(
-        &pApp->gameEvent,
+        pEvent,
         &pApp->game
     );
 
     placeStone(
         &pApp->game,
-        pApp->gameEvent.playerId,
+        pEvent->playerId,
         positionToSquare(
-            pApp->gameEvent.fileX,
-            pApp->gameEvent.rankY,
+            pEvent->fileX,
+            pEvent->rankY,
             pApp->game.board.width
         ),
-        pApp->gameEvent.stoneType
+        pEvent->stoneType
     );
 
     recordActionPlacement(
         &pApp->history,
-        pApp->gameEvent.playerId,
+        pEvent->playerId,
         positionToSquare(
-            pApp->gameEvent.fileX,
-            pApp->gameEvent.rankY,
+            pEvent->fileX,
+            pEvent->rankY,
             pApp->game.board.width
         ),
-        pApp->gameEvent.stoneType
+        pEvent->stoneType
     );
 
     return;
@@ -74,16 +76,18 @@ void applyEventPlace( App* const pApp )
 
 void applyEventLift( App* const pApp )
 {
+    GameEvent const* const pEvent = &pApp->gameEvent;
+
     validateEventLift(
-        &pApp->gameEvent,
+        pEvent,
         &pApp->game
     );
 
     liftStack(
         &pApp->game,
         positionToSquare(
-            pApp->gameEvent.fileX,
-            pApp->gameEvent.rankY,
+            pEvent->fileX,
+            pEvent->rankY,
             pApp->game.board.width
         )
     );
@@ -91,8 +95,8 @@ void applyEventLift( App* const pApp )
     recordActionLift(
         &pApp->history,
         positionToSquare(
-            pApp->gameEvent.fileX,
-            pApp->gameEvent.rankY,
+            pEvent->fileX,
+            pEvent->rankY,
             pApp->game.board.width
         )
     );
@@ -102,45 +106,48 @@ void applyEventLift( App* const pApp )
 
 void applyEventDrop( App* const pApp )
 {
+    GameEvent const* const pEvent = &pApp->gameEvent;
+    Game const* const pGame = &pApp->game;
+
     int const squareIdx
         = positionToSquare(
-            pApp->gameEvent.fileX,
-            pApp->gameEvent.rankY,
-            pApp->game.board.width
+            pEvent->fileX,
+            pEvent->rankY,
+            pGame->board.width
         );
 
-    StoneType const captiveStoneType = pApp->game.board.stackTypes[squareIdx];
+    StoneType const captiveStoneType = pGame->board.stackTypes[squareIdx];
 
     StoneType const droppedStoneType
-        = ( pApp->game.stackBuffer.stoneCount > 1 )
+        = ( pGame->stackBuffer.stoneCount > 1 )
               ? STONE_TYPE_FLAT
-              : pApp->game.stackBuffer.stoneType;
+              : pGame->stackBuffer.stoneType;
 
     bool const flattened = ( droppedStoneType == STONE_TYPE_CAP )
                            && ( captiveStoneType == STONE_TYPE_STANDING );
 
     validateEventDrop(
-        &pApp->gameEvent,
-        &pApp->game
+        pEvent,
+        pGame
     );
 
-    for ( int i = 0; i < pApp->gameEvent.dropCount; ++i )
+    for ( int i = 0; i < pEvent->dropCount; ++i )
     {
         dropStone(
             &pApp->game,
             positionToSquare(
-                pApp->gameEvent.fileX,
-                pApp->gameEvent.rankY,
-                pApp->game.board.width
+                pEvent->fileX,
+                pEvent->rankY,
+                pGame->board.width
             )
         );
 
         recordActionDrop(
             &pApp->history,
             positionToSquare(
-                pApp->gameEvent.fileX,
-                pApp->gameEvent.rankY,
-                pApp->game.board.width
+                pEvent->fileX,
+                pEvent->rankY,
+                pGame->board.width
             ),
             flattened
         );
