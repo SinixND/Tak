@@ -8,7 +8,7 @@
 #include <stdbool.h>
 #include <unity.h>
 
-void testRecordPlacementAction( void )
+void testRecordActionPlacement( void )
 {
     History history = { 0 };
 
@@ -21,11 +21,11 @@ void testRecordPlacementAction( void )
 
     TEST_ASSERT_EQUAL_INT( 1, history.lastRecordIdx );
 
-    HistoryRecord action = history.records[history.lastRecordIdx];
+    HistoryRecord record = history.records[history.lastRecordIdx];
 
-    TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, action.playerId );
-    TEST_ASSERT_EQUAL_INT( 0, action.squareIdx );
-    TEST_ASSERT_EQUAL_INT( STONE_TYPE_FLAT, action.stoneType );
+    TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, record.playerId );
+    TEST_ASSERT_EQUAL_INT( 0, record.squareIdx );
+    TEST_ASSERT_EQUAL_INT( STONE_TYPE_FLAT, record.stoneType );
 
     recordActionPlacement(
         &history,
@@ -36,11 +36,11 @@ void testRecordPlacementAction( void )
 
     TEST_ASSERT_EQUAL_INT( 2, history.lastRecordIdx );
 
-    action = history.records[history.lastRecordIdx];
+    record = history.records[history.lastRecordIdx];
 
-    TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, action.playerId );
-    TEST_ASSERT_EQUAL_INT( 1, action.squareIdx );
-    TEST_ASSERT_EQUAL_INT( STONE_TYPE_STANDING, action.stoneType );
+    TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, record.playerId );
+    TEST_ASSERT_EQUAL_INT( 1, record.squareIdx );
+    TEST_ASSERT_EQUAL_INT( STONE_TYPE_STANDING, record.stoneType );
 
     recordActionPlacement(
         &history,
@@ -51,53 +51,45 @@ void testRecordPlacementAction( void )
 
     TEST_ASSERT_EQUAL_INT( 3, history.lastRecordIdx );
 
-    action = history.records[history.lastRecordIdx];
+    record = history.records[history.lastRecordIdx];
 
-    TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, action.playerId );
-    TEST_ASSERT_EQUAL_INT( 2, action.squareIdx );
-    TEST_ASSERT_EQUAL_INT( STONE_TYPE_CAP, action.stoneType );
+    TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, record.playerId );
+    TEST_ASSERT_EQUAL_INT( 2, record.squareIdx );
+    TEST_ASSERT_EQUAL_INT( STONE_TYPE_CAP, record.stoneType );
 }
 
-void testRecordLiftAction( void )
+void testRecordActionLift( void )
 {
     History history = { 0 };
 
-    recordLiftAction(
+    recordActionLift(
         &history,
-        PLAYER_WHITE,
-        STONE_TYPE_STANDING,
-        5
+        0
     );
 
     TEST_ASSERT_EQUAL_INT( 1, history.lastRecordIdx );
 
-    HistoryRecord action = history.records[history.lastRecordIdx];
+    HistoryRecord record = history.records[history.lastRecordIdx];
 
-    TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, action.playerId );
-    TEST_ASSERT_EQUAL_INT( 0, action.squareIdx );
-    TEST_ASSERT_EQUAL_INT( STONE_TYPE_STANDING, action.stoneType );
-    TEST_ASSERT_EQUAL_INT( 5, action.stoneCount );
+    TEST_ASSERT_EQUAL_INT( 0, record.squareIdx );
 }
 
-void testRecordDropAction( void )
+void testRecordActionDrop( void )
 {
     History history = { 0 };
 
-    recordDropAction(
+    recordActionDrop(
         &history,
-        PLAYER_WHITE,
         0,
-        STONE_TYPE_FLAT,
         true
     );
 
     TEST_ASSERT_EQUAL_INT( 1, history.lastRecordIdx );
 
-    HistoryRecord action = history.records[history.lastRecordIdx];
+    HistoryRecord record = history.records[history.lastRecordIdx];
 
-    TEST_ASSERT_EQUAL_INT( 0, action.squareIdx );
-    TEST_ASSERT_EQUAL_INT( 1, action.stoneCount );
-    TEST_ASSERT_EQUAL_INT( true, action.flattened );
+    TEST_ASSERT_EQUAL_INT( 0, record.squareIdx );
+    TEST_ASSERT_EQUAL_INT( true, record.flattened );
 }
 
 void testUndoHistory( void )

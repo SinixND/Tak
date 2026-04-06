@@ -1,16 +1,18 @@
 #include "Redo.h"
 
-#include "PositionSystem.h"
+#include "Game.h"
 #include <assert.h>
 
 void redo( App* const pApp )
 {
+    History const* const pHistory = &pApp->history;
+
     assert(
-        pApp->history.redoCount > 0
+        pHistory->redoCount > 0
         && "Nothing to redo"
     );
 
-    switch ( pApp->history.records[pApp->history.lastRecordIdx + 1].actionType )
+    switch ( pHistory->records[pHistory->lastRecordIdx + 1].actionType )
     {
         default:
         {
@@ -42,36 +44,20 @@ void redo( App* const pApp )
 
 void redoPlaceStone( App* const pApp )
 {
+    History* const pHistory = &pApp->history;
+    Game* const pGame = &pApp->game;
+
     assert(
-        pApp->history.redoCount > 0 && "Nothing to redo"
+        pHistory->redoCount > 0 && "Nothing to redo"
     );
 
-    HistoryRecord const nextAction = pApp->history.records[pApp->history.lastRecordIdx + 1];
+    HistoryRecord const nextRecord = pHistory->records[pHistory->lastRecordIdx + 1];
 
-    int const squareIdx = positionToSquare(
-        nextAction.fileX,
-        nextAction.rankY,
-        pApp->game.board.width
-    );
-
-    //* INFO: [Rule] Can only place on empty squares
-    assert(
-        pApp->game.board.stoneCounts[squareIdx] == 0
-        && "Can only place on empty square"
-    );
-
-    takeFromReserves(
-        &pApp->game.reserves,
-        nextAction.playerId,
-        nextAction.stoneType
-    );
-
-    putOntoStack(
-        &pApp->game.board,
-        nextAction.playerId,
-        nextAction.fileX,
-        nextAction.rankY,
-        nextAction.stoneType
+    placeStone(
+        pGame,
+        nextRecord.playerId,
+        nextRecord.squareIdx,
+        nextRecord.stoneType
     );
 
     //* Adjust history
@@ -80,50 +66,18 @@ void redoPlaceStone( App* const pApp )
 
 void redoLiftStack( App* const pApp )
 {
-    assert(
-        pApp->history.redoCount > 0 && "Nothing to redo"
-    );
-
-    HistoryRecord const nextAction = pApp->history.records[pApp->history.lastRecordIdx + 1];
-
-    int const squareIdx = positionToSquare(
-        nextAction.fileX,
-        nextAction.rankY,
-        pApp->game.board.width
-    );
+    History* const pHistory = &pApp->history;
+    Game* const pGame = &pApp->game;
 
     assert(
-        pApp->game.board.stoneCounts[squareIdx] > 0
-        && "Cannot pick up empty stack"
+        pHistory->redoCount > 0 && "Nothing to redo"
     );
 
-    resetBuffer(
-        &pApp->game.stackBuffer,
-        nextAction.stoneType
-    );
+    HistoryRecord const nextRecord = pHistory->records[pHistory->lastRecordIdx + 1];
 
-    //* Add stones to buffer
-    int const topStoneIdx
-        = squareToStackIndex(
-              squareIdx,
-              pApp->game.board.stackCapacity
-          )
-          + ( pApp->game.board.stoneCounts[squareIdx] - 1 );
-
-    for ( int i = 0; i < nextAction.stoneCount; ++i )
-    {
-        appendToBuffer(
-            &pApp->game.stackBuffer,
-            pApp->game.board.stoneIds[topStoneIdx - i]
-        );
-    }
-
-    //* Remove stones from stack
-    takeFromStack(
-        &pApp->game.board,
-        nextAction.fileX,
-        nextAction.rankY,
-        nextAction.stoneCount
+    liftStack(
+        pGame,
+        nextRecord.squareIdx
     );
 
     //* Adjust history
@@ -132,21 +86,19 @@ void redoLiftStack( App* const pApp )
 
 void redoDropStone( App* const pApp )
 {
+    History* const pHistory = &pApp->history;
+    Game* const pGame = &pApp->game;
+
     assert(
-        pApp->history.redoCount > 0 && "Nothing to redo"
+        pHistory->redoCount > 0 && "Nothing to redo"
     );
 
-    HistoryRecord const nextAction = pApp->history.records[pApp->history.lastRecordIdx + 1];
+    HistoryRecord const nextRecord = pHistory->records[pHistory->lastRecordIdx + 1];
 
-    putOntoStack(
-        &pApp->game.board,
-        nextAction.playerId,
-        nextAction.fileX,
-        nextAction.rankY,
-        nextAction.stoneType
+    dropStone(
+        pGame,
+        nextRecord.squareIdx
     );
-
-    dropFromBuffer( &pApp->game.stackBuffer );
 
     //* Adjust history
     redoHistory( &pApp->history );

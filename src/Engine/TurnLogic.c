@@ -50,16 +50,22 @@ void applyEventPlace( App* const pApp )
     placeStone(
         &pApp->game,
         pApp->gameEvent.playerId,
-        pApp->gameEvent.fileX,
-        pApp->gameEvent.rankY,
+        positionToSquare(
+            pApp->gameEvent.fileX,
+            pApp->gameEvent.rankY,
+            pApp->game.board.width
+        ),
         pApp->gameEvent.stoneType
     );
 
     recordActionPlacement(
         &pApp->history,
         pApp->gameEvent.playerId,
-        pApp->gameEvent.fileX,
-        pApp->gameEvent.rankY,
+        positionToSquare(
+            pApp->gameEvent.fileX,
+            pApp->gameEvent.rankY,
+            pApp->game.board.width
+        ),
         pApp->gameEvent.stoneType
     );
 
@@ -75,14 +81,20 @@ void applyEventLift( App* const pApp )
 
     liftStack(
         &pApp->game,
-        pApp->gameEvent.fileX,
-        pApp->gameEvent.rankY
+        positionToSquare(
+            pApp->gameEvent.fileX,
+            pApp->gameEvent.rankY,
+            pApp->game.board.width
+        )
     );
 
     recordActionLift(
         &pApp->history,
-        pApp->gameEvent.fileX,
-        pApp->gameEvent.rankY
+        positionToSquare(
+            pApp->gameEvent.fileX,
+            pApp->gameEvent.rankY,
+            pApp->game.board.width
+        )
     );
 
     return;
@@ -97,7 +109,7 @@ void applyEventDrop( App* const pApp )
             pApp->game.board.width
         );
 
-    StoneType const captiveStoneType = pApp->game.board.types[squareIdx];
+    StoneType const captiveStoneType = pApp->game.board.stackTypes[squareIdx];
 
     StoneType const droppedStoneType
         = ( pApp->game.stackBuffer.stoneCount > 1 )
@@ -116,16 +128,20 @@ void applyEventDrop( App* const pApp )
     {
         dropStone(
             &pApp->game,
-            pApp->gameEvent.fileX,
-            pApp->gameEvent.rankY
+            positionToSquare(
+                pApp->gameEvent.fileX,
+                pApp->gameEvent.rankY,
+                pApp->game.board.width
+            )
         );
 
         recordActionDrop(
             &pApp->history,
-            pApp->gameEvent.playerId,
-            pApp->gameEvent.fileX,
-            pApp->gameEvent.rankY,
-            pApp->gameEvent.stoneType,
+            positionToSquare(
+                pApp->gameEvent.fileX,
+                pApp->gameEvent.rankY,
+                pApp->game.board.width
+            ),
             flattened
         );
     }

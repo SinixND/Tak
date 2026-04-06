@@ -1,11 +1,9 @@
 #include "Game.h"
 
 #include "Board.h"
-#include "FileId.h"
 #include "GameConstants.h"
 #include "PlayerId.h"
 #include "PositionSystem.h"
-#include "RankId.h"
 #include "Reserves.h"
 #include "StackBuffer.h"
 #include "StoneTypeId.h"
@@ -29,18 +27,10 @@ Game newGame( int boardWidth )
 void placeStone(
     Game* const pGame,
     PlayerId const playerId,
-    FileId const fileX,
-    RankId const rankY,
+    int const squareIdx,
     StoneType const stoneType
 )
 {
-    int const squareIdx
-        = positionToSquare(
-            fileX,
-            rankY,
-            pGame->board.width
-        );
-
     //* INFO: [Rule] Can only place on empty squares
     assert(
         pGame->board.stoneCounts[squareIdx] == 0
@@ -56,25 +46,43 @@ void placeStone(
     putOntoStack(
         &pGame->board,
         playerId,
-        fileX,
-        rankY,
+        squareIdx,
         stoneType
+    );
+}
+
+void takeStone(
+    Game* const pGame,
+    int const squareIdx
+)
+{
+    Board* const pBoard = &pGame->board;
+
+    assert(
+        pGame->board.stoneCounts[squareIdx] == 1
+        && "Can only take single stone"
+    );
+
+    //* Add to reserves
+    returnToReserves(
+        &pGame->reserves,
+        pBoard->stoneIds[squareToStackIndex( squareIdx, pBoard->stackCapacity )],
+        pBoard->stackTypes[squareIdx]
+    );
+
+    //* Remove from stack
+    takeFromStack(
+        pBoard,
+        squareIdx,
+        1
     );
 }
 
 void liftStack(
     Game* const pGame,
-    FileId const fileX,
-    RankId const rankY
+    int const squareIdx
 )
 {
-    int const squareIdx
-        = positionToSquare(
-            fileX,
-            rankY,
-            pGame->board.width
-        );
-
     assert(
         pGame->board.stoneCounts[squareIdx] > 0
         && "Cannot pick up empty stack"
@@ -87,7 +95,7 @@ void liftStack(
               ? pGame->board.width
               : pGame->board.stoneCounts[squareIdx];
 
-    int const stoneType = pGame->board.types[squareIdx];
+    int const stoneType = pGame->board.stackTypes[squareIdx];
 
     resetBuffer(
         &pGame->stackBuffer,
@@ -113,26 +121,47 @@ void liftStack(
     //* Remove stones from stack
     takeFromStack(
         &pGame->board,
-        fileX,
-        rankY,
+        squareIdx,
         stoneCount
     );
 }
 
-void dropStone(
+void dropStack(
     Game* const pGame,
-    FileId const fileX,
-    RankId const rankY
+    int const squareIdx
 )
 {
-    int const squareIdx
-        = positionToSquare(
-            fileX,
-            rankY,
-            pGame->board.width
-        );
+    StackBuffer* const stackBuffer = &pGame->stackBuffer;
 
-    StoneType const captiveStoneType = pGame->board.types[squareIdx];
+    //* Add stones to stack
+    for ( int i = 0; i < ( stackBuffer->stoneCount - 1 ); ++i )
+    {
+        putOntoStack(
+            &pGame->board,
+            stackBuffer->stoneIds[( stackBuffer->stoneCount - 1 ) - i],
+            squareIdx,
+            STONE_TYPE_FLAT
+        );
+    }
+
+    //* Add last stone to stack
+    putOntoStack(
+        &pGame->board,
+        stackBuffer->stoneIds[( stackBuffer->stoneCount - 1 )],
+        squareIdx,
+        stackBuffer->stoneType
+    );
+
+    //* Empty buffer
+    stackBuffer->stoneCount = 0;
+}
+
+void dropStone(
+    Game* const pGame,
+    int const squareIdx
+)
+{
+    StoneType const captiveStoneType = pGame->board.stackTypes[squareIdx];
 
     //* INFO: [Rule] No stone can be put onto capstone
     assert(
@@ -157,11 +186,43 @@ void dropStone(
     putOntoStack(
         &pGame->board,
         playerId,
-        fileX,
-        rankY,
+        squareIdx,
         droppedStoneType
     );
 
     dropFromBuffer( &pGame->stackBuffer );
 }
 
+void liftStone(
+    Game* const pGame,
+    int const squareIdx,
+    bool const flattened
+)
+{
+    Board* const pBoard = &pGame->board;
+
+    assert(
+        pBoard->stoneCounts[squareIdx] > 0
+        && "Cant undo drop from emtpy square"
+    );
+
+    PlayerId const playerId
+        = pBoard->stoneIds[squareToStackIndex( squareIdx, pBoard->stackCapacity ) + ( pBoard->stoneCounts[squareIdx] - 1 )];
+
+    appendToBuffer(
+        &pGame->stackBuffer,
+        playerId
+    );
+
+    takeFromStack(
+        pBoard,
+        squareIdx,
+        1
+    );
+
+    //* Make stackType 'standing' if drop flattened
+    pBoard->stackTypes[squareIdx]
+        = flattened
+              ? STONE_TYPE_STANDING
+              : STONE_TYPE_FLAT;
+}

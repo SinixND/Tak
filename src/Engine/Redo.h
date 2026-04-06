@@ -12,7 +12,7 @@
  */
 void redo( App* const pApp );
 
-/// From Player to Board; Redo History
+/// From Reserves to Board; Redo History
 void redoPlaceStone( App* const pApp );
 
 /// From Board to Buffer; Redo History

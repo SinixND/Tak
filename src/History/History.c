@@ -25,8 +25,7 @@ History newHistory( void )
 void recordActionPlacement(
     History* const pHistory,
     PlayerId const playerId,
-    FileId const fileX,
-    RankId const rankY,
+    int const squareIdx,
     StoneType const stoneType
 )
 {
@@ -47,16 +46,14 @@ void recordActionPlacement(
         = (HistoryRecord){
             .actionType = ACTION_TYPE_PLACE,
             .playerId = playerId,
-            .fileX = fileX,
-            .rankY = rankY,
+            .squareIdx = squareIdx,
             .stoneType = stoneType,
         };
 }
 
 void recordActionLift(
     History* const pHistory,
-    FileId const fileX,
-    RankId const rankY
+    int const squareIdx
 )
 {
     //* Increase index
@@ -75,17 +72,13 @@ void recordActionLift(
     pHistory->records[pHistory->lastRecordIdx]
         = (HistoryRecord){
             .actionType = ACTION_TYPE_LIFT,
-            .fileX = fileX,
-            .rankY = rankY,
+            .squareIdx = squareIdx,
         };
 }
 
 void recordActionDrop(
     History* const pHistory,
-    PlayerId const playerId,
-    FileId const fileX,
-    RankId const rankY,
-    StoneType const stoneType,
+    int const squareIdx,
     bool const flattened
 )
 {
@@ -105,11 +98,7 @@ void recordActionDrop(
     pHistory->records[pHistory->lastRecordIdx]
         = (HistoryRecord){
             .actionType = ACTION_TYPE_DROP,
-            .playerId = playerId,
-            .fileX = fileX,
-            .rankY = rankY,
-            .stoneType = stoneType,
-            .stoneCount = 1,
+            .squareIdx = squareIdx,
             .flattened = flattened,
         };
 }

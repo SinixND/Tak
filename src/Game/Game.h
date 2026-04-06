@@ -2,10 +2,9 @@
 #define IG20251205132519
 
 #include "Board.h"
-#include "FileId.h"
-#include "RankId.h"
 #include "Reserves.h"
 #include "StackBuffer.h"
+#include <stdbool.h>
 
 /// Object to handle game state
 typedef struct Game
@@ -23,32 +22,50 @@ typedef struct Game
 Game newGame( int boardWidth );
 
 /**
- * @brief: From Player to Board; Add to history
+ * @brief: From Reserves to Board
  *
  * - Reduce reserves
  * - Put stone on stack/square
- * - Add action to history
  */
 void placeStone(
     Game* const pGame,
     PlayerId const playerId,
-    FileId const fileX,
-    RankId const rankY,
+    int const squareIdx,
     StoneType const stoneType
 );
 
 /**
- * @brief: From Board to Buffer; Add to History
+ * @brief: From Board to Reserves
+ *
+ * - Increase reserves
+ * - Take stone from stack/square
+ */
+void takeStone(
+    Game* const pGame,
+    int const squareIdx
+);
+
+/**
+ * @brief: From Board to Buffer
  *
  * - Set stone type of buffer
  * - Loop: Add stones to buffer
  * - Remove stones from square
- * - Add action to history
  */
 void liftStack(
     Game* const pGame,
-    FileId const fileX,
-    RankId const rankY
+    int const squareIdx
+);
+
+/**
+ * @brief: From Buffer to Board
+ *
+ * - Loop: Add stones to stack
+ * - Remove stones from buffer
+ */
+void dropStack(
+    Game* const pGame,
+    int const squareIdx
 );
 
 /**
@@ -59,8 +76,19 @@ void liftStack(
  */
 void dropStone(
     Game* const pGame,
-    FileId const fileX,
-    RankId const rankY
+    int const squareIdx
+);
+
+/**
+ * @brief: From Board to Buffer
+ *
+ * - Add single stone to Buffer
+ * - Remove single stone from stack
+ */
+void liftStone(
+    Game* const pGame,
+    int const squareIdx,
+    bool const flattened
 );
 
 #endif

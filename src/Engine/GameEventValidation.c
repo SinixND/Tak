@@ -10,6 +10,8 @@ bool validateEventPlace(
     Game const* const pGame
 )
 {
+    Board const* const pBoard = &pGame->board;
+
     //* Stone type available
     if ( !isStoneTypeAvailable(
              pEvent,
@@ -22,7 +24,7 @@ bool validateEventPlace(
     //* FileX on board
     if ( !isFileXOnBoard(
              pEvent,
-             pGame->board.width
+             pBoard->width
          ) )
     {
         return false;
@@ -31,7 +33,7 @@ bool validateEventPlace(
     //* RankY on board
     if ( !isRankYOnBoard(
              pEvent,
-             pGame->board.width
+             pBoard->width
          ) )
     {
         return false;
@@ -54,10 +56,12 @@ bool validateEventLift(
     Game const* const pGame
 )
 {
+    Board const* const pBoard = &pGame->board;
+
     //* FileX on board
     if ( !isFileXOnBoard(
              pEvent,
-             pGame->board.width
+             pBoard->width
          ) )
     {
         return false;
@@ -66,7 +70,7 @@ bool validateEventLift(
     //* RankY on board
     if ( !isRankYOnBoard(
              pEvent,
-             pGame->board.width
+             pBoard->width
          ) )
     {
         return false;
@@ -222,7 +226,7 @@ bool isCaptiveValid(
         pBoard->width
     );
 
-    StoneType const captiveType = pBoard->types[squareIdx];
+    StoneType const captiveType = pBoard->stackTypes[squareIdx];
     StoneType const droppedType = pEvent->stoneType;
 
     /// Nothing can be placed on capstone

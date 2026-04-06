@@ -7,7 +7,7 @@
 #include <stdint.h>
 
 /**
- * @brief Player stats
+ * @brief Player stone reserves
  */
 typedef struct Reserves
 {

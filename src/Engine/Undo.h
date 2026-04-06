@@ -12,7 +12,7 @@
  */
 void undo( App* const pApp );
 
-/// From Board to Player
+/// From Board to Reserves
 void undoPlaceStone( App* const pApp );
 
 /// From Buffer to Board

@@ -2,7 +2,6 @@
 #include "TestBoard.h"
 #include "TestGame.h"
 #include "TestGameEvent.h"
-#include "TestGameEventExecution.h"
 #include "TestGameEventValidation.h"
 #include "TestHistory.h"
 #include "TestInputSystem.h"
@@ -27,14 +26,16 @@ int main( void )
     //* Test Game
     RUN_TEST( testNewGame );
     RUN_TEST( testPlaceStone );
+    RUN_TEST( testTakeStone );
     RUN_TEST( testLiftStack );
+    RUN_TEST( testDropStack );
     RUN_TEST( testDropStone );
-    RUN_TEST( testApplyEvent );
+    RUN_TEST( testLiftStone );
 
     //* Test History
-    RUN_TEST( testRecordPlacementAction );
-    RUN_TEST( testRecordLiftAction );
-    RUN_TEST( testRecordDropAction );
+    RUN_TEST( testRecordActionPlacement );
+    RUN_TEST( testRecordActionLift );
+    RUN_TEST( testRecordActionDrop );
     RUN_TEST( testUndoHistory );
     RUN_TEST( testRedoHistory );
 
@@ -69,7 +70,6 @@ int main( void )
     RUN_TEST( testValidateEventPlace );
     RUN_TEST( testValidateEventLift );
     RUN_TEST( testValidateEventDrop );
-    RUN_TEST( testValidateEvent );
 
     return UNITY_END();
 }

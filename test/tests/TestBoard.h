@@ -10,8 +10,8 @@ void testNewBoard( void )
 {
     Board board = newBoard( 3 );
 
-    TEST_ASSERT_EQUAL_INT( STONE_TYPE_NONE, board.types[0] );
-    TEST_ASSERT_EQUAL_INT( STONE_TYPE_NONE, board.types[9 - 1] );
+    TEST_ASSERT_EQUAL_INT( STONE_TYPE_NONE, board.stackTypes[0] );
+    TEST_ASSERT_EQUAL_INT( STONE_TYPE_NONE, board.stackTypes[9 - 1] );
     TEST_ASSERT_EQUAL_INT( 0, board.stoneCounts[0] );
     TEST_ASSERT_EQUAL_INT( 0, board.stoneCounts[9 - 1] );
     TEST_ASSERT_EQUAL_INT( PLAYER_NONE, board.stoneIds[0] );
@@ -19,8 +19,8 @@ void testNewBoard( void )
 
     board = newBoard( 8 );
 
-    TEST_ASSERT_EQUAL_INT( STONE_TYPE_NONE, board.types[0] );
-    TEST_ASSERT_EQUAL_INT( STONE_TYPE_NONE, board.types[( 8 * 8 ) - 1] );
+    TEST_ASSERT_EQUAL_INT( STONE_TYPE_NONE, board.stackTypes[0] );
+    TEST_ASSERT_EQUAL_INT( STONE_TYPE_NONE, board.stackTypes[( 8 * 8 ) - 1] );
     TEST_ASSERT_EQUAL_INT( 0, board.stoneCounts[0] );
     TEST_ASSERT_EQUAL_INT( 0, board.stoneCounts[( 8 * 8 ) - 1] );
     TEST_ASSERT_EQUAL_INT( PLAYER_NONE, board.stoneIds[0] );
@@ -38,7 +38,7 @@ void testPlaceOntoStack( void )
         STONE_TYPE_FLAT
     );
 
-    TEST_ASSERT_EQUAL_INT( STONE_TYPE_FLAT, board.types[0] );
+    TEST_ASSERT_EQUAL_INT( STONE_TYPE_FLAT, board.stackTypes[0] );
     TEST_ASSERT_EQUAL_INT( 1, board.stoneCounts[0] );
     TEST_ASSERT_EQUAL_INT( PLAYER_BLACK, board.stoneIds[0] );
 
@@ -49,7 +49,7 @@ void testPlaceOntoStack( void )
         STONE_TYPE_STANDING
     );
 
-    TEST_ASSERT_EQUAL_INT( STONE_TYPE_STANDING, board.types[3] );
+    TEST_ASSERT_EQUAL_INT( STONE_TYPE_STANDING, board.stackTypes[3] );
     TEST_ASSERT_EQUAL_INT( 1, board.stoneCounts[3] );
     TEST_ASSERT_EQUAL_INT( PLAYER_BLACK, board.stoneIds[( ( 3 * 43 ) + 1 ) - 1] );
 
@@ -60,7 +60,7 @@ void testPlaceOntoStack( void )
         STONE_TYPE_CAP
     );
 
-    TEST_ASSERT_EQUAL_INT( STONE_TYPE_CAP, board.types[3] );
+    TEST_ASSERT_EQUAL_INT( STONE_TYPE_CAP, board.stackTypes[3] );
     TEST_ASSERT_EQUAL_INT( 2, board.stoneCounts[3] );
     TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, board.stoneIds[( ( 3 * 43 ) + 2 ) - 1] );
 }

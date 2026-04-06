@@ -1,8 +1,10 @@
 #include "Undo.h"
 
 #include "App.h"
+#include "Game.h"
 #include "HistoryRecord.h"
-#include "PositionSystem.h"
+#include "StackBuffer.h"
+#include "StoneTypeId.h"
 #include <assert.h>
 
 void undo( App* const pApp )
@@ -44,19 +46,9 @@ void undoPlaceStone( App* const pApp )
 {
     HistoryRecord const lastRecord = pApp->history.records[pApp->history.lastRecordIdx];
 
-    //* Undo putOnStack
-    takeFromStack(
-        &pApp->game.board,
-        lastRecord.fileX,
-        lastRecord.rankY,
-        1
-    );
-
-    //* Undo takeFromReserves
-    returnToReserves(
-        &pApp->game.reserves,
-        lastRecord.playerId,
-        lastRecord.stoneType
+    takeStone(
+        &pApp->game,
+        lastRecord.squareIdx
     );
 
     //* Adjust history
@@ -67,20 +59,10 @@ void undoLiftStack( App* const pApp )
 {
     HistoryRecord const lastRecord = pApp->history.records[pApp->history.lastRecordIdx];
 
-    //* Add stones to stack
-    for ( int i = 0; i < lastRecord.stoneCount; ++i )
-    {
-        putOntoStack(
-            &pApp->game.board,
-            pApp->game.stackBuffer.stoneIds[( lastRecord.stoneCount - 1 ) - i],
-            lastRecord.fileX,
-            lastRecord.rankY,
-            lastRecord.stoneType
-        );
-    }
-
-    //* Empty buffer
-    pApp->game.stackBuffer.stoneCount = 0;
+    dropStack(
+        &pApp->game,
+        lastRecord.squareIdx
+    );
 
     //* Adjust history
     undoHistory( &pApp->history );
@@ -90,35 +72,11 @@ void undoDropStone( App* const pApp )
 {
     HistoryRecord const lastRecord = pApp->history.records[pApp->history.lastRecordIdx];
 
-    int const squareIdx = positionToSquare(
-        lastRecord.fileX,
-        lastRecord.rankY,
-        pApp->game.board.width
+    liftStone(
+        &pApp->game,
+        lastRecord.squareIdx,
+        lastRecord.flattened
     );
-
-    //* INFO: [Rule] No stone can be put onto capstone
-    assert(
-        pApp->game.board.stoneCounts[squareIdx] > 0
-        && "Cant undo drop from emtpy square"
-    );
-
-    appendToBuffer(
-        &pApp->game.stackBuffer,
-        lastRecord.playerId
-    );
-
-    takeFromStack(
-        &pApp->game.board,
-        lastRecord.fileX,
-        lastRecord.rankY,
-        lastRecord.stoneCount
-    );
-
-    //* Make stackType 'standing' if drop flattened
-    pApp->game.board.types[squareIdx]
-        = lastRecord.flattened
-              ? STONE_TYPE_STANDING
-              : STONE_TYPE_FLAT;
 
     //* Adjust history
     undoHistory( &pApp->history );

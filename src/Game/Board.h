@@ -1,10 +1,8 @@
 #ifndef IG20251123234345
 #define IG20251123234345
 
-#include "FileId.h"
 #include "GameConstants.h"
 #include "PlayerId.h"
-#include "RankId.h"
 #include "StoneTypeId.h"
 #include <stdint.h>
 
@@ -26,7 +24,7 @@ typedef struct Board
     uint8_t stoneCounts[SQUARES_MAX];
     /// Types of stacks / top stones
     /// Takes square index
-    StoneType types[SQUARES_MAX];
+    StoneType stackTypes[SQUARES_MAX];
     /// Board squares per side (rank/row and file/column)
     uint8_t width;
     /// Max size of stacks
@@ -46,8 +44,7 @@ Board newBoard( int const boardWidth );
 void putOntoStack(
     Board* const pBoard,
     PlayerId const playerId,
-    FileId const fileX,
-    RankId const rankY,
+    int const squareIdx,
     StoneType const stoneType
 );
 
@@ -59,8 +56,7 @@ void putOntoStack(
  */
 void takeFromStack(
     Board* const pBoard,
-    FileId const fileX,
-    RankId const rankY,
+    int const squareIdx,
     int const stoneCount
 );
 

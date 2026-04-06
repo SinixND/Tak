@@ -222,7 +222,7 @@ void testIsCaptiveValid( void )
         board.width
     );
 
-    board.types[squareIdx] = STONE_TYPE_FLAT;
+    board.stackTypes[squareIdx] = STONE_TYPE_FLAT;
     TEST_ASSERT_EQUAL_INT( true, isCaptiveValid( &event, &board ) );
 
     event.stoneType = STONE_TYPE_STANDING;
@@ -231,7 +231,7 @@ void testIsCaptiveValid( void )
     event.stoneType = STONE_TYPE_CAP;
     TEST_ASSERT_EQUAL_INT( true, isCaptiveValid( &event, &board ) );
 
-    board.types[squareIdx] = STONE_TYPE_STANDING;
+    board.stackTypes[squareIdx] = STONE_TYPE_STANDING;
     event.stoneType = STONE_TYPE_FLAT;
     TEST_ASSERT_EQUAL_INT( false, isCaptiveValid( &event, &board ) );
 
@@ -241,7 +241,7 @@ void testIsCaptiveValid( void )
     event.stoneType = STONE_TYPE_CAP;
     TEST_ASSERT_EQUAL_INT( true, isCaptiveValid( &event, &board ) );
 
-    board.types[squareIdx] = STONE_TYPE_CAP;
+    board.stackTypes[squareIdx] = STONE_TYPE_CAP;
     event.stoneType = STONE_TYPE_FLAT;
     TEST_ASSERT_EQUAL_INT( false, isCaptiveValid( &event, &board ) );
 

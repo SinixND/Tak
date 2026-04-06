@@ -19,7 +19,7 @@ Board newBoard( int const boardWidth )
 
     for ( int idx = 0; idx < squareCount; ++idx )
     {
-        board.types[idx] = STONE_TYPE_NONE;
+        board.stackTypes[idx] = STONE_TYPE_NONE;
         board.stoneCounts[idx] = 0;
     }
 
@@ -34,17 +34,10 @@ Board newBoard( int const boardWidth )
 void putOntoStack(
     Board* const pBoard,
     PlayerId const playerId,
-    FileId const fileX,
-    RankId const rankY,
+    int const squareIdx,
     StoneType const stoneType
 )
 {
-    int const squareIdx
-        = positionToSquare(
-            fileX,
-            rankY,
-            pBoard->width
-        );
     assert(
         ( squareIdx >= 0 )
         && "Invalid squareIdx"
@@ -61,7 +54,7 @@ void putOntoStack(
     );
 
     //* Set stack type
-    pBoard->types[squareIdx] = stoneType;
+    pBoard->stackTypes[squareIdx] = stoneType;
 
     int const stackIdx
         = squareToStackIndex(
@@ -78,8 +71,7 @@ void putOntoStack(
 
 void takeFromStack(
     Board* const pBoard,
-    FileId const fileX,
-    RankId const rankY,
+    int const squareIdx,
     int const stoneCount
 )
 {
@@ -97,5 +89,5 @@ void takeFromStack(
     pBoard->stoneCounts[squareIdx] -= stoneCount;
 
     //* Set stack type
-    pBoard->types[squareIdx] = STONE_TYPE_FLAT;
+    pBoard->stackTypes[squareIdx] = STONE_TYPE_FLAT;
 }
