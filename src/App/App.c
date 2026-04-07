@@ -3,7 +3,6 @@
 #include "BackendInterface.h"
 #include "Event.h"
 #include "Game.h"
-#include "History.h"
 #include "InputBuffer.h"
 #include "InputSystem.h"
 #include <assert.h>
@@ -25,7 +24,6 @@ App newApp( int const boardWidth )
         .game = newGame( boardWidth ),
         .inputBuffer = newInputBuffer(),
         .gameEvent = newEvent(),
-        .history = newHistory(),
         .shouldClose = false,
     };
 

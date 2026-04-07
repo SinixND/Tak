@@ -1,8 +1,7 @@
 #include "DemoSystem.h"
 
-#include "Redo.h"
-#include "TurnExecution.h"
-#include "Undo.h"
+#include "EventExecution.h"
+#include "Game.h"
 
 void demo( App* pApp )
 {
@@ -14,8 +13,9 @@ void demo( App* pApp )
     pEvent->fileX = FILE_A;
     pEvent->rankY = RANK_1;
 
-    executeTurn( pApp );
-
-    undo( pApp );
-    redo( pApp );
+    executeEvent( pApp );
+    takeStone(
+        &pApp->game,
+        0
+    );
 }

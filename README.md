@@ -151,6 +151,10 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 
 
 ## ToDo notes
+- Ignore History/Undo for now
+- Ignore Rule validation for now
+- [ ] Test Event execution
+
 Module eventBuilder(FSM):
 - [ ] "What data is needed to build a game event?"
   - Multiple inputs -> User command (FSM built)
@@ -165,7 +169,7 @@ Module eventBuilder(FSM):
   - No state
 
 
-- [ ] Move TurnExecution to App?
+- [ ] Move EventExecution to App?
 - [ ] Add dirty map
 - [ ] Add Statusline?
 - [ ] Add keybindings to readme

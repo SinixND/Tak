@@ -3,7 +3,6 @@
 
 #include "Event.h"
 #include "Game.h"
-#include "History.h"
 #include "InputBuffer.h"
 #include <stdbool.h>
 
@@ -12,7 +11,6 @@ typedef struct App
     Game game;
     InputBuffer inputBuffer;
     Event gameEvent;
-    History history;
     bool shouldClose;
 } App;
 
