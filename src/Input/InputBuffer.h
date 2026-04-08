@@ -3,6 +3,7 @@
 
 #include "InputId.h"
 
+/// Store per frame user input
 typedef struct InputBuffer
 {
     InputId keyboard;

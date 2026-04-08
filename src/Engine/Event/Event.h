@@ -20,4 +20,7 @@ typedef struct Event
 /// Return initialized game event object
 Event newEvent( void );
 
+// TODO:
+/// Build event from command
+
 #endif

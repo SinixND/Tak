@@ -8,6 +8,7 @@
 #include "PlayerId.h"
 #include "RankId.h"
 #include "StoneTypeId.h"
+#include <stdbool.h>
 #include <stdint.h>
 
 typedef struct Command
@@ -24,5 +25,8 @@ typedef struct Command
 
 /// Return initialized player command object
 Command newCommand( void );
+
+/// Check if event can be build from command
+bool isCommandComplete( Command const* const command );
 
 #endif

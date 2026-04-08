@@ -151,10 +151,16 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 
 
 ## ToDo notes
-- Ignore History/Undo for now
-- Ignore Rule validation for now
-- [ ] Update demo function
+- Ignore History/Undo/Redo for now
+- Ignore (rule) validation for now
+- Modify game -> game
+- Game logic -> engine
+- Linking input/core/render -> app
+
+- [ ] Tests for event execution
 - [ ] Build event from command
+    - [x] Add isCommandComplete
+    - [ ] Add buildEvent
 
 Module eventBuilder(FSM):
 - [ ] "What data is needed to build a game event?"
