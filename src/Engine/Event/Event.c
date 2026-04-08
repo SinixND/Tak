@@ -1,7 +1,5 @@
 #include "Event.h"
 
-#include "ActionTypeId.h"
-#include "StoneTypeId.h"
 #include <assert.h>
 #include <stdbool.h>
 
@@ -11,8 +9,7 @@ Event newEvent( void )
         .playerId = PLAYER_NONE,
         .actionType = ACTION_TYPE_NONE,
         .stoneType = STONE_TYPE_NONE,
-        .fileX = FILE_NONE,
-        .rankY = RANK_NONE,
+        .squareIdx = -1,
         .dropCount = -1,
     };
 }
