@@ -23,7 +23,7 @@ App newApp( int const boardWidth )
     App app = {
         .game = newGame( boardWidth ),
         .inputBuffer = newInputBuffer(),
-        .gameEvent = newEvent(),
+        .event = newEvent(),
         .shouldClose = false,
     };
 

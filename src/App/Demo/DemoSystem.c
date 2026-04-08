@@ -1,21 +1,43 @@
 #include "DemoSystem.h"
 
-#include "EventExecution.h"
+#include "App.h"
 #include "Game.h"
+#include <stdbool.h>
 
-void demo( App* pApp )
+void demo( void )
 {
-    Event* pEvent = &pApp->gameEvent;
+    App app = newApp( 0 );
 
-    pEvent->actionType = ACTION_TYPE_PLACE;
-    pEvent->playerId = PLAYER_WHITE;
-    pEvent->stoneType = STONE_TYPE_FLAT;
-    pEvent->fileX = FILE_A;
-    pEvent->rankY = RANK_1;
+    placeStone(
+        &app.game,
+        PLAYER_WHITE,
+        0,
+        STONE_TYPE_FLAT
+    );
 
-    executeEvent( pApp );
+    liftStack(
+        &app.game,
+        0
+    );
+
+    dropStone(
+        &app.game,
+        0
+    );
+
+    liftStone(
+        &app.game,
+        0,
+        false
+    );
+
+    dropStack(
+        &app.game,
+        0
+    );
+
     takeStone(
-        &pApp->game,
+        &app.game,
         0
     );
 }

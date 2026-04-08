@@ -10,7 +10,7 @@ typedef struct App
 {
     Game game;
     InputBuffer inputBuffer;
-    Event gameEvent;
+    Event event;
     bool shouldClose;
 } App;
 

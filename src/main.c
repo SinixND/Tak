@@ -3,10 +3,10 @@
 
 int main( void )
 {
-    App app = newApp( 0 );
-
     // TODO: Remove
-    demo( &app );
+    demo();
+
+    App app = newApp( 0 );
 
     setupApp();
     runApp( &app );
