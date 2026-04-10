@@ -3,6 +3,7 @@
 #include "TestCommand.h"
 #include "TestEngine.h"
 #include "TestEvent.h"
+#include "TestEventExecution.h"
 #include "TestGame.h"
 #include "TestInputSystem.h"
 #include "TestPositionSystem.h"
@@ -55,7 +56,7 @@ int main( void )
     //* Test Engine
     // TODO:
     RUN_TEST( testNewEngine );
-    // RUN_TEST( testExecuteEvent );
+    RUN_TEST( testExecuteEvent );
 
     //* Test InputSystem
     RUN_TEST( testHandleGlobalInput );
