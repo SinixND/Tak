@@ -1,11 +1,6 @@
-#ifndef IG20260406173020
-#define IG20260406173020
+#ifndef IG20260410112002
+#define IG20260410112002
 
-#include "ActionTypeId.h"
-#include "Event.h"
-#include "PlayerId.h"
-#include "StoneTypeId.h"
-#include <stdbool.h>
 #include <unity.h>
 
 void testNewEvent( void )
