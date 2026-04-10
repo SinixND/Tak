@@ -1,6 +1,7 @@
 #include "TestApp.h"
 #include "TestBoard.h"
 #include "TestCommand.h"
+#include "TestEngine.h"
 #include "TestEvent.h"
 #include "TestGame.h"
 #include "TestInputSystem.h"
@@ -50,6 +51,11 @@ int main( void )
     //* Test Command
     RUN_TEST( testNewCommand );
     RUN_TEST( testIsCommandComplete );
+
+    //* Test Engine
+    // TODO:
+    RUN_TEST( testNewEngine );
+    // RUN_TEST( testExecuteEvent );
 
     //* Test InputSystem
     RUN_TEST( testHandleGlobalInput );

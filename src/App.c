@@ -1,8 +1,6 @@
 #include "App.h"
 
 #include "BackendInterface.h"
-#include "Command.h"
-#include "Event.h"
 #include "Game.h"
 #include "InputBuffer.h"
 #include "InputSystem.h"
@@ -24,8 +22,7 @@ App newApp( int const boardWidth )
     App app = {
         .game = newGame( boardWidth ),
         .inputBuffer = newInputBuffer(),
-        .event = newEvent(),
-        .command = newCommand(),
+        .engine = newEngine(),
         .shouldClose = false,
     };
 

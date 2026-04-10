@@ -11,6 +11,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
+/// Multi-frame player command to build a game event
 typedef struct Command
 {
     PlayerId playerId;

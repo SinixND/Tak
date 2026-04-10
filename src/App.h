@@ -1,8 +1,7 @@
 #ifndef IG20260317123947
 #define IG20260317123947
 
-#include "Command.h"
-#include "Event.h"
+#include "Engine.h"
 #include "Game.h"
 #include "InputBuffer.h"
 #include <stdbool.h>
@@ -11,8 +10,7 @@ typedef struct App
 {
     Game game;
     InputBuffer inputBuffer;
-    Event event;
-    Command command;
+    Engine engine;
     bool shouldClose;
 } App;
 

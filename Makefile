@@ -193,7 +193,7 @@ cppcheck:
 	  --std=c99 \
 	  -i $(EXT_DIR)/ \
 	  -i $(TEST_DIR)/ \
-	  $(SRC_DIR)/ 
+	  $(SRC_DIR) \
 
 .PHONY: compiledb
 compiledb:

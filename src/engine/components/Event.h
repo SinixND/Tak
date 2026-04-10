@@ -7,7 +7,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-/// User inputs to modify game state
+/// Input to modify game state
 typedef struct Event
 {
     ActionType actionType;
@@ -19,14 +19,5 @@ typedef struct Event
 
 /// Return initialized game event object
 Event newEvent( void );
-
-/// Build event place event
-// void buildEventPlace(
-//     Event* const event,
-//     ActionType const actionType,
-//     PlayerId const playerId,
-//     int const squareIdx,
-//     StoneType const stoneType
-// );
 
 #endif

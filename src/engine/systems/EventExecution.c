@@ -1,13 +1,15 @@
 #include "EventExecution.h"
 
-#include "App.h"
+#include "Event.h"
+#include "Game.h"
 #include <assert.h>
 
-void executeEvent( App* const pApp )
-{
-    Event const* const pEvent = &pApp->event;
-    Game* const pGame = &pApp->game;
+void executeEvent(
 
+    Game* const pGame,
+    Event const* const pEvent
+)
+{
     switch ( pEvent->actionType )
     {
         default:
