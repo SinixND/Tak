@@ -3,6 +3,7 @@
 
 #include "Command.h"
 #include "Event.h"
+#include "Game.h"
 
 /// Data for running the game
 typedef struct Engine
@@ -13,5 +14,11 @@ typedef struct Engine
 
 /// Return initialized Engine object
 Engine newEngine( void );
+
+/// Update game state with event
+void executeEvent(
+    Game* const pGame,
+    Event const* const pEvent
+);
 
 #endif
