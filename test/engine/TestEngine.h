@@ -1,9 +1,13 @@
 #ifndef IG20260410171141
 #define IG20260410171141
 
+#include "Command.h"
 #include "Engine.h"
 #include "Game.h"
 #include "GameConstants.h"
+#include "PlayerId.h"
+#include "RankId.h"
+#include "StoneTypeId.h"
 #include <unity.h>
 
 void testNewEngine( void )
@@ -25,6 +29,35 @@ void testNewEngine( void )
     TEST_ASSERT_EQUAL_INT( -1, engine.command.drops );
     TEST_ASSERT_EQUAL_INT( -1, engine.command.dropCounts[0] );
     TEST_ASSERT_EQUAL_INT( -1, engine.command.dropCounts[7] );
+}
+
+void testBuildEvent( void )
+{
+    Event event = newEvent();
+    Command command = newCommand();
+    int const boardSize = 5;
+
+    command.playerId = PLAYER_WHITE;
+    command.actionType = ACTION_TYPE_PLACE;
+    command.stoneType = STONE_TYPE_STANDING;
+    command.fileX = FILE_B;
+    command.rankY = RANK_2;
+    command.direction = DIR_DOWN;
+    command.dropCounts[0] = 0;
+    command.dropCounts[1] = 2;
+    command.drops = 2;
+
+    buildEvent(
+        &event,
+        &command,
+        boardSize
+    );
+
+    TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, event.playerId );
+    TEST_ASSERT_EQUAL_INT( ACTION_TYPE_PLACE, event.actionType );
+    TEST_ASSERT_EQUAL_INT( STONE_TYPE_STANDING, event.stoneType );
+    TEST_ASSERT_EQUAL_INT( 6, event.squareIdx );
+    TEST_ASSERT_EQUAL_INT( 2, event.dropCount );
 }
 
 void testExecuteEvent( void )
@@ -64,4 +97,5 @@ void testExecuteEvent( void )
     TEST_ASSERT_EQUAL_INT( 1, game.board.stoneCounts[0] );
     TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, game.board.stoneIds[0] );
 }
+
 #endif

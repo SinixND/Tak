@@ -61,6 +61,7 @@ int main( void )
 
     //* Test Engine
     RUN_TEST( testNewEngine );
+    RUN_TEST( testBuildEvent );
     RUN_TEST( testExecuteEvent );
 
     //* Test InputSystem
