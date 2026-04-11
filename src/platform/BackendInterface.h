@@ -10,11 +10,18 @@ void setupBackend( void );
 void closeBackend( void );
 
 //* Timing
-/// Run backend loop
+/// Important: Calls `void updateFrame(App* const pApp)`
 void loopBackend( App* const pApp );
 
 //* Input
 /// Normalize user input from backend
 void pollInput( InputBuffer* const pInput );
+
+//* Render
+/// Render static application content
+void renderStatic( App* const pApp );
+
+/// Render dynamic application content
+void renderDynamic( App* const pApp );
 
 #endif

@@ -26,7 +26,13 @@ void runApp( App* const pApp );
 /// Clean up before closing the application
 void closeApp( void );
 
-/// Tick next frame
+/// Update one frame of the main loop
 void updateFrame( App* const pApp );
+
+/// Update application state
+void updateApp( App* const pApp );
+
+/// Render application state
+void renderApp( App* const pApp );
 
 #endif

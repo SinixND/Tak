@@ -210,5 +210,26 @@ void pollInput( InputBuffer* const pInput )
     }
 }
 
-#endif
+void renderStatic( App* const pApp )
+{
+    App* a = pApp;
+    a = a + 1;
+    mvprintw(
+        0,
+        0,
+        "%s",
+        "[Static Content]"
+    );
+}
 
+void renderDynamic( App* const pApp )
+{
+    mvprintw(
+        1,
+        0,
+        "%c",
+        INPUT_CHARS[pApp->inputBuffer.keyboard]
+    );
+}
+
+#endif

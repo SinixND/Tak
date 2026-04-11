@@ -38,6 +38,8 @@ void setupApp( void )
 
 void runApp( App* const pApp )
 {
+    renderStatic( pApp );
+
     loopBackend( pApp );
 }
 
@@ -48,14 +50,19 @@ void closeApp( void )
 
 void updateFrame( App* const pApp )
 {
+    //* Input
     pollInput( &pApp->inputBuffer );
-    handleGlobalInput( pApp );
+
+    //* Update
+    updateApp( pApp );
+
+    //* Render
     // WARN: Remove
-    mvprintw(
-        0,
-        0,
-        "%c",
-        INPUT_CHARS[pApp->inputBuffer.keyboard]
-    );
+    renderDynamic( pApp );
 }
 
+void updateApp( App* const pApp )
+{
+    //* Update
+    handleGlobalInput( pApp );
+}
