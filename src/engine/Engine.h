@@ -15,6 +15,13 @@ typedef struct Engine
 /// Return initialized Engine object
 Engine newEngine( void );
 
+/// Build event from command
+void buildEvent(
+    Event* const pEvent,
+    Command const* const pCommand,
+    int const boardSize
+);
+
 /// Update game state with event
 void executeEvent(
     Game* const pGame,

@@ -3,6 +3,7 @@
 #include "Command.h"
 #include "Event.h"
 #include "Game.h"
+#include "PositionSystem.h"
 #include <assert.h>
 
 Engine newEngine( void )
@@ -13,12 +14,51 @@ Engine newEngine( void )
     };
 }
 
-void executeEvent(
+void buildEvent(
+    Event* const pEvent,
+    Command const* const pCommand,
+    int const boardSize
+)
+{
+    assert(
+        pEvent
+        && "Pointer is nullptr"
+    );
 
+    assert(
+        pCommand
+        && "Pointer is nullptr"
+    );
+
+    pEvent->actionType = pCommand->actionType;
+    pEvent->playerId = pCommand->playerId;
+    pEvent->stoneType = pCommand->stoneType;
+    pEvent->squareIdx
+        = ( ( pCommand->fileX + pCommand->rankY ) < 0 )
+              ? -1
+              : positionToSquare(
+                    pCommand->fileX,
+                    pCommand->rankY,
+                    boardSize
+                );
+    pEvent->dropCount = pCommand->dropCounts[pCommand->drops - 1];
+}
+
+void executeEvent(
     Game* const pGame,
     Event const* const pEvent
 )
 {
+    assert(
+        pGame
+        && "Pointer is nullptr"
+    );
+
+    assert(
+        pEvent
+        && "Pointer is nullptr"
+    );
+
     switch ( pEvent->actionType )
     {
         default:
