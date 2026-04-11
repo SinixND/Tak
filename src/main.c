@@ -1,12 +1,13 @@
 #include "App.h"
 #include "DemoSystem.h"
+#include "GameConstants.h"
 
 int main( void )
 {
     // TODO: Remove
     demo();
 
-    App app = newApp( 0 );
+    App app = newApp( BOARD_SIZE_DEFAULT );
 
     setupApp();
     runApp( &app );

@@ -2,6 +2,7 @@
 #define IG20251205132519
 
 #include "Board.h"
+#include "Event.h"
 #include "Reserves.h"
 #include "StackBuffer.h"
 #include <stdbool.h>

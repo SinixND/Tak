@@ -1,4 +1,5 @@
 #include "BackendInterface.h"
+#include <assert.h>
 
 #ifdef BACKEND_NCURSES
 
@@ -25,6 +26,11 @@ void closeBackend( void )
 
 void loopBackend( App* const pApp )
 {
+    assert(
+        pApp
+        && "Pointer is nullptr"
+    );
+
     while ( !pApp->shouldClose )
     {
         updateFrame( pApp );
@@ -33,6 +39,11 @@ void loopBackend( App* const pApp )
 
 void pollInput( InputBuffer* const pInput )
 {
+    assert(
+        pInput
+        && "Pointer is nullptr"
+    );
+
     switch ( getch() )
     {
         default:

@@ -3,6 +3,7 @@
 
 #include "Engine.h"
 #include "Game.h"
+#include "GameConstants.h"
 #include <unity.h>
 
 void testNewEngine( void )
@@ -29,7 +30,7 @@ void testNewEngine( void )
 void testExecuteEvent( void )
 {
     Event event = newEvent();
-    Game game = newGame( 0 );
+    Game game = newGame( 5 );
 
     event.actionType = ACTION_TYPE_PLACE;
     event.playerId = PLAYER_WHITE;
@@ -38,7 +39,7 @@ void testExecuteEvent( void )
 
     executeEvent( &game, &event );
 
-    TEST_ASSERT_EQUAL_INT( getReservesRegular( 5 ), game.reserves.regular[PLAYER_WHITE] );
+    TEST_ASSERT_EQUAL_INT( getReservesRegular( 5 ) - 1, game.reserves.regular[PLAYER_WHITE] );
     TEST_ASSERT_EQUAL_INT( getReservesCapstone( 5 ), game.board.stoneCounts[0] );
     TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, game.board.stoneIds[0] );
     TEST_ASSERT_EQUAL_INT( PLAYER_NONE, game.board.stoneIds[1] );

@@ -28,6 +28,6 @@ typedef struct Command
 Command newCommand( void );
 
 /// Check if event can be build from command
-bool isCommandComplete( Command const* const command );
+bool isCommandComplete( Command const* const pCommand );
 
 #endif

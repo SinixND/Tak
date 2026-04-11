@@ -1,7 +1,6 @@
 #include "Game.h"
 
 #include "Board.h"
-#include "GameConstants.h"
 #include "PlayerId.h"
 #include "PositionSystem.h"
 #include "Reserves.h"
@@ -12,10 +11,15 @@
 
 Game newGame( int boardSize )
 {
-    if ( !boardSize )
-    {
-        boardSize = BOARD_SIZE_DEFAULT;
-    }
+    assert(
+        ( boardSize > 2 )
+        && "BoardSize too small"
+    );
+
+    assert(
+        ( boardSize < 9 )
+        && "BoardSize too big"
+    );
 
     return (Game){
         .board = newBoard( boardSize ),
@@ -31,6 +35,27 @@ void placeStone(
     StoneType const stoneType
 )
 {
+    assert(
+        pGame
+        && "Pointer is nullptr"
+    );
+
+    assert(
+        playerId != PLAYER_NONE
+        && "Invalid player Id"
+    );
+
+    assert(
+        squareIdx >= 0
+        && squareIdx < pGame->board.size
+        && "Invalid square index"
+    );
+
+    assert(
+        stoneType != STONE_TYPE_NONE
+        && "Invalid stone type"
+    );
+
     //* INFO: [Rule] Can only place on empty squares
     assert(
         pGame->board.stoneCounts[squareIdx] == 0
@@ -56,6 +81,17 @@ void takeStone(
     int const squareIdx
 )
 {
+    assert(
+        pGame
+        && "Pointer is nullptr"
+    );
+
+    assert(
+        squareIdx >= 0
+        && squareIdx < pGame->board.size
+        && "Invalid square index"
+    );
+
     Board* const pBoard = &pGame->board;
 
     assert(
@@ -66,7 +102,10 @@ void takeStone(
     //* Add to reserves
     returnToReserves(
         &pGame->reserves,
-        pBoard->stoneIds[squareToStackIndex( squareIdx, pBoard->stackCapacity )],
+        pBoard->stoneIds[squareToStackIndex(
+            squareIdx,
+            pBoard->size
+        )],
         pBoard->stackTypes[squareIdx]
     );
 
@@ -83,6 +122,17 @@ void liftStack(
     int const squareIdx
 )
 {
+    assert(
+        pGame
+        && "Pointer is nullptr"
+    );
+
+    assert(
+        squareIdx >= 0
+        && squareIdx < pGame->board.size
+        && "Invalid square index"
+    );
+
     Board* const pBoard = &pGame->board;
 
     assert(
@@ -93,8 +143,8 @@ void liftStack(
     //* INFO: [Rule] StackBuffer stone count must cap at boardSize
     int const stoneCount
         = ( pBoard->stoneCounts[squareIdx]
-            > pBoard->width )
-              ? pBoard->width
+            > pBoard->size )
+              ? pBoard->size
               : pBoard->stoneCounts[squareIdx];
 
     int const stoneType = pBoard->stackTypes[squareIdx];
@@ -108,7 +158,7 @@ void liftStack(
     int const topStoneIdx
         = squareToStackIndex(
               squareIdx,
-              pBoard->stackCapacity
+              pBoard->size
           )
           + ( pBoard->stoneCounts[squareIdx] - 1 );
 
@@ -133,6 +183,17 @@ void dropStack(
     int const squareIdx
 )
 {
+    assert(
+        pGame
+        && "Pointer is nullptr"
+    );
+
+    assert(
+        squareIdx >= 0
+        && squareIdx < pGame->board.size
+        && "Invalid square index"
+    );
+
     StackBuffer* const stackBuffer = &pGame->stackBuffer;
 
     //* Add stones to stack
@@ -163,6 +224,17 @@ void dropStone(
     int const squareIdx
 )
 {
+    assert(
+        pGame
+        && "Pointer is nullptr"
+    );
+
+    assert(
+        squareIdx >= 0
+        && squareIdx < pGame->board.size
+        && "Invalid square index"
+    );
+
     StackBuffer* const stackBuffer = &pGame->stackBuffer;
     StoneType const captiveStoneType = pGame->board.stackTypes[squareIdx];
 
@@ -202,6 +274,17 @@ void liftStone(
     bool const flattened
 )
 {
+    assert(
+        pGame
+        && "Pointer is nullptr"
+    );
+
+    assert(
+        squareIdx >= 0
+        && squareIdx < pGame->board.size
+        && "Invalid square index"
+    );
+
     Board* const pBoard = &pGame->board;
 
     assert(
@@ -210,7 +293,7 @@ void liftStone(
     );
 
     PlayerId const playerId
-        = pBoard->stoneIds[squareToStackIndex( squareIdx, pBoard->stackCapacity ) + ( pBoard->stoneCounts[squareIdx] - 1 )];
+        = pBoard->stoneIds[squareToStackIndex( squareIdx, pBoard->size ) + ( pBoard->stoneCounts[squareIdx] - 1 )];
 
     appendToBuffer(
         &pGame->stackBuffer,

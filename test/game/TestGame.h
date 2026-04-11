@@ -9,17 +9,17 @@
 
 void testNewGame( void )
 {
-    Game game0 = newGame( 0 );
-
-    TEST_ASSERT_EQUAL_INT( BOARD_SIZE_DEFAULT, game0.board.width );
-
     Game game3 = newGame( 3 );
 
-    TEST_ASSERT_EQUAL_INT( 3, game3.board.width );
+    TEST_ASSERT_EQUAL_INT( 3, game3.board.size );
+
+    Game game5 = newGame( 5 );
+
+    TEST_ASSERT_EQUAL_INT( 5, game5.board.size );
 
     Game game8 = newGame( 8 );
 
-    TEST_ASSERT_EQUAL_INT( 8, game8.board.width );
+    TEST_ASSERT_EQUAL_INT( 8, game8.board.size );
 }
 
 void testPlaceStone( void )
@@ -111,7 +111,7 @@ void testTakeStone( void )
         0
     );
 
-    TEST_ASSERT_EQUAL_INT( getReservesCapstone( 5 ), game.reserves.regular[PLAYER_WHITE] );
+    TEST_ASSERT_EQUAL_INT( getReservesRegular( 5 ), game.reserves.regular[PLAYER_WHITE] );
     TEST_ASSERT_EQUAL_INT( 0, game.board.stoneCounts[0] );
 }
 
@@ -225,7 +225,7 @@ void testDropStone( void )
     TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, game.board.stoneIds[20] );
     TEST_ASSERT_EQUAL_INT( PLAYER_BLACK, game.board.stoneIds[21] );
 
-    TEST_ASSERT_EQUAL_INT( PLAYER_BLACK, game.board.stoneIds[19] );
+    TEST_ASSERT_EQUAL_INT( PLAYER_NONE, game.board.stoneIds[19] );
 }
 
 void testLiftStone( void )

@@ -7,6 +7,7 @@
 #include "PlayerId.h"
 #include "RankId.h"
 #include "StoneTypeId.h"
+#include <assert.h>
 #include <stdbool.h>
 
 Command newCommand( void )
@@ -29,9 +30,14 @@ Command newCommand( void )
     return command;
 }
 
-bool isCommandComplete( Command const* const command )
+bool isCommandComplete( Command const* const pCommand )
 {
-    switch ( command->actionType )
+    assert(
+        pCommand
+        && "Pointer is nullptr"
+    );
+
+    switch ( pCommand->actionType )
     {
         default:
         case ACTION_TYPE_NONE:
@@ -40,28 +46,28 @@ bool isCommandComplete( Command const* const command )
         case ACTION_TYPE_PLACE:
         {
             return (
-                ( command->playerId != PLAYER_NONE )
-                && ( command->fileX != FILE_NONE )
-                && ( command->rankY != RANK_NONE )
-                && ( command->stoneType != STONE_TYPE_NONE )
+                ( pCommand->playerId != PLAYER_NONE )
+                && ( pCommand->fileX != FILE_NONE )
+                && ( pCommand->rankY != RANK_NONE )
+                && ( pCommand->stoneType != STONE_TYPE_NONE )
             );
         }
 
         case ACTION_TYPE_LIFT:
         {
             return (
-                ( command->fileX != FILE_NONE )
-                && ( command->rankY != RANK_NONE )
+                ( pCommand->fileX != FILE_NONE )
+                && ( pCommand->rankY != RANK_NONE )
             );
         }
 
         case ACTION_TYPE_DROP:
         {
             return (
-                ( command->fileX != FILE_NONE )
-                && ( command->rankY != RANK_NONE )
-                && ( command->direction != DIR_NONE )
-                && ( command->dropCounts[command->drops] > 0 )
+                ( pCommand->fileX != FILE_NONE )
+                && ( pCommand->rankY != RANK_NONE )
+                && ( pCommand->direction != DIR_NONE )
+                && ( pCommand->dropCounts[pCommand->drops] > 0 )
             );
         }
     }

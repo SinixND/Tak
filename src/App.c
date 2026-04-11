@@ -11,12 +11,12 @@ App newApp( int const boardSize )
     assert(
         ( boardSize >= BOARD_SIZE_MIN
           || !boardSize )
-        && "Board width value too small"
+        && "Board size value too small"
     );
 
     assert(
         ( boardSize <= BOARD_SIZE_MAX )
-        && "Board width value too big"
+        && "Board size value too big"
     );
 
     App app = {

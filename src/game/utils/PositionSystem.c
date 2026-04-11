@@ -12,13 +12,25 @@ int positionToSquare(
 )
 {
     assert(
+        ( fileX >= 0 )
+        && ( fileX < 8 )
+        && "Invalid fileX"
+    );
+
+    assert(
+        ( rankY >= 0 )
+        && ( rankY < 8 )
+        && "Invalid rankY"
+    );
+
+    assert(
         ( boardSize > 2 )
-        && "Invalid boardSize"
+        && "BoardSize too small"
     );
 
     assert(
         ( boardSize < 9 )
-        && "Invalid boardSize"
+        && "BoardSize too big"
     );
 
     return ( rankY * boardSize ) + fileX;
@@ -30,13 +42,19 @@ int squareToStackIndex(
 )
 {
     assert(
+        ( squareIdx >= 0 )
+        && ( squareIdx < ( BOARD_SIZE_MAX * BOARD_SIZE_MAX ) )
+        && "Invalid square index"
+    );
+
+    assert(
         ( boardSize > 2 )
-        && "Invalid boardSize"
+        && "BoardSize too small"
     );
 
     assert(
         ( boardSize < 9 )
-        && "Invalid boardSize"
+        && "BoardSize too big"
     );
 
     return squareIdx * getStackCapacity( boardSize );

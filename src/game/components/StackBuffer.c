@@ -25,6 +25,11 @@ void resetBuffer(
 )
 {
     assert(
+        pBuffer
+        && "Pointer is nullptr"
+    );
+
+    assert(
         stoneType != STONE_TYPE_NONE
         && "Invalid stoneId"
     );
@@ -40,6 +45,11 @@ void appendToBuffer(
     PlayerId const playerId
 )
 {
+    assert(
+        pBuffer
+        && "Pointer is nullptr"
+    );
+
     assert(
         ( playerId == PLAYER_WHITE || playerId == PLAYER_BLACK )
         && "Invalid playerId"

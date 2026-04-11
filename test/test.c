@@ -3,7 +3,6 @@
 #include "TestCommand.h"
 #include "TestEngine.h"
 #include "TestEvent.h"
-#include "TestEventExecution.h"
 #include "TestGame.h"
 #include "TestGameConstants.h"
 #include "TestInputSystem.h"
@@ -11,6 +10,7 @@
 #include "TestReserves.h"
 #include "TestStackBuffer.h"
 #include <unity.h>
+#include <unity_internals.h>
 
 void setUp( void ) {}
 
@@ -60,7 +60,6 @@ int main( void )
     RUN_TEST( testIsCommandComplete );
 
     //* Test Engine
-    // TODO:
     RUN_TEST( testNewEngine );
     RUN_TEST( testExecuteEvent );
 

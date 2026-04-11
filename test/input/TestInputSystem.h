@@ -2,13 +2,14 @@
 #define IG20260327194613
 
 #include "App.h"
+#include "GameConstants.h"
 #include "InputId.h"
 #include "InputSystem.h"
 #include <unity.h>
 
 void testHandleGlobalInput( void )
 {
-    App app = newApp( 0 );
+    App app = newApp( BOARD_SIZE_DEFAULT );
     //* TODO: Remove
     app.inputBuffer.keyboard = INPUT_Q;
 

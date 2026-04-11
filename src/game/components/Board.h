@@ -26,7 +26,7 @@ typedef struct Board
     /// Takes square index
     StoneType stackTypes[SQUARES_MAX];
     /// Board squares per side (rank/row and file/column)
-    uint8_t width;
+    uint8_t size;
     /// Max size of stacks
     uint8_t stackCapacity;
 } Board;

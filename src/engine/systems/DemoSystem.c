@@ -2,11 +2,12 @@
 
 #include "App.h"
 #include "Game.h"
+#include "GameConstants.h"
 #include <stdbool.h>
 
 void demo( void )
 {
-    App app = newApp( 0 );
+    App app = newApp( BOARD_SIZE_DEFAULT );
 
     placeStone(
         &app.game,

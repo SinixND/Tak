@@ -8,9 +8,20 @@
 
 Board newBoard( int const boardSize )
 {
+    assert(
+        ( boardSize >= BOARD_SIZE_MIN
+          || !boardSize )
+        && "Board size value too small"
+    );
+
+    assert(
+        ( boardSize <= BOARD_SIZE_MAX )
+        && "Board size value too big"
+    );
+
     Board board = {
         .stackCapacity = getStackCapacity( boardSize ), // can only have one per stack
-        .width = boardSize
+        .size = boardSize
     };
 
     int const squareCount = boardSize * boardSize;
@@ -38,8 +49,14 @@ void putOntoStack(
 )
 {
     assert(
-        ( squareIdx >= 0 )
-        && "Invalid squareIdx"
+        pBoard
+        && "Pointer is nullptr"
+    );
+
+    assert(
+        squareIdx >= 0
+        && squareIdx < pBoard->size
+        && "Invalid square index"
     );
 
     assert(
@@ -58,7 +75,7 @@ void putOntoStack(
     int const stackIdx
         = squareToStackIndex(
             squareIdx,
-            pBoard->stackCapacity
+            pBoard->size
         );
 
     //* Add playerId
@@ -75,8 +92,14 @@ void takeFromStack(
 )
 {
     assert(
+        pBoard
+        && "Pointer is nullptr"
+    );
+
+    assert(
         squareIdx >= 0
-        && "Invalid squareIdx"
+        && squareIdx < pBoard->size
+        && "Invalid square index"
     );
 
     assert(

@@ -36,7 +36,7 @@ void testTakeFromReserves( void )
     );
 
     TEST_ASSERT_EQUAL_INT( getReservesCapstone( 5 ), reserves.capstone[PLAYER_WHITE] );
-    TEST_ASSERT_EQUAL_INT( getReservesCapstone( 5 ), reserves.capstone[PLAYER_BLACK] );
+    TEST_ASSERT_EQUAL_INT( getReservesCapstone( 5 ) - 1, reserves.capstone[PLAYER_BLACK] );
 }
 
 #endif
