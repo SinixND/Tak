@@ -32,4 +32,33 @@ typedef enum InputId
     INPUT_8, //* Used for rank and stone counts
 } InputId;
 
+static char const INPUT_CHARS[] = {
+    [INPUT_NONE] = '-',
+    [INPUT_A] = 'A',
+    [INPUT_B] = 'B',
+    [INPUT_C] = 'C',
+    [INPUT_D] = 'D',
+    [INPUT_E] = 'E',
+    [INPUT_F] = 'F',
+    [INPUT_G] = 'G',
+    [INPUT_H] = 'H',
+    [INPUT_L] = 'L',
+    [INPUT_M] = 'M',
+    [INPUT_N] = 'N',
+    [INPUT_P] = 'P',
+    [INPUT_Q] = 'Q',
+    [INPUT_R] = 'R',
+    [INPUT_S] = 'S',
+    [INPUT_U] = 'U',
+    [INPUT_W] = 'W',
+    [INPUT_0] = '0',
+    [INPUT_1] = '1',
+    [INPUT_2] = '2',
+    [INPUT_3] = '3',
+    [INPUT_4] = '4',
+    [INPUT_5] = '5',
+    [INPUT_6] = '6',
+    [INPUT_7] = '7',
+    [INPUT_8] = '8',
+};
 #endif

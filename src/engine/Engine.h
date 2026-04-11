@@ -27,5 +27,4 @@ void executeEvent(
     Game* const pGame,
     Event const* const pEvent
 );
-
 #endif
