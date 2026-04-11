@@ -32,13 +32,13 @@ bool isStoneTypeAvailable(
 /// Validate fileX against board width
 bool isFileXOnBoard(
     Event const* const pEvent,
-    int const boardWidth
+    int const boardSize
 );
 
 /// Validate rankY against board width
 bool isRankYOnBoard(
     Event const* const pEvent,
-    int const boardWidth
+    int const boardSize
 );
 
 /// Validate square against board

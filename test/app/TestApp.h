@@ -10,7 +10,7 @@ void testNewApp( void )
 {
     App app = newApp( 0 );
 
-    TEST_ASSERT_EQUAL_INT( BOARD_WIDTH_DEFAULT, app.game.board.width );
+    TEST_ASSERT_EQUAL_INT( BOARD_SIZE_DEFAULT, app.game.board.width );
     TEST_ASSERT_EQUAL_INT( INPUT_NONE, app.inputBuffer.keyboard );
     TEST_ASSERT_EQUAL_INT( false, app.shouldClose );
 

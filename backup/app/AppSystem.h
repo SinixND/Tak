@@ -5,7 +5,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-App newApp( int const boardWidth );
+App newApp( int const boardSize );
 
 void setupApp( void );
 void closeApp( void );

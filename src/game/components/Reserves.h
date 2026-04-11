@@ -17,7 +17,7 @@ typedef struct Reserves
 } Reserves;
 
 /// Return initialized Reserves object
-Reserves newReserves( int const boardWidth );
+Reserves newReserves( int const boardSize );
 
 /**
  * @brief: Reduce reserves for given player and stone type

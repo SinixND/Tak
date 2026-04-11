@@ -6,15 +6,14 @@
 #include "StoneTypeId.h"
 #include <assert.h>
 
-Board newBoard( int const boardWidth )
+Board newBoard( int const boardSize )
 {
     Board board = {
-        .stackCapacity = 2 * RESERVES_BASE_REGULAR[boardWidth - BOARD_WIDTH_MIN]
-                         + (int)( 0 != RESERVES_BASE_CAPSTONE[boardWidth - BOARD_WIDTH_MIN] ), // can only have one per stack
-        .width = boardWidth
+        .stackCapacity = getStackCapacity( boardSize ), // can only have one per stack
+        .width = boardSize
     };
 
-    int const squareCount = boardWidth * boardWidth;
+    int const squareCount = boardSize * boardSize;
     int const arraySize = squareCount * board.stackCapacity;
 
     for ( int idx = 0; idx < squareCount; ++idx )

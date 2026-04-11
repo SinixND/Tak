@@ -32,7 +32,7 @@ typedef struct Board
 } Board;
 
 /// Return initialized board object
-Board newBoard( int const boardWidth );
+Board newBoard( int const boardSize );
 
 /**
  * @brief; Add new stone to a square

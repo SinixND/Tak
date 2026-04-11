@@ -11,7 +11,7 @@ StackBuffer newStackBuffer( void )
         .stoneCount = 0,
     };
 
-    for ( int stoneIdx = 0; stoneIdx < BOARD_WIDTH_MAX; ++stoneIdx )
+    for ( int stoneIdx = 0; stoneIdx < BOARD_SIZE_MAX; ++stoneIdx )
     {
         buffer.stoneIds[stoneIdx] = PLAYER_NONE;
     }

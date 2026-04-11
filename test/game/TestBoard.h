@@ -2,6 +2,7 @@
 #define IG20260104182515
 
 #include "Board.h"
+#include "GameConstants.h"
 #include "PlayerId.h"
 #include "StoneTypeId.h"
 #include <unity.h>
@@ -15,7 +16,7 @@ void testNewBoard( void )
     TEST_ASSERT_EQUAL_INT( 0, board.stoneCounts[0] );
     TEST_ASSERT_EQUAL_INT( 0, board.stoneCounts[9 - 1] );
     TEST_ASSERT_EQUAL_INT( PLAYER_NONE, board.stoneIds[0] );
-    TEST_ASSERT_EQUAL_INT( PLAYER_NONE, board.stoneIds[( 3 * 3 * 20 ) - 1] );
+    TEST_ASSERT_EQUAL_INT( PLAYER_NONE, board.stoneIds[( 3 * 3 * getStackCapacity( 3 ) ) - 1] );
 
     board = newBoard( 8 );
 
@@ -24,7 +25,7 @@ void testNewBoard( void )
     TEST_ASSERT_EQUAL_INT( 0, board.stoneCounts[0] );
     TEST_ASSERT_EQUAL_INT( 0, board.stoneCounts[( 8 * 8 ) - 1] );
     TEST_ASSERT_EQUAL_INT( PLAYER_NONE, board.stoneIds[0] );
-    TEST_ASSERT_EQUAL_INT( PLAYER_NONE, board.stoneIds[( 8 * 8 * 101 ) - 1] );
+    TEST_ASSERT_EQUAL_INT( PLAYER_NONE, board.stoneIds[( 8 * 8 * getStackCapacity( 8 ) ) - 1] );
 }
 
 void testPlaceOntoStack( void )
@@ -51,7 +52,7 @@ void testPlaceOntoStack( void )
 
     TEST_ASSERT_EQUAL_INT( STONE_TYPE_STANDING, board.stackTypes[3] );
     TEST_ASSERT_EQUAL_INT( 1, board.stoneCounts[3] );
-    TEST_ASSERT_EQUAL_INT( PLAYER_BLACK, board.stoneIds[( ( 3 * 43 ) + 1 ) - 1] );
+    TEST_ASSERT_EQUAL_INT( PLAYER_BLACK, board.stoneIds[( ( 3 * getStackCapacity( 5 ) ) + 1 ) - 1] );
 
     putOntoStack(
         &board,
@@ -62,7 +63,7 @@ void testPlaceOntoStack( void )
 
     TEST_ASSERT_EQUAL_INT( STONE_TYPE_CAP, board.stackTypes[3] );
     TEST_ASSERT_EQUAL_INT( 2, board.stoneCounts[3] );
-    TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, board.stoneIds[( ( 3 * 43 ) + 2 ) - 1] );
+    TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, board.stoneIds[( ( 3 * getStackCapacity( 5 ) ) + 2 ) - 1] );
 }
 
 void testTakeFromStack( void )

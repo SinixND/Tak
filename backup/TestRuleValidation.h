@@ -61,87 +61,87 @@ void testIsStoneTypeAvailable( void )
 void testIsFileXOnBoard( void )
 {
     Event event = { 0 };
-    int boardWidth = 3;
+    int boardSize = 3;
 
     event.fileX = FILE_NONE;
-    TEST_ASSERT_EQUAL_INT( false, isFileXOnBoard( &event, boardWidth ) );
+    TEST_ASSERT_EQUAL_INT( false, isFileXOnBoard( &event, boardSize ) );
 
     event.fileX = FILE_A;
-    TEST_ASSERT_EQUAL_INT( true, isFileXOnBoard( &event, boardWidth ) );
+    TEST_ASSERT_EQUAL_INT( true, isFileXOnBoard( &event, boardSize ) );
 
     event.fileX = FILE_C;
-    TEST_ASSERT_EQUAL_INT( true, isFileXOnBoard( &event, boardWidth ) );
+    TEST_ASSERT_EQUAL_INT( true, isFileXOnBoard( &event, boardSize ) );
 
     event.fileX = FILE_D;
-    TEST_ASSERT_EQUAL_INT( false, isFileXOnBoard( &event, boardWidth ) );
+    TEST_ASSERT_EQUAL_INT( false, isFileXOnBoard( &event, boardSize ) );
 
-    boardWidth = 7;
+    boardSize = 7;
 
     event.fileX = FILE_NONE;
-    TEST_ASSERT_EQUAL_INT( false, isFileXOnBoard( &event, boardWidth ) );
+    TEST_ASSERT_EQUAL_INT( false, isFileXOnBoard( &event, boardSize ) );
 
     event.fileX = FILE_A;
-    TEST_ASSERT_EQUAL_INT( true, isFileXOnBoard( &event, boardWidth ) );
+    TEST_ASSERT_EQUAL_INT( true, isFileXOnBoard( &event, boardSize ) );
 
     event.fileX = FILE_G;
-    TEST_ASSERT_EQUAL_INT( true, isFileXOnBoard( &event, boardWidth ) );
+    TEST_ASSERT_EQUAL_INT( true, isFileXOnBoard( &event, boardSize ) );
 
     event.fileX = FILE_H;
-    TEST_ASSERT_EQUAL_INT( false, isFileXOnBoard( &event, boardWidth ) );
+    TEST_ASSERT_EQUAL_INT( false, isFileXOnBoard( &event, boardSize ) );
 
-    boardWidth = 8;
+    boardSize = 8;
 
     event.fileX = FILE_NONE;
-    TEST_ASSERT_EQUAL_INT( false, isFileXOnBoard( &event, boardWidth ) );
+    TEST_ASSERT_EQUAL_INT( false, isFileXOnBoard( &event, boardSize ) );
 
     event.fileX = FILE_A;
-    TEST_ASSERT_EQUAL_INT( true, isFileXOnBoard( &event, boardWidth ) );
+    TEST_ASSERT_EQUAL_INT( true, isFileXOnBoard( &event, boardSize ) );
 
     event.fileX = FILE_H;
-    TEST_ASSERT_EQUAL_INT( true, isFileXOnBoard( &event, boardWidth ) );
+    TEST_ASSERT_EQUAL_INT( true, isFileXOnBoard( &event, boardSize ) );
 }
 
 void testIsRankYOnBoard( void )
 {
     Event event = { 0 };
-    int boardWidth = 3;
+    int boardSize = 3;
 
     event.rankY = RANK_NONE;
-    TEST_ASSERT_EQUAL_INT( false, isRankYOnBoard( &event, boardWidth ) );
+    TEST_ASSERT_EQUAL_INT( false, isRankYOnBoard( &event, boardSize ) );
 
     event.rankY = RANK_1;
-    TEST_ASSERT_EQUAL_INT( true, isRankYOnBoard( &event, boardWidth ) );
+    TEST_ASSERT_EQUAL_INT( true, isRankYOnBoard( &event, boardSize ) );
 
     event.rankY = RANK_3;
-    TEST_ASSERT_EQUAL_INT( true, isRankYOnBoard( &event, boardWidth ) );
+    TEST_ASSERT_EQUAL_INT( true, isRankYOnBoard( &event, boardSize ) );
 
     event.rankY = RANK_4;
-    TEST_ASSERT_EQUAL_INT( false, isRankYOnBoard( &event, boardWidth ) );
+    TEST_ASSERT_EQUAL_INT( false, isRankYOnBoard( &event, boardSize ) );
 
-    boardWidth = 7;
+    boardSize = 7;
 
     event.rankY = RANK_NONE;
-    TEST_ASSERT_EQUAL_INT( false, isRankYOnBoard( &event, boardWidth ) );
+    TEST_ASSERT_EQUAL_INT( false, isRankYOnBoard( &event, boardSize ) );
 
     event.rankY = RANK_1;
-    TEST_ASSERT_EQUAL_INT( true, isRankYOnBoard( &event, boardWidth ) );
+    TEST_ASSERT_EQUAL_INT( true, isRankYOnBoard( &event, boardSize ) );
 
     event.rankY = RANK_7;
-    TEST_ASSERT_EQUAL_INT( true, isRankYOnBoard( &event, boardWidth ) );
+    TEST_ASSERT_EQUAL_INT( true, isRankYOnBoard( &event, boardSize ) );
 
     event.rankY = RANK_8;
-    TEST_ASSERT_EQUAL_INT( false, isRankYOnBoard( &event, boardWidth ) );
+    TEST_ASSERT_EQUAL_INT( false, isRankYOnBoard( &event, boardSize ) );
 
-    boardWidth = 8;
+    boardSize = 8;
 
     event.rankY = RANK_NONE;
-    TEST_ASSERT_EQUAL_INT( false, isRankYOnBoard( &event, boardWidth ) );
+    TEST_ASSERT_EQUAL_INT( false, isRankYOnBoard( &event, boardSize ) );
 
     event.rankY = RANK_1;
-    TEST_ASSERT_EQUAL_INT( true, isRankYOnBoard( &event, boardWidth ) );
+    TEST_ASSERT_EQUAL_INT( true, isRankYOnBoard( &event, boardSize ) );
 
     event.rankY = RANK_8;
-    TEST_ASSERT_EQUAL_INT( true, isRankYOnBoard( &event, boardWidth ) );
+    TEST_ASSERT_EQUAL_INT( true, isRankYOnBoard( &event, boardSize ) );
 }
 
 void testIsSquareEmpty( void )

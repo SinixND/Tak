@@ -2,6 +2,43 @@
 #define IG20251126113110
 
 /**
+ * @brief Constant data for the core game
+ *
+ * aka. compiletime constants
+ */
+enum
+{
+    /// Player count
+    PLAYER_COUNT = 2,
+
+    /// Squares per Width/Height
+    BOARD_SIZE_MIN = 3,
+
+    /// Squares per Width/Height
+    BOARD_SIZE_MAX = 8,
+
+    /// Squares per Width/Height
+    BOARD_SIZE_DEFAULT = 3, // WARN: Temporary board size adjustment for development
+
+    /// Undo/Redo history size
+    HISTORY_SIZE = 1000,
+
+    /**
+     * Maximum stacks possible in game (= squares)
+     * May be increased to improve alignment for cache
+     * Required for array initialization (constant size)
+     */
+    SQUARES_MAX = 64,
+
+    /**
+     * Maximum stones possible in game: 101 (= all regular stones + 1 capstone)
+     * May be adjusted to improve alignment for cache
+     * Required for array initialization (constant size)
+     */
+    STONES_MAX = 101,
+};
+
+/**
  * @brief Size of initial player reserves
  * Regular stones, by board size
  */
@@ -13,6 +50,9 @@ static int const RESERVES_BASE_REGULAR[] = {
     40, // Size: 7x7
     50, // Size: 8x8
 };
+
+/// Get single player reserves for regular stones
+int getReservesRegular( int const boardSize );
 
 /**
  * @brief Size of initial player reserves
@@ -27,39 +67,10 @@ static int const RESERVES_BASE_CAPSTONE[] = {
     2, // Size: 8x8
 };
 
-/**
- * @brief Constant data for the core game
- *
- * aka. compiletime constants
- */
-enum
-{
-    /// Player count
-    PLAYER_COUNT = 2,
+/// Get single player reserves for capstones
+int getReservesCapstone( int const boardSize );
 
-    /// Minimal board width/height
-    BOARD_WIDTH_MIN = 3,
-
-    /// Maximal board width/height
-    /// equals max moved stone count
-    BOARD_WIDTH_MAX = 8,
-
-    /// Default board width/height
-    BOARD_WIDTH_DEFAULT = 3, // WARN: Temporary board size adjustment for development
-    /**
-     * Maximum stacks possible in game (= squares)
-     * May be adjusted to improve alignment for cache
-     */
-    SQUARES_MAX = 64,
-
-    /**
-     * Maximum stones possible in game: 101 (= all regular stones + 1 capstone)
-     * May be adjusted to improve alignment for cache
-     */
-    STONES_MAX = 101,
-
-    /// Undo/Redo history size
-    HISTORY_SIZE = 1000,
-};
+/// Get max amount of stones that can form a single stack
+int getStackCapacity( int const boardSize );
 
 #endif

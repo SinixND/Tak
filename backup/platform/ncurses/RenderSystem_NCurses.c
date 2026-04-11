@@ -10,7 +10,7 @@
 
 void renderStatic( App* const app )
 {
-    int const boardWidth = app->game.board.width;
+    int const boardSize = app->game.board.width;
 
     //* Render info pane
     for ( int idx = 0; idx < ( LAYOUT_PANE_HEIGHT ); ++idx )
@@ -28,14 +28,14 @@ void renderStatic( App* const app )
         0,
         BOARD_OFFSET,
         "%.*s",
-        ( 1 + ( boardWidth * 4 ) + 1 ), // Add header; & 1 extra square edge
+        ( 1 + ( boardSize * 4 ) + 1 ), // Add header; & 1 extra square edge
         LAYOUT_BOARD_HEADER_RANK
     );
 
     //* Render left board header
-    int offsetIntoLayout = ( ( BOARD_WIDTH_MAX - boardWidth ) * LAYOUT_BOARD_SQUARE_SIZE ) + 1;
+    int offsetIntoLayout = ( ( BOARD_WIDTH_MAX - boardSize ) * LAYOUT_BOARD_SQUARE_SIZE ) + 1;
 
-    for ( int y = 0; y < ( boardWidth * LAYOUT_BOARD_SQUARE_SIZE ); ++y )
+    for ( int y = 0; y < ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ); ++y )
     {
         mvprintw(
             y + 1, // Add  header
@@ -46,9 +46,9 @@ void renderStatic( App* const app )
     }
 
     //* Render board
-    for ( int y = 0; y < boardWidth; ++y )
+    for ( int y = 0; y < boardSize; ++y )
     {
-        for ( int x = 0; x < boardWidth; ++x )
+        for ( int x = 0; x < boardSize; ++x )
         {
             for ( int idx = 0; idx < ( LAYOUT_BOARD_SQUARE_SIZE + 1 ); ++idx )
             {
@@ -63,7 +63,7 @@ void renderStatic( App* const app )
     }
 
     //* Render top board edge
-    for ( int x = 0; x < ( boardWidth * LAYOUT_BOARD_SQUARE_SIZE ) - 1; ++x ) // Subtract board edge
+    for ( int x = 0; x < ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ) - 1; ++x ) // Subtract board edge
     {
         mvaddch(
             1,                    // Add header
@@ -72,7 +72,7 @@ void renderStatic( App* const app )
         );
     }
     //* Render left board edge
-    for ( int y = 0; y < ( boardWidth * LAYOUT_BOARD_SQUARE_SIZE ) - 1; ++y ) // Subtract board edge
+    for ( int y = 0; y < ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ) - 1; ++y ) // Subtract board edge
     {
         mvaddch(
             2 + y,            // Add header + board edge
@@ -81,30 +81,30 @@ void renderStatic( App* const app )
         );
     }
     //* Render right board edge
-    for ( int y = 0; y < ( boardWidth * LAYOUT_BOARD_SQUARE_SIZE ) - 1; ++y ) // Subtract board edge
+    for ( int y = 0; y < ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ) - 1; ++y ) // Subtract board edge
     {
         mvaddch(
-            2 + y,                                                        // Add header + board edge
-            BOARD_OFFSET + 1 + ( boardWidth * LAYOUT_BOARD_SQUARE_SIZE ), // Add header
+            2 + y,                                                       // Add header + board edge
+            BOARD_OFFSET + 1 + ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ), // Add header
             '|'
         );
     }
     //* Render bottom board edge
-    for ( int x = 0; x < ( boardWidth * LAYOUT_BOARD_SQUARE_SIZE ) - 1; ++x ) // Subtract square edge
+    for ( int x = 0; x < ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ) - 1; ++x ) // Subtract square edge
     {
         mvaddch(
-            1 + ( boardWidth * LAYOUT_BOARD_SQUARE_SIZE ), // Add header
-            BOARD_OFFSET + 2 + x,                          // Add header & board edge
+            1 + ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ), // Add header
+            BOARD_OFFSET + 2 + x,                         // Add header & board edge
             '-'
         );
     }
 
     //* Render right board header
-    for ( int y = 0; y < ( boardWidth * LAYOUT_BOARD_SQUARE_SIZE ); ++y )
+    for ( int y = 0; y < ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ); ++y )
     {
         mvprintw(
             y + 1,
-            BOARD_OFFSET + ( boardWidth * LAYOUT_BOARD_SQUARE_SIZE ) + 2, // Add  header + & 1 extra square edge
+            BOARD_OFFSET + ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ) + 2, // Add  header + & 1 extra square edge
             "%s",
             LAYOUT_BOARD_HEADER_FILE[offsetIntoLayout + y]
         );
@@ -112,10 +112,10 @@ void renderStatic( App* const app )
 
     //* Render bottom board header
     mvprintw(
-        ( boardWidth * LAYOUT_BOARD_SQUARE_SIZE ) + 2, // Add header & & 1 extra square edge
+        ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ) + 2, // Add header & & 1 extra square edge
         BOARD_OFFSET,
         "%.*s",
-        ( 1 + ( boardWidth * 4 ) + 1 ), // Add header; & 1 extra square edge,
+        ( 1 + ( boardSize * 4 ) + 1 ), // Add header; & 1 extra square edge,
         LAYOUT_BOARD_HEADER_RANK
     );
 }

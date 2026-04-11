@@ -6,21 +6,21 @@
 #include "InputSystem.h"
 #include <assert.h>
 
-App newApp( int const boardWidth )
+App newApp( int const boardSize )
 {
     assert(
-        ( boardWidth >= BOARD_WIDTH_MIN
-          || !boardWidth )
+        ( boardSize >= BOARD_SIZE_MIN
+          || !boardSize )
         && "Board width value too small"
     );
 
     assert(
-        ( boardWidth <= BOARD_WIDTH_MAX )
+        ( boardSize <= BOARD_SIZE_MAX )
         && "Board width value too big"
     );
 
     App app = {
-        .game = newGame( boardWidth ),
+        .game = newGame( boardSize ),
         .inputBuffer = newInputBuffer(),
         .engine = newEngine(),
         .shouldClose = false,

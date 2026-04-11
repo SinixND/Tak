@@ -21,20 +21,20 @@
 #include "ContextSystem.h"
 #endif
 
-App newApp( int const boardWidth )
+App newApp( int const boardSize )
 {
     assert(
-        ( boardWidth >= BOARD_WIDTH_MIN )
+        ( boardSize >= BOARD_WIDTH_MIN )
         && "Board width value too small"
     );
 
     assert(
-        ( boardWidth <= BOARD_WIDTH_MAX )
+        ( boardSize <= BOARD_WIDTH_MAX )
         && "Board width value too big"
     );
 
     App app = {
-        .game = newGame( boardWidth ),
+        .game = newGame( boardSize ),
         .inputBuffer = newInputBuffer(),
         .state = STATE_FIRST_TURN,
         .prompt = PROMPTS[STATE_FIRST_TURN],

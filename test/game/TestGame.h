@@ -2,6 +2,7 @@
 #define IG20260117152251
 
 #include "Game.h"
+#include "GameConstants.h"
 #include "PlayerId.h"
 #include "StoneTypeId.h"
 #include "unity.h"
@@ -10,7 +11,7 @@ void testNewGame( void )
 {
     Game game0 = newGame( 0 );
 
-    TEST_ASSERT_EQUAL_INT( BOARD_WIDTH_DEFAULT, game0.board.width );
+    TEST_ASSERT_EQUAL_INT( BOARD_SIZE_DEFAULT, game0.board.width );
 
     Game game3 = newGame( 3 );
 
@@ -32,7 +33,7 @@ void testPlaceStone( void )
         STONE_TYPE_FLAT
     );
 
-    TEST_ASSERT_EQUAL_INT( 20, game.reserves.regular[PLAYER_WHITE] );
+    TEST_ASSERT_EQUAL_INT( getReservesRegular( 5 ) - 1, game.reserves.regular[PLAYER_WHITE] );
     TEST_ASSERT_EQUAL_INT( 1, game.board.stoneCounts[0] );
     TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, game.board.stoneIds[0] );
     TEST_ASSERT_EQUAL_INT( PLAYER_NONE, game.board.stoneIds[1] );
@@ -45,9 +46,9 @@ void testPlaceStone( void )
         STONE_TYPE_STANDING
     );
 
-    TEST_ASSERT_EQUAL_INT( 20, game.reserves.regular[PLAYER_BLACK] );
+    TEST_ASSERT_EQUAL_INT( getReservesRegular( 5 ) - 1, game.reserves.regular[PLAYER_BLACK] );
     TEST_ASSERT_EQUAL_INT( 1, game.board.stoneCounts[1] );
-    TEST_ASSERT_EQUAL_INT( PLAYER_BLACK, game.board.stoneIds[1 * 43] );
+    TEST_ASSERT_EQUAL_INT( PLAYER_BLACK, game.board.stoneIds[1 * getStackCapacity( 5 )] );
     TEST_ASSERT_EQUAL_INT( PLAYER_NONE, game.board.stoneIds[1] );
     TEST_ASSERT_EQUAL_INT( STONE_TYPE_STANDING, game.board.stackTypes[1] );
 
@@ -58,10 +59,10 @@ void testPlaceStone( void )
         STONE_TYPE_CAP
     );
 
-    TEST_ASSERT_EQUAL_INT( 0, game.reserves.capstone[PLAYER_WHITE] );
+    TEST_ASSERT_EQUAL_INT( getReservesCapstone( 5 ) - 1, game.reserves.capstone[PLAYER_WHITE] );
     TEST_ASSERT_EQUAL_INT( 1, game.board.stoneCounts[2] );
-    TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, game.board.stoneIds[2 * 43] );
-    TEST_ASSERT_EQUAL_INT( PLAYER_NONE, game.board.stoneIds[2 * 43 + 1] );
+    TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, game.board.stoneIds[2 * getStackCapacity( 5 )] );
+    TEST_ASSERT_EQUAL_INT( PLAYER_NONE, game.board.stoneIds[2 * getStackCapacity( 5 ) + 1] );
     TEST_ASSERT_EQUAL_INT( STONE_TYPE_CAP, game.board.stackTypes[2] );
 }
 void testTakeStone( void )
@@ -94,7 +95,7 @@ void testTakeStone( void )
         2
     );
 
-    TEST_ASSERT_EQUAL_INT( 1, game.reserves.capstone[PLAYER_WHITE] );
+    TEST_ASSERT_EQUAL_INT( getReservesCapstone( 5 ), game.reserves.capstone[PLAYER_WHITE] );
     TEST_ASSERT_EQUAL_INT( 0, game.board.stoneCounts[2] );
 
     takeStone(
@@ -102,7 +103,7 @@ void testTakeStone( void )
         1
     );
 
-    TEST_ASSERT_EQUAL_INT( 20, game.reserves.regular[PLAYER_WHITE] );
+    TEST_ASSERT_EQUAL_INT( getReservesRegular( 5 ) - 1, game.reserves.regular[PLAYER_WHITE] );
     TEST_ASSERT_EQUAL_INT( 0, game.board.stoneCounts[1] );
 
     takeStone(
@@ -110,7 +111,7 @@ void testTakeStone( void )
         0
     );
 
-    TEST_ASSERT_EQUAL_INT( 21, game.reserves.regular[PLAYER_WHITE] );
+    TEST_ASSERT_EQUAL_INT( getReservesCapstone( 5 ), game.reserves.regular[PLAYER_WHITE] );
     TEST_ASSERT_EQUAL_INT( 0, game.board.stoneCounts[0] );
 }
 
@@ -223,6 +224,8 @@ void testDropStone( void )
     TEST_ASSERT_EQUAL_INT( 2, game.board.stoneCounts[1] );
     TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, game.board.stoneIds[20] );
     TEST_ASSERT_EQUAL_INT( PLAYER_BLACK, game.board.stoneIds[21] );
+
+    TEST_ASSERT_EQUAL_INT( PLAYER_BLACK, game.board.stoneIds[19] );
 }
 
 void testLiftStone( void )

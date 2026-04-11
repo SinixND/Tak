@@ -10,17 +10,17 @@
 #include <assert.h>
 #include <stdbool.h>
 
-Game newGame( int boardWidth )
+Game newGame( int boardSize )
 {
-    if ( !boardWidth )
+    if ( !boardSize )
     {
-        boardWidth = BOARD_WIDTH_DEFAULT;
+        boardSize = BOARD_SIZE_DEFAULT;
     }
 
     return (Game){
-        .board = newBoard( boardWidth ),
+        .board = newBoard( boardSize ),
         .stackBuffer = newStackBuffer(),
-        .reserves = newReserves( boardWidth ),
+        .reserves = newReserves( boardSize ),
     };
 }
 
@@ -90,7 +90,7 @@ void liftStack(
         && "Cannot pick up empty stack"
     );
 
-    //* INFO: [Rule] StackBuffer stone count must cap at boardWidth
+    //* INFO: [Rule] StackBuffer stone count must cap at boardSize
     int const stoneCount
         = ( pBoard->stoneCounts[squareIdx]
             > pBoard->width )

@@ -12,9 +12,9 @@ void testPositionToStackIndex( void )
 
 void testSquareToStackIndex( void )
 {
-    TEST_ASSERT_EQUAL_INT( 0, squareToStackIndex( 0, 21 ) );
-    TEST_ASSERT_EQUAL_INT( 168, squareToStackIndex( 8, 21 ) );
-    TEST_ASSERT_EQUAL_INT( 1032, squareToStackIndex( 24, 43 ) );
-    TEST_ASSERT_EQUAL_INT( 6363, squareToStackIndex( 63, 101 ) );
+    TEST_ASSERT_EQUAL_INT( 0, squareToStackIndex( 0, 3 ) );
+    TEST_ASSERT_EQUAL_INT( 168, squareToStackIndex( 8, 3 ) );
+    TEST_ASSERT_EQUAL_INT( 1032, squareToStackIndex( 24, 5 ) );
+    TEST_ASSERT_EQUAL_INT( 6363, squareToStackIndex( 63, 8 ) );
 }
 

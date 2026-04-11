@@ -14,7 +14,7 @@ void testNewStackBuffer( void )
     TEST_ASSERT_EQUAL_INT( STONE_TYPE_NONE, buffer.stoneType );
     TEST_ASSERT_EQUAL_INT( 0, buffer.stoneCount );
     TEST_ASSERT_EQUAL_INT( PLAYER_NONE, buffer.stoneIds[0] );
-    TEST_ASSERT_EQUAL_INT( PLAYER_NONE, buffer.stoneIds[BOARD_WIDTH_MAX - 1] );
+    TEST_ASSERT_EQUAL_INT( PLAYER_NONE, buffer.stoneIds[BOARD_SIZE_MAX - 1] );
 }
 
 void testResetStackBuffer( void )

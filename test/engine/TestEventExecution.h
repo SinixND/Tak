@@ -5,6 +5,7 @@
 #include "Event.h"
 #include "EventExecution.h"
 #include "Game.h"
+#include "GameConstants.h"
 #include "PlayerId.h"
 #include "StoneTypeId.h"
 #include <unity.h>
@@ -21,8 +22,8 @@ void testExecuteEvent( void )
 
     executeEvent( &game, &event );
 
-    TEST_ASSERT_EQUAL_INT( 20, game.reserves.regular[PLAYER_WHITE] );
-    TEST_ASSERT_EQUAL_INT( 1, game.board.stoneCounts[0] );
+    TEST_ASSERT_EQUAL_INT( getReservesRegular( 5 ), game.reserves.regular[PLAYER_WHITE] );
+    TEST_ASSERT_EQUAL_INT( getReservesCapstone( 5 ), game.board.stoneCounts[0] );
     TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, game.board.stoneIds[0] );
     TEST_ASSERT_EQUAL_INT( PLAYER_NONE, game.board.stoneIds[1] );
     TEST_ASSERT_EQUAL_INT( STONE_TYPE_STANDING, game.board.stackTypes[0] );

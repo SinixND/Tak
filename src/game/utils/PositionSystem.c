@@ -1,37 +1,43 @@
 #include "PositionSystem.h"
 
 #include "FileId.h"
+#include "GameConstants.h"
 #include "RankId.h"
 #include <assert.h>
 
 int positionToSquare(
     FileId const fileX,
     RankId const rankY,
-    int const boardWidth
+    int const boardSize
 )
 {
     assert(
-        ( boardWidth > 0 )
-        && "Invalid boardWidth"
+        ( boardSize > 2 )
+        && "Invalid boardSize"
     );
 
-    return ( rankY * boardWidth ) + fileX;
+    assert(
+        ( boardSize < 9 )
+        && "Invalid boardSize"
+    );
+
+    return ( rankY * boardSize ) + fileX;
 }
 
 int squareToStackIndex(
     int const squareIdx,
-    int const stackCapacity
+    int const boardSize
 )
 {
     assert(
-        ( squareIdx >= 0 )
-        && "Invalid squareIdx"
+        ( boardSize > 2 )
+        && "Invalid boardSize"
     );
 
     assert(
-        ( stackCapacity >= 0 )
-        && "Invalid stackCapacity"
+        ( boardSize < 9 )
+        && "Invalid boardSize"
     );
 
-    return squareIdx * stackCapacity;
+    return squareIdx * getStackCapacity( boardSize );
 }

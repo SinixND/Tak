@@ -148,12 +148,12 @@ bool isStoneTypeAvailable(
 
 bool isFileXOnBoard(
     Event const* const pEvent,
-    int const boardWidth
+    int const boardSize
 )
 {
     int const pos = pEvent->fileX;
 
-    return ( pos < boardWidth
+    return ( pos < boardSize
              && pos >= 0 )
                ? true
                : false;
@@ -161,12 +161,12 @@ bool isFileXOnBoard(
 
 bool isRankYOnBoard(
     Event const* const pEvent,
-    int const boardWidth
+    int const boardSize
 )
 {
     int const pos = pEvent->rankY;
 
-    return ( pos < boardWidth
+    return ( pos < boardSize
              && pos >= 0 )
                ? true
                : false;

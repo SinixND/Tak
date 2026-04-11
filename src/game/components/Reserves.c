@@ -5,22 +5,22 @@
 #include "StoneTypeId.h"
 #include <assert.h>
 
-Reserves newReserves( int const boardWidth )
+Reserves newReserves( int const boardSize )
 {
     assert(
-        ( boardWidth >= BOARD_WIDTH_MIN )
+        ( boardSize >= BOARD_SIZE_MIN )
         && "Board width value too small"
     );
 
     assert(
-        ( boardWidth <= BOARD_WIDTH_MAX )
+        ( boardSize <= BOARD_SIZE_MAX )
         && "Board width value too big"
     );
 
     Reserves reserves = { 0 };
 
-    int regularReserves = RESERVES_BASE_REGULAR[boardWidth - BOARD_WIDTH_MIN];
-    int capstoneReserves = RESERVES_BASE_CAPSTONE[boardWidth - BOARD_WIDTH_MIN];
+    int regularReserves = getReservesRegular( boardSize );
+    int capstoneReserves = getReservesCapstone( boardSize );
 
     //* Init player values
     for ( int idx = 0; idx < PLAYER_COUNT; ++idx )

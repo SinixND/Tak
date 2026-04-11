@@ -15,7 +15,7 @@ typedef struct App
 } App;
 
 /// Return initialized App object
-App newApp( int const boardWidth );
+App newApp( int const boardSize );
 
 /// Setup before running the application loop
 void setupApp( void );

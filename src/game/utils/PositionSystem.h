@@ -8,13 +8,13 @@
 int positionToSquare(
     FileId const fileX,
     RankId const rankY,
-    int const boardWidth
+    int const boardSize
 );
 
 /// Returns index of first stone of stack for given square index
 int squareToStackIndex(
     int const squareIdx,
-    int const stackCapacity
+    int const boardSize
 );
 
 #endif

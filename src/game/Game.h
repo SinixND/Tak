@@ -17,9 +17,9 @@ typedef struct Game
 /**
  * @brief: Return initialized game object
  *
- * - Provide boardWidth 0 for default value
+ * - Provide boardSize 0 for default value
  */
-Game newGame( int boardWidth );
+Game newGame( int boardSize );
 
 /**
  * @brief: From Reserves to Board
@@ -89,6 +89,12 @@ void liftStone(
     Game* const pGame,
     int const squareIdx,
     bool const flattened
+);
+
+/// Update game state with event
+void executeEvent(
+    Game* const pGame,
+    Event const* const pEvent
 );
 
 #endif

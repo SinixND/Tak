@@ -5,6 +5,7 @@
 #include "TestEvent.h"
 #include "TestEventExecution.h"
 #include "TestGame.h"
+#include "TestGameConstants.h"
 #include "TestInputSystem.h"
 #include "TestPositionSystem.h"
 #include "TestReserves.h"
@@ -36,6 +37,11 @@ int main( void )
     RUN_TEST( testResetStackBuffer );
     RUN_TEST( testAppendToBuffer );
     RUN_TEST( testDropFromBuffer );
+
+    //* Test GameConstants
+    RUN_TEST( testGetReservesRegular );
+    RUN_TEST( testGetReservesCapstone );
+    RUN_TEST( testGetStackCapacity );
 
     //* Test Game
     RUN_TEST( testNewGame );

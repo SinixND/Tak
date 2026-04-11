@@ -15,7 +15,7 @@
 typedef struct StackBuffer
 {
     /// StoneId is the players Id/color
-    PlayerId stoneIds[BOARD_WIDTH_MAX];
+    PlayerId stoneIds[BOARD_SIZE_MAX];
     /// Active stone count in stack
     uint8_t stoneCount;
     /// Type of stack / top stone

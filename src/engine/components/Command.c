@@ -21,7 +21,7 @@ Command newCommand( void )
         .drops = -1,
     };
 
-    for ( int i = 0; i < BOARD_WIDTH_MAX; ++i )
+    for ( int i = 0; i < BOARD_SIZE_MAX; ++i )
     {
         command.dropCounts[i] = -1;
     }
