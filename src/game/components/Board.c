@@ -55,7 +55,7 @@ void putOntoStack(
 
     assert(
         squareIdx >= 0
-        && squareIdx < pBoard->size
+        && squareIdx < ( pBoard->size * pBoard->size )
         && "Invalid square index"
     );
 
@@ -98,7 +98,7 @@ void takeFromStack(
 
     assert(
         squareIdx >= 0
-        && squareIdx < pBoard->size
+        && squareIdx < ( pBoard->size * pBoard->size )
         && "Invalid square index"
     );
 

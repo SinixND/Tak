@@ -47,7 +47,7 @@ void placeStone(
 
     assert(
         squareIdx >= 0
-        && squareIdx < pGame->board.size
+        && squareIdx < ( pGame->board.size * pGame->board.size )
         && "Invalid square index"
     );
 
@@ -88,7 +88,7 @@ void takeStone(
 
     assert(
         squareIdx >= 0
-        && squareIdx < pGame->board.size
+        && squareIdx < ( pGame->board.size * pGame->board.size )
         && "Invalid square index"
     );
 
@@ -129,7 +129,7 @@ void liftStack(
 
     assert(
         squareIdx >= 0
-        && squareIdx < pGame->board.size
+        && squareIdx < ( pGame->board.size * pGame->board.size )
         && "Invalid square index"
     );
 
@@ -190,7 +190,7 @@ void dropStack(
 
     assert(
         squareIdx >= 0
-        && squareIdx < pGame->board.size
+        && squareIdx < ( pGame->board.size * pGame->board.size )
         && "Invalid square index"
     );
 
@@ -231,11 +231,11 @@ void dropStone(
 
     assert(
         squareIdx >= 0
-        && squareIdx < pGame->board.size
+        && squareIdx < ( pGame->board.size * pGame->board.size )
         && "Invalid square index"
     );
 
-    StackBuffer* const stackBuffer = &pGame->stackBuffer;
+    StackBuffer* const pStackBuffer = &pGame->stackBuffer;
     StoneType const captiveStoneType = pGame->board.stackTypes[squareIdx];
 
     //* INFO: [Rule] No stone can be put onto capstone
@@ -245,9 +245,9 @@ void dropStone(
     );
 
     StoneType const droppedStoneType
-        = ( stackBuffer->stoneCount > 1 )
+        = ( pStackBuffer->stoneCount > 1 )
               ? STONE_TYPE_FLAT
-              : stackBuffer->stoneType;
+              : pStackBuffer->stoneType;
 
     //* INFO: [Rule] Only capstone can flatten standing stones
     assert(
@@ -256,7 +256,7 @@ void dropStone(
         && "Only capstone can be placed on wall (=flatten)"
     );
 
-    PlayerId const playerId = stackBuffer->stoneIds[stackBuffer->stoneCount - 1];
+    PlayerId const playerId = pStackBuffer->stoneIds[pStackBuffer->stoneCount - 1];
 
     putOntoStack(
         &pGame->board,
@@ -281,7 +281,7 @@ void liftStone(
 
     assert(
         squareIdx >= 0
-        && squareIdx < pGame->board.size
+        && squareIdx < ( pGame->board.size * pGame->board.size )
         && "Invalid square index"
     );
 

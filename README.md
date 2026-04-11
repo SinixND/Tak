@@ -157,10 +157,9 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 - Game logic -> core/engine
 - Linking input/engine/render (in loop) -> app
 
-- [ ] Tests for event execution
 - [ ] Build event from command
     - [x] Add isCommandComplete
-    - [ ] Add buildEvent
+    - [x] Add buildEvent
     - [ ] Add buildCommand
 
 Module eventBuilder(FSM):

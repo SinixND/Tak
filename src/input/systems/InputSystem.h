@@ -4,6 +4,6 @@
 #include "App.h"
 
 /// Handle input independent of app state
-void handleGlobalInput( App* const  pApp );
+void handleGlobalInput( App* const pApp );
 
 #endif
