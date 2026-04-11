@@ -1,5 +1,6 @@
 #include "App.h"
 
+#include "AppStateId.h"
 #include "BackendInterface.h"
 #include "Game.h"
 #include "InputBuffer.h"
@@ -65,4 +66,18 @@ void updateApp( App* const pApp )
 {
     //* Update
     handleGlobalInput( pApp );
+}
+
+void runAppFSM( App* const pApp )
+{
+    switch ( pApp->state )
+    {
+        default:
+            return;
+
+        case APP_STATE_BUILD_COMMAND:
+        {
+            return;
+        }
+    }
 }

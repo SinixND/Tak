@@ -212,13 +212,12 @@ void pollInput( InputBuffer* const pInput )
 
 void renderStatic( App* const pApp )
 {
-    App* a = pApp;
-    a = a + 1;
     mvprintw(
         0,
         0,
-        "%s",
-        "[Static Content]"
+        "%s %i",
+        "BoardSize: ",
+        pApp->game.board.size
     );
 }
 

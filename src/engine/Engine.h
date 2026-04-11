@@ -15,6 +15,8 @@ typedef struct Engine
 /// Return initialized Engine object
 Engine newEngine( void );
 
+/// Build command
+
 /// Build event from command
 void buildEvent(
     Event* const pEvent,

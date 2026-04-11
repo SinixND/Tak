@@ -1,6 +1,7 @@
 #ifndef IG20260317123947
 #define IG20260317123947
 
+#include "AppStateId.h"
 #include "Engine.h"
 #include "Game.h"
 #include "InputBuffer.h"
@@ -10,7 +11,9 @@ typedef struct App
 {
     Game game;
     InputBuffer inputBuffer;
-    Engine engine;
+    Event event;
+    Command command;
+    AppStateId state;
     bool shouldClose;
 } App;
 
@@ -32,7 +35,7 @@ void updateFrame( App* const pApp );
 /// Update application state
 void updateApp( App* const pApp );
 
-/// Render application state
-void renderApp( App* const pApp );
+/// Run application state machine
+void runAppFSM( App* const pApp );
 
 #endif
