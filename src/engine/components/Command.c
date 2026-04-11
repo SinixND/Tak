@@ -30,6 +30,20 @@ Command newCommand( void )
     return command;
 }
 
+// void buildCommand(
+//     Command* const pCommand,
+//     InputBuffer const* const pInputBuffer
+// )
+// {
+//     switch ( pCommand->actionType )
+//     {
+//         default:
+//         case ACTION_TYPE_NONE:
+//         {
+//         }
+//     }
+// }
+
 bool isCommandComplete( Command const* const pCommand )
 {
     assert(

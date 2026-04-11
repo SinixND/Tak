@@ -1,7 +1,6 @@
 #include "TestApp.h"
 #include "TestBoard.h"
 #include "TestCommand.h"
-#include "TestEngine.h"
 #include "TestEvent.h"
 #include "TestGame.h"
 #include "TestGameConstants.h"
@@ -51,18 +50,17 @@ int main( void )
     RUN_TEST( testDropStack );
     RUN_TEST( testDropStone );
     RUN_TEST( testLiftStone );
+    RUN_TEST( testExecuteEvent );
 
     //* Test Event
     RUN_TEST( testNewEvent );
+    RUN_TEST( testBuildEvent );
 
     //* Test Command
     RUN_TEST( testNewCommand );
     RUN_TEST( testIsCommandComplete );
 
     //* Test Engine
-    RUN_TEST( testNewEngine );
-    RUN_TEST( testBuildEvent );
-    RUN_TEST( testExecuteEvent );
 
     //* Test InputSystem
     RUN_TEST( testHandleGlobalInput );

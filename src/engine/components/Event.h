@@ -2,6 +2,7 @@
 #define IG20260327195918
 
 #include "ActionTypeId.h"
+#include "Command.h"
 #include "PlayerId.h"
 #include "StoneTypeId.h"
 #include <stdbool.h>
@@ -19,5 +20,12 @@ typedef struct Event
 
 /// Return initialized game event object
 Event newEvent( void );
+
+/// Build event from command
+void buildEvent(
+    Event* const pEvent,
+    Command const* const pCommand,
+    int const boardSize
+);
 
 #endif

@@ -153,8 +153,8 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 ## ToDo notes
 - Ignore History/Undo/Redo for now
 - Ignore (rule) validation for now
-- Game state modification -> core/game
-- Game logic -> core/engine
+- Game state modification -> game
+- App component logic -> engine
 - Linking input/engine/render (in loop) -> app
 
 - [ ] Build event from command

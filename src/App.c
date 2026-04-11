@@ -2,9 +2,10 @@
 
 #include "AppStateId.h"
 #include "BackendInterface.h"
+#include "Command.h"
+#include "Event.h"
 #include "Game.h"
 #include "InputBuffer.h"
-#include "InputId.h"
 #include "InputSystem.h"
 #include <assert.h>
 #include <ncurses.h>
@@ -25,7 +26,8 @@ App newApp( int const boardSize )
     App app = {
         .game = newGame( boardSize ),
         .inputBuffer = newInputBuffer(),
-        .engine = newEngine(),
+        .event = newEvent(),
+        .command = newCommand(),
         .shouldClose = false,
     };
 

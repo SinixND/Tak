@@ -5,6 +5,7 @@
 #include "DirectionId.h"
 #include "FileId.h"
 #include "GameConstants.h"
+#include "InputBuffer.h"
 #include "PlayerId.h"
 #include "RankId.h"
 #include "StoneTypeId.h"
@@ -26,6 +27,12 @@ typedef struct Command
 
 /// Return initialized player command object
 Command newCommand( void );
+
+/// Build command from input buffer
+void buildCommand(
+    Command* const pCommand,
+    InputBuffer const* const pInputBuffer
+);
 
 /// Check if event can be build from command
 bool isCommandComplete( Command const* const pCommand );
