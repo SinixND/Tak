@@ -31,46 +31,31 @@ typedef struct Command
 Command newCommand( void );
 
 /// Run state machine to build command from input
-void runBuildCommandFSM(
-    Command* const pCommand,
-    InputBuffer const* const pInputBuffer
-);
+void runBuildCommandFSM( Command* const pCommand, InputBuffer const* const pInputBuffer );
 
-/// Update command: Action type
-void handleStateGetAction(
-    Command* const pCommand,
-    InputBuffer const* const pInputBuffer
-);
+/// Update command: Action type (place / lift)
+void handleStateGetAction( Command* const pCommand, InputBuffer const* const pInputBuffer );
 
 /// Update command: Stone type
-void handleStateGetStoneType(
-    Command* const pCommand,
-    InputBuffer const* const pInputBuffer
-);
+void handleStateGetStoneType( Command* const pCommand, InputBuffer const* const pInputBuffer );
 
 /// Update command: FileX
-void handleStateGetFileX(
-    Command* const pCommand,
-    InputBuffer const* const pInputBuffer
-);
+void handleStateGetFileX( Command* const pCommand, InputBuffer const* const pInputBuffer );
 
-/// Set action type if input is valid
-bool parseInputAction(
-    Command* const pCommand,
-    InputBuffer const* const pInputBuffer
-);
+/// Update command: RankY
+void handleStateGetRankY( Command* const pCommand, InputBuffer const* const pInputBuffer );
+
+/// Set action type (place / lift) if input is valid
+bool parseInputAction( Command* const pCommand, InputBuffer const* const pInputBuffer );
 
 /// Set stone type if input is valid
-bool parseInputStoneType(
-    Command* const pCommand,
-    InputBuffer const* const pInputBuffer
-);
+bool parseInputStoneType( Command* const pCommand, InputBuffer const* const pInputBuffer );
 
 /// Set fileX if input is valid
-bool parseInputFileX(
-    Command* const pCommand,
-    InputBuffer const* const pInputBuffer
-);
+bool parseInputFileX( Command* const pCommand, InputBuffer const* const pInputBuffer );
+
+/// Set rankY if input is valid
+bool parseInputRankY( Command* const pCommand, InputBuffer const* const pInputBuffer );
 
 /// Check if event can be build from command
 bool isCommandComplete( Command const* const pCommand );

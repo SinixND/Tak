@@ -55,13 +55,6 @@ void takeFromReserves(
 
     switch ( stoneType )
     {
-        default:
-        {
-            assert( !"StoneType is required" );
-
-            break;
-        }
-
         case STONE_TYPE_FLAT:
         case STONE_TYPE_STANDING:
         {
@@ -72,7 +65,7 @@ void takeFromReserves(
 
             --pReserves->regular[playerId];
 
-            break;
+            return;
         }
 
         case STONE_TYPE_CAP:
@@ -84,8 +77,11 @@ void takeFromReserves(
 
             --pReserves->capstone[playerId];
 
-            break;
+            return;
         }
+
+        default:
+            assert( !"StoneType is required" );
     }
 }
 
@@ -107,27 +103,23 @@ void returnToReserves(
 
     switch ( stoneType )
     {
-        default:
-        {
-            assert( !"StoneType is required" );
-
-            break;
-        }
-
         case STONE_TYPE_FLAT:
         case STONE_TYPE_STANDING:
         {
             ++pReserves->regular[playerId];
 
-            break;
+            return;
         }
 
         case STONE_TYPE_CAP:
         {
             ++pReserves->capstone[playerId];
 
-            break;
+            return;
         }
+
+        default:
+            assert( !"StoneType is required" );
     }
 }
 

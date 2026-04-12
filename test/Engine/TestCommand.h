@@ -107,6 +107,47 @@ void testParseInputFileX( void )
     TEST_ASSERT_EQUAL_INT( FILE_H, command.fileX );
 }
 
+void testParseInputRankY( void )
+{
+    Command command = newCommand();
+    InputBuffer inputBuffer = newInputBuffer();
+
+    TEST_ASSERT_EQUAL_INT( false, parseInputRankY( &command, &inputBuffer ) );
+    TEST_ASSERT_EQUAL_INT( RANK_NONE, command.rankY );
+
+    inputBuffer.keyboard = INPUT_1;
+    TEST_ASSERT_EQUAL_INT( true, parseInputRankY( &command, &inputBuffer ) );
+    TEST_ASSERT_EQUAL_INT( RANK_1, command.rankY );
+
+    inputBuffer.keyboard = INPUT_2;
+    TEST_ASSERT_EQUAL_INT( true, parseInputRankY( &command, &inputBuffer ) );
+    TEST_ASSERT_EQUAL_INT( RANK_2, command.rankY );
+
+    inputBuffer.keyboard = INPUT_3;
+    TEST_ASSERT_EQUAL_INT( true, parseInputRankY( &command, &inputBuffer ) );
+    TEST_ASSERT_EQUAL_INT( RANK_3, command.rankY );
+
+    inputBuffer.keyboard = INPUT_4;
+    TEST_ASSERT_EQUAL_INT( true, parseInputRankY( &command, &inputBuffer ) );
+    TEST_ASSERT_EQUAL_INT( RANK_4, command.rankY );
+
+    inputBuffer.keyboard = INPUT_5;
+    TEST_ASSERT_EQUAL_INT( true, parseInputRankY( &command, &inputBuffer ) );
+    TEST_ASSERT_EQUAL_INT( RANK_5, command.rankY );
+
+    inputBuffer.keyboard = INPUT_6;
+    TEST_ASSERT_EQUAL_INT( true, parseInputRankY( &command, &inputBuffer ) );
+    TEST_ASSERT_EQUAL_INT( RANK_6, command.rankY );
+
+    inputBuffer.keyboard = INPUT_7;
+    TEST_ASSERT_EQUAL_INT( true, parseInputRankY( &command, &inputBuffer ) );
+    TEST_ASSERT_EQUAL_INT( RANK_7, command.rankY );
+
+    inputBuffer.keyboard = INPUT_8;
+    TEST_ASSERT_EQUAL_INT( true, parseInputRankY( &command, &inputBuffer ) );
+    TEST_ASSERT_EQUAL_INT( RANK_8, command.rankY );
+}
+
 void testHandleStateGetAction( void )
 {
     Command command = newCommand();
@@ -164,40 +205,113 @@ void testHandleStateGetFileX( void )
     handleStateGetFileX( &command, &inputBuffer );
     TEST_ASSERT_EQUAL_INT( STATE_GET_RANK_Y, command.state );
 
-    command.state = STATE_GET_STONE_TYPE;
+    command.state = STATE_GET_FILE_X;
     inputBuffer.keyboard = INPUT_B;
     handleStateGetFileX( &command, &inputBuffer );
     TEST_ASSERT_EQUAL_INT( STATE_GET_RANK_Y, command.state );
 
-    command.state = STATE_GET_STONE_TYPE;
+    command.state = STATE_GET_FILE_X;
     inputBuffer.keyboard = INPUT_C;
     handleStateGetFileX( &command, &inputBuffer );
     TEST_ASSERT_EQUAL_INT( STATE_GET_RANK_Y, command.state );
 
-    command.state = STATE_GET_STONE_TYPE;
+    command.state = STATE_GET_FILE_X;
     inputBuffer.keyboard = INPUT_D;
     handleStateGetFileX( &command, &inputBuffer );
     TEST_ASSERT_EQUAL_INT( STATE_GET_RANK_Y, command.state );
 
-    command.state = STATE_GET_STONE_TYPE;
+    command.state = STATE_GET_FILE_X;
     inputBuffer.keyboard = INPUT_E;
     handleStateGetFileX( &command, &inputBuffer );
     TEST_ASSERT_EQUAL_INT( STATE_GET_RANK_Y, command.state );
 
-    command.state = STATE_GET_STONE_TYPE;
+    command.state = STATE_GET_FILE_X;
     inputBuffer.keyboard = INPUT_F;
     handleStateGetFileX( &command, &inputBuffer );
     TEST_ASSERT_EQUAL_INT( STATE_GET_RANK_Y, command.state );
 
-    command.state = STATE_GET_STONE_TYPE;
+    command.state = STATE_GET_FILE_X;
     inputBuffer.keyboard = INPUT_G;
     handleStateGetFileX( &command, &inputBuffer );
     TEST_ASSERT_EQUAL_INT( STATE_GET_RANK_Y, command.state );
 
-    command.state = STATE_GET_STONE_TYPE;
+    command.state = STATE_GET_FILE_X;
     inputBuffer.keyboard = INPUT_H;
     handleStateGetFileX( &command, &inputBuffer );
     TEST_ASSERT_EQUAL_INT( STATE_GET_RANK_Y, command.state );
+}
+
+void testHandleStateGetRankY( void )
+{
+    Command command = newCommand();
+    InputBuffer inputBuffer = newInputBuffer();
+
+    command.actionType = ACTION_TYPE_PLACE;
+    command.state = STATE_GET_RANK_Y;
+    handleStateGetRankY( &command, &inputBuffer );
+    TEST_ASSERT_EQUAL_INT( STATE_GET_RANK_Y, command.state );
+    TEST_ASSERT_EQUAL_INT( ACTION_TYPE_PLACE, command.actionType );
+
+    inputBuffer.keyboard = INPUT_1;
+    handleStateGetRankY( &command, &inputBuffer );
+    TEST_ASSERT_EQUAL_INT( STATE_GET_ACTION, command.state );
+    TEST_ASSERT_EQUAL_INT( ACTION_TYPE_NONE, command.actionType );
+
+    command.state = STATE_GET_RANK_Y;
+    command.actionType = ACTION_TYPE_PLACE;
+    inputBuffer.keyboard = INPUT_2;
+    handleStateGetRankY( &command, &inputBuffer );
+    TEST_ASSERT_EQUAL_INT( STATE_GET_ACTION, command.state );
+    TEST_ASSERT_EQUAL_INT( ACTION_TYPE_NONE, command.actionType );
+
+    command.state = STATE_GET_RANK_Y;
+    command.actionType = ACTION_TYPE_PLACE;
+    inputBuffer.keyboard = INPUT_3;
+    handleStateGetRankY( &command, &inputBuffer );
+    TEST_ASSERT_EQUAL_INT( STATE_GET_ACTION, command.state );
+    TEST_ASSERT_EQUAL_INT( ACTION_TYPE_NONE, command.actionType );
+
+    command.state = STATE_GET_RANK_Y;
+    command.actionType = ACTION_TYPE_PLACE;
+    inputBuffer.keyboard = INPUT_4;
+    handleStateGetRankY( &command, &inputBuffer );
+    TEST_ASSERT_EQUAL_INT( STATE_GET_ACTION, command.state );
+    TEST_ASSERT_EQUAL_INT( ACTION_TYPE_NONE, command.actionType );
+
+    command.state = STATE_GET_RANK_Y;
+    command.actionType = ACTION_TYPE_PLACE;
+    inputBuffer.keyboard = INPUT_5;
+    handleStateGetRankY( &command, &inputBuffer );
+    TEST_ASSERT_EQUAL_INT( STATE_GET_ACTION, command.state );
+    TEST_ASSERT_EQUAL_INT( ACTION_TYPE_NONE, command.actionType );
+
+    command.state = STATE_GET_RANK_Y;
+    command.actionType = ACTION_TYPE_PLACE;
+    inputBuffer.keyboard = INPUT_6;
+    handleStateGetRankY( &command, &inputBuffer );
+    TEST_ASSERT_EQUAL_INT( STATE_GET_ACTION, command.state );
+    TEST_ASSERT_EQUAL_INT( ACTION_TYPE_NONE, command.actionType );
+
+    command.state = STATE_GET_RANK_Y;
+    command.actionType = ACTION_TYPE_PLACE;
+    inputBuffer.keyboard = INPUT_7;
+    handleStateGetRankY( &command, &inputBuffer );
+    TEST_ASSERT_EQUAL_INT( STATE_GET_ACTION, command.state );
+    TEST_ASSERT_EQUAL_INT( ACTION_TYPE_NONE, command.actionType );
+
+    command.state = STATE_GET_RANK_Y;
+    command.actionType = ACTION_TYPE_PLACE;
+    inputBuffer.keyboard = INPUT_8;
+    handleStateGetRankY( &command, &inputBuffer );
+    TEST_ASSERT_EQUAL_INT( STATE_GET_ACTION, command.state );
+    TEST_ASSERT_EQUAL_INT( ACTION_TYPE_NONE, command.actionType );
+
+    command.state = STATE_GET_RANK_Y;
+    command.actionType = ACTION_TYPE_LIFT;
+    inputBuffer.keyboard = INPUT_8;
+    handleStateGetRankY( &command, &inputBuffer );
+    TEST_ASSERT_EQUAL_INT( STATE_GET_DIRECTION, command.state );
+    TEST_ASSERT_EQUAL_INT( ACTION_TYPE_DROP, command.actionType );
 }
 
 void testIsCommandComplete( void )

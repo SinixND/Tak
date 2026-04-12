@@ -330,13 +330,6 @@ void executeEvent(
 
     switch ( pEvent->actionType )
     {
-        default:
-        {
-            assert( !"No action type set" );
-
-            return;
-        }
-
         case ACTION_TYPE_PLACE:
         {
             placeStone(
@@ -371,5 +364,8 @@ void executeEvent(
 
             return;
         }
+
+        default:
+            assert( !"No action type set" );
     }
 }

@@ -63,9 +63,11 @@ int main( void )
     RUN_TEST( testParseInputAction );
     RUN_TEST( testParseInputStoneType );
     RUN_TEST( testParseInputFileX );
+    RUN_TEST( testParseInputRankY );
     RUN_TEST( testHandleStateGetAction );
     RUN_TEST( testHandleStateGetStoneType );
     RUN_TEST( testHandleStateGetFileX );
+    RUN_TEST( testHandleStateGetRankY );
     // RUN_TEST( testRunBuildCommandFSM );
     RUN_TEST( testIsCommandComplete );
 

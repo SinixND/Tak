@@ -46,12 +46,6 @@ void pollInput( InputBuffer* const pInput )
 
     switch ( getch() )
     {
-        default:
-        {
-            pInput->keyboard = INPUT_NONE;
-            return;
-        }
-
         case 'a':
         {
             pInput->keyboard = INPUT_A;
@@ -205,6 +199,12 @@ void pollInput( InputBuffer* const pInput )
         case '8':
         {
             pInput->keyboard = INPUT_8;
+            return;
+        }
+
+        default:
+        {
+            pInput->keyboard = INPUT_NONE;
             return;
         }
     }

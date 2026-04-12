@@ -1,18 +1,6 @@
 # FSMs
 ## FSM: App loop
-
-### States:
-Maybe more states will emerge
-
-[1] Build event / Idle / Wait for input
-[2] Handle/apply event
-
-### Flow / Paths:
-[1] Build event
-    ---> [2] Handle event
-
-[2] Handle event
-    ---> [1] Build event
+`-`
 
 ## FSM: Build game event (user input)
 The get states should validate input and add them to the built event
