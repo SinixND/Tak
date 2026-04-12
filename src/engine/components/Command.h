@@ -2,6 +2,7 @@
 #define IG20260408201348
 
 #include "ActionTypeId.h"
+#include "CommandStateId.h"
 #include "DirectionId.h"
 #include "FileId.h"
 #include "GameConstants.h"
@@ -15,6 +16,7 @@
 /// Multi-frame player command to build a game event
 typedef struct Command
 {
+    CommandStateId state;
     PlayerId playerId;
     ActionType actionType;
     StoneType stoneType;
@@ -28,13 +30,12 @@ typedef struct Command
 /// Return initialized player command object
 Command newCommand( void );
 
-/// Build command from input buffer
-void buildCommand(
+/// Check if event can be build from command
+bool isCommandComplete( Command const* const pCommand );
+
+bool parseInputAction(
     Command* const pCommand,
     InputBuffer const* const pInputBuffer
 );
-
-/// Check if event can be build from command
-bool isCommandComplete( Command const* const pCommand );
 
 #endif

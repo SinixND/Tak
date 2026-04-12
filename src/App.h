@@ -36,7 +36,4 @@ void updateFrame( App* const pApp );
 /// Update application state
 void updateApp( App* const pApp );
 
-/// Run application state machine
-void runAppFSM( App* const pApp );
-
 #endif

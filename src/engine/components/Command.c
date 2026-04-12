@@ -1,9 +1,11 @@
 #include "Command.h"
 
 #include "ActionTypeId.h"
+#include "CommandStateId.h"
 #include "DirectionId.h"
 #include "FileId.h"
 #include "GameConstants.h"
+#include "InputBuffer.h"
 #include "PlayerId.h"
 #include "RankId.h"
 #include "StoneTypeId.h"
@@ -29,20 +31,6 @@ Command newCommand( void )
 
     return command;
 }
-
-// void buildCommand(
-//     Command* const pCommand,
-//     InputBuffer const* const pInputBuffer
-// )
-// {
-//     switch ( pCommand->actionType )
-//     {
-//         default:
-//         case ACTION_TYPE_NONE:
-//         {
-//         }
-//     }
-// }
 
 bool isCommandComplete( Command const* const pCommand )
 {
@@ -83,6 +71,34 @@ bool isCommandComplete( Command const* const pCommand )
                 && ( pCommand->direction != DIR_NONE )
                 && ( pCommand->dropCounts[pCommand->drops] > 0 )
             );
+        }
+    }
+}
+
+bool parseInputAction(
+    Command* const pCommand,
+    InputBuffer const* const pInputBuffer
+)
+{
+    switch ( pInputBuffer->keyboard )
+    {
+        default:
+        {
+            return false;
+        }
+
+        case INPUT_P:
+        {
+            pCommand->actionType = ACTION_TYPE_PLACE;
+
+            return true;
+        }
+
+        case INPUT_M:
+        {
+            pCommand->actionType = ACTION_TYPE_LIFT;
+
+            return true;
         }
     }
 }

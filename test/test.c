@@ -59,8 +59,11 @@ int main( void )
     //* Test Command
     RUN_TEST( testNewCommand );
     RUN_TEST( testIsCommandComplete );
+    // RUN_TEST( testParseInputAction );
 
     //* Test Engine
+    // RUN_TEST( testRunBuildCommandFSM );
+    // RUN_TEST( testHandleStateGetAction );
 
     //* Test InputSystem
     RUN_TEST( testHandleGlobalInput );

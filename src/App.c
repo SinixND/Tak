@@ -2,6 +2,7 @@
 
 #include "AppStateId.h"
 #include "BackendInterface.h"
+#include "BuildCommandFSM.h"
 #include "Command.h"
 #include "Event.h"
 #include "Game.h"
@@ -66,20 +67,11 @@ void updateFrame( App* const pApp )
 
 void updateApp( App* const pApp )
 {
-    //* Update
     handleGlobalInput( pApp );
+
+    runBuildCommandFSM(
+        &pApp->command,
+        &pApp->inputBuffer
+    );
 }
 
-void runAppFSM( App* const pApp )
-{
-    switch ( pApp->state )
-    {
-        default:
-            return;
-
-        case APP_STATE_BUILD_COMMAND:
-        {
-            return;
-        }
-    }
-}
