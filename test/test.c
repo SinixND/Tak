@@ -1,6 +1,7 @@
 #include "TestApp.h"
 #include "TestBoard.h"
 #include "TestCommand.h"
+#include "TestDirectionId.h"
 #include "TestEvent.h"
 #include "TestGame.h"
 #include "TestGameConstants.h"
@@ -21,6 +22,7 @@ int main( void )
 
     //* Test Position
     RUN_TEST( testPositionToStackIndex );
+    RUN_TEST( testSquareToStackIndex );
 
     //* Test Board
     RUN_TEST( testNewBoard );
@@ -52,14 +54,18 @@ int main( void )
     RUN_TEST( testLiftStone );
     RUN_TEST( testExecuteEvent );
 
-    //* Test Event
-    RUN_TEST( testNewEvent );
-    RUN_TEST( testBuildEvent );
+    //* DirectionId
+    RUN_TEST( testGetOffsetX );
+    RUN_TEST( testGetOffsetY );
 
     //* Test Command
     RUN_TEST( testNewCommand );
     RUN_TEST( testIsCommandComplete );
     // RUN_TEST( testParseInputAction );
+
+    //* Test Event
+    RUN_TEST( testNewEvent );
+    RUN_TEST( testBuildEvent );
 
     //* Test Engine
     // RUN_TEST( testRunBuildCommandFSM );
