@@ -48,6 +48,12 @@ void handleStateGetStoneType(
     InputBuffer const* const pInputBuffer
 );
 
+/// Update command: FileX
+void handleStateGetFileX(
+    Command* const pCommand,
+    InputBuffer const* const pInputBuffer
+);
+
 /// Set action type if input is valid
 bool parseInputAction(
     Command* const pCommand,
@@ -56,6 +62,12 @@ bool parseInputAction(
 
 /// Set stone type if input is valid
 bool parseInputStoneType(
+    Command* const pCommand,
+    InputBuffer const* const pInputBuffer
+);
+
+/// Set fileX if input is valid
+bool parseInputFileX(
     Command* const pCommand,
     InputBuffer const* const pInputBuffer
 );

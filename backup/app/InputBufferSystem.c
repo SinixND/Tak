@@ -41,7 +41,7 @@ void resetCurrentCommand( InputBuffer* const inputBuffer )
 
 bool parseInputAction( InputBuffer* const inputBuffer )
 {
-    switch ( inputBuffer->lastInput )
+    switch ( pInputBuffer->keyboard )
     {
         default:
         {
@@ -50,7 +50,7 @@ bool parseInputAction( InputBuffer* const inputBuffer )
 
         case INPUT_P:
         {
-            inputBuffer->gameEvent.actionType = ACTION_TYPE_PLACE;
+            pCommand->actionType = ACTION_TYPE_PLACE;
 
             return true;
         }
@@ -58,21 +58,21 @@ bool parseInputAction( InputBuffer* const inputBuffer )
         //* TODO: Check if necessary
         // case INPUT_L:
         // {
-        //     inputBuffer->gameEvent.actionType = ACTION_TYPE_LIFT;
+        //     pCommand->actionType = ACTION_TYPE_LIFT;
         //
         //     return true;
         // }
         //
         // case INPUT_D:
         // {
-        //     inputBuffer->gameEvent.actionType = ACTION_TYPE_DROP;
+        //     pCommand->actionType = ACTION_TYPE_DROP;
         //
         //     return true;
         // }
         //
         case INPUT_M:
         {
-            inputBuffer->gameEvent.actionType = ACTION_TYPE_LIFT;
+            pCommand->actionType = ACTION_TYPE_LIFT;
 
             return true;
         }
@@ -81,7 +81,7 @@ bool parseInputAction( InputBuffer* const inputBuffer )
 
 bool parseInputFileX( InputBuffer* const inputBuffer )
 {
-    switch ( inputBuffer->lastInput )
+    switch ( pInputBuffer->keyboard )
     {
         default:
         {
@@ -90,56 +90,56 @@ bool parseInputFileX( InputBuffer* const inputBuffer )
 
         case INPUT_A:
         {
-            inputBuffer->gameEvent.fileX = FILE_A;
+            pCommand->fileX = FILE_A;
 
             return true;
         }
 
         case INPUT_B:
         {
-            inputBuffer->gameEvent.fileX = FILE_B;
+            pCommand->fileX = FILE_B;
 
             return true;
         }
 
         case INPUT_C:
         {
-            inputBuffer->gameEvent.fileX = FILE_C;
+            pCommand->fileX = FILE_C;
 
             return true;
         }
 
         case INPUT_D:
         {
-            inputBuffer->gameEvent.fileX = FILE_D;
+            pCommand->fileX = FILE_D;
 
             return true;
         }
 
         case INPUT_E:
         {
-            inputBuffer->gameEvent.fileX = FILE_E;
+            pCommand->fileX = FILE_E;
 
             return true;
         }
 
         case INPUT_F:
         {
-            inputBuffer->gameEvent.fileX = FILE_F;
+            pCommand->fileX = FILE_F;
 
             return true;
         }
 
         case INPUT_G:
         {
-            inputBuffer->gameEvent.fileX = FILE_G;
+            pCommand->fileX = FILE_G;
 
             return true;
         }
 
         case INPUT_H:
         {
-            inputBuffer->gameEvent.fileX = FILE_H;
+            pCommand->fileX = FILE_H;
 
             return true;
         }
@@ -148,7 +148,7 @@ bool parseInputFileX( InputBuffer* const inputBuffer )
 
 bool parseInputRankY( InputBuffer* const inputBuffer )
 {
-    switch ( inputBuffer->lastInput )
+    switch ( pInputBuffer->keyboard )
     {
         default:
         {
@@ -157,56 +157,56 @@ bool parseInputRankY( InputBuffer* const inputBuffer )
 
         case INPUT_1:
         {
-            inputBuffer->gameEvent.rankY = RANK_1;
+            pCommand->rankY = RANK_1;
 
             return true;
         }
 
         case INPUT_2:
         {
-            inputBuffer->gameEvent.rankY = RANK_2;
+            pCommand->rankY = RANK_2;
 
             return true;
         }
 
         case INPUT_3:
         {
-            inputBuffer->gameEvent.rankY = RANK_3;
+            pCommand->rankY = RANK_3;
 
             return true;
         }
 
         case INPUT_4:
         {
-            inputBuffer->gameEvent.rankY = RANK_4;
+            pCommand->rankY = RANK_4;
 
             return true;
         }
 
         case INPUT_5:
         {
-            inputBuffer->gameEvent.rankY = RANK_5;
+            pCommand->rankY = RANK_5;
 
             return true;
         }
 
         case INPUT_6:
         {
-            inputBuffer->gameEvent.rankY = RANK_6;
+            pCommand->rankY = RANK_6;
 
             return true;
         }
 
         case INPUT_7:
         {
-            inputBuffer->gameEvent.rankY = RANK_7;
+            pCommand->rankY = RANK_7;
 
             return true;
         }
 
         case INPUT_8:
         {
-            inputBuffer->gameEvent.rankY = RANK_8;
+            pCommand->rankY = RANK_8;
 
             return true;
         }
@@ -215,7 +215,7 @@ bool parseInputRankY( InputBuffer* const inputBuffer )
 
 bool parseInputStoneType( InputBuffer* const inputBuffer )
 {
-    switch ( inputBuffer->lastInput )
+    switch ( pInputBuffer->keyboard )
     {
         default:
         {
@@ -224,21 +224,21 @@ bool parseInputStoneType( InputBuffer* const inputBuffer )
 
         case INPUT_F:
         {
-            inputBuffer->gameEvent.stoneType = STONE_TYPE_FLAT;
+            pCommand->stoneType = STONE_TYPE_FLAT;
 
             return true;
         }
 
         case INPUT_S:
         {
-            inputBuffer->gameEvent.stoneType = STONE_TYPE_STANDING;
+            pCommand->stoneType = STONE_TYPE_STANDING;
 
             return true;
         }
 
         case INPUT_C:
         {
-            inputBuffer->gameEvent.stoneType = STONE_TYPE_CAP;
+            pCommand->stoneType = STONE_TYPE_CAP;
 
             return true;
         }
@@ -247,7 +247,7 @@ bool parseInputStoneType( InputBuffer* const inputBuffer )
 
 bool parseInputDirection( InputBuffer* const inputBuffer )
 {
-    switch ( inputBuffer->lastInput )
+    switch ( pInputBuffer->keyboard )
     {
         default:
         {
@@ -256,28 +256,28 @@ bool parseInputDirection( InputBuffer* const inputBuffer )
 
         case INPUT_N:
         {
-            inputBuffer->gameEvent.direction = DIR_UP;
+            pCommand->direction = DIR_UP;
 
             return true;
         }
 
         case INPUT_E:
         {
-            inputBuffer->gameEvent.direction = DIR_RIGHT;
+            pCommand->direction = DIR_RIGHT;
 
             return true;
         }
 
         case INPUT_S:
         {
-            inputBuffer->gameEvent.direction = DIR_DOWN;
+            pCommand->direction = DIR_DOWN;
 
             return true;
         }
 
         case INPUT_W:
         {
-            inputBuffer->gameEvent.direction = DIR_LEFT;
+            pCommand->direction = DIR_LEFT;
 
             return true;
         }
@@ -287,14 +287,14 @@ bool parseInputDirection( InputBuffer* const inputBuffer )
 bool parseInputFirstDropAmount( InputBuffer* const inputBuffer )
 {
     assert(
-        inputBuffer->gameEvent.dropCountsSize >= 0
-        && inputBuffer->gameEvent.dropCountsSize < BOARD_WIDTH_MAX
+        pCommand->dropCountsSize >= 0
+        && pCommand->dropCountsSize < BOARD_WIDTH_MAX
         && "Invalid dropsDone value"
     );
 
     int dropCount = 0;
 
-    switch ( inputBuffer->lastInput )
+    switch ( pInputBuffer->keyboard )
     {
         default:
             return false;
@@ -363,14 +363,14 @@ bool parseInputFirstDropAmount( InputBuffer* const inputBuffer )
         }
     }
 
-    if ( ( inputBuffer->gameEvent.droppedCount + dropCount ) > inputBuffer->gameEvent.liftCount )
+    if ( ( pCommand->droppedCount + dropCount ) > pCommand->liftCount )
     {
         return false;
     }
 
-    inputBuffer->gameEvent.dropCounts[inputBuffer->gameEvent.dropCountsSize] = dropCount;
-    inputBuffer->gameEvent.droppedCount += dropCount;
-    ++inputBuffer->gameEvent.dropCountsSize;
+    pCommand->dropCounts[pCommand->dropCountsSize] = dropCount;
+    pCommand->droppedCount += dropCount;
+    ++pCommand->dropCountsSize;
 
     return true;
 }
@@ -378,14 +378,14 @@ bool parseInputFirstDropAmount( InputBuffer* const inputBuffer )
 bool parseInputAmount( InputBuffer* const inputBuffer )
 {
     assert(
-        inputBuffer->gameEvent.dropCountsSize >= 0
-        && inputBuffer->gameEvent.dropCountsSize < BOARD_WIDTH_MAX
+        pCommand->dropCountsSize >= 0
+        && pCommand->dropCountsSize < BOARD_WIDTH_MAX
         && "Invalid dropsDone value"
     );
 
     int dropCount = 0;
 
-    switch ( inputBuffer->lastInput )
+    switch ( pInputBuffer->keyboard )
     {
         default:
             return false;
@@ -447,14 +447,14 @@ bool parseInputAmount( InputBuffer* const inputBuffer )
         }
     }
 
-    if ( ( inputBuffer->gameEvent.droppedCount + dropCount ) > inputBuffer->gameEvent.liftCount )
+    if ( ( pCommand->droppedCount + dropCount ) > pCommand->liftCount )
     {
         return false;
     }
 
-    inputBuffer->gameEvent.dropCounts[inputBuffer->gameEvent.dropCountsSize] += dropCount;
-    inputBuffer->gameEvent.droppedCount += dropCount;
-    ++inputBuffer->gameEvent.dropCountsSize;
+    pCommand->dropCounts[pCommand->dropCountsSize] += dropCount;
+    pCommand->droppedCount += dropCount;
+    ++pCommand->dropCountsSize;
 
     return true;
 }

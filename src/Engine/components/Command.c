@@ -33,49 +33,6 @@ Command newCommand( void )
     return command;
 }
 
-bool isCommandComplete( Command const* const pCommand )
-{
-    assert(
-        pCommand
-        && "Pointer is nullptr"
-    );
-
-    switch ( pCommand->actionType )
-    {
-        default:
-        case ACTION_TYPE_NONE:
-            return false;
-
-        case ACTION_TYPE_PLACE:
-        {
-            return (
-                ( pCommand->playerId != PLAYER_NONE )
-                && ( pCommand->fileX != FILE_NONE )
-                && ( pCommand->rankY != RANK_NONE )
-                && ( pCommand->stoneType != STONE_TYPE_NONE )
-            );
-        }
-
-        case ACTION_TYPE_LIFT:
-        {
-            return (
-                ( pCommand->fileX != FILE_NONE )
-                && ( pCommand->rankY != RANK_NONE )
-            );
-        }
-
-        case ACTION_TYPE_DROP:
-        {
-            return (
-                ( pCommand->fileX != FILE_NONE )
-                && ( pCommand->rankY != RANK_NONE )
-                && ( pCommand->direction != DIR_NONE )
-                && ( pCommand->dropCounts[pCommand->drops] > 0 )
-            );
-        }
-    }
-}
-
 void runBuildCommandFSM(
     Command* const pCommand,
     InputBuffer const* const pInputBuffer
@@ -183,6 +140,41 @@ void handleStateGetStoneType(
     }
 }
 
+void handleStateGetFileX(
+    Command* const pCommand,
+    InputBuffer const* const pInputBuffer
+)
+{
+    if ( !parseInputFileX(
+             pCommand,
+             pInputBuffer
+         ) )
+    {
+        return;
+    }
+
+    //* Change state
+    switch ( pCommand->fileX )
+    {
+        default:
+            return;
+
+        case FILE_A:
+        case FILE_B:
+        case FILE_C:
+        case FILE_D:
+        case FILE_E:
+        case FILE_F:
+        case FILE_G:
+        case FILE_H:
+        {
+            pCommand->state = STATE_GET_RANK_Y;
+
+            return;
+        }
+    }
+}
+
 bool parseInputAction(
     Command* const pCommand,
     InputBuffer const* const pInputBuffer
@@ -246,3 +238,115 @@ bool parseInputStoneType(
     }
 }
 
+bool parseInputFileX(
+    Command* const pCommand,
+    InputBuffer const* const pInputBuffer
+)
+{
+    switch ( pInputBuffer->keyboard )
+    {
+        default:
+        {
+            return false;
+        }
+
+        case INPUT_A:
+        {
+            pCommand->fileX = FILE_A;
+
+            return true;
+        }
+
+        case INPUT_B:
+        {
+            pCommand->fileX = FILE_B;
+
+            return true;
+        }
+
+        case INPUT_C:
+        {
+            pCommand->fileX = FILE_C;
+
+            return true;
+        }
+
+        case INPUT_D:
+        {
+            pCommand->fileX = FILE_D;
+
+            return true;
+        }
+
+        case INPUT_E:
+        {
+            pCommand->fileX = FILE_E;
+
+            return true;
+        }
+
+        case INPUT_F:
+        {
+            pCommand->fileX = FILE_F;
+
+            return true;
+        }
+
+        case INPUT_G:
+        {
+            pCommand->fileX = FILE_G;
+
+            return true;
+        }
+
+        case INPUT_H:
+        {
+            pCommand->fileX = FILE_H;
+
+            return true;
+        }
+    }
+}
+
+bool isCommandComplete( Command const* const pCommand )
+{
+    assert(
+        pCommand
+        && "Pointer is nullptr"
+    );
+
+    switch ( pCommand->actionType )
+    {
+        default:
+        case ACTION_TYPE_NONE:
+            return false;
+
+        case ACTION_TYPE_PLACE:
+        {
+            return (
+                ( pCommand->playerId != PLAYER_NONE )
+                && ( pCommand->fileX != FILE_NONE )
+                && ( pCommand->rankY != RANK_NONE )
+                && ( pCommand->stoneType != STONE_TYPE_NONE )
+            );
+        }
+
+        case ACTION_TYPE_LIFT:
+        {
+            return (
+                ( pCommand->fileX != FILE_NONE )
+                && ( pCommand->rankY != RANK_NONE )
+            );
+        }
+
+        case ACTION_TYPE_DROP:
+        {
+            return (
+                ( pCommand->fileX != FILE_NONE )
+                && ( pCommand->rankY != RANK_NONE )
+                && ( pCommand->direction != DIR_NONE )
+                && ( pCommand->dropCounts[pCommand->drops] > 0 )
+            );
+        }
+    }
+}
