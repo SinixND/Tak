@@ -65,6 +65,8 @@ int main( void )
     RUN_TEST( testParseInputFileX );
     RUN_TEST( testParseInputRankY );
     RUN_TEST( testParseInputDirection );
+    RUN_TEST( testParseInputFirstDropAmount );
+    RUN_TEST( testParseInputDropAmount );
     RUN_TEST( testHandleStateGetAction );
     RUN_TEST( testHandleStateGetStoneType );
     RUN_TEST( testHandleStateGetFileX );

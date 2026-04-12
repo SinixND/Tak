@@ -49,10 +49,10 @@ void handleStateGetRankY( Command* const pCommand, InputBuffer const* const pInp
 void handleStateGetDirection( Command* const pCommand, InputBuffer const* const pInputBuffer );
 
 // /// Get drop count (can be 0 on initial square)
-// void handleStateGetFirstDropAmount( Command* const pCommand, InputBuffer const* const pInputBuffer );
+void handleStateGetFirstDropAmount( Command* const pCommand, InputBuffer const* const pInputBuffer );
 
 // /// Get drop count
-// void handleStateGetDropAmount( Command* const pCommand, InputBuffer const* const pInputBuffer );
+void handleStateGetDropAmount( Command* const pCommand, InputBuffer const* const pInputBuffer );
 
 /// Set action type (place / lift) if input is valid
 bool parseInputAction( Command* const pCommand, InputBuffer const* const pInputBuffer );
@@ -70,10 +70,10 @@ bool parseInputRankY( Command* const pCommand, InputBuffer const* const pInputBu
 bool parseInputDirection( Command* const pCommand, InputBuffer const* const pInputBuffer );
 
 /// Set first drop amount (0 - n) if input is valid
-// bool parseInputFirstDropAmount( Command* const pCommand, InputBuffer const* const pInputBuffer );
+bool parseInputFirstDropAmount( Command* const pCommand, InputBuffer const* const pInputBuffer );
 
 /// Set drop amount (1 - n) if input is valid
-// bool parseInputAmount( Command* const pCommand, InputBuffer const* const pInputBuffer );
+bool parseInputDropAmount( Command* const pCommand, InputBuffer const* const pInputBuffer );
 
 /// Check if event can be build from command
 bool isCommandComplete( Command const* const pCommand );

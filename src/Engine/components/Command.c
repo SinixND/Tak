@@ -22,7 +22,7 @@ Command newCommand( void )
         .fileX = FILE_NONE,
         .rankY = RANK_NONE,
         .direction = DIR_NONE,
-        .drops = -1,
+        .drops = 0,
     };
 
     for ( int i = 0; i < BOARD_SIZE_MAX; ++i )
@@ -196,6 +196,48 @@ void handleStateGetDirection(
 
     //* Change state
     pCommand->state = STATE_GET_FIRST_DROP_AMOUNT;
+
+    return;
+}
+
+void handleStateGetFirstDropAmount(
+    Command* const pCommand,
+    InputBuffer const* const pInputBuffer
+)
+{
+    if ( !parseInputFirstDropAmount(
+             pCommand,
+             pInputBuffer
+         ) )
+    {
+        return;
+    }
+
+    // TODO: Check if more drops possible/required
+
+    //* Change state
+    pCommand->state = STATE_GET_DROP_AMOUNT;
+
+    return;
+}
+
+void handleStateGetDropAmount(
+    Command* const pCommand,
+    InputBuffer const* const pInputBuffer
+)
+{
+    if ( !parseInputDropAmount(
+             pCommand,
+             pInputBuffer
+         ) )
+    {
+        return;
+    }
+
+    // TODO: Check if more drops possible/required
+
+    //* Change state
+    pCommand->state = STATE_GET_ACTION;
 
     return;
 }
@@ -432,6 +474,167 @@ bool parseInputDirection( Command* const pCommand, InputBuffer const* const pInp
             return true;
         }
     }
+}
+
+bool parseInputFirstDropAmount(
+    Command* const pCommand,
+    InputBuffer const* const pInputBuffer
+)
+{
+    assert(
+        pCommand->drops < 1
+        && "Invalid drops value"
+    );
+
+    switch ( pInputBuffer->keyboard )
+    {
+        case INPUT_0:
+        {
+            pCommand->dropCounts[0] = 0;
+
+            break;
+        }
+
+        case INPUT_1:
+        {
+            pCommand->dropCounts[0] = 1;
+
+            break;
+        }
+
+        case INPUT_2:
+        {
+            pCommand->dropCounts[0] = 2;
+
+            break;
+        }
+
+        case INPUT_3:
+        {
+            pCommand->dropCounts[0] = 3;
+
+            break;
+        }
+
+        case INPUT_4:
+        {
+            pCommand->dropCounts[0] = 4;
+
+            break;
+        }
+
+        case INPUT_5:
+        {
+            pCommand->dropCounts[0] = 5;
+
+            break;
+        }
+
+        case INPUT_6:
+        {
+            pCommand->dropCounts[0] = 6;
+
+            break;
+        }
+
+        case INPUT_7:
+        {
+            pCommand->dropCounts[0] = 7;
+
+            break;
+        }
+
+        case INPUT_8:
+        {
+            pCommand->dropCounts[0] = 8;
+
+            break;
+        }
+
+        default:
+            return false;
+    }
+
+    ++pCommand->drops;
+
+    return true;
+}
+
+bool parseInputDropAmount(
+    Command* const pCommand,
+    InputBuffer const* const pInputBuffer
+)
+{
+    assert(
+        pCommand->drops > 0
+        && "Invalid drops value"
+    );
+
+    switch ( pInputBuffer->keyboard )
+    {
+        case INPUT_1:
+        {
+            pCommand->dropCounts[pCommand->drops] = 1;
+
+            break;
+        }
+
+        case INPUT_2:
+        {
+            pCommand->dropCounts[pCommand->drops] = 2;
+
+            break;
+        }
+
+        case INPUT_3:
+        {
+            pCommand->dropCounts[pCommand->drops] = 3;
+
+            break;
+        }
+
+        case INPUT_4:
+        {
+            pCommand->dropCounts[pCommand->drops] = 4;
+
+            break;
+        }
+
+        case INPUT_5:
+        {
+            pCommand->dropCounts[pCommand->drops] = 5;
+
+            break;
+        }
+
+        case INPUT_6:
+        {
+            pCommand->dropCounts[pCommand->drops] = 6;
+
+            break;
+        }
+
+        case INPUT_7:
+        {
+            pCommand->dropCounts[pCommand->drops] = 7;
+
+            break;
+        }
+
+        case INPUT_8:
+        {
+            pCommand->dropCounts[pCommand->drops] = 8;
+
+            break;
+        }
+
+        default:
+            return false;
+    }
+
+    ++pCommand->drops;
+
+    return true;
 }
 
 bool isCommandComplete( Command const* const pCommand )
