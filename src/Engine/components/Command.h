@@ -30,12 +30,25 @@ typedef struct Command
 /// Return initialized player command object
 Command newCommand( void );
 
-/// Check if event can be build from command
-bool isCommandComplete( Command const* const pCommand );
+/// Run state machine to build command from input
+void runBuildCommandFSM(
+    Command* const pCommand,
+    InputBuffer const* const pInputBuffer
+);
 
+/// Build command from input buffer
+void handleStateGetAction(
+    Command* const pCommand,
+    InputBuffer const* const pInputBuffer
+);
+
+/// Set action type if input is valid
 bool parseInputAction(
     Command* const pCommand,
     InputBuffer const* const pInputBuffer
 );
+
+/// Check if event can be build from command
+bool isCommandComplete( Command const* const pCommand );
 
 #endif

@@ -1,5 +1,5 @@
 #include "App.h"
-#include "DemoSystem.h"
+#include "Demo.h"
 #include "GameConstants.h"
 
 int main( void )

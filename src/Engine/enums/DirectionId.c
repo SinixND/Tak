@@ -1,5 +1,3 @@
-#include "DirectionSystem.h"
-
 #include "DirectionId.h"
 
 int getOffsetX( DirectionId const direction )

@@ -1,6 +1,6 @@
 #include "Event.h"
 
-#include "PositionSystem.h"
+#include "Position.h"
 #include <assert.h>
 #include <stdbool.h>
 

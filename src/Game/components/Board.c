@@ -2,7 +2,7 @@
 
 #include "GameConstants.h"
 #include "PlayerId.h"
-#include "PositionSystem.h"
+#include "Position.h"
 #include "StoneTypeId.h"
 #include <assert.h>
 

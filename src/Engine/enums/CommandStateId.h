@@ -1,6 +1,7 @@
 #ifndef IG20260412014331
 #define IG20260412014331
 
+/// Current expected input
 typedef enum CommandStateId
 {
     // STATE_NONE,                  // Starting point

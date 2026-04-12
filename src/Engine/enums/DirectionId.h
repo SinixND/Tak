@@ -18,4 +18,7 @@ static char const DIRECTION_CHARS[] = {
     '>',
 };
 
+int getOffsetX( DirectionId const direction );
+int getOffsetY( DirectionId const direction );
+
 #endif

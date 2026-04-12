@@ -1,4 +1,4 @@
-#include "DemoSystem.h"
+#include "Demo.h"
 
 #include "App.h"
 #include "Game.h"

@@ -1,7 +1,6 @@
 #ifndef IG20260317123947
 #define IG20260317123947
 
-#include "AppStateId.h"
 #include "Command.h"
 #include "Event.h"
 #include "Game.h"
@@ -14,7 +13,6 @@ typedef struct App
     InputBuffer inputBuffer;
     Event event;
     Command command;
-    AppStateId state;
     bool shouldClose;
 } App;
 

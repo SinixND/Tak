@@ -2,7 +2,7 @@
 
 #include "Board.h"
 #include "PlayerId.h"
-#include "PositionSystem.h"
+#include "Position.h"
 #include "Reserves.h"
 #include "StackBuffer.h"
 #include "StoneTypeId.h"

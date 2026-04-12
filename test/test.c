@@ -19,7 +19,7 @@ int main( void )
 {
     UNITY_BEGIN();
 
-    //* Test PositionSystem
+    //* Test Position
     RUN_TEST( testPositionToStackIndex );
 
     //* Test Board
