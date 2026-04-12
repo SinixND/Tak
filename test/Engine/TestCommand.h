@@ -3,6 +3,9 @@
 
 #include "ActionTypeId.h"
 #include "Command.h"
+#include "CommandStateId.h"
+#include "InputBuffer.h"
+#include "InputId.h"
 #include "RankId.h"
 #include "StoneTypeId.h"
 #include <stdbool.h>
@@ -12,6 +15,7 @@ void testNewCommand( void )
 {
     Command command = newCommand();
 
+    TEST_ASSERT_EQUAL_INT( STATE_GET_ACTION, command.state );
     TEST_ASSERT_EQUAL_INT( PLAYER_NONE, command.playerId );
     TEST_ASSERT_EQUAL_INT( ACTION_TYPE_NONE, command.actionType );
     TEST_ASSERT_EQUAL_INT( STONE_TYPE_NONE, command.stoneType );
@@ -57,6 +61,88 @@ void testIsCommandComplete( void )
 
     command.dropCounts[0] = 1;
     TEST_ASSERT_EQUAL_INT( true, isCommandComplete( &command ) );
+}
+
+void testParseInputAction( void )
+{
+    Command command = newCommand();
+    InputBuffer inputBuffer = newInputBuffer();
+
+    TEST_ASSERT_EQUAL_INT( false, parseInputAction( &command, &inputBuffer ) );
+    TEST_ASSERT_EQUAL_INT( ACTION_TYPE_NONE, command.actionType );
+
+    inputBuffer.keyboard = INPUT_P;
+    TEST_ASSERT_EQUAL_INT( true, parseInputAction( &command, &inputBuffer ) );
+    TEST_ASSERT_EQUAL_INT( ACTION_TYPE_PLACE, command.actionType );
+
+    inputBuffer.keyboard = INPUT_M;
+    TEST_ASSERT_EQUAL_INT( true, parseInputAction( &command, &inputBuffer ) );
+    TEST_ASSERT_EQUAL_INT( ACTION_TYPE_LIFT, command.actionType );
+}
+
+void testParseInputStoneType( void )
+{
+    Command command = newCommand();
+    InputBuffer inputBuffer = newInputBuffer();
+
+    TEST_ASSERT_EQUAL_INT( false, parseInputStoneType( &command, &inputBuffer ) );
+    TEST_ASSERT_EQUAL_INT( STONE_TYPE_NONE, command.stoneType );
+
+    inputBuffer.keyboard = INPUT_F;
+    TEST_ASSERT_EQUAL_INT( true, parseInputStoneType( &command, &inputBuffer ) );
+    TEST_ASSERT_EQUAL_INT( STONE_TYPE_FLAT, command.stoneType );
+
+    inputBuffer.keyboard = INPUT_S;
+    TEST_ASSERT_EQUAL_INT( true, parseInputStoneType( &command, &inputBuffer ) );
+    TEST_ASSERT_EQUAL_INT( STONE_TYPE_STANDING, command.stoneType );
+
+    inputBuffer.keyboard = INPUT_C;
+    TEST_ASSERT_EQUAL_INT( true, parseInputStoneType( &command, &inputBuffer ) );
+    TEST_ASSERT_EQUAL_INT( STONE_TYPE_CAP, command.stoneType );
+}
+
+void testHandleStateGetAction( void )
+{
+    Command command = newCommand();
+    InputBuffer inputBuffer = newInputBuffer();
+
+    TEST_ASSERT_EQUAL_INT( STATE_GET_ACTION, command.state );
+
+    handleStateGetAction( &command, &inputBuffer );
+    TEST_ASSERT_EQUAL_INT( STATE_GET_ACTION, command.state );
+
+    inputBuffer.keyboard = INPUT_P;
+    handleStateGetAction( &command, &inputBuffer );
+    TEST_ASSERT_EQUAL_INT( STATE_GET_STONE_TYPE, command.state );
+
+    command.state = STATE_GET_ACTION;
+    inputBuffer.keyboard = INPUT_M;
+    handleStateGetAction( &command, &inputBuffer );
+    TEST_ASSERT_EQUAL_INT( STATE_GET_FILE_X, command.state );
+}
+
+void testHandleStateGetStoneType( void )
+{
+    Command command = newCommand();
+    InputBuffer inputBuffer = newInputBuffer();
+
+    command.state = STATE_GET_STONE_TYPE;
+    handleStateGetStoneType( &command, &inputBuffer );
+    TEST_ASSERT_EQUAL_INT( STATE_GET_STONE_TYPE, command.state );
+
+    inputBuffer.keyboard = INPUT_F;
+    handleStateGetStoneType( &command, &inputBuffer );
+    TEST_ASSERT_EQUAL_INT( STATE_GET_FILE_X, command.state );
+
+    command.state = STATE_GET_STONE_TYPE;
+    inputBuffer.keyboard = INPUT_S;
+    handleStateGetStoneType( &command, &inputBuffer );
+    TEST_ASSERT_EQUAL_INT( STATE_GET_FILE_X, command.state );
+
+    command.state = STATE_GET_STONE_TYPE;
+    inputBuffer.keyboard = INPUT_C;
+    handleStateGetStoneType( &command, &inputBuffer );
+    TEST_ASSERT_EQUAL_INT( STATE_GET_FILE_X, command.state );
 }
 
 #endif

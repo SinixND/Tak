@@ -36,14 +36,26 @@ void runBuildCommandFSM(
     InputBuffer const* const pInputBuffer
 );
 
-/// Build command from input buffer
+/// Update command: Action type
 void handleStateGetAction(
+    Command* const pCommand,
+    InputBuffer const* const pInputBuffer
+);
+
+/// Update command: Stone type
+void handleStateGetStoneType(
     Command* const pCommand,
     InputBuffer const* const pInputBuffer
 );
 
 /// Set action type if input is valid
 bool parseInputAction(
+    Command* const pCommand,
+    InputBuffer const* const pInputBuffer
+);
+
+/// Set stone type if input is valid
+bool parseInputStoneType(
     Command* const pCommand,
     InputBuffer const* const pInputBuffer
 );

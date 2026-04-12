@@ -15,6 +15,7 @@
 Command newCommand( void )
 {
     Command command = {
+        .state = STATE_GET_ACTION,
         .playerId = PLAYER_NONE,
         .actionType = ACTION_TYPE_NONE,
         .stoneType = STONE_TYPE_NONE,
@@ -94,6 +95,26 @@ void runBuildCommandFSM(
 
             return;
         }
+
+        case STATE_GET_STONE_TYPE:
+        {
+            handleStateGetStoneType(
+                pCommand,
+                pInputBuffer
+            );
+
+            return;
+        }
+
+        case STATE_GET_FILE_X:
+        {
+            // handleStateGetFileX(
+            //     pCommand,
+            //     pInputBuffer
+            // );
+
+            return;
+        }
     }
 }
 
@@ -132,6 +153,36 @@ void handleStateGetAction(
     }
 }
 
+void handleStateGetStoneType(
+    Command* const pCommand,
+    InputBuffer const* const pInputBuffer
+)
+{
+    if ( !parseInputStoneType(
+             pCommand,
+             pInputBuffer
+         ) )
+    {
+        return;
+    }
+
+    //* Change state
+    switch ( pCommand->stoneType )
+    {
+        default:
+            return;
+
+        case STONE_TYPE_FLAT:
+        case STONE_TYPE_STANDING:
+        case STONE_TYPE_CAP:
+        {
+            pCommand->state = STATE_GET_FILE_X;
+
+            return;
+        }
+    }
+}
+
 bool parseInputAction(
     Command* const pCommand,
     InputBuffer const* const pInputBuffer
@@ -159,3 +210,39 @@ bool parseInputAction(
         }
     }
 }
+
+bool parseInputStoneType(
+    Command* const pCommand,
+    InputBuffer const* const pInputBuffer
+)
+{
+    switch ( pInputBuffer->keyboard )
+    {
+        default:
+        {
+            return false;
+        }
+
+        case INPUT_F:
+        {
+            pCommand->stoneType = STONE_TYPE_FLAT;
+
+            return true;
+        }
+
+        case INPUT_S:
+        {
+            pCommand->stoneType = STONE_TYPE_STANDING;
+
+            return true;
+        }
+
+        case INPUT_C:
+        {
+            pCommand->stoneType = STONE_TYPE_CAP;
+
+            return true;
+        }
+    }
+}
+

@@ -60,16 +60,16 @@ int main( void )
 
     //* Test Command
     RUN_TEST( testNewCommand );
+    RUN_TEST( testParseInputAction );
+    RUN_TEST( testParseInputStoneType );
+    RUN_TEST( testHandleStateGetAction );
+    RUN_TEST( testHandleStateGetStoneType );
+    // RUN_TEST( testRunBuildCommandFSM );
     RUN_TEST( testIsCommandComplete );
-    // RUN_TEST( testParseInputAction );
 
     //* Test Event
     RUN_TEST( testNewEvent );
     RUN_TEST( testBuildEvent );
-
-    //* Test Engine
-    // RUN_TEST( testRunBuildCommandFSM );
-    // RUN_TEST( testHandleStateGetAction );
 
     //* Test InputSystem
     RUN_TEST( testHandleGlobalInput );
