@@ -181,6 +181,25 @@ void handleStateGetRankY(
     return;
 }
 
+void handleStateGetDirection(
+    Command* const pCommand,
+    InputBuffer const* const pInputBuffer
+)
+{
+    if ( !parseInputDirection(
+             pCommand,
+             pInputBuffer
+         ) )
+    {
+        return;
+    }
+
+    //* Change state
+    pCommand->state = STATE_GET_FIRST_DROP_AMOUNT;
+
+    return;
+}
+
 bool parseInputAction(
     Command* const pCommand,
     InputBuffer const* const pInputBuffer
@@ -373,6 +392,45 @@ bool parseInputRankY(
 
         default:
             return false;
+    }
+}
+
+bool parseInputDirection( Command* const pCommand, InputBuffer const* const pInputBuffer )
+{
+    switch ( pInputBuffer->keyboard )
+    {
+        default:
+        {
+            return false;
+        }
+
+        case INPUT_N:
+        {
+            pCommand->direction = DIR_UP;
+
+            return true;
+        }
+
+        case INPUT_E:
+        {
+            pCommand->direction = DIR_RIGHT;
+
+            return true;
+        }
+
+        case INPUT_S:
+        {
+            pCommand->direction = DIR_DOWN;
+
+            return true;
+        }
+
+        case INPUT_W:
+        {
+            pCommand->direction = DIR_LEFT;
+
+            return true;
+        }
     }
 }
 

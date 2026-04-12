@@ -157,8 +157,6 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 - App component logic -> engine
 - Linking input/engine/render (in loop) -> app
 
-- [ ] Test direction system
-
 - [ ] Build event from command
     - [x] Add isCommandComplete
     - [x] Add buildEvent

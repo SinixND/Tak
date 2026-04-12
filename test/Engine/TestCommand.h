@@ -4,6 +4,7 @@
 #include "ActionTypeId.h"
 #include "Command.h"
 #include "CommandStateId.h"
+#include "DirectionId.h"
 #include "FileId.h"
 #include "InputBuffer.h"
 #include "InputId.h"
@@ -146,6 +147,31 @@ void testParseInputRankY( void )
     inputBuffer.keyboard = INPUT_8;
     TEST_ASSERT_EQUAL_INT( true, parseInputRankY( &command, &inputBuffer ) );
     TEST_ASSERT_EQUAL_INT( RANK_8, command.rankY );
+}
+
+void testParseInputDirection( void )
+{
+    Command command = newCommand();
+    InputBuffer inputBuffer = newInputBuffer();
+
+    TEST_ASSERT_EQUAL_INT( false, parseInputDirection( &command, &inputBuffer ) );
+    TEST_ASSERT_EQUAL_INT( DIR_NONE, command.direction );
+
+    inputBuffer.keyboard = INPUT_E;
+    TEST_ASSERT_EQUAL_INT( true, parseInputDirection( &command, &inputBuffer ) );
+    TEST_ASSERT_EQUAL_INT( DIR_RIGHT, command.direction );
+
+    inputBuffer.keyboard = INPUT_N;
+    TEST_ASSERT_EQUAL_INT( true, parseInputDirection( &command, &inputBuffer ) );
+    TEST_ASSERT_EQUAL_INT( DIR_UP, command.direction );
+
+    inputBuffer.keyboard = INPUT_S;
+    TEST_ASSERT_EQUAL_INT( true, parseInputDirection( &command, &inputBuffer ) );
+    TEST_ASSERT_EQUAL_INT( DIR_DOWN, command.direction );
+
+    inputBuffer.keyboard = INPUT_W;
+    TEST_ASSERT_EQUAL_INT( true, parseInputDirection( &command, &inputBuffer ) );
+    TEST_ASSERT_EQUAL_INT( DIR_LEFT, command.direction );
 }
 
 void testHandleStateGetAction( void )
@@ -312,6 +338,35 @@ void testHandleStateGetRankY( void )
     handleStateGetRankY( &command, &inputBuffer );
     TEST_ASSERT_EQUAL_INT( STATE_GET_DIRECTION, command.state );
     TEST_ASSERT_EQUAL_INT( ACTION_TYPE_DROP, command.actionType );
+}
+
+void testHandleStateGetDirection( void )
+{
+    Command command = newCommand();
+    InputBuffer inputBuffer = newInputBuffer();
+
+    command.state = STATE_GET_DIRECTION;
+    handleStateGetDirection( &command, &inputBuffer );
+    TEST_ASSERT_EQUAL_INT( STATE_GET_DIRECTION, command.state );
+
+    inputBuffer.keyboard = INPUT_E;
+    handleStateGetDirection( &command, &inputBuffer );
+    TEST_ASSERT_EQUAL_INT( STATE_GET_FIRST_DROP_AMOUNT, command.state );
+
+    command.state = STATE_GET_DIRECTION;
+    inputBuffer.keyboard = INPUT_N;
+    handleStateGetDirection( &command, &inputBuffer );
+    TEST_ASSERT_EQUAL_INT( STATE_GET_FIRST_DROP_AMOUNT, command.state );
+
+    command.state = STATE_GET_DIRECTION;
+    inputBuffer.keyboard = INPUT_S;
+    handleStateGetDirection( &command, &inputBuffer );
+    TEST_ASSERT_EQUAL_INT( STATE_GET_FIRST_DROP_AMOUNT, command.state );
+
+    command.state = STATE_GET_DIRECTION;
+    inputBuffer.keyboard = INPUT_W;
+    handleStateGetDirection( &command, &inputBuffer );
+    TEST_ASSERT_EQUAL_INT( STATE_GET_FIRST_DROP_AMOUNT, command.state );
 }
 
 void testIsCommandComplete( void )

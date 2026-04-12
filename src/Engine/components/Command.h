@@ -33,17 +33,26 @@ Command newCommand( void );
 /// Run state machine to build command from input
 void runBuildCommandFSM( Command* const pCommand, InputBuffer const* const pInputBuffer );
 
-/// Update command: Action type (place / lift)
+/// Choose what game event to prepare
 void handleStateGetAction( Command* const pCommand, InputBuffer const* const pInputBuffer );
 
-/// Update command: Stone type
+/// Get stone type
 void handleStateGetStoneType( Command* const pCommand, InputBuffer const* const pInputBuffer );
 
-/// Update command: FileX
+/// Get column of target square
 void handleStateGetFileX( Command* const pCommand, InputBuffer const* const pInputBuffer );
 
-/// Update command: RankY
+/// Get row of target square
 void handleStateGetRankY( Command* const pCommand, InputBuffer const* const pInputBuffer );
+
+/// Get direction to move stack
+void handleStateGetDirection( Command* const pCommand, InputBuffer const* const pInputBuffer );
+
+// /// Get drop count (can be 0 on initial square)
+// void handleStateGetFirstDropAmount( Command* const pCommand, InputBuffer const* const pInputBuffer );
+
+// /// Get drop count
+// void handleStateGetDropAmount( Command* const pCommand, InputBuffer const* const pInputBuffer );
 
 /// Set action type (place / lift) if input is valid
 bool parseInputAction( Command* const pCommand, InputBuffer const* const pInputBuffer );
@@ -56,6 +65,15 @@ bool parseInputFileX( Command* const pCommand, InputBuffer const* const pInputBu
 
 /// Set rankY if input is valid
 bool parseInputRankY( Command* const pCommand, InputBuffer const* const pInputBuffer );
+
+/// Set dirction if input is valid
+bool parseInputDirection( Command* const pCommand, InputBuffer const* const pInputBuffer );
+
+/// Set first drop amount (0 - n) if input is valid
+// bool parseInputFirstDropAmount( Command* const pCommand, InputBuffer const* const pInputBuffer );
+
+/// Set drop amount (1 - n) if input is valid
+// bool parseInputAmount( Command* const pCommand, InputBuffer const* const pInputBuffer );
 
 /// Check if event can be build from command
 bool isCommandComplete( Command const* const pCommand );
