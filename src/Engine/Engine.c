@@ -5,9 +5,22 @@
 
 void buildCommand( App* const pApp )
 {
+    //* Temporary command
+    Command cmd = pApp->command;
+
+    //* Set command value from input
     if ( !parseInput(
-             &pApp->command,
+             &cmd,
              &pApp->inputBuffer
+         ) )
+    {
+        return;
+    }
+
+    //* Validate input
+    if ( !validateCommand(
+             &cmd,
+             &pApp.game
          ) )
     {
         return;

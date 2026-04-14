@@ -13,9 +13,6 @@ void buildCommand( App* const pApp );
 
 #endif
 /*
-/// Run state machine to build command from input
-void runBuildCommandFSM( Command* const pCommand, InputBuffer const* const pInputBuffer );
-
 /// Choose what game event to prepare
 void handleStateGetAction( Command* const pCommand, InputBuffer const* const pInputBuffer );
 

@@ -2,6 +2,7 @@
 
 #include "BackendInterface.h"
 #include "Command.h"
+#include "Engine.h"
 #include "Event.h"
 #include "Game.h"
 #include "InputBuffer.h"
@@ -67,9 +68,6 @@ void updateApp( App* const pApp )
 {
     handleGlobalInput( pApp );
 
-    runBuildCommandFSM(
-        &pApp->command,
-        &pApp->inputBuffer
-    );
+    buildCommand( pApp );
 }
 
