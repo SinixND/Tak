@@ -30,29 +30,8 @@ typedef struct Command
 /// Return initialized player command object
 Command newCommand( void );
 
-/// Run state machine to build command from input
-void runBuildCommandFSM( Command* const pCommand, InputBuffer const* const pInputBuffer );
-
-/// Choose what game event to prepare
-void handleStateGetAction( Command* const pCommand, InputBuffer const* const pInputBuffer );
-
-/// Get stone type
-void handleStateGetStoneType( Command* const pCommand, InputBuffer const* const pInputBuffer );
-
-/// Get column of target square
-void handleStateGetFileX( Command* const pCommand, InputBuffer const* const pInputBuffer );
-
-/// Get row of target square
-void handleStateGetRankY( Command* const pCommand, InputBuffer const* const pInputBuffer );
-
-/// Get direction to move stack
-void handleStateGetDirection( Command* const pCommand, InputBuffer const* const pInputBuffer );
-
-// /// Get drop count (can be 0 on initial square)
-void handleStateGetFirstDropAmount( Command* const pCommand, InputBuffer const* const pInputBuffer );
-
-// /// Get drop count
-void handleStateGetDropAmount( Command* const pCommand, InputBuffer const* const pInputBuffer );
+/// Parse input into command
+bool parseInput( Command* const pCommand, InputBuffer const* const pInputBuffer );
 
 /// Set action type (place / lift) if input is valid
 bool parseInputAction( Command* const pCommand, InputBuffer const* const pInputBuffer );
