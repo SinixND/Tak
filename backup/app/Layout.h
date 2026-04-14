@@ -34,7 +34,7 @@ static char* const LAYOUT_INFO_PANE[] = {
     "  +   +  R|C",
     "White:    |",
     "Black:    |",
-    "Turn :      [ ]",
+    "Turn :       [ ]",
     "Input:",
     "Opts :",
     ">",
