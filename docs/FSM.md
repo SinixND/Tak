@@ -1,10 +1,10 @@
 # FSMs
+- One frame covers time from input to input
+
 ## FSM: App loop
 `-`
 
-## FSM: Build game event (user input)
-The get states should validate input and add them to the built event
-
+## FSM - Multi-frame user input handling
 ### States:
 [1] Request Action
 [2] Request StoneType
