@@ -11,4 +11,34 @@ bool validateCommand(
     Game const* const pGame
 );
 
+bool validateInputStoneType(
+    Command* const pCommand,
+    Game const* const pGame
+);
+
+bool validateInputFileX(
+    Command* const pCommand,
+    Game const* const pGame
+);
+
+bool validateInputRankY(
+    Command* const pCommand,
+    Game const* const pGame
+);
+
+bool validateInputDirection(
+    Command* const pCommand,
+    Game const* const pGame
+);
+
+bool validateInputFirstDropAmount(
+    Command* const pCommand,
+    Game const* const pGame
+);
+
+bool validateInputDropAmount(
+    Command* const pCommand,
+    Game const* const pGame
+);
+
 #endif

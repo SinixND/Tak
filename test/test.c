@@ -6,6 +6,7 @@
 #include "TestEventBuilding.h"
 #include "TestGame.h"
 #include "TestGameConstants.h"
+#include "TestInputBuffer.h"
 #include "TestInputSystem.h"
 #include "TestPositionSystem.h"
 #include "TestReserves.h"
@@ -76,6 +77,9 @@ int main( void )
 
     //* Event building
     RUN_TEST( testBuildEvent );
+
+    //* InputBuffer
+    RUN_TEST( testNewInputBuffer );
 
     //* InputSystem
     RUN_TEST( testHandleGlobalInput );
