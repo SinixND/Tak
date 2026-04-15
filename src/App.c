@@ -68,6 +68,10 @@ void updateApp( App* const pApp )
 {
     handleGlobalInput( pApp );
 
-    buildCommand( pApp );
+    buildCommand(
+        &pApp->command,
+        &pApp->inputBuffer,
+        &pApp->game
+    );
 }
 

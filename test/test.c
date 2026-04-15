@@ -2,11 +2,12 @@
 #include "TestBoard.h"
 #include "TestCommand.h"
 #include "TestDirectionId.h"
+#include "TestEngine.h"
 #include "TestEvent.h"
-#include "TestEventBuilding.h"
 #include "TestGame.h"
 #include "TestGameConstants.h"
 #include "TestInputBuffer.h"
+#include "TestInputParsing.h"
 #include "TestInputSystem.h"
 #include "TestPositionSystem.h"
 #include "TestReserves.h"
@@ -62,6 +63,9 @@ int main( void )
 
     //* Command
     RUN_TEST( testNewCommand );
+    RUN_TEST( testIsCommandComplete );
+
+    //* Input parsing
     RUN_TEST( testParseInputActionType );
     RUN_TEST( testParseInputStoneType );
     RUN_TEST( testParseInputFileX );
@@ -69,13 +73,12 @@ int main( void )
     RUN_TEST( testParseInputDirection );
     RUN_TEST( testParseInputFirstDropAmount );
     RUN_TEST( testParseInputDropAmount );
-    // RUN_TEST( testBuildCommand );
-    RUN_TEST( testIsCommandComplete );
 
     //* Event
     RUN_TEST( testNewEvent );
 
-    //* Event building
+    //* Engine
+    // RUN_TEST( testBuildCommand );
     RUN_TEST( testBuildEvent );
 
     //* InputBuffer
