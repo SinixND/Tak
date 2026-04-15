@@ -60,7 +60,7 @@ int main( void )
 
     //* Test Command
     RUN_TEST( testNewCommand );
-    RUN_TEST( testParseInputAction );
+    RUN_TEST( testParseInputActionType );
     RUN_TEST( testParseInputStoneType );
     RUN_TEST( testParseInputFileX );
     RUN_TEST( testParseInputRankY );

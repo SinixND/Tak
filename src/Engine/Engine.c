@@ -33,7 +33,7 @@ void handleStateGetAction(
     InputBuffer const* const pInputBuffer
 )
 {
-    if ( !parseInputAction(
+    if ( !parseInputActionType(
              pCommand,
              pInputBuffer
          ) )

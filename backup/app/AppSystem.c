@@ -257,7 +257,7 @@ void handleStateSecondTurn( App* const app )
 
 void handleStateChooseAction( App* const app )
 {
-    if ( !parseInputAction( &app->inputBuffer ) )
+    if ( !parseInputActionType( &app->inputBuffer ) )
     {
         return;
     }

@@ -29,20 +29,20 @@ void testNewCommand( void )
     TEST_ASSERT_EQUAL_INT( -1, command.dropCounts[7] );
 }
 
-void testParseInputAction( void )
+void testParseInputActionType( void )
 {
     Command command = newCommand();
     InputBuffer inputBuffer = newInputBuffer();
 
-    TEST_ASSERT_EQUAL_INT( false, parseInputAction( &command, &inputBuffer ) );
+    TEST_ASSERT_EQUAL_INT( false, parseInputActionType( &command, &inputBuffer ) );
     TEST_ASSERT_EQUAL_INT( ACTION_TYPE_NONE, command.actionType );
 
     inputBuffer.keyboard = INPUT_P;
-    TEST_ASSERT_EQUAL_INT( true, parseInputAction( &command, &inputBuffer ) );
+    TEST_ASSERT_EQUAL_INT( true, parseInputActionType( &command, &inputBuffer ) );
     TEST_ASSERT_EQUAL_INT( ACTION_TYPE_PLACE, command.actionType );
 
     inputBuffer.keyboard = INPUT_M;
-    TEST_ASSERT_EQUAL_INT( true, parseInputAction( &command, &inputBuffer ) );
+    TEST_ASSERT_EQUAL_INT( true, parseInputActionType( &command, &inputBuffer ) );
     TEST_ASSERT_EQUAL_INT( ACTION_TYPE_LIFT, command.actionType );
 }
 

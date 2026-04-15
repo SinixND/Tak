@@ -1,5 +1,7 @@
 #include "InputParsing.h"
 
+#include <assert.h>
+
 bool parseInput(
     Command* const pCommand,
     InputBuffer const* const pInputBuffer
@@ -9,7 +11,7 @@ bool parseInput(
     {
         case STATE_GET_ACTION:
         {
-            return parseInputAction(
+            return parseInputActionType(
                 pCommand,
                 pInputBuffer
             );
@@ -68,7 +70,7 @@ bool parseInput(
     }
 }
 
-bool parseInputAction(
+bool parseInputActionType(
     Command* const pCommand,
     InputBuffer const* const pInputBuffer
 )

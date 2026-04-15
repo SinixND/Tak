@@ -39,7 +39,7 @@ void resetCurrentCommand( InputBuffer* const inputBuffer )
     inputBuffer->currentCommandSize = 0;
 }
 
-bool parseInputAction( InputBuffer* const inputBuffer )
+bool parseInputActionType( InputBuffer* const inputBuffer )
 {
     switch ( pInputBuffer->keyboard )
     {

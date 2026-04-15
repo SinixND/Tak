@@ -15,7 +15,7 @@ void resetCurrentCommand( InputBuffer* const inputBuffer );
 
 /// Parse input depending on app state
 /// Returns if input was valid
-bool parseInputAction( InputBuffer* const inputBuffer );
+bool parseInputActionType( InputBuffer* const inputBuffer );
 bool parseInputFileX( InputBuffer* const inputBuffer );
 bool parseInputRankY( InputBuffer* const inputBuffer );
 bool parseInputStoneType( InputBuffer* const inputBuffer );
