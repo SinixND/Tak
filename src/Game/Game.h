@@ -3,6 +3,7 @@
 
 #include "Board.h"
 #include "Event.h"
+#include "PlayerId.h"
 #include "Reserves.h"
 #include "StackBuffer.h"
 #include <stdbool.h>
@@ -13,6 +14,7 @@ typedef struct Game
     Board board;
     StackBuffer stackBuffer;
     Reserves reserves;
+    PlayerId activePlayer;
 } Game;
 
 /**

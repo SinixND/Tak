@@ -25,6 +25,7 @@ Game newGame( int boardSize )
         .board = newBoard( boardSize ),
         .stackBuffer = newStackBuffer(),
         .reserves = newReserves( boardSize ),
+        .activePlayer = PLAYER_WHITE,
     };
 }
 
