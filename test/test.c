@@ -3,6 +3,7 @@
 #include "TestCommand.h"
 #include "TestDirectionId.h"
 #include "TestEvent.h"
+#include "TestEventBuilding.h"
 #include "TestGame.h"
 #include "TestGameConstants.h"
 #include "TestInputSystem.h"
@@ -20,31 +21,31 @@ int main( void )
 {
     UNITY_BEGIN();
 
-    //* Test Position
+    //* Position
     RUN_TEST( testPositionToStackIndex );
     RUN_TEST( testSquareToStackIndex );
 
-    //* Test Board
+    //* Board
     RUN_TEST( testNewBoard );
     RUN_TEST( testPlaceOntoStack );
     RUN_TEST( testTakeFromStack );
 
-    //* Test Reserves
+    //* Reserves
     RUN_TEST( testNewReserves );
     RUN_TEST( testTakeFromReserves );
 
-    //* Test StackBuffer
+    //* StackBuffer
     RUN_TEST( testNewStackBuffer );
     RUN_TEST( testResetStackBuffer );
     RUN_TEST( testAppendToBuffer );
     RUN_TEST( testDropFromBuffer );
 
-    //* Test GameConstants
+    //* GameConstants
     RUN_TEST( testGetReservesRegular );
     RUN_TEST( testGetReservesCapstone );
     RUN_TEST( testGetStackCapacity );
 
-    //* Test Game
+    //* Game
     RUN_TEST( testNewGame );
     RUN_TEST( testPlaceStone );
     RUN_TEST( testTakeStone );
@@ -58,7 +59,7 @@ int main( void )
     RUN_TEST( testGetOffsetX );
     RUN_TEST( testGetOffsetY );
 
-    //* Test Command
+    //* Command
     RUN_TEST( testNewCommand );
     RUN_TEST( testParseInputActionType );
     RUN_TEST( testParseInputStoneType );
@@ -67,22 +68,19 @@ int main( void )
     RUN_TEST( testParseInputDirection );
     RUN_TEST( testParseInputFirstDropAmount );
     RUN_TEST( testParseInputDropAmount );
-    RUN_TEST( testHandleStateGetAction );
-    RUN_TEST( testHandleStateGetStoneType );
-    RUN_TEST( testHandleStateGetFileX );
-    RUN_TEST( testHandleStateGetRankY );
-    RUN_TEST( testHandleStateGetDirection );
-    // RUN_TEST( testRunBuildCommandFSM );
+    // RUN_TEST( testBuildCommand );
     RUN_TEST( testIsCommandComplete );
 
-    //* Test Event
+    //* Event
     RUN_TEST( testNewEvent );
+
+    //* Event building
     RUN_TEST( testBuildEvent );
 
-    //* Test InputSystem
+    //* InputSystem
     RUN_TEST( testHandleGlobalInput );
 
-    //* Test App
+    //* App
     RUN_TEST( testNewApp );
 
     return UNITY_END();
