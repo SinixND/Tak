@@ -73,6 +73,7 @@ int main( void )
     RUN_TEST( testParseInputDirection );
     RUN_TEST( testParseInputFirstDropAmount );
     RUN_TEST( testParseInputDropAmount );
+    RUN_TEST( testParseInput );
 
     //* Event
     RUN_TEST( testNewEvent );

@@ -3,6 +3,7 @@
 
 #include "ActionTypeId.h"
 #include "Command.h"
+#include "CommandStateId.h"
 #include "DirectionId.h"
 #include "FileId.h"
 #include "InputBuffer.h"
@@ -292,6 +293,131 @@ void testParseInputDropAmount( void )
     TEST_ASSERT_EQUAL_INT( true, parseInputDropAmount( &command, &inputBuffer ) );
     TEST_ASSERT_EQUAL_INT( 8, command.dropCounts[1] );
     TEST_ASSERT_EQUAL_INT( 2, command.drops );
+}
+
+void testParseInput( void )
+{
+    Command command = newCommand();
+    InputBuffer inputBuffer = newInputBuffer();
+
+    command.state = STATE_GET_ACTION_TYPE;
+    TEST_ASSERT_EQUAL_INT( false, parseInput( &command, &inputBuffer ) );
+
+    inputBuffer.keyboard = INPUT_P;
+    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer ) );
+
+    inputBuffer.keyboard = INPUT_M;
+    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer ) );
+
+    command.state = STATE_GET_STONE_TYPE;
+    inputBuffer.keyboard = INPUT_F;
+    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer ) );
+    inputBuffer.keyboard = INPUT_S;
+    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer ) );
+    inputBuffer.keyboard = INPUT_C;
+    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer ) );
+
+    // TODO: Add remaining
+    command.state = STATE_GET_FILE_X;
+    inputBuffer.keyboard = INPUT_A;
+    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer ) );
+    inputBuffer.keyboard = INPUT_B;
+    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer ) );
+    inputBuffer.keyboard = INPUT_C;
+    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer ) );
+    inputBuffer.keyboard = INPUT_D;
+    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer ) );
+    inputBuffer.keyboard = INPUT_E;
+    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer ) );
+    inputBuffer.keyboard = INPUT_F;
+    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer ) );
+    inputBuffer.keyboard = INPUT_G;
+    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer ) );
+    inputBuffer.keyboard = INPUT_H;
+    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer ) );
+
+    command.state = STATE_GET_RANK_Y;
+    inputBuffer.keyboard = INPUT_1;
+    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer ) );
+    inputBuffer.keyboard = INPUT_2;
+    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer ) );
+    inputBuffer.keyboard = INPUT_3;
+    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer ) );
+    inputBuffer.keyboard = INPUT_4;
+    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer ) );
+    inputBuffer.keyboard = INPUT_5;
+    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer ) );
+    inputBuffer.keyboard = INPUT_6;
+    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer ) );
+    inputBuffer.keyboard = INPUT_7;
+    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer ) );
+    inputBuffer.keyboard = INPUT_8;
+    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer ) );
+
+    command.state = STATE_GET_DIRECTION;
+    inputBuffer.keyboard = INPUT_E;
+    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer ) );
+    inputBuffer.keyboard = INPUT_N;
+    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer ) );
+    inputBuffer.keyboard = INPUT_S;
+    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer ) );
+    inputBuffer.keyboard = INPUT_W;
+    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer ) );
+
+    command.state = STATE_GET_FIRST_DROP_AMOUNT;
+    inputBuffer.keyboard = INPUT_0;
+    command.drops = 0;
+    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer ) );
+    command.drops = 0;
+    inputBuffer.keyboard = INPUT_1;
+    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer ) );
+    command.drops = 0;
+    inputBuffer.keyboard = INPUT_2;
+    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer ) );
+    command.drops = 0;
+    inputBuffer.keyboard = INPUT_3;
+    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer ) );
+    command.drops = 0;
+    inputBuffer.keyboard = INPUT_4;
+    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer ) );
+    command.drops = 0;
+    inputBuffer.keyboard = INPUT_5;
+    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer ) );
+    command.drops = 0;
+    inputBuffer.keyboard = INPUT_6;
+    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer ) );
+    command.drops = 0;
+    inputBuffer.keyboard = INPUT_7;
+    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer ) );
+    command.drops = 0;
+    inputBuffer.keyboard = INPUT_8;
+    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer ) );
+
+    command.state = STATE_GET_DROP_AMOUNT;
+    command.drops = 1;
+    inputBuffer.keyboard = INPUT_1;
+    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer ) );
+    command.drops = 1;
+    inputBuffer.keyboard = INPUT_2;
+    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer ) );
+    command.drops = 1;
+    inputBuffer.keyboard = INPUT_3;
+    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer ) );
+    command.drops = 1;
+    inputBuffer.keyboard = INPUT_4;
+    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer ) );
+    command.drops = 1;
+    inputBuffer.keyboard = INPUT_5;
+    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer ) );
+    command.drops = 1;
+    inputBuffer.keyboard = INPUT_6;
+    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer ) );
+    command.drops = 1;
+    inputBuffer.keyboard = INPUT_7;
+    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer ) );
+    command.drops = 1;
+    inputBuffer.keyboard = INPUT_8;
+    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer ) );
 }
 
 #endif

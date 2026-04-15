@@ -9,7 +9,7 @@ bool parseInput(
 {
     switch ( pCommand->state )
     {
-        case STATE_GET_ACTION:
+        case STATE_GET_ACTION_TYPE:
         {
             return parseInputActionType(
                 pCommand,

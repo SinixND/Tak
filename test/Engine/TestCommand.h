@@ -18,7 +18,7 @@ void testNewCommand( void )
 {
     Command command = newCommand();
 
-    TEST_ASSERT_EQUAL_INT( STATE_GET_ACTION, command.state );
+    TEST_ASSERT_EQUAL_INT( STATE_GET_ACTION_TYPE, command.state );
     TEST_ASSERT_EQUAL_INT( PLAYER_NONE, command.playerId );
     TEST_ASSERT_EQUAL_INT( ACTION_TYPE_NONE, command.actionType );
     TEST_ASSERT_EQUAL_INT( STONE_TYPE_NONE, command.stoneType );
