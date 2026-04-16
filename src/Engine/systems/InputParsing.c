@@ -1,5 +1,6 @@
 #include "InputParsing.h"
 
+#include "CommandStateId.h"
 #include <assert.h>
 
 bool parseInput(
@@ -9,6 +10,13 @@ bool parseInput(
 {
     switch ( pCommand->state )
     {
+        case STATE_NONE:
+        {
+            pCommand->playerId = pInputBuffer->playerId;
+            pCommand->state = STATE_GET_ACTION_TYPE;
+            // INFO: Fallthrough!
+        }
+
         case STATE_GET_ACTION_TYPE:
         {
             return parseInputActionType(

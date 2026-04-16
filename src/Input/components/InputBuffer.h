@@ -2,10 +2,12 @@
 #define IG20260317235410
 
 #include "InputId.h"
+#include "PlayerId.h"
 
 /// Store per frame user input
 typedef struct InputBuffer
 {
+    PlayerId playerId;
     InputId keyboard;
 } InputBuffer;
 

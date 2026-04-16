@@ -317,7 +317,6 @@ void testParseInput( void )
     inputBuffer.keyboard = INPUT_C;
     TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer ) );
 
-    // TODO: Add remaining
     command.state = STATE_GET_FILE_X;
     inputBuffer.keyboard = INPUT_A;
     TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer ) );

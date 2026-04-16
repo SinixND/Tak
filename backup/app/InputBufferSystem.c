@@ -55,7 +55,7 @@ bool parseInputActionType( InputBuffer* const inputBuffer )
             return true;
         }
 
-        //* TODO: Check if necessary
+        // TODO: Check if necessary
         // case INPUT_L:
         // {
         //     pCommand->actionType = ACTION_TYPE_LIFT;

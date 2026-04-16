@@ -69,7 +69,7 @@ void handleGlobalInput( App* const app )
 {
     //* Conditionally terminate by
     //* changing main while loop condition
-    //* NOTE: Maybe extract into separate function later
+    // NOTE: Maybe extract into separate function later
     app->shouldClose
         = ( app->inputBuffer.lastInput == INPUT_Q )
               ? true
@@ -443,7 +443,7 @@ void handleStateGetDropAmount( App* const app )
 
 void handleStateResolveAction( App* const app )
 {
-    //* TODO: Implement rules
+    // TODO: Implement rules
 
     //* Update game
     switch ( app->inputBuffer.gameEvent.actionType )

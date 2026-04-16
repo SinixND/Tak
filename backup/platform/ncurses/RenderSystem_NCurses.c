@@ -195,7 +195,7 @@ void renderInfoPaneContent( App* const app )
         app->prompt.options
     );
 
-    //* TODO: Print history
+    // TODO: Print history
 
     //* Print current player input
     //* W:@c#
