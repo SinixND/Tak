@@ -1,6 +1,7 @@
 #include "TestApp.h"
 #include "TestBoard.h"
 #include "TestCommand.h"
+#include "TestCommandValidation.h"
 #include "TestDirectionId.h"
 #include "TestEngine.h"
 #include "TestEvent.h"
@@ -76,8 +77,8 @@ int main( void )
     RUN_TEST( testParseInput );
 
     //* Command validation
-    RUN_TEST( testvalidateCommandActionType );
-    RUN_TEST( testvalidateCommandStoneType );
+    RUN_TEST( testValidateCommandActionType );
+    RUN_TEST( testValidateCommandStoneType );
     RUN_TEST( testValidateCommand );
 
     //* Event

@@ -7,17 +7,16 @@
 
 void testNewApp( void )
 {
+    int const ARR[] = { BOARD_SIZE_DEFAULT, 3, 4, 5, 6, 7, 8 };
+    int const SIZE = sizeof( ARR ) / sizeof( *ARR );
+
     App app = newApp( BOARD_SIZE_DEFAULT );
 
-    TEST_ASSERT_EQUAL_INT( BOARD_SIZE_DEFAULT, app.game.board.size );
-
-    app = newApp( 3 );
-
-    TEST_ASSERT_EQUAL_INT( 3, app.game.board.size );
-
-    app = newApp( 8 );
-
-    TEST_ASSERT_EQUAL_INT( 8, app.game.board.size );
+    for ( int i = 0; i < SIZE; ++i )
+    {
+        app = newApp( ARR[i] );
+        TEST_ASSERT_EQUAL_INT( ARR[i], app.game.board.size );
+    }
 }
 
 #endif

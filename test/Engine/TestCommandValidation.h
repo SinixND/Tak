@@ -1,5 +1,5 @@
-#ifndef IG20260408232415
-#define IG20260408232415
+#ifndef IG20260416174743
+#define IG20260416174743
 
 #include "ActionTypeId.h"
 #include "Command.h"
@@ -9,7 +9,7 @@
 #include <stdbool.h>
 #include <unity.h>
 
-void testvalidateCommandActionType( void )
+void testValidateCommandActionType( void )
 {
     Command command = newCommand();
     Game game = newGame( 5 );
@@ -25,7 +25,7 @@ void testvalidateCommandActionType( void )
     TEST_ASSERT_EQUAL_INT( true, validateCommandActionType( &command, &game ) );
 }
 
-void testvalidateCommandStoneType( void )
+void testValidateCommandStoneType( void )
 {
     Command command = newCommand();
     Game game = newGame( 5 );
