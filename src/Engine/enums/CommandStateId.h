@@ -4,7 +4,7 @@
 /// Current expected input
 typedef enum CommandStateId
 {
-    // STATE_NONE,                  // Starting point
+    STATE_NONE,                  // Starting point
     STATE_GET_ACTION_TYPE,       // Choose place/move
     STATE_GET_STONE_TYPE,        // Choose flat/standing/cap
     STATE_GET_FILE_X,            // Choose column

@@ -14,7 +14,7 @@
 Command newCommand( void )
 {
     Command command = {
-        .state = STATE_GET_ACTION_TYPE,
+        .state = STATE_NONE,
         .playerId = PLAYER_NONE,
         .actionType = ACTION_TYPE_NONE,
         .stoneType = STONE_TYPE_NONE,
