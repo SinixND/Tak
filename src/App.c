@@ -59,6 +59,7 @@ void updateFrame( App* const pApp )
     );
 
     //* Input
+    pApp->inputBuffer.playerId = pApp->game.activePlayer;
     pollInput( &pApp->inputBuffer );
 
     //* Update

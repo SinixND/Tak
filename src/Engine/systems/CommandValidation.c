@@ -2,22 +2,23 @@
 
 #include "ActionTypeId.h"
 #include "StoneTypeId.h"
+#include <assert.h>
 
 bool validateCommand(
     Command* const pCommand,
     Game const* const pGame
 )
-{   
+{
     assert(
         pCommand
         && "Pointer is nullptr"
     );
-    
+
     assert(
         pGame
         && "Pointer is nullptr"
     );
-    
+
     switch ( pCommand->state )
     {
         case STATE_GET_ACTION_TYPE:
@@ -50,12 +51,12 @@ bool validateCommandActionType(
         pCommand
         && "Pointer is nullptr"
     );
-    
+
     assert(
         pGame
         && "Pointer is nullptr"
     );
-    
+
     return (
         ( pCommand->playerId == pGame->activePlayer )
         && ( pCommand->actionType == ACTION_TYPE_PLACE
@@ -72,12 +73,12 @@ bool validateCommandStoneType(
         pCommand
         && "Pointer is nullptr"
     );
-    
+
     assert(
         pGame
         && "Pointer is nullptr"
     );
-    
+
     //* Sufficient reserves
     switch ( pCommand->stoneType )
     {
