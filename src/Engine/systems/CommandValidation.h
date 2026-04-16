@@ -11,6 +11,11 @@ bool validateCommand(
     Game const* const pGame
 );
 
+bool validateInputActionType(
+    Command* const pCommand,
+    Game const* const pGame
+);
+
 bool validateInputStoneType(
     Command* const pCommand,
     Game const* const pGame

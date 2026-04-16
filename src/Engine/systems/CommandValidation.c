@@ -1,4 +1,5 @@
 #include "CommandValidation.h"
+#include "ActionTypeId.h"
 #include "StoneTypeId.h"
 
 bool validateCommand(
@@ -8,6 +9,14 @@ bool validateCommand(
 {
     switch ( pCommand->state )
     {
+        case STATE_GET_ACTION_TYPE:
+        {
+            return validateInputActionType(
+                pCommand,
+                pGame
+            );
+        }
+
         case STATE_GET_STONE_TYPE:
         {
             return validateInputStoneType(
@@ -19,6 +28,18 @@ bool validateCommand(
         default:
             return false;
     }
+}
+
+bool validateInputActionType(
+    Command* const pCommand,
+    Game const* const pGame
+)
+{
+    return (
+        ( pCommand->playerId == pGame->activePlayer )
+        && ( pCommand->actionType == ACTION_TYPE_PLACE
+             || pCommand->actionType == ACTION_TYPE_LIFT )
+    );
 }
 
 bool validateInputStoneType(
