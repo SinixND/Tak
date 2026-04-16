@@ -11,7 +11,7 @@ bool validateCommand(
     {
         case STATE_GET_ACTION_TYPE:
         {
-            return validateInputActionType(
+            return validateCommandActionType(
                 pCommand,
                 pGame
             );
@@ -19,7 +19,7 @@ bool validateCommand(
 
         case STATE_GET_STONE_TYPE:
         {
-            return validateInputStoneType(
+            return validateCommandStoneType(
                 pCommand,
                 pGame
             );
@@ -30,7 +30,7 @@ bool validateCommand(
     }
 }
 
-bool validateInputActionType(
+bool validateCommandActionType(
     Command* const pCommand,
     Game const* const pGame
 )
@@ -42,7 +42,7 @@ bool validateInputActionType(
     );
 }
 
-bool validateInputStoneType(
+bool validateCommandStoneType(
     Command* const pCommand,
     Game const* const pGame
 )

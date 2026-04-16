@@ -11,37 +11,37 @@ bool validateCommand(
     Game const* const pGame
 );
 
-bool validateInputActionType(
+bool validateCommandActionType(
     Command* const pCommand,
     Game const* const pGame
 );
 
-bool validateInputStoneType(
+bool validateCommandStoneType(
     Command* const pCommand,
     Game const* const pGame
 );
 
-bool validateInputFileX(
+bool validateCommandFileX(
     Command* const pCommand,
     Game const* const pGame
 );
 
-bool validateInputRankY(
+bool validateCommandRankY(
     Command* const pCommand,
     Game const* const pGame
 );
 
-bool validateInputDirection(
+bool validateCommandDirection(
     Command* const pCommand,
     Game const* const pGame
 );
 
-bool validateInputFirstDropAmount(
+bool validateCommandFirstDropAmount(
     Command* const pCommand,
     Game const* const pGame
 );
 
-bool validateInputDropAmount(
+bool validateCommandDropAmount(
     Command* const pCommand,
     Game const* const pGame
 );
