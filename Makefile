@@ -1,4 +1,12 @@
 #######################################
+# UTILITY
+#######################################
+
+fn_rwildcard = $(foreach d,$(wildcard $(1:=/*)),$(call fn_rwildcard,$d,$2)$(filter $(subst *,%,$2),$d)) # Trailing space required
+fn_files    = $(sort $(call fn_rwildcard,$1,$2))
+fn_dirs     = $(sort $(dir $(call fn_rwildcard,$1,*)))
+
+#######################################
 # CORE CONFIG 
 #######################################
 
@@ -86,10 +94,10 @@ checkhealth: clean doxygen format compiledb fatal debug release test cppcheck ru
 #######################################
 
 # Sources
-SRCS_app  := $(shell find $(SRC_DIR) -name '*.$(SRC_EXT)')
+SRCS_app  := $(call fn_files,$(SRC_DIR),*.$(SRC_EXT))
 
 # Includes
-INC_app  := $(shell find $(SRC_DIR) -type d)
+INC_app  := $(call fn_dirs,$(SRC_DIR))
 
 
 #######################################
@@ -119,12 +127,12 @@ EXT_SRC_DIR += $(EXT_DIR)/Unity/src
 
 # Sources
 SRCS_test := $(filter-out $(SRC_DIR)/$(MAIN_app).$(SRC_EXT),$(SRCS_app)) \
-             $(shell find $(TEST_DIR) -name '*.$(SRC_EXT)') \
-             $(shell find $(EXT_SRC_DIR) -name '*.$(SRC_EXT)') 
+             $(call fn_files,$(TEST_DIR),*.$(SRC_EXT)) \
+             $(call fn_files,$(EXT_SRC_DIR),*.$(SRC_EXT)) 
 
 # Includes
-INC_test := $(shell find $(SRC_DIR) -type d) \
-            $(shell find $(TEST_DIR) -type d)
+INC_test := $(call fn_dirs,$(SRC_DIR)) \
+            $(call fn_dirs,$(TEST_DIR))
 
 # Targets
 .PHONY: build-test
