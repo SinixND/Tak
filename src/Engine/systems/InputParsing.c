@@ -8,6 +8,16 @@ bool parseInput(
     InputBuffer const* const pInputBuffer
 )
 {
+    assert(
+        pCommand
+        && "Pointer is nullptr"
+    );
+    
+    assert(
+        pInputBuffer
+        && "Pointer is nullptr"
+    );
+    
     switch ( pCommand->state )
     {
         case STATE_NONE:
@@ -83,6 +93,16 @@ bool parseInputActionType(
     InputBuffer const* const pInputBuffer
 )
 {
+    assert(
+        pCommand
+        && "Pointer is nullptr"
+    );
+    
+    assert(
+        pInputBuffer
+        && "Pointer is nullptr"
+    );
+    
     switch ( pInputBuffer->keyboard )
     {
         case INPUT_P:
@@ -109,6 +129,16 @@ bool parseInputStoneType(
     InputBuffer const* const pInputBuffer
 )
 {
+    assert(
+        pCommand
+        && "Pointer is nullptr"
+    );
+    
+    assert(
+        pInputBuffer
+        && "Pointer is nullptr"
+    );
+    
     switch ( pInputBuffer->keyboard )
     {
         case INPUT_F:
@@ -142,6 +172,16 @@ bool parseInputFileX(
     InputBuffer const* const pInputBuffer
 )
 {
+    assert(
+        pCommand
+        && "Pointer is nullptr"
+    );
+    
+    assert(
+        pInputBuffer
+        && "Pointer is nullptr"
+    );
+    
     switch ( pInputBuffer->keyboard )
     {
         case INPUT_A:
@@ -210,6 +250,16 @@ bool parseInputRankY(
     InputBuffer const* const pInputBuffer
 )
 {
+    assert(
+        pCommand
+        && "Pointer is nullptr"
+    );
+    
+    assert(
+        pInputBuffer
+        && "Pointer is nullptr"
+    );
+    
     switch ( pInputBuffer->keyboard )
     {
         case INPUT_1:
@@ -273,8 +323,20 @@ bool parseInputRankY(
     }
 }
 
-bool parseInputDirection( Command* const pCommand, InputBuffer const* const pInputBuffer )
+bool parseInputDirection( 
+    Command* const pCommand, 
+    InputBuffer const* const pInputBuffer )
 {
+    assert(
+        pCommand
+        && "Pointer is nullptr"
+    );
+    
+    assert(
+        pInputBuffer
+        && "Pointer is nullptr"
+    );
+    
     switch ( pInputBuffer->keyboard )
     {
         default:
@@ -317,6 +379,16 @@ bool parseInputFirstDropAmount(
     InputBuffer const* const pInputBuffer
 )
 {
+    assert(
+        pCommand
+        && "Pointer is nullptr"
+    );
+    
+    assert(
+        pInputBuffer
+        && "Pointer is nullptr"
+    );
+    
     assert(
         pCommand->drops < 1
         && "Invalid drops value"
@@ -401,6 +473,16 @@ bool parseInputDropAmount(
     InputBuffer const* const pInputBuffer
 )
 {
+    assert(
+        pCommand
+        && "Pointer is nullptr"
+    );
+    
+    assert(
+        pInputBuffer
+        && "Pointer is nullptr"
+    );
+    
     assert(
         pCommand->drops > 0
         && "Invalid drops value"

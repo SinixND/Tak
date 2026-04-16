@@ -1,4 +1,5 @@
 #include "InputSystem.h"
+
 #include <assert.h>
 
 void handleGlobalInput( App* const pApp )

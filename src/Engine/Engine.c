@@ -16,6 +16,21 @@ void buildCommand(
     Game const* const pGame
 )
 {
+    assert(
+        pCommand
+        && "Pointer is nullptr"
+    );
+    
+    assert(
+        pInputBuffer
+        && "Pointer is nullptr"
+    );
+    
+    assert(
+        pInputBuffer
+        && "Pointer is nullptr"
+    );
+    
     //* Temporary command
     Command command = *pCommand;
 
@@ -57,6 +72,16 @@ void buildEvent(
         && "Pointer is nullptr"
     );
 
+    assert(
+        ( boardSize > 2 )
+        && "BoardSize too small"
+    );
+
+    assert(
+        ( boardSize < 9 )
+        && "BoardSize too big"
+    );
+
     pEvent->actionType = pCommand->actionType;
     pEvent->playerId = pCommand->playerId;
     pEvent->stoneType = pCommand->stoneType;
@@ -68,5 +93,6 @@ void buildEvent(
                     pCommand->rankY,
                     boardSize
                 );
+
     pEvent->dropCount = pCommand->dropCounts[pCommand->drops - 1];
 }

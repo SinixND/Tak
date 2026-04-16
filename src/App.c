@@ -53,6 +53,11 @@ void closeApp( void )
 
 void updateFrame( App* const pApp )
 {
+    assert(
+        pApp
+        && "Pointer is nullptr"
+    );
+
     //* Input
     pollInput( &pApp->inputBuffer );
 
@@ -66,6 +71,11 @@ void updateFrame( App* const pApp )
 
 void updateApp( App* const pApp )
 {
+    assert(
+        pApp
+        && "Pointer is nullptr"
+    );
+
     handleGlobalInput( pApp );
 
     buildCommand(
