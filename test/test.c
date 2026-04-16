@@ -75,6 +75,11 @@ int main( void )
     RUN_TEST( testParseInputDropAmount );
     RUN_TEST( testParseInput );
 
+    //* Command validation
+    RUN_TEST( testValidateInputActionType );
+    RUN_TEST( testValidateInputStoneType );
+    RUN_TEST( testValidateCommand );
+
     //* Event
     RUN_TEST( testNewEvent );
 
