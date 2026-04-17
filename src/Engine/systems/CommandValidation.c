@@ -2,6 +2,7 @@
 
 #include "ActionTypeId.h"
 #include "DirectionId.h"
+#include "Position.h"
 #include "StoneTypeId.h"
 #include <assert.h>
 
@@ -212,14 +213,32 @@ bool validateCommandDropAmount(
         && "Pointer is nullptr"
     );
 
+    assert(
+        pCommand->drops > 0
+        && "Invaild drops"
+    );
+
     //* Cap to buffer stone count
     if ( pCommand->dropCounts[pCommand->drops - 1]
-         >= pGame->stackBuffer.stoneCount )
+         > pGame->stackBuffer.stoneCount )
     {
         pCommand->dropCounts[pCommand->drops - 1]
             = pGame->stackBuffer.stoneCount;
     }
 
-    return pCommand->dropCounts[pCommand->drops] > -1;
+    return (
+        ( pCommand->dropCounts[pCommand->drops - 1] > -1 )
+        //* Is next captive not capstone?
+        && ( pGame->board.stackTypes[positionToSquare(
+                 pCommand->fileX
+                     + getOffsetX( pCommand->direction ),
+                 pCommand->rankY
+                     + getOffsetY( pCommand->direction ),
+                 pGame->board.size
+             )]
+             != STONE_TYPE_CAP )
+        // TODO: Validate STANDING < CAP
+        // TODO: Validate next drop also possible
+    );
 }
 
