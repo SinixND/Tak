@@ -12,32 +12,27 @@ bool validateCommand(
 );
 
 bool validateCommandActionType(
-    Command* const pCommand,
+    Command const* const pCommand,
     Game const* const pGame
 );
 
 bool validateCommandStoneType(
-    Command* const pCommand,
+    Command const* const pCommand,
     Game const* const pGame
 );
 
 bool validateCommandFileX(
-    Command* const pCommand,
+    Command const* const pCommand,
     Game const* const pGame
 );
 
 bool validateCommandRankY(
-    Command* const pCommand,
+    Command const* const pCommand,
     Game const* const pGame
 );
 
 bool validateCommandDirection(
-    Command* const pCommand,
-    Game const* const pGame
-);
-
-bool validateCommandFirstDropAmount(
-    Command* const pCommand,
+    Command const* const pCommand,
     Game const* const pGame
 );
 
