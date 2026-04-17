@@ -5,6 +5,7 @@
 #include "Position.h"
 #include "StoneTypeId.h"
 #include <assert.h>
+#include <stdbool.h>
 
 bool validateCommand(
     Command* const pCommand,
@@ -189,8 +190,11 @@ bool validateCommandDirection(
         && "Pointer is nullptr"
     );
 
-    int const x = pCommand->fileX + getOffsetX( pCommand->direction );
-    int const y = pCommand->rankY + getOffsetY( pCommand->direction );
+    int const x = pCommand->fileX
+                  + getOffsetX( pCommand->direction );
+
+    int const y = pCommand->rankY
+                  + getOffsetY( pCommand->direction );
 
     return ( x >= 0 )
            && ( x < pGame->board.size )
@@ -218,26 +222,35 @@ bool validateCommandDropAmount(
         && "Invaild drops"
     );
 
+    //* Not valid if negative drop count
+    if ( pCommand->dropCounts[pCommand->drops - 1] < 0 )
+    {
+        return false;
+    }
+
     //* Cap to buffer stone count
     if ( pCommand->dropCounts[pCommand->drops - 1]
-         > pGame->stackBuffer.stoneCount )
+         >= pGame->stackBuffer.stoneCount )
     {
         pCommand->dropCounts[pCommand->drops - 1]
             = pGame->stackBuffer.stoneCount;
     }
 
+    int const squareIdx = positionToSquare(
+        pCommand->fileX
+            + getOffsetX( pCommand->direction ),
+        pCommand->rankY
+            + getOffsetY( pCommand->direction ),
+        pGame->board.size
+    );
+
+    //* Not valid if
     return (
-        ( pCommand->dropCounts[pCommand->drops - 1] > -1 )
         //* Is next captive not capstone?
-        && ( pGame->board.stackTypes[positionToSquare(
-                 pCommand->fileX
-                     + getOffsetX( pCommand->direction ),
-                 pCommand->rankY
-                     + getOffsetY( pCommand->direction ),
-                 pGame->board.size
-             )]
-             != STONE_TYPE_CAP )
-        // TODO: Validate STANDING < CAP
+        ( pGame->board.stackTypes[squareIdx]
+          != STONE_TYPE_CAP )
+        //* Verify no non-cap onto Standing
+        && !( pGame->board.stackTypes[squareIdx] == STONE_TYPE_STANDING && pGame->stackBuffer.stoneType != STONE_TYPE_CAP )
         // TODO: Validate next drop also possible
     );
 }
