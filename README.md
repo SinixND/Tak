@@ -157,7 +157,9 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 - App component logic -> engine
 - Linking input/engine/render (in loop) -> app
 
-- Test parseInput
+- [ ] Remove event (not needed)?
+- [ ] Add option to drop all (INPUT_A)
+- [ ] Add Keybind abstraction? (eg. "INPUT_QUIT = INPUT_Q")
 
 - [ ] Build event from command
     - [x] Add isCommandComplete

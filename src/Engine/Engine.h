@@ -8,7 +8,7 @@
 #include <stdbool.h>
 
 /**
- * @brief: Autocomplete command if certain conditions are met
+ * @brief: Autocomplete drop command if certain conditions are met
  *
  * Returns true if command was autocompleted
  */

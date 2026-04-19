@@ -2,6 +2,7 @@
 
 #include "ActionTypeId.h"
 #include "DirectionId.h"
+#include "Position.h"
 #include "StoneTypeId.h"
 #include <assert.h>
 #include <stdbool.h>
@@ -190,16 +191,36 @@ bool validateCommandDirection(
         && "Pointer is nullptr"
     );
 
-    int const x = pCommand->fileX
-                  + getOffsetX( pCommand->direction );
+    int const nextFileX
+        = pCommand->fileX
+          + getOffsetX( pCommand->direction );
 
-    int const y = pCommand->rankY
-                  + getOffsetY( pCommand->direction );
+    int const nextRankY
+        = pCommand->rankY
+          + getOffsetY( pCommand->direction );
 
-    return ( x >= 0 )
-           && ( x < pGame->board.size )
-           && ( y >= 0 )
-           && ( y < pGame->board.size );
+    //* Next square must be on board
+    if ( ( nextFileX < 0 )
+         || ( nextFileX >= pGame->board.size )
+         || ( nextRankY < 0 )
+         || ( nextRankY >= pGame->board.size ) )
+    {
+        return false;
+    }
+
+    int const nextSquareIdx = positionToSquare(
+        nextFileX,
+        nextRankY,
+        pGame->board.size
+    );
+
+    //* Next squares type must not be capstone
+    if ( pGame->board.stackTypes[nextSquareIdx] == STONE_TYPE_CAP )
+    {
+        return false;
+    }
+
+    return true;
 }
 
 bool validateCommandDropAmount(

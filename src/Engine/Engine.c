@@ -1,6 +1,7 @@
 #include "Engine.h"
 
 #include "Command.h"
+#include "CommandStateId.h"
 #include "CommandValidation.h"
 #include "DirectionId.h"
 #include "Event.h"
@@ -19,6 +20,22 @@ bool autocompleteCommand(
     Game const* const pGame
 )
 {
+    assert(
+        pCommand
+        && "Pointer is nullptr"
+    );
+
+    assert(
+        pGame
+        && "Pointer is nullptr"
+    );
+
+    if ( !( pCommand->state == STATE_GET_FIRST_DROP_AMOUNT
+            || pCommand->state == STATE_GET_DROP_AMOUNT ) )
+    {
+        return false;
+    }
+
     FileId const nextFileX
         = pCommand->fileX
           + ( getOffsetX( pCommand->direction )
@@ -37,10 +54,12 @@ bool autocompleteCommand(
         pGame->board.size
     );
 
-    //* Need to drop 'all' if only one stone left in stack buffer
-    if ( pGame->stackBuffer.stoneCount == 1 )
+    //* Need to drop 'all' if only one stone left in stack buffer and not first drop
+    if ( pCommand->drops > 0
+         && pGame->stackBuffer.stoneCount == 1 )
     {
-        pCommand->dropCounts[pCommand->drops - 1] = 1;
+        pCommand->dropCounts[pCommand->drops] = 1;
+        ++pCommand->drops;
 
         return true;
     }
@@ -48,7 +67,8 @@ bool autocompleteCommand(
     //* Need to drop all if next squares type is capstone
     if ( pGame->board.stackTypes[nextSquareIdx] == STONE_TYPE_CAP )
     {
-        pCommand->dropCounts[pCommand->drops - 1] = pGame->stackBuffer.stoneCount;
+        pCommand->dropCounts[pCommand->drops] = pGame->stackBuffer.stoneCount;
+        ++pCommand->drops;
 
         return true;
     }
@@ -57,7 +77,8 @@ bool autocompleteCommand(
     if ( pGame->board.stackTypes[nextSquareIdx] == STONE_TYPE_STANDING
          && pGame->stackBuffer.stoneType != STONE_TYPE_CAP )
     {
-        pCommand->dropCounts[pCommand->drops - 1] = pGame->stackBuffer.stoneCount;
+        pCommand->dropCounts[pCommand->drops] = pGame->stackBuffer.stoneCount;
+        ++pCommand->drops;
 
         return true;
     }
@@ -66,7 +87,8 @@ bool autocompleteCommand(
     if ( pGame->board.stackTypes[nextSquareIdx] == STONE_TYPE_STANDING
          && pGame->stackBuffer.stoneType == STONE_TYPE_CAP )
     {
-        pCommand->dropCounts[pCommand->drops - 1] = pGame->stackBuffer.stoneCount - 1;
+        pCommand->dropCounts[pCommand->drops] = pGame->stackBuffer.stoneCount - 1;
+        ++pCommand->drops;
 
         return true;
     }
@@ -79,7 +101,8 @@ bool autocompleteCommand(
         || ( nextRankY >= pGame->board.size )
     )
     {
-        pCommand->dropCounts[pCommand->drops - 1] = pGame->stackBuffer.stoneCount;
+        pCommand->dropCounts[pCommand->drops] = pGame->stackBuffer.stoneCount;
+        ++pCommand->drops;
 
         return true;
     }
@@ -104,9 +127,17 @@ void buildCommand(
     );
 
     assert(
-        pInputBuffer
+        pGame
         && "Pointer is nullptr"
     );
+
+    if ( autocompleteCommand(
+             pCommand,
+             pGame
+         ) )
+    {
+        return;
+    };
 
     //* Temporary command
     Command command = *pCommand;
