@@ -79,10 +79,16 @@ void updateApp( App* const pApp )
 
     handleGlobalInput( pApp );
 
-    buildCommand(
-        &pApp->command,
-        &pApp->inputBuffer,
-        &pApp->game
-    );
+    if ( !autocompleteCommand(
+             &pApp->command,
+             &pApp->game
+         ) )
+    {
+        buildCommand(
+            &pApp->command,
+            &pApp->inputBuffer,
+            &pApp->game
+        );
+    }
 }
 

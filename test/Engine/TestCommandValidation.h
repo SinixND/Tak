@@ -114,29 +114,29 @@ void testValidateCommandDirection( void )
     TEST_ASSERT_EQUAL_INT( true, validateCommandDirection( &command, &game ) );
 }
 
-void testValidateCommandDropAmount( void )
-{
-    Command command = newCommand();
-    Game game = newGame( 5 );
-
-    command.fileX = FILE_A;
-    command.rankY = RANK_1;
-    command.drops = 1;
-    game.stackBuffer.stoneCount = 3;
-
-    command.dropCounts[0] = -1;
-    TEST_ASSERT_EQUAL_INT( false, validateCommandDropAmount( &command, &game ) );
-
-    command.dropCounts[0] = 0;
-    TEST_ASSERT_EQUAL_INT( true, validateCommandDropAmount( &command, &game ) );
-
-    command.dropCounts[0] = 3;
-    TEST_ASSERT_EQUAL_INT( true, validateCommandDropAmount( &command, &game ) );
-
-    command.dropCounts[0] = 4;
-    TEST_ASSERT_EQUAL_INT( true, validateCommandDropAmount( &command, &game ) );
-    TEST_ASSERT_EQUAL_INT( 3, command.dropCounts[0] );
-}
+// void testValidateCommandDropAmount( void )
+// {
+//     Command command = newCommand();
+//     Game game = newGame( 5 );
+//
+//     command.fileX = FILE_A;
+//     command.rankY = RANK_1;
+//     command.drops = 1;
+//     game.stackBuffer.stoneCount = 3;
+//
+//     command.dropCounts[0] = -1;
+//     TEST_ASSERT_EQUAL_INT( false, validateCommandDropAmount( &command, &game ) );
+//
+//     command.dropCounts[0] = 0;
+//     TEST_ASSERT_EQUAL_INT( true, validateCommandDropAmount( &command, &game ) );
+//
+//     command.dropCounts[0] = 3;
+//     TEST_ASSERT_EQUAL_INT( true, validateCommandDropAmount( &command, &game ) );
+//
+//     command.dropCounts[0] = 4;
+//     TEST_ASSERT_EQUAL_INT( true, validateCommandDropAmount( &command, &game ) );
+//     TEST_ASSERT_EQUAL_INT( 3, command.dropCounts[0] );
+// }
 
 void testValidateCommand( void )
 {

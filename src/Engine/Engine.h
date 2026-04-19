@@ -5,6 +5,17 @@
 #include "Event.h"
 #include "Game.h"
 #include "InputBuffer.h"
+#include <stdbool.h>
+
+/**
+ * @brief: Autocomplete command if certain conditions are met
+ *
+ * Returns true if command was autocompleted
+ */
+bool autocompleteCommand(
+    Command* const pCommand,
+    Game const* const pGame
+);
 
 /**
  * @brief: Build command from input and against game

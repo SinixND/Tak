@@ -1,10 +1,40 @@
 #ifndef IG20260415174842
 #define IG20260415174842
 
+#include "ActionTypeId.h"
 #include "Command.h"
+#include "CommandStateId.h"
 #include "Engine.h"
 #include "Event.h"
+#include "Game.h"
+#include "InputBuffer.h"
 #include <unity.h>
+
+void testAutocompleteCommand( void )
+{
+}
+
+void testBuildCommand( void )
+{
+    Command command = newCommand();
+    InputBuffer inputBuffer = newInputBuffer();
+    Game game = newGame( 5 );
+
+    command.state = STATE_GET_DROP_AMOUNT;
+    command.actionType = ACTION_TYPE_DROP;
+    command.drops = 1;
+    command.dropCounts[0] = 2;
+    game.stackBuffer.stoneCount = 3;
+    inputBuffer.keyboard = INPUT_4;
+
+    buildCommand(
+        &command,
+        &inputBuffer,
+        &game
+    );
+
+    TEST_ASSERT_EQUAL_INT( 3, command.dropCounts[1] );
+}
 
 void testBuildEvent( void )
 {

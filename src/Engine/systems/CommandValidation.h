@@ -12,10 +12,10 @@ bool validateCommand(
 );
 
 /**
-* @brief: Check if...
-* ... playerId matches game.active player
-* ... action type is either `Place` or `Lift`
- */ 
+ * @brief: Check if...
+ * ... playerId matches game.active player
+ * ... action type is either `Place` or `Lift`
+ */
 bool validateCommandActionType(
     Command const* const pCommand,
     Game const* const pGame
@@ -45,7 +45,7 @@ bool validateCommandDirection(
     Game const* const pGame
 );
 
-/// Caps drop count to stackBuffer size if value exceeds size
+/// Check if drop is valid; Also considers possible next drops
 bool validateCommandDropAmount(
     Command* const pCommand,
     Game const* const pGame
