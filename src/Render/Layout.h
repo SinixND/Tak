@@ -5,12 +5,12 @@ enum
 {
     LAYOUT_PANE_HEIGHT = 13,
     LAYOUT_PANE_WIDTH = 17,
-    BOARD_OFFSET = LAYOUT_PANE_WIDTH + 2,
+    BOARD_OFFSET_X = LAYOUT_PANE_WIDTH + 2,
     LAYOUT_BOARD_SQUARE_SIZE = 4,
     MAX_COMMAND_LENGTH = 11,
 };
 
-//* Positions
+//* Positions (y, x)
 static int const POSITION_STACK_BUFFER[] = { 2, 3 };
 static int const POSITION_WHITE_RESERVES_REGULAR[] = { 6, 8 };
 static int const POSITION_WHITE_RESERVES_CAPSTONE[] = { 6, 11 };
@@ -41,12 +41,11 @@ static char* const LAYOUT_INFO_PANE[] = {
     "History:",
 };
 
-static char* const LAYOUT_BOARD_HEADER_RANK = {
-    "   A   B   C   D   E   F   G   H",
+static char* const LAYOUT_LABELS_FILE = {
+    "  A   B   C   D   E   F   G   H",
 };
 
-static char* const LAYOUT_BOARD_HEADER_FILE[] = {
-    " ",
+static char* const LAYOUT_LABELS_RANK[] = {
     " ",
     " ",
     "8",

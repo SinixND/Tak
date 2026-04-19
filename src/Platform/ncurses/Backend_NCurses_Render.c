@@ -15,14 +15,43 @@ void renderStatic( App* const pApp )
         pApp->game.board.size
     );
 
+    int const boardSize = pApp->game.board.size;
+
     //* Render info pane
-    for ( int idx = 0; idx < ( LAYOUT_PANE_HEIGHT ); ++idx )
+    for ( int paneIdx = 0; paneIdx < ( LAYOUT_PANE_HEIGHT ); ++paneIdx )
     {
         mvprintw(
-            idx,
+            paneIdx,
             0,
             "%s",
-            LAYOUT_INFO_PANE[idx]
+            LAYOUT_INFO_PANE[paneIdx]
+        );
+    }
+
+    //* Render top file labels
+    int const fileLabelsOffsetX = 1;
+
+    mvprintw(
+        0,
+        BOARD_OFFSET_X + fileLabelsOffsetX,
+        "%s",
+        LAYOUT_LABELS_FILE
+    );
+
+    //* Render left rank labels
+    int const ruleLabelsOffsetY = 1;
+
+    int const offsetIntoRankLabelsLayout
+        = ( ( BOARD_SIZE_MAX - boardSize )
+            * LAYOUT_BOARD_SQUARE_SIZE );
+
+    for ( int y = 0; y < ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ); ++y )
+    {
+        mvprintw(
+            y + ruleLabelsOffsetY,
+            BOARD_OFFSET_X,
+            "%s",
+            LAYOUT_LABELS_RANK[offsetIntoRankLabelsLayout + y]
         );
     }
 }
