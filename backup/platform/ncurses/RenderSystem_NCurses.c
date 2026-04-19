@@ -8,9 +8,9 @@
 #include <assert.h>
 #include <ncurses.h>
 
-void renderStatic( App* const app )
+void renderStatic( App* const pApp )
 {
-    int const boardSize = app->game.board.width;
+    int const boardSize = pApp->game.board.size;
 
     //* Render info pane
     for ( int idx = 0; idx < ( LAYOUT_PANE_HEIGHT ); ++idx )
@@ -33,7 +33,7 @@ void renderStatic( App* const app )
     );
 
     //* Render left board header
-    int offsetIntoLayout = ( ( BOARD_WIDTH_MAX - boardSize ) * LAYOUT_BOARD_SQUARE_SIZE ) + 1;
+    int offsetIntoLayout = ( ( BOARD_SIZE_MAX - boardSize ) * LAYOUT_BOARD_SQUARE_SIZE ) + 1;
 
     for ( int y = 0; y < ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ); ++y )
     {

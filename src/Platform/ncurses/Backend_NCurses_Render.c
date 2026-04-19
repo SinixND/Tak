@@ -1,6 +1,8 @@
 #include "BackendInterface.h"
+#include "Layout.h"
 
 #ifdef BACKEND_NCURSES
+
 #include <ncurses.h>
 
 void renderStatic( App* const pApp )
@@ -12,6 +14,17 @@ void renderStatic( App* const pApp )
         "BoardSize: ",
         pApp->game.board.size
     );
+
+    //* Render info pane
+    for ( int idx = 0; idx < ( LAYOUT_PANE_HEIGHT ); ++idx )
+    {
+        mvprintw(
+            idx,
+            0,
+            "%s",
+            LAYOUT_INFO_PANE[idx]
+        );
+    }
 }
 
 void renderDynamic( App* const pApp )
