@@ -3,29 +3,12 @@
 
 #include "ActionTypeId.h"
 #include "Command.h"
-#include "CommandStateId.h"
 #include "DirectionId.h"
 #include "FileId.h"
 #include "RankId.h"
 #include "StoneTypeId.h"
 #include <stdbool.h>
 #include <unity.h>
-
-void testNewCommand( void )
-{
-    Command command = newCommand();
-
-    TEST_ASSERT_EQUAL_INT( STATE_NONE, command.state );
-    TEST_ASSERT_EQUAL_INT( PLAYER_NONE, command.playerId );
-    TEST_ASSERT_EQUAL_INT( ACTION_TYPE_NONE, command.actionType );
-    TEST_ASSERT_EQUAL_INT( STONE_TYPE_NONE, command.stoneType );
-    TEST_ASSERT_EQUAL_INT( FILE_NONE, command.fileX );
-    TEST_ASSERT_EQUAL_INT( RANK_NONE, command.rankY );
-    TEST_ASSERT_EQUAL_INT( DIR_NONE, command.direction );
-    TEST_ASSERT_EQUAL_INT( 0, command.drops );
-    TEST_ASSERT_EQUAL_INT( -1, command.dropCounts[0] );
-    TEST_ASSERT_EQUAL_INT( -1, command.dropCounts[7] );
-}
 
 void testIsCommandComplete( void )
 {

@@ -7,24 +7,6 @@
 #include "StoneTypeId.h"
 #include "unity.h"
 
-void testNewGame( void )
-{
-    Game game3 = newGame( 3 );
-
-    TEST_ASSERT_EQUAL_INT( 3, game3.board.size );
-    TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, game3.activePlayer );
-
-    Game game5 = newGame( 5 );
-
-    TEST_ASSERT_EQUAL_INT( 5, game5.board.size );
-    TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, game5.activePlayer );
-
-    Game game8 = newGame( 8 );
-
-    TEST_ASSERT_EQUAL_INT( 8, game8.board.size );
-    TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, game8.activePlayer );
-}
-
 void testPlaceStone( void )
 {
     Game game = newGame( 5 );

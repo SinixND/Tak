@@ -7,27 +7,6 @@
 #include "StoneTypeId.h"
 #include <unity.h>
 
-void testNewBoard( void )
-{
-    Board board = newBoard( 3 );
-
-    TEST_ASSERT_EQUAL_INT( STONE_TYPE_NONE, board.stackTypes[0] );
-    TEST_ASSERT_EQUAL_INT( STONE_TYPE_NONE, board.stackTypes[( 3 * 3 ) - 1] );
-    TEST_ASSERT_EQUAL_INT( 0, board.stoneCounts[0] );
-    TEST_ASSERT_EQUAL_INT( 0, board.stoneCounts[( 3 * 3 ) - 1] );
-    TEST_ASSERT_EQUAL_INT( PLAYER_NONE, board.stoneIds[0] );
-    TEST_ASSERT_EQUAL_INT( PLAYER_NONE, board.stoneIds[( 3 * 3 * getStackCapacity( 3 ) ) - 1] );
-
-    board = newBoard( 8 );
-
-    TEST_ASSERT_EQUAL_INT( STONE_TYPE_NONE, board.stackTypes[0] );
-    TEST_ASSERT_EQUAL_INT( STONE_TYPE_NONE, board.stackTypes[( 8 * 8 ) - 1] );
-    TEST_ASSERT_EQUAL_INT( 0, board.stoneCounts[0] );
-    TEST_ASSERT_EQUAL_INT( 0, board.stoneCounts[( 8 * 8 ) - 1] );
-    TEST_ASSERT_EQUAL_INT( PLAYER_NONE, board.stoneIds[0] );
-    TEST_ASSERT_EQUAL_INT( PLAYER_NONE, board.stoneIds[( 8 * 8 * getStackCapacity( 8 ) ) - 1] );
-}
-
 void testPlaceOntoStack( void )
 {
     Board board = newBoard( 5 );

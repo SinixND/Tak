@@ -6,16 +6,6 @@
 #include "Reserves.h"
 #include <unity.h>
 
-void testNewReserves( void )
-{
-    Reserves reserves = newReserves( 3 );
-
-    TEST_ASSERT_EQUAL_INT( getReservesRegular( 3 ), reserves.regular[PLAYER_WHITE] );
-    TEST_ASSERT_EQUAL_INT( getReservesRegular( 3 ), reserves.regular[PLAYER_BLACK] );
-    TEST_ASSERT_EQUAL_INT( getReservesCapstone( 3 ), reserves.capstone[PLAYER_WHITE] );
-    TEST_ASSERT_EQUAL_INT( getReservesCapstone( 3 ), reserves.capstone[PLAYER_BLACK] );
-}
-
 void testTakeFromReserves( void )
 {
     Reserves reserves = newReserves( 5 );

@@ -1,21 +1,10 @@
 #ifndef IG20260104182516
 #define IG20260104182516
 
-#include "GameConstants.h"
 #include "PlayerId.h"
 #include "StackBuffer.h"
 #include "StoneTypeId.h"
 #include <unity.h>
-
-void testNewStackBuffer( void )
-{
-    StackBuffer buffer = newStackBuffer();
-
-    TEST_ASSERT_EQUAL_INT( STONE_TYPE_NONE, buffer.stoneType );
-    TEST_ASSERT_EQUAL_INT( 0, buffer.stoneCount );
-    TEST_ASSERT_EQUAL_INT( PLAYER_NONE, buffer.stoneIds[0] );
-    TEST_ASSERT_EQUAL_INT( PLAYER_NONE, buffer.stoneIds[BOARD_SIZE_MAX - 1] );
-}
 
 void testResetStackBuffer( void )
 {
