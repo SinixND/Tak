@@ -27,14 +27,18 @@ void pollInput( InputBuffer* const pInput );
  * @brief: Render static, non-changing content
  *
  * Renders:
- * - Board w/ edges and square corners
- * - Board headers (file/rank display)
  * - Info pane (static content)
- * - Separator line
+ * - Board
  */
 void renderStatic( App* const app );
 
-/// Render dynamic application content
+/**
+ * @brief: Render dynamic, changing content
+ *
+ * Renders:
+ * - Info pane content
+ * - Board content
+ */
 void renderDynamic( App* const pApp );
 
 #endif

@@ -273,14 +273,13 @@ void renderInfoPaneContent( App const* const pApp )
         PLAYER_CHARS[pApp->game.activePlayer]
     );
 
-    // TODO:
     //* Print required input
-    // mvprintw(
-    //     POSITION_INPUT_TYPE[0],
-    //     POSITION_INPUT_TYPE[1],
-    //     "%s",
-    //     pApp->prompt.input
-    // );
+    mvprintw(
+        POSITION_INPUT_TYPE[0],
+        POSITION_INPUT_TYPE[1],
+        "%s",
+        pApp->prompt.input
+    );
 
     // TODO:
     //* Print possible input options

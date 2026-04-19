@@ -171,9 +171,6 @@ void changeState(
 {
     //* Update prompt
     app->prompt = PROMPTS[state];
-
-    //* Change state
-    app->state = state;
 }
 
 void handleStateFirstTurn( App* const app )

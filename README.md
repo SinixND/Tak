@@ -151,38 +151,21 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 
 
 ## ToDo notes
+- [ ] Render input type (aka command state), input options and command
+- [ ] Add option to drop all (INPUT_A)
+- [ ] ? Add Keybind abstraction (eg. "INPUT_QUIT = INPUT_Q")
+- [ ] Add dirty map
+- [ ] ? Add Statusline
+- [ ] ? Remove event (not needed)
+
+<p align="right">(<a href="#readme-top">top</a>)</p>
+
+
+## Notes
 - Ignore History/Undo/Redo for now
 - Ignore (rule) validation for now
 - Game state modification -> game
 - App component logic -> engine
 - Linking input/engine/render (in loop) -> app
-
-- [ ] Remove event (not needed)?
-- [ ] Add option to drop all (INPUT_A)
-- [ ] Add Keybind abstraction? (eg. "INPUT_QUIT = INPUT_Q")
-
-- [ ] Build event from command
-    - [x] Add isCommandComplete
-    - [x] Add buildEvent
-    - [ ] Add buildCommand
-
-Module eventBuilder(FSM):
-- [ ] "What data is needed to build a game event?"
-  - Multiple inputs -> User command (FSM built)
-  - Module-In: inputBuffer
-  - State data: relevant Event content
-  - Module-Out: isEventComplete(), buildEvent(), buildCommand()
-
-- [x] "What data is needed to get user input?"
-  - Per frame inputBuffer
-  - System-In: backend
-  - System-Out: inputBuffer (normalized app input)
-  - No state
-
-
-- [ ] Move EventExecution to App?
-- [ ] Add dirty map
-- [ ] Add Statusline?
-- [ ] Add keybindings to readme
 
 <p align="right">(<a href="#readme-top">top</a>)</p>
