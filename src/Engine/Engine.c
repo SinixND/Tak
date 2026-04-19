@@ -20,17 +20,17 @@ void buildCommand(
         pCommand
         && "Pointer is nullptr"
     );
-    
+
     assert(
         pInputBuffer
         && "Pointer is nullptr"
     );
-    
+
     assert(
         pInputBuffer
         && "Pointer is nullptr"
     );
-    
+
     //* Temporary command
     Command command = *pCommand;
 
@@ -41,6 +41,12 @@ void buildCommand(
          ) )
     {
         return;
+    }
+
+    //* Cap drop count
+    if ( command.dropCounts[command.drops - 1] > pGame->stackBuffer.stoneCount )
+    {
+        command.dropCounts[command.drops - 1] = pGame->stackBuffer.stoneCount;
     }
 
     //* Validate input against game
