@@ -1,41 +1,10 @@
 #include "BackendInterface.h"
+
+#include "InputBuffer.h"
 #include <assert.h>
 
 #ifdef BACKEND_NCURSES
-
-#include "App.h"
-#include "InputBuffer.h"
-
 #include <ncurses.h>
-
-void setupBackend( void )
-{
-    initscr(); // Start ncurses mode
-    cbreak();  // Disable line buffering, pass keys to program immediately
-    // halfdelay( 1 ); // Non-blocking: Waits n/10ths of a second for input
-    noecho();      // Don’t print typed characters automatically
-    curs_set( 0 ); // Hide cursor
-
-    keypad( stdscr, TRUE ); // Enable arrow keys and function keys
-}
-
-void closeBackend( void )
-{
-    endwin(); // Restore terminal
-}
-
-void loopBackend( App* const pApp )
-{
-    assert(
-        pApp
-        && "Pointer is nullptr"
-    );
-
-    while ( !pApp->shouldClose )
-    {
-        updateFrame( pApp );
-    }
-}
 
 void pollInput( InputBuffer* const pInput )
 {
@@ -208,27 +177,6 @@ void pollInput( InputBuffer* const pInput )
             return;
         }
     }
-}
-
-void renderStatic( App* const pApp )
-{
-    mvprintw(
-        0,
-        0,
-        "%s %i",
-        "BoardSize: ",
-        pApp->game.board.size
-    );
-}
-
-void renderDynamic( App* const pApp )
-{
-    mvprintw(
-        1,
-        0,
-        "%c",
-        INPUT_CHARS[pApp->inputBuffer.keyboard]
-    );
 }
 
 #endif
