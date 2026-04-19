@@ -13,7 +13,6 @@
 [5] Request Direction
 [6] Request First Drop Count
 [7] Request Drop Count
-[8] Event complete
 
 
 ### Flow / Paths:
@@ -21,28 +20,16 @@
     ---> [2] Request StoneType
     ---> [3] Request FileX
     ---> [4] Request RankY
-    ---> [8] Event complete
 
-[1] Request Action (Path 2: `Lift`)
+[1] Request Action (Path 2: `Move`)
     ---> [3] Request FileX
     ---> [4] Request RankY
-    ---> [8] Event complete
+
+[4] Request RankY (Path 1: `Action: Placement`)
     ---> [1] Request Action
 
-[1] Request Action (Path 3: `Drop`)
+[4] Request RankY (Path 2: `Action: Move`)
     ---> [5] Request Direction
     ---> [6] Request First Drop Count
-
-[6] Request First Drop Count (Path 1: `Event not complete`)
     ---> [7] Request Drop Count
 
-[6] Request First Drop Count (Path 2: `Event complete`)
-    ---> [8] Event complete
-    ---> [1] Request Action
-
-[7] Request Drop Count (Path 1: `Event not complete`)
-    ---> [7] Request Drop Count
-
-[7] Request Drop Count (Path 2: `Event complete`)
-    ---> [8] Event complete
-    ---> [1] Request Action

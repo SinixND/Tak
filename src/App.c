@@ -34,6 +34,8 @@ App newApp( int const boardSize )
         .shouldClose = false,
     };
 
+    // TODO: Move to first turn handler later
+    app.command.actionType = ACTION_TYPE_PLACE;
     app.command.state = STATE_GET_FILE_X;
     app.prompt = PROMPTS[app.command.state];
 

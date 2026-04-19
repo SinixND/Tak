@@ -58,7 +58,7 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 [![cppcheck](https://img.shields.io/badge/analyser-cppcheck-darkblue?style=for-the-badge)](https://cppcheck.sourceforge.io/)
 
 #### Libraries (not provided)
-[![ncurses](https://img.shields.io/badge/library-raylib-white?style=for-the-badge)](https://github.com/raysan5/raylib)
+[![ncurses](https://img.shields.io/badge/library-ncurses-white?style=for-the-badge)](https://invisible-island.net/ncurses/)
 [![raylib](https://img.shields.io/badge/library-raylib-white?style=for-the-badge)](https://github.com/raysan5/raylib)
 
 #### Libraries (provided)
@@ -151,12 +151,21 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 
 
 ## ToDo notes
+- [x] Tick command state machine after validation
+    - [ ] Test!
+- [ ] StoneType after RankY
+- [ ] Update readme
 - [ ] Render input type (aka command state), input options and command
+- [ ] Handle turn end
+- [ ] Handle first and second turn (AppState?)
 - [ ] Add option to drop all (INPUT_A)
-- [ ] ? Add Keybind abstraction (eg. "INPUT_QUIT = INPUT_Q")
-- [ ] Add dirty map
-- [ ] ? Add Statusline
-- [ ] ? Remove event (not needed)
+    - [ ] Test!
+- [ ] Choose game size at start
+    - [ ] Test!
+- [ ] Add dirty map (rendering)
+- [ ] ?? Add Keybind abstraction (eg. "INPUT_QUIT = INPUT_Q")
+- [ ] ?? Add Statusline
+- [ ] ?? Remove event (not needed)
 
 <p align="right">(<a href="#readme-top">top</a>)</p>
 

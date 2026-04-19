@@ -5,6 +5,7 @@
 #include "CommandStateId.h"
 #include "DirectionId.h"
 #include "FileId.h"
+#include "Game.h"
 #include "GameConstants.h"
 #include "PlayerId.h"
 #include "RankId.h"
@@ -28,6 +29,12 @@ typedef struct Command
 
 /// Return initialized player command object
 Command newCommand( void );
+
+/// Tick command state machine
+void setNextCommandState(
+    Command* const pCommand,
+    Game const* const pGame
+);
 
 /// Check if event can be build from command
 bool isCommandComplete( Command const* const pCommand );

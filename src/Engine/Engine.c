@@ -166,7 +166,13 @@ void buildCommand(
         return;
     }
 
-    //* Update command
+    //* Update command state
+    setNextCommandState(
+        &command,
+        pGame
+    );
+
+    //* Copy temp command to original
     *pCommand = command;
 }
 

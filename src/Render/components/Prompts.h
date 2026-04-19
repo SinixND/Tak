@@ -6,6 +6,11 @@
 
 static Prompt const PROMPTS[] = {
     // clang-format off
+    [STATE_NONE] 
+        = { 
+            .input = " ---      ", 
+            .options = " ---      " 
+        },
     [STATE_GET_ACTION_TYPE] 
         = { 
             .input = "Action    ", 

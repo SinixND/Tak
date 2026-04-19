@@ -281,16 +281,13 @@ void renderInfoPaneContent( App const* const pApp )
         pApp->prompt.input
     );
 
-    // TODO:
     //* Print possible input options
-    // mvprintw(
-    //     POSITION_INPUT_OPTIONS[0],
-    //     POSITION_INPUT_OPTIONS[1],
-    //     "%s",
-    //     pApp->prompt.options
-    // );
-
-    // TODO: Print history
+    mvprintw(
+        POSITION_INPUT_OPTIONS[0],
+        POSITION_INPUT_OPTIONS[1],
+        "%s",
+        pApp->prompt.options
+    );
 
     // TODO:
     //* Print current player input
@@ -302,6 +299,8 @@ void renderInfoPaneContent( App const* const pApp )
     //     "%s",
     //     pApp->inputBuffer.currentCommand
     // );
+
+    // TODO: Print history
 }
 
 // void renderStackBufferContent( App const* const pApp );
