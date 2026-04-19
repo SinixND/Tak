@@ -42,6 +42,7 @@ void setupApp( void )
 void runApp( App* const pApp )
 {
     renderStatic( pApp );
+    renderDynamic( pApp );
 
     loopBackend( pApp );
 }

@@ -8,7 +8,7 @@
 6   +   +  R|C       +   +   +   +   +   +   +   +   + 
 7 White:  ##|#        #xo \xo @xo F10 F10 F10 F10 F10  
 8 Black:  ##|#      7 xox xox xox 101 101 101 101 101 7
-9 Turn : WHITE [x]    oxo oxo oxo 010 010 010 010 010  
+9 Active: WHITE [x]   oxo oxo oxo 010 010 010 010 010  
 1 Input: File / Col  +   +   +   +   +   +   +   +   + 
 1 Opts : N, E, S, W   F10 F10 F10 F10 F10 F10 F10 F10  
 2 > $$$$$$$$$$$$    6 101 101 101 101 101 101 101 101 6

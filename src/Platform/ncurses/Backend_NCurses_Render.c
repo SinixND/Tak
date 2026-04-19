@@ -1,3 +1,4 @@
+#include "App.h"
 #include "BackendInterface.h"
 
 #include "Layout.h"
@@ -28,6 +29,10 @@ void renderBoardEdges(
     int const ruleLabelsOffsetY,
     int const boardSize
 );
+
+void renderInfoPaneContent( App const* const pApp );
+void renderStackBufferContent( App const* const pApp );
+void renderBoardContent( App const* const pApp );
 
 void renderStatic( App* const pApp )
 {
@@ -210,6 +215,98 @@ void renderDynamic( App* const pApp )
         "%c",
         INPUT_CHARS[pApp->inputBuffer.keyboard]
     );
+
+    renderInfoPaneContent( pApp );
+    // renderStackBufferContent( pApp );
+    // renderBoardContent( pApp );
+
+    refresh();
 }
+
+void renderInfoPaneContent( App const* const pApp )
+{
+    //* Print white regular reserves
+    mvprintw(
+        POSITION_WHITE_RESERVES_REGULAR[0],
+        POSITION_WHITE_RESERVES_REGULAR[1],
+        "%2i",
+        pApp->game.reserves.regular[PLAYER_WHITE]
+    );
+
+    //* Print white capston reserves
+    mvprintw(
+        POSITION_WHITE_RESERVES_CAPSTONE[0],
+        POSITION_WHITE_RESERVES_CAPSTONE[1],
+        "%i",
+        pApp->game.reserves.capstone[PLAYER_WHITE]
+    );
+
+    //* Print black regular reserves
+    mvprintw(
+        POSITION_BLACK_RESERVES_REGULAR[0],
+        POSITION_BLACK_RESERVES_REGULAR[1],
+        "%2i",
+        pApp->game.reserves.regular[PLAYER_BLACK]
+    );
+
+    //* Print black capston reserves
+    mvprintw(
+        POSITION_BLACK_RESERVES_CAPSTONE[0],
+        POSITION_BLACK_RESERVES_CAPSTONE[1],
+        "%i",
+        pApp->game.reserves.capstone[PLAYER_BLACK]
+    );
+
+    //* Print active player
+    mvprintw(
+        POSITION_ACTIVE_PLAYER[0],
+        POSITION_ACTIVE_PLAYER[1],
+        "%s",
+        ( pApp->game.activePlayer == PLAYER_WHITE ) ? "WHITE" : "BLACK"
+    );
+
+    //* Print active player symbol
+    mvprintw(
+        POSITION_PLAYER_SYMBOL[0],
+        POSITION_PLAYER_SYMBOL[1],
+        "%c",
+        PLAYER_CHARS[pApp->game.activePlayer]
+    );
+
+    // TODO:
+    //* Print required input
+    // mvprintw(
+    //     POSITION_INPUT_TYPE[0],
+    //     POSITION_INPUT_TYPE[1],
+    //     "%s",
+    //     pApp->prompt.input
+    // );
+
+    // TODO:
+    //* Print possible input options
+    // mvprintw(
+    //     POSITION_INPUT_OPTIONS[0],
+    //     POSITION_INPUT_OPTIONS[1],
+    //     "%s",
+    //     pApp->prompt.options
+    // );
+
+    // TODO: Print history
+
+    // TODO:
+    //* Print current player input
+    //* W:@c#
+    //* B:#c#+#######
+    // mvprintw(
+    //     POSITION_INPUT_CURRENT[0],
+    //     POSITION_INPUT_CURRENT[1],
+    //     "%s",
+    //     pApp->inputBuffer.currentCommand
+    // );
+}
+
+// void renderStackBufferContent( App const* const pApp );
+
+// void renderBoardContent( App const* const pApp );
 
 #endif
