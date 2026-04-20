@@ -55,9 +55,6 @@ int main( void )
     RUN_TEST( testGetOffsetX );
     RUN_TEST( testGetOffsetY );
 
-    //* Command
-    RUN_TEST( testIsCommandComplete );
-
     //* Input parsing
     RUN_TEST( testParseInputActionType );
     RUN_TEST( testParseInputStoneType );
@@ -76,6 +73,10 @@ int main( void )
     RUN_TEST( testValidateCommandDirection );
     // RUN_TEST( testValidateCommandDropAmount ); // INFO: No validation for drops at the moment
     RUN_TEST( testValidateCommand );
+
+    //* Command
+    RUN_TEST( testSetNextCommandState );
+    RUN_TEST( testIsCommandComplete );
 
     //* Engine
     RUN_TEST( testAutocompleteCommand );

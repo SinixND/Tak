@@ -151,9 +151,6 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 
 
 ## ToDo notes
-- [x] Tick command state machine after validation
-    - [ ] Test!
-- [ ] StoneType after RankY
 - [ ] Update readme
 - [ ] Render input type (aka command state), input options and command
 - [ ] Handle turn end
@@ -163,6 +160,7 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 - [ ] Choose game size at start
     - [ ] Test!
 - [ ] Add dirty map (rendering)
+- [ ] ?? StoneType after RankY
 - [ ] ?? Add Keybind abstraction (eg. "INPUT_QUIT = INPUT_Q")
 - [ ] ?? Add Statusline
 - [ ] ?? Remove event (not needed)
