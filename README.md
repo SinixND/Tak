@@ -122,17 +122,13 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 
 
 ### Code & Directory Strcture
-- Components: Data only
+- Components: Structs and functions only having those structs as parameters
 
-- Entities: SoAs that link Entities/Ids to (their) components/data
+- Systems: Multi-struct functions
 
-- Systems: Logic only (on components/entities)
+- Constants: Constant, shared variables
 
-- Data: Constant, shared variables
-
-- Configs: Changeable, shared variables
-
-- Utility: Shared functions
+- Utility: Helper functions
 
 <p align="right">(<a href="#readme-top">top</a>)</p>
 
@@ -151,8 +147,7 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 
 
 ## ToDo notes
-- [ ] Update readme
-- [ ] Render input type (aka command state), input options and command
+- [ ] Render command
 - [ ] Render stackBuffer and board content
 - [ ] Handle turn end
 - [ ] Handle first and second turn (AppState?)
