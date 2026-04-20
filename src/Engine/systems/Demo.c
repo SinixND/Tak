@@ -2,43 +2,94 @@
 
 #include "App.h"
 #include "Game.h"
-#include "GameConstants.h"
+#include "StoneTypeId.h"
 #include <stdbool.h>
 
-void demo( void )
+void demo( App* const pApp )
 {
-    App app = newApp( BOARD_SIZE_DEFAULT );
-
     placeStone(
-        &app.game,
+        &pApp->game,
         PLAYER_WHITE,
         0,
         STONE_TYPE_FLAT
     );
 
     liftStack(
-        &app.game,
+        &pApp->game,
         0
     );
 
     dropStone(
-        &app.game,
+        &pApp->game,
         0
     );
 
     liftStone(
-        &app.game,
+        &pApp->game,
         0,
         false
     );
 
     dropStack(
-        &app.game,
+        &pApp->game,
         0
     );
 
     takeStone(
-        &app.game,
+        &pApp->game,
         0
+    );
+
+    placeStone(
+        &pApp->game,
+        PLAYER_BLACK,
+        1,
+        STONE_TYPE_STANDING
+    );
+
+    placeStone(
+        &pApp->game,
+        PLAYER_WHITE,
+        2,
+        STONE_TYPE_FLAT
+    );
+
+    liftStack(
+        &pApp->game,
+        1
+    );
+
+    dropStack(
+        &pApp->game,
+        2
+    );
+
+    placeStone(
+        &pApp->game,
+        PLAYER_BLACK,
+        3,
+        STONE_TYPE_STANDING
+    );
+
+    placeStone(
+        &pApp->game,
+        PLAYER_WHITE,
+        4,
+        STONE_TYPE_FLAT
+    );
+
+    liftStack(
+        &pApp->game,
+        3
+    );
+
+    dropStack(
+        &pApp->game,
+        4
+    );
+
+    liftStack(
+        &pApp->game,
+        4
     );
 }

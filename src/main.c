@@ -4,10 +4,10 @@
 
 int main( void )
 {
-    // TODO: Remove
-    demo();
-
     App app = newApp( BOARD_SIZE_DEFAULT );
+
+    // TODO: Remove
+    demo( &app );
 
     setupApp();
     runApp( &app );
