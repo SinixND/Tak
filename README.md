@@ -147,8 +147,8 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 
 
 ## ToDo notes
+- [ ] Render board content
 - [ ] Render command
-- [ ] Render stackBuffer and board content
 - [ ] Handle turn end
 - [ ] Handle first and second turn (AppState?)
 - [ ] Add option to drop all (INPUT_A)

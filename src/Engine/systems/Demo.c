@@ -1,7 +1,9 @@
 #include "Demo.h"
 
 #include "App.h"
+#include "Board.h"
 #include "Game.h"
+#include "PlayerId.h"
 #include "StoneTypeId.h"
 #include <stdbool.h>
 
@@ -40,56 +42,37 @@ void demo( App* const pApp )
         0
     );
 
+    //* Prepare
     placeStone(
         &pApp->game,
         PLAYER_BLACK,
         1,
-        STONE_TYPE_STANDING
+        STONE_TYPE_FLAT
     );
 
-    placeStone(
-        &pApp->game,
+    putOntoStack(
+        &pApp->game.board,
         PLAYER_WHITE,
-        2,
+        1,
         STONE_TYPE_FLAT
+    );
+
+    putOntoStack(
+        &pApp->game.board,
+        PLAYER_BLACK,
+        1,
+        STONE_TYPE_FLAT
+    );
+
+    putOntoStack(
+        &pApp->game.board,
+        PLAYER_WHITE,
+        1,
+        STONE_TYPE_STANDING
     );
 
     liftStack(
         &pApp->game,
         1
-    );
-
-    dropStack(
-        &pApp->game,
-        2
-    );
-
-    placeStone(
-        &pApp->game,
-        PLAYER_BLACK,
-        3,
-        STONE_TYPE_STANDING
-    );
-
-    placeStone(
-        &pApp->game,
-        PLAYER_WHITE,
-        4,
-        STONE_TYPE_FLAT
-    );
-
-    liftStack(
-        &pApp->game,
-        3
-    );
-
-    dropStack(
-        &pApp->game,
-        4
-    );
-
-    liftStack(
-        &pApp->game,
-        4
     );
 }

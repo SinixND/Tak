@@ -217,7 +217,7 @@ void renderDynamic( App* const pApp )
     );
 
     renderInfoPaneContent( pApp );
-    // renderStackBufferContent( pApp );
+    renderStackBufferContent( pApp );
     // renderBoardContent( pApp );
 
     refresh();
@@ -303,7 +303,28 @@ void renderInfoPaneContent( App const* const pApp )
     // TODO: Print history
 }
 
-// void renderStackBufferContent( App const* const pApp );
+void renderStackBufferContent( App const* const pApp )
+{
+    //* Render buffer type
+    mvaddch(
+        POSITION_STACK_BUFFER[0],
+        POSITION_STACK_BUFFER[1],
+        STONE_TYPE_CHARS[pApp->game.stackBuffer.stoneType]
+    );
+
+    for ( int idx = 0; idx < pApp->game.stackBuffer.stoneCount; ++idx )
+    {
+        mvaddch(
+            POSITION_STACK_BUFFER[0]
+                + ( ( 1 + idx )
+                    % ( LAYOUT_BOARD_SQUARE_SIZE - 1 ) ),
+            POSITION_STACK_BUFFER[1]
+                + ( ( 1 + idx )
+                    / ( LAYOUT_BOARD_SQUARE_SIZE - 1 ) ),
+            PLAYER_CHARS[pApp->game.stackBuffer.stoneIds[idx]]
+        );
+    }
+}
 
 // void renderBoardContent( App const* const pApp );
 
