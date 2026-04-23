@@ -46,33 +46,96 @@ void demo( App* const pApp )
     placeStone(
         &pApp->game,
         PLAYER_BLACK,
-        1,
+        0,
         STONE_TYPE_FLAT
     );
 
     putOntoStack(
         &pApp->game.board,
         PLAYER_WHITE,
-        1,
+        0,
         STONE_TYPE_FLAT
     );
 
     putOntoStack(
         &pApp->game.board,
         PLAYER_BLACK,
-        1,
+        0,
         STONE_TYPE_FLAT
     );
 
     putOntoStack(
         &pApp->game.board,
         PLAYER_WHITE,
-        1,
+        0,
+        STONE_TYPE_FLAT
+    );
+
+    putOntoStack(
+        &pApp->game.board,
+        PLAYER_BLACK,
+        0,
         STONE_TYPE_STANDING
     );
 
     liftStack(
         &pApp->game,
-        1
+        0
+    );
+
+    placeStone(
+        &pApp->game,
+        PLAYER_WHITE,
+        1,
+        STONE_TYPE_STANDING
+    );
+
+    placeStone(
+        &pApp->game,
+        PLAYER_BLACK,
+        2,
+        STONE_TYPE_STANDING
+    );
+
+    placeStone(
+        &pApp->game,
+        PLAYER_WHITE,
+        3,
+        STONE_TYPE_STANDING
+    );
+
+    placeStone(
+        &pApp->game,
+        PLAYER_BLACK,
+        4,
+        STONE_TYPE_FLAT
+    );
+
+    placeStone(
+        &pApp->game,
+        PLAYER_WHITE,
+        5,
+        STONE_TYPE_FLAT
+    );
+
+    placeStone(
+        &pApp->game,
+        PLAYER_BLACK,
+        6,
+        STONE_TYPE_STANDING
+    );
+
+    placeStone(
+        &pApp->game,
+        PLAYER_WHITE,
+        7,
+        STONE_TYPE_FLAT
+    );
+
+    placeStone(
+        &pApp->game,
+        PLAYER_BLACK,
+        8,
+        STONE_TYPE_FLAT
     );
 }

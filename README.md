@@ -147,7 +147,9 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 
 
 ## ToDo notes
+- [ ] Clear stack (and buffer?) if empty
 - [ ] Render board content
+- [ ] Change //* to //
 - [ ] Render command
 - [ ] Handle turn end
 - [ ] Handle first and second turn (AppState?)
@@ -156,7 +158,7 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 - [ ] Choose game size at start
     - [ ] Test!
 - [ ] Add dirty map (rendering)
-- [ ] ?? StoneType after RankY
+- [ ] ?? Unions?
 - [ ] ?? Add Keybind abstraction (eg. "INPUT_QUIT = INPUT_Q")
 - [ ] ?? Add Statusline
 - [ ] ?? Remove event (not needed)

@@ -2,6 +2,7 @@
 #include "BackendInterface.h"
 
 #include "Layout.h"
+#include "Position.h"
 
 #ifdef BACKEND_NCURSES
 #include <ncurses.h>
@@ -83,7 +84,7 @@ void renderFileLabels(
     int const boardSize
 )
 {
-    //* Top
+    // Top
     mvprintw(
         0,
         BOARD_OFFSET_X + fileLabelsOffsetX,
@@ -92,7 +93,7 @@ void renderFileLabels(
         LAYOUT_LABELS_FILE
     );
 
-    //* Bottom
+    // Bottom
     mvprintw(
         2 + ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ),
         BOARD_OFFSET_X + fileLabelsOffsetX,
@@ -111,7 +112,7 @@ void renderRankLabels(
         = ( ( BOARD_SIZE_MAX - boardSize )
             * LAYOUT_BOARD_SQUARE_SIZE );
 
-    //* Left
+    // Left
     for ( int y = 0; y < ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ); ++y )
     {
         mvprintw(
@@ -122,7 +123,7 @@ void renderRankLabels(
         );
     }
 
-    //* Right
+    // Right
     for ( int y = 0; y < ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ); ++y )
     {
         mvprintw(
@@ -166,7 +167,7 @@ void renderBoardEdges(
     int const boardSize
 )
 {
-    //* Render top board edge
+    // Render top board edge
     for ( int x = 0; x < ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ) - 1; ++x )
     {
         mvaddch(
@@ -176,7 +177,7 @@ void renderBoardEdges(
         );
     }
 
-    //* Render left board edge
+    // Render left board edge
     for ( int y = 0; y < ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ) - 1; ++y )
     {
         mvaddch(
@@ -186,7 +187,7 @@ void renderBoardEdges(
         );
     }
 
-    //* Render right board edge
+    // Render right board edge
     for ( int y = 0; y < ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ) - 1; ++y )
     {
         mvaddch(
@@ -196,7 +197,7 @@ void renderBoardEdges(
         );
     }
 
-    //* Render bottom board edge
+    // Render bottom board edge
     for ( int x = 0; x < ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ) - 1; ++x )
     {
         mvaddch(
@@ -218,14 +219,14 @@ void renderDynamic( App* const pApp )
 
     renderInfoPaneContent( pApp );
     renderStackBufferContent( pApp );
-    // renderBoardContent( pApp );
+    renderBoardContent( pApp );
 
     refresh();
 }
 
 void renderInfoPaneContent( App const* const pApp )
 {
-    //* Print white regular reserves
+    // Print white regular reserves
     mvprintw(
         POSITION_WHITE_RESERVES_REGULAR[0],
         POSITION_WHITE_RESERVES_REGULAR[1],
@@ -233,7 +234,7 @@ void renderInfoPaneContent( App const* const pApp )
         pApp->game.reserves.regular[PLAYER_WHITE]
     );
 
-    //* Print white capston reserves
+    // Print white capston reserves
     mvprintw(
         POSITION_WHITE_RESERVES_CAPSTONE[0],
         POSITION_WHITE_RESERVES_CAPSTONE[1],
@@ -241,7 +242,7 @@ void renderInfoPaneContent( App const* const pApp )
         pApp->game.reserves.capstone[PLAYER_WHITE]
     );
 
-    //* Print black regular reserves
+    // Print black regular reserves
     mvprintw(
         POSITION_BLACK_RESERVES_REGULAR[0],
         POSITION_BLACK_RESERVES_REGULAR[1],
@@ -249,7 +250,7 @@ void renderInfoPaneContent( App const* const pApp )
         pApp->game.reserves.regular[PLAYER_BLACK]
     );
 
-    //* Print black capston reserves
+    // Print black capston reserves
     mvprintw(
         POSITION_BLACK_RESERVES_CAPSTONE[0],
         POSITION_BLACK_RESERVES_CAPSTONE[1],
@@ -257,7 +258,7 @@ void renderInfoPaneContent( App const* const pApp )
         pApp->game.reserves.capstone[PLAYER_BLACK]
     );
 
-    //* Print active player
+    // Print active player
     mvprintw(
         POSITION_ACTIVE_PLAYER[0],
         POSITION_ACTIVE_PLAYER[1],
@@ -265,7 +266,7 @@ void renderInfoPaneContent( App const* const pApp )
         ( pApp->game.activePlayer == PLAYER_WHITE ) ? "WHITE" : "BLACK"
     );
 
-    //* Print active player symbol
+    // Print active player symbol
     mvprintw(
         POSITION_PLAYER_SYMBOL[0],
         POSITION_PLAYER_SYMBOL[1],
@@ -273,7 +274,7 @@ void renderInfoPaneContent( App const* const pApp )
         PLAYER_CHARS[pApp->game.activePlayer]
     );
 
-    //* Print required input
+    // Print required input
     mvprintw(
         POSITION_INPUT_TYPE[0],
         POSITION_INPUT_TYPE[1],
@@ -281,7 +282,7 @@ void renderInfoPaneContent( App const* const pApp )
         pApp->prompt.input
     );
 
-    //* Print possible input options
+    // Print possible input options
     mvprintw(
         POSITION_INPUT_OPTIONS[0],
         POSITION_INPUT_OPTIONS[1],
@@ -290,9 +291,9 @@ void renderInfoPaneContent( App const* const pApp )
     );
 
     // TODO:
-    //* Print current player input
-    //* W:@c#
-    //* B:#c#+#######
+    // Print current player input
+    // W:@c#
+    // B:#c#+#######
     // mvprintw(
     //     POSITION_INPUT_CURRENT[0],
     //     POSITION_INPUT_CURRENT[1],
@@ -305,13 +306,14 @@ void renderInfoPaneContent( App const* const pApp )
 
 void renderStackBufferContent( App const* const pApp )
 {
-    //* Render buffer type
+    // Render buffer type
     mvaddch(
         POSITION_STACK_BUFFER[0],
         POSITION_STACK_BUFFER[1],
         STONE_TYPE_CHARS[pApp->game.stackBuffer.stoneType]
     );
 
+    // Render stack Ids
     for ( int idx = 0; idx < pApp->game.stackBuffer.stoneCount; ++idx )
     {
         mvaddch(
@@ -326,6 +328,39 @@ void renderStackBufferContent( App const* const pApp )
     }
 }
 
-// void renderBoardContent( App const* const pApp );
+void renderBoardContent( App const* const pApp )
+{
+    int const boardSize = pApp->game.board.size;
+
+    for ( int squareIdx = 0; squareIdx < 9; ++squareIdx )
+    {
+        int const squareY = ( ( boardSize - ( squareIdx / boardSize ) ) * LAYOUT_BOARD_SQUARE_SIZE ) - 2;
+
+        int const squareX = ( BOARD_OFFSET_X + 2 ) + ( squareIdx % boardSize ) * LAYOUT_BOARD_SQUARE_SIZE;
+
+        // Render stack type
+        mvaddch(
+            squareY,
+            squareX,
+            STONE_TYPE_CHARS[pApp->game.board.stackTypes[squareIdx]]
+        );
+
+        // Render stack Ids
+        for ( int stoneIdx = 0; stoneIdx < pApp->game.board.stoneCounts[squareIdx]; ++stoneIdx )
+        {
+            int const stackIdx = squareToStackIndex( squareIdx, boardSize );
+
+            mvaddch(
+                squareY
+                    + ( ( 1 + stoneIdx )
+                        % ( LAYOUT_BOARD_SQUARE_SIZE - 1 ) ),
+                squareX
+                    + ( ( 1 + stoneIdx )
+                        / ( LAYOUT_BOARD_SQUARE_SIZE - 1 ) ),
+                PLAYER_CHARS[pApp->game.board.stoneIds[stackIdx + stoneIdx]]
+            );
+        }
+    }
+}
 
 #endif

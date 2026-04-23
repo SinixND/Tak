@@ -18,7 +18,7 @@ enum
     BOARD_SIZE_MAX = 8,
 
     /// Squares per Width/Height
-    BOARD_SIZE_DEFAULT = 3, // WARN: Temporary board size adjustment for development
+    BOARD_SIZE_DEFAULT = 8, // WARN: Temporary board size adjustment for development
 
     /// Undo/Redo history size
     HISTORY_SIZE = 1000,
