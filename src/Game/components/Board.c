@@ -111,5 +111,8 @@ void takeFromStack(
     pBoard->stoneCounts[squareIdx] -= stoneCount;
 
     //* Set stack type
-    pBoard->stackTypes[squareIdx] = STONE_TYPE_FLAT;
+    pBoard->stackTypes[squareIdx]
+        = ( pBoard->stoneCounts[squareIdx] > 0 )
+              ? STONE_TYPE_FLAT
+              : STONE_TYPE_NONE;
 }
