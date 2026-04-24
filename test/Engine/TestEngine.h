@@ -49,7 +49,7 @@ void testAutocompleteCommand( void )
     command.state = STATE_GET_FIRST_DROP_AMOUNT;
     command.drops = 0;                              // Next square index is 0
     game.board.stackTypes[1] = STONE_TYPE_STANDING; // Next squares type is standing
-    game.stackBuffer.stoneType = STONE_TYPE_FLAT;   // Buffertype is not capstone
+    game.stackBuffer.stackType = STONE_TYPE_FLAT;   // Buffertype is not capstone
     autocompleteCommand(
         &command,
         &game
@@ -61,7 +61,7 @@ void testAutocompleteCommand( void )
     command.state = STATE_GET_FIRST_DROP_AMOUNT;
     command.drops = 0;                              // Next square index is 0
     game.board.stackTypes[1] = STONE_TYPE_STANDING; // Next squares type is standing
-    game.stackBuffer.stoneType = STONE_TYPE_CAP;    // Buffertype is capstone
+    game.stackBuffer.stackType = STONE_TYPE_CAP;    // Buffertype is capstone
     autocompleteCommand(
         &command,
         &game

@@ -15,7 +15,7 @@ void testResetStackBuffer( void )
         STONE_TYPE_STANDING
     );
 
-    TEST_ASSERT_EQUAL_INT( STONE_TYPE_STANDING, buffer.stoneType );
+    TEST_ASSERT_EQUAL_INT( STONE_TYPE_STANDING, buffer.stackType );
 }
 
 void testAppendToBuffer( void )
@@ -32,7 +32,7 @@ void testAppendToBuffer( void )
         PLAYER_BLACK
     );
 
-    TEST_ASSERT_EQUAL_INT( STONE_TYPE_STANDING, buffer.stoneType );
+    TEST_ASSERT_EQUAL_INT( STONE_TYPE_STANDING, buffer.stackType );
     TEST_ASSERT_EQUAL_INT( 1, buffer.stoneCount );
     TEST_ASSERT_EQUAL_INT( PLAYER_BLACK, buffer.stoneIds[0] );
 }
@@ -41,7 +41,7 @@ void testDropFromBuffer( void )
 {
     StackBuffer buffer = newStackBuffer();
 
-    buffer.stoneType = STONE_TYPE_STANDING;
+    buffer.stackType = STONE_TYPE_STANDING;
     buffer.stoneIds[0] = PLAYER_WHITE;
     buffer.stoneIds[1] = PLAYER_BLACK;
     buffer.stoneCount = 2;

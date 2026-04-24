@@ -19,7 +19,7 @@ typedef struct StackBuffer
     /// Active stone count in stack
     uint8_t stoneCount;
     /// Type of stack / top stone
-    StoneType stoneType;
+    StoneType stackType;
 } StackBuffer;
 
 /// Return initialized StackBuffer object

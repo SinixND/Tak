@@ -213,7 +213,7 @@ void dropStack(
         &pGame->board,
         stackBuffer->stoneIds[( stackBuffer->stoneCount - 1 )],
         squareIdx,
-        stackBuffer->stoneType
+        stackBuffer->stackType
     );
 
     //* Empty buffer
@@ -248,7 +248,7 @@ void dropStone(
     StoneType const droppedStoneType
         = ( pStackBuffer->stoneCount > 1 )
               ? STONE_TYPE_FLAT
-              : pStackBuffer->stoneType;
+              : pStackBuffer->stackType;
 
     // INFO: [Rule] Only capstone can flatten standing stones
     assert(
@@ -290,11 +290,19 @@ void liftStone(
 
     assert(
         pBoard->stoneCounts[squareIdx] > 0
-        && "Cant undo drop from emtpy square"
+        && "Cant lift from emtpy square"
     );
 
     PlayerId const playerId
         = pBoard->stoneIds[squareToStackIndex( squareIdx, pBoard->size ) + ( pBoard->stoneCounts[squareIdx] - 1 )];
+
+    if ( pGame->stackBuffer.stoneCount < 1 )
+    {
+        resetBuffer(
+            &pGame->stackBuffer,
+            pGame->board.stackTypes[squareIdx]
+        );
+    }
 
     appendToBuffer(
         &pGame->stackBuffer,
@@ -307,7 +315,7 @@ void liftStone(
         1
     );
 
-    //* Make stackType 'standing' if drop flattened
+    //* Make stackType 'standing' if previous drop flattened
     pBoard->stackTypes[squareIdx]
         = flattened
               ? STONE_TYPE_STANDING

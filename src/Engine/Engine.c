@@ -75,7 +75,7 @@ bool autocompleteCommand(
 
     //* Need to drop all if next squares type is standing and buffer type is not capstone
     if ( pGame->board.stackTypes[nextSquareIdx] == STONE_TYPE_STANDING
-         && pGame->stackBuffer.stoneType != STONE_TYPE_CAP )
+         && pGame->stackBuffer.stackType != STONE_TYPE_CAP )
     {
         pCommand->dropCounts[pCommand->drops] = pGame->stackBuffer.stoneCount;
         ++pCommand->drops;
@@ -85,7 +85,7 @@ bool autocompleteCommand(
 
     //* Need to drop all but one if next squares type is standing and buffer type is capstone
     if ( pGame->board.stackTypes[nextSquareIdx] == STONE_TYPE_STANDING
-         && pGame->stackBuffer.stoneType == STONE_TYPE_CAP )
+         && pGame->stackBuffer.stackType == STONE_TYPE_CAP )
     {
         pCommand->dropCounts[pCommand->drops] = pGame->stackBuffer.stoneCount - 1;
         ++pCommand->drops;

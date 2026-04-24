@@ -147,8 +147,6 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 
 
 ## ToDo notes
-- [ ] Clear stack (and buffer?) if empty
-- [ ] Render board content
 - [ ] Change //* to //
 - [ ] Render command
 - [ ] Handle turn end

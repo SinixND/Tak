@@ -310,7 +310,7 @@ void renderStackBufferContent( App const* const pApp )
     mvaddch(
         POSITION_STACK_BUFFER[0],
         POSITION_STACK_BUFFER[1],
-        STONE_TYPE_CHARS[pApp->game.stackBuffer.stoneType]
+        STONE_TYPE_CHARS[pApp->game.stackBuffer.stackType]
     );
 
     // Render stack Ids

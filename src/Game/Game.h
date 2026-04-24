@@ -63,6 +63,7 @@ void liftStack(
 /**
  * @brief: From Buffer to Board
  *
+ * - Undo lift stack
  * - Loop: Add stones to stack
  * - Remove stones from buffer
  */
@@ -85,6 +86,7 @@ void dropStone(
 /**
  * @brief: From Board to Buffer
  *
+ * - Undo drop stone
  * - Add single stone to Buffer
  * - Remove single stone from stack
  */
