@@ -69,7 +69,7 @@ void putOntoStack(
         && "Invalid stoneType"
     );
 
-    //* Set stack type
+    /// Set stack type
     pBoard->stackTypes[squareIdx] = stoneType;
 
     int const stackIdx
@@ -78,10 +78,10 @@ void putOntoStack(
             pBoard->size
         );
 
-    //* Add playerId
+    /// Add playerId
     pBoard->stoneIds[stackIdx + pBoard->stoneCounts[squareIdx]] = playerId;
 
-    //* Increase stack count
+    /// Increase stack count
     ++pBoard->stoneCounts[squareIdx];
 }
 
@@ -107,10 +107,10 @@ void takeFromStack(
         && "Invalid stoneCount"
     );
 
-    //* Decrease stack count
+    /// Decrease stack count
     pBoard->stoneCounts[squareIdx] -= stoneCount;
 
-    //* Set stack type
+    /// Set stack type
     pBoard->stackTypes[squareIdx]
         = ( pBoard->stoneCounts[squareIdx] > 0 )
               ? STONE_TYPE_FLAT

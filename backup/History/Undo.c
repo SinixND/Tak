@@ -53,7 +53,7 @@ void undoPlaceStone( App* const pApp )
         lastRecord.squareIdx
     );
 
-    //* Adjust history
+    /// Adjust history
     undoHistory( &pApp->history );
 }
 
@@ -66,7 +66,7 @@ void undoLiftStack( App* const pApp )
         lastRecord.squareIdx
     );
 
-    //* Adjust history
+    /// Adjust history
     undoHistory( &pApp->history );
 }
 
@@ -80,7 +80,7 @@ void undoDropStone( App* const pApp )
         lastRecord.flattened
     );
 
-    //* Adjust history
+    /// Adjust history
     undoHistory( &pApp->history );
 }
 

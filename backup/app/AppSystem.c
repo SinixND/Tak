@@ -16,7 +16,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-//* Choose backend
+/// Choose backend
 #ifdef BACKEND_NCURSES
 #include "ContextSystem.h"
 #endif
@@ -67,8 +67,8 @@ void updateApp( App* const app )
 
 void handleGlobalInput( App* const app )
 {
-    //* Conditionally terminate by
-    //* changing main while loop condition
+    /// Conditionally terminate by
+    /// changing main while loop condition
     // NOTE: Maybe extract into separate function later
     app->shouldClose
         = ( app->inputBuffer.lastInput == INPUT_Q )
@@ -169,13 +169,13 @@ void changeState(
     AppState const state
 )
 {
-    //* Update prompt
+    /// Update prompt
     app->prompt = PROMPTS[state];
 }
 
 void handleStateFirstTurn( App* const app )
 {
-    //* Call state functions explicitly for this one time only state
+    /// Call state functions explicitly for this one time only state
     if ( app->inputBuffer.gameEvent.fileX < FILE_A )
     {
         app->prompt.input = "File / Col";
@@ -199,7 +199,7 @@ void handleStateFirstTurn( App* const app )
         return;
     }
 
-    //* Prepare game event for first turn
+    /// Prepare game event for first turn
     app->inputBuffer.gameEvent.actionType = ACTION_TYPE_PLACE;
     app->inputBuffer.gameEvent.stoneId = PLAYER_BLACK;
     app->inputBuffer.gameEvent.stoneType = STONE_TYPE_FLAT;
@@ -217,7 +217,7 @@ void handleStateFirstTurn( App* const app )
 
 void handleStateSecondTurn( App* const app )
 {
-    //* Call state functions explicitly for this one time only state
+    /// Call state functions explicitly for this one time only state
     if ( app->inputBuffer.gameEvent.fileX < FILE_A )
     {
         handleStateGetFileX( app );
@@ -238,12 +238,12 @@ void handleStateSecondTurn( App* const app )
         return;
     }
 
-    //* Prepare game event for first turn
+    /// Prepare game event for first turn
     app->inputBuffer.gameEvent.actionType = ACTION_TYPE_PLACE;
     app->inputBuffer.gameEvent.stoneId = PLAYER_WHITE;
     app->inputBuffer.gameEvent.stoneType = STONE_TYPE_FLAT;
 
-    //* Enter general game loop
+    /// Enter general game loop
     changeState(
         app,
         STATE_RESOLVE_ACTION
@@ -269,7 +269,7 @@ void handleStateChooseAction( App* const app )
         ':'
     );
 
-    //* Change state
+    /// Change state
     switch ( app->inputBuffer.gameEvent.actionType )
     {
         default:
@@ -442,7 +442,7 @@ void handleStateResolveAction( App* const app )
 {
     // TODO: Implement rules
 
-    //* Update game
+    /// Update game
     switch ( app->inputBuffer.gameEvent.actionType )
     {
         default:
@@ -534,19 +534,19 @@ void handleStateResolveAction( App* const app )
 
 void handleStateEndTurn( App* const app )
 {
-    //* End turn, change active player
+    /// End turn, change active player
     app->game.activePlayer
         = ( app->game.activePlayer == PLAYER_WHITE )
               ? PLAYER_BLACK
               : PLAYER_WHITE;
 
-    //* Reset input buffer
+    /// Reset input buffer
     app->inputBuffer = newInputBuffer();
     app->inputBuffer.gameEvent.stoneId = app->game.activePlayer;
 
     resetCurrentCommand( &app->inputBuffer );
 
-    //* Start new turn
+    /// Start new turn
     changeState(
         app,
         STATE_CHOOSE_ACTION

@@ -53,10 +53,10 @@ void appendToBuffer(
         && "Invalid playerId"
     );
 
-    //* Add playerId
+    /// Add playerId
     pBuffer->stoneIds[pBuffer->stoneCount] = playerId;
 
-    //* Increase stack count
+    /// Increase stack count
     ++pBuffer->stoneCount;
 }
 
@@ -67,10 +67,10 @@ void dropFromBuffer( StackBuffer* const pBuffer )
         && "Cannot drop from empty buffer"
     );
 
-    //* Decrease stack count
+    /// Decrease stack count
     --pBuffer->stoneCount;
 
-    //* Set stack type
+    /// Set stack type
     if ( pBuffer->stoneCount < 1 )
     {
         pBuffer->stackType = STONE_TYPE_NONE;

@@ -22,7 +22,7 @@ Reserves newReserves( int const boardSize )
     int regularReserves = getReservesRegular( boardSize );
     int capstoneReserves = getReservesCapstone( boardSize );
 
-    //* Init player values
+    /// Init player values
     for ( int idx = 0; idx < PLAYER_COUNT; ++idx )
     {
         reserves.regular[idx] = regularReserves;

@@ -52,7 +52,7 @@ void runApp( App* const pApp )
     renderStatic( pApp );
     renderDynamic( pApp );
 
-    //* Update prompt
+    /// Update prompt
     pApp->prompt = PROMPTS[pApp->command.state];
 
     loopBackend( pApp );
@@ -70,14 +70,14 @@ void updateFrame( App* const pApp )
         && "Pointer is nullptr"
     );
 
-    //* Input
+    /// Input
     pApp->inputBuffer.playerId = pApp->game.activePlayer;
     pollInput( &pApp->inputBuffer );
 
-    //* Update
+    /// Update
     updateApp( pApp );
 
-    //* Render
+    /// Render
     renderDynamic( pApp );
 }
 
@@ -96,7 +96,7 @@ void updateApp( App* const pApp )
         &pApp->game
     );
 
-    //* Update prompt
+    /// Update prompt
     pApp->prompt = PROMPTS[pApp->command.state];
 
     if ( !isCommandComplete( &pApp->command ) )

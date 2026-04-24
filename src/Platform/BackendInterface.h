@@ -3,7 +3,7 @@
 
 #include "App.h"
 
-//* Context
+/// Context
 
 /// Setup backend context
 void setupBackend( void );
@@ -11,17 +11,17 @@ void setupBackend( void );
 /// Close backend context
 void closeBackend( void );
 
-//* Timing
+/// Timing
 
 /// Important: Calls `void updateFrame(App* const pApp)`
 void loopBackend( App* const pApp );
 
-//* Input
+/// Input
 
 /// Normalize user input from backend
 void pollInput( InputBuffer* const pInput );
 
-//* Render
+/// Render
 
 /**
  * @brief: Render static, non-changing content

@@ -23,7 +23,7 @@ void testAutocompleteCommand( void )
     command.rankY = RANK_1;
     command.direction = DIR_RIGHT;
 
-    //* Need to drop 'all' if only one stone left in stack buffer and not first drop
+    /// Need to drop 'all' if only one stone left in stack buffer and not first drop
     command.state = STATE_GET_DROP_AMOUNT;
     game.stackBuffer.stoneCount = 1; // Only one stone left in stack
     command.drops = 1;               // Not first drop
@@ -33,7 +33,7 @@ void testAutocompleteCommand( void )
     );
     TEST_ASSERT_EQUAL_INT( 1, command.dropCounts[1] );
 
-    //* Need to drop all if next squares type is capstone
+    /// Need to drop all if next squares type is capstone
     game.stackBuffer.stoneCount = 2;
     command.state = STATE_GET_FIRST_DROP_AMOUNT;
     command.drops = 0;                         // Next square index is 0
@@ -44,7 +44,7 @@ void testAutocompleteCommand( void )
     );
     TEST_ASSERT_EQUAL_INT( 2, command.dropCounts[0] );
 
-    //* Need to drop all if next squares type is standing and buffer type is not capstone
+    /// Need to drop all if next squares type is standing and buffer type is not capstone
     game.stackBuffer.stoneCount = 2;
     command.state = STATE_GET_FIRST_DROP_AMOUNT;
     command.drops = 0;                              // Next square index is 0
@@ -56,7 +56,7 @@ void testAutocompleteCommand( void )
     );
     TEST_ASSERT_EQUAL_INT( 2, command.dropCounts[0] );
 
-    //* Need to drop all but one if next squares type is standing and buffer type is capstone
+    /// Need to drop all but one if next squares type is standing and buffer type is capstone
     game.stackBuffer.stoneCount = 2;
     command.state = STATE_GET_FIRST_DROP_AMOUNT;
     command.drops = 0;                              // Next square index is 0
@@ -68,7 +68,7 @@ void testAutocompleteCommand( void )
     );
     TEST_ASSERT_EQUAL_INT( 1, command.dropCounts[0] );
 
-    //* Need to drop all if next square out of board
+    /// Need to drop all if next square out of board
     command.state = STATE_GET_DROP_AMOUNT;
     command.drops = 2; // Next square index is out of board
     command.dropCounts[0] = 0;

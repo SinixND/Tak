@@ -54,7 +54,7 @@ bool autocompleteCommand(
         pGame->board.size
     );
 
-    //* Need to drop 'all' if only one stone left in stack buffer and not first drop
+    /// Need to drop 'all' if only one stone left in stack buffer and not first drop
     if ( pCommand->drops > 0
          && pGame->stackBuffer.stoneCount == 1 )
     {
@@ -64,7 +64,7 @@ bool autocompleteCommand(
         return true;
     }
 
-    //* Need to drop all if next squares type is capstone
+    /// Need to drop all if next squares type is capstone
     if ( pGame->board.stackTypes[nextSquareIdx] == STONE_TYPE_CAP )
     {
         pCommand->dropCounts[pCommand->drops] = pGame->stackBuffer.stoneCount;
@@ -73,7 +73,7 @@ bool autocompleteCommand(
         return true;
     }
 
-    //* Need to drop all if next squares type is standing and buffer type is not capstone
+    /// Need to drop all if next squares type is standing and buffer type is not capstone
     if ( pGame->board.stackTypes[nextSquareIdx] == STONE_TYPE_STANDING
          && pGame->stackBuffer.stackType != STONE_TYPE_CAP )
     {
@@ -83,7 +83,7 @@ bool autocompleteCommand(
         return true;
     }
 
-    //* Need to drop all but one if next squares type is standing and buffer type is capstone
+    /// Need to drop all but one if next squares type is standing and buffer type is capstone
     if ( pGame->board.stackTypes[nextSquareIdx] == STONE_TYPE_STANDING
          && pGame->stackBuffer.stackType == STONE_TYPE_CAP )
     {
@@ -93,7 +93,7 @@ bool autocompleteCommand(
         return true;
     }
 
-    //* Need to drop all if next square out of board
+    /// Need to drop all if next square out of board
     if (
         ( nextFileX < 0 )
         || ( nextFileX >= pGame->board.size )
@@ -139,10 +139,10 @@ void buildCommand(
         return;
     };
 
-    //* Temporary command
+    /// Temporary command
     Command command = *pCommand;
 
-    //* Set command value from input
+    /// Set command value from input
     if ( !parseInput(
              &command,
              pInputBuffer
@@ -151,13 +151,13 @@ void buildCommand(
         return;
     }
 
-    //* Cap drop count
+    /// Cap drop count
     if ( command.dropCounts[command.drops - 1] > pGame->stackBuffer.stoneCount )
     {
         command.dropCounts[command.drops - 1] = pGame->stackBuffer.stoneCount;
     }
 
-    //* Validate input against game
+    /// Validate input against game
     if ( !validateCommand(
              &command,
              pGame
@@ -166,13 +166,13 @@ void buildCommand(
         return;
     }
 
-    //* Update command state
+    /// Update command state
     setNextCommandState(
         &command,
         pGame
     );
 
-    //* Copy temp command to original
+    /// Copy temp command to original
     *pCommand = command;
 }
 

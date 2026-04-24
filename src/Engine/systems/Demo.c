@@ -42,7 +42,7 @@ void demo( App* const pApp )
         0
     );
 
-    //* Prepare
+    /// Prepare
     placeStone(
         &pApp->game,
         PLAYER_BLACK,

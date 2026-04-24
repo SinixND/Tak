@@ -115,7 +115,7 @@ bool validateCommandStoneType(
         && "Pointer is nullptr"
     );
 
-    //* Sufficient reserves
+    /// Sufficient reserves
     switch ( pCommand->stoneType )
     {
         case STONE_TYPE_FLAT:
@@ -199,7 +199,7 @@ bool validateCommandDirection(
         = pCommand->rankY
           + getOffsetY( pCommand->direction );
 
-    //* Next square must be on board
+    /// Next square must be on board
     if ( ( nextFileX < 0 )
          || ( nextFileX >= pGame->board.size )
          || ( nextRankY < 0 )
@@ -214,7 +214,7 @@ bool validateCommandDirection(
         pGame->board.size
     );
 
-    //* Next squares type must not be capstone
+    /// Next squares type must not be capstone
     if ( pGame->board.stackTypes[nextSquareIdx] == STONE_TYPE_CAP )
     {
         return false;

@@ -100,7 +100,7 @@ void takeStone(
         && "Can only take single stone"
     );
 
-    //* Add to reserves
+    /// Add to reserves
     returnToReserves(
         &pGame->reserves,
         pBoard->stoneIds[squareToStackIndex(
@@ -110,7 +110,7 @@ void takeStone(
         pBoard->stackTypes[squareIdx]
     );
 
-    //* Remove from stack
+    /// Remove from stack
     takeFromStack(
         pBoard,
         squareIdx,
@@ -155,7 +155,7 @@ void liftStack(
         stoneType
     );
 
-    //* Add stones to buffer
+    /// Add stones to buffer
     int const topStoneIdx
         = squareToStackIndex(
               squareIdx,
@@ -171,7 +171,7 @@ void liftStack(
         );
     }
 
-    //* Remove stones from stack
+    /// Remove stones from stack
     takeFromStack(
         pBoard,
         squareIdx,
@@ -197,7 +197,7 @@ void dropStack(
 
     StackBuffer* const stackBuffer = &pGame->stackBuffer;
 
-    //* Add stones to stack
+    /// Add stones to stack
     for ( int i = 0; i < ( stackBuffer->stoneCount - 1 ); ++i )
     {
         putOntoStack(
@@ -208,7 +208,7 @@ void dropStack(
         );
     }
 
-    //* Add last stone to stack
+    /// Add last stone to stack
     putOntoStack(
         &pGame->board,
         stackBuffer->stoneIds[( stackBuffer->stoneCount - 1 )],
@@ -216,7 +216,7 @@ void dropStack(
         stackBuffer->stackType
     );
 
-    //* Empty buffer
+    /// Empty buffer
     stackBuffer->stoneCount = 0;
 }
 
@@ -315,7 +315,7 @@ void liftStone(
         1
     );
 
-    //* Make stackType 'standing' if previous drop flattened
+    /// Make stackType 'standing' if previous drop flattened
     pBoard->stackTypes[squareIdx]
         = flattened
               ? STONE_TYPE_STANDING

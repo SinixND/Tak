@@ -60,7 +60,7 @@ void redoPlaceStone( App* const pApp )
         nextRecord.stoneType
     );
 
-    //* Adjust history
+    /// Adjust history
     redoHistory( &pApp->history );
 }
 
@@ -80,7 +80,7 @@ void redoLiftStack( App* const pApp )
         nextRecord.squareIdx
     );
 
-    //* Adjust history
+    /// Adjust history
     redoHistory( &pApp->history );
 }
 
@@ -100,7 +100,7 @@ void redoDropStone( App* const pApp )
         nextRecord.squareIdx
     );
 
-    //* Adjust history
+    /// Adjust history
     redoHistory( &pApp->history );
 }
 

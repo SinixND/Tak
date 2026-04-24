@@ -29,7 +29,7 @@ void changeState(
     AppState const state
 );
 
-//* State handling
+/// State handling
 /// White places black flat
 void handleStateFirstTurn( App* const app );
 /// Black places white flat

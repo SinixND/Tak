@@ -21,28 +21,28 @@ int main( void )
 {
     UNITY_BEGIN();
 
-    //* Position
+    /// Position
     RUN_TEST( testPositionToStackIndex );
     RUN_TEST( testSquareToStackIndex );
 
-    //* Board
+    /// Board
     RUN_TEST( testPlaceOntoStack );
     RUN_TEST( testTakeFromStack );
 
-    //* Reserves
+    /// Reserves
     RUN_TEST( testTakeFromReserves );
 
-    //* StackBuffer
+    /// StackBuffer
     RUN_TEST( testResetStackBuffer );
     RUN_TEST( testAppendToBuffer );
     RUN_TEST( testDropFromBuffer );
 
-    //* GameConstants
+    /// GameConstants
     RUN_TEST( testGetReservesRegular );
     RUN_TEST( testGetReservesCapstone );
     RUN_TEST( testGetStackCapacity );
 
-    //* Game
+    /// Game
     RUN_TEST( testPlaceStone );
     RUN_TEST( testTakeStone );
     RUN_TEST( testLiftStack );
@@ -51,11 +51,11 @@ int main( void )
     RUN_TEST( testLiftStone );
     RUN_TEST( testExecuteEvent );
 
-    //* DirectionId
+    /// DirectionId
     RUN_TEST( testGetOffsetX );
     RUN_TEST( testGetOffsetY );
 
-    //* Input parsing
+    /// Input parsing
     RUN_TEST( testParseInputActionType );
     RUN_TEST( testParseInputStoneType );
     RUN_TEST( testParseInputFileX );
@@ -65,7 +65,7 @@ int main( void )
     RUN_TEST( testParseInputDropAmount );
     RUN_TEST( testParseInput );
 
-    //* Command validation
+    /// Command validation
     RUN_TEST( testValidateCommandActionType );
     RUN_TEST( testValidateCommandStoneType );
     RUN_TEST( testValidateCommandFileX );
@@ -74,16 +74,16 @@ int main( void )
     // RUN_TEST( testValidateCommandDropAmount ); // INFO: No validation for drops at the moment
     RUN_TEST( testValidateCommand );
 
-    //* Command
+    /// Command
     RUN_TEST( testSetNextCommandState );
     RUN_TEST( testIsCommandComplete );
 
-    //* Engine
+    /// Engine
     RUN_TEST( testAutocompleteCommand );
     RUN_TEST( testBuildCommand );
     RUN_TEST( testBuildEvent );
 
-    //* InputSystem
+    /// InputSystem
     RUN_TEST( testHandleGlobalInput );
 
     return UNITY_END();

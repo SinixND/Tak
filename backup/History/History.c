@@ -29,19 +29,19 @@ void recordActionPlacement(
     StoneType const stoneType
 )
 {
-    //* Increase index
+    /// Increase index
     ++pHistory->lastRecordIdx;
 
-    //* Might never trigger
+    /// Might never trigger
     assert(
         pHistory->lastRecordIdx < HISTORY_SIZE
         && "History size exceeded"
     );
 
-    //* Reset redo count
+    /// Reset redo count
     pHistory->redoCount = 0;
 
-    //* Push playerAction
+    /// Push playerAction
     pHistory->records[pHistory->lastRecordIdx]
         = (Record){
             .actionType = ACTION_TYPE_PLACE,
@@ -56,19 +56,19 @@ void recordActionLift(
     int const squareIdx
 )
 {
-    //* Increase index
+    /// Increase index
     ++pHistory->lastRecordIdx;
 
-    //* Might never trigger
+    /// Might never trigger
     assert(
         pHistory->lastRecordIdx < HISTORY_SIZE
         && "History size exceeded"
     );
 
-    //* Reset redo count
+    /// Reset redo count
     pHistory->redoCount = 0;
 
-    //* Push playerAction
+    /// Push playerAction
     pHistory->records[pHistory->lastRecordIdx]
         = (Record){
             .actionType = ACTION_TYPE_LIFT,
@@ -82,19 +82,19 @@ void recordActionDrop(
     bool const flattened
 )
 {
-    //* Increase index
+    /// Increase index
     ++pHistory->lastRecordIdx;
 
-    //* Might never trigger
+    /// Might never trigger
     assert(
         pHistory->lastRecordIdx < HISTORY_SIZE
         && "History size exceeded"
     );
 
-    //* Reset redo count
+    /// Reset redo count
     pHistory->redoCount = 0;
 
-    //* Push playerAction
+    /// Push playerAction
     pHistory->records[pHistory->lastRecordIdx]
         = (Record){
             .actionType = ACTION_TYPE_DROP,

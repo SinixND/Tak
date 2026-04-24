@@ -10,7 +10,7 @@ enum
     MAX_COMMAND_LENGTH = 11,
 };
 
-//* Positions (y, x)
+/// Positions (y, x)
 static int const POSITION_STACK_BUFFER[] = { 2, 3 };
 static int const POSITION_WHITE_RESERVES_REGULAR[] = { 6, 8 };
 static int const POSITION_WHITE_RESERVES_CAPSTONE[] = { 6, 11 };

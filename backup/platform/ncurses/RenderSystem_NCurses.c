@@ -12,7 +12,7 @@ void renderStatic( App* const pApp )
 {
     int const boardSize = pApp->game.board.size;
 
-    //* Render info pane
+    /// Render info pane
     for ( int idx = 0; idx < ( LAYOUT_PANE_HEIGHT ); ++idx )
     {
         mvprintw(
@@ -23,7 +23,7 @@ void renderStatic( App* const pApp )
         );
     }
 
-    //* Render top board header
+    /// Render top board header
     mvprintw(
         0,
         BOARD_OFFSET,
@@ -32,7 +32,7 @@ void renderStatic( App* const pApp )
         LAYOUT_BOARD_HEADER_RANK
     );
 
-    //* Render left board header
+    /// Render left board header
     int offsetIntoLayout = ( ( BOARD_SIZE_MAX - boardSize ) * LAYOUT_BOARD_SQUARE_SIZE ) + 1;
 
     for ( int y = 0; y < ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ); ++y )
@@ -45,7 +45,7 @@ void renderStatic( App* const pApp )
         );
     }
 
-    //* Render board
+    /// Render board
     for ( int y = 0; y < boardSize; ++y )
     {
         for ( int x = 0; x < boardSize; ++x )
@@ -62,7 +62,7 @@ void renderStatic( App* const pApp )
         }
     }
 
-    //* Render top board edge
+    /// Render top board edge
     for ( int x = 0; x < ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ) - 1; ++x ) // Subtract board edge
     {
         mvaddch(
@@ -71,7 +71,7 @@ void renderStatic( App* const pApp )
             '-'
         );
     }
-    //* Render left board edge
+    /// Render left board edge
     for ( int y = 0; y < ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ) - 1; ++y ) // Subtract board edge
     {
         mvaddch(
@@ -80,7 +80,7 @@ void renderStatic( App* const pApp )
             '|'
         );
     }
-    //* Render right board edge
+    /// Render right board edge
     for ( int y = 0; y < ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ) - 1; ++y ) // Subtract board edge
     {
         mvaddch(
@@ -89,7 +89,7 @@ void renderStatic( App* const pApp )
             '|'
         );
     }
-    //* Render bottom board edge
+    /// Render bottom board edge
     for ( int x = 0; x < ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ) - 1; ++x ) // Subtract square edge
     {
         mvaddch(
@@ -99,7 +99,7 @@ void renderStatic( App* const pApp )
         );
     }
 
-    //* Render right board header
+    /// Render right board header
     for ( int y = 0; y < ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ); ++y )
     {
         mvprintw(
@@ -110,7 +110,7 @@ void renderStatic( App* const pApp )
         );
     }
 
-    //* Render bottom board header
+    /// Render bottom board header
     mvprintw(
         ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ) + 2, // Add header & & 1 extra square edge
         BOARD_OFFSET,
@@ -131,7 +131,7 @@ void renderDynamic( App* const app )
 
 void renderInfoPaneContent( App* const app )
 {
-    //* Print white regular reserves
+    /// Print white regular reserves
     mvprintw(
         POSITION_WHITE_RESERVES_REGULAR[0],
         POSITION_WHITE_RESERVES_REGULAR[1],
@@ -139,7 +139,7 @@ void renderInfoPaneContent( App* const app )
         app->game.reserves.regular[PLAYER_WHITE]
     );
 
-    //* Print white capston reserves
+    /// Print white capston reserves
     mvprintw(
         POSITION_WHITE_RESERVES_CAPSTONE[0],
         POSITION_WHITE_RESERVES_CAPSTONE[1],
@@ -147,7 +147,7 @@ void renderInfoPaneContent( App* const app )
         app->game.reserves.capstone[PLAYER_WHITE]
     );
 
-    //* Print black regular reserves
+    /// Print black regular reserves
     mvprintw(
         POSITION_BLACK_RESERVES_REGULAR[0],
         POSITION_BLACK_RESERVES_REGULAR[1],
@@ -155,7 +155,7 @@ void renderInfoPaneContent( App* const app )
         app->game.reserves.regular[PLAYER_BLACK]
     );
 
-    //* Print black capston reserves
+    /// Print black capston reserves
     mvprintw(
         POSITION_BLACK_RESERVES_CAPSTONE[0],
         POSITION_BLACK_RESERVES_CAPSTONE[1],
@@ -163,7 +163,7 @@ void renderInfoPaneContent( App* const app )
         app->game.reserves.capstone[PLAYER_BLACK]
     );
 
-    //* Print active player
+    /// Print active player
     mvprintw(
         POSITION_TURN[0],
         POSITION_TURN[1],
@@ -171,7 +171,7 @@ void renderInfoPaneContent( App* const app )
         ( app->game.activePlayer == PLAYER_WHITE ) ? "WHITE" : "BLACK"
     );
 
-    //* Print active player symbol
+    /// Print active player symbol
     mvprintw(
         POSITION_PLAYER_SYMBOL[0],
         POSITION_PLAYER_SYMBOL[1],
@@ -179,7 +179,7 @@ void renderInfoPaneContent( App* const app )
         PLAYER_CHARS[app->game.activePlayer]
     );
 
-    //* Print required input
+    /// Print required input
     mvprintw(
         POSITION_INPUT_TYPE[0],
         POSITION_INPUT_TYPE[1],
@@ -187,7 +187,7 @@ void renderInfoPaneContent( App* const app )
         app->prompt.input
     );
 
-    //* Print possible input options
+    /// Print possible input options
     mvprintw(
         POSITION_INPUT_OPTIONS[0],
         POSITION_INPUT_OPTIONS[1],
@@ -197,9 +197,9 @@ void renderInfoPaneContent( App* const app )
 
     // TODO: Print history
 
-    //* Print current player input
-    //* W:@c#
-    //* B:#c#+#######
+    /// Print current player input
+    /// W:@c#
+    /// B:#c#+#######
     mvprintw(
         POSITION_INPUT_CURRENT[0],
         POSITION_INPUT_CURRENT[1],
@@ -210,7 +210,7 @@ void renderInfoPaneContent( App* const app )
 
 void renderStackBuffer( App* const app )
 {
-    //* Render buffer type
+    /// Render buffer type
     mvaddch(
         POSITION_STACK_BUFFER[0],
         POSITION_STACK_BUFFER[1],
@@ -261,7 +261,7 @@ void renderSquare(
         app->game.board.width
     );
 
-    //* Render stack type
+    /// Render stack type
     mvaddch(
         squarePosY,
         squarePosX,

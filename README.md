@@ -147,7 +147,6 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 
 
 ## ToDo notes
-- [ ] Change //* to //
 - [ ] Render command
 - [ ] Handle turn end
 - [ ] Handle first and second turn (AppState?)

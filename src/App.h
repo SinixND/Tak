@@ -10,16 +10,16 @@
 
 typedef struct App
 {
-    //* Core
+    /// Core
     Game game;
-    //* Input
+    /// Input
     InputBuffer inputBuffer;
-    //* Engine
+    /// Engine
     Event event;
     Command command;
-    //* Render
+    /// Render
     Prompt prompt;
-    //* Timing
+    /// Timing
     bool shouldClose;
 } App;
 
