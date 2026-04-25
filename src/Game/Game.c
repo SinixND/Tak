@@ -158,7 +158,8 @@ void liftStack(
         && "Cannot pick up empty stack"
     );
 
-    // INFO: [Rule] StackBuffer stone count must cap at boardSize
+    // TODO:: Remove? Checked at command building
+    /// [Rule] StackBuffer stone count must cap at boardSize
     int const stoneCount
         = ( pBoard->stoneCounts[squareIdx]
             > pBoard->size )
