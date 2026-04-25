@@ -41,6 +41,10 @@ void renderBoardEdges(
 void renderInfoPaneContent( App const* const pApp );
 void renderStackBufferContent( App const* const pApp );
 void renderBoardContent( App const* const pApp );
+void renderSquareContent(
+    App const* const pApp,
+    int const squareIdx
+);
 
 void renderStatic( App* const pApp )
 {
@@ -409,32 +413,45 @@ void renderBoardContent( App const* const pApp )
 
     for ( int squareIdx = 0; squareIdx < ( boardSize * boardSize ); ++squareIdx )
     {
-        int const squareY = ( ( boardSize - ( squareIdx / boardSize ) ) * LAYOUT_BOARD_SQUARE_SIZE ) - 2;
-
-        int const squareX = ( BOARD_OFFSET_X + 2 ) + ( squareIdx % boardSize ) * LAYOUT_BOARD_SQUARE_SIZE;
-
-        // Render stack type
-        mvaddch(
-            squareY,
-            squareX,
-            STONE_TYPE_CHARS[pApp->game.board.stackTypes[squareIdx]]
+        renderSquareContent(
+            pApp,
+            squareIdx
         );
+    }
+}
 
-        // Render stack Ids
-        for ( int stoneIdx = 0; stoneIdx < pApp->game.board.stoneCounts[squareIdx]; ++stoneIdx )
-        {
-            int const stackIdx = squareToStackIndex( squareIdx, boardSize );
+void renderSquareContent(
+    App const* const pApp,
+    int const squareIdx
+)
+{
+    int const boardSize = pApp->game.board.size;
 
-            mvaddch(
-                squareY
-                    + ( ( 1 + stoneIdx )
-                        % ( LAYOUT_BOARD_SQUARE_SIZE - 1 ) ),
-                squareX
-                    + ( ( 1 + stoneIdx )
-                        / ( LAYOUT_BOARD_SQUARE_SIZE - 1 ) ),
-                PLAYER_CHARS[pApp->game.board.stoneIds[stackIdx + stoneIdx]]
-            );
-        }
+    int const squareEdgeY = ( ( boardSize - ( squareIdx / boardSize ) ) * LAYOUT_BOARD_SQUARE_SIZE ) - 2;
+
+    int const squareEdgeX = ( BOARD_OFFSET_X + 2 ) + ( squareIdx % boardSize ) * LAYOUT_BOARD_SQUARE_SIZE;
+
+    // Render stack type
+    mvaddch(
+        squareEdgeY,
+        squareEdgeX,
+        STONE_TYPE_CHARS[pApp->game.board.stackTypes[squareIdx]]
+    );
+
+    // Render stack Ids
+    for ( int stoneIdx = 0; stoneIdx < pApp->game.board.stoneCounts[squareIdx]; ++stoneIdx )
+    {
+        int const stackIdx = squareToStackIndex( squareIdx, boardSize );
+
+        mvaddch(
+            squareEdgeY
+                + ( ( 1 + stoneIdx )
+                    % ( LAYOUT_BOARD_SQUARE_SIZE - 1 ) ),
+            squareEdgeX
+                + ( ( 1 + stoneIdx )
+                    / ( LAYOUT_BOARD_SQUARE_SIZE - 1 ) ),
+            PLAYER_CHARS[pApp->game.board.stoneIds[stackIdx + stoneIdx]]
+        );
     }
 }
 
