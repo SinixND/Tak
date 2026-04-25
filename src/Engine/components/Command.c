@@ -49,7 +49,7 @@ void setNextCommandState(
         {
             assert(
                 ( pCommand->actionType == ACTION_TYPE_PLACE
-                || pCommand->actionType == ACTION_TYPE_LIFT )
+                  || pCommand->actionType == ACTION_TYPE_LIFT )
                 && "Invalid action type"
             );
 
@@ -79,7 +79,7 @@ void setNextCommandState(
         {
             assert(
                 ( pCommand->actionType == ACTION_TYPE_PLACE
-                || pCommand->actionType == ACTION_TYPE_LIFT )
+                  || pCommand->actionType == ACTION_TYPE_LIFT )
                 && "Invalid action type"
             );
 

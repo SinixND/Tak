@@ -150,6 +150,7 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 - [ ] Render command
 - [ ] Handle turn end
 - [ ] Handle first and second turn (AppState?)
+    - [ ] Reset command at end of turn
 - [ ] Add option to drop all (INPUT_A)
     - [ ] Test!
 - [ ] Choose game size at start
