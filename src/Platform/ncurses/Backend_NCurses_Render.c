@@ -290,7 +290,6 @@ void renderInfoPaneContent( App const* const pApp )
         pApp->prompt.options
     );
 
-    // TODO:
     // Print current player input
     renderCommandInput( &pApp->command );
 
@@ -345,6 +344,24 @@ void renderCommandInput( Command const* const pCommand )
         case ACTION_TYPE_LIFT:
         case ACTION_TYPE_DROP:
         {
+            mvprintw(
+                POSITION_INPUT_CURRENT[0],
+                POSITION_INPUT_CURRENT[1] + 2,
+                "%c",
+                ( pCommand->fileX < 0 )
+                    ? ' '
+                    : FILE_CHARS[pCommand->fileX]
+            );
+
+            mvprintw(
+                POSITION_INPUT_CURRENT[0],
+                POSITION_INPUT_CURRENT[1] + 3,
+                "%c",
+                ( pCommand->rankY < 0 )
+                    ? ' '
+                    : RANK_CHARS[pCommand->rankY]
+            );
+
             return;
         }
 
