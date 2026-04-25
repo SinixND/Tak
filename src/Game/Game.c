@@ -314,14 +314,6 @@ void liftStone(
     PlayerId const playerId
         = pBoard->stoneIds[squareToStackIndex( squareIdx, pBoard->size ) + ( pBoard->stoneCounts[squareIdx] - 1 )];
 
-    if ( pGame->stackBuffer.stoneCount < 1 )
-    {
-        resetBuffer(
-            &pGame->stackBuffer,
-            pGame->board.stackTypes[squareIdx]
-        );
-    }
-
     appendToBuffer(
         &pGame->stackBuffer,
         playerId

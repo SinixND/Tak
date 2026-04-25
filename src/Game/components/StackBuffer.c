@@ -69,10 +69,4 @@ void dropFromBuffer( StackBuffer* const pBuffer )
 
     /// Decrease stack count
     --pBuffer->stoneCount;
-
-    /// Set stack type
-    if ( pBuffer->stoneCount < 1 )
-    {
-        pBuffer->stackType = STONE_TYPE_NONE;
-    }
 }
