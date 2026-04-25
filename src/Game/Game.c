@@ -29,6 +29,23 @@ Game newGame( int boardSize )
     };
 }
 
+void prepareGame( Game* const pGame )
+{
+    assert(
+        pGame->activePlayer != PLAYER_NONE
+        && "Invalid playerId"
+    );
+
+    if ( pGame->activePlayer == PLAYER_WHITE )
+    {
+        pGame->activePlayer = PLAYER_BLACK;
+    }
+    else
+    {
+        pGame->activePlayer = PLAYER_WHITE;
+    }
+}
+
 void placeStone(
     Game* const pGame,
     PlayerId const playerId,

@@ -148,7 +148,7 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 
 ## ToDo notes
 - [ ] Render command
-- [ ] Handle turn end
+- [x] Handle turn end
 - [ ] Handle first and second turn (AppState?)
     - [ ] Reset command at end of turn
 - [ ] Add option to drop all (INPUT_A)

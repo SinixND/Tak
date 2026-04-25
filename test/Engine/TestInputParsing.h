@@ -16,7 +16,7 @@
 
 void testParseInputActionType( void )
 {
-    Command command = newCommand();
+    Command command = newCommand( PLAYER_WHITE );
     InputBuffer inputBuffer = newInputBuffer();
 
     TEST_ASSERT_EQUAL_INT( false, parseInputActionType( &command, &inputBuffer ) );
@@ -33,7 +33,7 @@ void testParseInputActionType( void )
 
 void testParseInputStoneType( void )
 {
-    Command command = newCommand();
+    Command command = newCommand( PLAYER_WHITE );
     InputBuffer inputBuffer = newInputBuffer();
 
     TEST_ASSERT_EQUAL_INT( false, parseInputStoneType( &command, &inputBuffer ) );
@@ -54,7 +54,7 @@ void testParseInputStoneType( void )
 
 void testParseInputFileX( void )
 {
-    Command command = newCommand();
+    Command command = newCommand( PLAYER_WHITE );
     InputBuffer inputBuffer = newInputBuffer();
 
     TEST_ASSERT_EQUAL_INT( false, parseInputFileX( &command, &inputBuffer ) );
@@ -95,7 +95,7 @@ void testParseInputFileX( void )
 
 void testParseInputRankY( void )
 {
-    Command command = newCommand();
+    Command command = newCommand( PLAYER_WHITE );
     InputBuffer inputBuffer = newInputBuffer();
 
     TEST_ASSERT_EQUAL_INT( false, parseInputRankY( &command, &inputBuffer ) );
@@ -136,7 +136,7 @@ void testParseInputRankY( void )
 
 void testParseInputDirection( void )
 {
-    Command command = newCommand();
+    Command command = newCommand( PLAYER_WHITE );
     InputBuffer inputBuffer = newInputBuffer();
 
     TEST_ASSERT_EQUAL_INT( false, parseInputDirection( &command, &inputBuffer ) );
@@ -161,7 +161,7 @@ void testParseInputDirection( void )
 
 void testParseInputFirstDropAmount( void )
 {
-    Command command = newCommand();
+    Command command = newCommand( PLAYER_WHITE );
     InputBuffer inputBuffer = newInputBuffer();
 
     TEST_ASSERT_EQUAL_INT( false, parseInputFirstDropAmount( &command, &inputBuffer ) );
@@ -232,7 +232,7 @@ void testParseInputFirstDropAmount( void )
 
 void testParseInputDropAmount( void )
 {
-    Command command = newCommand();
+    Command command = newCommand( PLAYER_WHITE );
     InputBuffer inputBuffer = newInputBuffer();
 
     command.drops = 1;
@@ -297,7 +297,7 @@ void testParseInputDropAmount( void )
 
 void testParseInput( void )
 {
-    Command command = newCommand();
+    Command command = newCommand( PLAYER_WHITE );
     InputBuffer inputBuffer = newInputBuffer();
 
     command.state = STATE_GET_ACTION_TYPE;

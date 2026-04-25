@@ -10,13 +10,14 @@
 #include "FileId.h"
 #include "Game.h"
 #include "InputBuffer.h"
+#include "PlayerId.h"
 #include "RankId.h"
 #include "StoneTypeId.h"
 #include <unity.h>
 
 void testAutocompleteCommand( void )
 {
-    Command command = newCommand();
+    Command command = newCommand( PLAYER_WHITE );
     Game game = newGame( 3 );
 
     command.fileX = FILE_A;
@@ -83,7 +84,7 @@ void testAutocompleteCommand( void )
 
 void testBuildCommand( void )
 {
-    Command command = newCommand();
+    Command command = newCommand( PLAYER_WHITE );
     InputBuffer inputBuffer = newInputBuffer();
     Game game = newGame( 5 );
 
@@ -108,7 +109,7 @@ void testBuildCommand( void )
 void testBuildEvent( void )
 {
     Event event = newEvent();
-    Command command = newCommand();
+    Command command = newCommand( PLAYER_WHITE );
     int const boardSize = 5;
 
     command.playerId = PLAYER_WHITE;

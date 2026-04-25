@@ -2,7 +2,6 @@
 
 #include "BackendInterface.h"
 #include "Command.h"
-#include "CommandStateId.h"
 #include "Engine.h"
 #include "Event.h"
 #include "Game.h"
@@ -30,14 +29,12 @@ App newApp( int const boardSize )
         .game = newGame( boardSize ),
         .inputBuffer = newInputBuffer(),
         .event = newEvent(),
-        .command = newCommand(),
+        .command = newCommand( PLAYER_BLACK ),
         .prompt = newPrompt(),
         .shouldClose = false,
     };
 
     // TODO: Move to first turn handler later
-    app.command.state = STATE_GET_ACTION_TYPE;
-    app.command.playerId = PLAYER_BLACK;
     app.prompt = PROMPTS[app.command.state];
 
     return app;
@@ -114,10 +111,17 @@ void updateApp( App* const pApp )
         &pApp->event
     );
 
-    /// Reset command
-    if (pApp->command.state == STATE_GET_ACTION_TYPE)
+    /// Handle turn end
+    if ( pApp->command.state != STATE_GET_ACTION_TYPE )
     {
-        pApp->command = newCommand();
+        return;
     }
+
+    endTurn( pApp );
 }
 
+void endTurn( App* const pApp )
+{
+    prepareGame( &pApp->game );
+    prepareCommand( &pApp->command );
+}

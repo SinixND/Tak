@@ -41,4 +41,7 @@ void updateFrame( App* const pApp );
 /// Update application state
 void updateApp( App* const pApp );
 
+/// Perform actions to prepare next turn
+void endTurn( App* const pApp );
+
 #endif

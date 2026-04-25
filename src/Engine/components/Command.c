@@ -12,11 +12,11 @@
 #include <assert.h>
 #include <stdbool.h>
 
-Command newCommand( void )
+Command newCommand( PlayerId const playerId )
 {
     Command command = {
-        .state = STATE_NONE,
-        .playerId = PLAYER_NONE,
+        .state = STATE_GET_ACTION_TYPE,
+        .playerId = playerId,
         .actionType = ACTION_TYPE_NONE,
         .stoneType = STONE_TYPE_NONE,
         .fileX = FILE_NONE,
@@ -153,5 +153,22 @@ bool isCommandComplete( Command const* const pCommand )
 
         default:
             return false;
+    }
+}
+
+void prepareCommand( Command* const pCommand )
+{
+    assert(
+        pCommand->playerId != PLAYER_NONE
+        && "Invalid playerId"
+    );
+
+    if ( pCommand->playerId == PLAYER_WHITE )
+    {
+        *pCommand = newCommand( PLAYER_BLACK );
+    }
+    else
+    {
+        *pCommand = newCommand( PLAYER_WHITE );
     }
 }

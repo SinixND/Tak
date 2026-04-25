@@ -14,7 +14,7 @@
 
 void testValidateCommandActionType( void )
 {
-    Command command = newCommand();
+    Command command = newCommand( PLAYER_WHITE );
     Game game = newGame( 5 );
 
     command.playerId = PLAYER_WHITE;
@@ -30,7 +30,7 @@ void testValidateCommandActionType( void )
 
 void testValidateCommandStoneType( void )
 {
-    Command command = newCommand();
+    Command command = newCommand( PLAYER_WHITE );
     Game game = newGame( 5 );
 
     command.playerId = PLAYER_WHITE;
@@ -59,7 +59,7 @@ void testValidateCommandStoneType( void )
 
 void testValidateCommandFileX( void )
 {
-    Command command = newCommand();
+    Command command = newCommand( PLAYER_WHITE );
     Game game = newGame( 5 );
 
     command.fileX = FILE_NONE;
@@ -77,7 +77,7 @@ void testValidateCommandFileX( void )
 
 void testValidateCommandRankY( void )
 {
-    Command command = newCommand();
+    Command command = newCommand( PLAYER_WHITE );
     Game game = newGame( 5 );
 
     command.rankY = RANK_NONE;
@@ -95,7 +95,7 @@ void testValidateCommandRankY( void )
 
 void testValidateCommandDirection( void )
 {
-    Command command = newCommand();
+    Command command = newCommand( PLAYER_WHITE );
     Game game = newGame( 5 );
 
     command.fileX = FILE_A;
@@ -140,7 +140,7 @@ void testValidateCommandDirection( void )
 
 void testValidateCommand( void )
 {
-    Command command = newCommand();
+    Command command = newCommand( PLAYER_WHITE );
     Game game = newGame( 5 );
 
     TEST_ASSERT_EQUAL_INT( false, validateCommand( &command, &game ) );

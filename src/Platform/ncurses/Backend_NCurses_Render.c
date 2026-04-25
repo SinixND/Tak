@@ -208,15 +208,8 @@ void renderBoardEdges(
     }
 }
 
-void renderDynamic( App* const pApp )
+void renderDynamic( App const* const pApp )
 {
-    mvprintw(
-        1,
-        0,
-        "%c",
-        INPUT_CHARS[pApp->inputBuffer.keyboard]
-    );
-
     renderInfoPaneContent( pApp );
     renderStackBufferContent( pApp );
     renderBoardContent( pApp );
@@ -332,7 +325,7 @@ void renderBoardContent( App const* const pApp )
 {
     int const boardSize = pApp->game.board.size;
 
-    for ( int squareIdx = 0; squareIdx < (boardSize * boardSize); ++squareIdx )
+    for ( int squareIdx = 0; squareIdx < ( boardSize * boardSize ); ++squareIdx )
     {
         int const squareY = ( ( boardSize - ( squareIdx / boardSize ) ) * LAYOUT_BOARD_SQUARE_SIZE ) - 2;
 

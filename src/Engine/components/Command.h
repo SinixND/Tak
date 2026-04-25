@@ -28,7 +28,7 @@ typedef struct Command
 } Command;
 
 /// Return initialized player command object
-Command newCommand( void );
+Command newCommand( PlayerId const playerId );
 
 /// Tick command state machine
 void setNextCommandState(
@@ -38,5 +38,8 @@ void setNextCommandState(
 
 /// Check if event can be build from command
 bool isCommandComplete( Command const* const pCommand );
+
+/// Prepare command for next turn
+void prepareCommand( Command* const pCommand );
 
 #endif

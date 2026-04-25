@@ -7,6 +7,7 @@
 #include "DirectionId.h"
 #include "FileId.h"
 #include "Game.h"
+#include "PlayerId.h"
 #include "RankId.h"
 #include "StoneTypeId.h"
 #include <stdbool.h>
@@ -14,8 +15,10 @@
 
 void testSetNextCommandState( void )
 {
-    Command command = newCommand();
+    Command command = newCommand( PLAYER_BLACK );
     Game game = newGame( 3 );
+
+    TEST_ASSERT_EQUAL_INT( PLAYER_BLACK, command.playerId );
 
     command.state = STATE_GET_ACTION_TYPE;
     command.actionType = ACTION_TYPE_PLACE;
@@ -87,7 +90,7 @@ void testSetNextCommandState( void )
 
 void testIsCommandComplete( void )
 {
-    Command command = newCommand();
+    Command command = newCommand( PLAYER_WHITE );
 
     TEST_ASSERT_EQUAL_INT( false, isCommandComplete( &command ) );
 
@@ -97,10 +100,9 @@ void testIsCommandComplete( void )
 
     command.fileX = FILE_B;
     command.rankY = RANK_2;
-    command.stoneType = STONE_TYPE_FLAT;
     TEST_ASSERT_EQUAL_INT( false, isCommandComplete( &command ) );
 
-    command.playerId = PLAYER_WHITE;
+    command.stoneType = STONE_TYPE_FLAT;
     TEST_ASSERT_EQUAL_INT( true, isCommandComplete( &command ) );
 
     command.actionType = ACTION_TYPE_LIFT;

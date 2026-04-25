@@ -39,6 +39,6 @@ void renderStatic( App* const app );
  * - Info pane content
  * - Board content
  */
-void renderDynamic( App* const pApp );
+void renderDynamic( App const* const pApp );
 
 #endif
