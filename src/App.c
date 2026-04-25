@@ -114,6 +114,10 @@ void updateApp( App* const pApp )
         &pApp->event
     );
 
-    // TODO: Reset command
+    /// Reset command
+    if (pApp->command.state == STATE_GET_ACTION_TYPE)
+    {
+        pApp->command = newCommand();
+    }
 }
 

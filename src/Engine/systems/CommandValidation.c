@@ -94,8 +94,7 @@ bool validateCommandActionType(
     );
 
     return (
-        ( pCommand->playerId == pGame->activePlayer )
-        && ( pCommand->actionType == ACTION_TYPE_PLACE
+        ( pCommand->actionType == ACTION_TYPE_PLACE
              || pCommand->actionType == ACTION_TYPE_LIFT )
     );
 }

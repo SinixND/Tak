@@ -47,12 +47,6 @@ void setNextCommandState(
 
         case STATE_GET_ACTION_TYPE:
         {
-            assert(
-                ( pCommand->actionType == ACTION_TYPE_PLACE
-                  || pCommand->actionType == ACTION_TYPE_LIFT )
-                && "Invalid action type"
-            );
-
             pCommand->state
                 = ( pCommand->actionType == ACTION_TYPE_PLACE )
                       ? STATE_GET_STONE_TYPE
