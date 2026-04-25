@@ -148,6 +148,7 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 
 ## ToDo notes
 - [ ] Render command
+- [ ] Revert update stacktype
 - [x] Handle turn end
 - [ ] Handle first and second turn (AppState?)
     - [ ] Reset command at end of turn

@@ -425,33 +425,59 @@ void renderSquareContent(
     int const squareIdx
 )
 {
-    int const boardSize = pApp->game.board.size;
+    Board const* const pBoard = &pApp->game.board;
 
-    int const squareEdgeY = ( ( boardSize - ( squareIdx / boardSize ) ) * LAYOUT_BOARD_SQUARE_SIZE ) - 2;
+    int const squareEdgeY = ( ( pBoard->size - ( squareIdx / pBoard->size ) ) * LAYOUT_BOARD_SQUARE_SIZE ) - 2;
 
-    int const squareEdgeX = ( BOARD_OFFSET_X + 2 ) + ( squareIdx % boardSize ) * LAYOUT_BOARD_SQUARE_SIZE;
+    int const squareEdgeX = ( BOARD_OFFSET_X + 2 ) + ( squareIdx % pBoard->size ) * LAYOUT_BOARD_SQUARE_SIZE;
 
     // Render stack type
-    mvaddch(
-        squareEdgeY,
-        squareEdgeX,
-        STONE_TYPE_CHARS[pApp->game.board.stackTypes[squareIdx]]
-    );
+    if ( pBoard->stoneCounts[squareIdx] > 0 )
+    {
+        mvaddch(
+            squareEdgeY,
+            squareEdgeX,
+            STONE_TYPE_CHARS[pBoard->stackTypes[squareIdx]]
+        );
+    }
+    else
+    {
+        mvaddch(
+            squareEdgeY,
+            squareEdgeX,
+            ' '
+        );
+    }
 
     // Render stack Ids
-    for ( int stoneIdx = 0; stoneIdx < pApp->game.board.stoneCounts[squareIdx]; ++stoneIdx )
+    for ( int stoneIdx = 0; stoneIdx < ( pBoard->size ); ++stoneIdx )
     {
-        int const stackIdx = squareToStackIndex( squareIdx, boardSize );
+        int const stackIdx = squareToStackIndex( squareIdx, pBoard->size );
 
-        mvaddch(
-            squareEdgeY
-                + ( ( 1 + stoneIdx )
-                    % ( LAYOUT_BOARD_SQUARE_SIZE - 1 ) ),
-            squareEdgeX
-                + ( ( 1 + stoneIdx )
-                    / ( LAYOUT_BOARD_SQUARE_SIZE - 1 ) ),
-            PLAYER_CHARS[pApp->game.board.stoneIds[stackIdx + stoneIdx]]
-        );
+        if ( stoneIdx < pBoard->stoneCounts[squareIdx] )
+        {
+            mvaddch(
+                squareEdgeY
+                    + ( ( 1 + stoneIdx )
+                        % ( LAYOUT_BOARD_SQUARE_SIZE - 1 ) ),
+                squareEdgeX
+                    + ( ( 1 + stoneIdx )
+                        / ( LAYOUT_BOARD_SQUARE_SIZE - 1 ) ),
+                PLAYER_CHARS[pBoard->stoneIds[stackIdx + stoneIdx]]
+            );
+        }
+        else
+        {
+            mvaddch(
+                squareEdgeY
+                    + ( ( 1 + stoneIdx )
+                        % ( LAYOUT_BOARD_SQUARE_SIZE - 1 ) ),
+                squareEdgeX
+                    + ( ( 1 + stoneIdx )
+                        / ( LAYOUT_BOARD_SQUARE_SIZE - 1 ) ),
+                ' '
+            );
+        }
     }
 }
 
