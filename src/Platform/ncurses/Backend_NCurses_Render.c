@@ -1,13 +1,20 @@
+#include "ActionTypeId.h"
 #include "App.h"
 #include "BackendInterface.h"
 
+#include "Command.h"
+#include "FileId.h"
 #include "Layout.h"
+#include "PlayerId.h"
 #include "Position.h"
+#include "RankId.h"
 
 #ifdef BACKEND_NCURSES
 #include <ncurses.h>
 
 void renderInfoPane( void );
+
+void renderCommandInput( Command const* const pCommand );
 
 void renderFileLabels(
     int const fileLabelsOffsetX,
@@ -285,16 +292,74 @@ void renderInfoPaneContent( App const* const pApp )
 
     // TODO:
     // Print current player input
-    // W:@c#
-    // B:#c#+#######
-    // mvprintw(
-    //     POSITION_INPUT_CURRENT[0],
-    //     POSITION_INPUT_CURRENT[1],
-    //     "%s",
-    //     pApp->inputBuffer.currentCommand
-    // );
+    renderCommandInput( &pApp->command );
 
     // TODO: Print history
+}
+
+void renderCommandInput( Command const* const pCommand )
+{
+    /// W:@c#
+    /// B:#c#+#######
+
+    /// Print playerId
+    mvprintw(
+        POSITION_INPUT_CURRENT[0],
+        POSITION_INPUT_CURRENT[1],
+        "%c:",
+        PLAYER_CHARS[pCommand->playerId]
+    );
+
+    switch ( pCommand->actionType )
+    {
+        case ACTION_TYPE_PLACE:
+        {
+            mvprintw(
+                POSITION_INPUT_CURRENT[0],
+                POSITION_INPUT_CURRENT[1] + 2,
+                "%c",
+                STONE_TYPE_CHARS[pCommand->stoneType]
+            );
+
+            mvprintw(
+                POSITION_INPUT_CURRENT[0],
+                POSITION_INPUT_CURRENT[1] + 3,
+                "%c",
+                ( pCommand->fileX < 0 )
+                    ? ' '
+                    : FILE_CHARS[pCommand->fileX]
+            );
+
+            mvprintw(
+                POSITION_INPUT_CURRENT[0],
+                POSITION_INPUT_CURRENT[1] + 4,
+                "%c",
+                ( pCommand->rankY < 0 )
+                    ? ' '
+                    : RANK_CHARS[pCommand->rankY]
+            );
+
+            return;
+        }
+
+        case ACTION_TYPE_LIFT:
+        case ACTION_TYPE_DROP:
+        {
+            return;
+        }
+
+        default:
+        {
+            mvprintw(
+                POSITION_INPUT_CURRENT[0],
+                POSITION_INPUT_CURRENT[1] + 2,
+                "%s",
+                "            "
+            );
+
+            return;
+        }
+    }
 }
 
 void renderStackBufferContent( App const* const pApp )
