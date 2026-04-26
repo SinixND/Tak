@@ -77,7 +77,7 @@ void testSetNextCommandState( void )
     );
     TEST_ASSERT_EQUAL_INT( STATE_GET_DROP_AMOUNT, command.state );
 
-    command.drops = 2;
+    command.drops = 1;
     command.dropCounts[0] = 1;
     command.dropCounts[1] = 2;
     game.stackBuffer.stoneCount = 2;

@@ -4,6 +4,7 @@
 
 #include "Command.h"
 #include "FileId.h"
+#include "GameConstants.h"
 #include "Layout.h"
 #include "PlayerId.h"
 #include "Position.h"
@@ -386,24 +387,50 @@ void renderCommandInput( Command const* const pCommand )
 void renderStackBufferContent( App const* const pApp )
 {
     // Render buffer type
-    mvaddch(
-        POSITION_STACK_BUFFER[0],
-        POSITION_STACK_BUFFER[1],
-        STONE_TYPE_CHARS[pApp->game.stackBuffer.stackType]
-    );
-
-    // Render stack Ids
-    for ( int idx = 0; idx < pApp->game.stackBuffer.stoneCount; ++idx )
+    if ( pApp->game.stackBuffer.stoneCount > 0 )
     {
         mvaddch(
-            POSITION_STACK_BUFFER[0]
-                + ( ( 1 + idx )
-                    % ( LAYOUT_BOARD_SQUARE_SIZE - 1 ) ),
-            POSITION_STACK_BUFFER[1]
-                + ( ( 1 + idx )
-                    / ( LAYOUT_BOARD_SQUARE_SIZE - 1 ) ),
-            PLAYER_CHARS[pApp->game.stackBuffer.stoneIds[idx]]
+            POSITION_STACK_BUFFER[0],
+            POSITION_STACK_BUFFER[1],
+            STONE_TYPE_CHARS[pApp->game.stackBuffer.stackType]
         );
+    }
+    else
+    {
+        mvaddch(
+            POSITION_STACK_BUFFER[0],
+            POSITION_STACK_BUFFER[1],
+            ' '
+        );
+    }
+
+    // Render stack Ids
+    for ( int idx = 0; idx < BOARD_SIZE_MAX; ++idx )
+    {
+        if ( idx < pApp->game.stackBuffer.stoneCount )
+        {
+            mvaddch(
+                POSITION_STACK_BUFFER[0]
+                    + ( ( 1 + idx )
+                        % ( LAYOUT_BOARD_SQUARE_SIZE - 1 ) ),
+                POSITION_STACK_BUFFER[1]
+                    + ( ( 1 + idx )
+                        / ( LAYOUT_BOARD_SQUARE_SIZE - 1 ) ),
+                PLAYER_CHARS[pApp->game.stackBuffer.stoneIds[idx]]
+            );
+        }
+        else
+        {
+            mvaddch(
+                POSITION_STACK_BUFFER[0]
+                    + ( ( 1 + idx )
+                        % ( LAYOUT_BOARD_SQUARE_SIZE - 1 ) ),
+                POSITION_STACK_BUFFER[1]
+                    + ( ( 1 + idx )
+                        / ( LAYOUT_BOARD_SQUARE_SIZE - 1 ) ),
+                ' '
+            );
+        }
     }
 }
 
@@ -450,7 +477,7 @@ void renderSquareContent(
     }
 
     // Render stack Ids
-    for ( int stoneIdx = 0; stoneIdx < ( pBoard->size ); ++stoneIdx )
+    for ( int stoneIdx = 0; stoneIdx < BOARD_SIZE_MAX; ++stoneIdx )
     {
         int const stackIdx = squareToStackIndex( squareIdx, pBoard->size );
 

@@ -126,25 +126,23 @@ void buildCommand(
         && "Pointer is nullptr"
     );
 
-    if ( autocompleteCommand(
-             pCommand,
-             pGame
-         ) )
-    {
-        return;
-    };
-
     /// Temporary command
     Command command = *pCommand;
 
-    /// Set command value from input
-    if ( !parseInput(
+    if ( !autocompleteCommand(
              &command,
-             pInputBuffer
+             pGame
          ) )
     {
-        return;
-    }
+        /// Set command value from input
+        if ( !parseInput(
+                &command,
+                pInputBuffer
+            ) )
+        {
+            return;
+        }
+    };
 
     /// Cap drop count
     // TODO: Move somewhere else, too high level
@@ -206,10 +204,10 @@ void buildEvent(
         = ( ( pCommand->fileX + pCommand->rankY ) < 0 )
               ? -1
               : positionToSquare(
-                    pCommand->fileX,
-                    pCommand->rankY,
+                    pCommand->fileX + ( getOffsetX( pCommand->direction ) * pCommand->drops ),
+                    pCommand->rankY + ( getOffsetY( pCommand->direction ) * pCommand->drops ),
                     boardSize
                 );
 
-    pEvent->dropCount = pCommand->dropCounts[pCommand->drops - 1];
+    pEvent->dropCount = pCommand->dropCounts[pCommand->drops];
 }

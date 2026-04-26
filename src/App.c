@@ -119,6 +119,7 @@ void updateApp( App* const pApp )
     {
         pApp->command.actionType = ACTION_TYPE_DROP;
     }
+
     if ( pApp->command.state == STATE_GET_FIRST_DROP_AMOUNT
          || pApp->command.state == STATE_GET_DROP_AMOUNT )
     {

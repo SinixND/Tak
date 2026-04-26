@@ -93,16 +93,10 @@ void setNextCommandState(
         }
 
         case STATE_GET_FIRST_DROP_AMOUNT:
-        {
-            pCommand->state = STATE_GET_DROP_AMOUNT;
-
-            return;
-        }
-
         case STATE_GET_DROP_AMOUNT:
         {
             pCommand->state
-                = ( pCommand->dropCounts[pCommand->drops - 1] >= pGame->stackBuffer.stoneCount )
+                = ( pCommand->dropCounts[pCommand->drops] >= pGame->stackBuffer.stoneCount )
                       ? STATE_GET_ACTION_TYPE
                       : STATE_GET_DROP_AMOUNT;
 
@@ -147,7 +141,9 @@ bool isCommandComplete( Command const* const pCommand )
                 ( pCommand->fileX != FILE_NONE )
                 && ( pCommand->rankY != RANK_NONE )
                 && ( pCommand->direction != DIR_NONE )
-                && ( pCommand->dropCounts[pCommand->drops] > 0 )
+                && ( ( !pCommand->drops )
+                         ? pCommand->dropCounts[pCommand->drops] >= 0
+                         : pCommand->dropCounts[pCommand->drops] > 0 )
             );
         }
 

@@ -147,17 +147,18 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 
 
 ## ToDo notes
-- [ ] Render command
 - [x] Handle turn end
+- [ ] Add return for assertion only cases
+- [ ] If square input is invalid, reset either file && rank or whole turn
 - [ ] Handle first and second turn (AppState?)
-    - [ ] Reset command at end of turn
+    - [x] Reset command at end of turn
 - [ ] Add option to drop all (INPUT_A)
     - [ ] Test!
 - [ ] Choose game size at start
     - [ ] Test!
-- [ ] Add dirty map (rendering)
 - [ ] ?? Unions?
 - [ ] ?? Add Keybind abstraction (eg. "INPUT_QUIT = INPUT_Q")
+    - To have keybinds in one place
 - [ ] ?? Add Statusline
 - [ ] ?? Remove event (not needed)
 

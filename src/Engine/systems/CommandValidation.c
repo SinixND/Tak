@@ -67,6 +67,12 @@ bool validateCommand(
         case STATE_GET_FIRST_DROP_AMOUNT:
         case STATE_GET_DROP_AMOUNT:
         {
+            /// Cap drop count
+            if ( pCommand->dropCounts[pCommand->drops] > pGame->stackBuffer.stoneCount )
+            {
+                pCommand->dropCounts[pCommand->drops] = pGame->stackBuffer.stoneCount;
+            }
+
             return validateCommandDropAmount(
                 pCommand,
                 pGame
