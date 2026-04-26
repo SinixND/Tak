@@ -54,12 +54,11 @@ bool autocompleteCommand(
         pGame->board.size
     );
 
-    /// Need to drop 'all' if only one stone left in stack buffer and not first drop
+    /// Need to drop 'all' if not first drop and only one stone left in stack buffer
     if ( pCommand->drops > 0
          && pGame->stackBuffer.stoneCount == 1 )
     {
         pCommand->dropCounts[pCommand->drops] = 1;
-        ++pCommand->drops;
 
         return true;
     }
@@ -68,7 +67,6 @@ bool autocompleteCommand(
     if ( pGame->board.stackTypes[nextSquareIdx] == STONE_TYPE_CAP )
     {
         pCommand->dropCounts[pCommand->drops] = pGame->stackBuffer.stoneCount;
-        ++pCommand->drops;
 
         return true;
     }
@@ -78,7 +76,6 @@ bool autocompleteCommand(
          && pGame->stackBuffer.stackType != STONE_TYPE_CAP )
     {
         pCommand->dropCounts[pCommand->drops] = pGame->stackBuffer.stoneCount;
-        ++pCommand->drops;
 
         return true;
     }
@@ -88,7 +85,6 @@ bool autocompleteCommand(
          && pGame->stackBuffer.stackType == STONE_TYPE_CAP )
     {
         pCommand->dropCounts[pCommand->drops] = pGame->stackBuffer.stoneCount - 1;
-        ++pCommand->drops;
 
         return true;
     }
@@ -102,7 +98,6 @@ bool autocompleteCommand(
     )
     {
         pCommand->dropCounts[pCommand->drops] = pGame->stackBuffer.stoneCount;
-        ++pCommand->drops;
 
         return true;
     }
@@ -152,9 +147,11 @@ void buildCommand(
     }
 
     /// Cap drop count
-    if ( command.dropCounts[command.drops - 1] > pGame->stackBuffer.stoneCount )
+    // TODO: Move somewhere else, too high level
+    // TODO: This only applies on drop input!
+    if ( command.dropCounts[command.drops] > pGame->stackBuffer.stoneCount )
     {
-        command.dropCounts[command.drops - 1] = pGame->stackBuffer.stoneCount;
+        command.dropCounts[command.drops] = pGame->stackBuffer.stoneCount;
     }
 
     /// Validate input against game

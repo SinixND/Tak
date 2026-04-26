@@ -171,63 +171,54 @@ void testParseInputFirstDropAmount( void )
     inputBuffer.keyboard = INPUT_0;
     TEST_ASSERT_EQUAL_INT( true, parseInputFirstDropAmount( &command, &inputBuffer ) );
     TEST_ASSERT_EQUAL_INT( 0, command.dropCounts[0] );
-    TEST_ASSERT_EQUAL_INT( 1, command.drops );
 
     command.dropCounts[0] = -1;
     command.drops = 0;
     inputBuffer.keyboard = INPUT_1;
     TEST_ASSERT_EQUAL_INT( true, parseInputFirstDropAmount( &command, &inputBuffer ) );
     TEST_ASSERT_EQUAL_INT( 1, command.dropCounts[0] );
-    TEST_ASSERT_EQUAL_INT( 1, command.drops );
 
     command.dropCounts[0] = -1;
     command.drops = 0;
     inputBuffer.keyboard = INPUT_2;
     TEST_ASSERT_EQUAL_INT( true, parseInputFirstDropAmount( &command, &inputBuffer ) );
     TEST_ASSERT_EQUAL_INT( 2, command.dropCounts[0] );
-    TEST_ASSERT_EQUAL_INT( 1, command.drops );
 
     command.dropCounts[0] = -1;
     command.drops = 0;
     inputBuffer.keyboard = INPUT_3;
     TEST_ASSERT_EQUAL_INT( true, parseInputFirstDropAmount( &command, &inputBuffer ) );
     TEST_ASSERT_EQUAL_INT( 3, command.dropCounts[0] );
-    TEST_ASSERT_EQUAL_INT( 1, command.drops );
 
     command.dropCounts[0] = -1;
     command.drops = 0;
     inputBuffer.keyboard = INPUT_4;
     TEST_ASSERT_EQUAL_INT( true, parseInputFirstDropAmount( &command, &inputBuffer ) );
     TEST_ASSERT_EQUAL_INT( 4, command.dropCounts[0] );
-    TEST_ASSERT_EQUAL_INT( 1, command.drops );
 
     command.dropCounts[0] = -1;
     command.drops = 0;
     inputBuffer.keyboard = INPUT_5;
     TEST_ASSERT_EQUAL_INT( true, parseInputFirstDropAmount( &command, &inputBuffer ) );
     TEST_ASSERT_EQUAL_INT( 5, command.dropCounts[0] );
-    TEST_ASSERT_EQUAL_INT( 1, command.drops );
 
     command.dropCounts[0] = -1;
     command.drops = 0;
     inputBuffer.keyboard = INPUT_6;
     TEST_ASSERT_EQUAL_INT( true, parseInputFirstDropAmount( &command, &inputBuffer ) );
     TEST_ASSERT_EQUAL_INT( 6, command.dropCounts[0] );
-    TEST_ASSERT_EQUAL_INT( 1, command.drops );
 
     command.dropCounts[0] = -1;
     command.drops = 0;
     inputBuffer.keyboard = INPUT_7;
     TEST_ASSERT_EQUAL_INT( true, parseInputFirstDropAmount( &command, &inputBuffer ) );
     TEST_ASSERT_EQUAL_INT( 7, command.dropCounts[0] );
-    TEST_ASSERT_EQUAL_INT( 1, command.drops );
 
     command.dropCounts[0] = -1;
     command.drops = 0;
     inputBuffer.keyboard = INPUT_8;
     TEST_ASSERT_EQUAL_INT( true, parseInputFirstDropAmount( &command, &inputBuffer ) );
     TEST_ASSERT_EQUAL_INT( 8, command.dropCounts[0] );
-    TEST_ASSERT_EQUAL_INT( 1, command.drops );
 }
 
 void testParseInputDropAmount( void )
@@ -238,61 +229,52 @@ void testParseInputDropAmount( void )
     command.drops = 1;
     TEST_ASSERT_EQUAL_INT( false, parseInputDropAmount( &command, &inputBuffer ) );
     TEST_ASSERT_EQUAL_INT( -1, command.dropCounts[command.drops] );
-    TEST_ASSERT_EQUAL_INT( 1, command.drops );
 
     inputBuffer.keyboard = INPUT_1;
     TEST_ASSERT_EQUAL_INT( true, parseInputDropAmount( &command, &inputBuffer ) );
     TEST_ASSERT_EQUAL_INT( 1, command.dropCounts[1] );
-    TEST_ASSERT_EQUAL_INT( 2, command.drops );
 
     command.dropCounts[1] = -1;
     command.drops = 1;
     inputBuffer.keyboard = INPUT_2;
     TEST_ASSERT_EQUAL_INT( true, parseInputDropAmount( &command, &inputBuffer ) );
     TEST_ASSERT_EQUAL_INT( 2, command.dropCounts[1] );
-    TEST_ASSERT_EQUAL_INT( 2, command.drops );
 
     command.dropCounts[1] = -1;
     command.drops = 1;
     inputBuffer.keyboard = INPUT_3;
     TEST_ASSERT_EQUAL_INT( true, parseInputDropAmount( &command, &inputBuffer ) );
     TEST_ASSERT_EQUAL_INT( 3, command.dropCounts[1] );
-    TEST_ASSERT_EQUAL_INT( 2, command.drops );
 
     command.dropCounts[1] = -1;
     command.drops = 1;
     inputBuffer.keyboard = INPUT_4;
     TEST_ASSERT_EQUAL_INT( true, parseInputDropAmount( &command, &inputBuffer ) );
     TEST_ASSERT_EQUAL_INT( 4, command.dropCounts[1] );
-    TEST_ASSERT_EQUAL_INT( 2, command.drops );
 
     command.dropCounts[1] = -1;
     command.drops = 1;
     inputBuffer.keyboard = INPUT_5;
     TEST_ASSERT_EQUAL_INT( true, parseInputDropAmount( &command, &inputBuffer ) );
     TEST_ASSERT_EQUAL_INT( 5, command.dropCounts[1] );
-    TEST_ASSERT_EQUAL_INT( 2, command.drops );
 
     command.dropCounts[1] = -1;
     command.drops = 1;
     inputBuffer.keyboard = INPUT_6;
     TEST_ASSERT_EQUAL_INT( true, parseInputDropAmount( &command, &inputBuffer ) );
     TEST_ASSERT_EQUAL_INT( 6, command.dropCounts[1] );
-    TEST_ASSERT_EQUAL_INT( 2, command.drops );
 
     command.dropCounts[1] = -1;
     command.drops = 1;
     inputBuffer.keyboard = INPUT_7;
     TEST_ASSERT_EQUAL_INT( true, parseInputDropAmount( &command, &inputBuffer ) );
     TEST_ASSERT_EQUAL_INT( 7, command.dropCounts[1] );
-    TEST_ASSERT_EQUAL_INT( 2, command.drops );
 
     command.dropCounts[1] = -1;
     command.drops = 1;
     inputBuffer.keyboard = INPUT_8;
     TEST_ASSERT_EQUAL_INT( true, parseInputDropAmount( &command, &inputBuffer ) );
     TEST_ASSERT_EQUAL_INT( 8, command.dropCounts[1] );
-    TEST_ASSERT_EQUAL_INT( 2, command.drops );
 }
 
 void testParseInput( void )

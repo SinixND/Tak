@@ -95,7 +95,7 @@ bool validateCommandActionType(
 
     return (
         ( pCommand->actionType == ACTION_TYPE_PLACE
-             || pCommand->actionType == ACTION_TYPE_LIFT )
+          || pCommand->actionType == ACTION_TYPE_LIFT )
     );
 }
 
@@ -169,9 +169,23 @@ bool validateCommandRankY(
         && "Pointer is nullptr"
     );
 
+    if ( pCommand->rankY < 0
+         || pCommand->fileX < 0 )
+    {
+        return false;
+    }
+
+    int const boardSize = pGame->board.size;
+    int const squareIdx = positionToSquare( pCommand->fileX, pCommand->rankY, boardSize );
+    int const stackIdx = squareToStackIndex( squareIdx, boardSize );
+
     return (
         ( pCommand->rankY >= 0 )
         && ( pCommand->rankY < pGame->board.size )
+        && ( !pGame->board.stoneCounts[squareIdx]
+             /// Player owns square
+             || ( pGame->board.stoneIds[stackIdx + ( pGame->board.stoneCounts[squareIdx] - 1 )] )
+                    == pCommand->playerId )
     );
 }
 

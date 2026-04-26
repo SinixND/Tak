@@ -80,6 +80,8 @@ void testValidateCommandRankY( void )
     Command command = newCommand( PLAYER_WHITE );
     Game game = newGame( 5 );
 
+    command.fileX = FILE_A;
+
     command.rankY = RANK_NONE;
     TEST_ASSERT_EQUAL_INT( false, validateCommandRankY( &command, &game ) );
 

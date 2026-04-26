@@ -87,11 +87,6 @@ void setNextCommandState(
 
         case STATE_GET_DIRECTION:
         {
-            if ( pCommand->actionType == ACTION_TYPE_LIFT )
-            {
-                pCommand->actionType = ACTION_TYPE_DROP;
-            }
-
             pCommand->state = STATE_GET_FIRST_DROP_AMOUNT;
 
             return;

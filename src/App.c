@@ -3,6 +3,7 @@
 #include "ActionTypeId.h"
 #include "BackendInterface.h"
 #include "Command.h"
+#include "CommandStateId.h"
 #include "Engine.h"
 #include "Event.h"
 #include "Game.h"
@@ -111,6 +112,19 @@ void updateApp( App* const pApp )
         &pApp->game,
         &pApp->event
     );
+
+    /// Update command
+    /// TODO: Move somewhere else?
+    if ( pApp->command.actionType == ACTION_TYPE_LIFT )
+    {
+        pApp->command.actionType = ACTION_TYPE_DROP;
+    }
+    if ( pApp->command.state == STATE_GET_FIRST_DROP_AMOUNT
+         || pApp->command.state == STATE_GET_DROP_AMOUNT )
+    {
+        ++pApp->command.drops;
+        return;
+    }
 
     /// Handle turn end
     if ( pApp->command.state != STATE_GET_ACTION_TYPE )
