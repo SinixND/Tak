@@ -1,5 +1,6 @@
 #include "App.h"
 
+#include "ActionTypeId.h"
 #include "BackendInterface.h"
 #include "Command.h"
 #include "Engine.h"
