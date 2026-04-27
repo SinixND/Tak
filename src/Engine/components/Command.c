@@ -43,6 +43,7 @@ void setNextCommandState(
         case STATE_NONE:
         {
             assert( !"Invalid command state" );
+            return;
         }
 
         case STATE_GET_ACTION_TYPE:

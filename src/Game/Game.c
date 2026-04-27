@@ -385,6 +385,9 @@ void executeEvent(
         }
 
         default:
+        {
             assert( !"No action type set" );
+            return;
+        }
     }
 }

@@ -69,6 +69,7 @@ void updateFrame( App* const pApp )
     );
 
     /// Input
+    // TODO: Required?
     pApp->inputBuffer.playerId = pApp->game.activePlayer;
     pollInput( &pApp->inputBuffer );
 
@@ -102,6 +103,7 @@ void updateApp( App* const pApp )
         return;
     }
 
+    // TODO: Apply command directly?
     buildEvent(
         &pApp->event,
         &pApp->command,

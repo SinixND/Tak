@@ -81,7 +81,10 @@ void takeFromReserves(
         }
 
         default:
+        {
             assert( !"StoneType is required" );
+            return;
+        }
     }
 }
 
@@ -119,7 +122,10 @@ void returnToReserves(
         }
 
         default:
+        {
             assert( !"StoneType is required" );
+            return;
+        }
     }
 }
 

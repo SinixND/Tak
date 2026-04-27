@@ -148,8 +148,9 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 
 ## ToDo notes
 - [x] Handle turn end
-- [ ] Add return for assertion only cases
+- [ ] Autocomplete needs to trigger before next input
 - [ ] If square input is invalid, reset either file && rank or whole turn
+    - [ ] ESC to reset command
 - [ ] Handle first and second turn (AppState?)
     - [x] Reset command at end of turn
 - [ ] Add option to drop all (INPUT_A)
