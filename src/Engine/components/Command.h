@@ -43,6 +43,9 @@ bool isCommandReady( Command const* const pCommand );
 void updateCommandPostEvent( Command* const pCommand );
 
 /// Prepare command for next turn
-void prepareCommand( Command* const pCommand );
+void prepareCommand(
+    Command* const pCommand,
+    PlayerId const playerId
+);
 
 #endif

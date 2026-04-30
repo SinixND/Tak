@@ -1,6 +1,7 @@
 #ifndef IG20260317123947
 #define IG20260317123947
 
+#include "AppStateId.h"
 #include "Command.h"
 #include "Event.h"
 #include "Game.h"
@@ -10,6 +11,8 @@
 
 typedef struct App
 {
+    /// State
+    AppStateId state;
     /// Core
     Game game;
     /// Input
@@ -37,6 +40,9 @@ void closeApp( void );
 
 /// Update one frame of the main loop
 void updateFrame( App* const pApp );
+
+/// Handle app state
+void handleAppStateNormalTurn( App* const pApp );
 
 /// Get input and update dependent data
 void handleInput( App* const pApp );

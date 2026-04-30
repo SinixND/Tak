@@ -1,5 +1,7 @@
 #include "App.h"
 
+#include "ActionTypeId.h"
+#include "AppStateId.h"
 #include "BackendInterface.h"
 #include "Command.h"
 #include "CommandStateId.h"
@@ -28,6 +30,7 @@ App newApp( int const boardSize )
     );
 
     App app = {
+        .state = APP_STATE_FIRST_TURN,
         .game = newGame( boardSize ),
         .inputBuffer = newInputBuffer(),
         .event = newEvent(),
@@ -68,13 +71,58 @@ void updateFrame( App* const pApp )
         && "Pointer is nullptr"
     );
 
-    /// Input
+    switch ( pApp->state )
+    {
+        default:
+        case APP_STATE_NORMAL_TURN:
+        {
+            handleAppStateNormalTurn( pApp );
+
+            return;
+        }
+
+        case APP_STATE_FIRST_TURN:
+        {
+            /// Prepare first turn: WHITE places BLACK
+            pApp->game.activePlayer = PLAYER_WHITE;
+            pApp->command.playerId = PLAYER_BLACK;
+            pApp->command.actionType = ACTION_TYPE_PLACE;
+
+            handleAppStateNormalTurn( pApp );
+
+            if ( isTurnComplete( pApp ) )
+            {
+                pApp->state = APP_STATE_SECOND_TURN;
+            }
+
+            return;
+        }
+
+        case APP_STATE_SECOND_TURN:
+        {
+            /// Prepare second turn: BLACK places WHITE
+            pApp->game.activePlayer = PLAYER_BLACK;
+            pApp->command.playerId = PLAYER_WHITE;
+            pApp->command.actionType = ACTION_TYPE_PLACE;
+
+            handleAppStateNormalTurn( pApp );
+
+            if ( isTurnComplete( pApp ) )
+            {
+                pApp->state = APP_STATE_NORMAL_TURN;
+            }
+
+            return;
+        }
+    }
+}
+
+void handleAppStateNormalTurn( App* const pApp )
+{
     handleInput( pApp );
 
-    /// Update
     updateApp( pApp );
 
-    /// Render
     renderDynamic( pApp );
 }
 
@@ -149,5 +197,8 @@ bool isTurnComplete( App const* const pApp )
 void prepareNextTurn( App* const pApp )
 {
     prepareGame( &pApp->game );
-    prepareCommand( &pApp->command );
+    prepareCommand(
+        &pApp->command,
+        pApp->game.activePlayer
+    );
 }

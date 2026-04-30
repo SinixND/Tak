@@ -169,19 +169,15 @@ void updateCommandPostEvent( Command* const pCommand )
     }
 }
 
-void prepareCommand( Command* const pCommand )
+void prepareCommand(
+    Command* const pCommand,
+    PlayerId const playerId
+)
 {
     assert(
         pCommand->playerId != PLAYER_NONE
         && "Invalid playerId"
     );
 
-    if ( pCommand->playerId == PLAYER_WHITE )
-    {
-        *pCommand = newCommand( PLAYER_BLACK );
-    }
-    else
-    {
-        *pCommand = newCommand( PLAYER_WHITE );
-    }
+    *pCommand = newCommand( playerId );
 }

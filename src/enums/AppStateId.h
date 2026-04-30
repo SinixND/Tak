@@ -1,0 +1,11 @@
+#ifndef IG20260430175417
+#define IG20260430175417
+
+typedef enum AppStateId
+{
+    APP_STATE_NORMAL_TURN,
+    APP_STATE_FIRST_TURN,
+    APP_STATE_SECOND_TURN,
+} AppStateId;
+
+#endif
