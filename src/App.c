@@ -115,27 +115,27 @@ void updateApp( App* const pApp )
         return;
     };
 
+    /// Handle turn end
+    if ( isTurnComplete( pApp ) )
+    {
+        prepareNextTurn( pApp );
+
+        return;
+    }
+
     /// Post event command update
+    /// Must only change after lift event
+    if ( pApp->command.actionType == ACTION_TYPE_LIFT )
+    {
+        pApp->command.actionType = ACTION_TYPE_DROP;
+    }
+
     if ( pApp->command.state == STATE_GET_FIRST_DROP_AMOUNT
          || pApp->command.state == STATE_GET_DROP_AMOUNT )
     {
         ++pApp->command.drops;
         return;
     }
-
-    if ( pApp->command.actionType == ACTION_TYPE_LIFT )
-    {
-        pApp->command.actionType = ACTION_TYPE_DROP;
-    }
-
-    /// Handle turn end
-    /// TODO: isTurnComplete();
-    if ( pApp->command.state != STATE_GET_ACTION_TYPE )
-    {
-        return;
-    }
-
-    prepareNextTurn( pApp );
 }
 
 bool updateGame( App* const pApp )
@@ -158,6 +158,11 @@ bool updateGame( App* const pApp )
     );
 
     return true;
+}
+
+bool isTurnComplete( App const* const pApp )
+{
+    return pApp->command.state == STATE_GET_ACTION_TYPE;
 }
 
 void prepareNextTurn( App* const pApp )

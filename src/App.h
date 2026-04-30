@@ -44,8 +44,19 @@ void handleInput( App* const pApp );
 /// Update application state
 void updateApp( App* const pApp );
 
-/// Modify game state from command
+/*
+ * @brief: Modify game state from command
+ *
+ * Returns true if game was updated
+ */
 bool updateGame( App* const pApp );
+
+/*
+ * @brief: Check if current player turn is complete
+ *
+ * Uses command state to check
+ */
+bool isTurnComplete( App const* const pApp );
 
 /// Perform actions to prepare next turn
 void prepareNextTurn( App* const pApp );
