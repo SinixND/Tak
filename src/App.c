@@ -13,6 +13,7 @@
 #include "Prompts.h"
 #include <assert.h>
 #include <ncurses.h>
+#include <stdbool.h>
 
 App newApp( int const boardSize )
 {
@@ -90,6 +91,7 @@ void handleInput( App* const pApp )
 
     handleGlobalInput( pApp );
 
+    // TODO: return bool for conditional app update?
     buildCommand(
         &pApp->command,
         &pApp->inputBuffer,
@@ -104,12 +106,43 @@ void updateApp( App* const pApp )
         && "Pointer is nullptr"
     );
 
-    // Update prompt
+    /// Pre event update
     pApp->prompt = PROMPTS[pApp->command.state];
 
-    if ( !isCommandReady( &pApp->command ) )
+    /// Update Game
+    if ( !updateGame( pApp ) )
     {
         return;
+    };
+
+    /// Post event command update
+    if ( pApp->command.state == STATE_GET_FIRST_DROP_AMOUNT
+         || pApp->command.state == STATE_GET_DROP_AMOUNT )
+    {
+        ++pApp->command.drops;
+        return;
+    }
+
+    if ( pApp->command.actionType == ACTION_TYPE_LIFT )
+    {
+        pApp->command.actionType = ACTION_TYPE_DROP;
+    }
+
+    /// Handle turn end
+    /// TODO: isTurnComplete();
+    if ( pApp->command.state != STATE_GET_ACTION_TYPE )
+    {
+        return;
+    }
+
+    prepareNextTurn( pApp );
+}
+
+bool updateGame( App* const pApp )
+{
+    if ( !isCommandReady( &pApp->command ) )
+    {
+        return false;
     }
 
     // TODO: Apply command directly?
@@ -124,28 +157,7 @@ void updateApp( App* const pApp )
         &pApp->event
     );
 
-    /// Update command
-    /// TODO: Post event update
-    if ( pApp->command.actionType == ACTION_TYPE_LIFT )
-    {
-        pApp->command.actionType = ACTION_TYPE_DROP;
-    }
-
-    if ( pApp->command.state == STATE_GET_FIRST_DROP_AMOUNT
-         || pApp->command.state == STATE_GET_DROP_AMOUNT )
-    {
-        ++pApp->command.drops;
-        return;
-    }
-
-    /// Handle turn end
-    /// TODO: isTurnComplete();
-    if ( pApp->command.state != STATE_GET_ACTION_TYPE )
-    {
-        return;
-    }
-
-    prepareNextTurn( pApp );
+    return true;
 }
 
 void prepareNextTurn( App* const pApp )

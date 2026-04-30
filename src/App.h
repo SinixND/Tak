@@ -44,6 +44,9 @@ void handleInput( App* const pApp );
 /// Update application state
 void updateApp( App* const pApp );
 
+/// Modify game state from command
+bool updateGame( App* const pApp );
+
 /// Perform actions to prepare next turn
 void prepareNextTurn( App* const pApp );
 

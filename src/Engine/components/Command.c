@@ -73,8 +73,7 @@ void setNextCommandState(
         case STATE_GET_RANK_Y:
         {
             assert(
-                ( pCommand->actionType == ACTION_TYPE_PLACE
-                  || pCommand->actionType == ACTION_TYPE_LIFT )
+                pCommand->actionType != ACTION_TYPE_NONE
                 && "Invalid action type"
             );
 
