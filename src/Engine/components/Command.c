@@ -152,6 +152,23 @@ bool isCommandReady( Command const* const pCommand )
     }
 }
 
+void updateCommandPostEvent( Command* const pCommand )
+{
+    /// Un-ready command by updating drop count
+    if ( pCommand->actionType == ACTION_TYPE_DROP )
+    {
+        ++pCommand->drops;
+
+        return;
+    }
+
+    /// Advance from lift to drop action
+    if ( pCommand->actionType == ACTION_TYPE_LIFT )
+    {
+        pCommand->actionType = ACTION_TYPE_DROP;
+    }
+}
+
 void prepareCommand( Command* const pCommand )
 {
     assert(

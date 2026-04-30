@@ -1,6 +1,5 @@
 #include "App.h"
 
-#include "ActionTypeId.h"
 #include "BackendInterface.h"
 #include "Command.h"
 #include "CommandStateId.h"
@@ -86,12 +85,10 @@ void handleInput( App* const pApp )
         && "Pointer is nullptr"
     );
 
-    // TODO: return bool for early return?
     pollInput( &pApp->inputBuffer );
 
     handleGlobalInput( pApp );
 
-    // TODO: return bool for conditional app update?
     buildCommand(
         &pApp->command,
         &pApp->inputBuffer,
@@ -109,32 +106,16 @@ void updateApp( App* const pApp )
     /// Pre event update
     pApp->prompt = PROMPTS[pApp->command.state];
 
-    /// Update Game
     if ( !updateGame( pApp ) )
     {
         return;
     };
 
-    /// Handle turn end
+    updateCommandPostEvent( &pApp->command );
+
     if ( isTurnComplete( pApp ) )
     {
         prepareNextTurn( pApp );
-
-        return;
-    }
-
-    /// Post event command update
-    /// Must only change after lift event
-    if ( pApp->command.actionType == ACTION_TYPE_LIFT )
-    {
-        pApp->command.actionType = ACTION_TYPE_DROP;
-    }
-
-    if ( pApp->command.state == STATE_GET_FIRST_DROP_AMOUNT
-         || pApp->command.state == STATE_GET_DROP_AMOUNT )
-    {
-        ++pApp->command.drops;
-        return;
     }
 }
 
