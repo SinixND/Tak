@@ -109,7 +109,7 @@ void setNextCommandState(
     }
 }
 
-bool isCommandComplete( Command const* const pCommand )
+bool isCommandReady( Command const* const pCommand )
 {
     assert(
         pCommand

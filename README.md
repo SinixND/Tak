@@ -147,6 +147,7 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 
 
 ## ToDo notes
+- [ ] Simulate input (as demo?)
 - [x] Handle turn end
 - [ ] Autocomplete needs to trigger before next input
 - [ ] If square input is invalid, reset either file && rank or whole turn

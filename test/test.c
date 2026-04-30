@@ -76,7 +76,7 @@ int main( void )
 
     /// Command
     RUN_TEST( testSetNextCommandState );
-    RUN_TEST( testIsCommandComplete );
+    RUN_TEST( testIsCommandReady );
 
     /// Engine
     RUN_TEST( testAutocompleteCommand );

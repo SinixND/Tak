@@ -69,15 +69,32 @@ void updateFrame( App* const pApp )
     );
 
     /// Input
-    // TODO: Required?
-    pApp->inputBuffer.playerId = pApp->game.activePlayer;
-    pollInput( &pApp->inputBuffer );
+    handleInput( pApp );
 
     /// Update
     updateApp( pApp );
 
     /// Render
     renderDynamic( pApp );
+}
+
+void handleInput( App* const pApp )
+{
+    assert(
+        pApp
+        && "Pointer is nullptr"
+    );
+
+    // TODO: return bool for early return?
+    pollInput( &pApp->inputBuffer );
+
+    handleGlobalInput( pApp );
+
+    buildCommand(
+        &pApp->command,
+        &pApp->inputBuffer,
+        &pApp->game
+    );
 }
 
 void updateApp( App* const pApp )
@@ -87,18 +104,10 @@ void updateApp( App* const pApp )
         && "Pointer is nullptr"
     );
 
-    handleGlobalInput( pApp );
-
-    buildCommand(
-        &pApp->command,
-        &pApp->inputBuffer,
-        &pApp->game
-    );
-
     // Update prompt
     pApp->prompt = PROMPTS[pApp->command.state];
 
-    if ( !isCommandComplete( &pApp->command ) )
+    if ( !isCommandReady( &pApp->command ) )
     {
         return;
     }
@@ -116,7 +125,7 @@ void updateApp( App* const pApp )
     );
 
     /// Update command
-    /// TODO: Move somewhere else?
+    /// TODO: Post event update
     if ( pApp->command.actionType == ACTION_TYPE_LIFT )
     {
         pApp->command.actionType = ACTION_TYPE_DROP;
@@ -130,15 +139,16 @@ void updateApp( App* const pApp )
     }
 
     /// Handle turn end
+    /// TODO: isTurnComplete();
     if ( pApp->command.state != STATE_GET_ACTION_TYPE )
     {
         return;
     }
 
-    endTurn( pApp );
+    prepareNextTurn( pApp );
 }
 
-void endTurn( App* const pApp )
+void prepareNextTurn( App* const pApp )
 {
     prepareGame( &pApp->game );
     prepareCommand( &pApp->command );

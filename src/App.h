@@ -38,10 +38,13 @@ void closeApp( void );
 /// Update one frame of the main loop
 void updateFrame( App* const pApp );
 
+/// Get input and update dependent data
+void handleInput( App* const pApp );
+
 /// Update application state
 void updateApp( App* const pApp );
 
 /// Perform actions to prepare next turn
-void endTurn( App* const pApp );
+void prepareNextTurn( App* const pApp );
 
 #endif

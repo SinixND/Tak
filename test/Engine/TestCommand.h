@@ -88,39 +88,39 @@ void testSetNextCommandState( void )
     TEST_ASSERT_EQUAL_INT( STATE_GET_ACTION_TYPE, command.state );
 }
 
-void testIsCommandComplete( void )
+void testIsCommandReady( void )
 {
     Command command = newCommand( PLAYER_WHITE );
 
-    TEST_ASSERT_EQUAL_INT( false, isCommandComplete( &command ) );
+    TEST_ASSERT_EQUAL_INT( false, isCommandReady( &command ) );
 
     command.actionType = ACTION_TYPE_PLACE;
 
-    TEST_ASSERT_EQUAL_INT( false, isCommandComplete( &command ) );
+    TEST_ASSERT_EQUAL_INT( false, isCommandReady( &command ) );
 
     command.fileX = FILE_B;
     command.rankY = RANK_2;
-    TEST_ASSERT_EQUAL_INT( false, isCommandComplete( &command ) );
+    TEST_ASSERT_EQUAL_INT( false, isCommandReady( &command ) );
 
     command.stoneType = STONE_TYPE_FLAT;
-    TEST_ASSERT_EQUAL_INT( true, isCommandComplete( &command ) );
+    TEST_ASSERT_EQUAL_INT( true, isCommandReady( &command ) );
 
     command.actionType = ACTION_TYPE_LIFT;
     command.fileX = FILE_NONE;
-    TEST_ASSERT_EQUAL_INT( false, isCommandComplete( &command ) );
+    TEST_ASSERT_EQUAL_INT( false, isCommandReady( &command ) );
 
     command.fileX = FILE_B;
-    TEST_ASSERT_EQUAL_INT( true, isCommandComplete( &command ) );
+    TEST_ASSERT_EQUAL_INT( true, isCommandReady( &command ) );
 
     command.actionType = ACTION_TYPE_DROP;
-    TEST_ASSERT_EQUAL_INT( false, isCommandComplete( &command ) );
+    TEST_ASSERT_EQUAL_INT( false, isCommandReady( &command ) );
 
     command.direction = DIR_DOWN;
     command.drops = 0;
-    TEST_ASSERT_EQUAL_INT( false, isCommandComplete( &command ) );
+    TEST_ASSERT_EQUAL_INT( false, isCommandReady( &command ) );
 
     command.dropCounts[0] = 1;
-    TEST_ASSERT_EQUAL_INT( true, isCommandComplete( &command ) );
+    TEST_ASSERT_EQUAL_INT( true, isCommandReady( &command ) );
 }
 
 #endif
