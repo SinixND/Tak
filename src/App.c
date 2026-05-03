@@ -12,6 +12,7 @@
 #include "InputSystem.h"
 #include "PlayerId.h"
 #include "Prompts.h"
+#include "StoneTypeId.h"
 #include <assert.h>
 #include <ncurses.h>
 #include <stdbool.h>
@@ -39,9 +40,6 @@ App newApp( int const boardSize )
         .shouldClose = false,
     };
 
-    // TODO: Move to first turn handler later
-    app.prompt = PROMPTS[app.command.state];
-
     return app;
 }
 
@@ -53,7 +51,6 @@ void setupApp( void )
 void runApp( App* const pApp )
 {
     renderStatic( pApp );
-    renderDynamic( pApp );
 
     /// Run loop
     loopBackend( pApp );
@@ -87,13 +84,21 @@ void updateFrame( App* const pApp )
             pApp->game.activePlayer = PLAYER_WHITE;
             pApp->command.playerId = PLAYER_BLACK;
             pApp->command.actionType = ACTION_TYPE_PLACE;
+            pApp->command.stoneType = STONE_TYPE_FLAT;
+            pApp->command.state = STATE_GET_FILE_X;
 
-            handleAppStateNormalTurn( pApp );
+            updateApp( pApp );
+            renderDynamic( pApp );
 
-            if ( isTurnComplete( pApp ) )
+            while (
+                !pApp->shouldClose
+                && !isTurnComplete( pApp )
+            )
             {
-                pApp->state = APP_STATE_SECOND_TURN;
+                handleAppStateNormalTurn( pApp );
             }
+
+            pApp->state = APP_STATE_SECOND_TURN;
 
             return;
         }
@@ -104,13 +109,21 @@ void updateFrame( App* const pApp )
             pApp->game.activePlayer = PLAYER_BLACK;
             pApp->command.playerId = PLAYER_WHITE;
             pApp->command.actionType = ACTION_TYPE_PLACE;
+            pApp->command.stoneType = STONE_TYPE_FLAT;
+            pApp->command.state = STATE_GET_FILE_X;
 
-            handleAppStateNormalTurn( pApp );
+            updateApp( pApp );
+            renderDynamic( pApp );
 
-            if ( isTurnComplete( pApp ) )
+            while (
+                !pApp->shouldClose
+                && !isTurnComplete( pApp )
+            )
             {
-                pApp->state = APP_STATE_NORMAL_TURN;
+                handleAppStateNormalTurn( pApp );
             }
+
+            pApp->state = APP_STATE_NORMAL_TURN;
 
             return;
         }
@@ -119,6 +132,8 @@ void updateFrame( App* const pApp )
 
 void handleAppStateNormalTurn( App* const pApp )
 {
+    pollInput( &pApp->inputBuffer );
+
     handleInput( pApp );
 
     updateApp( pApp );
@@ -132,8 +147,6 @@ void handleInput( App* const pApp )
         pApp
         && "Pointer is nullptr"
     );
-
-    pollInput( &pApp->inputBuffer );
 
     handleGlobalInput( pApp );
 
