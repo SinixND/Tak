@@ -79,13 +79,15 @@ void testValidateCommandRankY( void )
 {
     Command command = newCommand( PLAYER_WHITE );
     Game game = newGame( 5 );
+    game.board.stoneCounts[0] = 1;
 
+    command.actionType = ACTION_TYPE_PLACE;
     command.fileX = FILE_A;
 
     command.rankY = RANK_NONE;
     TEST_ASSERT_EQUAL_INT( false, validateCommandRankY( &command, &game ) );
 
-    command.rankY = RANK_1;
+    command.rankY = RANK_2;
     TEST_ASSERT_EQUAL_INT( true, validateCommandRankY( &command, &game ) );
 
     command.rankY = RANK_5;
@@ -93,6 +95,11 @@ void testValidateCommandRankY( void )
 
     command.rankY = RANK_6;
     TEST_ASSERT_EQUAL_INT( false, validateCommandRankY( &command, &game ) );
+
+    command.actionType = ACTION_TYPE_LIFT;
+
+    command.rankY = RANK_1;
+    TEST_ASSERT_EQUAL_INT( true, validateCommandRankY( &command, &game ) );
 }
 
 void testValidateCommandDirection( void )

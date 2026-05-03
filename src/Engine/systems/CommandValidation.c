@@ -175,6 +175,7 @@ bool validateCommandRankY(
         && "Pointer is nullptr"
     );
 
+    /// Verify valid input to positionToSquare()
     if ( pCommand->rankY < 0
          || pCommand->fileX < 0 )
     {
@@ -188,10 +189,16 @@ bool validateCommandRankY(
     return (
         ( pCommand->rankY >= 0 )
         && ( pCommand->rankY < pGame->board.size )
-        && ( !pGame->board.stoneCounts[squareIdx]
-             /// Player owns square
-             || ( pGame->board.stoneIds[stackIdx + ( pGame->board.stoneCounts[squareIdx] - 1 )] )
-                    == pCommand->playerId )
+        && (
+            /// Place
+            ( pCommand->actionType == ACTION_TYPE_PLACE
+              && !pGame->board.stoneCounts[squareIdx] )
+            /// Lift
+            || ( pGame->board.stoneCounts[squareIdx]
+                 /// Player owns square
+                 || ( pGame->board.stoneIds[stackIdx + ( pGame->board.stoneCounts[squareIdx] - 1 )] )
+                        == pCommand->playerId )
+        )
     );
 }
 
