@@ -15,7 +15,7 @@
 
 void renderInfoPane( void );
 
-void renderCommandInput( Command const* const pCommand );
+void renderCurrentCommand( Command const* const pCommand );
 
 void renderFileLabels(
     int const fileLabelsOffsetX,
@@ -296,22 +296,22 @@ void renderInfoPaneContent( App const* const pApp )
     );
 
     // Print current player input
-    renderCommandInput( &pApp->command );
+    renderCurrentCommand( &pApp->command );
 
     // TODO: Print history
 }
 
-void renderCommandInput( Command const* const pCommand )
+void renderCurrentCommand( Command const* const pCommand )
 {
-    /// W:@c#
-    /// B:#c#+#######
+    /// W:A@c#
+    /// B:Ac#+#######
 
-    /// Print playerId
     mvprintw(
         POSITION_INPUT_CURRENT[0],
         POSITION_INPUT_CURRENT[1],
-        "%c:",
-        PLAYER_CHARS[pCommand->playerId]
+        "%c:%c",
+        PLAYER_CHARS[pCommand->playerId],
+        ACTION_TYPE_CHARS[pCommand->actionType]
     );
 
     switch ( pCommand->actionType )
@@ -320,11 +320,35 @@ void renderCommandInput( Command const* const pCommand )
         {
             mvprintw(
                 POSITION_INPUT_CURRENT[0],
-                POSITION_INPUT_CURRENT[1] + 2,
+                POSITION_INPUT_CURRENT[1] + 3,
                 "%c",
                 STONE_TYPE_CHARS[pCommand->stoneType]
             );
 
+            mvprintw(
+                POSITION_INPUT_CURRENT[0],
+                POSITION_INPUT_CURRENT[1] + 4,
+                "%c",
+                ( pCommand->fileX < 0 )
+                    ? ' '
+                    : FILE_CHARS[pCommand->fileX]
+            );
+
+            mvprintw(
+                POSITION_INPUT_CURRENT[0],
+                POSITION_INPUT_CURRENT[1] + 5,
+                "%c",
+                ( pCommand->rankY < 0 )
+                    ? ' '
+                    : RANK_CHARS[pCommand->rankY]
+            );
+
+            return;
+        }
+
+        case ACTION_TYPE_LIFT:
+        case ACTION_TYPE_DROP:
+        {
             mvprintw(
                 POSITION_INPUT_CURRENT[0],
                 POSITION_INPUT_CURRENT[1] + 3,
@@ -346,35 +370,11 @@ void renderCommandInput( Command const* const pCommand )
             return;
         }
 
-        case ACTION_TYPE_LIFT:
-        case ACTION_TYPE_DROP:
-        {
-            mvprintw(
-                POSITION_INPUT_CURRENT[0],
-                POSITION_INPUT_CURRENT[1] + 2,
-                "%c",
-                ( pCommand->fileX < 0 )
-                    ? ' '
-                    : FILE_CHARS[pCommand->fileX]
-            );
-
-            mvprintw(
-                POSITION_INPUT_CURRENT[0],
-                POSITION_INPUT_CURRENT[1] + 3,
-                "%c",
-                ( pCommand->rankY < 0 )
-                    ? ' '
-                    : RANK_CHARS[pCommand->rankY]
-            );
-
-            return;
-        }
-
         default:
         {
             mvprintw(
                 POSITION_INPUT_CURRENT[0],
-                POSITION_INPUT_CURRENT[1] + 2,
+                POSITION_INPUT_CURRENT[1] + 3,
                 "%s",
                 "            "
             );

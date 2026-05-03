@@ -147,7 +147,12 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 
 
 ## ToDo notes
-- [ ] If square/rank input is invalid, reset either file && rank or whole turn
+- [ ] Test handle first and second turn
+- [ ] Test finalize drop behaviour
+- [ ] Test update action lift to drop while building
+- [ ] Test handle turn end 
+- [ ] Test file/rank reset
+- [ ] Test keymap
 - [ ] Add option to drop all (INPUT_A)
     - [ ] Test!
 - [ ] Simulate input (as 'demo' app state)
@@ -165,7 +170,6 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 
 ## Notes
 - Ignore History/Undo/Redo for now
-- Ignore (rule) validation for now
 - Game state modification -> game
 - App component logic -> engine
 - Linking input/engine/render (in loop) -> app
