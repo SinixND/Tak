@@ -33,8 +33,8 @@ App newApp( int const boardSize )
         .state = APP_STATE_FIRST_TURN,
         .game = newGame( boardSize ),
         .inputBuffer = newInputBuffer(),
-        .event = newEvent(),
         .command = newCommand( PLAYER_BLACK ),
+        .event = newEvent(),
         .prompt = newPrompt(),
         .shouldClose = false,
     };

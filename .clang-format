@@ -15,7 +15,6 @@ BreakConstructorInitializers: BeforeComma
 BreakInheritanceList: BeforeComma
 BreakTemplateDeclarations: Yes
 ColumnLimit: 0
-#Cpp11BracedListStyle: true
 IndentCaseLabels: true
 IndentWidth: 4
 InsertBraces: true
@@ -23,6 +22,7 @@ KeepEmptyLines:
   AtEndOfFile: true
   AtStartOfBlock: false
   AtStartOfFile: false
+MaxEmptyLinesToKeep: 1
 NamespaceIndentation: All
 PackConstructorInitializers: Never
 PenaltyBreakBeforeFirstCallParameter: 9999

@@ -3,15 +3,15 @@
 
 #include "App.h"
 #include "GameConstants.h"
-#include "InputId.h"
 #include "InputSystem.h"
+#include "Keymap.h"
 #include <unity.h>
 
 void testHandleGlobalInput( void )
 {
     App app = newApp( BOARD_SIZE_DEFAULT );
 
-    app.inputBuffer.keyboard = INPUT_Q;
+    app.inputBuffer.lastInput = app.inputBuffer.keymap.inputs[CONTEXT_GLOBAL][COMMAND_QUIT];
 
     handleGlobalInput( &app );
 

@@ -1,6 +1,9 @@
 #include "InputParsing.h"
 
+#include "CommandId.h"
 #include "CommandStateId.h"
+#include "InputBuffer.h"
+#include "Keymap.h"
 #include <assert.h>
 
 bool parseInput(
@@ -22,6 +25,7 @@ bool parseInput(
     {
         case STATE_NONE:
         {
+            // TODO: Remove?
             pCommand->playerId = pInputBuffer->playerId;
             pCommand->state = STATE_GET_ACTION_TYPE;
             // INFO: Fallthrough!
@@ -103,16 +107,19 @@ bool parseInputActionType(
         && "Pointer is nullptr"
     );
 
-    switch ( pInputBuffer->keyboard )
+    switch ( getCommandId(
+        pInputBuffer,
+        CONTEXT_ACTION_TYPE
+    ) )
     {
-        case INPUT_P:
+        case COMMAND_PLACE:
         {
             pCommand->actionType = ACTION_TYPE_PLACE;
 
             return true;
         }
 
-        case INPUT_M:
+        case COMMAND_MOVE:
         {
             pCommand->actionType = ACTION_TYPE_LIFT;
 
@@ -139,23 +146,26 @@ bool parseInputStoneType(
         && "Pointer is nullptr"
     );
 
-    switch ( pInputBuffer->keyboard )
+    switch ( getCommandId(
+        pInputBuffer,
+        CONTEXT_STONE_TYPE
+    ) )
     {
-        case INPUT_F:
+        case COMMAND_FLAT:
         {
             pCommand->stoneType = STONE_TYPE_FLAT;
 
             return true;
         }
 
-        case INPUT_S:
+        case COMMAND_STANDING:
         {
             pCommand->stoneType = STONE_TYPE_STANDING;
 
             return true;
         }
 
-        case INPUT_C:
+        case COMMAND_CAPSTONE:
         {
             pCommand->stoneType = STONE_TYPE_CAP;
 
@@ -182,58 +192,61 @@ bool parseInputFileX(
         && "Pointer is nullptr"
     );
 
-    switch ( pInputBuffer->keyboard )
+    switch ( getCommandId(
+        pInputBuffer,
+        CONTEXT_POSITION
+    ) )
     {
-        case INPUT_A:
+        case COMMAND_A:
         {
             pCommand->fileX = FILE_A;
 
             return true;
         }
 
-        case INPUT_B:
+        case COMMAND_B:
         {
             pCommand->fileX = FILE_B;
 
             return true;
         }
 
-        case INPUT_C:
+        case COMMAND_C:
         {
             pCommand->fileX = FILE_C;
 
             return true;
         }
 
-        case INPUT_D:
+        case COMMAND_D:
         {
             pCommand->fileX = FILE_D;
 
             return true;
         }
 
-        case INPUT_E:
+        case COMMAND_E:
         {
             pCommand->fileX = FILE_E;
 
             return true;
         }
 
-        case INPUT_F:
+        case COMMAND_F:
         {
             pCommand->fileX = FILE_F;
 
             return true;
         }
 
-        case INPUT_G:
+        case COMMAND_G:
         {
             pCommand->fileX = FILE_G;
 
             return true;
         }
 
-        case INPUT_H:
+        case COMMAND_H:
         {
             pCommand->fileX = FILE_H;
 
@@ -260,58 +273,61 @@ bool parseInputRankY(
         && "Pointer is nullptr"
     );
 
-    switch ( pInputBuffer->keyboard )
+    switch ( getCommandId(
+        pInputBuffer,
+        CONTEXT_POSITION
+    ) )
     {
-        case INPUT_1:
+        case COMMAND_1:
         {
             pCommand->rankY = RANK_1;
 
             return true;
         }
 
-        case INPUT_2:
+        case COMMAND_2:
         {
             pCommand->rankY = RANK_2;
 
             return true;
         }
 
-        case INPUT_3:
+        case COMMAND_3:
         {
             pCommand->rankY = RANK_3;
 
             return true;
         }
 
-        case INPUT_4:
+        case COMMAND_4:
         {
             pCommand->rankY = RANK_4;
 
             return true;
         }
 
-        case INPUT_5:
+        case COMMAND_5:
         {
             pCommand->rankY = RANK_5;
 
             return true;
         }
 
-        case INPUT_6:
+        case COMMAND_6:
         {
             pCommand->rankY = RANK_6;
 
             return true;
         }
 
-        case INPUT_7:
+        case COMMAND_7:
         {
             pCommand->rankY = RANK_7;
 
             return true;
         }
 
-        case INPUT_8:
+        case COMMAND_8:
         {
             pCommand->rankY = RANK_8;
 
@@ -338,37 +354,40 @@ bool parseInputDirection(
         && "Pointer is nullptr"
     );
 
-    switch ( pInputBuffer->keyboard )
+    switch ( getCommandId(
+        pInputBuffer,
+        CONTEXT_DIRECTION
+    ) )
     {
         default:
         {
             return false;
         }
 
-        case INPUT_N:
+        case COMMAND_UP:
         {
             pCommand->direction = DIR_UP;
 
             return true;
         }
 
-        case INPUT_E:
-        {
-            pCommand->direction = DIR_RIGHT;
-
-            return true;
-        }
-
-        case INPUT_S:
+        case COMMAND_DOWN:
         {
             pCommand->direction = DIR_DOWN;
 
             return true;
         }
 
-        case INPUT_W:
+        case COMMAND_LEFT:
         {
             pCommand->direction = DIR_LEFT;
+
+            return true;
+        }
+
+        case COMMAND_RIGHT:
+        {
+            pCommand->direction = DIR_RIGHT;
 
             return true;
         }
@@ -395,65 +414,68 @@ bool parseInputFirstDropAmount(
         && "Invalid drops value"
     );
 
-    switch ( pInputBuffer->keyboard )
+    switch ( getCommandId(
+        pInputBuffer,
+        CONTEXT_AMOUNT
+    ) )
     {
-        case INPUT_0:
+        case COMMAND_0:
         {
             pCommand->dropCounts[0] = 0;
 
             break;
         }
 
-        case INPUT_1:
+        case COMMAND_1:
         {
             pCommand->dropCounts[0] = 1;
 
             break;
         }
 
-        case INPUT_2:
+        case COMMAND_2:
         {
             pCommand->dropCounts[0] = 2;
 
             break;
         }
 
-        case INPUT_3:
+        case COMMAND_3:
         {
             pCommand->dropCounts[0] = 3;
 
             break;
         }
 
-        case INPUT_4:
+        case COMMAND_4:
         {
             pCommand->dropCounts[0] = 4;
 
             break;
         }
 
-        case INPUT_5:
+        case COMMAND_5:
         {
             pCommand->dropCounts[0] = 5;
 
             break;
         }
 
-        case INPUT_6:
+        case COMMAND_6:
         {
             pCommand->dropCounts[0] = 6;
 
             break;
         }
 
-        case INPUT_7:
+        case COMMAND_7:
         {
             pCommand->dropCounts[0] = 7;
 
             break;
         }
 
-        case INPUT_8:
+        case COMMAND_8:
         {
             pCommand->dropCounts[0] = 8;
 
@@ -487,58 +509,61 @@ bool parseInputDropAmount(
         && "Invalid drops value"
     );
 
-    switch ( pInputBuffer->keyboard )
+    switch ( getCommandId(
+        pInputBuffer,
+        CONTEXT_AMOUNT
+    ) )
     {
-        case INPUT_1:
+        case COMMAND_1:
         {
             pCommand->dropCounts[pCommand->drops] = 1;
 
             break;
         }
 
-        case INPUT_2:
+        case COMMAND_2:
         {
             pCommand->dropCounts[pCommand->drops] = 2;
 
             break;
         }
 
-        case INPUT_3:
+        case COMMAND_3:
         {
             pCommand->dropCounts[pCommand->drops] = 3;
 
             break;
         }
 
-        case INPUT_4:
+        case COMMAND_4:
         {
             pCommand->dropCounts[pCommand->drops] = 4;
 
             break;
         }
 
-        case INPUT_5:
+        case COMMAND_5:
         {
             pCommand->dropCounts[pCommand->drops] = 5;
 
             break;
         }
 
-        case INPUT_6:
+        case COMMAND_6:
         {
             pCommand->dropCounts[pCommand->drops] = 6;
 
             break;
         }
 
-        case INPUT_7:
+        case COMMAND_7:
         {
             pCommand->dropCounts[pCommand->drops] = 7;
 
             break;
         }
 
-        case INPUT_8:
+        case COMMAND_8:
         {
             pCommand->dropCounts[pCommand->drops] = 8;
 

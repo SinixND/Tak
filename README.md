@@ -147,18 +147,16 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 
 
 ## ToDo notes
-- [ ] 'z' to reset command (or turn?)
 - [ ] If square/rank input is invalid, reset either file && rank or whole turn
 - [ ] Add option to drop all (INPUT_A)
     - [ ] Test!
-- [ ] Simulate input as demo app state
+- [ ] Simulate input (as 'demo' app state)
 - [ ] Autocomplete needs to trigger before next input
 - [ ] Choose game size at start
     - [ ] App state select board size
     - [ ] Test!
-- [ ] ?? Unions?
-- [ ] ?? Add Keybind abstraction (eg. "INPUT_QUIT = INPUT_Q")
-    - To have keybinds in one place
+- [ ] 'x' to reset command (or turn?) (requires history)
+- [ ] ?? Unions? (history)
 - [ ] ?? Add Statusline
 - [ ] ?? Remove event (not needed)
 

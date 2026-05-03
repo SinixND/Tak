@@ -8,20 +8,19 @@ typedef enum ContextId
 {
     CONTEXT_ACTION_TYPE,
     CONTEXT_STONE_TYPE,
-    CONTEXT_FILE_X,
-    CONTEXT_RANK_Y,
+    CONTEXT_POSITION,
     CONTEXT_DIRECTION,
+    CONTEXT_AMOUNT,
     CONTEXT_GLOBAL,
     CONTEXT_COUNT,
 } ContextId;
 
-/// Input is CommandId
-typedef struct Keybinds
+typedef struct Keymap
 {
     InputId inputs[CONTEXT_COUNT][COMMAND_COUNT];
     CommandId commands[CONTEXT_COUNT][INPUT_COUNT];
-} Keybinds;
+} Keymap;
 
-Keybinds newKeybinds( void );
+Keymap newKeymap( void );
 
 #endif

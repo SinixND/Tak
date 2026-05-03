@@ -1,6 +1,7 @@
 #include "InputBuffer.h"
 
 #include "InputId.h"
+#include "Keymap.h"
 #include "PlayerId.h"
 
 InputBuffer newInputBuffer( void )
@@ -8,7 +9,15 @@ InputBuffer newInputBuffer( void )
     return (InputBuffer){
         // TODO: NONE?
         .playerId = PLAYER_WHITE,
-        .keyboard = INPUT_NONE,
+        .keymap = newKeymap(),
+        .lastInput = INPUT_NONE,
     };
 }
 
+CommandId getCommandId(
+    InputBuffer const* const pInputBuffer,
+    ContextId const contextId
+)
+{
+    return pInputBuffer->keymap.commands[contextId][pInputBuffer->lastInput];
+}

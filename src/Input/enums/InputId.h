@@ -4,61 +4,39 @@
 typedef enum InputId
 {
     INPUT_NONE,
-    INPUT_A, /// Used for file
-    INPUT_B, /// Used for file
-    INPUT_C, /// Used for file and capstone
-    INPUT_D, /// Used for file and action
-    INPUT_E, /// Used for file and direction
-    INPUT_F, /// Used for file and flat stones
-    INPUT_G, /// Used for file
-    INPUT_H, /// Used for file
-    INPUT_L, /// Used for action
-    INPUT_M, /// Used for action
-    INPUT_N, /// Used for direction
-    INPUT_P, /// Used for action
-    INPUT_Q, /// Used for quit
-    INPUT_R, /// Used for redo
-    INPUT_S, /// Used for standing stones and direction
-    INPUT_U, /// Used for undo
-    INPUT_W, /// Used for direction
-    INPUT_0, /// Used for stone counts
-    INPUT_1, /// Used for rank and stone counts
-    INPUT_2, /// Used for rank and stone counts
-    INPUT_3, /// Used for rank and stone counts
-    INPUT_4, /// Used for rank and stone counts
-    INPUT_5, /// Used for rank and stone counts
-    INPUT_6, /// Used for rank and stone counts
-    INPUT_7, /// Used for rank and stone counts
-    INPUT_8, /// Used for rank and stone counts
+
+    INPUT_0,
+    INPUT_1,
+    INPUT_2,
+    INPUT_3,
+    INPUT_4,
+    INPUT_5,
+    INPUT_6,
+    INPUT_7,
+    INPUT_8,
+
+    INPUT_A,
+    INPUT_B,
+    INPUT_C,
+    INPUT_D,
+    INPUT_E,
+    INPUT_F,
+    INPUT_G,
+    INPUT_H,
+
+    INPUT_L,
+    INPUT_M,
+    INPUT_P,
+    INPUT_R,
+    INPUT_S,
+    INPUT_U,
+
+    INPUT_CAP_Q,
+    INPUT_CAP_R,
+    INPUT_CAP_U,
+    INPUT_CAP_X,
+
+    INPUT_COUNT
 } InputId;
 
-static char const INPUT_CHARS[] = {
-    [INPUT_NONE] = '-',
-    [INPUT_A] = 'A',
-    [INPUT_B] = 'B',
-    [INPUT_C] = 'C',
-    [INPUT_D] = 'D',
-    [INPUT_E] = 'E',
-    [INPUT_F] = 'F',
-    [INPUT_G] = 'G',
-    [INPUT_H] = 'H',
-    [INPUT_L] = 'L',
-    [INPUT_M] = 'M',
-    [INPUT_N] = 'N',
-    [INPUT_P] = 'P',
-    [INPUT_Q] = 'Q',
-    [INPUT_R] = 'R',
-    [INPUT_S] = 'S',
-    [INPUT_U] = 'U',
-    [INPUT_W] = 'W',
-    [INPUT_0] = '0',
-    [INPUT_1] = '1',
-    [INPUT_2] = '2',
-    [INPUT_3] = '3',
-    [INPUT_4] = '4',
-    [INPUT_5] = '5',
-    [INPUT_6] = '6',
-    [INPUT_7] = '7',
-    [INPUT_8] = '8',
-};
 #endif

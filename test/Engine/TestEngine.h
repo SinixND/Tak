@@ -95,7 +95,7 @@ void testBuildCommand( void )
     command.drops = 1;
     command.dropCounts[0] = 2;
     game.stackBuffer.stoneCount = 3;
-    inputBuffer.keyboard = INPUT_4;
+    inputBuffer.lastInput = INPUT_4;
 
     buildCommand(
         &command,

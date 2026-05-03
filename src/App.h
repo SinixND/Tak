@@ -18,8 +18,8 @@ typedef struct App
     /// Input
     InputBuffer inputBuffer;
     /// Engine
-    Event event;
     Command command;
+    Event event;
     /// Render
     Prompt prompt;
     /// Timing
