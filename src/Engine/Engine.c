@@ -136,9 +136,9 @@ void buildCommand(
     {
         /// Set command value from input
         if ( !parseInput(
-                &command,
-                pInputBuffer
-            ) )
+                 &command,
+                 pInputBuffer
+             ) )
         {
             return;
         }
