@@ -24,6 +24,19 @@ void testAutocompleteCommand( void )
     command.rankY = RANK_1;
     command.direction = DIR_RIGHT;
 
+    /// Need to drop all if next square out of board
+    command.state = STATE_GET_DROP_AMOUNT;
+    command.drops = 2; // Next square index is out of board
+    command.dropCounts[0] = 0;
+    command.dropCounts[1] = 1;
+    game.stackBuffer.stoneCount = 2; // Two stones left in stack after previous drops
+    autocompleteCommand(
+        &command,
+        &game
+    );
+    TEST_ASSERT_EQUAL_INT( 2, command.dropCounts[2] );
+    TEST_ASSERT_EQUAL_INT( STATE_GET_ACTION_TYPE, command.state );
+
     /// Need to drop 'all' if only one stone left in stack buffer and not first drop
     command.state = STATE_GET_DROP_AMOUNT;
     game.stackBuffer.stoneCount = 1; // Only one stone left in stack
@@ -33,6 +46,7 @@ void testAutocompleteCommand( void )
         &game
     );
     TEST_ASSERT_EQUAL_INT( 1, command.dropCounts[1] );
+    TEST_ASSERT_EQUAL_INT( STATE_GET_ACTION_TYPE, command.state );
 
     /// Need to drop all if next squares type is capstone
     game.stackBuffer.stoneCount = 2;
@@ -44,6 +58,7 @@ void testAutocompleteCommand( void )
         &game
     );
     TEST_ASSERT_EQUAL_INT( 2, command.dropCounts[0] );
+    TEST_ASSERT_EQUAL_INT( STATE_GET_ACTION_TYPE, command.state );
 
     /// Need to drop all if next squares type is standing and buffer type is not capstone
     game.stackBuffer.stoneCount = 2;
@@ -56,6 +71,7 @@ void testAutocompleteCommand( void )
         &game
     );
     TEST_ASSERT_EQUAL_INT( 2, command.dropCounts[0] );
+    TEST_ASSERT_EQUAL_INT( STATE_GET_ACTION_TYPE, command.state );
 
     /// Need to drop all but one if next squares type is standing and buffer type is capstone
     game.stackBuffer.stoneCount = 2;
@@ -68,18 +84,6 @@ void testAutocompleteCommand( void )
         &game
     );
     TEST_ASSERT_EQUAL_INT( 1, command.dropCounts[0] );
-
-    /// Need to drop all if next square out of board
-    command.state = STATE_GET_DROP_AMOUNT;
-    command.drops = 2; // Next square index is out of board
-    command.dropCounts[0] = 0;
-    command.dropCounts[1] = 1;
-    game.stackBuffer.stoneCount = 2; // Two stones left in stack after previous drops
-    autocompleteCommand(
-        &command,
-        &game
-    );
-    TEST_ASSERT_EQUAL_INT( 2, command.dropCounts[2] );
 }
 
 void testBuildCommand( void )

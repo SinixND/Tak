@@ -147,7 +147,7 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 
 
 ## ToDo notes
-- [ ] Autocomplete needs to trigger before next input
+- [ ] Update prompt to use keymap
 - [ ] Test handle first and second turn
 - [ ] Test finalize drop behaviour
 - [ ] Test update action lift to drop while building

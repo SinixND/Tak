@@ -133,8 +133,8 @@ void updateFrame( App* const pApp )
 void handleAppStateNormalTurn( App* const pApp )
 {
     if ( !autocompleteCommand(
-             &command,
-             pGame
+             &pApp->command,
+             &pApp->game
          ) )
     {
         pollInput( &pApp->inputBuffer );
@@ -171,6 +171,7 @@ void updateApp( App* const pApp )
     );
 
     /// Pre event update
+    // TODO: Relocate?
     pApp->prompt = PROMPTS[pApp->command.state];
 
     if ( !updateGame( pApp ) )

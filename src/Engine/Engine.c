@@ -48,6 +48,20 @@ bool autocompleteCommand(
               * ( pCommand->drops
                   + 1 ) );
 
+    /// Need to drop all if next square out of board
+    if (
+        ( nextFileX < 0 )
+        || ( nextFileX >= pGame->board.size )
+        || ( nextRankY < 0 )
+        || ( nextRankY >= pGame->board.size )
+    )
+    {
+        pCommand->dropCounts[pCommand->drops] = pGame->stackBuffer.stoneCount;
+        pCommand->state = STATE_GET_ACTION_TYPE;
+
+        return true;
+    }
+
     int const nextSquareIdx = positionToSquare(
         nextFileX,
         nextRankY,
@@ -59,6 +73,7 @@ bool autocompleteCommand(
          && pGame->stackBuffer.stoneCount == 1 )
     {
         pCommand->dropCounts[pCommand->drops] = 1;
+        pCommand->state = STATE_GET_ACTION_TYPE;
 
         return true;
     }
@@ -67,6 +82,7 @@ bool autocompleteCommand(
     if ( pGame->board.stackTypes[nextSquareIdx] == STONE_TYPE_CAP )
     {
         pCommand->dropCounts[pCommand->drops] = pGame->stackBuffer.stoneCount;
+        pCommand->state = STATE_GET_ACTION_TYPE;
 
         return true;
     }
@@ -76,6 +92,7 @@ bool autocompleteCommand(
          && pGame->stackBuffer.stackType != STONE_TYPE_CAP )
     {
         pCommand->dropCounts[pCommand->drops] = pGame->stackBuffer.stoneCount;
+        pCommand->state = STATE_GET_ACTION_TYPE;
 
         return true;
     }
@@ -85,19 +102,6 @@ bool autocompleteCommand(
          && pGame->stackBuffer.stackType == STONE_TYPE_CAP )
     {
         pCommand->dropCounts[pCommand->drops] = pGame->stackBuffer.stoneCount - 1;
-
-        return true;
-    }
-
-    /// Need to drop all if next square out of board
-    if (
-        ( nextFileX < 0 )
-        || ( nextFileX >= pGame->board.size )
-        || ( nextRankY < 0 )
-        || ( nextRankY >= pGame->board.size )
-    )
-    {
-        pCommand->dropCounts[pCommand->drops] = pGame->stackBuffer.stoneCount;
 
         return true;
     }
@@ -131,9 +135,9 @@ void buildCommand(
 
     /// Set command value from input
     if ( !parseInput(
-                &command,
-                pInputBuffer
-            ) )
+             &command,
+             pInputBuffer
+         ) )
     {
         return;
     }
