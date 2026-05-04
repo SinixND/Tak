@@ -147,6 +147,7 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 
 
 ## ToDo notes
+- [ ] Autocomplete needs to trigger before next input
 - [ ] Test handle first and second turn
 - [ ] Test finalize drop behaviour
 - [ ] Test update action lift to drop while building
@@ -156,7 +157,6 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 - [ ] Add option to drop all (INPUT_A)
     - [ ] Test!
 - [ ] Simulate input (as 'demo' app state)
-- [ ] Autocomplete needs to trigger before next input
 - [ ] Choose game size at start
     - [ ] App state select board size
     - [ ] Test!

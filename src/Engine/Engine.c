@@ -129,20 +129,14 @@ void buildCommand(
     /// Temporary command
     Command command = *pCommand;
 
-    if ( !autocompleteCommand(
-             &command,
-             pGame
-         ) )
+    /// Set command value from input
+    if ( !parseInput(
+                &command,
+                pInputBuffer
+            ) )
     {
-        /// Set command value from input
-        if ( !parseInput(
-                 &command,
-                 pInputBuffer
-             ) )
-        {
-            return;
-        }
-    };
+        return;
+    }
 
     /// Cap drop count
     // TODO: Move somewhere else, too high level

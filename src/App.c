@@ -132,9 +132,15 @@ void updateFrame( App* const pApp )
 
 void handleAppStateNormalTurn( App* const pApp )
 {
-    pollInput( &pApp->inputBuffer );
+    if ( !autocompleteCommand(
+             &command,
+             pGame
+         ) )
+    {
+        pollInput( &pApp->inputBuffer );
 
-    handleInput( pApp );
+        handleInput( pApp );
+    };
 
     updateApp( pApp );
 
