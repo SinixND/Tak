@@ -14,7 +14,6 @@
 #include "Prompts.h"
 #include "StoneTypeId.h"
 #include <assert.h>
-#include <ncurses.h>
 #include <stdbool.h>
 
 App newApp( int const boardSize )
