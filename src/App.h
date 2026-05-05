@@ -42,7 +42,7 @@ void closeApp( void );
 void updateFrame( App* const pApp );
 
 /// Handle app state
-void handleAppStateNormalTurn( App* const pApp );
+void progressTurn( App* const pApp );
 
 /// Get input and update dependent data
 void handleInput( App* const pApp );

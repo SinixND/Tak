@@ -74,7 +74,7 @@ void updateFrame( App* const pApp )
         default:
         case APP_STATE_NORMAL_TURN:
         {
-            handleAppStateNormalTurn( pApp );
+            progressTurn( pApp );
 
             return;
         }
@@ -88,7 +88,7 @@ void updateFrame( App* const pApp )
             pApp->command.stoneType = STONE_TYPE_FLAT;
             pApp->command.state = STATE_GET_FILE_X;
 
-            updateApp( pApp );
+            /// Update altered UI
             renderDynamic( pApp );
 
             while (
@@ -96,7 +96,7 @@ void updateFrame( App* const pApp )
                 && !isTurnComplete( pApp )
             )
             {
-                handleAppStateNormalTurn( pApp );
+                progressTurn( pApp );
             }
 
             pApp->state = APP_STATE_SECOND_TURN;
@@ -113,7 +113,7 @@ void updateFrame( App* const pApp )
             pApp->command.stoneType = STONE_TYPE_FLAT;
             pApp->command.state = STATE_GET_FILE_X;
 
-            updateApp( pApp );
+            /// Update altered UI
             renderDynamic( pApp );
 
             while (
@@ -121,7 +121,7 @@ void updateFrame( App* const pApp )
                 && !isTurnComplete( pApp )
             )
             {
-                handleAppStateNormalTurn( pApp );
+                progressTurn( pApp );
             }
 
             pApp->state = APP_STATE_NORMAL_TURN;
@@ -131,7 +131,7 @@ void updateFrame( App* const pApp )
     }
 }
 
-void handleAppStateNormalTurn( App* const pApp )
+void progressTurn( App* const pApp )
 {
     if ( !autocompleteCommand(
              &pApp->command,
