@@ -142,14 +142,6 @@ void buildCommand(
         return;
     }
 
-    /// Cap drop count
-    // TODO: Move somewhere else, too high level
-    // TODO: This only applies on drop input!
-    if ( command.dropCounts[command.drops] > pGame->stackBuffer.stoneCount )
-    {
-        command.dropCounts[command.drops] = pGame->stackBuffer.stoneCount;
-    }
-
     /// Validate input against game
     if ( !validateCommand(
              &command,
