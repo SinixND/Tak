@@ -39,4 +39,35 @@ typedef enum InputId
     INPUT_COUNT
 } InputId;
 
+static char const INPUT_ID_CHARS[] = {
+    [INPUT_NONE] = ' ',
+    [INPUT_0] = '0',
+    [INPUT_1] = '1',
+    [INPUT_2] = '2',
+    [INPUT_3] = '3',
+    [INPUT_4] = '4',
+    [INPUT_5] = '5',
+    [INPUT_6] = '6',
+    [INPUT_7] = '7',
+    [INPUT_8] = '8',
+    [INPUT_A] = 'a',
+    [INPUT_B] = 'b',
+    [INPUT_C] = 'c',
+    [INPUT_D] = 'd',
+    [INPUT_E] = 'e',
+    [INPUT_F] = 'f',
+    [INPUT_G] = 'g',
+    [INPUT_H] = 'h',
+    [INPUT_L] = 'l',
+    [INPUT_M] = 'm',
+    [INPUT_P] = 'p',
+    [INPUT_R] = 'r',
+    [INPUT_S] = 's',
+    [INPUT_U] = 'u',
+    [INPUT_CAP_Q] = 'Q',
+    [INPUT_CAP_R] = 'R',
+    [INPUT_CAP_U] = 'U',
+    [INPUT_CAP_X] = 'X',
+};
+
 #endif

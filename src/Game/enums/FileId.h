@@ -16,14 +16,14 @@ typedef enum FileId
 } FileId;
 
 static char const FILE_CHARS[] = {
-    'a',
-    'b',
-    'c',
-    'd',
-    'e',
-    'f',
-    'g',
-    'h',
+    [FILE_A] = 'a',
+    [FILE_B] = 'b',
+    [FILE_C] = 'c',
+    [FILE_D] = 'd',
+    [FILE_E] = 'e',
+    [FILE_F] = 'f',
+    [FILE_G] = 'g',
+    [FILE_H] = 'h',
 };
 
 #endif

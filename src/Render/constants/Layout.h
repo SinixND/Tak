@@ -7,7 +7,7 @@ enum
     LAYOUT_PANE_WIDTH = 17,
     BOARD_OFFSET_X = LAYOUT_PANE_WIDTH + 2,
     LAYOUT_BOARD_SQUARE_SIZE = 4,
-    MAX_COMMAND_LENGTH = 11,
+    MAX_PROMPT_LENGTH = 11,
 };
 
 /// Positions (y, x)

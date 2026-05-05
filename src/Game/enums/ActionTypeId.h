@@ -13,10 +13,10 @@ typedef enum ActionType
 } ActionType;
 
 static char const ACTION_TYPE_CHARS[] = {
-    ' ',
-    'P',
-    'M', // Lift displayed as move
-    'M', // Drop displayed as move
+    [ACTION_TYPE_NONE] = ' ',
+    [ACTION_TYPE_PLACE] = 'P',
+    [ACTION_TYPE_LIFT] = 'M', // Lift displayed as move
+    [ACTION_TYPE_DROP] = 'M', // Drop displayed as move
 };
 
 #endif

@@ -284,7 +284,7 @@ void renderInfoPaneContent( App const* const pApp )
         POSITION_INPUT_TYPE[0],
         POSITION_INPUT_TYPE[1],
         "%s",
-        pApp->prompt.input
+        pApp->prompts.inputs[pApp->command.state]
     );
 
     // Print possible input options
@@ -292,7 +292,7 @@ void renderInfoPaneContent( App const* const pApp )
         POSITION_INPUT_OPTIONS[0],
         POSITION_INPUT_OPTIONS[1],
         "%s",
-        pApp->prompt.options
+        pApp->prompts.options[pApp->command.state]
     );
 
     // Print current player input

@@ -6,7 +6,7 @@
 #include "Event.h"
 #include "Game.h"
 #include "InputBuffer.h"
-#include "Prompt.h"
+#include "Prompts.h"
 #include <stdbool.h>
 
 typedef struct App
@@ -21,7 +21,7 @@ typedef struct App
     Command command;
     Event event;
     /// Render
-    Prompt prompt;
+    Prompts prompts;
     /// Timing
     bool shouldClose;
 } App;

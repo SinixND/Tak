@@ -12,6 +12,7 @@ typedef enum CommandStateId
     STATE_GET_DIRECTION,         // Choose north/west/east/south
     STATE_GET_FIRST_DROP_AMOUNT, // Choose 0-8
     STATE_GET_DROP_AMOUNT,       // Choose 1-8
+    STATE_COUNT,
 } CommandStateId;
 
 #endif

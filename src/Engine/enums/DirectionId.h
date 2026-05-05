@@ -12,10 +12,10 @@ typedef enum DirectionId
 } DirectionId;
 
 static char const DIRECTION_CHARS[] = {
-    '-',
-    '<',
-    '+',
-    '>',
+    [DIR_DOWN] = '-',
+    [DIR_LEFT] = '<',
+    [DIR_UP] = '+',
+    [DIR_RIGHT] = '>',
 };
 
 int getOffsetX( DirectionId const direction );

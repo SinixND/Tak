@@ -36,9 +36,10 @@ App newApp( int const boardSize )
         .inputBuffer = newInputBuffer(),
         .command = newCommand( PLAYER_BLACK ),
         .event = newEvent(),
-        .prompt = newPrompt(),
         .shouldClose = false,
     };
+
+    app.prompts = newPrompts( &app.inputBuffer.keymap );
 
     return app;
 }
@@ -169,10 +170,6 @@ void updateApp( App* const pApp )
         pApp
         && "Pointer is nullptr"
     );
-
-    /// Pre event update
-    // TODO: Relocate?
-    pApp->prompt = PROMPTS[pApp->command.state];
 
     if ( !updateGame( pApp ) )
     {

@@ -12,8 +12,8 @@ typedef enum PlayerId
 } PlayerId;
 
 static char const PLAYER_CHARS[] = {
-    'W',
-    'B',
+   [PLAYER_WHITE] = 'W',
+   [PLAYER_BLACK] = 'B',
 };
 
 #endif
