@@ -148,7 +148,7 @@ void buildCommand(
              pGame
          ) )
     {
-        /// Reset file if rank invalid
+        /// Reset original command to query for file if rank invalid
         if ( command.state == STATE_GET_RANK_Y )
         {
             pCommand->fileX = FILE_NONE;

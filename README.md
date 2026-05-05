@@ -147,11 +147,6 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 
 
 ## ToDo notes
-- [ ] Test finalize drop behaviour
-- [ ] Test update action lift to drop while building
-- [ ] Test handle turn end 
-- [ ] Test file/rank reset
-- [ ] Test keymap
 - [ ] Add option to drop all (INPUT_A)
     - [ ] Test!
 - [ ] Simulate input (as 'demo' app state)

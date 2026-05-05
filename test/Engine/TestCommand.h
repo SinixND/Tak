@@ -119,7 +119,16 @@ void testIsCommandReady( void )
     command.drops = 0;
     TEST_ASSERT_EQUAL_INT( false, isCommandReady( &command ) );
 
-    command.dropCounts[0] = 1;
+    command.dropCounts[0] = 0;
+    TEST_ASSERT_EQUAL_INT( true, isCommandReady( &command ) );
+
+    command.drops = 1;
+    TEST_ASSERT_EQUAL_INT( false, isCommandReady( &command ) );
+
+    command.dropCounts[1] = 0;
+    TEST_ASSERT_EQUAL_INT( false, isCommandReady( &command ) );
+
+    command.dropCounts[1] = 1;
     TEST_ASSERT_EQUAL_INT( true, isCommandReady( &command ) );
 }
 
