@@ -51,6 +51,7 @@ Keymap newKeymap( void )
                 [COMMAND_6] = INPUT_6,
                 [COMMAND_7] = INPUT_7,
                 [COMMAND_8] = INPUT_8,
+                [COMMAND_ALL] = INPUT_A,
             },
             [CONTEXT_GLOBAL] = {
                 [COMMAND_QUIT] = INPUT_CAP_Q,

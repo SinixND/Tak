@@ -564,6 +564,7 @@ bool parseInputDropAmount(
         }
 
         case COMMAND_8:
+        case COMMAND_ALL:
         {
             pCommand->dropCounts[pCommand->drops] = 8;
 

@@ -276,6 +276,12 @@ void testParseInputDropAmount( void )
     inputBuffer.lastInput = inputBuffer.keymap.inputs[CONTEXT_AMOUNT][COMMAND_8];
     TEST_ASSERT_EQUAL_INT( true, parseInputDropAmount( &command, &inputBuffer ) );
     TEST_ASSERT_EQUAL_INT( 8, command.dropCounts[1] );
+
+    command.dropCounts[1] = -1;
+    command.drops = 1;
+    inputBuffer.lastInput = inputBuffer.keymap.inputs[CONTEXT_AMOUNT][COMMAND_ALL];
+    TEST_ASSERT_EQUAL_INT( true, parseInputDropAmount( &command, &inputBuffer ) );
+    TEST_ASSERT_EQUAL_INT( 8, command.dropCounts[1] );
 }
 
 void testParseInput( void )

@@ -153,6 +153,7 @@ The following tools are used in the project but not required and not contained i
 ## ToDo notes
 - [ ] Add option to drop all (INPUT_A)
     - [ ] Test!
+- [ ] Autocomplete move one (= 0 on first drop?)
 - [ ] Simulate input (as 'demo' app state)
 - [ ] Choose game size at start
     - [ ] App state select board size

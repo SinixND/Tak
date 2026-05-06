@@ -70,8 +70,7 @@ Prompts newPrompts( Keymap const* const pKeymap )
                 ',', ' ',
                 INPUT_ID_CHARS[pKeymap->inputs[CONTEXT_AMOUNT][COMMAND_2]],
                 ' ', '.', '.', ',', ' ',
-                ' ', // TODO: Replace with all once implemented
-                // INPUT_ID_CHARS[pKeymap->inputs[CONTEXT_POSITION][COMMAND_ALL]],
+                INPUT_ID_CHARS[pKeymap->inputs[CONTEXT_AMOUNT][COMMAND_ALL]],
                 '\0'
             },
             // clang-format on
