@@ -7,6 +7,7 @@
 #include "Game.h"
 #include "InputBuffer.h"
 #include "Prompts.h"
+#include "Simulation.h"
 #include <stdbool.h>
 
 typedef struct App
@@ -17,6 +18,7 @@ typedef struct App
     Game game;
     /// Input
     InputBuffer inputBuffer;
+    Simulation simulation;
     /// Engine
     Command command;
     Event event;
@@ -43,6 +45,9 @@ void updateFrame( App* const pApp );
 
 /// Handle app state
 void progressTurn( App* const pApp );
+
+/// Get input (simulated or polled)
+void getInput( App* const pApp );
 
 /// Get input and update dependent data
 void handleInput( App* const pApp );

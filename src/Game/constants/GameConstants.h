@@ -20,9 +20,6 @@ enum
     /// Squares per Width/Height
     BOARD_SIZE_DEFAULT = 8, // WARN: Temporary board size adjustment for development
 
-    /// Undo/Redo history size
-    HISTORY_SIZE = 1000,
-
     /**
      * Maximum stacks possible in game (= squares)
      * May be increased to improve alignment for cache

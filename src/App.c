@@ -12,6 +12,7 @@
 #include "InputSystem.h"
 #include "PlayerId.h"
 #include "Prompts.h"
+#include "Simulation.h"
 #include "StoneTypeId.h"
 #include <assert.h>
 #include <stdbool.h>
@@ -33,6 +34,7 @@ App newApp( int const boardSize )
         .state = APP_STATE_FIRST_TURN,
         .game = newGame( boardSize ),
         .inputBuffer = newInputBuffer(),
+        .simulation = newSimulation(),
         .command = newCommand( PLAYER_BLACK ),
         .event = newEvent(),
         .shouldClose = false,
@@ -137,7 +139,7 @@ void progressTurn( App* const pApp )
              &pApp->game
          ) )
     {
-        pollInput( &pApp->inputBuffer );
+        getInput( pApp );
 
         handleInput( pApp );
     };
@@ -145,6 +147,20 @@ void progressTurn( App* const pApp )
     updateApp( pApp );
 
     renderDynamic( pApp );
+}
+
+// NOTE: Only reqqired as long as simulation is used here
+void getInput( App* const pApp )
+{
+    if ( simulateInput(
+             &pApp->inputBuffer,
+             &pApp->simulation
+         ) )
+    {
+        return;
+    }
+
+    pollInput( &pApp->inputBuffer );
 }
 
 void handleInput( App* const pApp )

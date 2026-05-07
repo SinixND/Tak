@@ -1,7 +1,6 @@
 #include "Demo.h"
 
 #include "App.h"
-#include "Board.h"
 #include "Game.h"
 #include "PlayerId.h"
 #include "StoneTypeId.h"
