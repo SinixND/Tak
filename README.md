@@ -154,6 +154,22 @@ The following tools are used in the project but not required and not contained i
 - [ ] Add simulation
     - [x] Simulate input
     - [ ] Simulate "full" game
+        - place flat white/black (first && second turn)
+        - place standing
+        - place capstone
+        - move stack
+        - handle all autocommand cases
+            - move single
+              - covers drop all if not first && liftcount == 1
+            - move against border
+            - move against capstone
+            - move non-cap + captives against standing
+            - move capstone + captives against standing
+        - handle all rule cases
+            - move stack > boardSize
+        - input illegal moves
+          - place onto non empty
+          - move empty
 - [ ] Add cursor?
     - Cursor == Frame around square
     - New appstate GET_POSITION

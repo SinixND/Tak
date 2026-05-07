@@ -264,7 +264,13 @@ bool validateCommandDropAmount(
         && "Pointer is nullptr"
     );
 
-    // TODO: Checks required?
+    if (!pCommand->drops
+                && pCommand->dropCounts[pCommand->drops] >= pGame->stackBuffer.stoneCount;
+    )
+    {
+        return false;
+    }
+
     return true;
 }
 

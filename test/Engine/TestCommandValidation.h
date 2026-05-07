@@ -176,14 +176,21 @@ void testValidateCommand( void )
     command.direction = DIR_UP;
     TEST_ASSERT_EQUAL_INT( true, validateCommand( &command, &game ) );
 
+    game.stackBuffer.stoneCount = 3;
     command.state = STATE_GET_FIRST_DROP_AMOUNT;
     command.actionType = ACTION_TYPE_DROP;
     command.dropCounts[0] = 3;
-    command.drops = 1;
+    command.drops = 0;
+    TEST_ASSERT_EQUAL_INT( false, validateCommand( &command, &game ) );
+
+    command.dropCounts[0] = 1;
     TEST_ASSERT_EQUAL_INT( true, validateCommand( &command, &game ) );
 
     command.state = STATE_GET_DROP_AMOUNT;
+    command.actionType = ACTION_TYPE_DROP;
+    command.drops = 1;
     TEST_ASSERT_EQUAL_INT( true, validateCommand( &command, &game ) );
+
 }
 
 #endif
