@@ -477,30 +477,35 @@ void renderSquareContent(
     }
 
     // Render stack Ids
-    for ( int stoneIdx = 0; stoneIdx < BOARD_SIZE_MAX; ++stoneIdx )
+    for ( int stoneIdxOffset = 0; stoneIdxOffset < BOARD_SIZE_MAX; ++stoneIdxOffset )
     {
-        int const stackIdx = squareToStackIndex( squareIdx, pBoard->size );
+        int const stackIdx = squareToStackIndex(
+            squareIdx,
+            pBoard->size
+        );
 
-        if ( stoneIdx < pBoard->stoneCounts[squareIdx] )
+        int stoneIdx = stackIdx + pBoard->stoneCounts[squareIdx] - 1;
+
+        if ( stoneIdxOffset < pBoard->stoneCounts[squareIdx] )
         {
             mvaddch(
                 squareEdgeY
-                    + ( ( 1 + stoneIdx )
+                    + ( ( 1 + stoneIdxOffset )
                         % ( LAYOUT_BOARD_SQUARE_SIZE - 1 ) ),
                 squareEdgeX
-                    + ( ( 1 + stoneIdx )
+                    + ( ( 1 + stoneIdxOffset )
                         / ( LAYOUT_BOARD_SQUARE_SIZE - 1 ) ),
-                PLAYER_CHARS[pBoard->stoneIds[stackIdx + stoneIdx]]
+                PLAYER_CHARS[pBoard->stoneIds[stoneIdx - stoneIdxOffset]]
             );
         }
         else
         {
             mvaddch(
                 squareEdgeY
-                    + ( ( 1 + stoneIdx )
+                    + ( ( 1 + stoneIdxOffset )
                         % ( LAYOUT_BOARD_SQUARE_SIZE - 1 ) ),
                 squareEdgeX
-                    + ( ( 1 + stoneIdx )
+                    + ( ( 1 + stoneIdxOffset )
                         / ( LAYOUT_BOARD_SQUARE_SIZE - 1 ) ),
                 ' '
             );
