@@ -151,35 +151,19 @@ The following tools are used in the project but not required and not contained i
 
 
 ## ToDo notes
-- [ ] Add simulation
-    - [x] Simulate input
-    - [ ] Simulate "full" game
-        - [x] place flat white/black (first && second turn)
-        - [x] place standing
-        - [x] place capstone
-        - [ ] handle all autocommand cases
-            - [x] move single
-            - [ ] move against border
-            - [ ] move against capstone
-            - [ ] move non-cap + captives against standing
-            - move capstone + captives against standing
-        - [ ] handle all rule cases
-            - [ ] move stack > max boardSize
-        - [ ] input illegal moves
-          - [ ] place onto non empty
-          - [ ] move empty
-        - [ ] winning condition
-- [ ] Add cursor?
-    - Cursor == Frame around square
-    - New appstate GET_POSITION
-    - CMD_CONFIRM
 - [ ] Choose game size at start
     - [ ] App state select board size
     - [ ] Test!
+- [ ] Winconidion
+- [ ] History
 - [ ] 'x' to reset command (or turn?) (requires history)
 - [ ] ?? Unions? (history)
-- [ ] ?? Add Statusline
-- [ ] ?? Remove event (not needed)
+- [ ] ?? Remove event (needed for history or not?)
+
+- [ ] Add cursor? -> raylib
+    - Cursor == Frame around square
+    - New appstate GET_POSITION
+    - CMD_CONFIRM
 
 <p align="right">(<a href="#readme-top">top</a>)</p>
 

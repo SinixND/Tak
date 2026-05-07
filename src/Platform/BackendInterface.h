@@ -16,6 +16,9 @@ void closeBackend( void );
 /// Important: Calls `void updateFrame(App* const pApp)`
 void loopBackend( App* const pApp );
 
+/// Delay execution for n milliseconds
+void wait( int const ms );
+
 /// Input
 
 /// Normalize user input from backend

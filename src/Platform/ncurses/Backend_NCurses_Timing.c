@@ -2,6 +2,7 @@
 
 #include "App.h"
 #include <assert.h>
+#include <ncurses.h>
 
 #ifdef BACKEND_NCURSES
 
@@ -16,6 +17,11 @@ void loopBackend( App* const pApp )
     {
         updateFrame( pApp );
     }
+}
+
+void wait( int const ms )
+{
+    napms( ms );
 }
 
 #endif

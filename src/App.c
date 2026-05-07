@@ -157,6 +157,7 @@ void getInput( App* const pApp )
              &pApp->simulation
          ) )
     {
+        wait( 00 );
         return;
     }
 
