@@ -1,20 +1,13 @@
 #include "Simulation.h"
 
 #include "InputBuffer.h"
+#include "SimulationData.h"
 #include <stdbool.h>
 
 Simulation newSimulation( void )
 {
     return (Simulation){
         .inputIdx = 0,
-        .inputs = {
-            /// 1
-            INPUT_B,
-            INPUT_1,
-            /// 2
-            INPUT_C,
-            INPUT_1,
-        },
     };
 }
 
@@ -23,11 +16,11 @@ bool simulateInput(
     Simulation* const pSimulation
 )
 {
-    if ( pSimulation->inputIdx < 4 )
+    if ( pSimulation->inputIdx < (int)( sizeof( SIMULATION_DATA ) / sizeof( SIMULATION_DATA[0] ) ) )
     {
         ++pSimulation->inputIdx;
 
-        pInputBuffer->lastInput = pSimulation->inputs[pSimulation->inputIdx - 1];
+        pInputBuffer->lastInput = SIMULATION_DATA[pSimulation->inputIdx - 1];
 
         return true;
     }
