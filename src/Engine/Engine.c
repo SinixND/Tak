@@ -68,6 +68,16 @@ bool autocompleteCommand(
         pGame->board.size
     );
 
+    /// Drop nothing at source square if liftcount == 1
+    if ( pCommand->drops < 1
+         && pGame->stackBuffer.stoneCount == 1 )
+    {
+        pCommand->dropCounts[pCommand->drops] = 0;
+        pCommand->state = STATE_GET_DROP_AMOUNT;
+
+        return true;
+    }
+
     /// Need to drop 'all' if not first drop and only one stone left in stack buffer
     if ( pCommand->drops > 0
          && pGame->stackBuffer.stoneCount == 1 )

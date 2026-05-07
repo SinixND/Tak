@@ -37,6 +37,17 @@ void testAutocompleteCommand( void )
     TEST_ASSERT_EQUAL_INT( 2, command.dropCounts[2] );
     TEST_ASSERT_EQUAL_INT( STATE_GET_ACTION_TYPE, command.state );
 
+    /// Drop nothing at source square if liftcount == 1
+    command.state = STATE_GET_FIRST_DROP_AMOUNT;
+    game.stackBuffer.stoneCount = 1; // Only one stone in stack
+    command.drops = 0;               // First drop
+    autocompleteCommand(
+        &command,
+        &game
+    );
+    TEST_ASSERT_EQUAL_INT( 0, command.dropCounts[0] );
+    TEST_ASSERT_EQUAL_INT( STATE_GET_DROP_AMOUNT, command.state );
+
     /// Need to drop 'all' if only one stone left in stack buffer and not first drop
     command.state = STATE_GET_DROP_AMOUNT;
     game.stackBuffer.stoneCount = 1; // Only one stone left in stack
