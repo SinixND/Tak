@@ -80,6 +80,7 @@ void testValidateCommandRankY( void )
     Command command = newCommand( PLAYER_WHITE );
     Game game = newGame( 5 );
     game.board.stoneCounts[0] = 1;
+    game.board.stoneIds[0] = PLAYER_WHITE;
 
     command.actionType = ACTION_TYPE_PLACE;
     command.fileX = FILE_A;
@@ -190,7 +191,6 @@ void testValidateCommand( void )
     command.actionType = ACTION_TYPE_DROP;
     command.drops = 1;
     TEST_ASSERT_EQUAL_INT( true, validateCommand( &command, &game ) );
-
 }
 
 #endif

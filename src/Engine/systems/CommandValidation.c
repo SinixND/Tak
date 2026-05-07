@@ -194,9 +194,10 @@ bool validateCommandRankY(
             ( pCommand->actionType == ACTION_TYPE_PLACE
               && !pGame->board.stoneCounts[squareIdx] )
             /// Lift
-            || ( pGame->board.stoneCounts[squareIdx]
+            || ( pCommand->actionType == ACTION_TYPE_LIFT
+                 && pGame->board.stoneCounts[squareIdx]
                  /// Player owns square
-                 || ( pGame->board.stoneIds[stackIdx + ( pGame->board.stoneCounts[squareIdx] - 1 )] )
+                 && pGame->board.stoneIds[stackIdx + ( pGame->board.stoneCounts[squareIdx] - 1 )]
                         == pCommand->playerId )
         )
     );
@@ -264,9 +265,8 @@ bool validateCommandDropAmount(
         && "Pointer is nullptr"
     );
 
-    if (!pCommand->drops
-                && pCommand->dropCounts[pCommand->drops] >= pGame->stackBuffer.stoneCount;
-    )
+    if ( !pCommand->drops
+         && ( pCommand->dropCounts[pCommand->drops] >= pGame->stackBuffer.stoneCount ) )
     {
         return false;
     }
