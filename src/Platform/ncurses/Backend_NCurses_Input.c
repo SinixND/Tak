@@ -1,6 +1,7 @@
 #include "BackendInterface.h"
 
 #include "InputBuffer.h"
+#include "InputId.h"
 #include <assert.h>
 
 #ifdef BACKEND_NCURSES
@@ -150,6 +151,12 @@ void pollInput( InputBuffer* const pInput )
         case 'u':
         {
             pInput->lastInput = INPUT_U;
+            return;
+        }
+
+        case ' ':
+        {
+            pInput->lastInput = INPUT_SPACE;
             return;
         }
 

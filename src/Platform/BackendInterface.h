@@ -44,4 +44,7 @@ void renderStatic( App* const app );
  */
 void renderDynamic( App const* const pApp );
 
+/// Render starting screen (choose board size)
+void renderStartScreen( void );
+
 #endif

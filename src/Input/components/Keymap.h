@@ -11,6 +11,7 @@ typedef enum ContextId
     CONTEXT_POSITION,
     CONTEXT_DIRECTION,
     CONTEXT_AMOUNT,
+    CONTEXT_SIZE,
     CONTEXT_GLOBAL,
     CONTEXT_COUNT,
 } ContextId;

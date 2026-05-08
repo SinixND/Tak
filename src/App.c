@@ -19,19 +19,8 @@
 
 App newApp( int const boardSize )
 {
-    assert(
-        ( boardSize >= BOARD_SIZE_MIN
-          || !boardSize )
-        && "Board size value too small"
-    );
-
-    assert(
-        ( boardSize <= BOARD_SIZE_MAX )
-        && "Board size value too big"
-    );
-
     App app = {
-        .state = APP_STATE_FIRST_TURN,
+        .state = APP_STATE_CHOOSE_BOARD_SIZE,
         .game = newGame( boardSize ),
         .inputBuffer = newInputBuffer(),
         .simulation = newSimulation(),
@@ -52,7 +41,7 @@ void setupApp( void )
 
 void runApp( App* const pApp )
 {
-    renderStatic( pApp );
+    renderStartScreen();
 
     /// Run loop
     loopBackend( pApp );
@@ -73,9 +62,18 @@ void updateFrame( App* const pApp )
     switch ( pApp->state )
     {
         default:
-        case APP_STATE_NORMAL_TURN:
+        case APP_STATE_CHOOSE_BOARD_SIZE:
         {
-            progressTurn( pApp );
+            getInput( pApp );
+
+            if ( !setBoardSize( pApp ) )
+            {
+                return;
+            }
+
+            renderStatic( pApp );
+
+            pApp->state = APP_STATE_FIRST_TURN;
 
             return;
         }
@@ -129,6 +127,65 @@ void updateFrame( App* const pApp )
 
             return;
         }
+
+        case APP_STATE_NORMAL_TURN:
+        {
+            progressTurn( pApp );
+
+            return;
+        }
+    }
+}
+
+bool setBoardSize( App* const pApp )
+{
+    switch ( pApp->inputBuffer.keymap.commands[CONTEXT_SIZE][pApp->inputBuffer.lastInput] )
+    {
+        case COMMAND_3:
+        {
+            pApp->game = newGame( 3 );
+
+            return true;
+        }
+
+        case COMMAND_4:
+        {
+            pApp->game = newGame( 4 );
+
+            return true;
+        }
+
+        case COMMAND_CONFIRM:
+        case COMMAND_5:
+        {
+            pApp->game = newGame( 5 );
+
+            return true;
+        }
+
+        case COMMAND_6:
+        {
+            pApp->game = newGame( 6 );
+
+            return true;
+        }
+
+        case COMMAND_7:
+        {
+            pApp->game = newGame( 7 );
+
+            return true;
+        }
+
+        case COMMAND_8:
+        {
+            pApp->game = newGame( 8 );
+
+            return true;
+        }
+
+        default:
+            return false;
     }
 }
 
@@ -157,7 +214,7 @@ void getInput( App* const pApp )
              &pApp->simulation
          ) )
     {
-        wait( 00 );
+        wait( 10 );
         return;
     }
 

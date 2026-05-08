@@ -3,9 +3,10 @@
 
 typedef enum AppStateId
 {
-    APP_STATE_NORMAL_TURN,
+    APP_STATE_CHOOSE_BOARD_SIZE,
     APP_STATE_FIRST_TURN,
     APP_STATE_SECOND_TURN,
+    APP_STATE_NORMAL_TURN,
 } AppStateId;
 
 #endif

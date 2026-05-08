@@ -43,6 +43,9 @@ void closeApp( void );
 /// Update one frame of the main loop
 void updateFrame( App* const pApp );
 
+/// Set board size at game start from user input
+bool setBoardSize( App* const pApp );
+
 /// Handle app state
 void progressTurn( App* const pApp );
 

@@ -2,7 +2,13 @@
 #define IG20260507172347
 
 #include "InputId.h"
+
 static InputId const SIMULATION_DATA[] = {
+    INPUT_8,
+
+    /// Select board size
+    INPUT_5,
+
     /// W: First turn
     INPUT_A,
     INPUT_1,

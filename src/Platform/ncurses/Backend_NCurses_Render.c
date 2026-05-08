@@ -49,6 +49,7 @@ void renderSquareContent(
 
 void renderStatic( App* const pApp )
 {
+    clear();
     renderInfoPane();
 
     int const boardSize = pApp->game.board.size;
@@ -511,6 +512,25 @@ void renderSquareContent(
             );
         }
     }
+}
+
+void renderStartScreen( void )
+{
+    mvprintw(
+        1,
+        1,
+        "%s",
+        "Choose board size. "
+    );
+
+    mvprintw(
+        2,
+        1,
+        "Options: %i - %i, confirm for default (%i)",
+        BOARD_SIZE_MIN,
+        BOARD_SIZE_MAX,
+        BOARD_SIZE_DEFAULT
+    );
 }
 
 #endif

@@ -152,8 +152,9 @@ The following tools are used in the project but not required and not contained i
 
 ## ToDo notes
 - [ ] Choose game size at start
-    - [ ] App state select board size
+    - [x] App state select board size
     - [ ] Test!
+- [ ] Todos:
 - [ ] Winconidion
 - [ ] History
 - [ ] 'x' to reset command (or turn?) (requires history)

@@ -36,6 +36,8 @@ typedef enum CommandId
     COMMAND_DOWN,
     COMMAND_LEFT,
     COMMAND_RIGHT,
+    /// General
+    COMMAND_CONFIRM,
     /// Global inputs
     COMMAND_QUIT,
     COMMAND_RESET,

@@ -53,6 +53,15 @@ Keymap newKeymap( void )
                 [COMMAND_8] = INPUT_8,
                 [COMMAND_ALL] = INPUT_A,
             },
+            [CONTEXT_SIZE] = {
+                [COMMAND_3] = INPUT_3,
+                [COMMAND_4] = INPUT_4,
+                [COMMAND_5] = INPUT_5,
+                [COMMAND_6] = INPUT_6,
+                [COMMAND_7] = INPUT_7,
+                [COMMAND_8] = INPUT_8,
+                [COMMAND_CONFIRM] = INPUT_SPACE,
+            },
             [CONTEXT_GLOBAL] = {
                 [COMMAND_QUIT] = INPUT_CAP_Q,
                 [COMMAND_RESET] = INPUT_CAP_X,

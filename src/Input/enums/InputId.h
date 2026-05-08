@@ -31,11 +31,12 @@ typedef enum InputId
     INPUT_S,
     INPUT_U,
 
+    INPUT_SPACE,
+
     INPUT_CAP_Q,
     INPUT_CAP_R,
     INPUT_CAP_U,
     INPUT_CAP_X,
-
     INPUT_COUNT
 } InputId;
 
@@ -64,6 +65,7 @@ static char const INPUT_ID_CHARS[] = {
     [INPUT_R] = 'r',
     [INPUT_S] = 's',
     [INPUT_U] = 'u',
+    [INPUT_SPACE] = '_',
     [INPUT_CAP_Q] = 'Q',
     [INPUT_CAP_R] = 'R',
     [INPUT_CAP_U] = 'U',
