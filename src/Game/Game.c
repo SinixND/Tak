@@ -120,10 +120,7 @@ void takeStone(
     /// Add to reserves
     returnToReserves(
         &pGame->reserves,
-        pBoard->stoneIds[squareToStackIndex(
-            squareIdx,
-            pBoard->size
-        )],
+        pBoard->stackIds[squareIdx],
         pBoard->stackTypes[squareIdx]
     );
 

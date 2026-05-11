@@ -81,6 +81,7 @@ void testValidateCommandRankY( void )
     Game game = newGame( 5 );
     game.board.stoneCounts[0] = 1;
     game.board.stoneIds[0] = PLAYER_WHITE;
+    game.board.stackIds[0] = PLAYER_WHITE;
 
     command.actionType = ACTION_TYPE_PLACE;
     command.fileX = FILE_A;

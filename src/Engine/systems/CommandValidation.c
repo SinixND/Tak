@@ -184,7 +184,6 @@ bool validateCommandRankY(
 
     int const boardSize = pGame->board.size;
     int const squareIdx = positionToSquare( pCommand->fileX, pCommand->rankY, boardSize );
-    int const stackIdx = squareToStackIndex( squareIdx, boardSize );
 
     return (
         ( pCommand->rankY >= 0 )
@@ -197,7 +196,7 @@ bool validateCommandRankY(
             || ( pCommand->actionType == ACTION_TYPE_LIFT
                  && pGame->board.stoneCounts[squareIdx]
                  /// Player owns square
-                 && pGame->board.stoneIds[stackIdx + ( pGame->board.stoneCounts[squareIdx] - 1 )]
+                 && pGame->board.stackIds[squareIdx]
                         == pCommand->playerId )
         )
     );
