@@ -21,6 +21,7 @@ void testPlaceOntoStack( void )
     TEST_ASSERT_EQUAL_INT( STONE_TYPE_FLAT, board.stackTypes[6] );
     TEST_ASSERT_EQUAL_INT( 1, board.stoneCounts[6] );
     TEST_ASSERT_EQUAL_INT( PLAYER_BLACK, board.stoneIds[6 * getStackCapacity( 5 )] );
+    TEST_ASSERT_EQUAL_INT( PLAYER_BLACK, board.stackIds[6] );
 
     putOntoStack(
         &board,
@@ -32,6 +33,7 @@ void testPlaceOntoStack( void )
     TEST_ASSERT_EQUAL_INT( STONE_TYPE_STANDING, board.stackTypes[3] );
     TEST_ASSERT_EQUAL_INT( 1, board.stoneCounts[3] );
     TEST_ASSERT_EQUAL_INT( PLAYER_BLACK, board.stoneIds[3 * getStackCapacity( 5 )] );
+    TEST_ASSERT_EQUAL_INT( PLAYER_BLACK, board.stackIds[3] );
 
     putOntoStack(
         &board,
@@ -43,21 +45,38 @@ void testPlaceOntoStack( void )
     TEST_ASSERT_EQUAL_INT( STONE_TYPE_CAP, board.stackTypes[3] );
     TEST_ASSERT_EQUAL_INT( 2, board.stoneCounts[3] );
     TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, board.stoneIds[3 * getStackCapacity( 5 ) + 1] );
+    TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, board.stackIds[3] );
 }
 
 void testTakeFromStack( void )
 {
     Board board = newBoard( 5 );
 
-    board.stoneCounts[6] = 3;
+    board.stoneCounts[0] = 2;
+    board.stackTypes[0] = STONE_TYPE_STANDING;
+    board.stackIds[0] = PLAYER_WHITE;
+    board.stoneIds[0] = PLAYER_BLACK;
+    board.stoneIds[1] = PLAYER_WHITE;
 
     takeFromStack(
         &board,
-        6,
+        0,
         1
     );
 
-    TEST_ASSERT_EQUAL_INT( 2, board.stoneCounts[6] );
+    TEST_ASSERT_EQUAL_INT( 1, board.stoneCounts[0] );
+    TEST_ASSERT_EQUAL_INT( STONE_TYPE_FLAT, board.stackTypes[0] );
+    TEST_ASSERT_EQUAL_INT( PLAYER_BLACK, board.stackIds[0] );
+
+    takeFromStack(
+        &board,
+        0,
+        1
+    );
+
+    TEST_ASSERT_EQUAL_INT( 0, board.stoneCounts[0] );
+    TEST_ASSERT_EQUAL_INT( STONE_TYPE_NONE, board.stackTypes[0] );
+    TEST_ASSERT_EQUAL_INT( PLAYER_NONE, board.stackIds[0] );
 }
 
 #endif

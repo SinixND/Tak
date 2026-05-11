@@ -25,6 +25,8 @@ typedef struct Board
     /// Types of stacks / top stones
     /// Takes square index
     StoneType stackTypes[SQUARES_MAX];
+    /// PlayerId of owning player
+    PlayerId stackIds[SQUARES_MAX];
     /// Board squares per side (rank/row and file/column)
     uint8_t size;
     /// Max size of stacks

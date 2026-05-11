@@ -31,6 +31,7 @@ Board newBoard( int const boardSize )
     {
         board.stackTypes[idx] = STONE_TYPE_NONE;
         board.stoneCounts[idx] = 0;
+        board.stackIds[idx] = PLAYER_NONE;
     }
 
     for ( int idx = 0; idx < arraySize; ++idx )
@@ -79,6 +80,7 @@ void putOntoStack(
         );
 
     /// Add playerId
+    pBoard->stackIds[squareIdx] = playerId;
     pBoard->stoneIds[stackIdx + pBoard->stoneCounts[squareIdx]] = playerId;
 
     /// Increase stack count
@@ -109,6 +111,12 @@ void takeFromStack(
 
     /// Decrease stack count
     pBoard->stoneCounts[squareIdx] -= stoneCount;
+
+    /// Update stackId
+    pBoard->stackIds[squareIdx]
+        = ( pBoard->stoneCounts[squareIdx] > 0 )
+              ? pBoard->stoneIds[squareToStackIndex( squareIdx, pBoard->size ) + ( pBoard->stoneCounts[squareIdx] - 1 )]
+              : PLAYER_NONE;
 
     /// Set stack type
     pBoard->stackTypes[squareIdx]
