@@ -15,7 +15,7 @@
 
 void renderInfoPane( void );
 
-void renderCurrentCommand( Command const* const pCommand );
+void renderCommand( Command const* const pCommand );
 
 void renderFileLabels(
     int const fileLabelsOffsetX,
@@ -297,12 +297,12 @@ void renderInfoPaneContent( App const* const pApp )
     );
 
     // Print current player input
-    renderCurrentCommand( &pApp->command );
+    renderCommand( &pApp->command );
 
     // TODO: Print history
 }
 
-void renderCurrentCommand( Command const* const pCommand )
+void renderCommand( Command const* const pCommand )
 {
     /// W:A@c#
     /// B:Ac#+#######
@@ -383,6 +383,18 @@ void renderCurrentCommand( Command const* const pCommand )
             return;
         }
     }
+}
+
+void renderCommandGameEnd( App const* const pApp )
+{
+    mvprintw(
+        POSITION_INPUT_CURRENT[0],
+        POSITION_INPUT_CURRENT[1],
+        "%c: won! [Q]uit",
+        PLAYER_CHARS[pApp->game.activePlayer]
+    );
+
+    refresh();
 }
 
 void renderStackBufferContent( App const* const pApp )

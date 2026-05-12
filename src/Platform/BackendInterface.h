@@ -47,4 +47,7 @@ void renderDynamic( App const* const pApp );
 /// Render starting screen (choose board size)
 void renderStartScreen( void );
 
+/// Render command for finished game
+void renderCommandGameEnd( App const* const pApp );
+
 #endif

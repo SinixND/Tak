@@ -307,11 +307,35 @@ static InputId const SIMULATION_DATA[] = {
     INPUT_1,
 
     /// W:
+    INPUT_P,
+    INPUT_F,
+    INPUT_B,
+    INPUT_3,
+
+    /// B:
+    INPUT_M,
+    INPUT_C,
+    INPUT_1,
+    INPUT_L,
+
+    /// W:
+    INPUT_M,
+    INPUT_B,
+    INPUT_3,
+    INPUT_R,
+
+    /// B:
+    INPUT_P,
+    INPUT_F,
+    INPUT_C,
+    INPUT_1,
+
+    /// W:
     INPUT_M,
     INPUT_C,
     INPUT_3,
     INPUT_R,
-    INPUT_0,
+    INPUT_1,
     INPUT_1,
     INPUT_1,
     INPUT_1,

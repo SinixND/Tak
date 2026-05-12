@@ -13,13 +13,13 @@ int positionToSquare(
 {
     assert(
         ( fileX >= 0 )
-        && ( fileX < 8 )
+        && ( fileX < BOARD_SIZE_MAX )
         && "Invalid fileX"
     );
 
     assert(
         ( rankY >= 0 )
-        && ( rankY < 8 )
+        && ( rankY < BOARD_SIZE_MAX )
         && "Invalid rankY"
     );
 

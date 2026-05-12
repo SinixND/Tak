@@ -151,14 +151,18 @@ The following tools are used in the project but not required and not contained i
 
 
 ## ToDo notes
-- [ ] Choose game size at start
+- [x] Choose game size at start
     - [x] App state select board size
     - [ ] Test!
+- [ ] Win condition
+    - [x] Check road
+        - [ ] Test! GameEnd
+    - [ ] Check reserves
+    - [ ] Check full board
 - [ ] Todos:
-- [ ] Winconidion
 - [ ] History
-- [ ] 'x' to reset command (or turn?) (requires history)
-- [ ] ?? Unions? (history)
+    - [ ] 'x' to reset command (or turn?) (requires history)
+    - [ ] ?? Unions? (history)
 - [ ] ?? Remove event (needed for history or not?)
 
 - [ ] Add cursor? -> raylib

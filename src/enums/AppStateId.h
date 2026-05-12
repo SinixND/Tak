@@ -7,6 +7,7 @@ typedef enum AppStateId
     APP_STATE_FIRST_TURN,
     APP_STATE_SECOND_TURN,
     APP_STATE_NORMAL_TURN,
+    APP_STATE_GAME_END,
 } AppStateId;
 
 #endif

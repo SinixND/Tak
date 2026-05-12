@@ -8,6 +8,7 @@
 #include "Engine.h"
 #include "Event.h"
 #include "Game.h"
+#include "GameEnd.h"
 #include "InputBuffer.h"
 #include "InputSystem.h"
 #include "PlayerId.h"
@@ -134,6 +135,16 @@ void updateFrame( App* const pApp )
 
             return;
         }
+
+        case APP_STATE_GAME_END:
+        {
+            renderCommandGameEnd( pApp );
+
+            pollInput( &pApp->inputBuffer );
+            handleGlobalInput( pApp );
+
+            return;
+        }
     }
 }
 
@@ -251,10 +262,12 @@ void updateApp( App* const pApp )
 
     updateCommandPostEvent( &pApp->command );
 
-    if ( isTurnComplete( pApp ) )
+    if ( !isTurnComplete( pApp ) )
     {
-        prepareNextTurn( pApp );
+        return;
     }
+
+    prepareNextTurn( pApp );
 }
 
 bool updateGame( App* const pApp )
@@ -286,6 +299,30 @@ bool isTurnComplete( App const* const pApp )
 
 void prepareNextTurn( App* const pApp )
 {
+    /// Check if and which player won
+    if ( satisfiesWinCondition(
+             &pApp->game,
+             PLAYER_WHITE
+         ) )
+    {
+        pApp->game.activePlayer = PLAYER_WHITE;
+        pApp->state = APP_STATE_GAME_END;
+
+        return;
+    }
+    else if (
+        satisfiesWinCondition(
+            &pApp->game,
+            PLAYER_BLACK
+        )
+    )
+    {
+        pApp->game.activePlayer = PLAYER_BLACK;
+        pApp->state = APP_STATE_GAME_END;
+
+        return;
+    }
+
     prepareGame( &pApp->game );
     prepareCommand(
         &pApp->command,

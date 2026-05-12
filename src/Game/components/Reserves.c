@@ -44,7 +44,8 @@ void takeFromReserves(
     );
 
     assert(
-        ( playerId == PLAYER_WHITE || playerId == PLAYER_BLACK )
+        ( playerId == PLAYER_WHITE
+          || playerId == PLAYER_BLACK )
         && "Invalid playerId"
     );
 
