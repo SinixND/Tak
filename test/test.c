@@ -6,6 +6,7 @@
 #include "TestEngine.h"
 #include "TestGame.h"
 #include "TestGameConstants.h"
+#include "TestGameEnd.h"
 #include "TestInputParsing.h"
 #include "TestInputSystem.h"
 #include "TestPositionSystem.h"
@@ -51,6 +52,12 @@ int main( void )
     RUN_TEST( testDropStone );
     RUN_TEST( testLiftStone );
     RUN_TEST( testExecuteEvent );
+    RUN_TEST( testIsSquareValid );
+    RUN_TEST( testInitPathSquares );
+    RUN_TEST( testFindVerticalRoad );
+    RUN_TEST( testFindHorizontalRoad );
+    RUN_TEST( testCheckRoadCondition );
+    RUN_TEST( testIsWinConditionMet );
 
     /// DirectionId
     RUN_TEST( testGetOffsetX );

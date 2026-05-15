@@ -9,7 +9,7 @@
 #include <stdbool.h>
 
 /// Return if provided player satisfies win condition
-bool satisfiesWinCondition(
+bool isWinConditionMet(
     Game const* const pGame,
     PlayerId const playerId
 );
@@ -20,8 +20,11 @@ bool checkRoadCondition(
     PlayerId const playerId
 );
 
+/// Reset PathSquare array
+void resetPathSquares( PathSquare pathSquares[SQUARES_MAX] );
+
 /// Fill pathSquares with valid squares from board
-void initPathSquares(
+void updatePathSquares(
     PathSquare pathSquares[SQUARES_MAX],
     Board const* const pBoard,
     PlayerId const playerId

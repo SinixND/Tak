@@ -9,7 +9,7 @@
 #include "RankId.h"
 #include <assert.h>
 
-bool satisfiesWinCondition(
+bool isWinConditionMet(
     Game const* const pGame,
     PlayerId const playerId
 )
@@ -34,17 +34,18 @@ bool checkRoadCondition(
     );
 
     PathSquare pathSquares[SQUARES_MAX];
+    resetPathSquares( pathSquares );
 
-    initPathSquares(
+    updatePathSquares(
         pathSquares,
         pBoard,
         playerId
     );
 
-    /// Check road starting squares
-    for ( int fileX = 0; fileX < pBoard->size; ++fileX )
+    /// Check vertical road starting squares
+    for ( int rootFileX = 0; rootFileX < pBoard->size; ++rootFileX )
     {
-        int const rootSquareIdx = fileX;
+        int const rootSquareIdx = rootFileX;
 
         /// Root must be valid
         if ( !pathSquares[rootSquareIdx].isValid )
@@ -58,7 +59,7 @@ bool checkRoadCondition(
         /// Continue path finding with first neighbor (required to be in RANK_2)
         if ( findVerticalRoad(
                  pathSquares,
-                 fileX,
+                 rootFileX,
                  RANK_2,
                  pBoard->size
              ) )
@@ -67,12 +68,20 @@ bool checkRoadCondition(
         };
     }
 
-    /// Check for horizontal road roots
-    for ( int rankY = 0; rankY < pBoard->size; ++rankY )
+    /// Check horizontal road starting squares
+    resetPathSquares( pathSquares );
+
+    updatePathSquares(
+        pathSquares,
+        pBoard,
+        playerId
+    );
+
+    for ( int rootRankY = 0; rootRankY < pBoard->size; ++rootRankY )
     {
         int const rootSquareIdx = positionToSquare(
             FILE_A,
-            rankY,
+            rootRankY,
             pBoard->size
         );
 
@@ -89,7 +98,7 @@ bool checkRoadCondition(
         if ( findHorizontalRoad(
                  pathSquares,
                  FILE_B,
-                 rankY,
+                 rootRankY,
                  pBoard->size
              ) )
         {
@@ -100,7 +109,16 @@ bool checkRoadCondition(
     return false;
 }
 
-void initPathSquares(
+void resetPathSquares( PathSquare pathSquares[SQUARES_MAX] )
+{
+    for ( int squareIdx = 0; squareIdx < SQUARES_MAX; ++squareIdx )
+    {
+        pathSquares[squareIdx].isValid = false;
+        pathSquares[squareIdx].wasChecked = false;
+    }
+}
+
+void updatePathSquares(
     PathSquare pathSquares[SQUARES_MAX],
     Board const* const pBoard,
     PlayerId const playerId

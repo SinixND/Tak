@@ -151,9 +151,6 @@ The following tools are used in the project but not required and not contained i
 
 
 ## ToDo notes
-- [x] Choose game size at start
-    - [x] App state select board size
-    - [ ] Test!
 - [ ] Win condition
     - [x] Check road
         - [ ] Test! GameEnd
@@ -164,6 +161,7 @@ The following tools are used in the project but not required and not contained i
     - [ ] 'x' to reset command (or turn?) (requires history)
     - [ ] ?? Unions? (history)
 - [ ] ?? Remove event (needed for history or not?)
+- [ ] First input: F, S, C, M
 
 - [ ] Add cursor? -> raylib
     - Cursor == Frame around square

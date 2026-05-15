@@ -302,7 +302,7 @@ bool isTurnComplete( App const* const pApp )
 void prepareNextTurn( App* const pApp )
 {
     /// Check if and which player won
-    if ( satisfiesWinCondition(
+    if ( isWinConditionMet(
              &pApp->game,
              PLAYER_WHITE
          ) )
@@ -313,7 +313,7 @@ void prepareNextTurn( App* const pApp )
         return;
     }
     else if (
-        satisfiesWinCondition(
+        isWinConditionMet(
             &pApp->game,
             PLAYER_BLACK
         )

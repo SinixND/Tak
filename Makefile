@@ -137,11 +137,11 @@ INC_test := $(call fn_dirs,$(SRC_DIR)) \
 # Targets
 .PHONY: build-test
 build-test:
-	@$(MAKE) MODE=test build
+	@$(MAKE) BUILD=debug MODE=test build
 
 .PHONY: run-test
 run-test:
-	@$(MAKE) MODE=test run
+	@$(MAKE) BUILD=debug MODE=test run
 
 .PHONY: test
 test: build-test run-test
