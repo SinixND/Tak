@@ -29,7 +29,7 @@ typedef struct App
 } App;
 
 /// Return initialized App object
-App newApp( int const boardSize );
+App newApp( void );
 
 /// Setup before running the application loop
 void setupApp( void );

@@ -71,7 +71,7 @@ int main( void )
     RUN_TEST( testValidateCommandFileX );
     RUN_TEST( testValidateCommandRankY );
     RUN_TEST( testValidateCommandDirection );
-    // RUN_TEST( testValidateCommandDropAmount ); // INFO: No validation for drops at the moment
+    RUN_TEST( testValidateCommandDropAmount );
     RUN_TEST( testValidateCommand );
 
     /// Command

@@ -9,7 +9,7 @@
 
 void testHandleGlobalInput( void )
 {
-    App app = newApp( BOARD_SIZE_DEFAULT );
+    App app = newApp();
 
     app.inputBuffer.lastInput = app.inputBuffer.keymap.inputs[CONTEXT_GLOBAL][COMMAND_QUIT];
 

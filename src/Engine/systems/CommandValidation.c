@@ -264,8 +264,16 @@ bool validateCommandDropAmount(
         && "Pointer is nullptr"
     );
 
-    if ( !pCommand->drops
-         && ( pCommand->dropCounts[pCommand->drops] >= pGame->stackBuffer.stoneCount ) )
+    if (
+        ( !pCommand->drops
+          && ( ( pCommand->dropCounts[pCommand->drops] < 0 )
+               || pCommand->dropCounts[pCommand->drops] >= pGame->stackBuffer.stoneCount ) )
+        || ( pCommand->drops
+             && ( ( pCommand->dropCounts[pCommand->drops] < 1 )
+                  || ( pCommand->dropCounts[pCommand->drops] > pGame->stackBuffer.stoneCount ) ) )
+        || ( pCommand->drops < 0 )
+        || ( pCommand->drops >= pGame->board.size )
+    )
     {
         return false;
     }

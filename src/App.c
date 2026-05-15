@@ -8,6 +8,7 @@
 #include "Engine.h"
 #include "Event.h"
 #include "Game.h"
+#include "GameConstants.h"
 #include "GameEnd.h"
 #include "InputBuffer.h"
 #include "InputSystem.h"
@@ -18,11 +19,12 @@
 #include <assert.h>
 #include <stdbool.h>
 
-App newApp( int const boardSize )
+App newApp( void )
+
 {
     App app = {
         .state = APP_STATE_CHOOSE_BOARD_SIZE,
-        .game = newGame( boardSize ),
+        .game = newGame( BOARD_SIZE_DEFAULT ),
         .inputBuffer = newInputBuffer(),
         .simulation = newSimulation(),
         .command = newCommand( PLAYER_BLACK ),
