@@ -1,3 +1,4 @@
+#include "TestApp.h"
 #include "TestBoard.h"
 #include "TestCommand.h"
 #include "TestCommandValidation.h"
@@ -85,6 +86,9 @@ int main( void )
 
     /// InputSystem
     RUN_TEST( testHandleGlobalInput );
+
+    /// App
+    RUN_TEST( testSetBoardSize );
 
     return UNITY_END();
 }
