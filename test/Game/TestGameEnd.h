@@ -74,9 +74,9 @@ void testFindVerticalRoad( void )
 {
     PathSquare pathSquares[SQUARES_MAX];
     resetPathSquares( pathSquares );
-    TEST_ASSERT_EQUAL_INT( false, findVerticalRoad( pathSquares, FILE_NONE, RANK_1, 3 ) );
+    TEST_ASSERT_EQUAL_INT( false, isRoadCompleteVertical( pathSquares, FILE_NONE, RANK_1, 3 ) );
 
-    TEST_ASSERT_EQUAL_INT( false, findVerticalRoad( pathSquares, FILE_A, RANK_1, 3 ) );
+    TEST_ASSERT_EQUAL_INT( false, isRoadCompleteVertical( pathSquares, FILE_A, RANK_1, 3 ) );
 
     resetPathSquares( pathSquares );
     pathSquares[0].isValid = true;
@@ -86,7 +86,7 @@ void testFindVerticalRoad( void )
     pathSquares[4].isValid = true;
     pathSquares[4].wasChecked = false;
 
-    TEST_ASSERT_EQUAL_INT( false, findVerticalRoad( pathSquares, FILE_A, RANK_1, 3 ) );
+    TEST_ASSERT_EQUAL_INT( false, isRoadCompleteVertical( pathSquares, FILE_A, RANK_1, 3 ) );
 
     resetPathSquares( pathSquares );
     pathSquares[0].isValid = true;
@@ -97,7 +97,7 @@ void testFindVerticalRoad( void )
     pathSquares[4].wasChecked = false;
     pathSquares[7].isValid = true;
     pathSquares[7].wasChecked = false;
-    TEST_ASSERT_EQUAL_INT( true, findVerticalRoad( pathSquares, FILE_A, RANK_1, 3 ) );
+    TEST_ASSERT_EQUAL_INT( true, isRoadCompleteVertical( pathSquares, FILE_A, RANK_1, 3 ) );
 
     TEST_ASSERT_EQUAL_INT( true, pathSquares[0].wasChecked );
     TEST_ASSERT_EQUAL_INT( false, pathSquares[1].wasChecked );
@@ -116,9 +116,9 @@ void testFindHorizontalRoad( void )
 {
     PathSquare pathSquares[SQUARES_MAX];
     resetPathSquares( pathSquares );
-    TEST_ASSERT_EQUAL_INT( false, findHorizontalRoad( pathSquares, FILE_NONE, RANK_1, 3 ) );
+    TEST_ASSERT_EQUAL_INT( false, isRoadCompleteHorizontal( pathSquares, FILE_NONE, RANK_1, 3 ) );
 
-    TEST_ASSERT_EQUAL_INT( false, findHorizontalRoad( pathSquares, FILE_A, RANK_1, 3 ) );
+    TEST_ASSERT_EQUAL_INT( false, isRoadCompleteHorizontal( pathSquares, FILE_A, RANK_1, 3 ) );
 
     resetPathSquares( pathSquares );
     pathSquares[0].isValid = true;
@@ -126,7 +126,7 @@ void testFindHorizontalRoad( void )
     pathSquares[1].isValid = true;
     pathSquares[1].wasChecked = false;
 
-    TEST_ASSERT_EQUAL_INT( false, findHorizontalRoad( pathSquares, FILE_A, RANK_1, 3 ) );
+    TEST_ASSERT_EQUAL_INT( false, isRoadCompleteHorizontal( pathSquares, FILE_A, RANK_1, 3 ) );
 
     resetPathSquares( pathSquares );
     pathSquares[0].isValid = true;
@@ -135,7 +135,7 @@ void testFindHorizontalRoad( void )
     pathSquares[1].wasChecked = false;
     pathSquares[2].isValid = true;
     pathSquares[2].wasChecked = false;
-    TEST_ASSERT_EQUAL_INT( true, findHorizontalRoad( pathSquares, FILE_A, RANK_1, 3 ) );
+    TEST_ASSERT_EQUAL_INT( true, isRoadCompleteHorizontal( pathSquares, FILE_A, RANK_1, 3 ) );
 
     TEST_ASSERT_EQUAL_INT( true, pathSquares[0].wasChecked );
     TEST_ASSERT_EQUAL_INT( true, pathSquares[1].wasChecked );
@@ -161,7 +161,7 @@ void testCheckRoadCondition( void )
     game.board.stackTypes[1] = STONE_TYPE_FLAT;
     game.board.stackIds[1] = PLAYER_WHITE;
 
-    TEST_ASSERT_EQUAL_INT( false, checkRoadCondition( &game.board, PLAYER_WHITE ) );
+    TEST_ASSERT_EQUAL_INT( false, isRoadComplete( &game.board, PLAYER_WHITE ) );
 
     resetPathSquares( pathSquares );
     game.board.stackTypes[0] = STONE_TYPE_CAP;
@@ -171,7 +171,7 @@ void testCheckRoadCondition( void )
     game.board.stackTypes[2] = STONE_TYPE_FLAT;
     game.board.stackIds[2] = PLAYER_WHITE;
 
-    TEST_ASSERT_EQUAL_INT( true, checkRoadCondition( &game.board, PLAYER_WHITE ) );
+    TEST_ASSERT_EQUAL_INT( true, isRoadComplete( &game.board, PLAYER_WHITE ) );
 }
 
 void testIsWinConditionMet( void )

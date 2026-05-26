@@ -43,7 +43,7 @@ int squareToStackIndex(
 {
     assert(
         ( squareIdx >= 0 )
-        && ( squareIdx < ( BOARD_SIZE_MAX * BOARD_SIZE_MAX ) )
+        && ( squareIdx < ( SQUARES_MAX ) )
         && "Invalid square index"
     );
 

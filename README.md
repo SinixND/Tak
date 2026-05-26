@@ -153,7 +153,7 @@ The following tools are used in the project but not required and not contained i
 ## ToDo notes
 - [ ] Win condition
     - [x] Check road
-        - [ ] Test! GameEnd
+        - [x] Test! GameEnd
     - [ ] Check reserves
     - [ ] Check full board
 - [ ] Todos:

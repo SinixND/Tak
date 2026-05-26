@@ -15,14 +15,14 @@ bool isWinConditionMet(
 )
 {
     return (
-        checkRoadCondition(
+        isRoadComplete(
             &pGame->board,
             playerId
         )
     );
 }
 
-bool checkRoadCondition(
+bool isRoadComplete(
     Board const* const pBoard,
     PlayerId const playerId
 )
@@ -57,7 +57,7 @@ bool checkRoadCondition(
         pathSquares[rootSquareIdx].wasChecked = true;
 
         /// Continue path finding with first neighbor (required to be in RANK_2)
-        if ( findVerticalRoad(
+        if ( isRoadCompleteVertical(
                  pathSquares,
                  rootFileX,
                  RANK_2,
@@ -95,7 +95,7 @@ bool checkRoadCondition(
         pathSquares[rootSquareIdx].wasChecked = true;
 
         /// Continue path finding with first neighbor (required to be in FILE_B)
-        if ( findHorizontalRoad(
+        if ( isRoadCompleteHorizontal(
                  pathSquares,
                  FILE_B,
                  rootRankY,
@@ -152,7 +152,7 @@ bool isSquareValid(
     );
 }
 
-bool findVerticalRoad(
+bool isRoadCompleteVertical(
     PathSquare* const pathSquares,
     FileId const fileX,
     RankId const rankY,
@@ -197,7 +197,7 @@ bool findVerticalRoad(
     /// Check neighbors
     if (
         /// Up
-        findVerticalRoad(
+        isRoadCompleteVertical(
             pathSquares,
             // ( squareIdx + boardSize ),
             fileX,
@@ -205,21 +205,21 @@ bool findVerticalRoad(
             boardSize
         )
         /// Down
-        || findVerticalRoad(
+        || isRoadCompleteVertical(
             pathSquares,
             fileX,
             rankY - 1,
             boardSize
         )
         /// Left
-        || findVerticalRoad(
+        || isRoadCompleteVertical(
             pathSquares,
             fileX - 1,
             rankY,
             boardSize
         )
         /// Right
-        || findVerticalRoad(
+        || isRoadCompleteVertical(
             pathSquares,
             fileX + 1,
             rankY,
@@ -233,7 +233,7 @@ bool findVerticalRoad(
     return false;
 }
 
-bool findHorizontalRoad(
+bool isRoadCompleteHorizontal(
     PathSquare* const pathSquares,
     FileId const fileX,
     RankId const rankY,
@@ -280,7 +280,7 @@ bool findHorizontalRoad(
     /// Check neighbors
     if (
         /// Up
-        findHorizontalRoad(
+        isRoadCompleteHorizontal(
             pathSquares,
             // ( squareIdx + boardSize ),
             fileX,
@@ -288,21 +288,21 @@ bool findHorizontalRoad(
             boardSize
         )
         /// Down
-        || findHorizontalRoad(
+        || isRoadCompleteHorizontal(
             pathSquares,
             fileX,
             rankY - 1,
             boardSize
         )
         /// Left
-        || findHorizontalRoad(
+        || isRoadCompleteHorizontal(
             pathSquares,
             fileX - 1,
             rankY,
             boardSize
         )
         /// Right
-        || findHorizontalRoad(
+        || isRoadCompleteHorizontal(
             pathSquares,
             fileX + 1,
             rankY,

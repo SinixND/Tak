@@ -3,6 +3,7 @@
 
 #include "FileId.h"
 #include "Game.h"
+#include "GameConstants.h"
 #include "PathSquare.h"
 #include "PlayerId.h"
 #include "RankId.h"
@@ -15,7 +16,7 @@ bool isWinConditionMet(
 );
 
 /// Return if complete road exists
-bool checkRoadCondition(
+bool isRoadComplete(
     Board const* const pBoard,
     PlayerId const playerId
 );
@@ -38,16 +39,16 @@ bool isSquareValid(
 );
 
 /// Find path from bottom to top
-bool findVerticalRoad(
-    PathSquare pathSquares[BOARD_SIZE_MAX * BOARD_SIZE_MAX],
+bool isRoadCompleteVertical(
+    PathSquare pathSquares[SQUARES_MAX],
     FileId const fileX,
     RankId const rankY,
     int const boardSize
 );
 
 /// Find path from left to right
-bool findHorizontalRoad(
-    PathSquare pathSquares[BOARD_SIZE_MAX * BOARD_SIZE_MAX],
+bool isRoadCompleteHorizontal(
+    PathSquare pathSquares[SQUARES_MAX],
     FileId const fileX,
     RankId const rankY,
     int const boardSize
