@@ -42,7 +42,18 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 - No stone needs to be left at the original square
 - Only capstones can be dropped onto standing stones, flattening them.
 
+#### Special:
+- Use 'Black stack setup' for balancing reasons (see 'Acknowledgements' section)
+
 <p align="right">(<a href="#readme-top">top</a>)</p>
+
+### How to play
+#### Input a player turn
+- Place stone: place, stone type, file, rank (eg. `PSa1`)
+- Move stack: move, file, rank, direction, drop counts (eg. `Ma1r032`)
+
+<p align="right">(<a href="#readme-top">top</a>)</p>
+
 
 
 ### Dependencies
@@ -69,14 +80,6 @@ The following tools are used in the project but not required and not contained i
 [![compiledb](https://img.shields.io/badge/generator-compiledb-white?style=for-the-badge)](https://github.com/nickdiego/compiledb)
 
 <!-- #### Excluded -->
-
-<p align="right">(<a href="#readme-top">top</a>)</p>
-
-
-### How to play
-#### Input a player turn
-- Place stone: place, stone type, file, rank (eg. `psa1`)
-- Move stack: move, file, rank, direction, drop counts (eg. `ma1w132`)
 
 <p align="right">(<a href="#readme-top">top</a>)</p>
 
@@ -146,18 +149,25 @@ The following tools are used in the project but not required and not contained i
 ## Acknowledgements
 - [Artful Bytes' Youtube series](https://www.youtube.com/watch?v=HXd7g3RlCIs&list=PLS_iNJJVTtiRV0DZRDcTHnvAuDrKGPN40&index=6) about his Embedded System Project of building a sumobot
 - [The Modern Rogue - Tak](https://youtube.com/watch?v=Te0Wm_GCCAQ) Beautiful video explanation of the game
+- [Balancing Tak with the Black Stack Setup](https://youtube.com/watch?v=PSO4JlC_mXc) Exploration of balancing first player advantage
 
 <p align="right">(<a href="#readme-top">top</a>)</p>
 
 
 ## ToDo notes
 - [ ] Win condition
-    - [x] Check road
+    - [x] Check road win
         - [x] Test! GameEnd
-    - [ ] Check reserves
-    - [ ] Check full board
-- [ ] Todos:
+    - [ ] Check flat win
+        - [x] Check reserves
+            - [ ] Requires flat count comparison
+            - [ ] Show flat count in panel
+        - [ ] Check full board
+            - [ ] Requires flat count comparison
+- [ ] Place 2-stack in first turn
+- [ ] Todos
 - [ ] History
+    - [ ] Display only last (two) history?
     - [ ] 'x' to reset command (or turn?) (requires history)
     - [ ] ?? Unions? (history)
 - [ ] ?? Remove event (needed for history or not?)

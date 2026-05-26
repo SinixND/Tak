@@ -7,11 +7,17 @@
 #include "PathSquare.h"
 #include "PlayerId.h"
 #include "RankId.h"
+#include "Reserves.h"
 #include <stdbool.h>
 
 /// Return if provided player satisfies win condition
 bool isWinConditionMet(
     Game const* const pGame,
+    PlayerId const playerId
+);
+
+bool areReservesExhausted(
+    Reserves const* const pReserves,
     PlayerId const playerId
 );
 

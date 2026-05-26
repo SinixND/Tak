@@ -9,8 +9,33 @@
 #include "PathSquare.h"
 #include "PlayerId.h"
 #include "RankId.h"
+#include "Reserves.h"
 #include "StoneTypeId.h"
 #include <unity.h>
+
+void testAreReservesExhausted( void )
+{
+    Reserves reserves = newReserves( 3 );
+
+    TEST_ASSERT_EQUAL_INT( false, areReservesExhausted( &reserves, PLAYER_WHITE ) );
+    TEST_ASSERT_EQUAL_INT( false, areReservesExhausted( &reserves, PLAYER_BLACK ) );
+
+    reserves.regular[PLAYER_BLACK] = 0;
+    TEST_ASSERT_EQUAL_INT( false, areReservesExhausted( &reserves, PLAYER_WHITE ) );
+    TEST_ASSERT_EQUAL_INT( true, areReservesExhausted( &reserves, PLAYER_BLACK ) );
+
+    reserves = newReserves( 5 );
+    TEST_ASSERT_EQUAL_INT( false, areReservesExhausted( &reserves, PLAYER_WHITE ) );
+    TEST_ASSERT_EQUAL_INT( false, areReservesExhausted( &reserves, PLAYER_BLACK ) );
+
+    reserves.regular[PLAYER_BLACK] = 0;
+    TEST_ASSERT_EQUAL_INT( false, areReservesExhausted( &reserves, PLAYER_WHITE ) );
+    TEST_ASSERT_EQUAL_INT( false, areReservesExhausted( &reserves, PLAYER_BLACK ) );
+
+    reserves.capstone[PLAYER_BLACK] = 0;
+    TEST_ASSERT_EQUAL_INT( false, areReservesExhausted( &reserves, PLAYER_WHITE ) );
+    TEST_ASSERT_EQUAL_INT( true, areReservesExhausted( &reserves, PLAYER_BLACK ) );
+}
 
 void testIsSquareValid( void )
 {
@@ -198,6 +223,14 @@ void testIsWinConditionMet( void )
 
     game.board.stackTypes[8] = STONE_TYPE_FLAT;
     game.board.stackIds[8] = PLAYER_BLACK;
+    TEST_ASSERT_EQUAL_INT( true, isWinConditionMet( &game, PLAYER_BLACK ) );
+
+    game = newGame( 3 );
+    TEST_ASSERT_EQUAL_INT( false, isWinConditionMet( &game, PLAYER_WHITE ) );
+    TEST_ASSERT_EQUAL_INT( false, isWinConditionMet( &game, PLAYER_BLACK ) );
+
+    game.reserves.regular[PLAYER_BLACK] = 0;
+    TEST_ASSERT_EQUAL_INT( false, isWinConditionMet( &game, PLAYER_WHITE ) );
     TEST_ASSERT_EQUAL_INT( true, isWinConditionMet( &game, PLAYER_BLACK ) );
 }
 

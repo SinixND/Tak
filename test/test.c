@@ -52,6 +52,7 @@ int main( void )
     RUN_TEST( testDropStone );
     RUN_TEST( testLiftStone );
     RUN_TEST( testExecuteEvent );
+    RUN_TEST( testAreReservesExhausted );
     RUN_TEST( testIsSquareValid );
     RUN_TEST( testInitPathSquares );
     RUN_TEST( testFindVerticalRoad );

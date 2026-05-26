@@ -15,10 +15,26 @@ bool isWinConditionMet(
 )
 {
     return (
-        isRoadComplete(
+        areReservesExhausted(
+            &pGame->reserves,
+            playerId
+        )
+        || isRoadComplete(
             &pGame->board,
             playerId
         )
+    );
+}
+
+bool areReservesExhausted(
+    Reserves const* const pReserves,
+    PlayerId const playerId
+)
+{
+    return (
+        ( pReserves->regular[playerId]
+          + pReserves->capstone[playerId] )
+        < 1
     );
 }
 
@@ -315,3 +331,4 @@ bool isRoadCompleteHorizontal(
 
     return false;
 }
+
