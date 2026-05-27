@@ -3,6 +3,7 @@
 
 #include "Board.h"
 #include "Event.h"
+#include "GameConstants.h"
 #include "PlayerId.h"
 #include "Reserves.h"
 #include "StackBuffer.h"
@@ -14,6 +15,7 @@ typedef struct Game
     Board board;
     StackBuffer stackBuffer;
     Reserves reserves;
+    int scores[PLAYER_COUNT];
     PlayerId activePlayer;
 } Game;
 
@@ -104,5 +106,8 @@ void executeEvent(
     Game* const pGame,
     Event const* const pEvent
 );
+
+/// Count flats to determine score
+void updateScore( Game* const pGame );
 
 #endif

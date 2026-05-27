@@ -25,6 +25,7 @@ Game newGame( int boardSize )
         .board = newBoard( boardSize ),
         .stackBuffer = newStackBuffer(),
         .reserves = newReserves( boardSize ),
+        .scores = { 0, 0 },
         .activePlayer = PLAYER_WHITE,
     };
 }
@@ -387,4 +388,8 @@ void executeEvent(
             return;
         }
     }
+}
+
+void updateScore( Game* const pGame )
+{
 }
