@@ -45,6 +45,8 @@ void prepareGame( Game* const pGame )
     {
         pGame->activePlayer = PLAYER_WHITE;
     }
+
+    updateScore( pGame );
 }
 
 void placeStone(
@@ -390,6 +392,20 @@ void executeEvent(
     }
 }
 
-// void updateScore( Game* const pGame )
-// {
-// }
+void updateScore( Game* const pGame )
+{
+    /// Reset scores
+    pGame->scores[0] = 0;
+    pGame->scores[1] = 0;
+
+    /// Count flats
+    int const squareCount = pGame->board.squareCount;
+
+    for ( int squareIdx = 0; squareIdx < squareCount; ++squareIdx )
+    {
+        if ( pGame->board.stackTypes[squareIdx] == STONE_TYPE_FLAT )
+        {
+            ++pGame->scores[pGame->board.stackIds[squareIdx]];
+        }
+    }
+}

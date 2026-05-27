@@ -155,7 +155,7 @@ The following tools are used in the project but not required and not contained i
 
 
 ## ToDo notes
-- [ ] Add squareCount to board
+- [ ] Test score update
 - [ ] Win condition
     - [x] Check road win
         - [x] Test! GameEnd
