@@ -50,7 +50,10 @@ bool isRoadComplete(
     );
 
     PathSquare pathSquares[SQUARES_MAX];
-    resetPathSquares( pathSquares );
+    resetPathSquares(
+        pathSquares,
+        pBoard->squareCount
+    );
 
     updatePathSquares(
         pathSquares,
@@ -85,7 +88,10 @@ bool isRoadComplete(
     }
 
     /// Check horizontal road starting squares
-    resetPathSquares( pathSquares );
+    resetPathSquares(
+        pathSquares,
+        pBoard->squareCount
+    );
 
     updatePathSquares(
         pathSquares,
@@ -125,9 +131,12 @@ bool isRoadComplete(
     return false;
 }
 
-void resetPathSquares( PathSquare pathSquares[SQUARES_MAX] )
+void resetPathSquares(
+    PathSquare pathSquares[SQUARES_MAX],
+    int const squareCount
+)
 {
-    for ( int squareIdx = 0; squareIdx < SQUARES_MAX; ++squareIdx )
+    for ( int squareIdx = 0; squareIdx < squareCount; ++squareIdx )
     {
         pathSquares[squareIdx].isValid = false;
         pathSquares[squareIdx].wasChecked = false;
@@ -140,7 +149,7 @@ void updatePathSquares(
     PlayerId const playerId
 )
 {
-    for ( int squareIdx = 0; squareIdx < SQUARES_MAX; ++squareIdx )
+    for ( int squareIdx = 0; squareIdx < pBoard->squareCount; ++squareIdx )
     {
         pathSquares[squareIdx].isValid = isSquareValid(
             pBoard,

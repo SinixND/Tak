@@ -28,7 +28,10 @@ bool isRoadComplete(
 );
 
 /// Reset PathSquare array
-void resetPathSquares( PathSquare pathSquares[SQUARES_MAX] );
+void resetPathSquares(
+    PathSquare pathSquares[SQUARES_MAX],
+    int const squareCount
+);
 
 /// Fill pathSquares with valid squares from board
 void updatePathSquares(
