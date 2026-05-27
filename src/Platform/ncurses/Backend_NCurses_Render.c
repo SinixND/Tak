@@ -449,9 +449,9 @@ void renderStackBufferContent( App const* const pApp )
 
 void renderBoardContent( App const* const pApp )
 {
-    int const boardSize = pApp->game.board.size;
+    int const squareCount = pApp->game.board.squareCount;
 
-    for ( int squareIdx = 0; squareIdx < ( boardSize * boardSize ); ++squareIdx )
+    for ( int squareIdx = 0; squareIdx < squareCount; ++squareIdx )
     {
         renderSquareContent(
             pApp,

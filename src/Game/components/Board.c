@@ -19,12 +19,14 @@ Board newBoard( int const boardSize )
         && "Board size value too big"
     );
 
+    int const squareCount = boardSize * boardSize;
+
     Board board = {
-        .stackCapacity = getStackCapacity( boardSize ), // can only have one per stack
-        .size = boardSize
+        .stackCapacity = getStackCapacity( boardSize ),
+        .size = boardSize,
+        .squareCount = squareCount,
     };
 
-    int const squareCount = boardSize * boardSize;
     int const arraySize = squareCount * board.stackCapacity;
 
     for ( int idx = 0; idx < squareCount; ++idx )
@@ -56,7 +58,7 @@ void putOntoStack(
 
     assert(
         squareIdx >= 0
-        && squareIdx < ( pBoard->size * pBoard->size )
+        && squareIdx < pBoard->squareCount
         && "Invalid square index"
     );
 
@@ -100,7 +102,7 @@ void takeFromStack(
 
     assert(
         squareIdx >= 0
-        && squareIdx < ( pBoard->size * pBoard->size )
+        && squareIdx < pBoard->squareCount
         && "Invalid square index"
     );
 

@@ -29,6 +29,8 @@ typedef struct Board
     PlayerId stackIds[SQUARES_MAX];
     /// Board squares per side (rank/row and file/column)
     uint8_t size;
+    /// Square count to avoid repeated calculation
+    uint8_t squareCount;
     /// Max size of stacks
     uint8_t stackCapacity;
 } Board;

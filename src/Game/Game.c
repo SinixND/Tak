@@ -66,7 +66,7 @@ void placeStone(
 
     assert(
         squareIdx >= 0
-        && squareIdx < ( pGame->board.size * pGame->board.size )
+        && squareIdx < pGame->board.squareCount
         && "Invalid square index"
     );
 
@@ -107,7 +107,7 @@ void takeStone(
 
     assert(
         squareIdx >= 0
-        && squareIdx < ( pGame->board.size * pGame->board.size )
+        && squareIdx < pGame->board.squareCount
         && "Invalid square index"
     );
 
@@ -145,7 +145,7 @@ void liftStack(
 
     assert(
         squareIdx >= 0
-        && squareIdx < ( pGame->board.size * pGame->board.size )
+        && squareIdx < pGame->board.squareCount
         && "Invalid square index"
     );
 
@@ -207,7 +207,7 @@ void dropStack(
 
     assert(
         squareIdx >= 0
-        && squareIdx < ( pGame->board.size * pGame->board.size )
+        && squareIdx < pGame->board.squareCount
         && "Invalid square index"
     );
 
@@ -248,7 +248,7 @@ void dropStone(
 
     assert(
         squareIdx >= 0
-        && squareIdx < ( pGame->board.size * pGame->board.size )
+        && squareIdx < pGame->board.squareCount
         && "Invalid square index"
     );
 
@@ -298,7 +298,7 @@ void liftStone(
 
     assert(
         squareIdx >= 0
-        && squareIdx < ( pGame->board.size * pGame->board.size )
+        && squareIdx < pGame->board.squareCount
         && "Invalid square index"
     );
 
@@ -390,6 +390,6 @@ void executeEvent(
     }
 }
 
-void updateScore( Game* const pGame )
-{
-}
+// void updateScore( Game* const pGame )
+// {
+// }
