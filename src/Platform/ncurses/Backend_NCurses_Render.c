@@ -240,12 +240,20 @@ void renderInfoPaneContent( App const* const pApp )
         pApp->game.reserves.regular[PLAYER_WHITE]
     );
 
-    // Print white capston reserves
+    // Print white capstone reserves
     mvprintw(
         POSITION_WHITE_RESERVES_CAPSTONE[0],
         POSITION_WHITE_RESERVES_CAPSTONE[1],
         "%i",
         pApp->game.reserves.capstone[PLAYER_WHITE]
+    );
+
+    // Print white flat score
+    mvprintw(
+        POSITION_WHITE_RESERVES_SCORE[0],
+        POSITION_WHITE_RESERVES_SCORE[1],
+        "%2i",
+        pApp->game.scores[PLAYER_WHITE]
     );
 
     // Print black regular reserves
@@ -256,12 +264,20 @@ void renderInfoPaneContent( App const* const pApp )
         pApp->game.reserves.regular[PLAYER_BLACK]
     );
 
-    // Print black capston reserves
+    // Print black capstone reserves
     mvprintw(
         POSITION_BLACK_RESERVES_CAPSTONE[0],
         POSITION_BLACK_RESERVES_CAPSTONE[1],
         "%i",
         pApp->game.reserves.capstone[PLAYER_BLACK]
+    );
+
+    // Print black flat score
+    mvprintw(
+        POSITION_BLACK_RESERVES_SCORE[0],
+        POSITION_BLACK_RESERVES_SCORE[1],
+        "%2i",
+        pApp->game.scores[PLAYER_BLACK]
     );
 
     // Print active player

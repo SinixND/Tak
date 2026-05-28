@@ -45,8 +45,6 @@ void prepareGame( Game* const pGame )
     {
         pGame->activePlayer = PLAYER_WHITE;
     }
-
-    updateScore( pGame );
 }
 
 void placeStone(

@@ -301,6 +301,8 @@ bool isTurnComplete( App const* const pApp )
 
 void prepareNextTurn( App* const pApp )
 {
+    updateScore( &pApp->game );
+
     /// Check if and which player won
     if ( isWinConditionMet(
              &pApp->game,
