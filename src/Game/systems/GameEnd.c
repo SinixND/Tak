@@ -2,6 +2,7 @@
 
 #include "Board.h"
 #include "FileId.h"
+#include "Game.h"
 #include "GameConstants.h"
 #include "PathSquare.h"
 #include "PlayerId.h"
@@ -15,25 +16,37 @@ bool isWinConditionMet(
 )
 {
     return (
-        areReservesExhausted(
-            &pGame->reserves,
-            playerId
-        )
-        || isRoadComplete(
+        isRoadComplete(
             &pGame->board,
             playerId
         )
+        || ( ( pGame->scores[playerId]
+               > pGame->scores[( playerId % 2 )] )
+             && ( areReservesExhausted(
+                 &pGame->reserves,
+                 pGame->board.size
+             )
+                  // || isBoardFull()
+             ) )
     );
 }
 
 bool areReservesExhausted(
     Reserves const* const pReserves,
-    PlayerId const playerId
+    int const boardSize
 )
 {
     return (
-        ( pReserves->regular[playerId]
-          + pReserves->capstone[playerId] )
+        (
+            pReserves->regular[PLAYER_WHITE]
+            * ( pReserves->capstone[PLAYER_WHITE]
+                /// Capstones not available below boardSize = 5
+                + ( boardSize < 5 ) )
+            * pReserves->regular[PLAYER_BLACK]
+            * ( pReserves->capstone[PLAYER_BLACK]
+                /// Capstones not available below boardSize = 5
+                + ( boardSize < 5 ) )
+        )
         < 1
     );
 }

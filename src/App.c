@@ -269,7 +269,7 @@ void updateApp( App* const pApp )
         return;
     }
 
-    prepareNextTurn( pApp );
+    handleTurnEnd( pApp );
 }
 
 bool updateGame( App* const pApp )
@@ -299,32 +299,25 @@ bool isTurnComplete( App const* const pApp )
     return pApp->command.state == STATE_GET_ACTION_TYPE;
 }
 
-void prepareNextTurn( App* const pApp )
+void handleTurnEnd( App* const pApp )
 {
     updateScore( &pApp->game );
 
     /// Check if and which player won
-    if ( isWinConditionMet(
-             &pApp->game,
-             PLAYER_WHITE
-         ) )
+    for ( int playerId = 0; playerId < PLAYER_COUNT; ++playerId )
     {
-        pApp->game.activePlayer = PLAYER_WHITE;
-        pApp->state = APP_STATE_GAME_END;
-
-        return;
-    }
-    else if (
-        isWinConditionMet(
-            &pApp->game,
-            PLAYER_BLACK
+        if (
+            isWinConditionMet(
+                &pApp->game,
+                playerId
+            )
         )
-    )
-    {
-        pApp->game.activePlayer = PLAYER_BLACK;
-        pApp->state = APP_STATE_GAME_END;
+        {
+            pApp->game.activePlayer = playerId;
+            pApp->state = APP_STATE_GAME_END;
 
-        return;
+            return;
+        }
     }
 
     prepareGame( &pApp->game );

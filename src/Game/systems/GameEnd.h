@@ -18,7 +18,7 @@ bool isWinConditionMet(
 
 bool areReservesExhausted(
     Reserves const* const pReserves,
-    PlayerId const playerId
+    int const boardSize
 );
 
 /// Return if complete road exists

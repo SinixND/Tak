@@ -15,26 +15,28 @@
 
 void testAreReservesExhausted( void )
 {
-    Reserves reserves = newReserves( 3 );
+    int boardSize;
 
-    TEST_ASSERT_EQUAL_INT( false, areReservesExhausted( &reserves, PLAYER_WHITE ) );
-    TEST_ASSERT_EQUAL_INT( false, areReservesExhausted( &reserves, PLAYER_BLACK ) );
+    boardSize = 3;
+    Reserves reserves = newReserves( boardSize );
 
-    reserves.regular[PLAYER_BLACK] = 0;
-    TEST_ASSERT_EQUAL_INT( false, areReservesExhausted( &reserves, PLAYER_WHITE ) );
-    TEST_ASSERT_EQUAL_INT( true, areReservesExhausted( &reserves, PLAYER_BLACK ) );
-
-    reserves = newReserves( 5 );
-    TEST_ASSERT_EQUAL_INT( false, areReservesExhausted( &reserves, PLAYER_WHITE ) );
-    TEST_ASSERT_EQUAL_INT( false, areReservesExhausted( &reserves, PLAYER_BLACK ) );
+    TEST_ASSERT_EQUAL_INT( false, areReservesExhausted( &reserves, boardSize ) );
 
     reserves.regular[PLAYER_BLACK] = 0;
-    TEST_ASSERT_EQUAL_INT( false, areReservesExhausted( &reserves, PLAYER_WHITE ) );
-    TEST_ASSERT_EQUAL_INT( false, areReservesExhausted( &reserves, PLAYER_BLACK ) );
+    TEST_ASSERT_EQUAL_INT( true, areReservesExhausted( &reserves, boardSize ) );
 
+    reserves = newReserves( boardSize );
+    reserves.regular[PLAYER_BLACK] = 0;
+    TEST_ASSERT_EQUAL_INT( true, areReservesExhausted( &reserves, boardSize ) );
+
+    boardSize = 5;
+    reserves = newReserves( boardSize );
+    reserves.capstone[PLAYER_WHITE] = 0;
+    TEST_ASSERT_EQUAL_INT( true, areReservesExhausted( &reserves, boardSize ) );
+
+    reserves = newReserves( boardSize );
     reserves.capstone[PLAYER_BLACK] = 0;
-    TEST_ASSERT_EQUAL_INT( false, areReservesExhausted( &reserves, PLAYER_WHITE ) );
-    TEST_ASSERT_EQUAL_INT( true, areReservesExhausted( &reserves, PLAYER_BLACK ) );
+    TEST_ASSERT_EQUAL_INT( true, areReservesExhausted( &reserves, boardSize ) );
 }
 
 void testIsSquareValid( void )
@@ -240,7 +242,10 @@ void testCheckRoadCondition( void )
 void testIsWinConditionMet( void )
 {
     Game game = newGame( 3 );
+    TEST_ASSERT_EQUAL_INT( false, isWinConditionMet( &game, PLAYER_WHITE ) );
+    TEST_ASSERT_EQUAL_INT( false, isWinConditionMet( &game, PLAYER_BLACK ) );
 
+    /// Path win
     game.board.stackTypes[0] = STONE_TYPE_CAP;
     game.board.stackIds[0] = PLAYER_WHITE;
     game.board.stackTypes[1] = STONE_TYPE_FLAT;
@@ -263,13 +268,11 @@ void testIsWinConditionMet( void )
     game.board.stackIds[8] = PLAYER_BLACK;
     TEST_ASSERT_EQUAL_INT( true, isWinConditionMet( &game, PLAYER_BLACK ) );
 
-    game = newGame( 3 );
-    TEST_ASSERT_EQUAL_INT( false, isWinConditionMet( &game, PLAYER_WHITE ) );
-    TEST_ASSERT_EQUAL_INT( false, isWinConditionMet( &game, PLAYER_BLACK ) );
-
+    /// Reserves win
+    game.scores[PLAYER_WHITE] = 2;
+    game.scores[PLAYER_BLACK] = 1;
     game.reserves.regular[PLAYER_BLACK] = 0;
-    TEST_ASSERT_EQUAL_INT( false, isWinConditionMet( &game, PLAYER_WHITE ) );
-    TEST_ASSERT_EQUAL_INT( true, isWinConditionMet( &game, PLAYER_BLACK ) );
+    TEST_ASSERT_EQUAL_INT( true, isWinConditionMet( &game, PLAYER_WHITE ) );
 }
 
 #endif

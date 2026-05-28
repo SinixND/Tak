@@ -73,6 +73,6 @@ bool updateGame( App* const pApp );
 bool isTurnComplete( App const* const pApp );
 
 /// Perform actions to prepare next turn
-void prepareNextTurn( App* const pApp );
+void handleTurnEnd( App* const pApp );
 
 #endif
