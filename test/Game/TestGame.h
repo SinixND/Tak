@@ -1,6 +1,7 @@
 #ifndef IG20260117152251
 #define IG20260117152251
 
+#include "Board.h"
 #include "Game.h"
 #include "GameConstants.h"
 #include "PlayerId.h"
@@ -296,6 +297,38 @@ void testExecuteEvent( void )
     TEST_ASSERT_EQUAL_INT( STONE_TYPE_STANDING, game.board.stackTypes[6] );
     TEST_ASSERT_EQUAL_INT( 1, game.board.stoneCounts[6] );
     TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, game.board.stoneIds[258] );
+}
+
+void testUpdateScore( void )
+{
+    Game game = newGame( 3 );
+
+    game.board.stackIds[0] = PLAYER_BLACK;
+    game.board.stackIds[1] = PLAYER_BLACK;
+    game.board.stackIds[2] = PLAYER_BLACK;
+    game.board.stackIds[3] = PLAYER_WHITE;
+    game.board.stackIds[4] = PLAYER_WHITE;
+    game.board.stackIds[7] = PLAYER_WHITE;
+
+    game.board.stackTypes[0] = STONE_TYPE_FLAT;
+    game.board.stackTypes[1] = STONE_TYPE_FLAT;
+    game.board.stackTypes[2] = STONE_TYPE_FLAT;
+    game.board.stackTypes[3] = STONE_TYPE_FLAT;
+    game.board.stackTypes[4] = STONE_TYPE_FLAT;
+    game.board.stackTypes[7] = STONE_TYPE_FLAT;
+
+    updateScore( &game );
+    TEST_ASSERT_EQUAL_INT( 3, game.scores[PLAYER_WHITE] );
+    TEST_ASSERT_EQUAL_INT( 3, game.scores[PLAYER_BLACK] );
+
+    game.board.stackIds[8] = PLAYER_WHITE;
+    game.board.stackTypes[8] = STONE_TYPE_CAP;
+    updateScore( &game );
+    TEST_ASSERT_EQUAL_INT( 3, game.scores[PLAYER_WHITE] );
+
+    game.board.stackTypes[8] = STONE_TYPE_FLAT;
+    updateScore( &game );
+    TEST_ASSERT_EQUAL_INT( 4, game.scores[PLAYER_WHITE] );
 }
 
 #endif
