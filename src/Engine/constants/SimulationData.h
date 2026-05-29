@@ -4,24 +4,26 @@
 #include "InputId.h"
 
 static InputId const SIMULATION_DATA[] = {
-    INPUT_8,
-
     /// Select board size
     INPUT_5,
 
-    /// W: First turn
+    /// First turn
+    /// W:
     INPUT_A,
     INPUT_1,
 
-    /// B: Second turn - invalid placement
+    /// Second turn - invalid placement
+    /// B:
     INPUT_A,
     INPUT_1,
 
-    /// B: Correct input
+    /// Correct input
+    /// B:
     INPUT_C,
     INPUT_3,
 
-    /// W: Build stack > 8
+    /// Build stack > 5
+    /// W:
     INPUT_P,
     INPUT_F,
     INPUT_B,
@@ -33,17 +35,20 @@ static InputId const SIMULATION_DATA[] = {
     INPUT_A,
     INPUT_2,
 
-    /// W: Invalid move (non-owned)
+    /// Invalid move (non-owned)
+    /// W:
     INPUT_M,
     INPUT_A,
     INPUT_2,
 
-    /// W: Invalid move (empty)
+    /// Invalid move (empty)
+    /// W:
     INPUT_M,
     INPUT_A,
     INPUT_3,
 
-    /// W: Correct input
+    /// Correct input
+    /// W:
     INPUT_B,
     INPUT_1,
     INPUT_L,
@@ -53,30 +58,7 @@ static InputId const SIMULATION_DATA[] = {
     INPUT_A,
     INPUT_2,
     INPUT_D,
-
-    /// W:
-    INPUT_P,
-    INPUT_F,
-    INPUT_B,
-    INPUT_1,
-
-    /// B:
-    INPUT_P,
-    INPUT_F,
-    INPUT_A,
-    INPUT_2,
-
-    /// W:
-    INPUT_M,
-    INPUT_B,
-    INPUT_1,
-    INPUT_L,
-
-    /// B:
-    INPUT_M,
-    INPUT_A,
-    INPUT_2,
-    INPUT_D,
+    /// H=3
 
     /// W:
     INPUT_P,
@@ -101,6 +83,7 @@ static InputId const SIMULATION_DATA[] = {
     INPUT_A,
     INPUT_2,
     INPUT_D,
+    /// H=5
 
     /// W:
     INPUT_P,
@@ -125,14 +108,17 @@ static InputId const SIMULATION_DATA[] = {
     INPUT_A,
     INPUT_2,
     INPUT_D,
+    /// H=7
 
-    /// W: Place standing
+    /// Place standing
+    /// W:
     INPUT_P,
     INPUT_S,
     INPUT_C,
     INPUT_1,
 
-    /// B: Move non-cap stack into standing
+    /// Move non-cap stack into standing
+    /// B:
     INPUT_M,
     INPUT_A,
     INPUT_1,
@@ -140,19 +126,22 @@ static InputId const SIMULATION_DATA[] = {
     /// Leave one at source
     INPUT_1,
 
-    /// W: Move standing onto stack
+    /// Move standing onto stack
+    /// W:
     INPUT_M,
     INPUT_C,
     INPUT_1,
     INPUT_L,
 
-    /// B: Place capstone
+    /// Place capstone
+    /// B:
     INPUT_P,
     INPUT_C,
     INPUT_B,
     INPUT_3,
 
-    /// W: Move standing stack into capstone
+    /// Move standing stack into capstone
+    /// W:
     INPUT_M,
     INPUT_B,
     INPUT_1,
@@ -160,25 +149,29 @@ static InputId const SIMULATION_DATA[] = {
     /// Leave none at source
     INPUT_0,
 
-    /// B: Move capstone onto stack
+    /// Move capstone onto stack
+    /// B:
     INPUT_M,
     INPUT_B,
     INPUT_3,
     INPUT_D,
 
-    /// W: Place standing
+    /// Place standing
+    /// W:
     INPUT_P,
     INPUT_S,
     INPUT_B,
     INPUT_1,
 
-    /// B: Move capstone stack into standing
+    /// Move capstone stack into standing
+    /// B:
     INPUT_M,
     INPUT_B,
     INPUT_2,
     INPUT_D,
 
-    /// W: Move  stack into border
+    /// Move  stack into border
+    /// W:
     INPUT_M,
     INPUT_B,
     INPUT_2,
@@ -186,7 +179,8 @@ static InputId const SIMULATION_DATA[] = {
     /// Leave none at source
     INPUT_0,
 
-    /// B: Dummy move
+    /// Dummy move
+    /// B:
     INPUT_M,
     INPUT_B,
     INPUT_1,
@@ -194,21 +188,182 @@ static InputId const SIMULATION_DATA[] = {
     /// Leave none at source
     INPUT_0,
 
-    /// W: Move stack to win game
+    /// Move stack to prepare road for BLACK
+    /// W:
     INPUT_M,
     INPUT_A,
     INPUT_2,
-    INPUT_R,
+    INPUT_U,
     INPUT_2,
     INPUT_2,
+    /// Autocompletes last placement (H=5)
+
+    /// Place for road
+    /// B:
+    INPUT_P,
+    INPUT_F,
+    INPUT_A,
+    INPUT_5,
+
+    /// Fill board
+    /// W:
+    INPUT_P,
+    INPUT_F,
+    INPUT_E,
+    INPUT_1,
+
+    /// B:
+    INPUT_P,
+    INPUT_F,
+    INPUT_E,
     INPUT_2,
+
+    /// W:
+    INPUT_P,
+    INPUT_F,
+    INPUT_E,
+    INPUT_3,
+
+    /// B:
+    INPUT_P,
+    INPUT_F,
+    INPUT_E,
+    INPUT_4,
+
+    /// W:
+    INPUT_P,
+    INPUT_F,
+    INPUT_E,
+    INPUT_5,
+
+    /// B:
+    INPUT_P,
+    INPUT_F,
+    INPUT_D,
+    INPUT_1,
+
+    /// W:
+    INPUT_P,
+    INPUT_F,
+    INPUT_D,
     INPUT_2,
 
-    /// B: Build stacks
+    /// B:
+    INPUT_P,
+    INPUT_F,
+    INPUT_D,
+    INPUT_3,
+
+    /// W:
+    INPUT_P,
+    INPUT_F,
+    INPUT_D,
+    INPUT_4,
+
+    /// B:
+    INPUT_P,
+    INPUT_F,
+    INPUT_D,
+    INPUT_5,
+
+    /// W:
     INPUT_P,
     INPUT_F,
     INPUT_C,
     INPUT_1,
+
+    /// B:
+    INPUT_P,
+    INPUT_F,
+    INPUT_C,
+    INPUT_2,
+
+    /// W:
+    INPUT_P,
+    INPUT_F,
+    INPUT_C,
+    INPUT_4,
+
+    /// B:
+    INPUT_P,
+    INPUT_F,
+    INPUT_C,
+    INPUT_5,
+
+    /// W:
+    INPUT_P,
+    INPUT_F,
+    INPUT_B,
+    INPUT_2,
+
+    /// B:
+    INPUT_P,
+    INPUT_F,
+    INPUT_B,
+    INPUT_3,
+
+    /// W:
+    INPUT_M,
+    INPUT_B,
+    INPUT_2,
+    INPUT_D,
+
+    /// B:
+    INPUT_P,
+    INPUT_F,
+    INPUT_B,
+    INPUT_4,
+
+    /// W:
+    INPUT_P,
+    INPUT_F,
+    INPUT_B,
+    INPUT_2,
+
+    /// Deplete reserves
+    /// B:
+    INPUT_M,
+    INPUT_B,
+    INPUT_3,
+    INPUT_R,
+
+    /// W:
+    INPUT_M,
+    INPUT_B,
+    INPUT_2,
+    INPUT_R,
+
+    /// B:
+    INPUT_P,
+    INPUT_F,
+    INPUT_B,
+    INPUT_2,
+
+    /// W:
+    INPUT_M,
+    INPUT_C,
+    INPUT_2,
+    INPUT_U,
+    INPUT_1,
+
+    /// B:
+    INPUT_M,
+    INPUT_B,
+    INPUT_2,
+    INPUT_D,
+
+    /// W:
+    INPUT_M,
+    INPUT_C,
+    INPUT_3,
+    INPUT_D,
+    INPUT_2,
+
+    /// B:
+    INPUT_P,
+    INPUT_F,
+    INPUT_B,
+    INPUT_2,
 
     /// W:
     INPUT_P,
@@ -218,9 +373,9 @@ static InputId const SIMULATION_DATA[] = {
 
     /// B:
     INPUT_M,
-    INPUT_C,
-    INPUT_1,
-    INPUT_L,
+    INPUT_B,
+    INPUT_2,
+    INPUT_D,
 
     /// W:
     INPUT_M,
@@ -231,8 +386,8 @@ static InputId const SIMULATION_DATA[] = {
     /// B:
     INPUT_P,
     INPUT_F,
-    INPUT_C,
-    INPUT_1,
+    INPUT_B,
+    INPUT_2,
 
     /// W:
     INPUT_P,
@@ -242,33 +397,9 @@ static InputId const SIMULATION_DATA[] = {
 
     /// B:
     INPUT_M,
-    INPUT_C,
-    INPUT_1,
-    INPUT_L,
-
-    /// W:
-    INPUT_M,
     INPUT_B,
-    INPUT_3,
-    INPUT_R,
-
-    /// B:
-    INPUT_P,
-    INPUT_F,
-    INPUT_C,
-    INPUT_1,
-
-    /// W:
-    INPUT_P,
-    INPUT_F,
-    INPUT_B,
-    INPUT_3,
-
-    /// B:
-    INPUT_M,
-    INPUT_C,
-    INPUT_1,
-    INPUT_L,
+    INPUT_2,
+    INPUT_D,
 
     /// W:
     INPUT_M,
@@ -279,8 +410,8 @@ static InputId const SIMULATION_DATA[] = {
     /// B:
     INPUT_P,
     INPUT_F,
-    INPUT_C,
-    INPUT_1,
+    INPUT_B,
+    INPUT_2,
 
     /// W:
     INPUT_P,
@@ -290,33 +421,9 @@ static InputId const SIMULATION_DATA[] = {
 
     /// B:
     INPUT_M,
-    INPUT_C,
-    INPUT_1,
-    INPUT_L,
-
-    /// W:
-    INPUT_M,
     INPUT_B,
-    INPUT_3,
-    INPUT_R,
-
-    /// B:
-    INPUT_P,
-    INPUT_F,
-    INPUT_C,
-    INPUT_1,
-
-    /// W:
-    INPUT_P,
-    INPUT_F,
-    INPUT_B,
-    INPUT_3,
-
-    /// B:
-    INPUT_M,
-    INPUT_C,
-    INPUT_1,
-    INPUT_L,
+    INPUT_2,
+    INPUT_D,
 
     /// W:
     INPUT_M,
@@ -327,20 +434,54 @@ static InputId const SIMULATION_DATA[] = {
     /// B:
     INPUT_P,
     INPUT_F,
-    INPUT_C,
+    INPUT_B,
+    INPUT_2,
+
+    /// W:
+    INPUT_P,
+    INPUT_F,
+    INPUT_B,
+    INPUT_3,
+
+    /// B:
+    INPUT_M,
+    INPUT_B,
+    INPUT_2,
+    INPUT_D,
+
+    /// W:
+    INPUT_M,
+    INPUT_B,
+    INPUT_3,
+    INPUT_R,
+
+    /// B:
+    INPUT_P,
+    INPUT_F,
+    INPUT_B,
+    INPUT_2,
+
+    /// W:
+    INPUT_P,
+    INPUT_F,
+    INPUT_B,
+    INPUT_3,
+
+    /// B:
+    INPUT_M,
+    INPUT_A,
     INPUT_1,
+    INPUT_R,
+    INPUT_3,
+    INPUT_2,
 
     /// W:
     INPUT_M,
     INPUT_C,
     INPUT_3,
-    INPUT_R,
-    INPUT_1,
-    INPUT_1,
-    INPUT_1,
-    INPUT_1,
-    INPUT_1,
-    INPUT_1,
+    INPUT_D,
+    INPUT_4,
+
 };
 
 #endif
