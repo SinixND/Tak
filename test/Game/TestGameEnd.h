@@ -34,23 +34,25 @@ void testAreReservesExhausted( void )
     boardSize = 3;
     Reserves reserves = newReserves( boardSize );
 
-    TEST_ASSERT_EQUAL_INT( false, areReservesExhausted( &reserves, boardSize ) );
+    TEST_ASSERT_EQUAL_INT( false, areReservesExhausted( &reserves ) );
 
     reserves.regular[PLAYER_BLACK] = 0;
-    TEST_ASSERT_EQUAL_INT( true, areReservesExhausted( &reserves, boardSize ) );
-
-    reserves = newReserves( boardSize );
-    reserves.regular[PLAYER_BLACK] = 0;
-    TEST_ASSERT_EQUAL_INT( true, areReservesExhausted( &reserves, boardSize ) );
+    TEST_ASSERT_EQUAL_INT( true, areReservesExhausted( &reserves ) );
 
     boardSize = 5;
     reserves = newReserves( boardSize );
     reserves.capstone[PLAYER_WHITE] = 0;
-    TEST_ASSERT_EQUAL_INT( true, areReservesExhausted( &reserves, boardSize ) );
+    TEST_ASSERT_EQUAL_INT( false, areReservesExhausted( &reserves ) );
+
+    reserves.regular[PLAYER_WHITE] = 0;
+    TEST_ASSERT_EQUAL_INT( true, areReservesExhausted( &reserves ) );
 
     reserves = newReserves( boardSize );
     reserves.capstone[PLAYER_BLACK] = 0;
-    TEST_ASSERT_EQUAL_INT( true, areReservesExhausted( &reserves, boardSize ) );
+    TEST_ASSERT_EQUAL_INT( false, areReservesExhausted( &reserves ) );
+
+    reserves.regular[PLAYER_BLACK] = 0;
+    TEST_ASSERT_EQUAL_INT( true, areReservesExhausted( &reserves ) );
 }
 
 void testIsSquareValid( void )
@@ -283,6 +285,7 @@ void testIsWinConditionMet( void )
     TEST_ASSERT_EQUAL_INT( true, isWinConditionMet( &game, PLAYER_BLACK ) );
 
     /// Reserves win
+    game = newGame( 3 );
     game.scores[PLAYER_WHITE] = 2;
     game.scores[PLAYER_BLACK] = 1;
     game.reserves.regular[PLAYER_BLACK] = 0;

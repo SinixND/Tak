@@ -21,11 +21,8 @@ bool isWinConditionMet(
             playerId
         )
         || ( ( pGame->scores[playerId]
-               > pGame->scores[( playerId % 2 )] )
-             && ( areReservesExhausted(
-                      &pGame->reserves,
-                      pGame->board.size
-                  )
+               > pGame->scores[( ( playerId + 1 ) % 2 )] )
+             && ( areReservesExhausted( &pGame->reserves )
                   || isBoardFull( &pGame->board ) ) )
     );
 }
@@ -43,21 +40,14 @@ bool isBoardFull( Board const* const pBoard )
     return true;
 }
 
-bool areReservesExhausted(
-    Reserves const* const pReserves,
-    int const boardSize
-)
+bool areReservesExhausted( Reserves const* const pReserves )
 {
     return (
         (
-            pReserves->regular[PLAYER_WHITE]
-            * ( pReserves->capstone[PLAYER_WHITE]
-                /// Capstones not available below boardSize = 5
-                + ( boardSize < 5 ) )
-            * pReserves->regular[PLAYER_BLACK]
-            * ( pReserves->capstone[PLAYER_BLACK]
-                /// Capstones not available below boardSize = 5
-                + ( boardSize < 5 ) )
+            ( pReserves->regular[PLAYER_WHITE]
+              + pReserves->capstone[PLAYER_WHITE] )
+            * ( pReserves->regular[PLAYER_BLACK]
+                + pReserves->capstone[PLAYER_BLACK] )
         )
         < 1
     );

@@ -155,15 +155,7 @@ The following tools are used in the project but not required and not contained i
 
 
 ## ToDo notes
-- [ ] Show flat count in panel
-- [ ] Win condition
-    - [x] Check road win
-        - [x] Test! GameEnd
-    - [ ] Check flat win
-        - [x] Check reserves
-            - [ ] Requires flat count comparison
-        - [ ] Check full board
-            - [ ] Requires flat count comparison
+- [ ] asserts?
 - [ ] Place 2-stack in first turn
 - [ ] Todos
 - [ ] History
