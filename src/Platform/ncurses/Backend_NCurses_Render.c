@@ -384,6 +384,26 @@ void renderCommand( Command const* const pCommand )
                     : RANK_CHARS[pCommand->rankY]
             );
 
+            mvprintw(
+                POSITION_INPUT_CURRENT[0],
+                POSITION_INPUT_CURRENT[1] + 5,
+                "%c",
+                ( pCommand->direction < 0 )
+                    ? ' '
+                    : DIRECTION_CHARS[pCommand->direction]
+            );
+
+            for ( int i = 0; i < BOARD_SIZE_MAX; ++i )
+            {
+                mvprintw(
+                    POSITION_INPUT_CURRENT[0],
+                    POSITION_INPUT_CURRENT[1] + 6 + i,
+                    "%c",
+                    ( pCommand->dropCounts[i] < 0 )
+                        ? ' '
+                        : '0' + pCommand->dropCounts[i]
+                );
+            }
             return;
         }
 
