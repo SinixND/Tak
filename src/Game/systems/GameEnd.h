@@ -16,6 +16,10 @@ bool isWinConditionMet(
     PlayerId const playerId
 );
 
+/// Check if empty places left
+bool isBoardFull( Board const* const pBoard );
+
+/// Check remaining reserves w/ respect to board size
 bool areReservesExhausted(
     Reserves const* const pReserves,
     int const boardSize

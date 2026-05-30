@@ -13,6 +13,20 @@
 #include "StoneTypeId.h"
 #include <unity.h>
 
+void testIsBoardFull( void )
+{
+    Board board = newBoard( 3 );
+    for ( int squareIdx = 0; squareIdx < board.squareCount; ++squareIdx )
+    {
+        board.stoneCounts[squareIdx] = 1;
+    }
+
+    TEST_ASSERT_EQUAL_INT( true, isBoardFull( &board ) );
+
+    board.stoneCounts[0] = 0;
+    TEST_ASSERT_EQUAL_INT( false, isBoardFull( &board ) );
+}
+
 void testAreReservesExhausted( void )
 {
     int boardSize;
@@ -273,6 +287,17 @@ void testIsWinConditionMet( void )
     game.scores[PLAYER_BLACK] = 1;
     game.reserves.regular[PLAYER_BLACK] = 0;
     TEST_ASSERT_EQUAL_INT( true, isWinConditionMet( &game, PLAYER_WHITE ) );
+
+    game.reserves.regular[PLAYER_BLACK] = 1;
+    for ( int squareIdx = 0; squareIdx < game.board.squareCount; ++squareIdx )
+    {
+        game.board.stoneCounts[squareIdx] = 1;
+    }
+
+    TEST_ASSERT_EQUAL_INT( true, isBoardFull( &game.board ) );
+
+    game.board.stoneCounts[0] = 0;
+    TEST_ASSERT_EQUAL_INT( false, isBoardFull( &game.board ) );
 }
 
 #endif

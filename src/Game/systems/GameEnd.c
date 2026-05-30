@@ -23,12 +23,24 @@ bool isWinConditionMet(
         || ( ( pGame->scores[playerId]
                > pGame->scores[( playerId % 2 )] )
              && ( areReservesExhausted(
-                 &pGame->reserves,
-                 pGame->board.size
-             )
-                  // || isBoardFull()
-             ) )
+                      &pGame->reserves,
+                      pGame->board.size
+                  )
+                  || isBoardFull( &pGame->board ) ) )
     );
+}
+
+bool isBoardFull( Board const* const pBoard )
+{
+    for ( int squareIdx = 0; squareIdx < pBoard->squareCount; ++squareIdx )
+    {
+        if ( pBoard->stoneCounts[squareIdx] < 1 )
+        {
+            return false;
+        }
+    }
+
+    return true;
 }
 
 bool areReservesExhausted(

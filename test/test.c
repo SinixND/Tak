@@ -55,6 +55,7 @@ int main( void )
     RUN_TEST( testUpdateScore );
 
     /// GameEnd
+    RUN_TEST( testIsBoardFull );
     RUN_TEST( testAreReservesExhausted );
     RUN_TEST( testIsSquareValid );
     RUN_TEST( testInitPathSquares );
