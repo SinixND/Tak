@@ -155,12 +155,12 @@ The following tools are used in the project but not required and not contained i
 
 
 ## ToDo notes
-- [ ] Place 2-stack in first turn
-- [ ] Todos
 - [ ] History
     - [ ] Display only last (two) history?
     - [ ] 'x' to reset command (or turn?) (requires history)
     - [ ] ?? Unions? (history)
+- [ ] Todos
+- [ ] Place 2-stack in first turn
 - [ ] ?? Remove event (needed for history or not?)
 - [ ] First input: F, S, C, M
 

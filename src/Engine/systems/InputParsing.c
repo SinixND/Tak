@@ -24,13 +24,6 @@ bool parseInput(
     switch ( pCommand->state )
     {
         case STATE_NONE:
-        {
-            // TODO: Remove?
-            pCommand->playerId = pInputBuffer->playerId;
-            pCommand->state = STATE_GET_ACTION_TYPE;
-            // INFO: Fallthrough!
-        }
-
         case STATE_GET_ACTION_TYPE:
         {
             return parseInputActionType(

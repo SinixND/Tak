@@ -76,12 +76,6 @@ void placeStone(
         && "Stone type invalid"
     );
 
-    // INFO: [Rule] Can only place on empty squares
-    assert(
-        pGame->board.stoneCounts[squareIdx] == 0
-        && "Can only place on empty square"
-    );
-
     takeFromReserves(
         &pGame->reserves,
         playerId,
@@ -157,13 +151,14 @@ void liftStack(
         && "Cannot pick up empty stack"
     );
 
-    // TODO:: Remove? Checked at command building
-    /// [Rule] StackBuffer stone count must cap at boardSize
+    /// Cap count at board size
+    int const count = pBoard->stoneCounts[squareIdx];
+    int const size = pBoard->size;
+
     int const stoneCount
-        = ( pBoard->stoneCounts[squareIdx]
-            > pBoard->size )
-              ? pBoard->size
-              : pBoard->stoneCounts[squareIdx];
+        = count
+          - ( ( count > size )
+              * ( count - size ) );
 
     int const stoneType = pBoard->stackTypes[squareIdx];
 
@@ -254,25 +249,11 @@ void dropStone(
     );
 
     StackBuffer* const pStackBuffer = &pGame->stackBuffer;
-    StoneType const captiveStoneType = pGame->board.stackTypes[squareIdx];
-
-    // INFO: [Rule] No stone can be put onto capstone
-    assert(
-        captiveStoneType != STONE_TYPE_CAP
-        && "No stone can be placed onto capstone"
-    );
 
     StoneType const droppedStoneType
         = ( pStackBuffer->stoneCount > 1 )
               ? STONE_TYPE_FLAT
               : pStackBuffer->stackType;
-
-    // INFO: [Rule] Only capstone can flatten standing stones
-    assert(
-        !( captiveStoneType == STONE_TYPE_STANDING
-           && droppedStoneType != STONE_TYPE_CAP )
-        && "Only capstone can be placed on wall (=flatten)"
-    );
 
     PlayerId const playerId = pStackBuffer->stoneIds[pStackBuffer->stoneCount - 1];
 

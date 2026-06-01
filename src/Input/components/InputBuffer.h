@@ -9,7 +9,6 @@
 /// Store per frame user input
 typedef struct InputBuffer
 {
-    PlayerId playerId;
     Keymap keymap;
     InputId lastInput;
 } InputBuffer;
