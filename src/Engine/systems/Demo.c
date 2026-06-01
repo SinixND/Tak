@@ -4,10 +4,16 @@
 #include "Game.h"
 #include "PlayerId.h"
 #include "StoneTypeId.h"
+#include <assert.h>
 #include <stdbool.h>
 
 void demo( App* const pApp )
 {
+    assert(
+        pApp
+        && "Pointer is nullptr"
+    );
+
     placeStone(
         &pApp->game,
         PLAYER_WHITE,

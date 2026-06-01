@@ -1,7 +1,6 @@
 #include "ActionTypeId.h"
 #include "App.h"
 #include "BackendInterface.h"
-
 #include "Command.h"
 #include "FileId.h"
 #include "GameConstants.h"
@@ -9,6 +8,7 @@
 #include "PlayerId.h"
 #include "Position.h"
 #include "RankId.h"
+#include <assert.h>
 
 #ifdef BACKEND_NCURSES
 #include <ncurses.h>
@@ -49,6 +49,11 @@ void renderSquareContent(
 
 void renderStatic( App* const pApp )
 {
+    assert(
+        pApp
+        && "Pointer is nullptr"
+    );
+
     clear();
     renderInfoPane();
 
@@ -97,6 +102,12 @@ void renderFileLabels(
     int const boardSize
 )
 {
+    assert(
+        ( boardSize >= BOARD_SIZE_MIN )
+        && ( boardSize <= BOARD_SIZE_MAX )
+        && "Board size invalid"
+    );
+
     // Top
     mvprintw(
         0,
@@ -121,6 +132,12 @@ void renderRankLabels(
     int const boardSize
 )
 {
+    assert(
+        ( boardSize > BOARD_SIZE_MIN )
+        && ( boardSize < BOARD_SIZE_MAX )
+        && "Board size invalid"
+    );
+
     int const offsetIntoRankLabelsLayout
         = ( ( BOARD_SIZE_MAX - boardSize )
             * LAYOUT_BOARD_SQUARE_SIZE );
@@ -154,6 +171,12 @@ void renderBoard(
     int const boardSize
 )
 {
+    assert(
+        ( boardSize >= BOARD_SIZE_MIN )
+        && ( boardSize <= BOARD_SIZE_MAX )
+        && "Board size invalid"
+    );
+
     int const gridOffsetX = BOARD_OFFSET_X + fileLabelsOffsetX;
     int const gridOffsetY = ruleLabelsOffsetY;
 
@@ -180,6 +203,12 @@ void renderBoardEdges(
     int const boardSize
 )
 {
+    assert(
+        ( boardSize >= BOARD_SIZE_MIN )
+        && ( boardSize <= BOARD_SIZE_MAX )
+        && "Board size invalid"
+    );
+
     // Render top board edge
     for ( int x = 0; x < ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ) - 1; ++x )
     {
@@ -223,6 +252,11 @@ void renderBoardEdges(
 
 void renderDynamic( App const* const pApp )
 {
+    assert(
+        pApp
+        && "Pointer is nullptr"
+    );
+
     renderInfoPaneContent( pApp );
     renderStackBufferContent( pApp );
     renderBoardContent( pApp );
@@ -232,6 +266,11 @@ void renderDynamic( App const* const pApp )
 
 void renderInfoPaneContent( App const* const pApp )
 {
+    assert(
+        pApp
+        && "Pointer is nullptr"
+    );
+
     // Print white regular reserves
     mvprintw(
         POSITION_WHITE_RESERVES_REGULAR[0],
@@ -320,6 +359,11 @@ void renderInfoPaneContent( App const* const pApp )
 
 void renderCommand( Command const* const pCommand )
 {
+    assert(
+        pCommand
+        && "Pointer is nullptr"
+    );
+
     /// W:A@c#
     /// B:Ac#+#######
 
@@ -423,6 +467,11 @@ void renderCommand( Command const* const pCommand )
 
 void renderCommandGameEnd( App const* const pApp )
 {
+    assert(
+        pApp
+        && "Pointer is nullptr"
+    );
+
     mvprintw(
         POSITION_INPUT_CURRENT[0],
         POSITION_INPUT_CURRENT[1],
@@ -435,6 +484,11 @@ void renderCommandGameEnd( App const* const pApp )
 
 void renderStackBufferContent( App const* const pApp )
 {
+    assert(
+        pApp
+        && "Pointer is nullptr"
+    );
+
     // Render buffer type
     if ( pApp->game.stackBuffer.stoneCount > 0 )
     {
@@ -485,6 +539,11 @@ void renderStackBufferContent( App const* const pApp )
 
 void renderBoardContent( App const* const pApp )
 {
+    assert(
+        pApp
+        && "Pointer is nullptr"
+    );
+
     int const squareCount = pApp->game.board.squareCount;
 
     for ( int squareIdx = 0; squareIdx < squareCount; ++squareIdx )
@@ -501,6 +560,17 @@ void renderSquareContent(
     int const squareIdx
 )
 {
+    assert(
+        pApp
+        && "Pointer is nullptr"
+    );
+
+    assert(
+        squareIdx >= 0
+        && squareIdx < pApp->game.board.squareCount
+        && "Square index invalid"
+    );
+
     Board const* const pBoard = &pApp->game.board;
 
     int const squareEdgeY = ( ( pBoard->size - ( squareIdx / pBoard->size ) ) * LAYOUT_BOARD_SQUARE_SIZE ) - 2;

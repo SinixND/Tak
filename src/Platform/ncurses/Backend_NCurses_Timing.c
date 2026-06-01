@@ -21,6 +21,11 @@ void loopBackend( App* const pApp )
 
 void wait( int const ms )
 {
+    assert(
+        ms >= 0
+        && "Time value invalid"
+    );
+
     napms( ms );
 }
 

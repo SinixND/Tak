@@ -4,9 +4,15 @@
 #include "CommandStateId.h"
 #include "InputId.h"
 #include "Keymap.h"
+#include <assert.h>
 
 Prompts newPrompts( Keymap const* const pKeymap )
 {
+    assert(
+        pKeymap
+        && "Pointer is nullptr"
+    );
+
     return (Prompts){
         .inputs = {
             [STATE_NONE] = " ---      ",

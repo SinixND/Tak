@@ -9,12 +9,8 @@ Reserves newReserves( int const boardSize )
 {
     assert(
         ( boardSize >= BOARD_SIZE_MIN )
-        && "Board size value too small"
-    );
-
-    assert(
-        ( boardSize <= BOARD_SIZE_MAX )
-        && "Board size value too big"
+        && ( boardSize <= BOARD_SIZE_MAX )
+        && "Board size invalid"
     );
 
     Reserves reserves = { 0 };
@@ -46,12 +42,12 @@ void takeFromReserves(
     assert(
         ( playerId == PLAYER_WHITE
           || playerId == PLAYER_BLACK )
-        && "Invalid playerId"
+        && "PlayerId invalid"
     );
 
     assert(
         ( stoneType != STONE_TYPE_NONE )
-        && "Invalid playerId"
+        && "PlayerId invalid"
     );
 
     switch ( stoneType )
@@ -102,7 +98,7 @@ void returnToReserves(
 
     assert(
         ( playerId == PLAYER_WHITE || playerId == PLAYER_BLACK )
-        && "Invalid playerId"
+        && "PlayerId invalid"
     );
 
     switch ( stoneType )

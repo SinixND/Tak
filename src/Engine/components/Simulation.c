@@ -2,6 +2,7 @@
 
 #include "InputBuffer.h"
 #include "SimulationData.h"
+#include <assert.h>
 #include <stdbool.h>
 
 Simulation newSimulation( void )
@@ -16,6 +17,16 @@ bool simulateInput(
     Simulation* const pSimulation
 )
 {
+    assert(
+        pInputBuffer
+        && "Pointer is nullptr"
+    );
+
+    assert(
+        pSimulation
+        && "Pointer is nullptr"
+    );
+
     if ( pSimulation->inputIdx < (int)( sizeof( SIMULATION_DATA ) / sizeof( SIMULATION_DATA[0] ) ) )
     {
         ++pSimulation->inputIdx;

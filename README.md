@@ -155,7 +155,6 @@ The following tools are used in the project but not required and not contained i
 
 
 ## ToDo notes
-- [ ] asserts?
 - [ ] Place 2-stack in first turn
 - [ ] Todos
 - [ ] History

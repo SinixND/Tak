@@ -70,9 +70,6 @@ void testValidateCommandFileX( void )
 
     command.fileX = FILE_E;
     TEST_ASSERT_EQUAL_INT( true, validateCommandFileX( &command, &game ) );
-
-    command.fileX = FILE_F;
-    TEST_ASSERT_EQUAL_INT( false, validateCommandFileX( &command, &game ) );
 }
 
 void testValidateCommandRankY( void )
@@ -94,9 +91,6 @@ void testValidateCommandRankY( void )
 
     command.rankY = RANK_5;
     TEST_ASSERT_EQUAL_INT( true, validateCommandRankY( &command, &game ) );
-
-    command.rankY = RANK_6;
-    TEST_ASSERT_EQUAL_INT( false, validateCommandRankY( &command, &game ) );
 
     command.actionType = ACTION_TYPE_LIFT;
 

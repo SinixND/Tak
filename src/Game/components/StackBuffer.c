@@ -31,7 +31,7 @@ void resetBuffer(
 
     assert(
         stoneType != STONE_TYPE_NONE
-        && "Invalid stoneId"
+        && "StoneId invalid"
     );
 
     pBuffer->stackType = stoneType;
@@ -50,7 +50,7 @@ void appendToBuffer(
 
     assert(
         ( playerId == PLAYER_WHITE || playerId == PLAYER_BLACK )
-        && "Invalid playerId"
+        && "PlayerId invalid"
     );
 
     /// Add playerId

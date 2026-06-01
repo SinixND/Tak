@@ -195,13 +195,9 @@ void buildEvent(
     );
 
     assert(
-        ( boardSize > 2 )
-        && "BoardSize too small"
-    );
-
-    assert(
-        ( boardSize < 9 )
-        && "BoardSize too big"
+        ( boardSize >= BOARD_SIZE_MIN )
+        && ( boardSize <= BOARD_SIZE_MAX )
+        && "Board size invalid"
     );
 
     pEvent->actionType = pCommand->actionType;

@@ -15,6 +15,16 @@ bool isWinConditionMet(
     PlayerId const playerId
 )
 {
+    assert(
+        pGame
+        && "Pointer is nullptr"
+    );
+
+    assert(
+        playerId != PLAYER_NONE
+        && "PlayerId invalid"
+    );
+
     return (
         isRoadComplete(
             &pGame->board,
@@ -29,6 +39,11 @@ bool isWinConditionMet(
 
 bool isBoardFull( Board const* const pBoard )
 {
+    assert(
+        pBoard
+        && "Pointer is nullptr"
+    );
+
     for ( int squareIdx = 0; squareIdx < pBoard->squareCount; ++squareIdx )
     {
         if ( pBoard->stoneCounts[squareIdx] < 1 )
@@ -42,6 +57,11 @@ bool isBoardFull( Board const* const pBoard )
 
 bool areReservesExhausted( Reserves const* const pReserves )
 {
+    assert(
+        pReserves
+        && "Pointer is nullptr"
+    );
+
     return (
         (
             ( pReserves->regular[PLAYER_WHITE]
@@ -59,9 +79,13 @@ bool isRoadComplete(
 )
 {
     assert(
-        ( playerId == PLAYER_WHITE
-          || playerId == PLAYER_BLACK )
-        && "Invalid playerId"
+        pBoard
+        && "Pointer is nullptr"
+    );
+
+    assert(
+        ( playerId != PLAYER_NONE )
+        && "PlayerId invalid"
     );
 
     PathSquare pathSquares[SQUARES_MAX];
@@ -147,32 +171,58 @@ bool isRoadComplete(
 }
 
 void resetPathSquares(
-    PathSquare pathSquares[SQUARES_MAX],
+    PathSquare* const aPathSquares,
     int const squareCount
 )
 {
+    assert(
+        aPathSquares
+        && "Pointer is invalid"
+    );
+
+    assert(
+        squareCount > 8
+        && squareCount < 65
+        && "Square count invalid"
+    );
+
     for ( int squareIdx = 0; squareIdx < squareCount; ++squareIdx )
     {
-        pathSquares[squareIdx].isValid = false;
-        pathSquares[squareIdx].wasChecked = false;
+        aPathSquares[squareIdx].isValid = false;
+        aPathSquares[squareIdx].wasChecked = false;
     }
 }
 
 void updatePathSquares(
-    PathSquare pathSquares[SQUARES_MAX],
+    PathSquare* const aPathSquares,
     Board const* const pBoard,
     PlayerId const playerId
 )
 {
+    assert(
+        aPathSquares
+        && "Pointer is nullptr"
+    );
+
+    assert(
+        pBoard
+        && "Pointer is nullptr"
+    );
+
+    assert(
+        ( playerId != PLAYER_NONE )
+        && "PlayerId invalid"
+    );
+
     for ( int squareIdx = 0; squareIdx < pBoard->squareCount; ++squareIdx )
     {
-        pathSquares[squareIdx].isValid = isSquareValid(
+        aPathSquares[squareIdx].isValid = isSquareValid(
             pBoard,
             squareIdx,
             playerId
         );
 
-        pathSquares[squareIdx].wasChecked = false;
+        aPathSquares[squareIdx].wasChecked = false;
     }
 }
 
@@ -182,6 +232,22 @@ bool isSquareValid(
     PlayerId const playerId
 )
 {
+    assert(
+        pBoard
+        && "Pointer is nullptr"
+    );
+
+    assert(
+        squareIdx >= 0
+        && squareIdx < 65
+        && "Square index invalid"
+    );
+
+    assert(
+        ( playerId != PLAYER_NONE )
+        && "PlayerId invalid"
+    );
+
     return (
         /// Player owns square
         ( pBoard->stackIds[squareIdx]
@@ -193,12 +259,23 @@ bool isSquareValid(
 }
 
 bool isRoadCompleteVertical(
-    PathSquare* const pathSquares,
+    PathSquare* const aPathSquares,
     FileId const fileX,
     RankId const rankY,
     int const boardSize
 )
 {
+    assert(
+        aPathSquares
+        && "Pointer is nullptr"
+    );
+
+    assert(
+        ( boardSize >= BOARD_SIZE_MIN )
+        && ( boardSize <= BOARD_SIZE_MAX )
+        && "Board size invalid"
+    );
+
     /// Check out of bounds
     if ( !(
              ( fileX >= 0 )
@@ -218,8 +295,8 @@ bool isRoadCompleteVertical(
 
     /// Skip if invalid or forms circle
     if (
-        !pathSquares[squareIdx].isValid
-        || pathSquares[squareIdx].wasChecked
+        !aPathSquares[squareIdx].isValid
+        || aPathSquares[squareIdx].wasChecked
     )
     {
         return false;
@@ -232,13 +309,13 @@ bool isRoadCompleteVertical(
     }
 
     /// Update square
-    pathSquares[squareIdx].wasChecked = true;
+    aPathSquares[squareIdx].wasChecked = true;
 
     /// Check neighbors
     if (
         /// Up
         isRoadCompleteVertical(
-            pathSquares,
+            aPathSquares,
             // ( squareIdx + boardSize ),
             fileX,
             rankY + 1,
@@ -246,21 +323,21 @@ bool isRoadCompleteVertical(
         )
         /// Down
         || isRoadCompleteVertical(
-            pathSquares,
+            aPathSquares,
             fileX,
             rankY - 1,
             boardSize
         )
         /// Left
         || isRoadCompleteVertical(
-            pathSquares,
+            aPathSquares,
             fileX - 1,
             rankY,
             boardSize
         )
         /// Right
         || isRoadCompleteVertical(
-            pathSquares,
+            aPathSquares,
             fileX + 1,
             rankY,
             boardSize
@@ -274,12 +351,23 @@ bool isRoadCompleteVertical(
 }
 
 bool isRoadCompleteHorizontal(
-    PathSquare* const pathSquares,
+    PathSquare* const aPathSquares,
     FileId const fileX,
     RankId const rankY,
     int const boardSize
 )
 {
+    assert(
+        aPathSquares
+        && "Pointer is nullptr"
+    );
+
+    assert(
+        ( boardSize >= BOARD_SIZE_MIN )
+        && ( boardSize <= BOARD_SIZE_MAX )
+        && "Board size invalid"
+    );
+
     /// Check out of bounds
     if ( !(
              ( fileX >= 0 )
@@ -300,9 +388,9 @@ bool isRoadCompleteHorizontal(
     /// Skip if...
     if (
         /// ... path cannot continue here
-        !pathSquares[squareIdx].isValid
+        !aPathSquares[squareIdx].isValid
         /// ... already checked
-        || pathSquares[squareIdx].wasChecked
+        || aPathSquares[squareIdx].wasChecked
     )
     {
         return false;
@@ -315,13 +403,13 @@ bool isRoadCompleteHorizontal(
     }
 
     /// Update square
-    pathSquares[squareIdx].wasChecked = true;
+    aPathSquares[squareIdx].wasChecked = true;
 
     /// Check neighbors
     if (
         /// Up
         isRoadCompleteHorizontal(
-            pathSquares,
+            aPathSquares,
             // ( squareIdx + boardSize ),
             fileX,
             rankY + 1,
@@ -329,21 +417,21 @@ bool isRoadCompleteHorizontal(
         )
         /// Down
         || isRoadCompleteHorizontal(
-            pathSquares,
+            aPathSquares,
             fileX,
             rankY - 1,
             boardSize
         )
         /// Left
         || isRoadCompleteHorizontal(
-            pathSquares,
+            aPathSquares,
             fileX - 1,
             rankY,
             boardSize
         )
         /// Right
         || isRoadCompleteHorizontal(
-            pathSquares,
+            aPathSquares,
             fileX + 1,
             rankY,
             boardSize

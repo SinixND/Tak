@@ -14,6 +14,11 @@
 
 Command newCommand( PlayerId const playerId )
 {
+    assert(
+        playerId != PLAYER_NONE
+        && "PlayerId invalid"
+    );
+
     Command command = {
         .state = STATE_GET_ACTION_TYPE,
         .playerId = playerId,
@@ -38,14 +43,19 @@ void setNextCommandState(
     Game const* const pGame
 )
 {
+    assert(
+        pCommand
+        && "Pointer is nullptr"
+    );
+
+    assert(
+        pGame
+        && "Pointer is nullptr"
+    );
+
     switch ( pCommand->state )
     {
         case STATE_NONE:
-        {
-            assert( !"Invalid command state" );
-            return;
-        }
-
         case STATE_GET_ACTION_TYPE:
         {
             pCommand->state
@@ -74,7 +84,7 @@ void setNextCommandState(
         {
             assert(
                 pCommand->actionType != ACTION_TYPE_NONE
-                && "Invalid action type"
+                && "Action type invalid"
             );
 
             pCommand->state
@@ -154,6 +164,11 @@ bool isCommandReady( Command const* const pCommand )
 
 void updateCommandPostEvent( Command* const pCommand )
 {
+    assert(
+        pCommand
+        && "Pointer is nullptr"
+    );
+
     /// Un-ready command by updating drop count
     if ( pCommand->actionType == ACTION_TYPE_DROP )
     {
@@ -175,8 +190,13 @@ void prepareCommand(
 )
 {
     assert(
+        pCommand
+        && "Pointer is nullptr"
+    );
+
+    assert(
         pCommand->playerId != PLAYER_NONE
-        && "Invalid playerId"
+        && "PlayerId invalid"
     );
 
     *pCommand = newCommand( playerId );

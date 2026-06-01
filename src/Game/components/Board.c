@@ -9,14 +9,9 @@
 Board newBoard( int const boardSize )
 {
     assert(
-        ( boardSize >= BOARD_SIZE_MIN
-          || !boardSize )
-        && "Board size value too small"
-    );
-
-    assert(
-        ( boardSize <= BOARD_SIZE_MAX )
-        && "Board size value too big"
+        ( boardSize >= BOARD_SIZE_MIN )
+        && ( boardSize <= BOARD_SIZE_MAX )
+        && "Board size invalid"
     );
 
     int const squareCount = boardSize * boardSize;
@@ -59,17 +54,17 @@ void putOntoStack(
     assert(
         squareIdx >= 0
         && squareIdx < pBoard->squareCount
-        && "Invalid square index"
+        && "Square index invalid"
     );
 
     assert(
         ( playerId == PLAYER_WHITE || playerId == PLAYER_BLACK )
-        && "Invalid playerId"
+        && "PlayerId invalid"
     );
 
     assert(
         stoneType != STONE_TYPE_NONE
-        && "Invalid stoneType"
+        && "StoneType invalid"
     );
 
     /// Set stack type
@@ -103,12 +98,12 @@ void takeFromStack(
     assert(
         squareIdx >= 0
         && squareIdx < pBoard->squareCount
-        && "Invalid square index"
+        && "Square index invalid"
     );
 
     assert(
         stoneCount <= pBoard->stoneCounts[squareIdx]
-        && "Invalid stoneCount"
+        && "StoneCount invalid"
     );
 
     /// Decrease stack count

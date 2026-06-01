@@ -20,7 +20,6 @@
 #include <stdbool.h>
 
 App newApp( void )
-
 {
     App app = {
         .state = APP_STATE_CHOOSE_BOARD_SIZE,
@@ -44,6 +43,11 @@ void setupApp( void )
 
 void runApp( App* const pApp )
 {
+    assert(
+        pApp
+        && "Pointer is nullptr"
+    );
+
     renderStartScreen();
 
     /// Run loop
@@ -152,6 +156,11 @@ void updateFrame( App* const pApp )
 
 bool setBoardSize( App* const pApp )
 {
+    assert(
+        pApp
+        && "Pointer is nullptr"
+    );
+
     switch ( pApp->inputBuffer.keymap.commands[CONTEXT_SIZE][pApp->inputBuffer.lastInput] )
     {
         case COMMAND_3:
@@ -204,6 +213,11 @@ bool setBoardSize( App* const pApp )
 
 void progressTurn( App* const pApp )
 {
+    assert(
+        pApp
+        && "Pointer is nullptr"
+    );
+
     if ( !autocompleteCommand(
              &pApp->command,
              &pApp->game
@@ -222,6 +236,11 @@ void progressTurn( App* const pApp )
 // NOTE: Only reqqired as long as simulation is used here
 void getInput( App* const pApp )
 {
+    assert(
+        pApp
+        && "Pointer is nullptr"
+    );
+
     if ( simulateInput(
              &pApp->inputBuffer,
              &pApp->simulation
@@ -274,6 +293,11 @@ void updateApp( App* const pApp )
 
 bool updateGame( App* const pApp )
 {
+    assert(
+        pApp
+        && "Pointer is nullptr"
+    );
+
     if ( !isCommandReady( &pApp->command ) )
     {
         return false;
@@ -296,11 +320,21 @@ bool updateGame( App* const pApp )
 
 bool isTurnComplete( App const* const pApp )
 {
+    assert(
+        pApp
+        && "Pointer is nullptr"
+    );
+
     return pApp->command.state == STATE_GET_ACTION_TYPE;
 }
 
 void handleTurnEnd( App* const pApp )
 {
+    assert(
+        pApp
+        && "Pointer is nullptr"
+    );
+
     updateScore( &pApp->game );
 
     /// Check if and which player won

@@ -411,7 +411,7 @@ bool parseInputFirstDropAmount(
 
     assert(
         !pCommand->drops
-        && "Invalid drops value"
+        && "Drops value invalid"
     );
 
     switch ( getCommandId(
@@ -506,7 +506,7 @@ bool parseInputDropAmount(
 
     assert(
         pCommand->drops > 0
-        && "Invalid drops value"
+        && "Drops value invalid"
     );
 
     switch ( getCommandId(

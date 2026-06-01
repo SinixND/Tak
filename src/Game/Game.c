@@ -12,13 +12,9 @@
 Game newGame( int boardSize )
 {
     assert(
-        ( boardSize > 2 )
-        && "BoardSize too small"
-    );
-
-    assert(
-        ( boardSize < 9 )
-        && "BoardSize too big"
+        ( boardSize >= BOARD_SIZE_MIN )
+        && ( boardSize <= BOARD_SIZE_MAX )
+        && "Board size invalid"
     );
 
     return (Game){
@@ -33,8 +29,13 @@ Game newGame( int boardSize )
 void prepareGame( Game* const pGame )
 {
     assert(
+        pGame
+        && "Pointer is nullptr"
+    );
+
+    assert(
         pGame->activePlayer != PLAYER_NONE
-        && "Invalid playerId"
+        && "PlayerId invalid"
     );
 
     if ( pGame->activePlayer == PLAYER_WHITE )
@@ -61,18 +62,18 @@ void placeStone(
 
     assert(
         playerId != PLAYER_NONE
-        && "Invalid player Id"
+        && "Player Id invalid"
     );
 
     assert(
         squareIdx >= 0
         && squareIdx < pGame->board.squareCount
-        && "Invalid square index"
+        && "Square index invalid"
     );
 
     assert(
         stoneType != STONE_TYPE_NONE
-        && "Invalid stone type"
+        && "Stone type invalid"
     );
 
     // INFO: [Rule] Can only place on empty squares
@@ -108,7 +109,7 @@ void takeStone(
     assert(
         squareIdx >= 0
         && squareIdx < pGame->board.squareCount
-        && "Invalid square index"
+        && "Square index invalid"
     );
 
     Board* const pBoard = &pGame->board;
@@ -146,7 +147,7 @@ void liftStack(
     assert(
         squareIdx >= 0
         && squareIdx < pGame->board.squareCount
-        && "Invalid square index"
+        && "Square index invalid"
     );
 
     Board* const pBoard = &pGame->board;
@@ -208,7 +209,7 @@ void dropStack(
     assert(
         squareIdx >= 0
         && squareIdx < pGame->board.squareCount
-        && "Invalid square index"
+        && "Square index invalid"
     );
 
     StackBuffer* const stackBuffer = &pGame->stackBuffer;
@@ -249,7 +250,7 @@ void dropStone(
     assert(
         squareIdx >= 0
         && squareIdx < pGame->board.squareCount
-        && "Invalid square index"
+        && "Square index invalid"
     );
 
     StackBuffer* const pStackBuffer = &pGame->stackBuffer;
@@ -299,7 +300,7 @@ void liftStone(
     assert(
         squareIdx >= 0
         && squareIdx < pGame->board.squareCount
-        && "Invalid square index"
+        && "Square index invalid"
     );
 
     Board* const pBoard = &pGame->board;
@@ -392,6 +393,11 @@ void executeEvent(
 
 void updateScore( Game* const pGame )
 {
+    assert(
+        pGame
+        && "Pointer is nullptr"
+    );
+
     /// Reset scores
     pGame->scores[0] = 0;
     pGame->scores[1] = 0;

@@ -12,10 +12,14 @@ static InputId const SIMULATION_DATA[] = {
     INPUT_A,
     INPUT_1,
 
-    /// Second turn - invalid placement
+    /// Second turn - invalid placements
     /// B:
     INPUT_A,
     INPUT_1,
+
+    /// B:
+    INPUT_H,
+    INPUT_8,
 
     /// Correct input
     /// B:

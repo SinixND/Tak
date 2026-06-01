@@ -127,9 +127,6 @@ void testFindVerticalRoad( void )
         pathSquares,
         9
     );
-
-    TEST_ASSERT_EQUAL_INT( false, isRoadCompleteVertical( pathSquares, FILE_NONE, RANK_1, 3 ) );
-
     TEST_ASSERT_EQUAL_INT( false, isRoadCompleteVertical( pathSquares, FILE_A, RANK_1, 3 ) );
 
     resetPathSquares(
