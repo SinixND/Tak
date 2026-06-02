@@ -8,6 +8,7 @@
 #include "Reserves.h"
 #include "StackBuffer.h"
 #include <stdbool.h>
+#include <stdint.h>
 
 /// Object to handle game state
 typedef struct Game
@@ -15,7 +16,7 @@ typedef struct Game
     Board board;
     StackBuffer stackBuffer;
     Reserves reserves;
-    int scores[PLAYER_COUNT];
+    uint8_t scores[PLAYER_COUNT];
     PlayerId activePlayer;
 } Game;
 

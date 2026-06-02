@@ -3,10 +3,11 @@
 
 #include "InputBuffer.h"
 #include <stdbool.h>
+#include <stdint.h>
 
 typedef struct Simulation
 {
-    int inputIdx;
+    uint16_t inputIdx;
 } Simulation;
 
 /// Return initialized Simulation object
