@@ -4,7 +4,7 @@
 enum
 {
     /// Undo/Redo history size
-    MAX_HISTORY_SIZE = 1000,
+    HISTORY_SIZE = 1000,
 };
 
 #endif

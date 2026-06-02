@@ -4,6 +4,7 @@
 #include "Command.h"
 #include "Event.h"
 #include "Game.h"
+#include "History.h"
 #include "InputBuffer.h"
 #include <stdbool.h>
 
@@ -34,6 +35,13 @@ void buildEvent(
     Event* const pEvent,
     Command const* const pCommand,
     int const boardSize
+);
+
+/// Make history record from commann
+void buildRecord(
+    History* const pHistory,
+    Event const* const pEvent,
+    Game const* const pGame
 );
 
 #endif

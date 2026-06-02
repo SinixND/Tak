@@ -10,6 +10,7 @@
 #include "Game.h"
 #include "GameConstants.h"
 #include "GameEnd.h"
+#include "History.h"
 #include "InputBuffer.h"
 #include "InputSystem.h"
 #include "PlayerId.h"
@@ -28,6 +29,7 @@ App newApp( void )
         .simulation = newSimulation(),
         .command = newCommand( PLAYER_BLACK ),
         .event = newEvent(),
+        .history = newHistory(),
         .shouldClose = false,
     };
 
@@ -308,6 +310,12 @@ bool updateGame( App* const pApp )
         &pApp->event,
         &pApp->command,
         pApp->game.board.size
+    );
+
+    buildRecord(
+        &pApp->history,
+        &pApp->event,
+        &pApp->game
     );
 
     executeEvent(

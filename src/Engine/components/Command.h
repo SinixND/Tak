@@ -23,7 +23,9 @@ typedef struct Command
     FileId fileX;
     RankId rankY;
     DirectionId direction;
-    int8_t dropCounts[BOARD_SIZE_MAX]; // Stone count dropped
+    /// Stone counts dropped
+    int8_t dropCounts[BOARD_SIZE_MAX];
+    /// Updated post event execution
     int8_t drops;
 } Command;
 

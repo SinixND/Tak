@@ -30,13 +30,13 @@ bool isRoadComplete(
 
 /// Reset PathSquare array
 void resetPathSquares(
-    PathSquare* const aPathSquares,
+    PathSquare pathSquares[SQUARES_MAX],
     int const squareCount
 );
 
 /// Fill pathSquares with valid squares from board
 void updatePathSquares(
-    PathSquare* const aPathSquares,
+    PathSquare pathSquares[SQUARES_MAX],
     Board const* const pBoard,
     PlayerId const playerId
 );
@@ -50,7 +50,7 @@ bool isSquareValid(
 
 /// Find path from bottom to top
 bool isRoadCompleteVertical(
-    PathSquare* const aPathSquares,
+    PathSquare pathSquares[SQUARES_MAX],
     FileId const fileX,
     RankId const rankY,
     int const boardSize
@@ -58,7 +58,7 @@ bool isRoadCompleteVertical(
 
 /// Find path from left to right
 bool isRoadCompleteHorizontal(
-    PathSquare* const aPathSquares,
+    PathSquare pathSquares[SQUARES_MAX],
     FileId const fileX,
     RankId const rankY,
     int const boardSize

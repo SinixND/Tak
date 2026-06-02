@@ -1,5 +1,6 @@
 #include "Engine.h"
 
+#include "ActionTypeId.h"
 #include "Command.h"
 #include "CommandStateId.h"
 #include "CommandValidation.h"
@@ -7,6 +8,7 @@
 #include "Event.h"
 #include "FileId.h"
 #include "Game.h"
+#include "History.h"
 #include "InputBuffer.h"
 #include "InputParsing.h"
 #include "Position.h"
@@ -214,3 +216,54 @@ void buildEvent(
 
     pEvent->dropCount = pCommand->dropCounts[pCommand->drops];
 }
+
+void buildRecord(
+    History* const pHistory,
+    Event const* const pEvent,
+    Game const* const pGame
+)
+{
+    Record* const pRecord = &pHistory->records[pHistory->recordIdx];
+
+    pRecord->actionType = pEvent->actionType;
+
+    switch ( pRecord->actionType )
+    {
+        default:
+            return;
+
+        case ACTION_TYPE_PLACE:
+        {
+            pRecord->Data.place.stoneType = pEvent->stoneType;
+
+            pRecord->Data.place.playerId = pEvent->playerId;
+
+            pRecord->Data.place.squareIdx = pEvent->squareIdx;
+
+            break;
+        }
+
+        case ACTION_TYPE_LIFT:
+        {
+            pRecord->Data.lift.squareIdx = pEvent->squareIdx;
+
+            break;
+        }
+
+        case ACTION_TYPE_DROP:
+        {
+            pRecord->Data.drop.squareIdx = pEvent->squareIdx;
+
+            pRecord->Data.drop.dropCount = pEvent->dropCount;
+
+            pRecord->Data.drop.flattened
+                = ( pGame->board.stackTypes[pEvent->squareIdx]
+                    == STONE_TYPE_STANDING );
+        }
+
+        break;
+    }
+
+    ++pHistory->recordIdx;
+}
+
