@@ -175,30 +175,29 @@ bool validateCommandRankY(
         && "Pointer is nullptr"
     );
 
+    int const boardSize = pGame->board.size;
+
     /// Verify valid input to positionToSquare()
     if ( pCommand->rankY < 0
-         || pCommand->fileX < 0 )
+         || pCommand->fileX < 0
+         || ( pCommand->fileX >= boardSize )
+         || ( pCommand->rankY >= boardSize ) )
     {
         return false;
     }
 
-    int const boardSize = pGame->board.size;
     int const squareIdx = positionToSquare( pCommand->fileX, pCommand->rankY, boardSize );
 
     return (
-        ( pCommand->rankY >= 0 )
-        && ( pCommand->rankY < pGame->board.size )
-        && (
-            /// Place
-            ( pCommand->actionType == ACTION_TYPE_PLACE
-              && !pGame->board.stoneCounts[squareIdx] )
-            /// Lift
-            || ( pCommand->actionType == ACTION_TYPE_LIFT
-                 && pGame->board.stoneCounts[squareIdx]
-                 /// Player owns square
-                 && pGame->board.stackIds[squareIdx]
-                        == pCommand->playerId )
-        )
+        /// Place
+        ( pCommand->actionType == ACTION_TYPE_PLACE
+          && !pGame->board.stoneCounts[squareIdx] )
+        /// Lift
+        || ( pCommand->actionType == ACTION_TYPE_LIFT
+             && pGame->board.stoneCounts[squareIdx]
+             /// Player owns square
+             && pGame->board.stackIds[squareIdx]
+                    == pCommand->playerId )
     );
 }
 
