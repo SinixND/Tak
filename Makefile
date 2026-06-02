@@ -19,7 +19,6 @@ SRC_DIR  := src
 EXT_DIR  := external
 BIN_DIR  := bin
 OBJ_DIR  := build
-MAKE_DIR := tools/make
 
 # File extentions
 SRC_EXT  := c
@@ -76,7 +75,7 @@ CPPFLAGS_fatal   := -DDEBUG
 LDFLAGS_fatal    := # -fsanitize=address,undefined
 CPPCHECK_fatal   := --error-exitcode=1
 
-CFLAGS_release   := -O2
+CFLAGS_release   := -Os
 CPPFLAGS_release := -DNDEBUG
 LDFLAGS_release  :=
 
