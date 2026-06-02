@@ -12,12 +12,14 @@ static InputId const SIMULATION_DATA[] = {
     INPUT_A,
     INPUT_1,
 
-    /// Second turn - invalid placements
+    /// Second turn
+    /// Invalid placement (non-empty)
     /// B:
     INPUT_A,
     INPUT_1,
 
     /// B:
+    /// Invalid placement (out-of-bounds)
     INPUT_H,
     INPUT_8,
 
@@ -47,9 +49,13 @@ static InputId const SIMULATION_DATA[] = {
 
     /// Invalid move (empty)
     /// W:
-    INPUT_M,
     INPUT_A,
     INPUT_3,
+
+    /// Invalid move (out-of-bounds)
+    /// W:
+    INPUT_A,
+    INPUT_8,
 
     /// Correct input
     /// W:
@@ -485,7 +491,6 @@ static InputId const SIMULATION_DATA[] = {
     INPUT_3,
     INPUT_D,
     INPUT_4,
-
 };
 
 #endif

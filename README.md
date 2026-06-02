@@ -155,6 +155,8 @@ The following tools are used in the project but not required and not contained i
 
 
 ## ToDo notes
+- [ ] Fix out of bounds lift
+- [ ] Fix autocomplete capstone move (allow drop all before Standing)
 - [ ] History
     - [ ] Display only last (two) history?
     - [ ] 'x' to reset command (or turn?) (requires history)
