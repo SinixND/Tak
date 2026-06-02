@@ -175,11 +175,11 @@ void liftStack(
           )
           + ( pBoard->stoneCounts[squareIdx] - 1 );
 
-    for ( int i = 0; i < stoneCount; ++i )
+    for ( int offset = 0; offset < stoneCount; ++offset )
     {
         appendToBuffer(
             &pGame->stackBuffer,
-            pBoard->stoneIds[topStoneIdx - i]
+            pBoard->stoneIds[topStoneIdx - offset]
         );
     }
 
@@ -210,11 +210,12 @@ void dropStack(
     StackBuffer* const stackBuffer = &pGame->stackBuffer;
 
     /// Add stones to stack
-    for ( int i = 0; i < ( stackBuffer->stoneCount - 1 ); ++i )
+    /// Offset start from 1 due to count vs. index
+    for ( int offset = 1; offset < stackBuffer->stoneCount; ++offset )
     {
         putOntoStack(
             &pGame->board,
-            stackBuffer->stoneIds[( stackBuffer->stoneCount - 1 ) - i],
+            stackBuffer->stoneIds[stackBuffer->stoneCount - offset],
             squareIdx,
             STONE_TYPE_FLAT
         );

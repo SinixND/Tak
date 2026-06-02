@@ -30,9 +30,9 @@ Command newCommand( PlayerId const playerId )
         .drops = 0,
     };
 
-    for ( int i = 0; i < BOARD_SIZE_MAX; ++i )
+    for ( int n = 0; n < BOARD_SIZE_MAX; ++n )
     {
-        command.dropCounts[i] = -1;
+        command.dropCounts[n] = -1;
     }
 
     return command;

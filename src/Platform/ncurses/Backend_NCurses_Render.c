@@ -437,15 +437,15 @@ void renderCommand( Command const* const pCommand )
                     : DIRECTION_CHARS[pCommand->direction]
             );
 
-            for ( int i = 0; i < BOARD_SIZE_MAX; ++i )
+            for ( int n = 0; n < BOARD_SIZE_MAX; ++n )
             {
                 mvprintw(
                     POSITION_INPUT_CURRENT[0],
-                    POSITION_INPUT_CURRENT[1] + 6 + i,
+                    POSITION_INPUT_CURRENT[1] + 6 + n,
                     "%c",
-                    ( pCommand->dropCounts[i] < 0 )
+                    ( pCommand->dropCounts[n] < 0 )
                         ? ' '
-                        : '0' + pCommand->dropCounts[i]
+                        : '0' + pCommand->dropCounts[n]
                 );
             }
             return;
