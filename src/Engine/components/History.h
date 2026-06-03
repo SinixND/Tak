@@ -10,7 +10,7 @@ typedef struct History
     int recordIdx;
 } History;
 
-/// Return initialized History object
+/// Return initialized object
 History newHistory( void );
 
 #endif

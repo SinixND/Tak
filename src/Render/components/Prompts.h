@@ -11,7 +11,7 @@ typedef struct Prompts
     char options[STATE_COUNT][MAX_PROMPT_LENGTH];
 } Prompts;
 
-/// Return initialized prompts object
+/// Return initialized object
 Prompts newPrompts( Keymap const* const pKeymap );
 
 #endif

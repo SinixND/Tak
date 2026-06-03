@@ -21,7 +21,7 @@ typedef struct Game
 } Game;
 
 /**
- * @brief: Return initialized game object
+ * @brief: Return initialized object
  *
  * - Provide boardSize 0 for default value
  */

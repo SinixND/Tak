@@ -16,7 +16,7 @@ typedef struct Reserves
     uint8_t capstone[PLAYER_COUNT];
 } Reserves;
 
-/// Return initialized Reserves object
+/// Return initialized object
 Reserves newReserves( int const boardSize );
 
 /**

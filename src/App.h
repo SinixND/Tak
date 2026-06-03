@@ -30,7 +30,7 @@ typedef struct App
     bool shouldClose;
 } App;
 
-/// Return initialized App object
+/// Return initialized object
 App newApp( void );
 
 /// Setup before running the application loop

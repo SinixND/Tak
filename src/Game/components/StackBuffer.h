@@ -22,7 +22,7 @@ typedef struct StackBuffer
     StoneType stackType;
 } StackBuffer;
 
-/// Return initialized StackBuffer object
+/// Return initialized object
 StackBuffer newStackBuffer( void );
 
 /**

@@ -35,7 +35,7 @@ typedef struct Board
     uint8_t stackCapacity;
 } Board;
 
-/// Return initialized board object
+/// Return initialized object
 Board newBoard( int const boardSize );
 
 /**

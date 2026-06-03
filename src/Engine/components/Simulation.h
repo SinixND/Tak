@@ -10,7 +10,7 @@ typedef struct Simulation
     uint16_t inputIdx;
 } Simulation;
 
-/// Return initialized Simulation object
+/// Return initialized object
 Simulation newSimulation( void );
 
 /// Get next simulated input

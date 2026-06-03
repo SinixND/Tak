@@ -29,7 +29,7 @@ typedef struct Command
     int8_t drops;
 } Command;
 
-/// Return initialized player command object
+/// Return initialized object
 Command newCommand( PlayerId const playerId );
 
 /// Tick command state machine

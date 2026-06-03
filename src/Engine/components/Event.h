@@ -17,7 +17,7 @@ typedef struct Event
     int8_t dropCount;
 } Event;
 
-/// Return initialized game event object
+/// Return initialized object
 Event newEvent( void );
 
 #endif

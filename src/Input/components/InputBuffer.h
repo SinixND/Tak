@@ -13,7 +13,7 @@ typedef struct InputBuffer
     InputId lastInput;
 } InputBuffer;
 
-/// Return initialized InputBuffer object
+/// Return initialized object
 InputBuffer newInputBuffer( void );
 
 /// Get context dependent command input

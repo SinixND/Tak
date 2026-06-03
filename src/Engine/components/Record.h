@@ -37,7 +37,7 @@ typedef struct Record
     } Data;
 } Record;
 
-/// Return initialized Record object
+/// Return initialized object
 Record newRecord( void );
 
 #endif
