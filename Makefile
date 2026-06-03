@@ -11,8 +11,8 @@ fn_dirs     = $(sort $(dir $(call fn_rwildcard,$1,*)))
 #######################################
 
 # Commands
-RM        := rm -rf
-MKDIR     := mkdir -p
+RM       := rm -rf
+MKDIR    := mkdir -p
 
 # Directories
 SRC_DIR  := src
@@ -80,12 +80,8 @@ CPPFLAGS_release := -DNDEBUG
 LDFLAGS_release  :=
 
 # Targets
-.PHONY: all
+.PHONY: all ## Default make target
 all: compiledb build test cppcheck
-
-# To test all targets
-.PHONY: checkhealth
-checkhealth: clean doxygen format compiledb fatal debug release test cppcheck run
 
 
 #######################################
@@ -135,15 +131,15 @@ INC_test := $(call fn_dirs,$(SRC_DIR)) \
 
 # Targets
 .PHONY: build-test
-build-test:
+build-test: ## Build tests
 	@$(MAKE) BUILD=debug MODE=test build
 
 .PHONY: run-test
-run-test:
+run-test: ## Run tests
 	@$(MAKE) BUILD=debug MODE=test run
 
 .PHONY: test
-test: build-test run-test
+test: build-test run-test ## Build and run tests
 
 
 #######################################
@@ -173,16 +169,16 @@ INCFLAGS += $(addprefix -isystem,$(EXT_INC_DIR))
 #######################################
 
 .PHONY: build 
-build: $(BIN_DIR)/$(BIN_$(MODE))
+build: $(BIN_DIR)/$(BIN_$(MODE)) ## Build binary
 
 .PHONY: clean 
-clean:
+clean: ## Delete binary and object files
 	$(info )
 	$(info === Clean ===)
 	$(RM) $(OBJ_DIR) $(BIN_DIR)
 
 .PHONY: cppcheck 
-cppcheck:
+cppcheck: ## Static code checking
 	$(info )
 	$(info === Run cppcheck: BUILD=$(BUILD) ===)
 	@$(MKDIR) $(OBJ_DIR)/cppcheck
@@ -203,43 +199,51 @@ cppcheck:
 	  $(SRC_DIR) \
 
 .PHONY: compiledb
-compiledb:
+compiledb: ## Build compile_command.json
 	$(info )
 	$(info === Build compilation database ===)
 	compiledb -n make
 
 .PHONY: debug
-debug:
+debug: ## Debug build config
 	$(info )
 	$(info === Build app/debug ===)
 	@$(MAKE) BUILD=debug MODE=app build
 
 .PHONY: doxygen 
-doxygen:
+doxygen: ## Build doxygen documentation
 	$(info )
 	$(info === Create documentation ===)
 	doxygen Doxyfile
 
 .PHONY: fatal
-fatal:
+fatal: ## Pedantic debug build, abort on first error
 	$(info )
 	$(info === Build app/fatal ===)
 	@$(MAKE) BUILD=fatal MODE=app build
 
 .PHONY: format
-format:
+format: ## Format all code files
 	$(info )
 	$(info === Format code ===)
 	clang-format -i `find $(SRC_DIR) $(TEST_DIR) -name '*.$(SRC_EXT)' -o -name '*.$(HDR_EXT)'`
 
+.PHONY: help
+help: ## Show this help message
+	@grep --no-filename -E '^[a-zA-Z_-]+:.*?##.*$$' $(MAKEFILE_LIST) | awk 'BEGIN { \
+	 FS = ":.*?## "; \
+	 printf "\033[1m%-30s\033[0m %s\n", "TARGET", "DESCRIPTION" \
+	} \
+	{ printf "\033[32m%-30s\033[0m %s\n", $$1, $$2 }'
+
 .PHONY: init
-init:
+init: ## Setup project: Update submodules
 	$(info )
 	$(info === Update git submodules ===)
 	@git submodule update --init --recursive
 
 .PHONY: publish
-publish:
+publish: ## Build fatal, static checker and release configs
 	$(info )
 	$(info === Publish ===)
 	@$(MAKE) fatal
@@ -247,13 +251,13 @@ publish:
 	@$(MAKE) release
 
 .PHONY: release
-release:
+release: ## Build release config
 	$(info )
 	$(info === Build app/release ===)
 	@$(MAKE) BUILD=release MODE=app build
 
 .PHONY: run
-run:
+run: ## Run binary
 	$(info )
 	$(info === Execute $(BIN_$(MODE)) ===)
 	$(BIN_DIR)/$(BIN_$(MODE))
