@@ -145,6 +145,27 @@ void updateFrame( App* const pApp )
             return;
         }
 
+        case APP_STATE_TURN_UNDO:
+        {
+            pApp->state = APP_STATE_NORMAL_TURN;
+
+            return;
+        }
+
+        case APP_STATE_TURN_REDO:
+        {
+            pApp->state = APP_STATE_NORMAL_TURN;
+
+            return;
+        }
+
+        case APP_STATE_TURN_RESET:
+        {
+            pApp->state = APP_STATE_NORMAL_TURN;
+
+            return;
+        }
+
         case APP_STATE_GAME_END:
         {
             renderCommandGameEnd( pApp );

@@ -229,9 +229,6 @@ void buildRecord(
 
     switch ( pRecord->actionType )
     {
-        default:
-            return;
-
         case ACTION_TYPE_PLACE:
         {
             pRecord->Data.place.stoneType = pEvent->stoneType;
@@ -259,9 +256,12 @@ void buildRecord(
             pRecord->Data.drop.flattened
                 = ( pGame->board.stackTypes[pEvent->squareIdx]
                     == STONE_TYPE_STANDING );
+
+            break;
         }
 
-        break;
+        default:
+            return;
     }
 
     ++pHistory->recordIdx;
