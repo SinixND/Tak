@@ -13,6 +13,7 @@
 #include "History.h"
 #include "InputBuffer.h"
 #include "InputSystem.h"
+#include "Keymap.h"
 #include "PlayerId.h"
 #include "Prompts.h"
 #include "Simulation.h"
@@ -163,7 +164,10 @@ bool setBoardSize( App* const pApp )
         && "Pointer is nullptr"
     );
 
-    switch ( pApp->inputBuffer.keymap.commands[CONTEXT_SIZE][pApp->inputBuffer.lastInput] )
+    switch ( getCommandId(
+        &pApp->inputBuffer,
+        CONTEXT_SIZE
+    ) )
     {
         case COMMAND_3:
         {
