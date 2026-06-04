@@ -32,8 +32,8 @@ bool autocompleteCommand(
         && "Pointer is nullptr"
     );
 
-    if ( !( pCommand->state == STATE_GET_FIRST_DROP_AMOUNT
-            || pCommand->state == STATE_GET_DROP_AMOUNT ) )
+    if ( !( pCommand->state == COMMAND_STATE_GET_FIRST_DROP_AMOUNT
+            || pCommand->state == COMMAND_STATE_GET_DROP_AMOUNT ) )
     {
         return false;
     }
@@ -59,7 +59,7 @@ bool autocompleteCommand(
     )
     {
         pCommand->dropCounts[pCommand->drops] = pGame->stackBuffer.stoneCount;
-        pCommand->state = STATE_GET_ACTION_TYPE;
+        pCommand->state = COMMAND_STATE_GET_ACTION_TYPE;
 
         return true;
     }
@@ -75,7 +75,7 @@ bool autocompleteCommand(
          && pGame->stackBuffer.stoneCount == 1 )
     {
         pCommand->dropCounts[pCommand->drops] = 0;
-        pCommand->state = STATE_GET_DROP_AMOUNT;
+        pCommand->state = COMMAND_STATE_GET_DROP_AMOUNT;
 
         return true;
     }
@@ -85,7 +85,7 @@ bool autocompleteCommand(
          && pGame->stackBuffer.stoneCount == 1 )
     {
         pCommand->dropCounts[pCommand->drops] = 1;
-        pCommand->state = STATE_GET_ACTION_TYPE;
+        pCommand->state = COMMAND_STATE_GET_ACTION_TYPE;
 
         return true;
     }
@@ -94,7 +94,7 @@ bool autocompleteCommand(
     if ( pGame->board.stackTypes[nextSquareIdx] == STONE_TYPE_CAP )
     {
         pCommand->dropCounts[pCommand->drops] = pGame->stackBuffer.stoneCount;
-        pCommand->state = STATE_GET_ACTION_TYPE;
+        pCommand->state = COMMAND_STATE_GET_ACTION_TYPE;
 
         return true;
     }
@@ -104,7 +104,7 @@ bool autocompleteCommand(
          && pGame->stackBuffer.stackType != STONE_TYPE_CAP )
     {
         pCommand->dropCounts[pCommand->drops] = pGame->stackBuffer.stoneCount;
-        pCommand->state = STATE_GET_ACTION_TYPE;
+        pCommand->state = COMMAND_STATE_GET_ACTION_TYPE;
 
         return true;
     }
@@ -161,10 +161,10 @@ void buildCommand(
          ) )
     {
         /// Reset original command to query for file if rank invalid
-        if ( command.state == STATE_GET_RANK_Y )
+        if ( command.state == COMMAND_STATE_GET_RANK_Y )
         {
             pCommand->fileX = FILE_NONE;
-            pCommand->state = STATE_GET_FILE_X;
+            pCommand->state = COMMAND_STATE_GET_FILE_X;
         }
 
         return;

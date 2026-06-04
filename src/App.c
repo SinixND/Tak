@@ -94,7 +94,7 @@ void updateFrame( App* const pApp )
             pApp->command.playerId = PLAYER_BLACK;
             pApp->command.actionType = ACTION_TYPE_PLACE;
             pApp->command.stoneType = STONE_TYPE_FLAT;
-            pApp->command.state = STATE_GET_FILE_X;
+            pApp->command.state = COMMAND_STATE_GET_FILE_X;
 
             /// Update altered UI
             renderDynamic( pApp );
@@ -119,7 +119,7 @@ void updateFrame( App* const pApp )
             pApp->command.playerId = PLAYER_WHITE;
             pApp->command.actionType = ACTION_TYPE_PLACE;
             pApp->command.stoneType = STONE_TYPE_FLAT;
-            pApp->command.state = STATE_GET_FILE_X;
+            pApp->command.state = COMMAND_STATE_GET_FILE_X;
 
             /// Update altered UI
             renderDynamic( pApp );
@@ -333,7 +333,7 @@ bool isTurnComplete( App const* const pApp )
         && "Pointer is nullptr"
     );
 
-    return pApp->command.state == STATE_GET_ACTION_TYPE;
+    return pApp->command.state == COMMAND_STATE_GET_ACTION_TYPE;
 }
 
 void handleTurnEnd( App* const pApp )

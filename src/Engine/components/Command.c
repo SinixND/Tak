@@ -20,7 +20,7 @@ Command newCommand( PlayerId const playerId )
     );
 
     Command command = {
-        .state = STATE_GET_ACTION_TYPE,
+        .state = COMMAND_STATE_GET_ACTION_TYPE,
         .playerId = playerId,
         .actionType = ACTION_TYPE_NONE,
         .stoneType = STONE_TYPE_NONE,
@@ -55,32 +55,32 @@ void setNextCommandState(
 
     switch ( pCommand->state )
     {
-        case STATE_NONE:
-        case STATE_GET_ACTION_TYPE:
+        case COMMAND_STATE_NONE:
+        case COMMAND_STATE_GET_ACTION_TYPE:
         {
             pCommand->state
                 = ( pCommand->actionType == ACTION_TYPE_PLACE )
-                      ? STATE_GET_STONE_TYPE
-                      : STATE_GET_FILE_X;
+                      ? COMMAND_STATE_GET_STONE_TYPE
+                      : COMMAND_STATE_GET_FILE_X;
 
             return;
         }
 
-        case STATE_GET_STONE_TYPE:
+        case COMMAND_STATE_GET_STONE_TYPE:
         {
-            pCommand->state = STATE_GET_FILE_X;
+            pCommand->state = COMMAND_STATE_GET_FILE_X;
 
             return;
         }
 
-        case STATE_GET_FILE_X:
+        case COMMAND_STATE_GET_FILE_X:
         {
-            pCommand->state = STATE_GET_RANK_Y;
+            pCommand->state = COMMAND_STATE_GET_RANK_Y;
 
             return;
         }
 
-        case STATE_GET_RANK_Y:
+        case COMMAND_STATE_GET_RANK_Y:
         {
             assert(
                 pCommand->actionType != ACTION_TYPE_NONE
@@ -89,26 +89,26 @@ void setNextCommandState(
 
             pCommand->state
                 = ( pCommand->actionType == ACTION_TYPE_PLACE )
-                      ? STATE_GET_ACTION_TYPE
-                      : STATE_GET_DIRECTION;
+                      ? COMMAND_STATE_GET_ACTION_TYPE
+                      : COMMAND_STATE_GET_DIRECTION;
 
             return;
         }
 
-        case STATE_GET_DIRECTION:
+        case COMMAND_STATE_GET_DIRECTION:
         {
-            pCommand->state = STATE_GET_FIRST_DROP_AMOUNT;
+            pCommand->state = COMMAND_STATE_GET_FIRST_DROP_AMOUNT;
 
             return;
         }
 
-        case STATE_GET_FIRST_DROP_AMOUNT:
-        case STATE_GET_DROP_AMOUNT:
+        case COMMAND_STATE_GET_FIRST_DROP_AMOUNT:
+        case COMMAND_STATE_GET_DROP_AMOUNT:
         {
             pCommand->state
                 = ( pCommand->dropCounts[pCommand->drops] >= pGame->stackBuffer.stoneCount )
-                      ? STATE_GET_ACTION_TYPE
-                      : STATE_GET_DROP_AMOUNT;
+                      ? COMMAND_STATE_GET_ACTION_TYPE
+                      : COMMAND_STATE_GET_DROP_AMOUNT;
 
             return;
         }

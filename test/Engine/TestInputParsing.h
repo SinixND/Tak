@@ -289,34 +289,34 @@ void testParseInput( void )
     Command command = newCommand( PLAYER_WHITE );
     InputBuffer inputBuffer = newInputBuffer();
 
-    command.state = STATE_GET_ACTION_TYPE;
+    command.state = COMMAND_STATE_GET_ACTION_TYPE;
     TEST_ASSERT_EQUAL_INT( false, parseInput( &command, &inputBuffer ) );
 
     inputBuffer.lastInput = inputBuffer.keymap.inputs[CONTEXT_ACTION_TYPE][COMMAND_MOVE];
     TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer ) );
 
-    command.state = STATE_GET_STONE_TYPE;
+    command.state = COMMAND_STATE_GET_STONE_TYPE;
     inputBuffer.lastInput = inputBuffer.keymap.inputs[CONTEXT_STONE_TYPE][COMMAND_STANDING];
     TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer ) );
 
-    command.state = STATE_GET_FILE_X;
+    command.state = COMMAND_STATE_GET_FILE_X;
     inputBuffer.lastInput = inputBuffer.keymap.inputs[CONTEXT_POSITION][COMMAND_A];
     TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer ) );
 
-    command.state = STATE_GET_RANK_Y;
+    command.state = COMMAND_STATE_GET_RANK_Y;
     inputBuffer.lastInput = inputBuffer.keymap.inputs[CONTEXT_POSITION][COMMAND_1];
     TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer ) );
 
-    command.state = STATE_GET_DIRECTION;
+    command.state = COMMAND_STATE_GET_DIRECTION;
     inputBuffer.lastInput = inputBuffer.keymap.inputs[CONTEXT_DIRECTION][COMMAND_RIGHT];
     TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer ) );
 
-    command.state = STATE_GET_FIRST_DROP_AMOUNT;
+    command.state = COMMAND_STATE_GET_FIRST_DROP_AMOUNT;
     inputBuffer.lastInput = inputBuffer.keymap.inputs[CONTEXT_AMOUNT][COMMAND_0];
     command.drops = 0;
     TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer ) );
 
-    command.state = STATE_GET_DROP_AMOUNT;
+    command.state = COMMAND_STATE_GET_DROP_AMOUNT;
     command.drops = 1;
     inputBuffer.lastInput = inputBuffer.keymap.inputs[CONTEXT_AMOUNT][COMMAND_1];
     TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer ) );

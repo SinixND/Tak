@@ -7,8 +7,8 @@
 
 typedef struct Prompts
 {
-    char* inputs[STATE_COUNT];
-    char options[STATE_COUNT][MAX_PROMPT_LENGTH];
+    char* inputs[COMMAND_STATE_COUNT];
+    char options[COMMAND_STATE_COUNT][MAX_PROMPT_LENGTH];
 } Prompts;
 
 /// Return initialized object

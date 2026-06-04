@@ -25,7 +25,7 @@ void testAutocompleteCommand( void )
     command.direction = DIR_RIGHT;
 
     /// Need to drop all if next square out of board
-    command.state = STATE_GET_DROP_AMOUNT;
+    command.state = COMMAND_STATE_GET_DROP_AMOUNT;
     command.drops = 2; // Next square index is out of board
     command.dropCounts[0] = 0;
     command.dropCounts[1] = 1;
@@ -35,10 +35,10 @@ void testAutocompleteCommand( void )
         &game
     );
     TEST_ASSERT_EQUAL_INT( 2, command.dropCounts[2] );
-    TEST_ASSERT_EQUAL_INT( STATE_GET_ACTION_TYPE, command.state );
+    TEST_ASSERT_EQUAL_INT( COMMAND_STATE_GET_ACTION_TYPE, command.state );
 
     /// Drop nothing at source square if liftcount == 1
-    command.state = STATE_GET_FIRST_DROP_AMOUNT;
+    command.state = COMMAND_STATE_GET_FIRST_DROP_AMOUNT;
     game.stackBuffer.stoneCount = 1; // Only one stone in stack
     command.drops = 0;               // First drop
     autocompleteCommand(
@@ -46,10 +46,10 @@ void testAutocompleteCommand( void )
         &game
     );
     TEST_ASSERT_EQUAL_INT( 0, command.dropCounts[0] );
-    TEST_ASSERT_EQUAL_INT( STATE_GET_DROP_AMOUNT, command.state );
+    TEST_ASSERT_EQUAL_INT( COMMAND_STATE_GET_DROP_AMOUNT, command.state );
 
     /// Need to drop 'all' if only one stone left in stack buffer and not first drop
-    command.state = STATE_GET_DROP_AMOUNT;
+    command.state = COMMAND_STATE_GET_DROP_AMOUNT;
     game.stackBuffer.stoneCount = 1; // Only one stone left in stack
     command.drops = 1;               // Not first drop
     autocompleteCommand(
@@ -57,11 +57,11 @@ void testAutocompleteCommand( void )
         &game
     );
     TEST_ASSERT_EQUAL_INT( 1, command.dropCounts[1] );
-    TEST_ASSERT_EQUAL_INT( STATE_GET_ACTION_TYPE, command.state );
+    TEST_ASSERT_EQUAL_INT( COMMAND_STATE_GET_ACTION_TYPE, command.state );
 
     /// Need to drop all if next squares type is capstone
     game.stackBuffer.stoneCount = 2;
-    command.state = STATE_GET_FIRST_DROP_AMOUNT;
+    command.state = COMMAND_STATE_GET_FIRST_DROP_AMOUNT;
     command.drops = 0;                         // Next square index is 0
     game.board.stackTypes[1] = STONE_TYPE_CAP; // Next squares type is capstone
     autocompleteCommand(
@@ -69,11 +69,11 @@ void testAutocompleteCommand( void )
         &game
     );
     TEST_ASSERT_EQUAL_INT( 2, command.dropCounts[0] );
-    TEST_ASSERT_EQUAL_INT( STATE_GET_ACTION_TYPE, command.state );
+    TEST_ASSERT_EQUAL_INT( COMMAND_STATE_GET_ACTION_TYPE, command.state );
 
     /// Need to drop all if next squares type is standing and buffer type is not capstone
     game.stackBuffer.stoneCount = 2;
-    command.state = STATE_GET_FIRST_DROP_AMOUNT;
+    command.state = COMMAND_STATE_GET_FIRST_DROP_AMOUNT;
     command.drops = 0;                              // Next square index is 0
     game.board.stackTypes[1] = STONE_TYPE_STANDING; // Next squares type is standing
     game.stackBuffer.stackType = STONE_TYPE_FLAT;   // Buffertype is not capstone
@@ -82,11 +82,11 @@ void testAutocompleteCommand( void )
         &game
     );
     TEST_ASSERT_EQUAL_INT( 2, command.dropCounts[0] );
-    TEST_ASSERT_EQUAL_INT( STATE_GET_ACTION_TYPE, command.state );
+    TEST_ASSERT_EQUAL_INT( COMMAND_STATE_GET_ACTION_TYPE, command.state );
 
     /// Need to drop all but one if next squares type is standing and buffer type is capstone
     game.stackBuffer.stoneCount = 2;
-    command.state = STATE_GET_FIRST_DROP_AMOUNT;
+    command.state = COMMAND_STATE_GET_FIRST_DROP_AMOUNT;
     command.drops = 0;                              // Next square index is 0
     game.board.stackTypes[1] = STONE_TYPE_STANDING; // Next squares type is standing
     game.stackBuffer.stackType = STONE_TYPE_CAP;    // Buffertype is capstone
@@ -105,7 +105,7 @@ void testBuildCommand( void )
 
     command.fileX = FILE_A;
     command.rankY = RANK_1;
-    command.state = STATE_GET_DROP_AMOUNT;
+    command.state = COMMAND_STATE_GET_DROP_AMOUNT;
     command.actionType = ACTION_TYPE_DROP;
     command.drops = 1;
     command.dropCounts[0] = 2;

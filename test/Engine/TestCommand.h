@@ -20,62 +20,62 @@ void testSetNextCommandState( void )
 
     TEST_ASSERT_EQUAL_INT( PLAYER_BLACK, command.playerId );
 
-    command.state = STATE_GET_ACTION_TYPE;
+    command.state = COMMAND_STATE_GET_ACTION_TYPE;
     command.actionType = ACTION_TYPE_PLACE;
     setNextCommandState(
         &command,
         &game
     );
-    TEST_ASSERT_EQUAL_INT( STATE_GET_STONE_TYPE, command.state );
+    TEST_ASSERT_EQUAL_INT( COMMAND_STATE_GET_STONE_TYPE, command.state );
 
     setNextCommandState(
         &command,
         &game
     );
-    TEST_ASSERT_EQUAL_INT( STATE_GET_FILE_X, command.state );
+    TEST_ASSERT_EQUAL_INT( COMMAND_STATE_GET_FILE_X, command.state );
 
     setNextCommandState(
         &command,
         &game
     );
-    TEST_ASSERT_EQUAL_INT( STATE_GET_RANK_Y, command.state );
+    TEST_ASSERT_EQUAL_INT( COMMAND_STATE_GET_RANK_Y, command.state );
 
     setNextCommandState(
         &command,
         &game
     );
-    TEST_ASSERT_EQUAL_INT( STATE_GET_ACTION_TYPE, command.state );
+    TEST_ASSERT_EQUAL_INT( COMMAND_STATE_GET_ACTION_TYPE, command.state );
 
     command.actionType = ACTION_TYPE_LIFT;
     setNextCommandState(
         &command,
         &game
     );
-    TEST_ASSERT_EQUAL_INT( STATE_GET_FILE_X, command.state );
+    TEST_ASSERT_EQUAL_INT( COMMAND_STATE_GET_FILE_X, command.state );
 
     setNextCommandState(
         &command,
         &game
     );
-    TEST_ASSERT_EQUAL_INT( STATE_GET_RANK_Y, command.state );
+    TEST_ASSERT_EQUAL_INT( COMMAND_STATE_GET_RANK_Y, command.state );
 
     setNextCommandState(
         &command,
         &game
     );
-    TEST_ASSERT_EQUAL_INT( STATE_GET_DIRECTION, command.state );
+    TEST_ASSERT_EQUAL_INT( COMMAND_STATE_GET_DIRECTION, command.state );
 
     setNextCommandState(
         &command,
         &game
     );
-    TEST_ASSERT_EQUAL_INT( STATE_GET_FIRST_DROP_AMOUNT, command.state );
+    TEST_ASSERT_EQUAL_INT( COMMAND_STATE_GET_FIRST_DROP_AMOUNT, command.state );
 
     setNextCommandState(
         &command,
         &game
     );
-    TEST_ASSERT_EQUAL_INT( STATE_GET_DROP_AMOUNT, command.state );
+    TEST_ASSERT_EQUAL_INT( COMMAND_STATE_GET_DROP_AMOUNT, command.state );
 
     command.drops = 1;
     command.dropCounts[0] = 1;
@@ -85,7 +85,7 @@ void testSetNextCommandState( void )
         &command,
         &game
     );
-    TEST_ASSERT_EQUAL_INT( STATE_GET_ACTION_TYPE, command.state );
+    TEST_ASSERT_EQUAL_INT( COMMAND_STATE_GET_ACTION_TYPE, command.state );
 }
 
 void testIsCommandReady( void )

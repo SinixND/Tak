@@ -23,8 +23,8 @@ bool parseInput(
 
     switch ( pCommand->state )
     {
-        case STATE_NONE:
-        case STATE_GET_ACTION_TYPE:
+        case COMMAND_STATE_NONE:
+        case COMMAND_STATE_GET_ACTION_TYPE:
         {
             return parseInputActionType(
                 pCommand,
@@ -32,7 +32,7 @@ bool parseInput(
             );
         }
 
-        case STATE_GET_STONE_TYPE:
+        case COMMAND_STATE_GET_STONE_TYPE:
         {
             return parseInputStoneType(
                 pCommand,
@@ -40,7 +40,7 @@ bool parseInput(
             );
         }
 
-        case STATE_GET_FILE_X:
+        case COMMAND_STATE_GET_FILE_X:
         {
             return parseInputFileX(
                 pCommand,
@@ -48,7 +48,7 @@ bool parseInput(
             );
         }
 
-        case STATE_GET_RANK_Y:
+        case COMMAND_STATE_GET_RANK_Y:
         {
             return parseInputRankY(
                 pCommand,
@@ -56,7 +56,7 @@ bool parseInput(
             );
         }
 
-        case STATE_GET_DIRECTION:
+        case COMMAND_STATE_GET_DIRECTION:
         {
             return parseInputDirection(
                 pCommand,
@@ -64,7 +64,7 @@ bool parseInput(
             );
         }
 
-        case STATE_GET_FIRST_DROP_AMOUNT:
+        case COMMAND_STATE_GET_FIRST_DROP_AMOUNT:
         {
             return parseInputFirstDropAmount(
                 pCommand,
@@ -72,7 +72,7 @@ bool parseInput(
             );
         }
 
-        case STATE_GET_DROP_AMOUNT:
+        case COMMAND_STATE_GET_DROP_AMOUNT:
         {
             return parseInputDropAmount(
                 pCommand,

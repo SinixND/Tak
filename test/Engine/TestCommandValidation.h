@@ -163,30 +163,30 @@ void testValidateCommand( void )
 
     TEST_ASSERT_EQUAL_INT( false, validateCommand( &command, &game ) );
 
-    command.state = STATE_GET_ACTION_TYPE;
+    command.state = COMMAND_STATE_GET_ACTION_TYPE;
     command.playerId = PLAYER_WHITE;
     command.actionType = ACTION_TYPE_PLACE;
     TEST_ASSERT_EQUAL_INT( true, validateCommand( &command, &game ) );
 
-    command.state = STATE_GET_STONE_TYPE;
+    command.state = COMMAND_STATE_GET_STONE_TYPE;
     command.stoneType = STONE_TYPE_FLAT;
     TEST_ASSERT_EQUAL_INT( true, validateCommand( &command, &game ) );
 
-    command.state = STATE_GET_FILE_X;
+    command.state = COMMAND_STATE_GET_FILE_X;
     command.fileX = FILE_A;
     TEST_ASSERT_EQUAL_INT( true, validateCommand( &command, &game ) );
 
-    command.state = STATE_GET_RANK_Y;
+    command.state = COMMAND_STATE_GET_RANK_Y;
     command.rankY = RANK_1;
     TEST_ASSERT_EQUAL_INT( true, validateCommand( &command, &game ) );
 
-    command.state = STATE_GET_DIRECTION;
+    command.state = COMMAND_STATE_GET_DIRECTION;
     command.actionType = ACTION_TYPE_LIFT;
     command.direction = DIR_UP;
     TEST_ASSERT_EQUAL_INT( true, validateCommand( &command, &game ) );
 
     game.stackBuffer.stoneCount = 3;
-    command.state = STATE_GET_FIRST_DROP_AMOUNT;
+    command.state = COMMAND_STATE_GET_FIRST_DROP_AMOUNT;
     command.actionType = ACTION_TYPE_DROP;
     command.dropCounts[0] = 3;
     command.drops = 0;
@@ -195,7 +195,7 @@ void testValidateCommand( void )
     command.dropCounts[0] = 1;
     TEST_ASSERT_EQUAL_INT( true, validateCommand( &command, &game ) );
 
-    command.state = STATE_GET_DROP_AMOUNT;
+    command.state = COMMAND_STATE_GET_DROP_AMOUNT;
     command.actionType = ACTION_TYPE_DROP;
     command.drops = 1;
     command.dropCounts[1] = 1;

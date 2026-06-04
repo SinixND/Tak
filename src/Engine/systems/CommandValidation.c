@@ -24,7 +24,7 @@ bool validateCommand(
 
     switch ( pCommand->state )
     {
-        case STATE_GET_ACTION_TYPE:
+        case COMMAND_STATE_GET_ACTION_TYPE:
         {
             return validateCommandActionType(
                 pCommand,
@@ -32,7 +32,7 @@ bool validateCommand(
             );
         }
 
-        case STATE_GET_STONE_TYPE:
+        case COMMAND_STATE_GET_STONE_TYPE:
         {
             return validateCommandStoneType(
                 pCommand,
@@ -40,7 +40,7 @@ bool validateCommand(
             );
         }
 
-        case STATE_GET_FILE_X:
+        case COMMAND_STATE_GET_FILE_X:
         {
             return validateCommandFileX(
                 pCommand,
@@ -48,7 +48,7 @@ bool validateCommand(
             );
         }
 
-        case STATE_GET_RANK_Y:
+        case COMMAND_STATE_GET_RANK_Y:
         {
             return validateCommandRankY(
                 pCommand,
@@ -56,7 +56,7 @@ bool validateCommand(
             );
         }
 
-        case STATE_GET_DIRECTION:
+        case COMMAND_STATE_GET_DIRECTION:
         {
             return validateCommandDirection(
                 pCommand,
@@ -64,8 +64,8 @@ bool validateCommand(
             );
         }
 
-        case STATE_GET_FIRST_DROP_AMOUNT:
-        case STATE_GET_DROP_AMOUNT:
+        case COMMAND_STATE_GET_FIRST_DROP_AMOUNT:
+        case COMMAND_STATE_GET_DROP_AMOUNT:
         {
             /// Cap drop count
             if ( pCommand->dropCounts[pCommand->drops] > pGame->stackBuffer.stoneCount )
