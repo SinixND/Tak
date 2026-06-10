@@ -7,33 +7,33 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-typedef struct Place
+typedef struct DataPlace
 {
     int8_t squareIdx;
     PlayerId playerId;
     StoneType stoneType;
-} Place;
+} DataPlace;
 
-typedef struct Lift
+typedef struct DataLift
 {
     int8_t squareIdx;
-} Lift;
+} DataLift;
 
-typedef struct Drop
+typedef struct DataDrop
 {
     int8_t squareIdx;
     int8_t dropCount;
     bool flattened;
-} Drop;
+} DataDrop;
 
 typedef struct Record
 {
     ActionType actionType;
     union
     {
-        Place place;
-        Lift lift;
-        Drop drop;
+        DataPlace place;
+        DataLift lift;
+        DataDrop drop;
     } Data;
 } Record;
 

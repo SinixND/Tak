@@ -4,10 +4,12 @@
 #include "EngineConstants.h"
 #include "Record.h"
 
+/// First record stays empty -> totalRecords match max index
 typedef struct History
 {
     Record records[HISTORY_SIZE];
-    int recordIdx;
+    int lastRecordIdx;
+    int totalRecords;
 } History;
 
 /// Return initialized object

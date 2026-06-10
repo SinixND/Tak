@@ -223,7 +223,7 @@ void recordEvent(
     Game const* const pGame
 )
 {
-    Record* const pRecord = &pHistory->records[pHistory->recordIdx];
+    Record* const pRecord = &pHistory->records[pHistory->lastRecordIdx];
 
     pRecord->actionType = pEvent->actionType;
 
@@ -264,6 +264,6 @@ void recordEvent(
             return;
     }
 
-    ++pHistory->recordIdx;
+    ++pHistory->lastRecordIdx;
 }
 
