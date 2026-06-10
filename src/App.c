@@ -337,7 +337,7 @@ bool updateGame( App* const pApp )
         pApp->game.board.size
     );
 
-    buildRecord(
+    recordEvent(
         &pApp->history,
         &pApp->event,
         &pApp->game

@@ -37,8 +37,8 @@ void buildEvent(
     int const boardSize
 );
 
-/// Make history record from commann
-void buildRecord(
+/// Make history record from event
+void recordEvent(
     History* const pHistory,
     Event const* const pEvent,
     Game const* const pGame

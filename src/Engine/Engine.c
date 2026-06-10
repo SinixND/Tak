@@ -217,7 +217,7 @@ void buildEvent(
     pEvent->dropCount = pCommand->dropCounts[pCommand->drops];
 }
 
-void buildRecord(
+void recordEvent(
     History* const pHistory,
     Event const* const pEvent,
     Game const* const pGame
