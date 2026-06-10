@@ -238,6 +238,8 @@ void testLiftStone( void )
         6
     );
 
+    game.stackBuffer.stackType = STONE_TYPE_NONE;
+
     liftStone(
         &game,
         6,
