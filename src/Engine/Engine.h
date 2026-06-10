@@ -44,4 +44,10 @@ void recordEvent(
     Game const* const pGame
 );
 
+/// Undo last events
+void undoTurn(
+    History* const pHistory,
+    Game* const pGame
+);
+
 #endif

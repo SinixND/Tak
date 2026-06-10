@@ -223,37 +223,37 @@ void recordEvent(
     Game const* const pGame
 )
 {
-    Record* const pRecord = &pHistory->records[pHistory->lastRecordIdx];
+    Record* const pNewRecord = &pHistory->records[pHistory->lastRecordIdx + 1];
 
-    pRecord->actionType = pEvent->actionType;
+    pNewRecord->actionType = pEvent->actionType;
 
-    switch ( pRecord->actionType )
+    switch ( pNewRecord->actionType )
     {
         case ACTION_TYPE_PLACE:
         {
-            pRecord->Data.place.stoneType = pEvent->stoneType;
+            pNewRecord->Data.place.stoneType = pEvent->stoneType;
 
-            pRecord->Data.place.playerId = pEvent->playerId;
+            pNewRecord->Data.place.playerId = pEvent->playerId;
 
-            pRecord->Data.place.squareIdx = pEvent->squareIdx;
+            pNewRecord->Data.place.squareIdx = pEvent->squareIdx;
 
             break;
         }
 
         case ACTION_TYPE_LIFT:
         {
-            pRecord->Data.lift.squareIdx = pEvent->squareIdx;
+            pNewRecord->Data.lift.squareIdx = pEvent->squareIdx;
 
             break;
         }
 
         case ACTION_TYPE_DROP:
         {
-            pRecord->Data.drop.squareIdx = pEvent->squareIdx;
+            pNewRecord->Data.drop.squareIdx = pEvent->squareIdx;
 
-            pRecord->Data.drop.dropCount = pEvent->dropCount;
+            pNewRecord->Data.drop.dropCount = pEvent->dropCount;
 
-            pRecord->Data.drop.flattened
+            pNewRecord->Data.drop.flattened
                 = ( pGame->board.stackTypes[pEvent->squareIdx]
                     == STONE_TYPE_STANDING );
 
@@ -265,5 +265,96 @@ void recordEvent(
     }
 
     ++pHistory->lastRecordIdx;
+    pHistory->totalRecords = pHistory->lastRecordIdx;
+}
+
+void undoTurn(
+    History* const pHistory,
+    Game* const pGame
+)
+{
+    assert(
+        pHistory
+        && "Pointer is nullptr"
+    );
+
+    assert(
+        pGame
+        && "Pointer is nullptr"
+    );
+
+    switch ( pHistory->records[pHistory->lastRecordIdx].actionType )
+    {
+        case ACTION_TYPE_PLACE:
+        {
+            /// Undo place
+            takeStone(
+                pGame,
+                pHistory->records[pHistory->lastRecordIdx].Data.place.squareIdx
+            );
+
+            /// Step back in history
+            --pHistory->lastRecordIdx;
+
+            /// Place always started a turn: done
+            return;
+        }
+
+        case ACTION_TYPE_LIFT:
+        {
+            /// Undo lift
+            dropStack(
+                pGame,
+                pHistory->records[pHistory->lastRecordIdx].Data.lift.squareIdx
+            );
+
+            /// Step back in history
+            --pHistory->lastRecordIdx;
+
+            /// Lift always started a turn: done
+            return;
+        }
+
+        case ACTION_TYPE_DROP:
+        {
+            /// Undo all drop events of the turn
+            while (
+                pHistory->records[pHistory->lastRecordIdx].actionType
+                == ACTION_TYPE_DROP
+            )
+            {
+                DataDrop const dataDrop
+                    = pHistory->records[pHistory->lastRecordIdx].Data.drop;
+
+                /// Undo all single stone drops of this drop event
+                for ( int n = 0; n < dataDrop.dropCount; ++n )
+                {
+                    /// Undo single stone drop
+                    liftStone(
+                        pGame,
+                        dataDrop.squareIdx,
+                        dataDrop.flattened
+                    );
+                }
+
+                /// Step back in history ('while action == drop')
+                --pHistory->lastRecordIdx;
+            }
+
+            /// Undo lift that started the turn and preceeded the drops
+            dropStack(
+                pGame,
+                pHistory->records[pHistory->lastRecordIdx].Data.lift.squareIdx
+            );
+
+            /// Step back in history
+            --pHistory->lastRecordIdx;
+
+            return;
+        }
+
+        default:
+            return;
+    }
 }
 
