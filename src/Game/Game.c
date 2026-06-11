@@ -224,7 +224,7 @@ void dropStack(
     /// Add last stone to stack
     putOntoStack(
         &pGame->board,
-        stackBuffer->stoneIds[( stackBuffer->stoneCount - 1 )],
+        stackBuffer->stoneIds[0],
         squareIdx,
         stackBuffer->stackType
     );
