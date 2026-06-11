@@ -28,7 +28,7 @@ int main( void )
     RUN_TEST( testSquareToStackIndex );
 
     /// Board
-    RUN_TEST( testPlaceOntoStack );
+    RUN_TEST( testPutOntoStack );
     RUN_TEST( testTakeFromStack );
 
     /// Reserves

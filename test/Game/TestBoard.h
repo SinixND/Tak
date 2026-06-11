@@ -7,7 +7,7 @@
 #include "StoneTypeId.h"
 #include <unity.h>
 
-void testPlaceOntoStack( void )
+void testPutOntoStack( void )
 {
     Board board = newBoard( 5 );
 

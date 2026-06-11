@@ -156,11 +156,10 @@ The following tools are used in the project but not required and not contained i
 
 ## ToDo notes
 - [ ] Split off DUMMY Stuff
-- [ ] Rename placeOntoStack -> putOntoStack
 - [ ] Check Reserves issues w/ undo/redo
 - [ ] History
     - [x] Undo
-    - [ ] Redo
+    - [x] Redo
     - [ ] Reset
     - [ ] Tests
     - [ ] Display only last (two) history?
