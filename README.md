@@ -155,11 +155,15 @@ The following tools are used in the project but not required and not contained i
 
 
 ## ToDo notes
-- [ ] Fix autocomplete capstone move (allow drop all before Standing)
+- [ ] Split off DUMMY Stuff
+- [ ] Check Reserves issues w/ undo/redo
 - [ ] History
+    - [x] Undo
+    - [ ] Redo
+    - [ ] Reset
+    - [ ] Tests
     - [ ] Display only last (two) history?
-    - [ ] 'x' to reset command (or turn?) (requires history)
-    - [ ] ?? Unions? (history)
+- [ ] Fix autocomplete capstone move (allow drop all before Standing)
 - [ ] Todos
 - [ ] Place 2-stack in first turn
 - [ ] ?? Remove event (needed for history or not?)

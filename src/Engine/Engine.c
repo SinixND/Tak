@@ -358,3 +358,99 @@ void undoTurn(
     }
 }
 
+void redoTurn(
+    History* const pHistory,
+    Game* const pGame
+)
+{
+    assert(
+        pHistory
+        && "Pointer is nullptr"
+    );
+
+    assert(
+        pGame
+        && "Pointer is nullptr"
+    );
+
+    switch ( pHistory->records[pHistory->lastRecordIdx + 1].actionType )
+    {
+        case ACTION_TYPE_PLACE:
+        {
+            DataPlace const dataPlace
+                = pHistory->records[pHistory->lastRecordIdx + 1].Data.place;
+
+            placeStone(
+                pGame,
+                dataPlace.playerId,
+                dataPlace.squareIdx,
+                dataPlace.stoneType
+            );
+
+            ++pHistory->lastRecordIdx;
+
+            return;
+        }
+
+        case ACTION_TYPE_LIFT:
+        {
+            liftStack(
+                pGame,
+                pHistory->records[pHistory->lastRecordIdx + 1].Data.lift.squareIdx
+            );
+
+            ++pHistory->lastRecordIdx;
+
+            /// Redo drop action until turn finished
+            while (
+                pHistory->records[pHistory->lastRecordIdx + 1].actionType
+                == ACTION_TYPE_DROP
+            )
+            {
+                DataDrop const dataDrop
+                    = pHistory->records[pHistory->lastRecordIdx + 1].Data.drop;
+
+                for ( int n = 0; n < dataDrop.dropCount; ++n )
+                {
+                    dropStone(
+                        pGame,
+                        dataDrop.squareIdx
+                    );
+                }
+
+                ++pHistory->lastRecordIdx;
+            }
+
+            return;
+        }
+
+        case ACTION_TYPE_DROP:
+        {
+            /// Redo drop action until turn finished
+            while (
+                pHistory->records[pHistory->lastRecordIdx + 1].actionType
+                == ACTION_TYPE_DROP
+            )
+            {
+                DataDrop const dataDrop
+                    = pHistory->records[pHistory->lastRecordIdx + 1].Data.drop;
+
+                for ( int n = 0; n < dataDrop.dropCount; ++n )
+                {
+                    dropStone(
+                        pGame,
+                        dataDrop.squareIdx
+                    );
+                }
+
+                ++pHistory->lastRecordIdx;
+            }
+
+            return;
+        }
+
+        default:
+            return;
+    }
+}
+

@@ -161,6 +161,13 @@ void updateFrame( App* const pApp )
 
         case APP_STATE_TURN_REDO:
         {
+            redoTurn(
+                &pApp->history,
+                &pApp->game
+            );
+
+            renderDynamic( pApp );
+
             pApp->state = APP_STATE_NORMAL_TURN;
 
             return;

@@ -50,4 +50,10 @@ void undoTurn(
     Game* const pGame
 );
 
+/// Redo next events
+void redoTurn(
+    History* const pHistory,
+    Game* const pGame
+);
+
 #endif
