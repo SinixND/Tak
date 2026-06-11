@@ -152,6 +152,9 @@ void updateFrame( App* const pApp )
                 &pApp->game
             );
 
+            /// Reset command
+            pApp->command = newCommand( pApp->command.playerId );
+
             renderDynamic( pApp );
 
             pApp->state = APP_STATE_NORMAL_TURN;
@@ -165,6 +168,9 @@ void updateFrame( App* const pApp )
                 &pApp->history,
                 &pApp->game
             );
+
+            /// Reset command
+            pApp->command = newCommand( pApp->command.playerId );
 
             renderDynamic( pApp );
 
