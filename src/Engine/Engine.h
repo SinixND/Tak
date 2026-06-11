@@ -56,4 +56,11 @@ void redoTurn(
     Game* const pGame
 );
 
+/// Undo events of current turn
+void resetTurn(
+    Command* const pCommand,
+    History* const pHistory,
+    Game* const pGame
+);
+
 #endif

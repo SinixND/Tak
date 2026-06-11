@@ -155,12 +155,10 @@ The following tools are used in the project but not required and not contained i
 
 
 ## ToDo notes
-- [ ] Split off DUMMY Stuff
-- [ ] Check Reserves issues w/ undo/redo
 - [ ] History
     - [x] Undo
     - [x] Redo
-    - [ ] Reset
+    - [x] Reset
     - [ ] Tests
     - [ ] Display only last (two) history?
 - [ ] Fix autocomplete capstone move (allow drop all before Standing)
@@ -168,6 +166,7 @@ The following tools are used in the project but not required and not contained i
 - [ ] Place 2-stack in first turn
 - [ ] ?? Remove event (needed for history or not?)
 - [ ] First input: F, S, C, M
+- [ ] Save/Load
 
 - [ ] Add cursor? -> raylib
     - Cursor == Frame around square

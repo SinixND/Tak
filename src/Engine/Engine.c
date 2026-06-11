@@ -454,3 +454,43 @@ void redoTurn(
     }
 }
 
+void resetTurn(
+    Command* const pCommand,
+    History* const pHistory,
+    Game* const pGame
+)
+{
+    assert(
+        pCommand
+        && "Pointer is nullptr"
+    );
+
+    assert(
+        pHistory
+        && "Pointer is nullptr"
+    );
+
+    assert(
+        pGame
+        && "Pointer is nullptr"
+    );
+
+    switch ( pCommand->state )
+    {
+        case COMMAND_STATE_GET_DIRECTION:
+        case COMMAND_STATE_GET_FIRST_DROP_AMOUNT:
+        case COMMAND_STATE_GET_DROP_AMOUNT:
+        {
+            undoTurn(
+                pHistory,
+                pGame
+            );
+
+            return;
+        }
+
+        default:
+            return;
+    }
+}
+

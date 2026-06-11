@@ -181,6 +181,17 @@ void updateFrame( App* const pApp )
 
         case APP_STATE_TURN_RESET:
         {
+            resetTurn(
+                &pApp->command,
+                &pApp->history,
+                &pApp->game
+            );
+
+            /// Reset command
+            pApp->command = newCommand( pApp->command.playerId );
+
+            renderDynamic( pApp );
+
             pApp->state = APP_STATE_NORMAL_TURN;
 
             return;
