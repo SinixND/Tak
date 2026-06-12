@@ -133,8 +133,8 @@ void renderRankLabels(
 )
 {
     assert(
-        ( boardSize > BOARD_SIZE_MIN )
-        && ( boardSize < BOARD_SIZE_MAX )
+        ( boardSize >= BOARD_SIZE_MIN )
+        && ( boardSize <= BOARD_SIZE_MAX )
         && "Board size invalid"
     );
 
