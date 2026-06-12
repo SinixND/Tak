@@ -159,7 +159,7 @@ The following tools are used in the project but not required and not contained i
     - [x] Undo
     - [x] Redo
     - [x] Reset
-    - [ ] Tests
+    - [x] Tests
     - [ ] Display only last (two) history?
 - [ ] Fix autocomplete capstone move (allow drop all before Standing)
 - [ ] Todos

@@ -2,6 +2,7 @@
 #define IG20260415174842
 
 #include "ActionTypeId.h"
+#include "App.h"
 #include "Command.h"
 #include "CommandStateId.h"
 #include "DirectionId.h"
@@ -9,7 +10,9 @@
 #include "Event.h"
 #include "FileId.h"
 #include "Game.h"
+#include "History.h"
 #include "InputBuffer.h"
+#include "InputId.h"
 #include "PlayerId.h"
 #include "RankId.h"
 #include "StoneTypeId.h"
@@ -150,4 +153,246 @@ void testBuildEvent( void )
     TEST_ASSERT_EQUAL_INT( 2, event.dropCount );
 }
 
+void testUndoTurn( void )
+{
+    App app = newApp();
+    app.inputBuffer.lastInput = INPUT_3;
+    setBoardSize( &app );
+
+    // app.command.state = COMMAND_STATE_GET_RANK_Y;
+    app.command.actionType = ACTION_TYPE_PLACE;
+    app.command.stoneType = STONE_TYPE_STANDING;
+    app.command.playerId = PLAYER_WHITE;
+    app.command.fileX = FILE_A;
+    app.command.rankY = RANK_1;
+    updateGame( &app );
+
+    // app.command.state = COMMAND_STATE_GET_RANK_Y;
+    app.command.actionType = ACTION_TYPE_LIFT;
+    app.command.fileX = FILE_A;
+    app.command.rankY = RANK_1;
+    updateGame( &app );
+
+    // app.command.state = COMMAND_STATE_GET_FIRST_DROP_AMOUNT;
+    app.command.actionType = ACTION_TYPE_DROP;
+    app.command.fileX = FILE_A;
+    app.command.rankY = RANK_1;
+    app.command.direction = DIR_RIGHT;
+    app.command.drops = 0;
+    app.command.dropCounts[0] = 0;
+    updateGame( &app );
+
+    // app.command.state = COMMAND_STATE_GET_DROP_AMOUNT;
+    app.command.actionType = ACTION_TYPE_DROP;
+    app.command.fileX = FILE_A;
+    app.command.rankY = RANK_1;
+    app.command.direction = DIR_RIGHT;
+    app.command.drops = 1;
+    app.command.dropCounts[1] = 1;
+    updateGame( &app );
+
+    undoTurn(
+        &app.history,
+        &app.game
+    );
+
+    undoTurn(
+        &app.history,
+        &app.game
+    );
+
+    undoTurn(
+        &app.history,
+        &app.game
+    );
+
+    undoTurn(
+        &app.history,
+        &app.game
+    );
+
+    TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, app.game.board.stoneIds[0] );
+    TEST_ASSERT_EQUAL_INT( 0, app.game.board.stoneCounts[0] );
+    TEST_ASSERT_EQUAL_INT( STONE_TYPE_NONE, app.game.board.stackTypes[0] );
+    TEST_ASSERT_EQUAL_INT( 0, app.game.board.stoneCounts[1] );
+
+    TEST_ASSERT_EQUAL_INT( 1, app.history.lastRecordIdx );
+    TEST_ASSERT_EQUAL_INT( 5, app.history.totalRecords );
+}
+
+void testRedoTurn( void )
+{
+    App app = newApp();
+    app.inputBuffer.lastInput = INPUT_3;
+    setBoardSize( &app );
+
+    // app.command.state = COMMAND_STATE_GET_RANK_Y;
+    app.command.actionType = ACTION_TYPE_PLACE;
+    app.command.stoneType = STONE_TYPE_STANDING;
+    app.command.playerId = PLAYER_WHITE;
+    app.command.fileX = FILE_A;
+    app.command.rankY = RANK_1;
+    updateGame( &app );
+
+    // app.command.state = COMMAND_STATE_GET_RANK_Y;
+    app.command.actionType = ACTION_TYPE_LIFT;
+    app.command.fileX = FILE_A;
+    app.command.rankY = RANK_1;
+    updateGame( &app );
+
+    // app.command.state = COMMAND_STATE_GET_FIRST_DROP_AMOUNT;
+    app.command.actionType = ACTION_TYPE_DROP;
+    app.command.fileX = FILE_A;
+    app.command.rankY = RANK_1;
+    app.command.direction = DIR_RIGHT;
+    app.command.drops = 0;
+    app.command.dropCounts[0] = 0;
+    updateGame( &app );
+
+    // app.command.state = COMMAND_STATE_GET_DROP_AMOUNT;
+    app.command.actionType = ACTION_TYPE_DROP;
+    app.command.fileX = FILE_A;
+    app.command.rankY = RANK_1;
+    app.command.direction = DIR_RIGHT;
+    app.command.drops = 1;
+    app.command.dropCounts[1] = 1;
+    updateGame( &app );
+
+    undoTurn(
+        &app.history,
+        &app.game
+    );
+
+    undoTurn(
+        &app.history,
+        &app.game
+    );
+
+    undoTurn(
+        &app.history,
+        &app.game
+    );
+
+    undoTurn(
+        &app.history,
+        &app.game
+    );
+
+    redoTurn(
+        &app.history,
+        &app.game
+    );
+
+    redoTurn(
+        &app.history,
+        &app.game
+    );
+
+    redoTurn(
+        &app.history,
+        &app.game
+    );
+
+    redoTurn(
+        &app.history,
+        &app.game
+    );
+
+    redoTurn(
+        &app.history,
+        &app.game
+    );
+
+    TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, app.game.board.stoneIds[0] );
+    TEST_ASSERT_EQUAL_INT( 0, app.game.board.stoneCounts[0] );
+    TEST_ASSERT_EQUAL_INT( STONE_TYPE_NONE, app.game.board.stackTypes[0] );
+
+    TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, app.game.board.stoneIds[20] );
+    TEST_ASSERT_EQUAL_INT( 1, app.game.board.stoneCounts[1] );
+    TEST_ASSERT_EQUAL_INT( STONE_TYPE_STANDING, app.game.board.stackTypes[1] );
+    TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, app.game.board.stackIds[1] );
+
+    TEST_ASSERT_EQUAL_INT( 5, app.history.lastRecordIdx );
+    TEST_ASSERT_EQUAL_INT( 5, app.history.totalRecords );
+}
+
+void testResetTurn( void )
+{
+    App app = newApp();
+    app.inputBuffer.lastInput = INPUT_3;
+    setBoardSize( &app );
+
+    app.command.actionType = ACTION_TYPE_PLACE;
+    app.command.stoneType = STONE_TYPE_STANDING;
+    app.command.playerId = PLAYER_WHITE;
+    app.command.fileX = FILE_A;
+    app.command.rankY = RANK_1;
+    updateGame( &app );
+
+    app.command.actionType = ACTION_TYPE_LIFT;
+    app.command.fileX = FILE_A;
+    app.command.rankY = RANK_1;
+    updateGame( &app );
+
+    app.command.actionType = ACTION_TYPE_DROP;
+
+    app.command.state = COMMAND_STATE_GET_DIRECTION;
+
+    resetTurn(
+        &app.command,
+        &app.history,
+        &app.game
+    );
+
+    TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, app.game.board.stoneIds[0] );
+    TEST_ASSERT_EQUAL_INT( 1, app.game.board.stoneCounts[0] );
+    TEST_ASSERT_EQUAL_INT( STONE_TYPE_STANDING, app.game.board.stackTypes[0] );
+
+    app.command.actionType = ACTION_TYPE_LIFT;
+    app.command.fileX = FILE_A;
+    app.command.rankY = RANK_1;
+    updateGame( &app );
+
+    app.command.actionType = ACTION_TYPE_DROP;
+    app.command.direction = DIR_RIGHT;
+
+    app.command.state = COMMAND_STATE_GET_FIRST_DROP_AMOUNT;
+
+    resetTurn(
+        &app.command,
+        &app.history,
+        &app.game
+    );
+
+    TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, app.game.board.stoneIds[0] );
+    TEST_ASSERT_EQUAL_INT( 1, app.game.board.stoneCounts[0] );
+    TEST_ASSERT_EQUAL_INT( STONE_TYPE_STANDING, app.game.board.stackTypes[0] );
+
+    // app.command.state = COMMAND_STATE_GET_RANK_Y;
+    app.command.actionType = ACTION_TYPE_LIFT;
+    app.command.fileX = FILE_A;
+    app.command.rankY = RANK_1;
+    updateGame( &app );
+
+    // app.command.state = COMMAND_STATE_GET_FIRST_DROP_AMOUNT;
+    app.command.actionType = ACTION_TYPE_DROP;
+    app.command.fileX = FILE_A;
+    app.command.rankY = RANK_1;
+    app.command.direction = DIR_RIGHT;
+    app.command.drops = 0;
+    app.command.dropCounts[0] = 0;
+    updateGame( &app );
+
+    app.command.state = COMMAND_STATE_GET_DROP_AMOUNT;
+
+    resetTurn(
+        &app.command,
+        &app.history,
+        &app.game
+    );
+
+    TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, app.game.board.stoneIds[0] );
+    TEST_ASSERT_EQUAL_INT( 1, app.game.board.stoneCounts[0] );
+    TEST_ASSERT_EQUAL_INT( STONE_TYPE_STANDING, app.game.board.stackTypes[0] );
+}
 #endif

@@ -95,6 +95,9 @@ int main( void )
     RUN_TEST( testAutocompleteCommand );
     RUN_TEST( testBuildCommand );
     RUN_TEST( testBuildEvent );
+    RUN_TEST( testUndoTurn );
+    RUN_TEST( testRedoTurn );
+    RUN_TEST( testResetTurn );
 
     /// InputSystem
     RUN_TEST( testHandleGlobalInput );
