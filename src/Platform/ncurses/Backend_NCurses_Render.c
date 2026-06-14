@@ -21,7 +21,7 @@ void renderInfoPane( void );
 void renderCommand( Command const* const pCommand );
 void renderHistory(
     History const* const pHistory,
-    int const renderCount
+    int const entryCount
 );
 
 void renderFileLabels(
@@ -363,7 +363,8 @@ void renderInfoPaneContent( App const* const pApp )
 
     renderHistory(
         &pApp->history,
-        HISTORY_RENDER_COUNT
+        /// 2 rows @ size == 3, +4 for every board size increase
+        ( 2 + ( pApp->game.board.size - 3 ) * 4 )
     );
 }
 
@@ -441,7 +442,7 @@ void renderCommand( Command const* const pCommand )
 
 void renderHistory(
     History const* const pHistory,
-    int const renderCount
+    int const entryCount
 )
 {
     assert(
@@ -449,7 +450,7 @@ void renderHistory(
         && "Pointer is nullptr"
     );
 
-    for ( int i = 0; i < renderCount; ++i )
+    for ( int i = 0; i < entryCount; ++i )
     {
         if ( pHistory->lastCommandIdx - i <= 0 )
         {
