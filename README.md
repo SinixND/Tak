@@ -156,10 +156,6 @@ The following tools are used in the project but not required and not contained i
 
 ## ToDo notes
 - [ ] History
-    - [x] Undo
-    - [x] Redo
-    - [x] Reset
-    - [x] Tests
     - [ ] Display only last (two) history?
 - [ ] Fix autocomplete capstone move (allow drop all before Standing)
 - [ ] Todos

@@ -221,6 +221,13 @@ bool setBoardSize( App* const pApp )
         CONTEXT_SIZE
     ) )
     {
+        case COMMAND_CONFIRM:
+        {
+            pApp->game = newGame( BOARD_SIZE_DEFAULT );
+
+            return true;
+        }
+
         case COMMAND_3:
         {
             pApp->game = newGame( 3 );
@@ -235,7 +242,6 @@ bool setBoardSize( App* const pApp )
             return true;
         }
 
-        case COMMAND_CONFIRM:
         case COMMAND_5:
         {
             pApp->game = newGame( 5 );

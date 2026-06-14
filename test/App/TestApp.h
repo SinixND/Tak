@@ -26,7 +26,7 @@ void testSetBoardSize( void )
 
     app.inputBuffer.lastInput = INPUT_SPACE;
     TEST_ASSERT_EQUAL_INT( true, setBoardSize( &app ) );
-    TEST_ASSERT_EQUAL_INT( 5, app.game.board.size );
+    TEST_ASSERT_EQUAL_INT( BOARD_SIZE_DEFAULT, app.game.board.size );
 
     app.inputBuffer.lastInput = INPUT_6;
     TEST_ASSERT_EQUAL_INT( true, setBoardSize( &app ) );
