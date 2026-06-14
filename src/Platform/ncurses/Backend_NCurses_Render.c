@@ -2,22 +2,27 @@
 #include "App.h"
 #include "BackendInterface.h"
 #include "Command.h"
+#include "DirectionId.h"
 #include "FileId.h"
 #include "GameConstants.h"
 #include "History.h"
-#include "Layout.h"
 #include "PlayerId.h"
 #include "Position.h"
 #include "RankId.h"
-#include "Record.h"
+#include "StoneTypeId.h"
 #include <assert.h>
 
 #ifdef BACKEND_NCURSES
+#include "Backend_NCurses_Layout.h"
 #include <ncurses.h>
 
 void renderInfoPane( void );
 
 void renderCommand( Command const* const pCommand );
+void renderHistory(
+    History const* const pHistory,
+    int const renderCount
+);
 
 void renderFileLabels(
     int const fileLabelsOffsetX,
@@ -273,7 +278,7 @@ void renderInfoPaneContent( App const* const pApp )
         && "Pointer is nullptr"
     );
 
-    // Print white regular reserves
+    /// Print white regular reserves
     mvprintw(
         POSITION_WHITE_RESERVES_REGULAR[0],
         POSITION_WHITE_RESERVES_REGULAR[1],
@@ -281,7 +286,7 @@ void renderInfoPaneContent( App const* const pApp )
         pApp->game.reserves.regular[PLAYER_WHITE]
     );
 
-    // Print white capstone reserves
+    /// Print white capstone reserves
     mvprintw(
         POSITION_WHITE_RESERVES_CAPSTONE[0],
         POSITION_WHITE_RESERVES_CAPSTONE[1],
@@ -289,7 +294,7 @@ void renderInfoPaneContent( App const* const pApp )
         pApp->game.reserves.capstone[PLAYER_WHITE]
     );
 
-    // Print white flat score
+    /// Print white flat score
     mvprintw(
         POSITION_WHITE_RESERVES_SCORE[0],
         POSITION_WHITE_RESERVES_SCORE[1],
@@ -297,7 +302,7 @@ void renderInfoPaneContent( App const* const pApp )
         pApp->game.scores[PLAYER_WHITE]
     );
 
-    // Print black regular reserves
+    /// Print black regular reserves
     mvprintw(
         POSITION_BLACK_RESERVES_REGULAR[0],
         POSITION_BLACK_RESERVES_REGULAR[1],
@@ -305,7 +310,7 @@ void renderInfoPaneContent( App const* const pApp )
         pApp->game.reserves.regular[PLAYER_BLACK]
     );
 
-    // Print black capstone reserves
+    /// Print black capstone reserves
     mvprintw(
         POSITION_BLACK_RESERVES_CAPSTONE[0],
         POSITION_BLACK_RESERVES_CAPSTONE[1],
@@ -313,7 +318,7 @@ void renderInfoPaneContent( App const* const pApp )
         pApp->game.reserves.capstone[PLAYER_BLACK]
     );
 
-    // Print black flat score
+    /// Print black flat score
     mvprintw(
         POSITION_BLACK_RESERVES_SCORE[0],
         POSITION_BLACK_RESERVES_SCORE[1],
@@ -321,7 +326,7 @@ void renderInfoPaneContent( App const* const pApp )
         pApp->game.scores[PLAYER_BLACK]
     );
 
-    // Print active player
+    /// Print active player
     mvprintw(
         POSITION_ACTIVE_PLAYER[0],
         POSITION_ACTIVE_PLAYER[1],
@@ -329,7 +334,7 @@ void renderInfoPaneContent( App const* const pApp )
         ( pApp->game.activePlayer == PLAYER_WHITE ) ? "WHITE" : "BLACK"
     );
 
-    // Print active player symbol
+    /// Print active player symbol
     mvprintw(
         POSITION_PLAYER_SYMBOL[0],
         POSITION_PLAYER_SYMBOL[1],
@@ -337,7 +342,7 @@ void renderInfoPaneContent( App const* const pApp )
         PLAYER_CHARS[pApp->game.activePlayer]
     );
 
-    // Print required input
+    /// Print required input
     mvprintw(
         POSITION_INPUT_TYPE[0],
         POSITION_INPUT_TYPE[1],
@@ -345,7 +350,7 @@ void renderInfoPaneContent( App const* const pApp )
         pApp->prompts.inputs[pApp->command.state]
     );
 
-    // Print possible input options
+    /// Print possible input options
     mvprintw(
         POSITION_INPUT_OPTIONS[0],
         POSITION_INPUT_OPTIONS[1],
@@ -353,11 +358,13 @@ void renderInfoPaneContent( App const* const pApp )
         pApp->prompts.options[pApp->command.state]
     );
 
-    // Print current player input
+    /// Print current player input
     renderCommand( &pApp->command );
 
-    // TODO: Print history
-    renderHistory( &pApp->history );
+    renderHistory(
+        &pApp->history,
+        HISTORY_RENDER_COUNT
+    );
 }
 
 void renderCommand( Command const* const pCommand )
@@ -369,13 +376,12 @@ void renderCommand( Command const* const pCommand )
 
     /// W:A@c#
     /// B:Ac#+#######
-
+    ///
     mvprintw(
         POSITION_INPUT_CURRENT[0],
         POSITION_INPUT_CURRENT[1],
-        "%c:%c",
-        PLAYER_CHARS[pCommand->playerId],
-        ACTION_TYPE_CHARS[pCommand->actionType]
+        "%c:",
+        PLAYER_CHARS[pCommand->playerId]
     );
 
     switch ( pCommand->actionType )
@@ -384,27 +390,12 @@ void renderCommand( Command const* const pCommand )
         {
             mvprintw(
                 POSITION_INPUT_CURRENT[0],
-                POSITION_INPUT_CURRENT[1] + 3,
-                "%c",
-                STONE_TYPE_CHARS[pCommand->stoneType]
-            );
-
-            mvprintw(
-                POSITION_INPUT_CURRENT[0],
-                POSITION_INPUT_CURRENT[1] + 4,
-                "%c",
-                ( pCommand->fileX < 0 )
-                    ? ' '
-                    : FILE_CHARS[pCommand->fileX]
-            );
-
-            mvprintw(
-                POSITION_INPUT_CURRENT[0],
-                POSITION_INPUT_CURRENT[1] + 5,
-                "%c",
-                ( pCommand->rankY < 0 )
-                    ? ' '
-                    : RANK_CHARS[pCommand->rankY]
+                POSITION_INPUT_CURRENT[1] + 2,
+                "%c%c%c%c",
+                ACTION_TYPE_CHARS[pCommand->actionType],
+                STONE_TYPE_CHARS[pCommand->stoneType],
+                ( pCommand->fileX < 0 ) ? ' ' : FILE_CHARS[pCommand->fileX],
+                ( pCommand->rankY < 0 ) ? ' ' : RANK_CHARS[pCommand->rankY]
             );
 
             return;
@@ -415,42 +406,22 @@ void renderCommand( Command const* const pCommand )
         {
             mvprintw(
                 POSITION_INPUT_CURRENT[0],
-                POSITION_INPUT_CURRENT[1] + 3,
-                "%c",
-                ( pCommand->fileX < 0 )
-                    ? ' '
-                    : FILE_CHARS[pCommand->fileX]
+                POSITION_INPUT_CURRENT[1] + 2,
+                "%c%c%c%c%c%c%c%c%c%c%c%c",
+                ACTION_TYPE_CHARS[pCommand->actionType],
+                ( pCommand->fileX < 0 ) ? ' ' : FILE_CHARS[pCommand->fileX],
+                ( pCommand->rankY < 0 ) ? ' ' : RANK_CHARS[pCommand->rankY],
+                ( pCommand->direction < 0 ) ? ' ' : DIRECTION_CHARS[pCommand->direction],
+                ( pCommand->dropCounts[0] < 0 ) ? ' ' : '0' + pCommand->dropCounts[0],
+                ( pCommand->dropCounts[1] < 0 ) ? ' ' : '0' + pCommand->dropCounts[1],
+                ( pCommand->dropCounts[2] < 0 ) ? ' ' : '0' + pCommand->dropCounts[2],
+                ( pCommand->dropCounts[3] < 0 ) ? ' ' : '0' + pCommand->dropCounts[3],
+                ( pCommand->dropCounts[4] < 0 ) ? ' ' : '0' + pCommand->dropCounts[4],
+                ( pCommand->dropCounts[5] < 0 ) ? ' ' : '0' + pCommand->dropCounts[5],
+                ( pCommand->dropCounts[6] < 0 ) ? ' ' : '0' + pCommand->dropCounts[6],
+                ( pCommand->dropCounts[7] < 0 ) ? ' ' : '0' + pCommand->dropCounts[7]
             );
 
-            mvprintw(
-                POSITION_INPUT_CURRENT[0],
-                POSITION_INPUT_CURRENT[1] + 4,
-                "%c",
-                ( pCommand->rankY < 0 )
-                    ? ' '
-                    : RANK_CHARS[pCommand->rankY]
-            );
-
-            mvprintw(
-                POSITION_INPUT_CURRENT[0],
-                POSITION_INPUT_CURRENT[1] + 5,
-                "%c",
-                ( pCommand->direction < 0 )
-                    ? ' '
-                    : DIRECTION_CHARS[pCommand->direction]
-            );
-
-            for ( int n = 0; n < BOARD_SIZE_MAX; ++n )
-            {
-                mvprintw(
-                    POSITION_INPUT_CURRENT[0],
-                    POSITION_INPUT_CURRENT[1] + 6 + n,
-                    "%c",
-                    ( pCommand->dropCounts[n] < 0 )
-                        ? ' '
-                        : '0' + pCommand->dropCounts[n]
-                );
-            }
             return;
         }
 
@@ -458,9 +429,9 @@ void renderCommand( Command const* const pCommand )
         {
             mvprintw(
                 POSITION_INPUT_CURRENT[0],
-                POSITION_INPUT_CURRENT[1] + 3,
+                POSITION_INPUT_CURRENT[1] + 2,
                 "%s",
-                "            "
+                "             "
             );
 
             return;
@@ -468,116 +439,115 @@ void renderCommand( Command const* const pCommand )
     }
 }
 
-void renderHistory( History const* const pHistory )
+void renderHistory(
+    History const* const pHistory,
+    int const renderCount
+)
 {
     assert(
         pHistory
         && "Pointer is nullptr"
     );
 
-    Record const* const pLastRecord
-        = &pHistory->records[pHistory->lastRecordIdx];
-
-    Record const* const pPreLastRecord
-        = &pHistory->records[pHistory->lastRecordIdx - 1];
-
-    /// W:A@c#
-    /// B:Ac#+#######
-
-    mvprintw(
-        POSITION_HISTORY_TOP_LEFT[0],
-        POSITION_HISTORY_TOP_LEFT[1],
-        "%c:%c",
-        PLAYER_CHARS[pCommand->playerId],
-        ACTION_TYPE_CHARS[pCommand->actionType]
-    );
-
-    switch ( pHistory->actionType )
+    for ( int i = 0; i < renderCount; ++i )
     {
-        case ACTION_TYPE_PLACE:
+        if ( pHistory->lastCommandIdx - i <= 0 )
         {
-            mvprintw(
-                POSITION_HISTORY_TOP_LEFT[0],
-                POSITION_HISTORY_TOP_LEFT[1] + 3,
-                "%c",
-                STONE_TYPE_CHARS[pCommand->stoneType]
-            );
-
-            mvprintw(
-                POSITION_HISTORY_TOP_LEFT[0],
-                POSITION_HISTORY_TOP_LEFT[1] + 4,
-                "%c",
-                ( pCommand->fileX < 0 )
-                    ? ' '
-                    : FILE_CHARS[pCommand->fileX]
-            );
-
-            mvprintw(
-                POSITION_HISTORY_TOP_LEFT[0],
-                POSITION_HISTORY_TOP_LEFT[1] + 5,
-                "%c",
-                ( pCommand->rankY < 0 )
-                    ? ' '
-                    : RANK_CHARS[pCommand->rankY]
-            );
-
             return;
         }
 
-        case ACTION_TYPE_LIFT:
-        case ACTION_TYPE_DROP:
+        Command const* const pLastCommand
+            = &pHistory->commands[pHistory->lastCommandIdx - i];
+
+        /// W:A@c#
+        /// B:Ac#+#######
+
+        switch ( pLastCommand->actionType )
         {
-            mvprintw(
-                POSITION_HISTORY_TOP_LEFT[0],
-                POSITION_HISTORY_TOP_LEFT[1] + 3,
-                "%c",
-                ( pCommand->fileX < 0 )
-                    ? ' '
-                    : FILE_CHARS[pCommand->fileX]
-            );
+            case ACTION_TYPE_PLACE:
+            {
+                mvprintw(
+                    POSITION_HISTORY_TOP_LEFT[0] + i,
+                    POSITION_HISTORY_TOP_LEFT[1],
+                    "%c: %c%c%c%c%c%c%c%c%c%c%c",
+                    PLAYER_CHARS[pLastCommand->playerId],
+                    STONE_TYPE_CHARS[pLastCommand->stoneType],
+                    ( ( pLastCommand->fileX < 0 )
+                          ? ' '
+                          : FILE_CHARS[pLastCommand->fileX] ),
+                    ( ( pLastCommand->rankY < 0 )
+                          ? ' '
+                          : RANK_CHARS[pLastCommand->rankY] ),
+                    ' ',
+                    ' ',
+                    ' ',
+                    ' ',
+                    ' ',
+                    ' ',
+                    ' ',
+                    ' '
+                );
 
-            mvprintw(
-                POSITION_HISTORY_TOP_LEFT[0],
-                POSITION_HISTORY_TOP_LEFT[1] + 4,
-                "%c",
-                ( pCommand->rankY < 0 )
-                    ? ' '
-                    : RANK_CHARS[pCommand->rankY]
-            );
+                break;
+            }
 
-            mvprintw(
-                POSITION_HISTORY_TOP_LEFT[0],
-                POSITION_HISTORY_TOP_LEFT[1] + 5,
-                "%c",
-                ( pCommand->direction < 0 )
-                    ? ' '
-                    : DIRECTION_CHARS[pCommand->direction]
-            );
+            case ACTION_TYPE_LIFT:
+            case ACTION_TYPE_DROP:
+            {
+                mvprintw(
+                    POSITION_HISTORY_TOP_LEFT[0] + i,
+                    POSITION_HISTORY_TOP_LEFT[1],
+                    "%c: %c%c%c%c%c%c%c%c%c%c%c",
+                    PLAYER_CHARS[pLastCommand->playerId],
+                    ( ( pLastCommand->fileX < 0 )
+                          ? ' '
+                          : FILE_CHARS[pLastCommand->fileX] ),
+                    ( ( pLastCommand->rankY < 0 )
+                          ? ' '
+                          : RANK_CHARS[pLastCommand->rankY] ),
+                    ( ( pLastCommand->direction < 0 )
+                          ? ' '
+                          : DIRECTION_CHARS[pLastCommand->direction] ),
+                    ( ( pLastCommand->dropCounts[0] < 0 )
+                          ? ' '
+                          : '0' + pLastCommand->dropCounts[0] ),
+                    ( ( pLastCommand->dropCounts[1] < 0 )
+                          ? ' '
+                          : '0' + pLastCommand->dropCounts[1] ),
+                    ( ( pLastCommand->dropCounts[2] < 0 )
+                          ? ' '
+                          : '0' + pLastCommand->dropCounts[2] ),
+                    ( ( pLastCommand->dropCounts[3] < 0 )
+                          ? ' '
+                          : '0' + pLastCommand->dropCounts[3] ),
+                    ( ( pLastCommand->dropCounts[4] < 0 )
+                          ? ' '
+                          : '0' + pLastCommand->dropCounts[4] ),
+                    ( ( pLastCommand->dropCounts[5] < 0 )
+                          ? ' '
+                          : '0' + pLastCommand->dropCounts[5] ),
+                    ( ( pLastCommand->dropCounts[6] < 0 )
+                          ? ' '
+                          : '0' + pLastCommand->dropCounts[6] ),
+                    ( ( pLastCommand->dropCounts[7] < 0 )
+                          ? ' '
+                          : '0' + pLastCommand->dropCounts[7] )
+                );
 
-            for ( int n = 0; n < BOARD_SIZE_MAX; ++n )
+                break;
+            }
+
+            default:
             {
                 mvprintw(
                     POSITION_HISTORY_TOP_LEFT[0],
-                    POSITION_HISTORY_TOP_LEFT[1] + 6 + n,
-                    "%c",
-                    ( pCommand->dropCounts[n] < 0 )
-                        ? ' '
-                        : '0' + pCommand->dropCounts[n]
+                    POSITION_HISTORY_TOP_LEFT[1],
+                    "%s",
+                    "            "
                 );
+
+                break;
             }
-            return;
-        }
-
-        default:
-        {
-            mvprintw(
-                POSITION_HISTORY_TOP_LEFT[0],
-                POSITION_HISTORY_TOP_LEFT[1] + 3,
-                "%s",
-                "            "
-            );
-
-            return;
         }
     }
 }
