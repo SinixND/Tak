@@ -347,6 +347,8 @@ void testResetTurn( void )
     TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, app.game.board.stoneIds[0] );
     TEST_ASSERT_EQUAL_INT( 1, app.game.board.stoneCounts[0] );
     TEST_ASSERT_EQUAL_INT( STONE_TYPE_STANDING, app.game.board.stackTypes[0] );
+    TEST_ASSERT_EQUAL_INT( 1, app.history.lastRecordIdx );
+    TEST_ASSERT_EQUAL_INT( 1, app.history.totalRecords );
 
     app.command.actionType = ACTION_TYPE_LIFT;
     app.command.fileX = FILE_A;
@@ -367,6 +369,8 @@ void testResetTurn( void )
     TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, app.game.board.stoneIds[0] );
     TEST_ASSERT_EQUAL_INT( 1, app.game.board.stoneCounts[0] );
     TEST_ASSERT_EQUAL_INT( STONE_TYPE_STANDING, app.game.board.stackTypes[0] );
+    TEST_ASSERT_EQUAL_INT( 1, app.history.lastRecordIdx );
+    TEST_ASSERT_EQUAL_INT( 1, app.history.totalRecords );
 
     // app.command.state = COMMAND_STATE_GET_RANK_Y;
     app.command.actionType = ACTION_TYPE_LIFT;
@@ -394,5 +398,7 @@ void testResetTurn( void )
     TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, app.game.board.stoneIds[0] );
     TEST_ASSERT_EQUAL_INT( 1, app.game.board.stoneCounts[0] );
     TEST_ASSERT_EQUAL_INT( STONE_TYPE_STANDING, app.game.board.stackTypes[0] );
+    TEST_ASSERT_EQUAL_INT( 1, app.history.lastRecordIdx );
+    TEST_ASSERT_EQUAL_INT( 1, app.history.totalRecords );
 }
 #endif

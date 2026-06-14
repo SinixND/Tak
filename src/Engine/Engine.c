@@ -13,6 +13,7 @@
 #include "InputParsing.h"
 #include "Position.h"
 #include "RankId.h"
+#include "Record.h"
 #include "StoneTypeId.h"
 #include <assert.h>
 #include <stdbool.h>
@@ -339,7 +340,7 @@ void undoTurn(
             --pHistory->lastRecordIdx;
 
             /// Place always started a turn: done
-            return;
+            break;
         }
 
         case ACTION_TYPE_LIFT:
@@ -354,7 +355,7 @@ void undoTurn(
             --pHistory->lastRecordIdx;
 
             /// Lift always started a turn: done
-            return;
+            break;
         }
 
         case ACTION_TYPE_DROP:
@@ -392,12 +393,14 @@ void undoTurn(
             /// Step back in history
             --pHistory->lastRecordIdx;
 
-            return;
+            break;
         }
 
         default:
             return;
     }
+
+    --pHistory->lastCommandIdx;
 }
 
 void redoTurn(
@@ -431,7 +434,7 @@ void redoTurn(
 
             ++pHistory->lastRecordIdx;
 
-            return;
+            break;
         }
 
         case ACTION_TYPE_LIFT:
@@ -463,7 +466,7 @@ void redoTurn(
                 ++pHistory->lastRecordIdx;
             }
 
-            return;
+            break;
         }
 
         case ACTION_TYPE_DROP:
@@ -488,12 +491,14 @@ void redoTurn(
                 ++pHistory->lastRecordIdx;
             }
 
-            return;
+            break;
         }
 
         default:
             return;
     }
+
+    ++pHistory->lastCommandIdx;
 }
 
 void resetTurn(
@@ -517,17 +522,80 @@ void resetTurn(
         && "Pointer is nullptr"
     );
 
-    switch ( pCommand->state )
+    if ( !(
+             pCommand->state == COMMAND_STATE_GET_DIRECTION
+             || pCommand->state == COMMAND_STATE_GET_FIRST_DROP_AMOUNT
+             || pCommand->state == COMMAND_STATE_GET_DROP_AMOUNT
+         ) )
     {
-        case COMMAND_STATE_GET_DIRECTION:
-        case COMMAND_STATE_GET_FIRST_DROP_AMOUNT:
-        case COMMAND_STATE_GET_DROP_AMOUNT:
+        return;
+    }
+
+    switch ( pHistory->records[pHistory->lastRecordIdx].actionType )
+    {
+        case ACTION_TYPE_LIFT:
         {
-            undoTurn(
-                pHistory,
-                pGame
+            /// Undo lift
+            dropStack(
+                pGame,
+                pHistory->records[pHistory->lastRecordIdx].Data.lift.squareIdx
             );
 
+            /// Remove records of incomplete turn
+            pHistory->records[pHistory->lastRecordIdx] = newRecord();
+
+            /// Step back in history
+            --pHistory->lastRecordIdx;
+            --pHistory->totalRecords;
+
+            /// Lift always started a turn: done
+            return;
+        }
+
+        case ACTION_TYPE_DROP:
+        {
+            /// Undo all drop events of the turn
+            while (
+                pHistory->records[pHistory->lastRecordIdx].actionType
+                == ACTION_TYPE_DROP
+            )
+            {
+                DataDrop const dataDrop
+                    = pHistory->records[pHistory->lastRecordIdx].Data.drop;
+
+                /// Undo all single stone drops of this drop event
+                for ( int n = 0; n < dataDrop.dropCount; ++n )
+                {
+                    /// Undo single stone drop
+                    liftStone(
+                        pGame,
+                        dataDrop.squareIdx,
+                        dataDrop.flattened
+                    );
+                }
+
+                /// Remove records of incomplete turn
+                pHistory->records[pHistory->lastRecordIdx] = newRecord();
+
+                /// Step back in history
+                --pHistory->lastRecordIdx;
+                --pHistory->totalRecords;
+            }
+
+            /// Undo lift that started the turn and preceeded the drops
+            dropStack(
+                pGame,
+                pHistory->records[pHistory->lastRecordIdx].Data.lift.squareIdx
+            );
+
+            /// Remove records of incomplete turn
+            pHistory->records[pHistory->lastRecordIdx] = newRecord();
+
+            /// Step back in history
+            --pHistory->lastRecordIdx;
+            --pHistory->totalRecords;
+
+            /// Lift always started a turn: done
             return;
         }
 
