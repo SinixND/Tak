@@ -155,10 +155,8 @@ The following tools are used in the project but not required and not contained i
 
 
 ## ToDo notes
-- [ ] Todos
 - [ ] Place 2-stack in first turn
-- [ ] ?? Remove event (needed for history or not?)
-- [ ] First input: F, S, C, M
+- [ ] Todos
 - [ ] Save/Load
 
 - [ ] Add cursor? -> raylib

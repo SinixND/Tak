@@ -112,6 +112,30 @@ bool parseInputActionType(
             return true;
         }
 
+        case COMMAND_FLAT:
+        {
+            pCommand->actionType = ACTION_TYPE_PLACE;
+            pCommand->stoneType = STONE_TYPE_FLAT;
+
+            return true;
+        }
+
+        case COMMAND_STANDING:
+        {
+            pCommand->actionType = ACTION_TYPE_PLACE;
+            pCommand->stoneType = STONE_TYPE_STANDING;
+
+            return true;
+        }
+
+        case COMMAND_CAPSTONE:
+        {
+            pCommand->actionType = ACTION_TYPE_PLACE;
+            pCommand->stoneType = STONE_TYPE_CAP;
+
+            return true;
+        }
+
         case COMMAND_MOVE:
         {
             pCommand->actionType = ACTION_TYPE_LIFT;

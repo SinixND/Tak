@@ -30,10 +30,17 @@ Prompts newPrompts( Keymap const* const pKeymap )
                 ' ', '-', '-', '-', ' ', ' ', ' ', ' ', ' ', ' ', '\0'
             },
             [COMMAND_STATE_GET_ACTION_TYPE]  = {
-                INPUT_ID_CHARS[pKeymap->inputs[CONTEXT_ACTION_TYPE][COMMAND_PLACE]],
-                ',', ' ',
                 INPUT_ID_CHARS[pKeymap->inputs[CONTEXT_ACTION_TYPE][COMMAND_MOVE]],
-                ' ', ' ', ' ', ' ', ' ', ' ', '\0'
+                ',',
+                INPUT_ID_CHARS[pKeymap->inputs[CONTEXT_ACTION_TYPE][COMMAND_PLACE]],
+                '(',
+                INPUT_ID_CHARS[pKeymap->inputs[CONTEXT_ACTION_TYPE][COMMAND_FLAT]],
+                '/',
+                INPUT_ID_CHARS[pKeymap->inputs[CONTEXT_ACTION_TYPE][COMMAND_STANDING]],
+                '/',
+                INPUT_ID_CHARS[pKeymap->inputs[CONTEXT_ACTION_TYPE][COMMAND_CAPSTONE]],
+                ')',
+                '\0'
             },
             [COMMAND_STATE_GET_STONE_TYPE]  = {
                 INPUT_ID_CHARS[pKeymap->inputs[CONTEXT_STONE_TYPE][COMMAND_FLAT]],

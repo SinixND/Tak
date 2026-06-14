@@ -9,6 +9,9 @@ Keymap newKeymap( void )
         .inputs = {
             [CONTEXT_ACTION_TYPE] = {
                 [COMMAND_PLACE] = INPUT_P,
+                [COMMAND_FLAT] = INPUT_F,
+                [COMMAND_STANDING] = INPUT_S,
+                [COMMAND_CAPSTONE] = INPUT_C,
                 [COMMAND_MOVE] = INPUT_M,
             },
             [CONTEXT_STONE_TYPE] = {

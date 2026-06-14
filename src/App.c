@@ -367,7 +367,6 @@ bool updateGame( App* const pApp )
         return false;
     }
 
-    // TODO: Apply command directly?
     buildEvent(
         &pApp->event,
         &pApp->command,

@@ -54,7 +54,8 @@ void setNextCommandState(
         case COMMAND_STATE_GET_ACTION_TYPE:
         {
             pCommand->state
-                = ( pCommand->actionType == ACTION_TYPE_PLACE )
+                = ( pCommand->actionType == ACTION_TYPE_PLACE
+                    && pCommand->stoneType == STONE_TYPE_NONE )
                       ? COMMAND_STATE_GET_STONE_TYPE
                       : COMMAND_STATE_GET_FILE_X;
 
