@@ -1,9 +1,7 @@
-<div align="center">
 <!-- <img src="assets/favicon.ico" alt="Logo" width="80" height="80"> -->
-<h1> Tak </h1>
-<p> The boardgame from the "King Killer Chronicles" novel series </p>
+# Tak - the boardgame from the "King Killer Chronicles" novel series
 
-[![Github Project](https://github.com/users/SinixND/projects/6)]
+[![Github Projects](https://img.shields.io/badge/Github-Projects-white?style=for-the-badge)](https://github.com/users/SinixND/projects/6)
 
 [![MIT-License](https://img.shields.io/badge/MIT-License-yellow?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
@@ -11,8 +9,6 @@
 [![Stars](https://img.shields.io/github/stars/SinixND/Tak?style=for-the-badge)](https://github.com/SinixND/Tak/stargazers)
 [![Contributors](https://img.shields.io/github/contributors/SinixND/Tak?style=for-the-badge)](https://github.com/SinixND/Tak/graphs/contributors)
 [![Forks](https://img.shields.io/github/forks/SinixND/Tak?style=for-the-badge)](https://github.com/SinixND/Tak/network/members)
-
-</div>
 
 
 ## About The Project
@@ -49,7 +45,7 @@ For detailed information about the game's rules, see [ustak.org](https://ustak.o
 
 ### How to play
 #### Input a player turn
-- Place stone: place, stone type, file, rank (eg. `PSa1`)
+- Place stone: stone type, file, rank (eg. `Sa1`)
 - Move stack: move, file, rank, direction, drop counts (eg. `Ma1r032`)
 
 <p align="right">(<a href="#readme-top">top</a>)</p>
@@ -155,14 +151,12 @@ The following tools are used in the project but not required and not contained i
 
 
 ## ToDo notes
-- [ ] Place 2-stack in first turn
-- [ ] Todos
 - [ ] Save/Load
+- [ ] Todos
 
 - [ ] Add cursor? -> raylib
     - Cursor == Frame around square
     - New appstate GET_POSITION
-    - CMD_CONFIRM
 
 <p align="right">(<a href="#readme-top">top</a>)</p>
 

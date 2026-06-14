@@ -108,6 +108,15 @@ void updateFrame( App* const pApp )
                 progressTurn( pApp );
             }
 
+            // TODO: Place 2-stack
+            placeStone(
+                &pApp->game,
+                pApp->history.records[1].Data.place.playerId,
+                pApp->history.records[1].Data.place.squareIdx,
+                STONE_TYPE_FLAT
+            );
+            renderDynamic( pApp );
+
             pApp->state = APP_STATE_SECOND_TURN;
 
             return;
