@@ -297,7 +297,7 @@ void progressTurn( App* const pApp )
     renderDynamic( pApp );
 }
 
-// NOTE: Only reqqired as long as simulation is used here
+// NOTE: Only required as long as simulation is used here
 void getInput( App* const pApp )
 {
     assert(
