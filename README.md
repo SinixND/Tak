@@ -155,7 +155,6 @@ The following tools are used in the project but not required and not contained i
 
 
 ## ToDo notes
-- [ ] Fix autocomplete capstone move (allow drop all before Standing)
 - [ ] Todos
 - [ ] Place 2-stack in first turn
 - [ ] ?? Remove event (needed for history or not?)

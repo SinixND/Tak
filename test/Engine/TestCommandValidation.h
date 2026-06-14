@@ -124,6 +124,9 @@ void testValidateCommandDropAmount( void )
     Command command = newCommand( PLAYER_WHITE );
     Game game = newGame( 5 );
 
+    command.fileX = FILE_A;
+    command.rankY = RANK_1;
+
     command.drops = -1;
     TEST_ASSERT_EQUAL_INT( false, validateCommandDropAmount( &command, &game ) );
 

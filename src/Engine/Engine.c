@@ -110,9 +110,13 @@ bool autocompleteCommand(
         return true;
     }
 
-    /// Need to drop all but one if next squares type is standing and buffer type is capstone
+    /// Need to drop all but one if
+    /// - next squares type is standing
+    /// - buffer type is capstone
+    /// - this is the first drop
     if ( pGame->board.stackTypes[nextSquareIdx] == STONE_TYPE_STANDING
-         && pGame->stackBuffer.stackType == STONE_TYPE_CAP )
+         && pGame->stackBuffer.stackType == STONE_TYPE_CAP
+         && !pCommand->drops )
     {
         pCommand->dropCounts[pCommand->drops] = pGame->stackBuffer.stoneCount - 1;
 

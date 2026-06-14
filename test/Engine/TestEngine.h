@@ -87,7 +87,10 @@ void testAutocompleteCommand( void )
     TEST_ASSERT_EQUAL_INT( 2, command.dropCounts[0] );
     TEST_ASSERT_EQUAL_INT( COMMAND_STATE_GET_ACTION_TYPE, command.state );
 
-    /// Need to drop all but one if next squares type is standing and buffer type is capstone
+    /// Need to drop all but one if
+    /// - next squares type is standing
+    /// - buffer type is capstone
+    /// - this is the first drop
     game.stackBuffer.stoneCount = 2;
     command.state = COMMAND_STATE_GET_FIRST_DROP_AMOUNT;
     command.drops = 0;                              // Next square index is 0

@@ -263,15 +263,50 @@ bool validateCommandDropAmount(
         && "Pointer is nullptr"
     );
 
+    FileId const nextFileX
+        = pCommand->fileX
+          + ( getOffsetX( pCommand->direction )
+              * ( pCommand->drops
+                  + 1 ) );
+
+    RankId const nextRankY
+        = pCommand->rankY
+          + ( getOffsetY( pCommand->direction )
+              * ( pCommand->drops
+                  + 1 ) );
+
     if (
+        ( nextFileX < 0 )
+        || ( nextFileX >= pGame->board.size )
+        || ( nextRankY < 0 )
+        || ( nextRankY >= pGame->board.size )
+    )
+    {
+        return false;
+    }
+
+    int const nextSquareIdx = positionToSquare(
+        nextFileX,
+        nextRankY,
+        pGame->board.size
+    );
+
+    /// Return false if
+    if (
+        /// First drop count can be 0, must not drop all
         ( !pCommand->drops
           && ( ( pCommand->dropCounts[pCommand->drops] < 0 )
                || pCommand->dropCounts[pCommand->drops] >= pGame->stackBuffer.stoneCount ) )
+        /// Only first drop count can be 0
         || ( pCommand->drops
              && ( ( pCommand->dropCounts[pCommand->drops] < 1 )
                   || ( pCommand->dropCounts[pCommand->drops] > pGame->stackBuffer.stoneCount ) ) )
         || ( pCommand->drops < 0 )
         || ( pCommand->drops >= pGame->board.size )
+        /// Need to drop at least all but one if next drop can flatten
+        || ( pCommand->dropCounts[pCommand->drops] < ( pGame->stackBuffer.stoneCount - 1 )
+             && ( pGame->board.stackTypes[nextSquareIdx] == STONE_TYPE_STANDING
+                  && pGame->stackBuffer.stackType == STONE_TYPE_CAP ) )
     )
     {
         return false;
