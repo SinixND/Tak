@@ -180,6 +180,33 @@ void buildCommand(
     *pCommand = command;
 }
 
+void recordCommand(
+    History* const pHistory,
+    Command const* const pCommand,
+    Game const* const pGame
+)
+{
+    assert(
+        pHistory
+        && "Pointer is nullptr"
+    );
+
+    assert(
+        pCommand
+        && "Pointer is nullptr"
+    );
+
+    assert(
+        pGame
+        && "Pointer is nullptr"
+    );
+
+    pHistory->commands[pHistory->lastCommandIdx + 1] = *pCommand;
+
+    ++pHistory->lastCommandIdx;
+    pHistory->totalCommands = pHistory->lastCommandIdx;
+}
+
 void buildEvent(
     Event* const pEvent,
     Command const* const pCommand,
@@ -223,6 +250,21 @@ void recordEvent(
     Game const* const pGame
 )
 {
+    assert(
+        pHistory
+        && "Pointer is nullptr"
+    );
+
+    assert(
+        pEvent
+        && "Pointer is nullptr"
+    );
+
+    assert(
+        pGame
+        && "Pointer is nullptr"
+    );
+
     Record* const pNewRecord = &pHistory->records[pHistory->lastRecordIdx + 1];
 
     pNewRecord->actionType = pEvent->actionType;

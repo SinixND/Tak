@@ -418,6 +418,12 @@ void handleTurnEnd( App* const pApp )
         }
     }
 
+    recordCommand(
+        &pApp->history,
+        &pApp->command,
+        &pApp->game
+    );
+
     prepareGame( &pApp->game );
     prepareCommand(
         &pApp->command,

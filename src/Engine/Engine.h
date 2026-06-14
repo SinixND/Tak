@@ -30,6 +30,13 @@ void buildCommand(
     Game const* const pGame
 );
 
+/// Make history entry from command
+void recordCommand(
+    History* const pHistory,
+    Command const* const pCommand,
+    Game const* const pGame
+);
+
 /// Build event from command
 void buildEvent(
     Event* const pEvent,
@@ -37,7 +44,7 @@ void buildEvent(
     int const boardSize
 );
 
-/// Make history record from event
+/// Make history entry from event
 void recordEvent(
     History* const pHistory,
     Event const* const pEvent,

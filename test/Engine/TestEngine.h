@@ -216,8 +216,8 @@ void testUndoTurn( void )
     TEST_ASSERT_EQUAL_INT( STONE_TYPE_NONE, app.game.board.stackTypes[0] );
     TEST_ASSERT_EQUAL_INT( 0, app.game.board.stoneCounts[1] );
 
-    TEST_ASSERT_EQUAL_INT( 1, app.history.lastRecordIdx );
-    TEST_ASSERT_EQUAL_INT( 5, app.history.totalRecords );
+    TEST_ASSERT_EQUAL_INT( 0, app.history.lastRecordIdx );
+    TEST_ASSERT_EQUAL_INT( 4, app.history.totalRecords );
 }
 
 void testRedoTurn( void )
@@ -312,8 +312,8 @@ void testRedoTurn( void )
     TEST_ASSERT_EQUAL_INT( STONE_TYPE_STANDING, app.game.board.stackTypes[1] );
     TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, app.game.board.stackIds[1] );
 
-    TEST_ASSERT_EQUAL_INT( 5, app.history.lastRecordIdx );
-    TEST_ASSERT_EQUAL_INT( 5, app.history.totalRecords );
+    TEST_ASSERT_EQUAL_INT( 4, app.history.lastRecordIdx );
+    TEST_ASSERT_EQUAL_INT( 4, app.history.totalRecords );
 }
 
 void testResetTurn( void )

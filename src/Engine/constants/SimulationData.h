@@ -5,9 +5,9 @@
 
 static InputId const SIMULATION_DATA[] = {
     /// Select board size
-    INPUT_3,
+    INPUT_5,
 
-    /*
+    // /*
     /// First turn
     /// W:
     INPUT_A,

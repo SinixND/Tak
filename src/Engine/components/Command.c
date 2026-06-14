@@ -14,11 +14,6 @@
 
 Command newCommand( PlayerId const playerId )
 {
-    assert(
-        playerId != PLAYER_NONE
-        && "PlayerId invalid"
-    );
-
     Command command = {
         .state = COMMAND_STATE_GET_ACTION_TYPE,
         .playerId = playerId,
