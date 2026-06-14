@@ -469,8 +469,9 @@ void renderHistory(
                 mvprintw(
                     POSITION_HISTORY_TOP_LEFT[0] + i,
                     POSITION_HISTORY_TOP_LEFT[1],
-                    "%c: %c%c%c%c%c%c%c%c%c%c%c",
+                    "%c-%i: %c%c%c%c%c%c%c%c%c%c%c",
                     PLAYER_CHARS[pLastCommand->playerId],
+                    pHistory->lastCommandIdx - i,
                     STONE_TYPE_CHARS[pLastCommand->stoneType],
                     ( ( pLastCommand->fileX < 0 )
                           ? ' '
@@ -497,8 +498,9 @@ void renderHistory(
                 mvprintw(
                     POSITION_HISTORY_TOP_LEFT[0] + i,
                     POSITION_HISTORY_TOP_LEFT[1],
-                    "%c: %c%c%c%c%c%c%c%c%c%c%c",
+                    "%c-%i: %c%c%c%c%c%c%c%c%c%c%c",
                     PLAYER_CHARS[pLastCommand->playerId],
+                    pHistory->lastCommandIdx - i,
                     ( ( pLastCommand->fileX < 0 )
                           ? ' '
                           : FILE_CHARS[pLastCommand->fileX] ),

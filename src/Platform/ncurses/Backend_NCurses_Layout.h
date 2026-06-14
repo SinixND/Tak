@@ -25,7 +25,7 @@ static int const POSITION_PLAYER_SYMBOL[] = { 8, 15 };
 static int const POSITION_INPUT_TYPE[] = { 9, 7 };
 static int const POSITION_INPUT_OPTIONS[] = { 10, 7 };
 static int const POSITION_INPUT_CURRENT[] = { 11, 2 };
-static int const POSITION_HISTORY_TOP_LEFT[] = { 13, 1 };
+static int const POSITION_HISTORY_TOP_LEFT[] = { 13, 0 };
 
 static char* const LAYOUT_INFO_PANE[] = {
     "StackBuffer",
