@@ -151,9 +151,10 @@ The following tools are used in the project but not required and not contained i
 
 
 ## ToDo notes
-- [ ] Todos
+- [ ] Change ncurses to single render call
 - [ ] Render raylib/web
 
+- [ ] Todos
 - [ ] Add cursor? -> raylib
     - Cursor == Frame around square
     - New appstate GET_POSITION

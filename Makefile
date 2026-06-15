@@ -8,7 +8,7 @@ PLATFORM ?= unix
 ### Binary mode ( default: app | test )
 TARGET   ?= app
 ### Backends ( default: noBackend | ncurses | raylib )
-BACKEND  ?= raylib
+BACKEND  ?= ncurses
 ### Build mode ( default: core | release | debug | fatal )
 BUILD    ?= fatal
 
@@ -149,7 +149,7 @@ test: test-build test-run ## Build and run tests
 RAYLIB_SRC_DIR     := /usr/lib/raylib/src
 
 LIBS_raylib        := raylib
-LIB_DIRS_raylib    := $(RAYLIB_SRC_DIR)
+LIB_DIR_raylib    := $(RAYLIB_SRC_DIR)
 CPPFLAGS_raylib    := -DBACKEND_RAYLIB
 EXT_INC_DIR_raylib := $(RAYLIB_SRC_DIR)
 
@@ -180,6 +180,7 @@ CPPFLAGS  := $(CPPFLAGS_core) $(CPPFLAGS_$(BUILD)) $(CPPFLAGS_$(BACKEND)) $(CPPF
 
 LIBS 	  := $(LIBS_$(BACKEND))
 LDLIBS    := $(addprefix -l,$(LIBS))
+LIB_DIRS  := $(LIB_DIR_$(BACKEND))
 LIB_FLAGS := $(addprefix -L,$(LIB_DIRS))
 LDFLAGS   := $(LDFLAGS_core) $(LDFLAGS_$(BUILD))
 

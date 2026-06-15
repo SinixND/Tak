@@ -1,6 +1,8 @@
 #ifndef IG20260615173249
 #define IG20260615173249
 
+#include <raylib.h>
+
 enum
 {
     WINDOW_WIDTH = 600,
@@ -10,5 +12,7 @@ enum
     FPS_TARGET = 30,
 };
 
-static int const POSITION_STACK_BUFFER[] = { 2, 3 };
+static Color const COLOR_BG = BLACK;
+static Color const COLOR_FG = RAYWHITE;
+
 #endif
