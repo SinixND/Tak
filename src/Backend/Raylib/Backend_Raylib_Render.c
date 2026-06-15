@@ -1,8 +1,9 @@
 #include "BackendInterface.h"
 
-#ifdef BACKEND_NCURSES
+#ifdef BACKEND_RAYLIB
 #include "ActionTypeId.h"
 #include "App.h"
+#include "Backend_Raylib_Layout.h"
 #include "Command.h"
 #include "DirectionId.h"
 #include "FileId.h"
@@ -13,7 +14,6 @@
 #include "RankId.h"
 #include "StoneTypeId.h"
 #include <assert.h>
-#include "Backend_NCurses_Layout.h"
 #include <ncurses.h>
 
 void renderInfoPane( void );

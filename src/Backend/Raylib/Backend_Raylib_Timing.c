@@ -1,6 +1,6 @@
 #include "BackendInterface.h"
 
-#ifdef BACKEND_NCURSES
+#ifdef BACKEND_RAYLIB
 #include <assert.h>
 #include <ncurses.h>
 
@@ -11,7 +11,7 @@ void wait( int const ms )
         && "Time value invalid"
     );
 
-    napms( ms );
+    WaitTime( ms / 1000 );
 }
 
 #endif

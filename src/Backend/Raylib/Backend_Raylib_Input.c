@@ -1,6 +1,6 @@
 #include "BackendInterface.h"
 
-#ifdef BACKEND_NCURSES
+#ifdef BACKEND_RAYLIB
 #include "InputBuffer.h"
 #include "InputId.h"
 #include <assert.h>
