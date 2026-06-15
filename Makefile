@@ -8,7 +8,7 @@ PLATFORM ?= unix
 ### Binary mode ( default: app | test )
 TARGET   ?= app
 ### Backends ( default: noBackend | ncurses | raylib )
-BACKEND  ?= ncurses
+BACKEND  ?= raylib
 ### Build mode ( default: core | release | debug | fatal )
 BUILD    ?= fatal
 
@@ -144,13 +144,22 @@ test: test-build test-run ## Build and run tests
 ### BACKENDS
 #######################################
 
+### RAYLIB
+
+RAYLIB_SRC_DIR     := /usr/lib/raylib/src
+
+LIBS_raylib        := raylib
+LIB_DIRS_raylib    := $(RAYLIB_SRC_DIR)
+CPPFLAGS_raylib    := -DBACKEND_RAYLIB
+EXT_INC_DIR_raylib := $(RAYLIB_SRC_DIR)
+
 ### NCURSES
 
 ### Libraries
 LIBS_ncurses := ncurses
 
 ### Flags
-CPPFLAGS_ncurses   := -DBACKEND_NCURSES
+CPPFLAGS_ncurses := -DBACKEND_NCURSES
 
 
 #######################################
@@ -166,15 +175,16 @@ OBJS      := $(patsubst %.$(SRC_EXT),$(BUILD_DIR)/%.$(OBJ_EXT),$(SRCS_$(TARGET))
 DEPS      := $(OBJS:.$(OBJ_EXT)=.$(DEP_EXT))
 
 ### Flags
-CFLAGS   := $(CFLAGS_core) $(CFLAGS_$(BUILD))
-CPPFLAGS := $(CPPFLAGS_core) $(CPPFLAGS_$(BUILD)) $(CPPFLAGS_$(BACKEND)) $(CPPFLAGS_$(PLATFORM))
+CFLAGS    := $(CFLAGS_core) $(CFLAGS_$(BUILD))
+CPPFLAGS  := $(CPPFLAGS_core) $(CPPFLAGS_$(BUILD)) $(CPPFLAGS_$(BACKEND)) $(CPPFLAGS_$(PLATFORM))
 
-LIBS 	 := $(LIBS_$(BACKEND))
-LDLIBS   := $(addprefix -l,$(LIBS))
-LDFLAGS  := $(LDFLAGS_core) $(LDFLAGS_$(BUILD))
+LIBS 	  := $(LIBS_$(BACKEND))
+LDLIBS    := $(addprefix -l,$(LIBS))
+LIB_FLAGS := $(addprefix -L,$(LIB_DIRS))
+LDFLAGS   := $(LDFLAGS_core) $(LDFLAGS_$(BUILD))
 
-INCFLAGS += $(addprefix -I,$(INC_DIRS_core) $(INC_DIRS_$(TARGET)))
-INCFLAGS += $(addprefix -isystem,$(EXT_INC_DIR_$(TARGET)))
+INCFLAGS  += $(addprefix -I,$(INC_DIRS_core) $(INC_DIRS_$(TARGET)))
+INCFLAGS  += $(addprefix -isystem,$(EXT_INC_DIR_$(TARGET)) $(EXT_INC_DIR_$(BACKEND)))
 
 
 #######################################
@@ -277,7 +287,7 @@ $(BIN_DIR)/$(TARGET): $(OBJS)
 	$(info )
 	$(info === Link: PLATFORM=$(PLATFORM), TARGET=$(TARGET), BUILD=$(BUILD) ===)
 	@$(MKDIR) $(dir $@)
-	$(LD_$(PLATFORM)) $^ -o $@ $(LDFLAGS) $(LDLIBS)
+	$(LD_$(PLATFORM)) $^ -o $@ $(LDFLAGS) $(LIB_FLAGS) $(LDLIBS)
 
 
 #######################################

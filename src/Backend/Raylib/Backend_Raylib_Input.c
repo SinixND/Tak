@@ -4,7 +4,7 @@
 #include "InputBuffer.h"
 #include "InputId.h"
 #include <assert.h>
-#include <ncurses.h>
+#include <raylib.h>
 
 void pollInput( InputBuffer* const pInput )
 {
@@ -13,7 +13,7 @@ void pollInput( InputBuffer* const pInput )
         && "Pointer is nullptr"
     );
 
-    switch ( getch() )
+    switch ( GetCharPressed() )
     {
         case '0':
         {

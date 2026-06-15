@@ -14,7 +14,7 @@
 #include "RankId.h"
 #include "StoneTypeId.h"
 #include <assert.h>
-#include <ncurses.h>
+#include <raylib.h>
 
 void renderInfoPane( void );
 

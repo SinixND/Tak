@@ -2,7 +2,7 @@
 
 #ifdef BACKEND_RAYLIB
 #include <assert.h>
-#include <ncurses.h>
+#include <raylib.h>
 
 void wait( int const ms )
 {
@@ -11,7 +11,7 @@ void wait( int const ms )
         && "Time value invalid"
     );
 
-    WaitTime( ms / 1000 );
+    WaitTime( ms / 1000.0f );
 }
 
 #endif

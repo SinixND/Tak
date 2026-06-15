@@ -2,7 +2,7 @@
 
 #ifdef BACKEND_RAYLIB
 #include "Backend_Raylib_Layout.h"
-#include <ncurses.h>
+#include <raylib.h>
 
 void setupBackend( void )
 {
@@ -30,28 +30,12 @@ void setupBackend( void )
 #endif
 
     SetTargetFPS( FPS_TARGET );
-    // SetTextureFilter(
-    //     GetFontDefault().texture,
-    //     TEXTURE_FILTER_POINT
-    // );
-
-    /// Fonts
-    // GameFont::load();
-
-    // GuiSetStyle(
-    //     DEFAULT,
-    //     TEXT_SIZE,
-    //     GameFont::fontSize
-    // );
 }
 
 void closeBackend( void )
 {
-    /// Unload font
-    unload();
-
     /// Close window and opengl context
-    CloseWindow(); 
+    CloseWindow();
 }
 
 #endif
