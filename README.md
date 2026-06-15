@@ -12,7 +12,7 @@
 
 
 ## About The Project
-**[Insert screenshot here](path/to/screenshot)**
+<img src="assets/screenshots/Tak-white.jpg" alt="screenshot" width="400"/>
 
 Implementation of the two player board game from the novel series "King Killer Chronicles" by Patrick Rothfuss.
 
