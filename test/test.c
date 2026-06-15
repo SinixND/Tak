@@ -1,11 +1,19 @@
-#include "TestBoardSystem.h"
-#include "TestGameConstantsSystem.h"
-#include "TestGameSystem.h"
-#include "TestHistorySystem.h"
-#include "TestPlayersSystem.h"
+#include "TestApp.h"
+#include "TestBoard.h"
+#include "TestCommand.h"
+#include "TestCommandValidation.h"
+#include "TestDirectionId.h"
+#include "TestEngine.h"
+#include "TestGame.h"
+#include "TestGameConstants.h"
+#include "TestGameEnd.h"
+#include "TestInputParsing.h"
+#include "TestInputSystem.h"
 #include "TestPositionSystem.h"
-#include "TestStackBufferSystem.h"
+#include "TestReserves.h"
+#include "TestStackBuffer.h"
 #include <unity.h>
+#include <unity_internals.h>
 
 void setUp( void ) {}
 
@@ -15,46 +23,87 @@ int main( void )
 {
     UNITY_BEGIN();
 
-    //* Test BoardSystem
-    RUN_TEST( testNewBoard );
-    RUN_TEST( testPlaceOntoStack );
+    /// Position
+    RUN_TEST( testPositionToStackIndex );
+    RUN_TEST( testSquareToStackIndex );
+
+    /// Board
+    RUN_TEST( testPutOntoStack );
     RUN_TEST( testTakeFromStack );
 
-    //* Test GameConstantsSystem
-    RUN_TEST( testGetBaseRegularStoneReserves );
-    RUN_TEST( testGetBaseCapstoneReserves );
-
-    //* Test GameSystem
-    RUN_TEST( testNewGame );
-    RUN_TEST( testPlaceStone );
-    RUN_TEST( testUndoPlaceStone );
-    RUN_TEST( testRedoPlaceStone );
-    RUN_TEST( testPickupStack );
-    RUN_TEST( testUndoPickupStack );
-    RUN_TEST( testRedoPickupStack );
-    RUN_TEST( testDropStone );
-    RUN_TEST( testUndo );
-    RUN_TEST( testRedo );
-
-    //* Test HistorySystem
-    RUN_TEST( testRecordPlacementAction );
-    RUN_TEST( testRecordPickupAction );
-    RUN_TEST( testRecordDropAction );
-    RUN_TEST( testUndoHistory );
-    RUN_TEST( testRedoHistory );
-
-    //* Test PlayersSystem
-    RUN_TEST( testNewPlayers );
+    /// Reserves
     RUN_TEST( testTakeFromReserves );
 
-    //* Test PositionSystem
-    RUN_TEST( testPositionToStackIndex );
-
-    //* Test StackBufferSystem
-    RUN_TEST( testNewStackBuffer );
+    /// StackBuffer
     RUN_TEST( testResetStackBuffer );
     RUN_TEST( testAppendToBuffer );
     RUN_TEST( testDropFromBuffer );
+
+    /// GameConstants
+    RUN_TEST( testGetReservesRegular );
+    RUN_TEST( testGetReservesCapstone );
+    RUN_TEST( testGetStackCapacity );
+
+    /// Game
+    RUN_TEST( testPlaceStone );
+    RUN_TEST( testTakeStone );
+    RUN_TEST( testLiftStack );
+    RUN_TEST( testDropStack );
+    RUN_TEST( testDropStone );
+    RUN_TEST( testLiftStone );
+    RUN_TEST( testExecuteEvent );
+    RUN_TEST( testUpdateScore );
+
+    /// GameEnd
+    RUN_TEST( testIsBoardFull );
+    RUN_TEST( testAreReservesExhausted );
+    RUN_TEST( testIsSquareValid );
+    RUN_TEST( testInitPathSquares );
+    RUN_TEST( testFindVerticalRoad );
+    RUN_TEST( testFindHorizontalRoad );
+    RUN_TEST( testCheckRoadCondition );
+    RUN_TEST( testIsWinConditionMet );
+
+    /// DirectionId
+    RUN_TEST( testGetOffsetX );
+    RUN_TEST( testGetOffsetY );
+
+    /// Input parsing
+    RUN_TEST( testParseInputActionType );
+    RUN_TEST( testParseInputStoneType );
+    RUN_TEST( testParseInputFileX );
+    RUN_TEST( testParseInputRankY );
+    RUN_TEST( testParseInputDirection );
+    RUN_TEST( testParseInputFirstDropAmount );
+    RUN_TEST( testParseInputDropAmount );
+    RUN_TEST( testParseInput );
+
+    /// Command validation
+    RUN_TEST( testValidateCommandActionType );
+    RUN_TEST( testValidateCommandStoneType );
+    RUN_TEST( testValidateCommandFileX );
+    RUN_TEST( testValidateCommandRankY );
+    RUN_TEST( testValidateCommandDirection );
+    RUN_TEST( testValidateCommandDropAmount );
+    RUN_TEST( testValidateCommand );
+
+    /// Command
+    RUN_TEST( testSetNextCommandState );
+    RUN_TEST( testIsCommandReady );
+
+    /// Engine
+    RUN_TEST( testAutocompleteCommand );
+    RUN_TEST( testBuildCommand );
+    RUN_TEST( testBuildEvent );
+    RUN_TEST( testUndoTurn );
+    RUN_TEST( testRedoTurn );
+    RUN_TEST( testResetTurn );
+
+    /// InputSystem
+    RUN_TEST( testHandleGlobalInput );
+
+    /// App
+    RUN_TEST( testSetBoardSize );
 
     return UNITY_END();
 }

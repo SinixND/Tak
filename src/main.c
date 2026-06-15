@@ -1,11 +1,12 @@
-#include "Game.h"
-#include "GameSystem.h"
+#include "App.h"
 
 int main( void )
 {
-    Game game = newGame( 0 );
+    App app = newApp();
 
-    demo( &game );
+    setupApp();
+    runApp( &app );
+    closeApp();
 
     return 0;
 }

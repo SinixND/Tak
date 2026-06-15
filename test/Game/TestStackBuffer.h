@@ -1,0 +1,58 @@
+#ifndef IG20260104182516
+#define IG20260104182516
+
+#include "PlayerId.h"
+#include "StackBuffer.h"
+#include "StoneTypeId.h"
+#include <unity.h>
+
+void testResetStackBuffer( void )
+{
+    StackBuffer buffer = newStackBuffer();
+
+    resetBuffer(
+        &buffer,
+        STONE_TYPE_STANDING
+    );
+
+    TEST_ASSERT_EQUAL_INT( STONE_TYPE_STANDING, buffer.stackType );
+}
+
+void testAppendToBuffer( void )
+{
+    StackBuffer buffer = newStackBuffer();
+
+    resetBuffer(
+        &buffer,
+        STONE_TYPE_STANDING
+    );
+
+    appendToBuffer(
+        &buffer,
+        PLAYER_BLACK
+    );
+
+    TEST_ASSERT_EQUAL_INT( STONE_TYPE_STANDING, buffer.stackType );
+    TEST_ASSERT_EQUAL_INT( 1, buffer.stoneCount );
+    TEST_ASSERT_EQUAL_INT( PLAYER_BLACK, buffer.stoneIds[0] );
+}
+
+void testDropFromBuffer( void )
+{
+    StackBuffer buffer = newStackBuffer();
+
+    buffer.stackType = STONE_TYPE_STANDING;
+    buffer.stoneIds[0] = PLAYER_WHITE;
+    buffer.stoneIds[1] = PLAYER_BLACK;
+    buffer.stoneCount = 2;
+
+    dropFromBuffer( &buffer );
+
+    TEST_ASSERT_EQUAL_INT( 1, buffer.stoneCount );
+
+    dropFromBuffer( &buffer );
+
+    TEST_ASSERT_EQUAL_INT( 0, buffer.stoneCount );
+}
+
+#endif

@@ -1,0 +1,9 @@
+#ifndef IG20260614222942
+#define IG20260614222942
+
+enum
+{
+    MAX_PROMPT_LENGTH = 11,
+};
+
+#endif
