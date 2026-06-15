@@ -151,12 +151,14 @@ The following tools are used in the project but not required and not contained i
 
 
 ## ToDo notes
-- [ ] Save/Load
 - [ ] Todos
+- [ ] Render raylib/web
 
 - [ ] Add cursor? -> raylib
     - Cursor == Frame around square
     - New appstate GET_POSITION
+
+- [ ] Save/Load?
 
 <p align="right">(<a href="#readme-top">top</a>)</p>
 
