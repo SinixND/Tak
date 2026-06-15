@@ -14,6 +14,7 @@
 #include "InputBuffer.h"
 #include "InputSystem.h"
 #include "Keymap.h"
+#include "PlatformInterface.h"
 #include "PlayerId.h"
 #include "Prompts.h"
 #include "Simulation.h"
@@ -54,7 +55,7 @@ void runApp( App* const pApp )
     renderStartScreen();
 
     /// Run loop
-    loopBackend( pApp );
+    loop( pApp );
 }
 
 void closeApp( void )

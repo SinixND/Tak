@@ -15,10 +15,6 @@ BUILD    ?= fatal
 ### Entrypoint files
 MAIN_app  := main
 
-### Compiler & toolchain
-CC := clang
-LD := $(CC)
-
 ### Flags
 MAKEFLAGS := --no-print-directory
 
@@ -99,6 +95,12 @@ CPPCHECK_fatal   := --error-exitcode=1
 ### PLATFORMS
 #######################################
 
+### UNIX
+
+CC_unix := clang
+LD_unix := clang
+
+CPPFLAGS_unix   := -DPLATFORM_UNIX
 
 #######################################
 ### TARGETS
@@ -165,7 +167,7 @@ DEPS      := $(OBJS:.$(OBJ_EXT)=.$(DEP_EXT))
 
 ### Flags
 CFLAGS   := $(CFLAGS_core) $(CFLAGS_$(BUILD))
-CPPFLAGS := $(CPPFLAGS_core) $(CPPFLAGS_$(BUILD)) $(CPPFLAGS_$(BACKEND))
+CPPFLAGS := $(CPPFLAGS_core) $(CPPFLAGS_$(BUILD)) $(CPPFLAGS_$(BACKEND)) $(CPPFLAGS_$(PLATFORM))
 
 LIBS 	 := $(LIBS_$(BACKEND))
 LDLIBS   := $(addprefix -l,$(LIBS))
@@ -268,14 +270,14 @@ $(BUILD_DIR)/%.$(OBJ_EXT): %.$(SRC_EXT)
 	$(info )
 	$(info === Compile: PLATFORM=$(PLATFORM), TARGET=$(TARGET), BUILD=$(BUILD) ===)
 	@$(MKDIR) $(dir $@)
-	$(CC) -c $< -o $@ $(CFLAGS) $(CPPFLAGS) $(INCFLAGS)
+	$(CC_$(PLATFORM)) -c $< -o $@ $(CFLAGS) $(CPPFLAGS) $(INCFLAGS)
 
 ### === LINKER COMMAND ===
 $(BIN_DIR)/$(TARGET): $(OBJS)
 	$(info )
 	$(info === Link: PLATFORM=$(PLATFORM), TARGET=$(TARGET), BUILD=$(BUILD) ===)
 	@$(MKDIR) $(dir $@)
-	$(LD) $^ -o $@ $(LDFLAGS) $(LDLIBS)
+	$(LD_$(PLATFORM)) $^ -o $@ $(LDFLAGS) $(LDLIBS)
 
 
 #######################################
