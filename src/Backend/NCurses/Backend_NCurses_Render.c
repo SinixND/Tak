@@ -292,6 +292,7 @@ void renderInfoPaneContent( App const* const pApp )
     );
 
     /// Print white regular reserves
+    attron( COLOR_PAIR( CPAIR_WHITE_1 ) );
     mvprintw(
         POSITION_WHITE_RESERVES_REGULAR[0],
         POSITION_WHITE_RESERVES_REGULAR[1],
@@ -314,8 +315,10 @@ void renderInfoPaneContent( App const* const pApp )
         "%2i",
         pApp->game.scores[PLAYER_WHITE]
     );
+    attroff( COLOR_PAIR( CPAIR_WHITE_1 ) );
 
     /// Print black regular reserves
+    attron( COLOR_PAIR( CPAIR_BLACK_1 ) );
     mvprintw(
         POSITION_BLACK_RESERVES_REGULAR[0],
         POSITION_BLACK_RESERVES_REGULAR[1],
@@ -338,7 +341,9 @@ void renderInfoPaneContent( App const* const pApp )
         "%2i",
         pApp->game.scores[PLAYER_BLACK]
     );
+    attroff( COLOR_PAIR( CPAIR_BLACK_1 ) );
 
+    attron( COLOR_PAIR( ( pApp->game.activePlayer == PLAYER_WHITE ) ? CPAIR_WHITE_1 : CPAIR_BLACK_1 ) );
     /// Print active player
     mvprintw(
         POSITION_ACTIVE_PLAYER[0],
@@ -354,6 +359,7 @@ void renderInfoPaneContent( App const* const pApp )
         "%c",
         PLAYER_CHARS[pApp->game.activePlayer]
     );
+    attroff( COLOR_PAIR( ( pApp->game.activePlayer == PLAYER_WHITE ) ? CPAIR_WHITE_1 : CPAIR_BLACK_1 ) );
 
     /// Print required input
     mvprintw(
@@ -595,11 +601,13 @@ void renderStackBufferContent( App const* const pApp )
     // Render buffer type
     if ( pApp->game.stackBuffer.stoneCount > 0 )
     {
+        attron( COLOR_PAIR( ( pApp->game.stackBuffer.stoneIds[0] == PLAYER_WHITE ) ? CPAIR_WHITE_1 : CPAIR_BLACK_1 ) );
         mvaddch(
             POSITION_STACK_BUFFER[0],
             POSITION_STACK_BUFFER[1],
             STONE_TYPE_CHARS[pApp->game.stackBuffer.stackType]
         );
+        attroff( COLOR_PAIR( ( pApp->game.stackBuffer.stoneIds[0] == PLAYER_WHITE ) ? CPAIR_WHITE_1 : CPAIR_BLACK_1 ) );
     }
     else
     {
@@ -611,28 +619,30 @@ void renderStackBufferContent( App const* const pApp )
     }
 
     // Render stack Ids
-    for ( int idx = 0; idx < BOARD_SIZE_MAX; ++idx )
+    for ( int idx = 1; idx <= BOARD_SIZE_MAX; ++idx )
     {
         if ( idx < pApp->game.stackBuffer.stoneCount )
         {
+            attron( COLOR_PAIR( ( pApp->game.stackBuffer.stoneIds[idx] == PLAYER_WHITE ) ? CPAIR_WHITE_2 : CPAIR_BLACK_2 ) );
             mvaddch(
                 POSITION_STACK_BUFFER[0]
-                    + ( ( 1 + idx )
+                    + ( ( idx )
                         % ( LAYOUT_BOARD_SQUARE_SIZE - 1 ) ),
                 POSITION_STACK_BUFFER[1]
-                    + ( ( 1 + idx )
+                    + ( ( idx )
                         / ( LAYOUT_BOARD_SQUARE_SIZE - 1 ) ),
-                PLAYER_CHARS[pApp->game.stackBuffer.stoneIds[idx]]
+                '-'
             );
+            attroff( COLOR_PAIR( ( pApp->game.stackBuffer.stoneIds[idx] == PLAYER_WHITE ) ? CPAIR_WHITE_2 : CPAIR_BLACK_2 ) );
         }
         else
         {
             mvaddch(
                 POSITION_STACK_BUFFER[0]
-                    + ( ( 1 + idx )
+                    + ( ( idx )
                         % ( LAYOUT_BOARD_SQUARE_SIZE - 1 ) ),
                 POSITION_STACK_BUFFER[1]
-                    + ( ( 1 + idx )
+                    + ( ( idx )
                         / ( LAYOUT_BOARD_SQUARE_SIZE - 1 ) ),
                 ' '
             );
@@ -683,11 +693,13 @@ void renderSquareContent(
     // Render stack type
     if ( pBoard->stoneCounts[squareIdx] > 0 )
     {
+        attron( COLOR_PAIR( ( pBoard->stackIds[squareIdx] == PLAYER_WHITE ) ? CPAIR_WHITE_1 : CPAIR_BLACK_1 ) );
         mvaddch(
             squareEdgeY,
             squareEdgeX,
             STONE_TYPE_CHARS[pBoard->stackTypes[squareIdx]]
         );
+        attroff( COLOR_PAIR( ( pBoard->stackIds[squareIdx] == PLAYER_WHITE ) ? CPAIR_WHITE_1 : CPAIR_BLACK_1 ) );
     }
     else
     {
@@ -699,7 +711,7 @@ void renderSquareContent(
     }
 
     // Render stack Ids
-    for ( int stoneIdxOffset = 0; stoneIdxOffset < BOARD_SIZE_MAX; ++stoneIdxOffset )
+    for ( int stoneIdxOffset = 1; stoneIdxOffset <= BOARD_SIZE_MAX; ++stoneIdxOffset )
     {
         int const stackIdx = squareToStackIndex(
             squareIdx,
@@ -710,24 +722,26 @@ void renderSquareContent(
 
         if ( stoneIdxOffset < pBoard->stoneCounts[squareIdx] )
         {
+            attron( COLOR_PAIR( ( pBoard->stoneIds[stoneIdx - stoneIdxOffset] == PLAYER_WHITE ) ? CPAIR_WHITE_2 : CPAIR_BLACK_2 ) );
             mvaddch(
                 squareEdgeY
-                    + ( ( 1 + stoneIdxOffset )
+                    + ( ( stoneIdxOffset )
                         % ( LAYOUT_BOARD_SQUARE_SIZE - 1 ) ),
                 squareEdgeX
-                    + ( ( 1 + stoneIdxOffset )
+                    + ( ( stoneIdxOffset )
                         / ( LAYOUT_BOARD_SQUARE_SIZE - 1 ) ),
-                PLAYER_CHARS[pBoard->stoneIds[stoneIdx - stoneIdxOffset]]
+                '-'
             );
+            attroff( COLOR_PAIR( ( pBoard->stoneIds[stoneIdx - stoneIdxOffset] == PLAYER_WHITE ) ? CPAIR_WHITE_2 : CPAIR_BLACK_2 ) );
         }
         else
         {
             mvaddch(
                 squareEdgeY
-                    + ( ( 1 + stoneIdxOffset )
+                    + ( ( stoneIdxOffset )
                         % ( LAYOUT_BOARD_SQUARE_SIZE - 1 ) ),
                 squareEdgeX
-                    + ( ( 1 + stoneIdxOffset )
+                    + ( ( stoneIdxOffset )
                         / ( LAYOUT_BOARD_SQUARE_SIZE - 1 ) ),
                 ' '
             );

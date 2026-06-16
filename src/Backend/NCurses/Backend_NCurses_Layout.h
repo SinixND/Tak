@@ -8,6 +8,12 @@ enum
     BOARD_OFFSET_X = LAYOUT_PANE_WIDTH + 2,
     LAYOUT_BOARD_SQUARE_SIZE = 4,
     HISTORY_RENDER_COUNT = 2,
+    CPAIR_WHITE_1 = 1,
+    CPAIR_BLACK_1 = 2,
+    CPAIR_WHITE_2 = 3,
+    CPAIR_BLACK_2 = 4,
+    PLAYER_COLOR_WHITE = 1,
+    PLAYER_COLOR_BLACK = 2,
 };
 
 /// Positions (y, x)
