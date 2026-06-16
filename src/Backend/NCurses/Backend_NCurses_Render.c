@@ -1,9 +1,9 @@
-#include "AppStateId.h"
 #include "BackendInterface.h"
 
 #ifdef BACKEND_NCURSES
 #include "ActionTypeId.h"
 #include "App.h"
+#include "AppStateId.h"
 #include "Backend_NCurses_Layout.h"
 #include "Command.h"
 #include "DirectionId.h"
@@ -77,6 +77,7 @@ void renderStatic( App const* const pApp )
 
     clear();
 
+    attron( COLOR_PAIR( CPAIR_LAYOUT ) );
     renderInfoPane();
 
     int const boardSize = pApp->game.board.size;
@@ -104,6 +105,7 @@ void renderStatic( App const* const pApp )
         ruleLabelsOffsetY,
         boardSize
     );
+    attroff( COLOR_PAIR( CPAIR_LAYOUT ) );
 }
 
 void renderInfoPane( void )
@@ -294,7 +296,6 @@ void renderInfoPaneContent( App const* const pApp )
     );
 
     /// Print white regular reserves
-    attron( COLOR_PAIR( CPAIR_WHITE_1 ) );
     mvprintw(
         POSITION_WHITE_RESERVES_REGULAR[0],
         POSITION_WHITE_RESERVES_REGULAR[1],
@@ -311,6 +312,7 @@ void renderInfoPaneContent( App const* const pApp )
     );
 
     /// Print white flat score
+    attron( COLOR_PAIR( CPAIR_WHITE_1 ) );
     mvprintw(
         POSITION_WHITE_RESERVES_SCORE[0],
         POSITION_WHITE_RESERVES_SCORE[1],
@@ -320,7 +322,6 @@ void renderInfoPaneContent( App const* const pApp )
     attroff( COLOR_PAIR( CPAIR_WHITE_1 ) );
 
     /// Print black regular reserves
-    attron( COLOR_PAIR( CPAIR_BLACK_1 ) );
     mvprintw(
         POSITION_BLACK_RESERVES_REGULAR[0],
         POSITION_BLACK_RESERVES_REGULAR[1],
@@ -337,6 +338,7 @@ void renderInfoPaneContent( App const* const pApp )
     );
 
     /// Print black flat score
+    attron( COLOR_PAIR( CPAIR_BLACK_1 ) );
     mvprintw(
         POSITION_BLACK_RESERVES_SCORE[0],
         POSITION_BLACK_RESERVES_SCORE[1],
@@ -345,16 +347,18 @@ void renderInfoPaneContent( App const* const pApp )
     );
     attroff( COLOR_PAIR( CPAIR_BLACK_1 ) );
 
-    attron( COLOR_PAIR( ( pApp->game.activePlayer == PLAYER_WHITE ) ? CPAIR_WHITE_1 : CPAIR_BLACK_1 ) );
     /// Print active player
+    attron( COLOR_PAIR( ( pApp->game.activePlayer == PLAYER_WHITE ) ? CPAIR_WHITE_2 : CPAIR_BLACK_2 ) );
     mvprintw(
         POSITION_ACTIVE_PLAYER[0],
         POSITION_ACTIVE_PLAYER[1],
         "%s",
         ( pApp->game.activePlayer == PLAYER_WHITE ) ? "WHITE" : "BLACK"
     );
+    attroff( COLOR_PAIR( ( pApp->game.activePlayer == PLAYER_WHITE ) ? CPAIR_WHITE_2 : CPAIR_BLACK_2 ) );
 
     /// Print active player symbol
+    attron( COLOR_PAIR( ( pApp->game.activePlayer == PLAYER_WHITE ) ? CPAIR_WHITE_1 : CPAIR_BLACK_1 ) );
     mvprintw(
         POSITION_PLAYER_SYMBOL[0],
         POSITION_PLAYER_SYMBOL[1],
@@ -583,11 +587,19 @@ void renderCommandGameEnd( App const* const pApp )
         && "Pointer is nullptr"
     );
 
+    attron( COLOR_PAIR( ( pApp->game.activePlayer == PLAYER_WHITE ) ? CPAIR_WHITE_2 : CPAIR_BLACK_2 ) );
     mvprintw(
         POSITION_INPUT_CURRENT[0],
         POSITION_INPUT_CURRENT[1],
-        "%c: won! [Q]uit",
+        "%c: WIN! ",
         PLAYER_CHARS[pApp->game.activePlayer]
+    );
+    attroff( COLOR_PAIR( ( pApp->game.activePlayer == PLAYER_WHITE ) ? CPAIR_WHITE_2 : CPAIR_BLACK_2 ) );
+
+    mvprintw(
+        POSITION_INPUT_CURRENT[0],
+        POSITION_INPUT_CURRENT[1] + 8,
+        "[Q]uit"
     );
 
     refresh();
@@ -607,7 +619,7 @@ void renderStackBufferContent( App const* const pApp )
         mvaddch(
             POSITION_STACK_BUFFER[0],
             POSITION_STACK_BUFFER[1],
-            STONE_TYPE_CHARS[pApp->game.stackBuffer.stackType]
+            STONE_TYPE_SYMBOLS[pApp->game.stackBuffer.stackType]
         );
         attroff( COLOR_PAIR( ( pApp->game.stackBuffer.stoneIds[0] == PLAYER_WHITE ) ? CPAIR_WHITE_1 : CPAIR_BLACK_1 ) );
     }
@@ -633,7 +645,8 @@ void renderStackBufferContent( App const* const pApp )
                 POSITION_STACK_BUFFER[1]
                     + ( ( idx )
                         / ( LAYOUT_BOARD_SQUARE_SIZE - 1 ) ),
-                '-'
+                STONE_TYPE_SYMBOLS[STONE_TYPE_FLAT]
+
             );
             attroff( COLOR_PAIR( ( pApp->game.stackBuffer.stoneIds[idx] == PLAYER_WHITE ) ? CPAIR_WHITE_2 : CPAIR_BLACK_2 ) );
         }
@@ -693,16 +706,34 @@ void renderSquareContent(
     int const squareEdgeX = ( BOARD_OFFSET_X + 2 ) + ( squareIdx % pBoard->size ) * LAYOUT_BOARD_SQUARE_SIZE;
 
     // Render stack type
-    if ( pBoard->stoneCounts[squareIdx] > 0 )
+    if (
+        pBoard->stoneCounts[squareIdx] > 0
+        && pBoard->stackTypes[squareIdx] != STONE_TYPE_STANDING
+    )
     {
         attron( COLOR_PAIR( ( pBoard->stackIds[squareIdx] == PLAYER_WHITE ) ? CPAIR_WHITE_1 : CPAIR_BLACK_1 ) );
         mvaddch(
             squareEdgeY,
             squareEdgeX,
-            STONE_TYPE_CHARS[pBoard->stackTypes[squareIdx]]
+            STONE_TYPE_SYMBOLS[pBoard->stackTypes[squareIdx]]
         );
         attroff( COLOR_PAIR( ( pBoard->stackIds[squareIdx] == PLAYER_WHITE ) ? CPAIR_WHITE_1 : CPAIR_BLACK_1 ) );
     }
+
+    else if (
+        pBoard->stoneCounts[squareIdx] > 0
+        && pBoard->stackTypes[squareIdx] == STONE_TYPE_STANDING
+    )
+    {
+        attron( COLOR_PAIR( ( pBoard->stackIds[squareIdx] == PLAYER_WHITE ) ? CPAIR_WHITE_2 : CPAIR_BLACK_2 ) );
+        mvaddch(
+            squareEdgeY,
+            squareEdgeX,
+            STONE_TYPE_SYMBOLS[pBoard->stackTypes[squareIdx]]
+        );
+        attroff( COLOR_PAIR( ( pBoard->stackIds[squareIdx] == PLAYER_WHITE ) ? CPAIR_WHITE_2 : CPAIR_BLACK_2 ) );
+    }
+
     else
     {
         mvaddch(
@@ -732,7 +763,7 @@ void renderSquareContent(
                 squareEdgeX
                     + ( ( stoneIdxOffset )
                         / ( LAYOUT_BOARD_SQUARE_SIZE - 1 ) ),
-                '-'
+                STONE_TYPE_SYMBOLS[STONE_TYPE_FLAT]
             );
             attroff( COLOR_PAIR( ( pBoard->stoneIds[stoneIdx - stoneIdxOffset] == PLAYER_WHITE ) ? CPAIR_WHITE_2 : CPAIR_BLACK_2 ) );
         }

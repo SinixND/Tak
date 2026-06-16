@@ -16,11 +16,13 @@ void setupBackend( void )
     init_color( COLOR_BLACK, 0, 0, 0 );
     init_color( COLOR_WHITE, 1000, 1000, 1000 );
     init_color( PLAYER_COLOR_WHITE, 700, 574, 413 );
-    init_color( PLAYER_COLOR_BLACK, 386, 178, 0 );
+    init_color( PLAYER_COLOR_BLACK, 486, 278, 0 );
+    init_color( LAYOUT_COLOR, 380, 541, 239 );
     init_pair( CPAIR_WHITE_1, PLAYER_COLOR_BLACK, PLAYER_COLOR_WHITE );
     init_pair( CPAIR_BLACK_1, PLAYER_COLOR_WHITE, PLAYER_COLOR_BLACK );
     init_pair( CPAIR_WHITE_2, PLAYER_COLOR_WHITE, COLOR_BLACK );
     init_pair( CPAIR_BLACK_2, PLAYER_COLOR_BLACK, COLOR_BLACK );
+    init_pair( CPAIR_LAYOUT, LAYOUT_COLOR, COLOR_BLACK );
 
     noecho();      // Don’t print typed characters automatically
     curs_set( 0 ); // Hide cursor
