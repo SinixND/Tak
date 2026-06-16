@@ -485,9 +485,6 @@ void renderHistory(
         Command const* const pLastCommand
             = &pHistory->commands[pHistory->lastCommandIdx - i];
 
-        /// W:A@c#
-        /// B:Ac#+#######
-
         switch ( pLastCommand->actionType )
         {
             case ACTION_TYPE_PLACE:
@@ -495,9 +492,9 @@ void renderHistory(
                 mvprintw(
                     POSITION_HISTORY_TOP_LEFT[0] + i,
                     POSITION_HISTORY_TOP_LEFT[1],
-                    "%c-%i: %c%c%c%c%c%c%c%c%c%c%c",
+                    "%c[%i] %c%c%c%c%c%c%c%c%c%c%c",
                     PLAYER_CHARS[pLastCommand->playerId],
-                    pHistory->lastCommandIdx - i,
+                    ( 1 + pHistory->lastCommandIdx - i ) / 2,
                     STONE_TYPE_CHARS[pLastCommand->stoneType],
                     ( ( pLastCommand->fileX < 0 )
                           ? ' '
@@ -524,9 +521,9 @@ void renderHistory(
                 mvprintw(
                     POSITION_HISTORY_TOP_LEFT[0] + i,
                     POSITION_HISTORY_TOP_LEFT[1],
-                    "%c-%i: %c%c%c%c%c%c%c%c%c%c%c",
+                    "%c[%i] %c%c%c%c%c%c%c%c%c%c%c",
                     PLAYER_CHARS[pLastCommand->playerId],
-                    pHistory->lastCommandIdx - i,
+                    ( 1 + pHistory->lastCommandIdx - i ) / 2,
                     ( ( pLastCommand->fileX < 0 )
                           ? ' '
                           : FILE_CHARS[pLastCommand->fileX] ),
