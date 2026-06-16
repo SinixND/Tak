@@ -17,47 +17,23 @@
 #include <assert.h>
 #include <ncurses.h>
 
+void renderStatic( App const* const pApp );
 void renderInfoPane( void );
+void renderFileLabels( int const fileLabelsOffsetX, int const boardSize );
+void renderRankLabels( int const ruleLabelsOffsetY, int const boardSize );
+void renderBoard( int const fileLabelsOffsetX, int const ruleLabelsOffsetY, int const boardSize );
+void renderBoardEdges( int const fileLabelsOffsetX, int const ruleLabelsOffsetY, int const boardSize );
 
+void renderDynamic( App const* const pApp );
 void renderCommand( Command const* const pCommand );
-void renderHistory(
-    History const* const pHistory,
-    int const entryCount
-);
-
-void renderFileLabels(
-    int const fileLabelsOffsetX,
-    int const boardSize
-);
-
-void renderRankLabels(
-    int const ruleLabelsOffsetY,
-    int const boardSize
-);
-
-void renderBoard(
-    int const fileLabelsOffsetX,
-    int const ruleLabelsOffsetY,
-    int const boardSize
-);
-
-void renderBoardEdges(
-    int const fileLabelsOffsetX,
-    int const ruleLabelsOffsetY,
-    int const boardSize
-);
-
+void renderHistory( History const* const pHistory, int const entryCount );
 void renderInfoPaneContent( App const* const pApp );
 void renderStackBufferContent( App const* const pApp );
 void renderBoardContent( App const* const pApp );
-void renderSquareContent(
-    App const* const pApp,
-    int const squareIdx
-);
+void renderSquareContent( App const* const pApp, int const squareIdx );
 
-void renderStatic( App const* const pApp );
-void renderDynamic( App const* const pApp );
 void renderStartScreen( void );
+
 void renderCommandGameEnd( App const* const pApp );
 
 void render( App const* const pApp )

@@ -26,28 +26,4 @@ void pollInput( InputBuffer* const pInput );
 /// Render app state
 void render( App const* const pApp );
 
-/**
- * @brief: Render static, non-changing content
- *
- * Renders:
- * - Info pane (static content)
- * - Board
- */
-// void renderStatic( App const* const app );
-
-/**
- * @brief: Render dynamic, changing content
- *
- * Renders:
- * - Info pane content
- * - Board content
- */
-// void renderDynamic( App const* const pApp );
-
-/// Render starting screen (choose board size)
-// void renderStartScreen( void );
-
-/// Render command for finished game
-// void renderCommandGameEnd( App const* const pApp );
-
 #endif
