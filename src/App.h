@@ -61,14 +61,14 @@ void handleInput( App* const pApp );
 void updateApp( App* const pApp );
 
 /*
- * @brief: Modify game state from command
+ * @brief Modify game state from command
  *
  * Returns true if game was updated
  */
 bool updateGame( App* const pApp );
 
 /*
- * @brief: Check if current player turn is complete
+ * @brief Check if current player turn is complete
  *
  * Uses command state to check
  */

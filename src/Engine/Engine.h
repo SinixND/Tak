@@ -9,7 +9,7 @@
 #include <stdbool.h>
 
 /**
- * @brief: Autocomplete drop command if certain conditions are met
+ * @brief Autocomplete drop command if certain conditions are met
  *
  * Returns true if command was autocompleted
  */
@@ -19,7 +19,7 @@ bool autocompleteCommand(
 );
 
 /**
- * @brief: Build command from input and against game
+ * @brief Build command from input and against game
  *
  * - Parse input
  * - Validate

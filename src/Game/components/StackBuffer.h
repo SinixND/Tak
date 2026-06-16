@@ -7,7 +7,7 @@
 #include <stdint.h>
 
 /**
- * @brief: This is the stack being moved
+ * @brief This is the stack being moved
  *
  * Only the top stone of a stack can have a type other than `FLAT`
  * For this stack index 0 is top
@@ -26,7 +26,7 @@ typedef struct StackBuffer
 StackBuffer newStackBuffer( void );
 
 /**
- * @brief: Reset buffer and set stone type
+ * @brief Reset buffer and set stone type
  *
  * - Set buffer stone type
  * - Reset stone count to 0
@@ -37,7 +37,7 @@ void resetBuffer(
 );
 
 /**
- * @brief: Add stone to buffer
+ * @brief Add stone to buffer
  *
  * - Add stone to buffer
  * - Increase stone count
@@ -48,7 +48,7 @@ void appendToBuffer(
 );
 
 /**
- * @brief: Remove stone from buffer
+ * @brief Remove stone from buffer
  *
  * - Decrease stone count
  */

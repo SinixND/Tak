@@ -98,6 +98,7 @@ void renderStatic( App const* const pApp )
     );
 
     clear();
+
     renderInfoPane();
 
     int const boardSize = pApp->game.board.size;

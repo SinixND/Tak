@@ -12,7 +12,7 @@ bool validateCommand(
 );
 
 /**
- * @brief: Check if...
+ * @brief Check if...
  * ... playerId matches game.active player
  * ... action type is either `Place` or `Lift`
  */

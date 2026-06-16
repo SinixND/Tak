@@ -21,7 +21,7 @@ typedef struct Game
 } Game;
 
 /**
- * @brief: Return initialized object
+ * @brief Return initialized object
  *
  * - Provide boardSize 0 for default value
  */
@@ -31,7 +31,7 @@ Game newGame( int boardSize );
 void prepareGame( Game* const pGame );
 
 /**
- * @brief: From Reserves to Board
+ * @brief From Reserves to Board
  *
  * - Reduce reserves
  * - Put stone on stack/square
@@ -44,7 +44,7 @@ void placeStone(
 );
 
 /**
- * @brief: From Board to Reserves
+ * @brief From Board to Reserves
  *
  * - Increase reserves
  * - Take stone from stack/square
@@ -55,7 +55,7 @@ void takeStone(
 );
 
 /**
- * @brief: From Board to Buffer
+ * @brief From Board to Buffer
  *
  * - Set stone type of buffer
  * - Loop: Add stones to buffer
@@ -67,7 +67,7 @@ void liftStack(
 );
 
 /**
- * @brief: From Buffer to Board
+ * @brief From Buffer to Board
  *
  * - Undo lift stack
  * - Loop: Add stones to stack
@@ -79,7 +79,7 @@ void dropStack(
 );
 
 /**
- * @brief: From Buffer to Board
+ * @brief From Buffer to Board
  *
  * - Add single stone to stack/square
  * - Remove single stone from buffer
@@ -90,7 +90,7 @@ void dropStone(
 );
 
 /**
- * @brief: From Board to Buffer
+ * @brief From Board to Buffer
  *
  * - Undo drop stone
  * - Add single stone to Buffer
