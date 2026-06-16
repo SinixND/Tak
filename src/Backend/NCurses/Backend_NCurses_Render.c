@@ -57,6 +57,8 @@ void render( App const* const pApp )
 
         case APP_STATE_GAME_END:
         {
+            renderStatic( pApp );
+            renderDynamic( pApp );
             renderCommandGameEnd( pApp );
 
             break;
