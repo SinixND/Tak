@@ -1,4 +1,5 @@
-<!-- <img src="assets/favicon.ico" alt="Logo" width="80" height="80"> -->
+<img src="assets/screenshots/Tak-nature.jpg" alt="screenshot" width="400"/>
+
 # Tak - the boardgame from the "King Killer Chronicles" novel series
 
 [![Github Projects](https://img.shields.io/badge/Github-Projects-white?style=for-the-badge)](https://github.com/users/SinixND/projects/6)
@@ -12,8 +13,6 @@
 
 
 ## About The Project
-<img src="assets/screenshots/Tak-white.jpg" alt="screenshot" width="400"/>
-
 Implementation of the two player board game from the novel series "King Killer Chronicles" by Patrick Rothfuss.
 
 For detailed information about the game's rules, see [ustak.org](https://ustak.org/play-beautiful-game-tak/#)
