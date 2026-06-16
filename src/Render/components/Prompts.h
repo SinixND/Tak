@@ -5,6 +5,7 @@
 #include "Keymap.h"
 #include "Layout.h"
 
+/// Struct to hold input prompts to render
 typedef struct Prompts
 {
     char* inputs[COMMAND_STATE_COUNT];

@@ -5,6 +5,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
+/// Struct to track simulation steps
 typedef struct Simulation
 {
     uint16_t inputIdx;

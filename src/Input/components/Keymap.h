@@ -16,6 +16,7 @@ typedef enum ContextId
     CONTEXT_COUNT,
 } ContextId;
 
+/// Input mappings (2-way)
 typedef struct Keymap
 {
     InputId inputs[CONTEXT_COUNT][COMMAND_COUNT];

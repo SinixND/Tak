@@ -11,6 +11,7 @@
 #include "Simulation.h"
 #include <stdbool.h>
 
+/// Application head structure
 typedef struct App
 {
     /// State

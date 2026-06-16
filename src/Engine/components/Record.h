@@ -7,6 +7,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
+/// History data for place event
 typedef struct DataPlace
 {
     int8_t squareIdx;
@@ -14,11 +15,13 @@ typedef struct DataPlace
     StoneType stoneType;
 } DataPlace;
 
+/// History data for lift event
 typedef struct DataLift
 {
     int8_t squareIdx;
 } DataLift;
 
+/// History data for drop event
 typedef struct DataDrop
 {
     int8_t squareIdx;
@@ -26,6 +29,7 @@ typedef struct DataDrop
     bool flattened;
 } DataDrop;
 
+/// History entry
 typedef struct Record
 {
     ActionType actionType;
