@@ -1,8 +1,10 @@
+#include "AppStateId.h"
 #include "BackendInterface.h"
 
 #ifdef BACKEND_NCURSES
 #include "ActionTypeId.h"
 #include "App.h"
+#include "Backend_NCurses_Layout.h"
 #include "Command.h"
 #include "DirectionId.h"
 #include "FileId.h"
@@ -13,7 +15,6 @@
 #include "RankId.h"
 #include "StoneTypeId.h"
 #include <assert.h>
-#include "Backend_NCurses_Layout.h"
 #include <ncurses.h>
 
 void renderInfoPane( void );
@@ -54,7 +55,42 @@ void renderSquareContent(
     int const squareIdx
 );
 
-void renderStatic( App* const pApp )
+void renderStatic( App const* const pApp );
+void renderDynamic( App const* const pApp );
+void renderStartScreen( void );
+void renderCommandGameEnd( App const* const pApp );
+
+void render( App const* const pApp )
+{
+    switch ( pApp->state )
+    {
+        default:
+        {
+            renderStatic( pApp );
+            renderDynamic( pApp );
+
+            break;
+        }
+
+        case APP_STATE_CHOOSE_BOARD_SIZE:
+        {
+            renderStartScreen();
+
+            break;
+        }
+
+        case APP_STATE_GAME_END:
+        {
+            renderCommandGameEnd( pApp );
+
+            break;
+        }
+    }
+
+    refresh();
+}
+
+void renderStatic( App const* const pApp )
 {
     assert(
         pApp

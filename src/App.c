@@ -52,7 +52,7 @@ void runApp( App* const pApp )
         && "Pointer is nullptr"
     );
 
-    renderStartScreen();
+    render( pApp );
 
     /// Run loop
     loop( pApp );
@@ -72,25 +72,15 @@ void updateFrame( App* const pApp )
 
     switch ( pApp->state )
     {
-        default:
         case APP_STATE_CHOOSE_BOARD_SIZE:
         {
             getInput( pApp );
 
             if ( !setBoardSize( pApp ) )
             {
-                return;
+                break;
             }
 
-            renderStatic( pApp );
-
-            pApp->state = APP_STATE_FIRST_TURN;
-
-            return;
-        }
-
-        case APP_STATE_FIRST_TURN:
-        {
             /// Prepare first turn: WHITE places BLACK
             pApp->game.activePlayer = PLAYER_WHITE;
             pApp->command.playerId = PLAYER_BLACK;
@@ -98,33 +88,30 @@ void updateFrame( App* const pApp )
             pApp->command.stoneType = STONE_TYPE_FLAT;
             pApp->command.state = COMMAND_STATE_GET_FILE_X;
 
-            /// Update altered UI
-            renderDynamic( pApp );
+            pApp->state = APP_STATE_FIRST_TURN;
 
-            while (
+            break;
+        }
+
+        case APP_STATE_FIRST_TURN:
+        {
+            if (
                 !pApp->shouldClose
                 && !isTurnComplete( pApp )
             )
             {
                 progressTurn( pApp );
+
+                break;
             }
 
-            // TODO: Place 2-stack
             placeStone(
                 &pApp->game,
                 pApp->history.records[1].Data.place.playerId,
                 pApp->history.records[1].Data.place.squareIdx,
                 STONE_TYPE_FLAT
             );
-            renderDynamic( pApp );
 
-            pApp->state = APP_STATE_SECOND_TURN;
-
-            return;
-        }
-
-        case APP_STATE_SECOND_TURN:
-        {
             /// Prepare second turn: BLACK places WHITE
             pApp->game.activePlayer = PLAYER_BLACK;
             pApp->command.playerId = PLAYER_WHITE;
@@ -132,27 +119,33 @@ void updateFrame( App* const pApp )
             pApp->command.stoneType = STONE_TYPE_FLAT;
             pApp->command.state = COMMAND_STATE_GET_FILE_X;
 
-            /// Update altered UI
-            renderDynamic( pApp );
+            pApp->state = APP_STATE_SECOND_TURN;
 
-            while (
+            break;
+        }
+
+        case APP_STATE_SECOND_TURN:
+        {
+            if (
                 !pApp->shouldClose
                 && !isTurnComplete( pApp )
             )
             {
                 progressTurn( pApp );
+
+                break;
             }
 
             pApp->state = APP_STATE_NORMAL_TURN;
 
-            return;
+            break;
         }
 
         case APP_STATE_NORMAL_TURN:
         {
             progressTurn( pApp );
 
-            return;
+            break;
         }
 
         case APP_STATE_TURN_UNDO:
@@ -165,11 +158,9 @@ void updateFrame( App* const pApp )
             /// Reset command
             pApp->command = newCommand( pApp->command.playerId );
 
-            renderDynamic( pApp );
-
             pApp->state = APP_STATE_NORMAL_TURN;
 
-            return;
+            break;
         }
 
         case APP_STATE_TURN_REDO:
@@ -182,11 +173,9 @@ void updateFrame( App* const pApp )
             /// Reset command
             pApp->command = newCommand( pApp->command.playerId );
 
-            renderDynamic( pApp );
-
             pApp->state = APP_STATE_NORMAL_TURN;
 
-            return;
+            break;
         }
 
         case APP_STATE_TURN_RESET:
@@ -200,23 +189,27 @@ void updateFrame( App* const pApp )
             /// Reset command
             pApp->command = newCommand( pApp->command.playerId );
 
-            renderDynamic( pApp );
-
             pApp->state = APP_STATE_NORMAL_TURN;
 
-            return;
+            break;
         }
 
         case APP_STATE_GAME_END:
         {
-            renderCommandGameEnd( pApp );
-
             pollInput( &pApp->inputBuffer );
             handleGlobalInput( pApp );
 
+            break;
+        }
+
+        default:
+        {
+            assert( !"App state invalid" );
             return;
         }
     }
+
+    render( pApp );
 }
 
 bool setBoardSize( App* const pApp )
@@ -303,8 +296,6 @@ void progressTurn( App* const pApp )
     };
 
     updateApp( pApp );
-
-    renderDynamic( pApp );
 }
 
 // NOTE: Only required as long as simulation is used here
