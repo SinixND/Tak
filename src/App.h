@@ -75,6 +75,9 @@ bool updateGame( App* const pApp );
  */
 bool isTurnComplete( App const* const pApp );
 
+/// Check if and which player won
+bool handleGameEnd( App* const pApp );
+
 /// Perform actions to prepare next turn
 void handleTurnEnd( App* const pApp );
 

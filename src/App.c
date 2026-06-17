@@ -170,6 +170,13 @@ void updateFrame( App* const pApp )
                 &pApp->game
             );
 
+            if ( handleGameEnd( pApp ) )
+            {
+                pApp->state = APP_STATE_GAME_END;
+
+                break;
+            }
+
             /// Reset command
             pApp->command = newCommand( pApp->command.playerId );
 
@@ -212,6 +219,7 @@ void updateFrame( App* const pApp )
     render( pApp );
 }
 
+// TODO: Move to engine
 bool setBoardSize( App* const pApp )
 {
     assert(
@@ -398,6 +406,27 @@ bool isTurnComplete( App const* const pApp )
     return pApp->command.state == COMMAND_STATE_GET_ACTION_TYPE;
 }
 
+bool handleGameEnd( App* const pApp )
+{
+    for ( int playerId = 0; playerId < PLAYER_COUNT; ++playerId )
+    {
+        if (
+            isWinConditionMet(
+                &pApp->game,
+                playerId
+            )
+        )
+        {
+            pApp->game.activePlayer = playerId;
+            pApp->state = APP_STATE_GAME_END;
+
+            return true;
+        }
+    }
+
+    return false;
+}
+
 void handleTurnEnd( App* const pApp )
 {
     assert(
@@ -413,21 +442,9 @@ void handleTurnEnd( App* const pApp )
         &pApp->game
     );
 
-    /// Check if and which player won
-    for ( int playerId = 0; playerId < PLAYER_COUNT; ++playerId )
+    if ( handleGameEnd( pApp ) )
     {
-        if (
-            isWinConditionMet(
-                &pApp->game,
-                playerId
-            )
-        )
-        {
-            pApp->game.activePlayer = playerId;
-            pApp->state = APP_STATE_GAME_END;
-
-            return;
-        }
+        return;
     }
 
     prepareGame( &pApp->game );
