@@ -15,9 +15,12 @@ void setupBackend( void )
     use_default_colors();
     init_color( COLOR_BLACK, 0, 0, 0 );
     init_color( COLOR_WHITE, 1000, 1000, 1000 );
-    init_color( PLAYER_COLOR_WHITE, 700, 574, 413 );
-    init_color( PLAYER_COLOR_BLACK, 486, 278, 0 );
-    init_color( LAYOUT_COLOR, 380, 541, 239 );
+    // init_color( PLAYER_COLOR_WHITE, 700, 574, 413 );
+    // init_color( PLAYER_COLOR_BLACK, 486, 278, 0 );
+    // init_color( LAYOUT_COLOR, 380, 541, 239 );
+    init_color( PLAYER_COLOR_WHITE, 580, 741, 439 );
+    init_color( PLAYER_COLOR_BLACK, 180, 341, 39 );
+    init_color( LAYOUT_COLOR, 700, 574, 413 );
     init_pair( CPAIR_WHITE_1, PLAYER_COLOR_BLACK, PLAYER_COLOR_WHITE );
     init_pair( CPAIR_BLACK_1, PLAYER_COLOR_WHITE, PLAYER_COLOR_BLACK );
     init_pair( CPAIR_WHITE_2, PLAYER_COLOR_WHITE, COLOR_BLACK );

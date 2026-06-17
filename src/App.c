@@ -407,6 +407,12 @@ void handleTurnEnd( App* const pApp )
 
     updateScore( &pApp->game );
 
+    recordCommand(
+        &pApp->history,
+        &pApp->command,
+        &pApp->game
+    );
+
     /// Check if and which player won
     for ( int playerId = 0; playerId < PLAYER_COUNT; ++playerId )
     {
@@ -423,12 +429,6 @@ void handleTurnEnd( App* const pApp )
             return;
         }
     }
-
-    recordCommand(
-        &pApp->history,
-        &pApp->command,
-        &pApp->game
-    );
 
     prepareGame( &pApp->game );
     prepareCommand(
