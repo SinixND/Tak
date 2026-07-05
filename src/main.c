@@ -4,9 +4,9 @@ int main( void )
 {
     App app = newApp();
 
-    setupApp();
+    setupApp( &app );
     runApp( &app );
-    closeApp();
+    closeApp( &app );
 
     return 0;
 }

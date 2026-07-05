@@ -2,9 +2,10 @@
 
 #ifdef BACKEND_RAYLIB
 #include "Backend_Raylib_Layout.h"
+#include "UIData.h"
 #include <raylib.h>
 
-void setupBackend( void )
+void setupBackend( UIData* uiData )
 {
     // TODO: Finish function
     /// Raylib flags
@@ -25,6 +26,14 @@ void setupBackend( void )
         WINDOW_HEIGHT_MIN
     );
 
+    /// Font
+    uiData->font = LoadFontEx(
+        "assets/fonts/LiberationMono-Regular.ttf",
+        uiData->fontSize,
+        0,
+        0
+    );
+
 #if defined( PLATFORM_WEB )
     MaximizeWindow();
 #endif
@@ -32,8 +41,9 @@ void setupBackend( void )
     SetTargetFPS( FPS_TARGET );
 }
 
-void closeBackend( void )
+void closeBackend( UIData* uiData )
 {
+    UnloadFont( uiData->font );
     /// Close window and opengl context
     CloseWindow();
 }

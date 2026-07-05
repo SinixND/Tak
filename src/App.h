@@ -9,6 +9,7 @@
 #include "InputBuffer.h"
 #include "Prompts.h"
 #include "Simulation.h"
+#include "UIData.h"
 #include <stdbool.h>
 
 /// Application head structure
@@ -27,6 +28,7 @@ typedef struct App
     History history;
     /// Render
     Prompts prompts;
+    UIData uiData;
     /// Timing
     bool shouldClose;
 } App;
@@ -35,13 +37,13 @@ typedef struct App
 App newApp( void );
 
 /// Setup before running the application loop
-void setupApp( void );
+void setupApp( App* const pApp );
 
 /// Run main application loop, ticking frames
 void runApp( App* const pApp );
 
 /// Clean up before closing the application
-void closeApp( void );
+void closeApp( App* const pApp );
 
 /// Update one frame of the main loop
 void updateFrame( App* const pApp );

@@ -33,6 +33,7 @@ App newApp( void )
         .event = newEvent(),
         .history = newHistory(),
         .shouldClose = false,
+        .uiData.fontSize = 20,
     };
 
     app.prompts = newPrompts( &app.inputBuffer.keymap );
@@ -40,9 +41,9 @@ App newApp( void )
     return app;
 }
 
-void setupApp( void )
+void setupApp( App* const pApp )
 {
-    setupBackend();
+    setupBackend( &pApp->uiData );
 }
 
 void runApp( App* const pApp )
@@ -58,9 +59,9 @@ void runApp( App* const pApp )
     loop( pApp );
 }
 
-void closeApp( void )
+void closeApp( App* const pApp )
 {
-    closeBackend();
+    closeBackend( &pApp->uiData );
 }
 
 void updateFrame( App* const pApp )

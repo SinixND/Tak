@@ -2,14 +2,15 @@
 #define IG20260327175731
 
 #include "App.h"
+#include "UIData.h"
 
 /// Context
 
 /// Setup backend context
-void setupBackend( void );
+void setupBackend( UIData* uiData );
 
 /// Close backend context
-void closeBackend( void );
+void closeBackend( UIData* uiData );
 
 /// Timing
 
