@@ -28,7 +28,7 @@ include make/flags.mk
 
 include make/platform/$(PLATFORM).mk
 include make/binary/$(BINARY).mk
-include make/build/$(BUILD).mk
+include make/targets/$(BUILD).mk
 include make/backend/$(BACKEND).mk
 
 include make/targets/core.mk

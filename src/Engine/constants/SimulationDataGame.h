@@ -7,7 +7,7 @@ static InputId const SIMULATION_DATA[] = {
     /// Select board size
     INPUT_5,
 
-    // /*
+    /*
     INPUT_F,
     INPUT_A,
     INPUT_5,
