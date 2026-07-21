@@ -33,7 +33,7 @@ App newApp( void )
         .event = newEvent(),
         .history = newHistory(),
         .shouldClose = false,
-        .uiData.fontSize = 20,
+        .uiData = newUIData(),
     };
 
     app.prompts = newPrompts( &app.inputBuffer.keymap );

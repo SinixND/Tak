@@ -32,6 +32,14 @@ void setupBackend( UIData* const pUIData )
         0,
         0
     );
+    pUIData->fontWidth
+        = MeasureTextEx(
+              pUIData->font,
+              "X",
+              pUIData->fontSize,
+              pUIData->spacing
+        )
+              .x;
 
 #if defined( PLATFORM_WEB )
     MaximizeWindow();

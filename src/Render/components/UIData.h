@@ -10,7 +10,11 @@ typedef struct UIData
     int fontSize;
 #ifdef BACKEND_RAYLIB
     Font font;
+    int fontWidth;
+    int spacing;
 #endif
 } UIData;
+
+UIData newUIData( void );
 
 #endif
