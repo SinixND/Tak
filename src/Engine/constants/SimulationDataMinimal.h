@@ -4,7 +4,7 @@
 #include "InputId.h"
 
 static InputId const SIMULATION_DATA[] = {
-    INPUT_A,
+    INPUT_5,
 };
 
 #endif
