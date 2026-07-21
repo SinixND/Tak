@@ -71,7 +71,7 @@ void renderStartScreen( App const* const pApp )
         (Vector2){ 10.0f, 10.0f },
         pApp->uiData.fontSize,
         1.0f,
-        WHITE
+        RAYWHITE
     );
 
     DrawTextEx(
@@ -85,7 +85,7 @@ void renderStartScreen( App const* const pApp )
         (Vector2){ 10.0f, 40.0f },
         pApp->uiData.fontSize,
         1.0f,
-        WHITE
+        RAYWHITE
     );
 }
 

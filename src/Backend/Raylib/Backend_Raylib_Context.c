@@ -5,9 +5,8 @@
 #include "UIData.h"
 #include <raylib.h>
 
-void setupBackend( UIData* uiData )
+void setupBackend( UIData* const pUIData )
 {
-    // TODO: Finish function
     /// Raylib flags
     SetConfigFlags( FLAG_WINDOW_RESIZABLE );
     SetConfigFlags( FLAG_VSYNC_HINT );
@@ -27,9 +26,9 @@ void setupBackend( UIData* uiData )
     );
 
     /// Font
-    uiData->font = LoadFontEx(
+    pUIData->font = LoadFontEx(
         "assets/fonts/LiberationMono-Regular.ttf",
-        uiData->fontSize,
+        pUIData->fontSize,
         0,
         0
     );
@@ -41,9 +40,9 @@ void setupBackend( UIData* uiData )
     SetTargetFPS( FPS_TARGET );
 }
 
-void closeBackend( UIData* uiData )
+void closeBackend( UIData const* const pUIData )
 {
-    UnloadFont( uiData->font );
+    UnloadFont( pUIData->font );
     /// Close window and opengl context
     CloseWindow();
 }

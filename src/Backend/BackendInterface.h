@@ -7,10 +7,10 @@
 /// Context
 
 /// Setup backend context
-void setupBackend( UIData* uiData );
+void setupBackend( UIData* const pUIData );
 
 /// Close backend context
-void closeBackend( UIData* uiData );
+void closeBackend( UIData const* const pUIData );
 
 /// Timing
 

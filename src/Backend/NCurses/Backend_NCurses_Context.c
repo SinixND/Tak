@@ -4,7 +4,7 @@
 #include "Backend_NCurses_Layout.h"
 #include <ncurses.h>
 
-void setupBackend( UIData* uiData )
+void setupBackend( UIData* const pUIData )
 {
     initscr(); // Start ncurses mode
     cbreak();  // Disable line buffering, pass keys to program immediately
@@ -33,7 +33,7 @@ void setupBackend( UIData* uiData )
     keypad( stdscr, TRUE ); // Enable arrow keys and function keys
 }
 
-void closeBackend( UIData* uiData )
+void closeBackend( UIData const* const pUIData )
 {
     reset_color_pairs();
     endwin(); // Restore terminal

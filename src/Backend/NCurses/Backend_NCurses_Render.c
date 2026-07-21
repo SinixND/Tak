@@ -372,7 +372,7 @@ void renderInfoPaneContent( App const* const pApp )
         POSITION_INPUT_TYPE[0],
         POSITION_INPUT_TYPE[1],
         "%s",
-        pApp->prompts.inputs[pApp->command.state]
+        pApp->prompts.pInputs[pApp->command.state]
     );
 
     /// Print possible input options

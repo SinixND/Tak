@@ -14,7 +14,7 @@ Prompts newPrompts( Keymap const* const pKeymap )
     );
 
     return (Prompts){
-        .inputs = {
+        .pInputs = {
             [COMMAND_STATE_NONE] = " ---      ",
             [COMMAND_STATE_GET_ACTION_TYPE] = "Action    ",
             [COMMAND_STATE_GET_STONE_TYPE] = "Stone Type",

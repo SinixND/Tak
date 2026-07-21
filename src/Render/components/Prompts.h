@@ -8,7 +8,7 @@
 /// Struct to hold input prompts to render
 typedef struct Prompts
 {
-    char* inputs[COMMAND_STATE_COUNT];
+    char* pInputs[COMMAND_STATE_COUNT];
     char options[COMMAND_STATE_COUNT][MAX_PROMPT_LENGTH];
 } Prompts;
 
