@@ -2,10 +2,17 @@
 
 #ifdef BACKEND_NCURSES
 #include "Backend_NCurses_Layout.h"
+#include <assert.h>
 #include <ncurses.h>
 
 void setupBackend( UIData* const pUIData )
 {
+    /// Used for compatibility between backends
+    assert(
+        pUIData
+        && "Pointer is nullptr"
+    );
+
     initscr(); // Start ncurses mode
     cbreak();  // Disable line buffering, pass keys to program immediately
     // halfdelay( 1 ); // Non-blocking: Waits n/10ths of a second for input
@@ -35,6 +42,12 @@ void setupBackend( UIData* const pUIData )
 
 void closeBackend( UIData const* const pUIData )
 {
+    /// Used for compatibility between backends
+    assert(
+        pUIData
+        && "Pointer is nullptr"
+    );
+
     reset_color_pairs();
     endwin(); // Restore terminal
 }
