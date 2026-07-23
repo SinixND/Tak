@@ -83,53 +83,26 @@ void renderStatic( App const* const pApp )
 
 void renderInfoPane( UIData const* const pUIData )
 {
-    DrawTextEx(
-        pUIData->font,
-        "WHITE        BLACK",
-        (Vector2){
-            10.0f,
-            10.0f
-        },
-        pUIData->fontSize,
-        pUIData->spacing,
-        RAYWHITE
-    );
-
-    DrawTextEx(
-        pUIData->font,
-        "      SCORE",
-        (Vector2){
-            10.0f + pUIData->fontWidth / 2.0f,
-            10.0f + pUIData->fontSize
-        },
-        pUIData->fontSize,
-        pUIData->spacing,
-        RAYWHITE
-    );
-
-    DrawTextEx(
-        pUIData->font,
-        "     REGULAR",
-        (Vector2){
-            10.0f + pUIData->fontWidth / 2.0f,
-            10.0f + 2 * pUIData->fontSize
-        },
-        pUIData->fontSize,
-        pUIData->spacing,
-        RAYWHITE
-    );
-
-    DrawTextEx(
-        pUIData->font,
-        "     CAPSTONE",
-        (Vector2){
-            10.0f,
-            10.0f + 3 * pUIData->fontSize
-        },
-        pUIData->fontSize,
-        pUIData->spacing,
-        RAYWHITE
-    );
+    for ( int paneIdx = 0; paneIdx < ( LAYOUT_PANE_HEIGHT ); ++paneIdx )
+    {
+        // mvprintw(
+        //     paneIdx,
+        //     0,
+        //     "%s",
+        //     LAYOUT_INFO_PANE[paneIdx]
+        // );
+        DrawTextEx(
+            pUIData->font,
+            TextFormat( "%s", LAYOUT_INFO_PANE[paneIdx] ),
+            (Vector2){
+                paneIdx,
+                0,
+            },
+            pUIData->fontSize,
+            pUIData->spacing,
+            RAYWHITE
+        );
+    }
 }
 
 void renderDynamic( App const* const pApp )
@@ -150,7 +123,7 @@ void renderStartScreen( App const* const pApp )
             10.0f
         },
         pApp->uiData.fontSize,
-        1.0f,
+        pApp->uiData.spacing,
         RAYWHITE
     );
 
@@ -167,7 +140,7 @@ void renderStartScreen( App const* const pApp )
             40.0f
         },
         pApp->uiData.fontSize,
-        1.0f,
+        pApp->uiData.spacing,
         RAYWHITE
     );
 }
