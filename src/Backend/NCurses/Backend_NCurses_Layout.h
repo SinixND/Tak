@@ -1,22 +1,22 @@
 #ifndef IG20260419211535
 #define IG20260419211535
 
-enum
-{
-    LAYOUT_PANE_HEIGHT = 13,
-    LAYOUT_PANE_WIDTH = 17,
-    BOARD_OFFSET_X = LAYOUT_PANE_WIDTH + 2,
-    LAYOUT_BOARD_SQUARE_SIZE = 4,
-    HISTORY_RENDER_COUNT = 2,
-    PLAYER_COLOR_WHITE = 1,
-    PLAYER_COLOR_BLACK = 2,
-    LAYOUT_COLOR = 3,
-    CPAIR_WHITE_1 = 1,
-    CPAIR_BLACK_1 = 2,
-    CPAIR_WHITE_2 = 3,
-    CPAIR_BLACK_2 = 4,
-    CPAIR_LAYOUT = 5,
-};
+#define LAYOUT_PANE_HEIGHT 13
+#define LAYOUT_BOARD_SQUARE_SIZE 4
+
+static int const BOARD_LABELS_X_LEFT = 19;
+static int const BOARD_LABELS_Y_TOP = 0;
+static int const BOARD_POS_X = 20;
+static int const BOARD_POS_Y = 1;
+static int const HISTORY_RENDER_COUNT = 2;
+static int const PLAYER_COLOR_WHITE = 1;
+static int const PLAYER_COLOR_BLACK = 2;
+static int const LAYOUT_COLOR = 3;
+static int const CPAIR_WHITE_1 = 1;
+static int const CPAIR_BLACK_1 = 2;
+static int const CPAIR_WHITE_2 = 3;
+static int const CPAIR_BLACK_2 = 4;
+static int const CPAIR_LAYOUT = 5;
 
 /// Positions (y, x)
 static int const POSITION_STACK_BUFFER[] = { 2, 3 };
@@ -35,7 +35,7 @@ static int const POSITION_INPUT_OPTIONS[] = { 10, 7 };
 static int const POSITION_INPUT_CURRENT[] = { 11, 2 };
 static int const POSITION_HISTORY_TOP_LEFT[] = { 13, 0 };
 
-static char* const LAYOUT_INFO_PANE[] = {
+static char* const LAYOUT_INFO_PANE[LAYOUT_PANE_HEIGHT] = {
     "StackBuffer",
     "  +   +",
     "",
@@ -52,10 +52,11 @@ static char* const LAYOUT_INFO_PANE[] = {
 };
 
 static char* const LAYOUT_LABELS_FILE = {
-    "  A   B   C   D   E   F   G   H",
+    "   A   B   C   D   E   F   G   H",
 };
 
 static char* const LAYOUT_LABELS_RANK[] = {
+    " ",
     " ",
     " ",
     "8",
@@ -91,7 +92,7 @@ static char* const LAYOUT_LABELS_RANK[] = {
     " ",
     " ",
 };
-static char* const LAYOUT_BOARD_SQUARE[] = {
+static char* const LAYOUT_BOARD_SQUARE[LAYOUT_BOARD_SQUARE_SIZE + 1] = {
     "+   +",
     "     ",
     "     ",

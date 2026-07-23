@@ -19,10 +19,10 @@
 
 void renderStatic( App const* const pApp );
 void renderInfoPane( void );
-void renderFileLabels( int const fileLabelsOffsetX, int const boardSize );
-void renderRankLabels( int const ruleLabelsOffsetY, int const boardSize );
-void renderBoard( int const fileLabelsOffsetX, int const ruleLabelsOffsetY, int const boardSize );
-void renderBoardEdges( int const fileLabelsOffsetX, int const ruleLabelsOffsetY, int const boardSize );
+void renderFileLabels( int const boardSize );
+void renderRankLabels( int const boardSize );
+void renderBoard( int const boardSize );
+void renderBoardEdges( int const boardSize );
 
 void renderDynamic( App const* const pApp );
 void renderCommand( Command const* const pCommand );
@@ -81,50 +81,29 @@ void renderStatic( App const* const pApp )
     renderInfoPane();
 
     int const boardSize = pApp->game.board.size;
-    int const fileLabelsOffsetX = 1;
-    int const ruleLabelsOffsetY = 1;
 
-    renderFileLabels(
-        fileLabelsOffsetX,
-        boardSize
-    );
+    renderFileLabels( boardSize );
+    renderRankLabels( boardSize );
+    renderBoard( boardSize );
+    renderBoardEdges( boardSize );
 
-    renderRankLabels(
-        ruleLabelsOffsetY,
-        boardSize
-    );
-
-    renderBoard(
-        fileLabelsOffsetX,
-        ruleLabelsOffsetY,
-        boardSize
-    );
-
-    renderBoardEdges(
-        fileLabelsOffsetX,
-        ruleLabelsOffsetY,
-        boardSize
-    );
     attroff( COLOR_PAIR( CPAIR_LAYOUT ) );
 }
 
 void renderInfoPane( void )
 {
-    for ( int paneIdx = 0; paneIdx < ( LAYOUT_PANE_HEIGHT ); ++paneIdx )
+    for ( int idx = 0; idx < ( LAYOUT_PANE_HEIGHT ); ++idx )
     {
         mvprintw(
-            paneIdx,
+            idx,
             0,
             "%s",
-            LAYOUT_INFO_PANE[paneIdx]
+            LAYOUT_INFO_PANE[idx]
         );
     }
 }
 
-void renderFileLabels(
-    int const fileLabelsOffsetX,
-    int const boardSize
-)
+void renderFileLabels( int const boardSize )
 {
     assert(
         ( boardSize >= BOARD_SIZE_MIN )
@@ -134,27 +113,24 @@ void renderFileLabels(
 
     // Top
     mvprintw(
-        0,
-        BOARD_OFFSET_X + fileLabelsOffsetX,
+        BOARD_LABELS_Y_TOP,
+        BOARD_LABELS_X_LEFT,
         "%.*s", // Partly render file labels
-        fileLabelsOffsetX + 1 + ( boardSize * 4 ),
+        boardSize * 4,
         LAYOUT_LABELS_FILE
     );
 
     // Bottom
     mvprintw(
-        2 + ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ),
-        BOARD_OFFSET_X + fileLabelsOffsetX,
+        BOARD_LABELS_Y_TOP + ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ),
+        BOARD_LABELS_X_LEFT,
         "%.*s",
-        fileLabelsOffsetX + 1 + ( boardSize * 4 ),
+        boardSize * 4,
         LAYOUT_LABELS_FILE
     );
 }
 
-void renderRankLabels(
-    int const ruleLabelsOffsetY,
-    int const boardSize
-)
+void renderRankLabels( int const boardSize )
 {
     assert(
         ( boardSize >= BOARD_SIZE_MIN )
@@ -170,8 +146,8 @@ void renderRankLabels(
     for ( int y = 0; y < ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ); ++y )
     {
         mvprintw(
-            ruleLabelsOffsetY + y,
-            BOARD_OFFSET_X,
+            BOARD_LABELS_Y_TOP + y,
+            BOARD_LABELS_X_LEFT,
             "%s",
             LAYOUT_LABELS_RANK[offsetIntoRankLabelsLayout + y]
         );
@@ -181,19 +157,15 @@ void renderRankLabels(
     for ( int y = 0; y < ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ); ++y )
     {
         mvprintw(
-            ruleLabelsOffsetY + y,
-            BOARD_OFFSET_X + 2 + ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ),
+            BOARD_LABELS_Y_TOP + y,
+            BOARD_LABELS_X_LEFT + 1 + ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ) + 1,
             "%s",
             LAYOUT_LABELS_RANK[offsetIntoRankLabelsLayout + y]
         );
     }
 }
 
-void renderBoard(
-    int const fileLabelsOffsetX,
-    int const ruleLabelsOffsetY,
-    int const boardSize
-)
+void renderBoard( int const boardSize )
 {
     assert(
         ( boardSize >= BOARD_SIZE_MIN )
@@ -201,31 +173,24 @@ void renderBoard(
         && "Board size invalid"
     );
 
-    int const gridOffsetX = BOARD_OFFSET_X + fileLabelsOffsetX;
-    int const gridOffsetY = ruleLabelsOffsetY;
-
     for ( int y = 0; y < boardSize; ++y )
     {
         for ( int x = 0; x < boardSize; ++x )
         {
-            for ( int gridSquareIdx = 0; gridSquareIdx < ( LAYOUT_BOARD_SQUARE_SIZE + 1 ); ++gridSquareIdx )
+            for ( int layoutIdx = 0; layoutIdx < ( LAYOUT_BOARD_SQUARE_SIZE + 1 ); ++layoutIdx )
             {
                 mvprintw(
-                    gridOffsetY + ( y * ( LAYOUT_BOARD_SQUARE_SIZE ) ) + gridSquareIdx,
-                    gridOffsetX + ( x * ( LAYOUT_BOARD_SQUARE_SIZE ) ),
+                    BOARD_POS_Y + ( y * ( LAYOUT_BOARD_SQUARE_SIZE ) ) + layoutIdx,
+                    BOARD_POS_X + ( x * ( LAYOUT_BOARD_SQUARE_SIZE ) ),
                     "%s",
-                    LAYOUT_BOARD_SQUARE[gridSquareIdx]
+                    LAYOUT_BOARD_SQUARE[layoutIdx]
                 );
             }
         }
     }
 }
 
-void renderBoardEdges(
-    int const fileLabelsOffsetX,
-    int const ruleLabelsOffsetY,
-    int const boardSize
-)
+void renderBoardEdges( int const boardSize )
 {
     assert(
         ( boardSize >= BOARD_SIZE_MIN )
@@ -237,8 +202,8 @@ void renderBoardEdges(
     for ( int x = 0; x < ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ) - 1; ++x )
     {
         mvaddch(
-            ruleLabelsOffsetY,
-            BOARD_OFFSET_X + fileLabelsOffsetX + 1 + x,
+            BOARD_POS_Y,
+            BOARD_POS_X + 1 + x,
             '-'
         );
     }
@@ -247,8 +212,8 @@ void renderBoardEdges(
     for ( int y = 0; y < ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ) - 1; ++y )
     {
         mvaddch(
-            ruleLabelsOffsetY + 1 + y,
-            BOARD_OFFSET_X + fileLabelsOffsetX,
+            BOARD_POS_Y + 1 + y,
+            BOARD_POS_X,
             '|'
         );
     }
@@ -257,8 +222,8 @@ void renderBoardEdges(
     for ( int y = 0; y < ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ) - 1; ++y )
     {
         mvaddch(
-            ruleLabelsOffsetY + 1 + y,
-            BOARD_OFFSET_X + fileLabelsOffsetX + ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ),
+            BOARD_POS_Y + 1 + y,
+            BOARD_POS_X + ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ),
             '|'
         );
     }
@@ -267,8 +232,8 @@ void renderBoardEdges(
     for ( int x = 0; x < ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ) - 1; ++x )
     {
         mvaddch(
-            ruleLabelsOffsetY + ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ),
-            BOARD_OFFSET_X + fileLabelsOffsetX + 1 + x,
+            BOARD_POS_Y + ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ),
+            BOARD_POS_X + 1 + x,
             '-'
         );
     }
@@ -283,7 +248,7 @@ void renderDynamic( App const* const pApp )
 
     renderInfoPaneContent( pApp );
     renderStackBufferContent( pApp );
-    renderBoardContent( pApp );
+    // renderBoardContent( pApp );
 
     refresh();
 }
@@ -700,7 +665,7 @@ void renderSquareContent(
 
     int const squareEdgeY = ( ( pBoard->size - ( squareIdx / pBoard->size ) ) * LAYOUT_BOARD_SQUARE_SIZE ) - 2;
 
-    int const squareEdgeX = ( BOARD_OFFSET_X + 2 ) + ( squareIdx % pBoard->size ) * LAYOUT_BOARD_SQUARE_SIZE;
+    int const squareEdgeX = ( BOARD_POS_X + 2 ) + ( squareIdx % pBoard->size ) * LAYOUT_BOARD_SQUARE_SIZE;
 
     // Render stack type
     if (
