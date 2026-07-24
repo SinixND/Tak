@@ -13,22 +13,25 @@
 
 void renderStatic( App const* const pApp );
 void renderInfoPane( UIData const* const pUIData );
-// void renderFileLabels();
-// void renderRankLabels();
-// void renderBoard();
-// void renderBoardEdges();
+void renderStackBuffer( UIData const* const pUIData );
+void renderPlayerInfo( UIData const* const pUIData );
+void renderStackBuffer( UIData const* const pUIData );
+void renderFileLabels( UIData const* const pUIData, int const boardSize );
+void renderRankLabels( UIData const* const pUIData, int const boardSize );
+void renderBoard( UIData const* const pUIData, int const boardSize );
+void renderBoardEdges( UIData const* const pUIData, int const boardSize );
 
 void renderDynamic( App const* const pApp );
-// void renderCommand();
-// void renderHistory();
-// void renderInfoPaneContent();
-// void renderStackBufferContent();
-// void renderBoardContent();
-// void renderSquareContent();
+void renderCommand( UIData const* const pUIData, Command const* const pCommand );
+void renderHistory( UIData const* const pUIData, History const* const pHistory, int const entryCount );
+void renderInfoPaneContent( App const* const pApp );
+void renderStackBufferContent( App const* const pApp );
+void renderBoardContent( App const* const pApp );
+void renderSquareContent( App const* const pApp, int const squareIdx );
 
-void renderStartScreen( App const* const pApp );
+void renderStartScreen( UIData const* const pUIData );
 
-// void renderCommandGameEnd( App const* const pApp );
+void renderCommandGameEnd( App const* const pApp );
 
 void render( App const* const pApp )
 {
@@ -50,7 +53,7 @@ void render( App const* const pApp )
 
         case APP_STATE_CHOOSE_BOARD_SIZE:
         {
-            renderStartScreen( pApp );
+            renderStartScreen( &pApp->uiData );
 
             break;
         }
@@ -75,28 +78,153 @@ void renderStatic( App const* const pApp )
     );
 
     renderInfoPane( &pApp->uiData );
-    // renderFileLabels();
-    // renderRankLabels();
-    // renderBoard();
-    // renderBoardEdges();
+
+    int const boardSize = pApp->game.board.size;
+
+    renderFileLabels(
+        &pApp->uiData,
+        boardSize
+    );
+    renderRankLabels(
+        &pApp->uiData,
+        boardSize
+    );
 }
 
 void renderInfoPane( UIData const* const pUIData )
 {
-    for ( int paneIdx = 0; paneIdx < ( LAYOUT_PANE_HEIGHT ); ++paneIdx )
+    renderStackBuffer( pUIData );
+    renderPlayerInfo( pUIData );
+}
+
+void renderStackBuffer( UIData const* const pUIData )
+{
+    for ( int idx = 0; idx < ( LAYOUT_STACK_BUFFER_SIZE ); ++idx )
     {
-        // mvprintw(
-        //     paneIdx,
-        //     0,
-        //     "%s",
-        //     LAYOUT_INFO_PANE[paneIdx]
-        // );
         DrawTextEx(
             pUIData->font,
-            TextFormat( "%s", LAYOUT_INFO_PANE[paneIdx] ),
+            TextFormat( "%s", LAYOUT_STACK_BUFFER[idx] ),
             (Vector2){
-                paneIdx,
-                0,
+                POSITION_STACK_BUFFER[0] * pUIData->fontWidth,
+                ( POSITION_STACK_BUFFER[1] + idx ) * pUIData->fontSize,
+            },
+            pUIData->fontSize,
+            pUIData->spacing,
+            RAYWHITE
+        );
+    }
+}
+
+void renderPlayerInfo( UIData const* const pUIData )
+{
+    for ( int idx = 0; idx < ( LAYOUT_PLAYER_INFO_SIZE ); ++idx )
+    {
+        DrawTextEx(
+            pUIData->font,
+            TextFormat( "%s", LAYOUT_PLAYER_INFO[idx] ),
+            (Vector2){
+                POSITION_PLAYER_INFO[0] * pUIData->fontWidth,
+                ( POSITION_PLAYER_INFO[1] + idx ) * pUIData->fontSize,
+            },
+            pUIData->fontSize,
+            pUIData->spacing,
+            RAYWHITE
+        );
+    }
+}
+
+void renderFileLabels(
+    UIData const* const pUIData,
+    int const boardSize
+)
+{
+    assert(
+        ( boardSize >= BOARD_SIZE_MIN )
+        && ( boardSize <= BOARD_SIZE_MAX )
+        && "Board size invalid"
+    );
+
+    // Top
+    DrawTextEx(
+        pUIData->font,
+        TextFormat(
+            "%.*s", // Partly render file labels
+            boardSize * 4,
+            LAYOUT_LABELS_FILE
+        ),
+        (Vector2){
+            BOARD_LABELS_X_LEFT * pUIData->fontWidth,
+            BOARD_LABELS_Y_TOP * pUIData->fontSize,
+        },
+        pUIData->fontSize,
+        pUIData->spacing,
+        RAYWHITE
+    );
+
+    // Bottom
+    DrawTextEx(
+        pUIData->font,
+        TextFormat(
+            "%.*s", // Partly render file labels
+            boardSize * 4,
+            LAYOUT_LABELS_FILE
+        ),
+        (Vector2){
+            BOARD_LABELS_X_LEFT * pUIData->fontWidth,
+            ( BOARD_LABELS_Y_TOP + ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ) ) * pUIData->fontSize,
+        },
+        pUIData->fontSize,
+        pUIData->spacing,
+        RAYWHITE
+    );
+}
+
+void renderRankLabels(
+    UIData const* const pUIData,
+    int const boardSize
+)
+{
+    assert(
+        ( boardSize >= BOARD_SIZE_MIN )
+        && ( boardSize <= BOARD_SIZE_MAX )
+        && "Board size invalid"
+    );
+
+    int const offsetIntoRankLabelsLayout
+        = ( ( BOARD_SIZE_MAX - boardSize )
+            * LAYOUT_BOARD_SQUARE_SIZE );
+
+    // Left
+    for ( int y = 0; y < ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ); ++y )
+    {
+        DrawTextEx(
+            pUIData->font,
+            TextFormat(
+                "%s",
+                LAYOUT_LABELS_RANK[offsetIntoRankLabelsLayout + y]
+            ),
+            (Vector2){
+                BOARD_LABELS_X_LEFT * pUIData->fontWidth,
+                ( BOARD_LABELS_Y_TOP + y ) * pUIData->fontSize,
+            },
+            pUIData->fontSize,
+            pUIData->spacing,
+            RAYWHITE
+        );
+    }
+
+    // Right
+    for ( int y = 0; y < ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ); ++y )
+    {
+        DrawTextEx(
+            pUIData->font,
+            TextFormat(
+                "%s",
+                LAYOUT_LABELS_RANK[offsetIntoRankLabelsLayout + y]
+            ),
+            (Vector2){
+                ( BOARD_LABELS_X_LEFT + 1 + ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ) + 1 ) * pUIData->fontWidth,
+                ( BOARD_LABELS_Y_TOP + y ) * pUIData->fontSize,
             },
             pUIData->fontSize,
             pUIData->spacing,
@@ -113,22 +241,22 @@ void renderDynamic( App const* const pApp )
     );
 }
 
-void renderStartScreen( App const* const pApp )
+void renderStartScreen( UIData const* const pUIData )
 {
     DrawTextEx(
-        pApp->uiData.font,
+        pUIData->font,
         "Choose board size. ",
         (Vector2){
             10.0f,
             10.0f
         },
-        pApp->uiData.fontSize,
-        pApp->uiData.spacing,
+        pUIData->fontSize,
+        pUIData->spacing,
         RAYWHITE
     );
 
     DrawTextEx(
-        pApp->uiData.font,
+        pUIData->font,
         TextFormat(
             "Options: %i - %i, confirm for default (%i)",
             BOARD_SIZE_MIN,
@@ -139,8 +267,8 @@ void renderStartScreen( App const* const pApp )
             10.0f,
             40.0f
         },
-        pApp->uiData.fontSize,
-        pApp->uiData.spacing,
+        pUIData->fontSize,
+        pUIData->spacing,
         RAYWHITE
     );
 }
