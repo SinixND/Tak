@@ -11,12 +11,18 @@
 #include "History.h"
 #include "InputBuffer.h"
 #include "InputParsing.h"
+#include "PlayerId.h"
 #include "Position.h"
 #include "RankId.h"
 #include "Record.h"
 #include "StoneTypeId.h"
 #include <assert.h>
 #include <stdbool.h>
+
+bool autocompleteDrop(
+    Command* const pCommand,
+    Game const* const pGame
+);
 
 bool autocompleteCommand(
     Command* const pCommand,
@@ -33,12 +39,55 @@ bool autocompleteCommand(
         && "Pointer is nullptr"
     );
 
-    if ( !( pCommand->state == COMMAND_STATE_GET_FIRST_DROP_AMOUNT
-            || pCommand->state == COMMAND_STATE_GET_DROP_AMOUNT ) )
+    switch ( pCommand->state )
+    {
+        case COMMAND_STATE_GET_FIRST_DROP_AMOUNT:
+        case COMMAND_STATE_GET_DROP_AMOUNT:
+        {
+            return autocompleteDrop(
+                pCommand,
+                pGame
+            );
+        }
+
+        default:
+            return false;
+    }
+}
+
+bool autocompleteRankY(
+    Command* const pCommand,
+    Game const* const pGame
+)
+{
+    if ( pCommand->rankY == RANK_NONE )
     {
         return false;
     }
 
+    /// Set action type based on stack height of target square
+    FileId const fileX = pCommand->fileX;
+    RankId const rankY = pCommand->rankY;
+
+    int squareIdx = positionToSquare(
+        fileX,
+        rankY,
+        pGame->board.size
+    );
+
+    pCommand->actionType
+        = ( pGame->board.stackIds[squareIdx] == PLAYER_NONE )
+              ? ACTION_TYPE_PLACE
+              : ACTION_TYPE_DROP;
+
+    return true;
+}
+
+bool autocompleteDrop(
+    Command* const pCommand,
+    Game const* const pGame
+)
+{
     FileId const nextFileX
         = pCommand->fileX
           + ( getOffsetX( pCommand->direction )
@@ -60,7 +109,7 @@ bool autocompleteCommand(
     )
     {
         pCommand->dropCounts[pCommand->drops] = pGame->stackBuffer.stoneCount;
-        pCommand->state = COMMAND_STATE_GET_ACTION_TYPE;
+        pCommand->state = COMMAND_STATE_GET_FIRST_INPUT;
 
         return true;
     }
@@ -86,7 +135,7 @@ bool autocompleteCommand(
          && pGame->stackBuffer.stoneCount == 1 )
     {
         pCommand->dropCounts[pCommand->drops] = 1;
-        pCommand->state = COMMAND_STATE_GET_ACTION_TYPE;
+        pCommand->state = COMMAND_STATE_GET_FIRST_INPUT;
 
         return true;
     }
@@ -95,7 +144,7 @@ bool autocompleteCommand(
     if ( pGame->board.stackTypes[nextSquareIdx] == STONE_TYPE_CAP )
     {
         pCommand->dropCounts[pCommand->drops] = pGame->stackBuffer.stoneCount;
-        pCommand->state = COMMAND_STATE_GET_ACTION_TYPE;
+        pCommand->state = COMMAND_STATE_GET_FIRST_INPUT;
 
         return true;
     }
@@ -105,7 +154,7 @@ bool autocompleteCommand(
          && pGame->stackBuffer.stackType != STONE_TYPE_CAP )
     {
         pCommand->dropCounts[pCommand->drops] = pGame->stackBuffer.stoneCount;
-        pCommand->state = COMMAND_STATE_GET_ACTION_TYPE;
+        pCommand->state = COMMAND_STATE_GET_FIRST_INPUT;
 
         return true;
     }
@@ -153,7 +202,8 @@ void buildCommand(
     /// Set command value from input
     if ( !parseInput(
              &command,
-             pInputBuffer
+             pInputBuffer,
+             pGame
          ) )
     {
         return;
@@ -367,8 +417,7 @@ void undoTurn(
             /// Undo all drop events of the turn
             while (
                 pHistory->records[pHistory->lastRecordIdx].actionType
-                == ACTION_TYPE_DROP
-            )
+                == ACTION_TYPE_DROP )
             {
                 DataDrop const dataDrop
                     = pHistory->records[pHistory->lastRecordIdx].Data.drop;
@@ -453,8 +502,7 @@ void redoTurn(
             /// Redo drop action until turn finished
             while (
                 pHistory->records[pHistory->lastRecordIdx + 1].actionType
-                == ACTION_TYPE_DROP
-            )
+                == ACTION_TYPE_DROP )
             {
                 DataDrop const dataDrop
                     = pHistory->records[pHistory->lastRecordIdx + 1].Data.drop;
@@ -478,8 +526,7 @@ void redoTurn(
             /// Redo drop action until turn finished
             while (
                 pHistory->records[pHistory->lastRecordIdx + 1].actionType
-                == ACTION_TYPE_DROP
-            )
+                == ACTION_TYPE_DROP )
             {
                 DataDrop const dataDrop
                     = pHistory->records[pHistory->lastRecordIdx + 1].Data.drop;
@@ -561,8 +608,7 @@ void resetTurn(
             /// Undo all drop events of the turn
             while (
                 pHistory->records[pHistory->lastRecordIdx].actionType
-                == ACTION_TYPE_DROP
-            )
+                == ACTION_TYPE_DROP )
             {
                 DataDrop const dataDrop
                     = pHistory->records[pHistory->lastRecordIdx].Data.drop;

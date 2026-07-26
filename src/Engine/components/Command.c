@@ -15,7 +15,7 @@
 Command newCommand( PlayerId const playerId )
 {
     Command command = {
-        .state = COMMAND_STATE_GET_ACTION_TYPE,
+        .state = COMMAND_STATE_GET_FIRST_INPUT,
         .playerId = playerId,
         .actionType = ACTION_TYPE_NONE,
         .stoneType = STONE_TYPE_NONE,
@@ -51,6 +51,16 @@ void setNextCommandState(
     switch ( pCommand->state )
     {
         case COMMAND_STATE_NONE:
+        case COMMAND_STATE_GET_FIRST_INPUT:
+        {
+            pCommand->state
+                = ( pCommand->fileX == FILE_NONE )
+                      ? COMMAND_STATE_GET_FIRST_INPUT
+                      : COMMAND_STATE_GET_RANK_Y;
+
+            return;
+        }
+
         case COMMAND_STATE_GET_ACTION_TYPE:
         {
             pCommand->state
@@ -85,7 +95,7 @@ void setNextCommandState(
 
             pCommand->state
                 = ( pCommand->actionType == ACTION_TYPE_PLACE )
-                      ? COMMAND_STATE_GET_ACTION_TYPE
+                      ? COMMAND_STATE_GET_FIRST_INPUT
                       : COMMAND_STATE_GET_DIRECTION;
 
             return;
@@ -103,7 +113,7 @@ void setNextCommandState(
         {
             pCommand->state
                 = ( pCommand->dropCounts[pCommand->drops] >= pGame->stackBuffer.stoneCount )
-                      ? COMMAND_STATE_GET_ACTION_TYPE
+                      ? COMMAND_STATE_GET_FIRST_INPUT
                       : COMMAND_STATE_GET_DROP_AMOUNT;
 
             return;

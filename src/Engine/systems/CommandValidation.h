@@ -13,6 +13,16 @@ bool validateCommand(
 
 /**
  * @brief Check if...
+ * ... stone type is valid
+ * ... file/column is valid
+ */
+bool validateCommandFirstInput(
+    Command const* const pCommand,
+    Game const* const pGame
+);
+
+/**
+ * @brief Check if...
  * ... playerId matches game.active player
  * ... action type is either `Place` or `Lift`
  */
@@ -33,7 +43,7 @@ bool validateCommandFileX(
     Game const* const pGame
 );
 
-/// Check if rank is on board
+/// Check if position input is valid
 bool validateCommandRankY(
     Command const* const pCommand,
     Game const* const pGame

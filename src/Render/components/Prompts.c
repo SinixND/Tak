@@ -16,6 +16,7 @@ Prompts newPrompts( Keymap const* const pKeymap )
     return (Prompts){
         .pInputs = {
             [COMMAND_STATE_NONE] = " ---      ",
+            [COMMAND_STATE_GET_FIRST_INPUT] = "Type|Pos ",
             [COMMAND_STATE_GET_ACTION_TYPE] = "Action    ",
             [COMMAND_STATE_GET_STONE_TYPE] = "Stone Type",
             [COMMAND_STATE_GET_FILE_X] = "File / Col",
@@ -29,17 +30,30 @@ Prompts newPrompts( Keymap const* const pKeymap )
             [COMMAND_STATE_NONE] = {
                 ' ', '-', '-', '-', ' ', ' ', ' ', ' ', ' ', ' ', '\0'
             },
+            [COMMAND_STATE_GET_FIRST_INPUT]  = {
+                INPUT_ID_CHARS[pKeymap->inputs[CONTEXT_INPUT_FIRST][COMMAND_A]],
+                '-',
+                INPUT_ID_CHARS[pKeymap->inputs[CONTEXT_INPUT_FIRST][COMMAND_H]],
+                ',',
+                ' ',
+                INPUT_ID_CHARS[pKeymap->inputs[CONTEXT_STONE_TYPE][COMMAND_FLAT]],
+                '|', 
+                INPUT_ID_CHARS[pKeymap->inputs[CONTEXT_STONE_TYPE][COMMAND_STANDING]],
+                '|', 
+                INPUT_ID_CHARS[pKeymap->inputs[CONTEXT_STONE_TYPE][COMMAND_CAPSTONE]],
+                '\0'
+            },
             [COMMAND_STATE_GET_ACTION_TYPE]  = {
                 INPUT_ID_CHARS[pKeymap->inputs[CONTEXT_ACTION_TYPE][COMMAND_MOVE]],
                 ',',
                 INPUT_ID_CHARS[pKeymap->inputs[CONTEXT_ACTION_TYPE][COMMAND_PLACE]],
-                '(',
-                INPUT_ID_CHARS[pKeymap->inputs[CONTEXT_ACTION_TYPE][COMMAND_FLAT]],
-                '/',
-                INPUT_ID_CHARS[pKeymap->inputs[CONTEXT_ACTION_TYPE][COMMAND_STANDING]],
-                '/',
-                INPUT_ID_CHARS[pKeymap->inputs[CONTEXT_ACTION_TYPE][COMMAND_CAPSTONE]],
-                ')',
+                ' ',
+                ' ',
+                ' ',
+                ' ',
+                ' ',
+                ' ',
+                ' ',
                 '\0'
             },
             [COMMAND_STATE_GET_STONE_TYPE]  = {

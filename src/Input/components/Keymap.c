@@ -7,11 +7,21 @@ Keymap newKeymap( void )
 {
     Keymap keymap = {
         .inputs = {
+            [CONTEXT_INPUT_FIRST] = {
+                [COMMAND_FLAT] = INPUT_CAP_F,
+                [COMMAND_STANDING] = INPUT_CAP_S,
+                [COMMAND_CAPSTONE] = INPUT_CAP_C,
+                [COMMAND_A] = INPUT_A,
+                [COMMAND_B] = INPUT_B,
+                [COMMAND_C] = INPUT_C,
+                [COMMAND_D] = INPUT_D,
+                [COMMAND_E] = INPUT_E,
+                [COMMAND_F] = INPUT_F,
+                [COMMAND_G] = INPUT_G,
+                [COMMAND_H] = INPUT_H,
+            },
             [CONTEXT_ACTION_TYPE] = {
                 [COMMAND_PLACE] = INPUT_P,
-                [COMMAND_FLAT] = INPUT_F,
-                [COMMAND_STANDING] = INPUT_S,
-                [COMMAND_CAPSTONE] = INPUT_C,
                 [COMMAND_MOVE] = INPUT_M,
             },
             [CONTEXT_STONE_TYPE] = {

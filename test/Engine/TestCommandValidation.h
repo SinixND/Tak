@@ -9,6 +9,7 @@
 #include "Game.h"
 #include "PlayerId.h"
 #include "RankId.h"
+#include "StoneTypeId.h"
 #include <stdbool.h>
 #include <unity.h>
 
@@ -165,6 +166,15 @@ void testValidateCommand( void )
     Game game = newGame( 5 );
 
     TEST_ASSERT_EQUAL_INT( false, validateCommand( &command, &game ) );
+
+    command.state = COMMAND_STATE_GET_FIRST_INPUT;
+    command.stoneType = STONE_TYPE_FLAT;
+    TEST_ASSERT_EQUAL_INT( true, validateCommand( &command, &game ) );
+
+    command.fileX = FILE_A;
+    TEST_ASSERT_EQUAL_INT( true, validateCommand( &command, &game ) );
+
+    command = newCommand( PLAYER_WHITE );
 
     command.state = COMMAND_STATE_GET_ACTION_TYPE;
     command.playerId = PLAYER_WHITE;

@@ -6,6 +6,7 @@
 
 typedef enum ContextId
 {
+    CONTEXT_INPUT_FIRST,
     CONTEXT_ACTION_TYPE,
     CONTEXT_STONE_TYPE,
     CONTEXT_POSITION,

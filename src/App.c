@@ -404,7 +404,7 @@ bool isTurnComplete( App const* const pApp )
         && "Pointer is nullptr"
     );
 
-    return pApp->command.state == COMMAND_STATE_GET_ACTION_TYPE;
+    return pApp->command.state == COMMAND_STATE_GET_FIRST_INPUT;
 }
 
 bool handleGameEnd( App* const pApp )

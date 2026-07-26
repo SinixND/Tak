@@ -7,9 +7,11 @@
 #include "CommandStateId.h"
 #include "DirectionId.h"
 #include "FileId.h"
+#include "Game.h"
 #include "InputBuffer.h"
 #include "InputParsing.h"
 #include "Keymap.h"
+#include "PlayerId.h"
 #include "RankId.h"
 #include "StoneTypeId.h"
 #include <stdbool.h>
@@ -98,40 +100,46 @@ void testParseInputRankY( void )
 {
     Command command = newCommand( PLAYER_WHITE );
     InputBuffer inputBuffer = newInputBuffer();
+    Game game = newGame( 5 );
 
-    TEST_ASSERT_EQUAL_INT( false, parseInputRankY( &command, &inputBuffer ) );
+    command.fileX = FILE_A;
+    game.board.stackIds[0] = PLAYER_WHITE;
+
+    TEST_ASSERT_EQUAL_INT( false, parseInputRankY( &command, &inputBuffer, &game ) );
     TEST_ASSERT_EQUAL_INT( RANK_NONE, command.rankY );
 
     inputBuffer.lastInput = inputBuffer.keymap.inputs[CONTEXT_POSITION][COMMAND_1];
-    TEST_ASSERT_EQUAL_INT( true, parseInputRankY( &command, &inputBuffer ) );
+    TEST_ASSERT_EQUAL_INT( true, parseInputRankY( &command, &inputBuffer, &game ) );
     TEST_ASSERT_EQUAL_INT( RANK_1, command.rankY );
+    TEST_ASSERT_EQUAL_INT( ACTION_TYPE_LIFT, command.actionType );
 
     inputBuffer.lastInput = inputBuffer.keymap.inputs[CONTEXT_POSITION][COMMAND_2];
-    TEST_ASSERT_EQUAL_INT( true, parseInputRankY( &command, &inputBuffer ) );
+    TEST_ASSERT_EQUAL_INT( true, parseInputRankY( &command, &inputBuffer, &game ) );
     TEST_ASSERT_EQUAL_INT( RANK_2, command.rankY );
+    TEST_ASSERT_EQUAL_INT( ACTION_TYPE_PLACE, command.actionType );
 
     inputBuffer.lastInput = inputBuffer.keymap.inputs[CONTEXT_POSITION][COMMAND_3];
-    TEST_ASSERT_EQUAL_INT( true, parseInputRankY( &command, &inputBuffer ) );
+    TEST_ASSERT_EQUAL_INT( true, parseInputRankY( &command, &inputBuffer, &game ) );
     TEST_ASSERT_EQUAL_INT( RANK_3, command.rankY );
 
     inputBuffer.lastInput = inputBuffer.keymap.inputs[CONTEXT_POSITION][COMMAND_4];
-    TEST_ASSERT_EQUAL_INT( true, parseInputRankY( &command, &inputBuffer ) );
+    TEST_ASSERT_EQUAL_INT( true, parseInputRankY( &command, &inputBuffer, &game ) );
     TEST_ASSERT_EQUAL_INT( RANK_4, command.rankY );
 
     inputBuffer.lastInput = inputBuffer.keymap.inputs[CONTEXT_POSITION][COMMAND_5];
-    TEST_ASSERT_EQUAL_INT( true, parseInputRankY( &command, &inputBuffer ) );
+    TEST_ASSERT_EQUAL_INT( true, parseInputRankY( &command, &inputBuffer, &game ) );
     TEST_ASSERT_EQUAL_INT( RANK_5, command.rankY );
 
     inputBuffer.lastInput = inputBuffer.keymap.inputs[CONTEXT_POSITION][COMMAND_6];
-    TEST_ASSERT_EQUAL_INT( true, parseInputRankY( &command, &inputBuffer ) );
+    TEST_ASSERT_EQUAL_INT( true, parseInputRankY( &command, &inputBuffer, &game ) );
     TEST_ASSERT_EQUAL_INT( RANK_6, command.rankY );
 
     inputBuffer.lastInput = inputBuffer.keymap.inputs[CONTEXT_POSITION][COMMAND_7];
-    TEST_ASSERT_EQUAL_INT( true, parseInputRankY( &command, &inputBuffer ) );
+    TEST_ASSERT_EQUAL_INT( true, parseInputRankY( &command, &inputBuffer, &game ) );
     TEST_ASSERT_EQUAL_INT( RANK_7, command.rankY );
 
     inputBuffer.lastInput = inputBuffer.keymap.inputs[CONTEXT_POSITION][COMMAND_8];
-    TEST_ASSERT_EQUAL_INT( true, parseInputRankY( &command, &inputBuffer ) );
+    TEST_ASSERT_EQUAL_INT( true, parseInputRankY( &command, &inputBuffer, &game ) );
     TEST_ASSERT_EQUAL_INT( RANK_8, command.rankY );
 }
 
@@ -288,38 +296,46 @@ void testParseInput( void )
 {
     Command command = newCommand( PLAYER_WHITE );
     InputBuffer inputBuffer = newInputBuffer();
+    Game game = newGame( 5 );
+
+    command.state = COMMAND_STATE_GET_FIRST_INPUT;
+    TEST_ASSERT_EQUAL_INT( false, parseInput( &command, &inputBuffer, &game ) );
+    inputBuffer.lastInput = inputBuffer.keymap.inputs[CONTEXT_INPUT_FIRST][COMMAND_FLAT];
+    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer, &game ) );
+    inputBuffer.lastInput = inputBuffer.keymap.inputs[CONTEXT_INPUT_FIRST][COMMAND_A];
+    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer, &game ) );
 
     command.state = COMMAND_STATE_GET_ACTION_TYPE;
-    TEST_ASSERT_EQUAL_INT( false, parseInput( &command, &inputBuffer ) );
+    TEST_ASSERT_EQUAL_INT( false, parseInput( &command, &inputBuffer, &game ) );
 
     inputBuffer.lastInput = inputBuffer.keymap.inputs[CONTEXT_ACTION_TYPE][COMMAND_MOVE];
-    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer ) );
+    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer, &game ) );
 
     command.state = COMMAND_STATE_GET_STONE_TYPE;
     inputBuffer.lastInput = inputBuffer.keymap.inputs[CONTEXT_STONE_TYPE][COMMAND_STANDING];
-    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer ) );
+    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer, &game ) );
 
     command.state = COMMAND_STATE_GET_FILE_X;
     inputBuffer.lastInput = inputBuffer.keymap.inputs[CONTEXT_POSITION][COMMAND_A];
-    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer ) );
+    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer, &game ) );
 
     command.state = COMMAND_STATE_GET_RANK_Y;
     inputBuffer.lastInput = inputBuffer.keymap.inputs[CONTEXT_POSITION][COMMAND_1];
-    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer ) );
+    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer, &game ) );
 
     command.state = COMMAND_STATE_GET_DIRECTION;
     inputBuffer.lastInput = inputBuffer.keymap.inputs[CONTEXT_DIRECTION][COMMAND_RIGHT];
-    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer ) );
+    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer, &game ) );
 
     command.state = COMMAND_STATE_GET_FIRST_DROP_AMOUNT;
     inputBuffer.lastInput = inputBuffer.keymap.inputs[CONTEXT_AMOUNT][COMMAND_0];
     command.drops = 0;
-    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer ) );
+    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer, &game ) );
 
     command.state = COMMAND_STATE_GET_DROP_AMOUNT;
     command.drops = 1;
     inputBuffer.lastInput = inputBuffer.keymap.inputs[CONTEXT_AMOUNT][COMMAND_1];
-    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer ) );
+    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer, &game ) );
 }
 
 #endif

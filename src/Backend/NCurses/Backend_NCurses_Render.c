@@ -377,6 +377,7 @@ void renderCommand( Command const* const pCommand )
 
     switch ( pCommand->actionType )
     {
+        default:
         case ACTION_TYPE_PLACE:
         {
             mvprintw(
@@ -411,18 +412,6 @@ void renderCommand( Command const* const pCommand )
                 ( pCommand->dropCounts[5] < 0 ) ? ' ' : '0' + pCommand->dropCounts[5],
                 ( pCommand->dropCounts[6] < 0 ) ? ' ' : '0' + pCommand->dropCounts[6],
                 ( pCommand->dropCounts[7] < 0 ) ? ' ' : '0' + pCommand->dropCounts[7]
-            );
-
-            return;
-        }
-
-        default:
-        {
-            mvprintw(
-                POSITION_INPUT_CURRENT[0],
-                POSITION_INPUT_CURRENT[1] + 2,
-                "%s",
-                "             "
             );
 
             return;

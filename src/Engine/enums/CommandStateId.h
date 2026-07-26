@@ -5,6 +5,7 @@
 typedef enum CommandStateId
 {
     COMMAND_STATE_NONE = 0,              // Starting point
+    COMMAND_STATE_GET_FIRST_INPUT,       // Stone type or column
     COMMAND_STATE_GET_ACTION_TYPE,       // Choose place/move
     COMMAND_STATE_GET_STONE_TYPE,        // Choose flat/standing/cap
     COMMAND_STATE_GET_FILE_X,            // Choose column

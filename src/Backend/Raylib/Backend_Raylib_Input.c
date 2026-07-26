@@ -141,12 +141,6 @@ void pollInput( InputBuffer* const pInput )
             return;
         }
 
-        case 's':
-        {
-            pInput->lastInput = INPUT_S;
-            return;
-        }
-
         case 'u':
         {
             pInput->lastInput = INPUT_U;
@@ -159,6 +153,18 @@ void pollInput( InputBuffer* const pInput )
             return;
         }
 
+        case 'C':
+        {
+            pInput->lastInput = INPUT_CAP_C;
+            return;
+        }
+
+        case 'F':
+        {
+            pInput->lastInput = INPUT_CAP_F;
+            return;
+        }
+
         case 'Q':
         {
             pInput->lastInput = INPUT_CAP_Q;
@@ -168,6 +174,12 @@ void pollInput( InputBuffer* const pInput )
         case 'R':
         {
             pInput->lastInput = INPUT_CAP_R;
+            return;
+        }
+
+        case 'S':
+        {
+            pInput->lastInput = INPUT_CAP_S;
             return;
         }
 

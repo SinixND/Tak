@@ -1,14 +1,18 @@
 #include "InputParsing.h"
 
+#include "ActionTypeId.h"
 #include "CommandId.h"
 #include "CommandStateId.h"
 #include "InputBuffer.h"
 #include "Keymap.h"
+#include "Position.h"
+#include "StoneTypeId.h"
 #include <assert.h>
 
 bool parseInput(
     Command* const pCommand,
-    InputBuffer const* const pInputBuffer
+    InputBuffer const* const pInputBuffer,
+    Game const* const pGame
 )
 {
     assert(
@@ -21,9 +25,22 @@ bool parseInput(
         && "Pointer is nullptr"
     );
 
+    assert(
+        pGame
+        && "Pointer is nullptr"
+    );
+
     switch ( pCommand->state )
     {
         case COMMAND_STATE_NONE:
+        case COMMAND_STATE_GET_FIRST_INPUT:
+        {
+            return parseInputFirst(
+                pCommand,
+                pInputBuffer
+            );
+        }
+
         case COMMAND_STATE_GET_ACTION_TYPE:
         {
             return parseInputActionType(
@@ -52,7 +69,8 @@ bool parseInput(
         {
             return parseInputRankY(
                 pCommand,
-                pInputBuffer
+                pInputBuffer,
+                pGame
             );
         }
 
@@ -85,6 +103,108 @@ bool parseInput(
     }
 }
 
+bool parseInputFirst(
+    Command* const pCommand,
+    InputBuffer const* const pInputBuffer
+)
+{
+    assert(
+        pCommand
+        && "Pointer is nullptr"
+    );
+
+    assert(
+        pInputBuffer
+        && "Pointer is nullptr"
+    );
+
+    switch ( getCommandId(
+        pInputBuffer,
+        CONTEXT_INPUT_FIRST
+    ) )
+    {
+        case COMMAND_FLAT:
+        {
+            pCommand->stoneType = STONE_TYPE_FLAT;
+
+            return true;
+        }
+
+        case COMMAND_STANDING:
+        {
+            pCommand->stoneType = STONE_TYPE_STANDING;
+
+            return true;
+        }
+
+        case COMMAND_CAPSTONE:
+        {
+            pCommand->stoneType = STONE_TYPE_CAP;
+
+            return true;
+        }
+
+        case COMMAND_A:
+        {
+            pCommand->fileX = FILE_A;
+
+            return true;
+        }
+
+        case COMMAND_B:
+        {
+            pCommand->fileX = FILE_B;
+
+            return true;
+        }
+
+        case COMMAND_C:
+        {
+            pCommand->fileX = FILE_C;
+
+            return true;
+        }
+
+        case COMMAND_D:
+        {
+            pCommand->fileX = FILE_D;
+
+            return true;
+        }
+
+        case COMMAND_E:
+        {
+            pCommand->fileX = FILE_E;
+
+            return true;
+        }
+
+        case COMMAND_F:
+        {
+            pCommand->fileX = FILE_F;
+
+            return true;
+        }
+
+        case COMMAND_G:
+        {
+            pCommand->fileX = FILE_G;
+
+            return true;
+        }
+
+        case COMMAND_H:
+        {
+            pCommand->fileX = FILE_H;
+
+            return true;
+        }
+
+        default:
+            return false;
+    }
+}
+
 bool parseInputActionType(
     Command* const pCommand,
     InputBuffer const* const pInputBuffer
@@ -108,30 +228,6 @@ bool parseInputActionType(
         case COMMAND_PLACE:
         {
             pCommand->actionType = ACTION_TYPE_PLACE;
-
-            return true;
-        }
-
-        case COMMAND_FLAT:
-        {
-            pCommand->actionType = ACTION_TYPE_PLACE;
-            pCommand->stoneType = STONE_TYPE_FLAT;
-
-            return true;
-        }
-
-        case COMMAND_STANDING:
-        {
-            pCommand->actionType = ACTION_TYPE_PLACE;
-            pCommand->stoneType = STONE_TYPE_STANDING;
-
-            return true;
-        }
-
-        case COMMAND_CAPSTONE:
-        {
-            pCommand->actionType = ACTION_TYPE_PLACE;
-            pCommand->stoneType = STONE_TYPE_CAP;
 
             return true;
         }
@@ -277,7 +373,8 @@ bool parseInputFileX(
 
 bool parseInputRankY(
     Command* const pCommand,
-    InputBuffer const* const pInputBuffer
+    InputBuffer const* const pInputBuffer,
+    Game const* const pGame
 )
 {
     assert(
@@ -299,61 +396,83 @@ bool parseInputRankY(
         {
             pCommand->rankY = RANK_1;
 
-            return true;
+            break;
         }
 
         case COMMAND_2:
         {
             pCommand->rankY = RANK_2;
 
-            return true;
+            break;
         }
 
         case COMMAND_3:
         {
             pCommand->rankY = RANK_3;
 
-            return true;
+            break;
         }
 
         case COMMAND_4:
         {
             pCommand->rankY = RANK_4;
 
-            return true;
+            break;
         }
 
         case COMMAND_5:
         {
             pCommand->rankY = RANK_5;
 
-            return true;
+            break;
         }
 
         case COMMAND_6:
         {
             pCommand->rankY = RANK_6;
 
-            return true;
+            break;
         }
 
         case COMMAND_7:
         {
             pCommand->rankY = RANK_7;
 
-            return true;
+            break;
         }
 
         case COMMAND_8:
         {
             pCommand->rankY = RANK_8;
 
-            return true;
+            break;
         }
 
         default:
             return false;
     }
+
+    /// Set action type relative to if square is occupied or not
+    FileId const fileX = pCommand->fileX;
+    RankId const rankY = pCommand->rankY;
+
+    int const squareIdx = positionToSquare(
+        fileX,
+        rankY,
+        pGame->board.size
+    );
+
+    pCommand->actionType
+        = ( pGame->board.stackIds[squareIdx] == PLAYER_NONE )
+              ? ACTION_TYPE_PLACE
+              : ACTION_TYPE_LIFT;
+
+    pCommand->stoneType
+        = ( pCommand->stoneType == STONE_TYPE_NONE )
+              ? STONE_TYPE_FLAT
+              : pCommand->stoneType;
+
+    return true;
 }
 
 bool parseInputDirection(

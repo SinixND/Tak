@@ -2,11 +2,19 @@
 #define IG20260414225052
 
 #include "Command.h"
+#include "Game.h"
 #include "InputBuffer.h"
 #include <stdbool.h>
 
 /// Parse input into command
 bool parseInput(
+    Command* const pCommand,
+    InputBuffer const* const pInputBuffer,
+    Game const* const pGame
+);
+
+/// Set stone type or file
+bool parseInputFirst(
     Command* const pCommand,
     InputBuffer const* const pInputBuffer
 );
@@ -32,7 +40,8 @@ bool parseInputFileX(
 /// Set rankY if input is valid
 bool parseInputRankY(
     Command* const pCommand,
-    InputBuffer const* const pInputBuffer
+    InputBuffer const* const pInputBuffer,
+    Game const* const pGame
 );
 
 /// Set dirction if input is valid
