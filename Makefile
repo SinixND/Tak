@@ -10,7 +10,7 @@ BINARY   ?= app
 ### Backends ( default: noBackend | ncurses | raylib )
 BACKEND  ?= ncurses
 ### Build mode ( default: core | release | debug | fatal )
-BUILD    ?= debug
+BUILD    ?= fatal
 
 ### Entrypoint files
 MAIN := main
@@ -128,9 +128,9 @@ INC_DIRS_test := $(call fn_dirs,$(SRC_DIR)) \
             $(call fn_dirs,$(TEST_DIR))
 
 ### Exit code for unity
-EXIT_CODE_debug := true
-EXIT_CODE_fatal := false
-EXIT_CODE_release := false
+EXIT_CODE_debug := | true
+EXIT_CODE_fatal :=
+EXIT_CODE_release :=
 
 ### Targets
 .PHONY: test-build
@@ -139,7 +139,7 @@ test-build: ## Build tests
 
 .PHONY: test-run
 test-run: ## Run tests
-	@$(MAKE) BINARY=test BUILD=debug run | $(EXIT_CODE_$(BUILD))
+	@$(MAKE) BINARY=test BUILD=debug run $(EXIT_CODE_$(BUILD))
 
 .PHONY: test
 test: test-build test-run ## Build and run tests

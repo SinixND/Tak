@@ -200,6 +200,20 @@ bool parseInputFirst(
             return true;
         }
 
+        case COMMAND_PLACE:
+        {
+            pCommand->actionType = ACTION_TYPE_PLACE;
+
+            return true;
+        }
+
+        case COMMAND_MOVE:
+        {
+            pCommand->actionType = ACTION_TYPE_LIFT;
+
+            return true;
+        }
+
         default:
             return false;
     }
@@ -461,6 +475,11 @@ bool parseInputRankY(
         rankY,
         pGame->board.size
     );
+
+    if ( pCommand->actionType != ACTION_TYPE_NONE )
+    {
+        return true;
+    }
 
     pCommand->actionType
         = ( pGame->board.stackIds[squareIdx] == PLAYER_NONE )

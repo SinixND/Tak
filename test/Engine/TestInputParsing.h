@@ -100,7 +100,7 @@ void testParseInputRankY( void )
 {
     Command command = newCommand( PLAYER_WHITE );
     InputBuffer inputBuffer = newInputBuffer();
-    Game game = newGame( 5 );
+    Game game = newGame( 8 );
 
     command.fileX = FILE_A;
     game.board.stackIds[0] = PLAYER_WHITE;
@@ -113,6 +113,7 @@ void testParseInputRankY( void )
     TEST_ASSERT_EQUAL_INT( RANK_1, command.rankY );
     TEST_ASSERT_EQUAL_INT( ACTION_TYPE_LIFT, command.actionType );
 
+    command.actionType = ACTION_TYPE_NONE;
     inputBuffer.lastInput = inputBuffer.keymap.inputs[CONTEXT_POSITION][COMMAND_2];
     TEST_ASSERT_EQUAL_INT( true, parseInputRankY( &command, &inputBuffer, &game ) );
     TEST_ASSERT_EQUAL_INT( RANK_2, command.rankY );

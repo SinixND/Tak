@@ -150,7 +150,8 @@ The following tools are used in the project but not required and not contained i
 
 
 ## ToDo notes
-- [ ] Render raylib/web
+- [ ] Input position for drops
+- [ ] Render raylib/web 
 
 - [ ] Todos
 - [ ] Add cursor? -> raylib

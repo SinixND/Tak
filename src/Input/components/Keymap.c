@@ -19,6 +19,8 @@ Keymap newKeymap( void )
                 [COMMAND_F] = INPUT_F,
                 [COMMAND_G] = INPUT_G,
                 [COMMAND_H] = INPUT_H,
+                [COMMAND_PLACE] = INPUT_P,
+                [COMMAND_MOVE] = INPUT_M,
             },
             [CONTEXT_ACTION_TYPE] = {
                 [COMMAND_PLACE] = INPUT_P,

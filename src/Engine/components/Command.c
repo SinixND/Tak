@@ -53,12 +53,39 @@ void setNextCommandState(
         case COMMAND_STATE_NONE:
         case COMMAND_STATE_GET_FIRST_INPUT:
         {
-            pCommand->state
-                = ( pCommand->fileX == FILE_NONE )
-                      ? COMMAND_STATE_GET_FIRST_INPUT
-                      : COMMAND_STATE_GET_RANK_Y;
+            // NOTE: Nested switch used for simplicity, didnt want to extract another function
+            switch ( pCommand->actionType )
+            {
+                case ACTION_TYPE_NONE:
+                {
+                    pCommand->state
+                        = ( pCommand->fileX == FILE_NONE )
+                              ? COMMAND_STATE_GET_FIRST_INPUT
+                              : COMMAND_STATE_GET_RANK_Y;
 
-            return;
+                    return;
+                }
+
+                case ACTION_TYPE_PLACE:
+                {
+                    pCommand->state
+                        = ( pCommand->stoneType == STONE_TYPE_NONE )
+                              ? COMMAND_STATE_GET_STONE_TYPE
+                              : COMMAND_STATE_GET_FILE_X;
+
+                    return;
+                }
+
+                case ACTION_TYPE_LIFT:
+                {
+                    pCommand->state = COMMAND_STATE_GET_FILE_X;
+
+                    return;
+                }
+
+                default:
+                    return;
+            }
         }
 
         case COMMAND_STATE_GET_ACTION_TYPE:

@@ -108,7 +108,8 @@ bool validateCommandFirstInput(
     );
 
     // TODO: Check if || is correct logic (vs &&)
-    return validateCommandStoneType( pCommand, pGame )
+    return validateCommandActionType( pCommand, pGame )
+           || validateCommandStoneType( pCommand, pGame )
            || validateCommandFileX( pCommand, pGame );
 }
 
@@ -218,20 +219,14 @@ bool validateCommandRankY(
 
     return (
         /// Place
-        (
-            // pCommand->actionType == ACTION_TYPE_PLACE
-            //   && !pGame->board.stoneCounts[squareIdx] )
-            !pGame->board.stoneCounts[squareIdx]
-        )
+        ( pCommand->actionType == ACTION_TYPE_PLACE
+          && !pGame->board.stoneCounts[squareIdx] )
         /// Lift
-        || (
-            // pCommand->actionType == ACTION_TYPE_LIFT
-            //  && pGame->board.stoneCounts[squareIdx]
-            pGame->board.stoneCounts[squareIdx]
-            /// Player owns square
-            && pGame->board.stackIds[squareIdx]
-                   == pCommand->playerId
-        )
+        || ( pCommand->actionType == ACTION_TYPE_LIFT
+             && pGame->board.stoneCounts[squareIdx]
+             /// Player owns square
+             && pGame->board.stackIds[squareIdx]
+                    == pCommand->playerId )
     );
 }
 
