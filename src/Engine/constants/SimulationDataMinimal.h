@@ -5,6 +5,10 @@
 
 static InputId const SIMULATION_DATA[] = {
     INPUT_5,
+    INPUT_A,
+    INPUT_1,
+    INPUT_E,
+    INPUT_5,
 };
 
 #endif

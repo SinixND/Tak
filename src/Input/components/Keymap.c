@@ -15,9 +15,9 @@ Keymap newKeymap( void )
                 [COMMAND_MOVE] = INPUT_M,
             },
             [CONTEXT_STONE_TYPE] = {
-                [COMMAND_FLAT] = INPUT_F,
-                [COMMAND_STANDING] = INPUT_S,
-                [COMMAND_CAPSTONE] = INPUT_C,
+                [COMMAND_FLAT] = INPUT_CAP_F,
+                [COMMAND_STANDING] = INPUT_CAP_S,
+                [COMMAND_CAPSTONE] = INPUT_CAP_C,
             },
             [CONTEXT_POSITION] = {
                 [COMMAND_A] = INPUT_A,

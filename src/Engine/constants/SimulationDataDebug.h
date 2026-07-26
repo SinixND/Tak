@@ -33,13 +33,13 @@ static InputId const SIMULATION_DATA[] = {
     /// Build stack > 5
     /// W:
     INPUT_P,
-    INPUT_F,
+    INPUT_CAP_F,
     INPUT_B,
     INPUT_1,
 
     /// B:
     INPUT_P,
-    INPUT_F,
+    INPUT_CAP_F,
     INPUT_A,
     INPUT_2,
 
@@ -74,13 +74,13 @@ static InputId const SIMULATION_DATA[] = {
 
     /// W:
     INPUT_P,
-    INPUT_F,
+    INPUT_CAP_F,
     INPUT_B,
     INPUT_1,
 
     /// B:
     INPUT_P,
-    INPUT_F,
+    INPUT_CAP_F,
     INPUT_A,
     INPUT_2,
 
@@ -99,13 +99,13 @@ static InputId const SIMULATION_DATA[] = {
 
     /// W:
     INPUT_P,
-    INPUT_F,
+    INPUT_CAP_F,
     INPUT_B,
     INPUT_1,
 
     /// B:
     INPUT_P,
-    INPUT_F,
+    INPUT_CAP_F,
     INPUT_A,
     INPUT_2,
 
@@ -125,7 +125,7 @@ static InputId const SIMULATION_DATA[] = {
     /// Place standing
     /// W:
     INPUT_P,
-    INPUT_S,
+    INPUT_CAP_S,
     INPUT_C,
     INPUT_1,
 
@@ -148,7 +148,7 @@ static InputId const SIMULATION_DATA[] = {
     /// Place capstone
     /// B:
     INPUT_P,
-    INPUT_C,
+    INPUT_CAP_C,
     INPUT_B,
     INPUT_3,
 
@@ -171,7 +171,7 @@ static InputId const SIMULATION_DATA[] = {
     /// Place standing
     /// W:
     INPUT_P,
-    INPUT_S,
+    INPUT_CAP_S,
     INPUT_B,
     INPUT_1,
 
@@ -213,104 +213,104 @@ static InputId const SIMULATION_DATA[] = {
     /// Place for road
     /// B:
     INPUT_P,
-    INPUT_F,
+    INPUT_CAP_F,
     INPUT_A,
     INPUT_5,
 
     /// Fill board
     /// W:
     INPUT_P,
-    INPUT_F,
+    INPUT_CAP_F,
     INPUT_E,
     INPUT_1,
 
     /// B:
     INPUT_P,
-    INPUT_F,
+    INPUT_CAP_F,
     INPUT_E,
     INPUT_2,
 
     /// W:
     INPUT_P,
-    INPUT_F,
+    INPUT_CAP_F,
     INPUT_E,
     INPUT_3,
 
     /// B:
     INPUT_P,
-    INPUT_F,
+    INPUT_CAP_F,
     INPUT_E,
     INPUT_4,
 
     /// W:
     INPUT_P,
-    INPUT_F,
+    INPUT_CAP_F,
     INPUT_E,
     INPUT_5,
 
     /// B:
     INPUT_P,
-    INPUT_F,
+    INPUT_CAP_F,
     INPUT_D,
     INPUT_1,
 
     /// W:
     INPUT_P,
-    INPUT_F,
+    INPUT_CAP_F,
     INPUT_D,
     INPUT_2,
 
     /// B:
     INPUT_P,
-    INPUT_F,
+    INPUT_CAP_F,
     INPUT_D,
     INPUT_3,
 
     /// W:
     INPUT_P,
-    INPUT_F,
+    INPUT_CAP_F,
     INPUT_D,
     INPUT_4,
 
     /// B:
     INPUT_P,
-    INPUT_F,
+    INPUT_CAP_F,
     INPUT_D,
     INPUT_5,
 
     /// W:
     INPUT_P,
-    INPUT_F,
+    INPUT_CAP_F,
     INPUT_C,
     INPUT_1,
 
     /// B:
     INPUT_P,
-    INPUT_F,
+    INPUT_CAP_F,
     INPUT_C,
     INPUT_2,
 
     /// W:
     INPUT_P,
-    INPUT_F,
+    INPUT_CAP_F,
     INPUT_C,
     INPUT_4,
 
     /// B:
     INPUT_P,
-    INPUT_F,
+    INPUT_CAP_F,
     INPUT_C,
     INPUT_5,
 
     /// W:
     INPUT_P,
-    INPUT_F,
+    INPUT_CAP_F,
     INPUT_B,
     INPUT_2,
 
     /// B:
     INPUT_P,
-    INPUT_F,
+    INPUT_CAP_F,
     INPUT_B,
     INPUT_3,
 
@@ -322,13 +322,13 @@ static InputId const SIMULATION_DATA[] = {
 
     /// B:
     INPUT_P,
-    INPUT_F,
+    INPUT_CAP_F,
     INPUT_B,
     INPUT_4,
 
     /// W:
     INPUT_P,
-    INPUT_F,
+    INPUT_CAP_F,
     INPUT_B,
     INPUT_2,
 
@@ -347,7 +347,7 @@ static InputId const SIMULATION_DATA[] = {
 
     /// B:
     INPUT_P,
-    INPUT_F,
+    INPUT_CAP_F,
     INPUT_B,
     INPUT_2,
 
@@ -373,13 +373,13 @@ static InputId const SIMULATION_DATA[] = {
 
     /// B:
     INPUT_P,
-    INPUT_F,
+    INPUT_CAP_F,
     INPUT_B,
     INPUT_2,
 
     /// W:
     INPUT_P,
-    INPUT_F,
+    INPUT_CAP_F,
     INPUT_B,
     INPUT_3,
 
@@ -397,13 +397,13 @@ static InputId const SIMULATION_DATA[] = {
 
     /// B:
     INPUT_P,
-    INPUT_F,
+    INPUT_CAP_F,
     INPUT_B,
     INPUT_2,
 
     /// W:
     INPUT_P,
-    INPUT_F,
+    INPUT_CAP_F,
     INPUT_B,
     INPUT_3,
 
@@ -421,13 +421,13 @@ static InputId const SIMULATION_DATA[] = {
 
     /// B:
     INPUT_P,
-    INPUT_F,
+    INPUT_CAP_F,
     INPUT_B,
     INPUT_2,
 
     /// W:
     INPUT_P,
-    INPUT_F,
+    INPUT_CAP_F,
     INPUT_B,
     INPUT_3,
 
@@ -445,13 +445,13 @@ static InputId const SIMULATION_DATA[] = {
 
     /// B:
     INPUT_P,
-    INPUT_F,
+    INPUT_CAP_F,
     INPUT_B,
     INPUT_2,
 
     /// W:
     INPUT_P,
-    INPUT_F,
+    INPUT_CAP_F,
     INPUT_B,
     INPUT_3,
 
@@ -469,13 +469,13 @@ static InputId const SIMULATION_DATA[] = {
 
     /// B:
     INPUT_P,
-    INPUT_F,
+    INPUT_CAP_F,
     INPUT_B,
     INPUT_2,
 
     /// W:
     INPUT_P,
-    INPUT_F,
+    INPUT_CAP_F,
     INPUT_B,
     INPUT_3,
 

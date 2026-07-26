@@ -8,51 +8,51 @@ static InputId const SIMULATION_DATA[] = {
     INPUT_5,
 
     // /*
-    INPUT_F,
+    INPUT_CAP_F,
     INPUT_A,
     INPUT_5,
 
-    INPUT_F,
+    INPUT_CAP_F,
     INPUT_E,
     INPUT_1,
 
-    INPUT_F,
+    INPUT_CAP_F,
     INPUT_E,
     INPUT_2,
 
-    INPUT_F,
+    INPUT_CAP_F,
     INPUT_D,
     INPUT_3,
 
-    INPUT_S,
+    INPUT_CAP_S,
     INPUT_E,
     INPUT_3,
 
-    INPUT_F,
+    INPUT_CAP_F,
     INPUT_C,
     INPUT_3,
 
-    INPUT_F,
+    INPUT_CAP_F,
     INPUT_D,
     INPUT_1,
 
-    INPUT_S,
+    INPUT_CAP_S,
     INPUT_C,
     INPUT_1,
 
-    INPUT_C,
+    INPUT_CAP_C,
     INPUT_C,
     INPUT_2,
 
-    INPUT_F,
+    INPUT_CAP_F,
     INPUT_B,
     INPUT_1,
 
-    INPUT_F,
+    INPUT_CAP_F,
     INPUT_B,
     INPUT_2,
 
-    INPUT_F,
+    INPUT_CAP_F,
     INPUT_A,
     INPUT_1,
 
@@ -62,7 +62,7 @@ static InputId const SIMULATION_DATA[] = {
     INPUT_D,
     // INPUT_1,
 
-    INPUT_F,
+    INPUT_CAP_F,
     INPUT_C,
     INPUT_2,
 
@@ -78,23 +78,23 @@ static InputId const SIMULATION_DATA[] = {
     INPUT_R,
     // INPUT_1,
 
-    INPUT_F,
+    INPUT_CAP_F,
     INPUT_A,
     INPUT_1,
 
-    INPUT_F,
+    INPUT_CAP_F,
     INPUT_C,
     INPUT_4,
 
-    INPUT_S,
+    INPUT_CAP_S,
     INPUT_C,
     INPUT_5,
 
-    INPUT_F,
+    INPUT_CAP_F,
     INPUT_D,
     INPUT_4,
 
-    INPUT_F,
+    INPUT_CAP_F,
     INPUT_B,
     INPUT_2,
 
@@ -117,11 +117,11 @@ static InputId const SIMULATION_DATA[] = {
     INPUT_0,
     INPUT_2,
 
-    INPUT_F,
+    INPUT_CAP_F,
     INPUT_A,
     INPUT_1,
 
-    INPUT_F,
+    INPUT_CAP_F,
     INPUT_E,
     INPUT_4,
 
@@ -131,19 +131,19 @@ static InputId const SIMULATION_DATA[] = {
     INPUT_R,
     // INPUT_1,
 
-    INPUT_S,
+    INPUT_CAP_S,
     INPUT_A,
     INPUT_1,
 
-    INPUT_F,
+    INPUT_CAP_F,
     INPUT_A,
     INPUT_2,
 
-    INPUT_C,
+    INPUT_CAP_C,
     INPUT_B,
     INPUT_4,
 
-    INPUT_F,
+    INPUT_CAP_F,
     INPUT_A,
     INPUT_4,
 

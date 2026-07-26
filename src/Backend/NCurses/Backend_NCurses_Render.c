@@ -111,7 +111,7 @@ void renderFileLabels( int const boardSize )
         && "Board size invalid"
     );
 
-    // Top
+    /// Top
     mvprintw(
         BOARD_LABELS_Y_TOP,
         BOARD_LABELS_X_LEFT,
@@ -120,7 +120,7 @@ void renderFileLabels( int const boardSize )
         LAYOUT_LABELS_FILE
     );
 
-    // Bottom
+    /// Bottom
     mvprintw(
         BOARD_LABELS_Y_TOP + ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ),
         BOARD_LABELS_X_LEFT,
@@ -142,7 +142,7 @@ void renderRankLabels( int const boardSize )
         = ( ( BOARD_SIZE_MAX - boardSize )
             * LAYOUT_BOARD_SQUARE_SIZE );
 
-    // Left
+    /// Left
     for ( int y = 0; y < ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ); ++y )
     {
         mvprintw(
@@ -153,7 +153,7 @@ void renderRankLabels( int const boardSize )
         );
     }
 
-    // Right
+    /// Right
     for ( int y = 0; y < ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ); ++y )
     {
         mvprintw(
@@ -198,7 +198,7 @@ void renderBoardEdges( int const boardSize )
         && "Board size invalid"
     );
 
-    // Render top board edge
+    /// Render top board edge
     for ( int x = 0; x < ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ) - 1; ++x )
     {
         mvaddch(
@@ -208,7 +208,7 @@ void renderBoardEdges( int const boardSize )
         );
     }
 
-    // Render left board edge
+    /// Render left board edge
     for ( int y = 0; y < ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ) - 1; ++y )
     {
         mvaddch(
@@ -218,7 +218,7 @@ void renderBoardEdges( int const boardSize )
         );
     }
 
-    // Render right board edge
+    /// Render right board edge
     for ( int y = 0; y < ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ) - 1; ++y )
     {
         mvaddch(
@@ -228,7 +228,7 @@ void renderBoardEdges( int const boardSize )
         );
     }
 
-    // Render bottom board edge
+    /// Render bottom board edge
     for ( int x = 0; x < ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ) - 1; ++x )
     {
         mvaddch(
@@ -248,7 +248,7 @@ void renderDynamic( App const* const pApp )
 
     renderInfoPaneContent( pApp );
     renderStackBufferContent( pApp );
-    // renderBoardContent( pApp );
+    renderBoardContent( pApp );
 
     refresh();
 }
@@ -574,7 +574,7 @@ void renderStackBufferContent( App const* const pApp )
         && "Pointer is nullptr"
     );
 
-    // Render buffer type
+    /// Render buffer type
     if ( pApp->game.stackBuffer.stoneCount > 0 )
     {
         attron( COLOR_PAIR( ( pApp->game.stackBuffer.stoneIds[0] == PLAYER_WHITE ) ? CPAIR_WHITE_1 : CPAIR_BLACK_1 ) );
@@ -594,7 +594,7 @@ void renderStackBufferContent( App const* const pApp )
         );
     }
 
-    // Render stack Ids
+    /// Render stack Ids
     for ( int idx = 1; idx <= BOARD_SIZE_MAX; ++idx )
     {
         if ( idx < pApp->game.stackBuffer.stoneCount )
@@ -665,9 +665,9 @@ void renderSquareContent(
 
     int const squareEdgeY = ( ( pBoard->size - ( squareIdx / pBoard->size ) ) * LAYOUT_BOARD_SQUARE_SIZE ) - 2;
 
-    int const squareEdgeX = ( BOARD_POS_X + 2 ) + ( squareIdx % pBoard->size ) * LAYOUT_BOARD_SQUARE_SIZE;
+    int const squareEdgeX = ( BOARD_POS_X + 1 ) + ( squareIdx % pBoard->size ) * LAYOUT_BOARD_SQUARE_SIZE;
 
-    // Render stack type
+    /// Render stack type
     if (
         pBoard->stoneCounts[squareIdx] > 0
         && pBoard->stackTypes[squareIdx] != STONE_TYPE_STANDING
@@ -705,7 +705,7 @@ void renderSquareContent(
         );
     }
 
-    // Render stack Ids
+    /// Render stack Ids
     for ( int stoneIdxOffset = 1; stoneIdxOffset <= BOARD_SIZE_MAX; ++stoneIdxOffset )
     {
         int const stackIdx = squareToStackIndex(
