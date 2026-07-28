@@ -351,7 +351,7 @@ void undoTurn(
         && "Pointer is nullptr"
     );
 
-    /// Cant undo opening
+    /// Prevent undo opening
     if ( pHistory->lastRecordIdx < 3 )
     {
         return;
@@ -367,10 +367,11 @@ void undoTurn(
                 pHistory->records[pHistory->lastRecordIdx].Data.place.squareIdx
             );
 
-            /// Step back in history
             --pHistory->lastRecordIdx;
 
-            /// Place always started a turn: done
+            /// Turn complete
+            pGame->activePlayer = ~pGame->activePlayer;
+
             break;
         }
 
@@ -382,10 +383,11 @@ void undoTurn(
                 pHistory->records[pHistory->lastRecordIdx].Data.lift.squareIdx
             );
 
-            /// Step back in history
             --pHistory->lastRecordIdx;
 
-            /// Lift always started a turn: done
+            /// Undo turn complete
+            pGame->activePlayer = ~pGame->activePlayer;
+
             break;
         }
 
@@ -394,8 +396,7 @@ void undoTurn(
             /// Undo all drop events of the turn
             while (
                 pHistory->records[pHistory->lastRecordIdx].actionType
-                == ACTION_TYPE_DROP
-            )
+                == ACTION_TYPE_DROP )
             {
                 DataDrop const dataDrop
                     = pHistory->records[pHistory->lastRecordIdx].Data.drop;
@@ -411,7 +412,6 @@ void undoTurn(
                     );
                 }
 
-                /// Step back in history ('while action == drop')
                 --pHistory->lastRecordIdx;
             }
 
@@ -421,7 +421,6 @@ void undoTurn(
                 pHistory->records[pHistory->lastRecordIdx].Data.lift.squareIdx
             );
 
-            /// Step back in history
             --pHistory->lastRecordIdx;
 
             break;
@@ -465,6 +464,9 @@ void redoTurn(
 
             ++pHistory->lastRecordIdx;
 
+            /// Redo turn complete
+            pGame->activePlayer = ~pGame->activePlayer;
+
             break;
         }
 
@@ -480,8 +482,7 @@ void redoTurn(
             /// Redo drop action until turn finished
             while (
                 pHistory->records[pHistory->lastRecordIdx + 1].actionType
-                == ACTION_TYPE_DROP
-            )
+                == ACTION_TYPE_DROP )
             {
                 DataDrop const dataDrop
                     = pHistory->records[pHistory->lastRecordIdx + 1].Data.drop;
@@ -505,8 +506,7 @@ void redoTurn(
             /// Redo drop action until turn finished
             while (
                 pHistory->records[pHistory->lastRecordIdx + 1].actionType
-                == ACTION_TYPE_DROP
-            )
+                == ACTION_TYPE_DROP )
             {
                 DataDrop const dataDrop
                     = pHistory->records[pHistory->lastRecordIdx + 1].Data.drop;
@@ -521,6 +521,9 @@ void redoTurn(
 
                 ++pHistory->lastRecordIdx;
             }
+
+            /// Redo turn complete
+            pGame->activePlayer = ~pGame->activePlayer;
 
             break;
         }
@@ -588,8 +591,7 @@ void resetTurn(
             /// Undo all drop events of the turn
             while (
                 pHistory->records[pHistory->lastRecordIdx].actionType
-                == ACTION_TYPE_DROP
-            )
+                == ACTION_TYPE_DROP )
             {
                 DataDrop const dataDrop
                     = pHistory->records[pHistory->lastRecordIdx].Data.drop;
