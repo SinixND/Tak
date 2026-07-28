@@ -277,14 +277,14 @@ void renderInfoPaneContent( App const* const pApp )
     );
 
     /// Print white flat score
-    attron( COLOR_PAIR( CPAIR_WHITE_1 ) );
+    attron( COLOR_PAIR( CPAIR_FGB_BGW ) );
     mvprintw(
         POSITION_WHITE_RESERVES_SCORE[0],
         POSITION_WHITE_RESERVES_SCORE[1],
         "%2i",
         pApp->game.scores[PLAYER_WHITE]
     );
-    attroff( COLOR_PAIR( CPAIR_WHITE_1 ) );
+    attroff( COLOR_PAIR( CPAIR_FGB_BGW ) );
 
     /// Print black regular reserves
     mvprintw(
@@ -303,34 +303,34 @@ void renderInfoPaneContent( App const* const pApp )
     );
 
     /// Print black flat score
-    attron( COLOR_PAIR( CPAIR_BLACK_1 ) );
+    attron( COLOR_PAIR( CPAIR_FGW_BGB ) );
     mvprintw(
         POSITION_BLACK_RESERVES_SCORE[0],
         POSITION_BLACK_RESERVES_SCORE[1],
         "%2i",
         pApp->game.scores[PLAYER_BLACK]
     );
-    attroff( COLOR_PAIR( CPAIR_BLACK_1 ) );
+    attroff( COLOR_PAIR( CPAIR_FGW_BGB ) );
 
     /// Print active player
-    attron( COLOR_PAIR( ( pApp->game.activePlayer == PLAYER_WHITE ) ? CPAIR_WHITE_2 : CPAIR_BLACK_2 ) );
+    attron( COLOR_PAIR( ( pApp->game.activePlayer == PLAYER_WHITE ) ? CPAIR_FGW : CPAIR_FGB ) );
     mvprintw(
         POSITION_ACTIVE_PLAYER[0],
         POSITION_ACTIVE_PLAYER[1],
         "%s",
         ( pApp->game.activePlayer == PLAYER_WHITE ) ? "WHITE" : "BLACK"
     );
-    attroff( COLOR_PAIR( ( pApp->game.activePlayer == PLAYER_WHITE ) ? CPAIR_WHITE_2 : CPAIR_BLACK_2 ) );
+    attroff( COLOR_PAIR( ( pApp->game.activePlayer == PLAYER_WHITE ) ? CPAIR_FGW : CPAIR_FGB ) );
 
     /// Print active player symbol
-    attron( COLOR_PAIR( ( pApp->game.activePlayer == PLAYER_WHITE ) ? CPAIR_WHITE_1 : CPAIR_BLACK_1 ) );
+    attron( COLOR_PAIR( ( pApp->game.activePlayer == PLAYER_WHITE ) ? CPAIR_FGB_BGW : CPAIR_FGW_BGB ) );
     mvprintw(
         POSITION_PLAYER_SYMBOL[0],
         POSITION_PLAYER_SYMBOL[1],
         "%c",
         PLAYER_CHARS[pApp->game.activePlayer]
     );
-    attroff( COLOR_PAIR( ( pApp->game.activePlayer == PLAYER_WHITE ) ? CPAIR_WHITE_1 : CPAIR_BLACK_1 ) );
+    attroff( COLOR_PAIR( ( pApp->game.activePlayer == PLAYER_WHITE ) ? CPAIR_FGB_BGW : CPAIR_FGW_BGB ) );
 
     /// Print required input
     mvprintw(
@@ -538,14 +538,14 @@ void renderCommandGameEnd( App const* const pApp )
         && "Pointer is nullptr"
     );
 
-    attron( COLOR_PAIR( ( pApp->game.activePlayer == PLAYER_WHITE ) ? CPAIR_WHITE_2 : CPAIR_BLACK_2 ) );
+    attron( COLOR_PAIR( ( pApp->game.activePlayer == PLAYER_WHITE ) ? CPAIR_FGW : CPAIR_FGB ) );
     mvprintw(
         POSITION_INPUT_CURRENT[0],
         POSITION_INPUT_CURRENT[1],
         "%c: WIN! ",
         PLAYER_CHARS[pApp->game.activePlayer]
     );
-    attroff( COLOR_PAIR( ( pApp->game.activePlayer == PLAYER_WHITE ) ? CPAIR_WHITE_2 : CPAIR_BLACK_2 ) );
+    attroff( COLOR_PAIR( ( pApp->game.activePlayer == PLAYER_WHITE ) ? CPAIR_FGW : CPAIR_FGB ) );
 
     mvprintw(
         POSITION_INPUT_CURRENT[0],
@@ -566,13 +566,13 @@ void renderStackBufferContent( App const* const pApp )
     /// Render buffer type
     if ( pApp->game.stackBuffer.stoneCount > 0 )
     {
-        attron( COLOR_PAIR( ( pApp->game.stackBuffer.stoneIds[0] == PLAYER_WHITE ) ? CPAIR_WHITE_1 : CPAIR_BLACK_1 ) );
+        attron( COLOR_PAIR( ( pApp->game.stackBuffer.stoneIds[0] == PLAYER_WHITE ) ? CPAIR_FGB_BGW : CPAIR_FGW_BGB ) );
         mvaddch(
             POSITION_STACK_BUFFER[0],
             POSITION_STACK_BUFFER[1],
             STONE_TYPE_SYMBOLS[pApp->game.stackBuffer.stackType]
         );
-        attroff( COLOR_PAIR( ( pApp->game.stackBuffer.stoneIds[0] == PLAYER_WHITE ) ? CPAIR_WHITE_1 : CPAIR_BLACK_1 ) );
+        attroff( COLOR_PAIR( ( pApp->game.stackBuffer.stoneIds[0] == PLAYER_WHITE ) ? CPAIR_FGB_BGW : CPAIR_FGW_BGB ) );
     }
     else
     {
@@ -588,7 +588,7 @@ void renderStackBufferContent( App const* const pApp )
     {
         if ( idx < pApp->game.stackBuffer.stoneCount )
         {
-            attron( COLOR_PAIR( ( pApp->game.stackBuffer.stoneIds[idx] == PLAYER_WHITE ) ? CPAIR_WHITE_2 : CPAIR_BLACK_2 ) );
+            attron( COLOR_PAIR( ( pApp->game.stackBuffer.stoneIds[idx] == PLAYER_WHITE ) ? CPAIR_FGW : CPAIR_FGB ) );
             mvaddch(
                 POSITION_STACK_BUFFER[0]
                     + ( ( idx )
@@ -599,7 +599,7 @@ void renderStackBufferContent( App const* const pApp )
                 STONE_TYPE_SYMBOLS[STONE_TYPE_FLAT]
 
             );
-            attroff( COLOR_PAIR( ( pApp->game.stackBuffer.stoneIds[idx] == PLAYER_WHITE ) ? CPAIR_WHITE_2 : CPAIR_BLACK_2 ) );
+            attroff( COLOR_PAIR( ( pApp->game.stackBuffer.stoneIds[idx] == PLAYER_WHITE ) ? CPAIR_FGW : CPAIR_FGB ) );
         }
         else
         {
@@ -662,13 +662,13 @@ void renderSquareContent(
         && pBoard->stackTypes[squareIdx] != STONE_TYPE_STANDING
     )
     {
-        attron( COLOR_PAIR( ( pBoard->stackIds[squareIdx] == PLAYER_WHITE ) ? CPAIR_WHITE_1 : CPAIR_BLACK_1 ) );
+        attron( COLOR_PAIR( ( pBoard->stackIds[squareIdx] == PLAYER_WHITE ) ? CPAIR_FGB_BGW : CPAIR_FGW_BGB ) );
         mvaddch(
             squareEdgeY,
             squareEdgeX,
             STONE_TYPE_SYMBOLS[pBoard->stackTypes[squareIdx]]
         );
-        attroff( COLOR_PAIR( ( pBoard->stackIds[squareIdx] == PLAYER_WHITE ) ? CPAIR_WHITE_1 : CPAIR_BLACK_1 ) );
+        attroff( COLOR_PAIR( ( pBoard->stackIds[squareIdx] == PLAYER_WHITE ) ? CPAIR_FGB_BGW : CPAIR_FGW_BGB ) );
     }
 
     else if (
@@ -676,13 +676,13 @@ void renderSquareContent(
         && pBoard->stackTypes[squareIdx] == STONE_TYPE_STANDING
     )
     {
-        attron( COLOR_PAIR( ( pBoard->stackIds[squareIdx] == PLAYER_WHITE ) ? CPAIR_WHITE_2 : CPAIR_BLACK_2 ) );
+        attron( COLOR_PAIR( ( pBoard->stackIds[squareIdx] == PLAYER_WHITE ) ? CPAIR_FGW : CPAIR_FGB ) );
         mvaddch(
             squareEdgeY,
             squareEdgeX,
             STONE_TYPE_SYMBOLS[pBoard->stackTypes[squareIdx]]
         );
-        attroff( COLOR_PAIR( ( pBoard->stackIds[squareIdx] == PLAYER_WHITE ) ? CPAIR_WHITE_2 : CPAIR_BLACK_2 ) );
+        attroff( COLOR_PAIR( ( pBoard->stackIds[squareIdx] == PLAYER_WHITE ) ? CPAIR_FGW : CPAIR_FGB ) );
     }
 
     else
@@ -706,7 +706,7 @@ void renderSquareContent(
 
         if ( stoneIdxOffset < pBoard->stoneCounts[squareIdx] )
         {
-            attron( COLOR_PAIR( ( pBoard->stoneIds[stoneIdx - stoneIdxOffset] == PLAYER_WHITE ) ? CPAIR_WHITE_2 : CPAIR_BLACK_2 ) );
+            attron( COLOR_PAIR( ( pBoard->stoneIds[stoneIdx - stoneIdxOffset] == PLAYER_WHITE ) ? CPAIR_FGW : CPAIR_FGB ) );
             mvaddch(
                 squareEdgeY
                     + ( ( stoneIdxOffset )
@@ -716,7 +716,7 @@ void renderSquareContent(
                         / ( LAYOUT_BOARD_SQUARE_SIZE - 1 ) ),
                 STONE_TYPE_SYMBOLS[STONE_TYPE_FLAT]
             );
-            attroff( COLOR_PAIR( ( pBoard->stoneIds[stoneIdx - stoneIdxOffset] == PLAYER_WHITE ) ? CPAIR_WHITE_2 : CPAIR_BLACK_2 ) );
+            attroff( COLOR_PAIR( ( pBoard->stoneIds[stoneIdx - stoneIdxOffset] == PLAYER_WHITE ) ? CPAIR_FGW : CPAIR_FGB ) );
         }
         else
         {

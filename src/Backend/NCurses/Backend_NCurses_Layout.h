@@ -12,10 +12,10 @@ static int const HISTORY_RENDER_COUNT = 2;
 static int const PLAYER_COLOR_WHITE = 1;
 static int const PLAYER_COLOR_BLACK = 2;
 static int const LAYOUT_COLOR = 3;
-static int const CPAIR_WHITE_1 = 1;
-static int const CPAIR_BLACK_1 = 2;
-static int const CPAIR_WHITE_2 = 3;
-static int const CPAIR_BLACK_2 = 4;
+static int const CPAIR_FGB_BGW = 1;
+static int const CPAIR_FGW_BGB = 2;
+static int const CPAIR_FGW = 3;
+static int const CPAIR_FGB = 4;
 static int const CPAIR_LAYOUT = 5;
 
 /// Positions (y, x)

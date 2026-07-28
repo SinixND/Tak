@@ -34,10 +34,10 @@ void setupBackend( UIData* const pUIData )
     init_color( PLAYER_COLOR_WHITE, 580, 741, 439 );
     init_color( PLAYER_COLOR_BLACK, 180, 341, 39 );
     init_color( LAYOUT_COLOR, 700, 574, 413 );
-    init_pair( CPAIR_WHITE_1, PLAYER_COLOR_BLACK, PLAYER_COLOR_WHITE );
-    init_pair( CPAIR_BLACK_1, PLAYER_COLOR_WHITE, PLAYER_COLOR_BLACK );
-    init_pair( CPAIR_WHITE_2, PLAYER_COLOR_WHITE, COLOR_BLACK );
-    init_pair( CPAIR_BLACK_2, PLAYER_COLOR_BLACK, COLOR_BLACK );
+    init_pair( CPAIR_FGB_BGW, PLAYER_COLOR_BLACK, PLAYER_COLOR_WHITE );
+    init_pair( CPAIR_FGW_BGB, PLAYER_COLOR_WHITE, PLAYER_COLOR_BLACK );
+    init_pair( CPAIR_FGW, PLAYER_COLOR_WHITE, COLOR_BLACK );
+    init_pair( CPAIR_FGB, PLAYER_COLOR_BLACK, COLOR_BLACK );
     init_pair( CPAIR_LAYOUT, LAYOUT_COLOR, COLOR_BLACK );
 
     noecho();      // Don’t print typed characters automatically
