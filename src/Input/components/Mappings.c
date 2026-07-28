@@ -103,7 +103,21 @@ Mappings newMappings( void )
                     .width = 2,
                     .height = 2,
                     .commandId = COMMAND_REDO
-                }
+                },
+                (UIElement){
+                    .x = 12,
+                    .y = 2,
+                    .width = 2,
+                    .height = 2,
+                    .commandId = COMMAND_RESET
+                },
+                (UIElement){
+                    .x = 16,
+                    .y = 2,
+                    .width = 2,
+                    .height = 2,
+                    .commandId = COMMAND_QUIT
+                },
             },
             // clang-format on
         },

@@ -4,7 +4,6 @@
 #include "CommandId.h"
 #include "CommandStateId.h"
 #include "InputBuffer.h"
-#include "Position.h"
 #include "StoneTypeId.h"
 #include <assert.h>
 
