@@ -351,6 +351,12 @@ void undoTurn(
         && "Pointer is nullptr"
     );
 
+    /// Cant undo opening
+    if ( pHistory->lastRecordIdx < 2 )
+    {
+        return;
+    }
+
     switch ( pHistory->records[pHistory->lastRecordIdx].actionType )
     {
         case ACTION_TYPE_PLACE:
