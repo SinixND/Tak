@@ -17,6 +17,12 @@ void setupBackend( UIData* const pUIData )
     cbreak();  // Disable line buffering, pass keys to program immediately
     // halfdelay( 1 ); // Non-blocking: Waits n/10ths of a second for input
 
+    /// Mouse events to listen to
+    mousemask(
+        BUTTON1_RELEASED,
+        NULL
+    );
+
     /// Enable colors
     start_color();
     use_default_colors();

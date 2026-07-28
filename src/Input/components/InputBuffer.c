@@ -22,5 +22,10 @@ CommandId getCommandId(
         && "Pointer is nullptr"
     );
 
+    if ( pInputBuffer->lastInput == INPUT_MOUSE )
+    {
+        assert( pInputBuffer->position[0] );
+    }
+
     return pInputBuffer->keymap.commands[contextId][pInputBuffer->lastInput];
 }

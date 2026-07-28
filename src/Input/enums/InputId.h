@@ -39,6 +39,9 @@ typedef enum InputId
     INPUT_CAP_R,
     INPUT_CAP_U,
     INPUT_CAP_X,
+
+    INPUT_MOUSE,
+
     INPUT_COUNT
 } InputId;
 

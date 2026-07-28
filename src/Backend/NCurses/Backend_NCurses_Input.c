@@ -195,6 +195,18 @@ void pollInput( InputBuffer* const pInput )
             return;
         }
 
+        case KEY_MOUSE:
+        {
+            pInput->lastInput = INPUT_MOUSE;
+
+            MEVENT event;
+            getmouse( &event );
+            pInput->position[0] = event.x;
+            pInput->position[1] = event.y;
+
+            return;
+        }
+
         default:
         {
             pInput->lastInput = INPUT_NONE;
