@@ -11,6 +11,7 @@
 #include "History.h"
 #include "InputBuffer.h"
 #include "InputParsing.h"
+#include "PlayerId.h"
 #include "Position.h"
 #include "RankId.h"
 #include "Record.h"
@@ -146,6 +147,11 @@ bool autocompleteDrop(
     return false;
 }
 
+void completeInput(
+    Command* const pCommand,
+    Game const* const pGame
+);
+
 void buildCommand(
     Command* const pCommand,
     InputBuffer const* const pInputBuffer,
@@ -196,6 +202,11 @@ void buildCommand(
         return;
     }
 
+    completeInput(
+        &command,
+        pGame
+    );
+
     /// Update command state
     setNextCommandState(
         &command,
@@ -204,6 +215,36 @@ void buildCommand(
 
     /// Copy temp command to original
     *pCommand = command;
+}
+
+void completeInput(
+    Command* const pCommand,
+    Game const* const pGame
+)
+{
+    if ( pCommand->state == COMMAND_STATE_GET_RANK_Y )
+    {
+        PlayerId stackId
+            = pGame->board.stackIds[positionToSquare(
+                pCommand->fileX,
+                pCommand->rankY,
+                pGame->board.size
+            )];
+
+        /// Add action type if position is first input
+        pCommand->actionType
+            = ( stackId == pGame->activePlayer )
+                  ? ACTION_TYPE_LIFT
+              : ( stackId == PLAYER_NONE )
+                  ? ACTION_TYPE_PLACE
+                  : ACTION_TYPE_NONE;
+
+        /// Set stone type if not set
+        pCommand->stoneType
+            = ( pCommand->stoneType == STONE_TYPE_NONE )
+                  ? STONE_TYPE_FLAT
+                  : pCommand->stoneType;
+    }
 }
 
 void recordCommand(

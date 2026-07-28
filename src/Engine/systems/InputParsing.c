@@ -68,8 +68,7 @@ bool parseInput(
         {
             return parseInputRankY(
                 pCommand,
-                pInputBuffer,
-                pGame
+                pInputBuffer
             );
         }
 
@@ -386,8 +385,7 @@ bool parseInputFileX(
 
 bool parseInputRankY(
     Command* const pCommand,
-    InputBuffer const* const pInputBuffer,
-    Game const* const pGame
+    InputBuffer const* const pInputBuffer
 )
 {
     assert(
@@ -464,31 +462,6 @@ bool parseInputRankY(
         default:
             return false;
     }
-
-    /// Set action type relative to if square is occupied or not
-    FileId const fileX = pCommand->fileX;
-    RankId const rankY = pCommand->rankY;
-
-    int const squareIdx = positionToSquare(
-        fileX,
-        rankY,
-        pGame->board.size
-    );
-
-    if ( pCommand->actionType != ACTION_TYPE_NONE )
-    {
-        return true;
-    }
-
-    pCommand->actionType
-        = ( pGame->board.stackIds[squareIdx] == PLAYER_NONE )
-              ? ACTION_TYPE_PLACE
-              : ACTION_TYPE_LIFT;
-
-    pCommand->stoneType
-        = ( pCommand->stoneType == STONE_TYPE_NONE )
-              ? STONE_TYPE_FLAT
-              : pCommand->stoneType;
 
     return true;
 }

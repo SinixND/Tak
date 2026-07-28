@@ -2,6 +2,7 @@
 
 #include "ActionTypeId.h"
 #include "DirectionId.h"
+#include "PlayerId.h"
 #include "Position.h"
 #include "StoneTypeId.h"
 #include <assert.h>
@@ -217,16 +218,20 @@ bool validateCommandRankY(
 
     int const squareIdx = positionToSquare( pCommand->fileX, pCommand->rankY, boardSize );
 
+    PlayerId const stackId = pGame->board.stackIds[squareIdx];
+
     return (
+        ( pCommand->actionType == ACTION_TYPE_NONE
+          && ( stackId == pCommand->playerId
+               || stackId == PLAYER_NONE ) )
         /// Place
-        ( pCommand->actionType == ACTION_TYPE_PLACE
-          && !pGame->board.stoneCounts[squareIdx] )
+        || ( pCommand->actionType == ACTION_TYPE_PLACE
+             && !pGame->board.stoneCounts[squareIdx] )
         /// Lift
         || ( pCommand->actionType == ACTION_TYPE_LIFT
              && pGame->board.stoneCounts[squareIdx]
              /// Player owns square
-             && pGame->board.stackIds[squareIdx]
-                    == pCommand->playerId )
+             && stackId == pCommand->playerId )
     );
 }
 

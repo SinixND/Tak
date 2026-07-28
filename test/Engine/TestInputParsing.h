@@ -105,42 +105,42 @@ void testParseInputRankY( void )
     command.fileX = FILE_A;
     game.board.stackIds[0] = PLAYER_WHITE;
 
-    TEST_ASSERT_EQUAL_INT( false, parseInputRankY( &command, &inputBuffer, &game ) );
+    TEST_ASSERT_EQUAL_INT( false, parseInputRankY( &command, &inputBuffer ) );
     TEST_ASSERT_EQUAL_INT( RANK_NONE, command.rankY );
 
     inputBuffer.lastInput = inputBuffer.mappings.inputs[CONTEXT_POSITION][COMMAND_1];
-    TEST_ASSERT_EQUAL_INT( true, parseInputRankY( &command, &inputBuffer, &game ) );
+    TEST_ASSERT_EQUAL_INT( true, parseInputRankY( &command, &inputBuffer ) );
     TEST_ASSERT_EQUAL_INT( RANK_1, command.rankY );
-    TEST_ASSERT_EQUAL_INT( ACTION_TYPE_LIFT, command.actionType );
+    TEST_ASSERT_EQUAL_INT( ACTION_TYPE_NONE, command.actionType );
 
     command.actionType = ACTION_TYPE_NONE;
     inputBuffer.lastInput = inputBuffer.mappings.inputs[CONTEXT_POSITION][COMMAND_2];
-    TEST_ASSERT_EQUAL_INT( true, parseInputRankY( &command, &inputBuffer, &game ) );
+    TEST_ASSERT_EQUAL_INT( true, parseInputRankY( &command, &inputBuffer ) );
     TEST_ASSERT_EQUAL_INT( RANK_2, command.rankY );
-    TEST_ASSERT_EQUAL_INT( ACTION_TYPE_PLACE, command.actionType );
+    TEST_ASSERT_EQUAL_INT( ACTION_TYPE_NONE, command.actionType );
 
     inputBuffer.lastInput = inputBuffer.mappings.inputs[CONTEXT_POSITION][COMMAND_3];
-    TEST_ASSERT_EQUAL_INT( true, parseInputRankY( &command, &inputBuffer, &game ) );
+    TEST_ASSERT_EQUAL_INT( true, parseInputRankY( &command, &inputBuffer ) );
     TEST_ASSERT_EQUAL_INT( RANK_3, command.rankY );
 
     inputBuffer.lastInput = inputBuffer.mappings.inputs[CONTEXT_POSITION][COMMAND_4];
-    TEST_ASSERT_EQUAL_INT( true, parseInputRankY( &command, &inputBuffer, &game ) );
+    TEST_ASSERT_EQUAL_INT( true, parseInputRankY( &command, &inputBuffer ) );
     TEST_ASSERT_EQUAL_INT( RANK_4, command.rankY );
 
     inputBuffer.lastInput = inputBuffer.mappings.inputs[CONTEXT_POSITION][COMMAND_5];
-    TEST_ASSERT_EQUAL_INT( true, parseInputRankY( &command, &inputBuffer, &game ) );
+    TEST_ASSERT_EQUAL_INT( true, parseInputRankY( &command, &inputBuffer ) );
     TEST_ASSERT_EQUAL_INT( RANK_5, command.rankY );
 
     inputBuffer.lastInput = inputBuffer.mappings.inputs[CONTEXT_POSITION][COMMAND_6];
-    TEST_ASSERT_EQUAL_INT( true, parseInputRankY( &command, &inputBuffer, &game ) );
+    TEST_ASSERT_EQUAL_INT( true, parseInputRankY( &command, &inputBuffer ) );
     TEST_ASSERT_EQUAL_INT( RANK_6, command.rankY );
 
     inputBuffer.lastInput = inputBuffer.mappings.inputs[CONTEXT_POSITION][COMMAND_7];
-    TEST_ASSERT_EQUAL_INT( true, parseInputRankY( &command, &inputBuffer, &game ) );
+    TEST_ASSERT_EQUAL_INT( true, parseInputRankY( &command, &inputBuffer ) );
     TEST_ASSERT_EQUAL_INT( RANK_7, command.rankY );
 
     inputBuffer.lastInput = inputBuffer.mappings.inputs[CONTEXT_POSITION][COMMAND_8];
-    TEST_ASSERT_EQUAL_INT( true, parseInputRankY( &command, &inputBuffer, &game ) );
+    TEST_ASSERT_EQUAL_INT( true, parseInputRankY( &command, &inputBuffer ) );
     TEST_ASSERT_EQUAL_INT( RANK_8, command.rankY );
 }
 

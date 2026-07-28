@@ -40,8 +40,7 @@ bool parseInputFileX(
 /// Set rankY if input is valid
 bool parseInputRankY(
     Command* const pCommand,
-    InputBuffer const* const pInputBuffer,
-    Game const* const pGame
+    InputBuffer const* const pInputBuffer
 );
 
 /// Set dirction if input is valid
