@@ -1,11 +1,13 @@
-#include "Keymap.h"
+#include "Mappings.h"
 
 #include "CommandId.h"
+#include "ContextId.h"
 #include "InputId.h"
+#include "UIElement.h"
 
-Keymap newKeymap( void )
+Mappings newMappings( void )
 {
-    Keymap keymap = {
+    Mappings mappings = {
         .inputs = {
             [CONTEXT_INPUT_FIRST] = {
                 [COMMAND_FLAT] = INPUT_CAP_F,
@@ -83,17 +85,39 @@ Keymap newKeymap( void )
                 [COMMAND_UNDO] = INPUT_CAP_U,
                 [COMMAND_REDO] = INPUT_CAP_R,
             }
-        }
+        },
+        .uiElements = {
+            // TODO: Store positions in Layout
+            // clang-format off
+            [CONTEXT_GLOBAL] = {
+                 (UIElement){
+                    .x = 12,
+                    .y = 0,
+                    .width = 2,
+                    .height = 2,
+                    .commandId = COMMAND_UNDO
+                },
+                (UIElement){
+                    .x = 16,
+                    .y = 0,
+                    .width = 2,
+                    .height = 2,
+                    .commandId = COMMAND_REDO
+                }
+            },
+            // clang-format on
+        },
     };
 
+    /// Commands
     for ( int contextId = 0; contextId < CONTEXT_COUNT; ++contextId )
     {
         for ( int commandId = 0; commandId < COMMAND_COUNT; ++commandId )
         {
-            InputId const inputId = keymap.inputs[contextId][commandId];
-            keymap.commands[contextId][inputId] = commandId;
+            InputId const inputId = mappings.inputs[contextId][commandId];
+            mappings.commands[contextId][inputId] = commandId;
         }
     }
 
-    return keymap;
+    return mappings;
 }

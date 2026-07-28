@@ -1,13 +1,15 @@
 #include "InputBuffer.h"
 
+#include "CommandId.h"
 #include "InputId.h"
-#include "Keymap.h"
+#include "Mappings.h"
+#include "UIElement.h"
 #include <assert.h>
 
 InputBuffer newInputBuffer( void )
 {
     return (InputBuffer){
-        .keymap = newKeymap(),
+        .mappings = newMappings(),
         .lastInput = INPUT_NONE,
     };
 }
@@ -22,10 +24,29 @@ CommandId getCommandId(
         && "Pointer is nullptr"
     );
 
+    Mappings const* const pMappings = &pInputBuffer->mappings;
+
     if ( pInputBuffer->lastInput == INPUT_MOUSE )
     {
-        assert( pInputBuffer->position[0] );
+        /// Check if mouse is at uiElement
+        for ( int elementIdx = 0; elementIdx < LAYOUT_UI_ELEMENTS; ++elementIdx )
+
+        {
+            UIElement const* const pUIElement = &pMappings->uiElements[contextId][elementIdx];
+
+            if (
+                pInputBuffer->position[0] >= pUIElement->x
+                && pInputBuffer->position[0] < pUIElement->x + pUIElement->width
+                && pInputBuffer->position[1] >= pUIElement->y
+                && pInputBuffer->position[1] < pUIElement->y + pUIElement->height
+            )
+            {
+                return pUIElement->commandId;
+            }
+        }
+
+        return COMMAND_NONE;
     }
 
-    return pInputBuffer->keymap.commands[contextId][pInputBuffer->lastInput];
+    return pMappings->commands[contextId][pInputBuffer->lastInput];
 }

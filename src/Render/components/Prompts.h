@@ -2,8 +2,8 @@
 #define IG20260323011843
 
 #include "CommandStateId.h"
-#include "Keymap.h"
 #include "Layout.h"
+#include "Mappings.h"
 
 /// Struct to hold input prompts to render
 typedef struct Prompts
@@ -13,6 +13,6 @@ typedef struct Prompts
 } Prompts;
 
 /// Return initialized object
-Prompts newPrompts( Keymap const* const pKeymap );
+Prompts newPrompts( Mappings const* const pMappings );
 
 #endif

@@ -13,7 +13,6 @@
 #include "History.h"
 #include "InputBuffer.h"
 #include "InputSystem.h"
-#include "Keymap.h"
 #include "PlatformInterface.h"
 #include "PlayerId.h"
 #include "Prompts.h"
@@ -36,7 +35,7 @@ App newApp( void )
         .uiData = newUIData(),
     };
 
-    app.prompts = newPrompts( &app.inputBuffer.keymap );
+    app.prompts = newPrompts( &app.inputBuffer.mappings );
 
     return app;
 }

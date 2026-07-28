@@ -19,7 +19,7 @@ void setupBackend( UIData* const pUIData )
 
     /// Mouse events to listen to
     mousemask(
-        BUTTON1_RELEASED,
+        BUTTON1_CLICKED,
         NULL
     );
 

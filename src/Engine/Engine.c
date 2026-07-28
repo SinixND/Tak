@@ -352,7 +352,7 @@ void undoTurn(
     );
 
     /// Cant undo opening
-    if ( pHistory->lastRecordIdx < 2 )
+    if ( pHistory->lastRecordIdx < 3 )
     {
         return;
     }

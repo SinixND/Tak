@@ -3,12 +3,12 @@
 
 #include "CommandId.h"
 #include "InputId.h"
-#include "Keymap.h"
+#include "Mappings.h"
 
 /// Store per frame user input
 typedef struct InputBuffer
 {
-    Keymap keymap;
+    Mappings mappings;
     InputId lastInput;
     float position[2];
 } InputBuffer;
