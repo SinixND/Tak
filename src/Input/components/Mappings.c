@@ -125,7 +125,7 @@ Mappings newMappings( void )
                     .x = 0,
                     .y = 6,
                     .width = 18,
-                    .height = 5,
+                    .height = 8,
                     .commandId = COMMAND_CYCLE_STONE_TYPE
                 },
             },

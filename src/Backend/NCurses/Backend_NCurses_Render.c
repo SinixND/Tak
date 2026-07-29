@@ -122,7 +122,7 @@ void renderFileLabels( int const boardSize )
 
     /// Bottom
     mvprintw(
-        BOARD_LABELS_Y_TOP + ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ),
+        BOARD_LABELS_Y_TOP + 2 + ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ),
         BOARD_LABELS_X_LEFT,
         "%.*s",
         boardSize * 4,
