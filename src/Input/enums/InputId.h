@@ -28,6 +28,7 @@ typedef enum InputId
     INPUT_M,
     INPUT_P,
     INPUT_R,
+    INPUT_T,
     INPUT_U,
 
     INPUT_SPACE,

@@ -141,6 +141,14 @@ bool parseInputFirst(
             return true;
         }
 
+        case COMMAND_CYCLE_STONE_TYPE:
+        {
+
+            pCommand->stoneType = ( pCommand->stoneType % 3 ) + 1;
+
+            return true;
+        }
+
         case COMMAND_A:
         {
             pCommand->fileX = FILE_A;

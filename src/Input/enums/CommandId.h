@@ -11,6 +11,7 @@ typedef enum CommandId
     COMMAND_FLAT,
     COMMAND_STANDING,
     COMMAND_CAPSTONE,
+    COMMAND_CYCLE_STONE_TYPE,
     /// File
     COMMAND_A,
     COMMAND_B,

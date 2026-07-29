@@ -13,6 +13,7 @@ Mappings newMappings( void )
                 [COMMAND_FLAT] = INPUT_CAP_F,
                 [COMMAND_STANDING] = INPUT_CAP_S,
                 [COMMAND_CAPSTONE] = INPUT_CAP_C,
+                [COMMAND_CYCLE_STONE_TYPE] = INPUT_T,
                 [COMMAND_A] = INPUT_A,
                 [COMMAND_B] = INPUT_B,
                 [COMMAND_C] = INPUT_C,
@@ -117,6 +118,15 @@ Mappings newMappings( void )
                     .width = 2,
                     .height = 2,
                     .commandId = COMMAND_QUIT
+                },
+            },
+            [CONTEXT_INPUT_FIRST] = {
+                 (UIElement){
+                    .x = 0,
+                    .y = 6,
+                    .width = 18,
+                    .height = 5,
+                    .commandId = COMMAND_CYCLE_STONE_TYPE
                 },
             },
             // clang-format on
