@@ -36,11 +36,11 @@ static int const POSITION_INPUT_CURRENT[] = { 11, 2 };
 static int const POSITION_HISTORY_TOP_LEFT[] = { 13, 0 };
 
 static char* const LAYOUT_INFO_PANE[LAYOUT_PANE_HEIGHT] = {
-    "StackBuffer ==  ==",
-    "  +   +     =U  R=",
+    "StackBuffer <<  >>",
+    "  +   +     <<  >>",
     "",
-    "            =X  Q=",
-    "            ==  ==",
+    "            |<  \\/",
+    "            |<  /\\",
     "  +   +  R|C Score",
     "White:    |  ",
     "Black:    |  ",
