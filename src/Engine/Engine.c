@@ -180,7 +180,7 @@ void buildCommand(
     if ( !parseInput(
              &command,
              pInputBuffer,
-             pGame
+             pGame->board.size
          ) )
     {
         return;
@@ -437,7 +437,8 @@ void undoTurn(
             /// Undo all drop events of the turn
             while (
                 pHistory->records[pHistory->lastRecordIdx].actionType
-                == ACTION_TYPE_DROP )
+                == ACTION_TYPE_DROP
+            )
             {
                 DataDrop const dataDrop
                     = pHistory->records[pHistory->lastRecordIdx].Data.drop;
@@ -523,7 +524,8 @@ void redoTurn(
             /// Redo drop action until turn finished
             while (
                 pHistory->records[pHistory->lastRecordIdx + 1].actionType
-                == ACTION_TYPE_DROP )
+                == ACTION_TYPE_DROP
+            )
             {
                 DataDrop const dataDrop
                     = pHistory->records[pHistory->lastRecordIdx + 1].Data.drop;
@@ -547,7 +549,8 @@ void redoTurn(
             /// Redo drop action until turn finished
             while (
                 pHistory->records[pHistory->lastRecordIdx + 1].actionType
-                == ACTION_TYPE_DROP )
+                == ACTION_TYPE_DROP
+            )
             {
                 DataDrop const dataDrop
                     = pHistory->records[pHistory->lastRecordIdx + 1].Data.drop;
@@ -632,7 +635,8 @@ void resetTurn(
             /// Undo all drop events of the turn
             while (
                 pHistory->records[pHistory->lastRecordIdx].actionType
-                == ACTION_TYPE_DROP )
+                == ACTION_TYPE_DROP
+            )
             {
                 DataDrop const dataDrop
                     = pHistory->records[pHistory->lastRecordIdx].Data.drop;

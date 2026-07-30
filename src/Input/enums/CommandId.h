@@ -32,6 +32,7 @@ typedef enum CommandId
     COMMAND_7,
     COMMAND_8,
     COMMAND_ALL,
+    COMMAND_POSITION,
     /// Direction
     COMMAND_UP,
     COMMAND_DOWN,

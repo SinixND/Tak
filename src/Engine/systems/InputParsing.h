@@ -2,7 +2,6 @@
 #define IG20260414225052
 
 #include "Command.h"
-#include "Game.h"
 #include "InputBuffer.h"
 #include <stdbool.h>
 
@@ -10,13 +9,14 @@
 bool parseInput(
     Command* const pCommand,
     InputBuffer const* const pInputBuffer,
-    Game const* const pGame
+    int const boardSize
 );
 
 /// Set stone type or file
 bool parseInputFirst(
     Command* const pCommand,
-    InputBuffer const* const pInputBuffer
+    InputBuffer const* const pInputBuffer,
+    int const boardSize
 );
 
 /// Set action type (place / lift) if input is valid

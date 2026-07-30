@@ -128,6 +128,13 @@ Mappings newMappings( void )
                     .height = 8,
                     .commandId = COMMAND_CYCLE_STONE_TYPE
                 },
+                 (UIElement){
+                    .x = 22,
+                    .y = 3,
+                    .width = 32,
+                    .height = 32,
+                    .commandId = COMMAND_POSITION
+                },
             },
             // clang-format on
         },

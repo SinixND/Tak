@@ -3,14 +3,16 @@
 #include "ActionTypeId.h"
 #include "CommandId.h"
 #include "CommandStateId.h"
+#include "FileId.h"
 #include "InputBuffer.h"
+#include "RankId.h"
 #include "StoneTypeId.h"
 #include <assert.h>
 
 bool parseInput(
     Command* const pCommand,
     InputBuffer const* const pInputBuffer,
-    Game const* const pGame
+    int const boardSize
 )
 {
     assert(
@@ -23,11 +25,6 @@ bool parseInput(
         && "Pointer is nullptr"
     );
 
-    assert(
-        pGame
-        && "Pointer is nullptr"
-    );
-
     switch ( pCommand->state )
     {
         case COMMAND_STATE_NONE:
@@ -35,7 +32,8 @@ bool parseInput(
         {
             return parseInputFirst(
                 pCommand,
-                pInputBuffer
+                pInputBuffer,
+                boardSize
             );
         }
 
@@ -102,7 +100,8 @@ bool parseInput(
 
 bool parseInputFirst(
     Command* const pCommand,
-    InputBuffer const* const pInputBuffer
+    InputBuffer const* const pInputBuffer,
+    int const boardSize
 )
 {
     assert(
@@ -143,7 +142,6 @@ bool parseInputFirst(
 
         case COMMAND_CYCLE_STONE_TYPE:
         {
-
             pCommand->stoneType = ( pCommand->stoneType % 3 ) + 1;
 
             return true;
@@ -201,6 +199,24 @@ bool parseInputFirst(
         case COMMAND_H:
         {
             pCommand->fileX = FILE_H;
+
+            return true;
+        }
+
+        case COMMAND_POSITION:
+        {
+            /// TODO: Store position in layout
+            pCommand->fileX
+                = ( ( (int)pInputBuffer->position[0] - 21 ) % 4 )
+                      ? FILE_NONE
+                      : ( (int)pInputBuffer->position[0]
+                          - 21 )
+                            / 4;
+
+            pCommand->rankY
+                = ( ( (int)pInputBuffer->position[1] - 2 ) % 4 )
+                      ? RANK_NONE
+                      : boardSize - ( ( (int)pInputBuffer->position[1] - 2 ) / 4 );
 
             return true;
         }

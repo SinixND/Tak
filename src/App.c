@@ -13,6 +13,7 @@
 #include "History.h"
 #include "InputBuffer.h"
 #include "InputSystem.h"
+#include "Mappings.h"
 #include "PlatformInterface.h"
 #include "PlayerId.h"
 #include "Prompts.h"
@@ -235,49 +236,42 @@ bool setBoardSize( App* const pApp )
         case COMMAND_CONFIRM:
         {
             pApp->game = newGame( BOARD_SIZE_DEFAULT );
-
             return true;
         }
 
         case COMMAND_3:
         {
             pApp->game = newGame( 3 );
-
             return true;
         }
 
         case COMMAND_4:
         {
             pApp->game = newGame( 4 );
-
             return true;
         }
 
         case COMMAND_5:
         {
             pApp->game = newGame( 5 );
-
             return true;
         }
 
         case COMMAND_6:
         {
             pApp->game = newGame( 6 );
-
             return true;
         }
 
         case COMMAND_7:
         {
             pApp->game = newGame( 7 );
-
             return true;
         }
 
         case COMMAND_8:
         {
             pApp->game = newGame( 8 );
-
             return true;
         }
 

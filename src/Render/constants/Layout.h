@@ -2,6 +2,6 @@
 #define IG20260614222942
 
 #define MAX_PROMPT_LENGTH 11
-#define LAYOUT_UI_ELEMENTS 5
+#define LAYOUT_UI_ELEMENTS 13
 
 #endif
