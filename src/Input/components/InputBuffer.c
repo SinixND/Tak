@@ -11,6 +11,7 @@ InputBuffer newInputBuffer( void )
     return (InputBuffer){
         .mappings = newMappings(),
         .lastInput = INPUT_NONE,
+        .position = { 0, 0 },
     };
 }
 

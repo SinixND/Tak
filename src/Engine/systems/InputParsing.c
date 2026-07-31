@@ -206,19 +206,17 @@ bool parseInputFirst(
         case COMMAND_POSITION:
         {
             /// TODO: Store position in layout
-            pCommand->fileX
-                = ( ( (int)pInputBuffer->position[0] - 21 ) % 4 )
-                      ? FILE_NONE
-                      : ( (int)pInputBuffer->position[0]
-                          - 21 )
-                            / 4;
+            if (
+                ( ( (int)pInputBuffer->position[0] - 21 ) % 4 )
+                && ( (int)pInputBuffer->position[1] - 1 ) % 4
+            )
+            {
+                pCommand->fileX
+                    = ( (int)pInputBuffer->position[0] - 21 ) / 4;
 
-            pCommand->rankY
-                = ( ( (int)pInputBuffer->position[1] - 2 ) % 4 )
-                      ? RANK_NONE
-                      : boardSize - ( ( (int)pInputBuffer->position[1] - 2 ) / 4 );
-
-            return true;
+                pCommand->rankY
+                    = ( boardSize - 1 ) - ( ( (int)pInputBuffer->position[1] - 1 ) / 4 );
+            }
         }
 
         case COMMAND_PLACE:
