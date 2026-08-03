@@ -13,7 +13,6 @@
 #include "History.h"
 #include "InputBuffer.h"
 #include "InputSystem.h"
-#include "Mappings.h"
 #include "PlatformInterface.h"
 #include "PlayerId.h"
 #include "Prompts.h"
@@ -287,6 +286,7 @@ void progressTurn( App* const pApp )
         && "Pointer is nullptr"
     );
 
+    /// Input
     if ( !autocompleteCommand(
              &pApp->command,
              &pApp->game
@@ -294,9 +294,10 @@ void progressTurn( App* const pApp )
     {
         getInput( pApp );
 
-        handleInput( pApp );
+        processInput( pApp );
     };
 
+    /// Action
     updateApp( pApp );
 }
 
@@ -320,7 +321,7 @@ void getInput( App* const pApp )
     pollInput( &pApp->inputBuffer );
 }
 
-void handleInput( App* const pApp )
+void processInput( App* const pApp )
 {
     assert(
         pApp
@@ -365,7 +366,7 @@ bool updateGame( App* const pApp )
         && "Pointer is nullptr"
     );
 
-    if ( !isCommandReady( &pApp->command ) )
+    if ( !isCommandComplete( &pApp->command ) )
     {
         return false;
     }

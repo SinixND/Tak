@@ -6,7 +6,7 @@
 #include <stdbool.h>
 
 /// Parse input into command
-bool parseInput(
+bool parseInputToCommand(
     Command* const pCommand,
     InputBuffer const* const pInputBuffer,
     int const boardSize

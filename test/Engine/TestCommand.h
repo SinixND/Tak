@@ -109,44 +109,44 @@ void testIsCommandReady( void )
 {
     Command command = newCommand( PLAYER_WHITE );
 
-    TEST_ASSERT_EQUAL_INT( false, isCommandReady( &command ) );
+    TEST_ASSERT_EQUAL_INT( false, isCommandComplete( &command ) );
 
     command.actionType = ACTION_TYPE_PLACE;
 
-    TEST_ASSERT_EQUAL_INT( false, isCommandReady( &command ) );
+    TEST_ASSERT_EQUAL_INT( false, isCommandComplete( &command ) );
 
     command.fileX = FILE_B;
     command.rankY = RANK_2;
-    TEST_ASSERT_EQUAL_INT( false, isCommandReady( &command ) );
+    TEST_ASSERT_EQUAL_INT( false, isCommandComplete( &command ) );
 
     command.stoneType = STONE_TYPE_FLAT;
-    TEST_ASSERT_EQUAL_INT( true, isCommandReady( &command ) );
+    TEST_ASSERT_EQUAL_INT( true, isCommandComplete( &command ) );
 
     command.actionType = ACTION_TYPE_LIFT;
     command.fileX = FILE_NONE;
-    TEST_ASSERT_EQUAL_INT( false, isCommandReady( &command ) );
+    TEST_ASSERT_EQUAL_INT( false, isCommandComplete( &command ) );
 
     command.fileX = FILE_B;
-    TEST_ASSERT_EQUAL_INT( true, isCommandReady( &command ) );
+    TEST_ASSERT_EQUAL_INT( true, isCommandComplete( &command ) );
 
     command.actionType = ACTION_TYPE_DROP;
-    TEST_ASSERT_EQUAL_INT( false, isCommandReady( &command ) );
+    TEST_ASSERT_EQUAL_INT( false, isCommandComplete( &command ) );
 
     command.direction = DIR_DOWN;
     command.drops = 0;
-    TEST_ASSERT_EQUAL_INT( false, isCommandReady( &command ) );
+    TEST_ASSERT_EQUAL_INT( false, isCommandComplete( &command ) );
 
     command.dropCounts[0] = 0;
-    TEST_ASSERT_EQUAL_INT( true, isCommandReady( &command ) );
+    TEST_ASSERT_EQUAL_INT( true, isCommandComplete( &command ) );
 
     command.drops = 1;
-    TEST_ASSERT_EQUAL_INT( false, isCommandReady( &command ) );
+    TEST_ASSERT_EQUAL_INT( false, isCommandComplete( &command ) );
 
     command.dropCounts[1] = 0;
-    TEST_ASSERT_EQUAL_INT( false, isCommandReady( &command ) );
+    TEST_ASSERT_EQUAL_INT( false, isCommandComplete( &command ) );
 
     command.dropCounts[1] = 1;
-    TEST_ASSERT_EQUAL_INT( true, isCommandReady( &command ) );
+    TEST_ASSERT_EQUAL_INT( true, isCommandComplete( &command ) );
 }
 
 #endif

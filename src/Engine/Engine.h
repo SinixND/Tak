@@ -21,8 +21,9 @@ bool autocompleteCommand(
 /**
  * @brief Build command from input and against game
  *
- * - Parse input
- * - Validate
+ * - Parse input to command
+ * - Validate command
+ * - Advance commnd state
  */
 void buildCommand(
     Command* const pCommand,

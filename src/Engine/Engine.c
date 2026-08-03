@@ -176,8 +176,8 @@ void buildCommand(
     /// Temporary command
     Command command = *pCommand;
 
-    /// Set command value from input
-    if ( !parseInput(
+    /// Set context-dependent command value from input
+    if ( !parseInputToCommand(
              &command,
              pInputBuffer,
              pGame->board.size

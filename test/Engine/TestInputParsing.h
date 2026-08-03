@@ -300,43 +300,43 @@ void testParseInput( void )
     Game game = newGame( 5 );
 
     command.state = COMMAND_STATE_GET_FIRST_INPUT;
-    TEST_ASSERT_EQUAL_INT( false, parseInput( &command, &inputBuffer, game.board.size ) );
+    TEST_ASSERT_EQUAL_INT( false, parseInputToCommand( &command, &inputBuffer, game.board.size ) );
     inputBuffer.lastInput = inputBuffer.mappings.inputs[CONTEXT_INPUT_FIRST][COMMAND_FLAT];
-    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer, game.board.size ) );
+    TEST_ASSERT_EQUAL_INT( true, parseInputToCommand( &command, &inputBuffer, game.board.size ) );
     inputBuffer.lastInput = inputBuffer.mappings.inputs[CONTEXT_INPUT_FIRST][COMMAND_A];
-    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer, game.board.size ) );
+    TEST_ASSERT_EQUAL_INT( true, parseInputToCommand( &command, &inputBuffer, game.board.size ) );
 
     command.state = COMMAND_STATE_GET_ACTION_TYPE;
-    TEST_ASSERT_EQUAL_INT( false, parseInput( &command, &inputBuffer, game.board.size ) );
+    TEST_ASSERT_EQUAL_INT( false, parseInputToCommand( &command, &inputBuffer, game.board.size ) );
 
     inputBuffer.lastInput = inputBuffer.mappings.inputs[CONTEXT_ACTION_TYPE][COMMAND_MOVE];
-    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer, game.board.size ) );
+    TEST_ASSERT_EQUAL_INT( true, parseInputToCommand( &command, &inputBuffer, game.board.size ) );
 
     command.state = COMMAND_STATE_GET_STONE_TYPE;
     inputBuffer.lastInput = inputBuffer.mappings.inputs[CONTEXT_STONE_TYPE][COMMAND_STANDING];
-    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer, game.board.size ) );
+    TEST_ASSERT_EQUAL_INT( true, parseInputToCommand( &command, &inputBuffer, game.board.size ) );
 
     command.state = COMMAND_STATE_GET_FILE_X;
     inputBuffer.lastInput = inputBuffer.mappings.inputs[CONTEXT_POSITION][COMMAND_A];
-    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer, game.board.size ) );
+    TEST_ASSERT_EQUAL_INT( true, parseInputToCommand( &command, &inputBuffer, game.board.size ) );
 
     command.state = COMMAND_STATE_GET_RANK_Y;
     inputBuffer.lastInput = inputBuffer.mappings.inputs[CONTEXT_POSITION][COMMAND_1];
-    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer, game.board.size ) );
+    TEST_ASSERT_EQUAL_INT( true, parseInputToCommand( &command, &inputBuffer, game.board.size ) );
 
     command.state = COMMAND_STATE_GET_DIRECTION;
     inputBuffer.lastInput = inputBuffer.mappings.inputs[CONTEXT_DIRECTION][COMMAND_RIGHT];
-    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer, game.board.size ) );
+    TEST_ASSERT_EQUAL_INT( true, parseInputToCommand( &command, &inputBuffer, game.board.size ) );
 
     command.state = COMMAND_STATE_GET_FIRST_DROP_AMOUNT;
     inputBuffer.lastInput = inputBuffer.mappings.inputs[CONTEXT_AMOUNT][COMMAND_0];
     command.drops = 0;
-    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer, game.board.size ) );
+    TEST_ASSERT_EQUAL_INT( true, parseInputToCommand( &command, &inputBuffer, game.board.size ) );
 
     command.state = COMMAND_STATE_GET_DROP_AMOUNT;
     command.drops = 1;
     inputBuffer.lastInput = inputBuffer.mappings.inputs[CONTEXT_AMOUNT][COMMAND_1];
-    TEST_ASSERT_EQUAL_INT( true, parseInput( &command, &inputBuffer, game.board.size ) );
+    TEST_ASSERT_EQUAL_INT( true, parseInputToCommand( &command, &inputBuffer, game.board.size ) );
 }
 
 #endif

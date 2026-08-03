@@ -9,7 +9,7 @@
 #include "StoneTypeId.h"
 #include <assert.h>
 
-bool parseInput(
+bool parseInputToCommand(
     Command* const pCommand,
     InputBuffer const* const pInputBuffer,
     int const boardSize

@@ -150,6 +150,7 @@ The following tools are used in the project but not required and not contained i
 
 
 ## ToDo notes
+- [ ] Fix first input validation
 - [ ] Input position for drops
 - [ ] Render raylib/web 
 

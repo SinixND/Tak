@@ -58,7 +58,7 @@ void progressTurn( App* const pApp );
 void getInput( App* const pApp );
 
 /// Get input and update dependent data
-void handleInput( App* const pApp );
+void processInput( App* const pApp );
 
 /// Update application state
 void updateApp( App* const pApp );
