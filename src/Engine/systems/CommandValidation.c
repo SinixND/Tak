@@ -2,6 +2,7 @@
 
 #include "ActionTypeId.h"
 #include "DirectionId.h"
+#include "FileId.h"
 #include "PlayerId.h"
 #include "Position.h"
 #include "StoneTypeId.h"
@@ -109,9 +110,41 @@ bool validateCommandFirstInput(
     );
 
     // TODO: Check if || is correct logic (vs &&)
-    return validateCommandActionType( pCommand, pGame )
-           || validateCommandStoneType( pCommand, pGame )
-           || validateCommandFileX( pCommand, pGame );
+    bool isValid = true;
+
+    if ( pCommand->actionType != ACTION_TYPE_NONE )
+    {
+        isValid &= validateCommandActionType(
+            pCommand,
+            pGame
+        );
+    }
+
+    if ( pCommand->stoneType != STONE_TYPE_NONE )
+    {
+        isValid &= validateCommandStoneType(
+            pCommand,
+            pGame
+        );
+    }
+
+    if ( pCommand->fileX != FILE_NONE )
+    {
+        isValid &= validateCommandFileX(
+            pCommand,
+            pGame
+        );
+    }
+
+    if ( pCommand->rankY != RANK_NONE )
+    {
+        isValid &= validateCommandRankY(
+            pCommand,
+            pGame
+        );
+    }
+
+    return isValid;
 }
 
 bool validateCommandActionType(

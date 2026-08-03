@@ -8,6 +8,7 @@
 #include "RankId.h"
 #include "StoneTypeId.h"
 #include <assert.h>
+#include <stdbool.h>
 
 bool parseInputToCommand(
     Command* const pCommand,
