@@ -11,13 +11,17 @@
 #include "History.h"
 #include "InputBuffer.h"
 #include "InputParsing.h"
-#include "PlayerId.h"
 #include "Position.h"
 #include "RankId.h"
 #include "Record.h"
 #include "StoneTypeId.h"
 #include <assert.h>
 #include <stdbool.h>
+
+bool autocompleteAction(
+    Command* const pCommand,
+    Game const* const pGame
+);
 
 bool autocompleteDrop(
     Command* const pCommand,
@@ -41,6 +45,14 @@ bool autocompleteCommand(
 
     switch ( pCommand->state )
     {
+        case COMMAND_STATE_GET_FIRST_INPUT:
+        {
+            return autocompleteAction(
+                pCommand,
+                pGame
+            );
+        }
+
         case COMMAND_STATE_GET_FIRST_DROP_AMOUNT:
         case COMMAND_STATE_GET_DROP_AMOUNT:
         {
@@ -53,6 +65,51 @@ bool autocompleteCommand(
         default:
             return false;
     }
+}
+
+bool autocompleteAction(
+    Command* const pCommand,
+    Game const* const pGame
+)
+{
+    /// If position w/o actionType
+    if (
+        pCommand->fileX != FILE_NONE
+        && pCommand->rankY != RANK_NONE
+        && pCommand->actionType == ACTION_TYPE_NONE
+    )
+    {
+        PlayerId stackId
+            = pGame->board.stackIds[positionToSquare(
+                pCommand->fileX,
+                pCommand->rankY,
+                pGame->board.size
+            )];
+
+        /// Add action type depending on who owns the square
+        pCommand->actionType
+            = ( stackId == pGame->activePlayer )
+                  ? ACTION_TYPE_LIFT
+              : ( stackId == PLAYER_NONE )
+                  ? ACTION_TYPE_PLACE
+                  : ACTION_TYPE_NONE;
+
+        /// Change state for lift action
+        pCommand->state
+            = ( pCommand->actionType == ACTION_TYPE_LIFT )
+                  ? COMMAND_STATE_GET_DIRECTION
+                  : pCommand->state;
+
+        /// Set stone type if not set
+        pCommand->stoneType
+            = ( pCommand->stoneType == STONE_TYPE_NONE )
+                  ? STONE_TYPE_FLAT
+                  : pCommand->stoneType;
+
+        return true;
+    }
+
+    return false;
 }
 
 bool autocompleteDrop(
@@ -147,11 +204,6 @@ bool autocompleteDrop(
     return false;
 }
 
-void completeInput(
-    Command* const pCommand,
-    Game const* const pGame
-);
-
 void buildCommand(
     Command* const pCommand,
     InputBuffer const* const pInputBuffer,
@@ -202,11 +254,6 @@ void buildCommand(
         return;
     }
 
-    completeInput(
-        &command,
-        pGame
-    );
-
     /// Update command state
     setNextCommandState(
         &command,
@@ -215,36 +262,6 @@ void buildCommand(
 
     /// Copy temp command to original
     *pCommand = command;
-}
-
-void completeInput(
-    Command* const pCommand,
-    Game const* const pGame
-)
-{
-    if ( pCommand->state == COMMAND_STATE_GET_RANK_Y )
-    {
-        PlayerId stackId
-            = pGame->board.stackIds[positionToSquare(
-                pCommand->fileX,
-                pCommand->rankY,
-                pGame->board.size
-            )];
-
-        /// Add action type if position is first input
-        pCommand->actionType
-            = ( stackId == pGame->activePlayer )
-                  ? ACTION_TYPE_LIFT
-              : ( stackId == PLAYER_NONE )
-                  ? ACTION_TYPE_PLACE
-                  : ACTION_TYPE_NONE;
-
-        /// Set stone type if not set
-        pCommand->stoneType
-            = ( pCommand->stoneType == STONE_TYPE_NONE )
-                  ? STONE_TYPE_FLAT
-                  : pCommand->stoneType;
-    }
 }
 
 void recordCommand(
