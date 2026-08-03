@@ -53,39 +53,44 @@ void setNextCommandState(
         case COMMAND_STATE_NONE:
         case COMMAND_STATE_GET_FIRST_INPUT:
         {
-            // NOTE: Nested switch used for simplicity, didnt want to extract another function
-            switch ( pCommand->actionType )
+            /// First: Action
+            if ( pCommand->actionType == ACTION_TYPE_PLACE
+                 && pCommand->stoneType == STONE_TYPE_NONE )
             {
-                case ACTION_TYPE_NONE:
-                {
-                    pCommand->state
-                        = ( pCommand->fileX == FILE_NONE )
-                              ? COMMAND_STATE_GET_FIRST_INPUT
-                              : COMMAND_STATE_GET_RANK_Y;
+                pCommand->state
+                    = COMMAND_STATE_GET_STONE_TYPE;
 
-                    return;
-                }
-
-                case ACTION_TYPE_PLACE:
-                {
-                    pCommand->state
-                        = ( pCommand->stoneType == STONE_TYPE_NONE )
-                              ? COMMAND_STATE_GET_STONE_TYPE
-                              : COMMAND_STATE_GET_FILE_X;
-
-                    return;
-                }
-
-                case ACTION_TYPE_LIFT:
-                {
-                    pCommand->state = COMMAND_STATE_GET_FILE_X;
-
-                    return;
-                }
-
-                default:
-                    return;
+                break;
             }
+
+            if ( pCommand->actionType == ACTION_TYPE_LIFT )
+            {
+                pCommand->state
+                    = COMMAND_STATE_GET_FILE_X;
+
+                break;
+            }
+
+            /// First: FileX & RankY
+            if ( pCommand->fileX != FILE_NONE
+                 && pCommand->rankY != RANK_NONE )
+            {
+                pCommand->state
+                    = COMMAND_STATE_GET_FIRST_INPUT;
+
+                break;
+            }
+
+            /// First: FileX
+            if ( pCommand->fileX != FILE_NONE )
+            {
+                pCommand->state
+                    = COMMAND_STATE_GET_RANK_Y;
+
+                break;
+            }
+
+            return;
         }
 
         case COMMAND_STATE_GET_ACTION_TYPE:
@@ -115,15 +120,10 @@ void setNextCommandState(
 
         case COMMAND_STATE_GET_RANK_Y:
         {
-            assert(
-                pCommand->actionType != ACTION_TYPE_NONE
-                && "Action type invalid"
-            );
-
             pCommand->state
-                = ( pCommand->actionType == ACTION_TYPE_PLACE )
-                      ? COMMAND_STATE_GET_FIRST_INPUT
-                      : COMMAND_STATE_GET_DIRECTION;
+                = ( pCommand->actionType == ACTION_TYPE_LIFT )
+                      ? COMMAND_STATE_GET_DIRECTION
+                      : COMMAND_STATE_GET_FIRST_INPUT;
 
             return;
         }
