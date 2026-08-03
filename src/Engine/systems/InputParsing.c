@@ -123,84 +123,84 @@ bool parseInputFirst(
         {
             pCommand->stoneType = STONE_TYPE_FLAT;
 
-            return true;
+            break;
         }
 
         case COMMAND_STANDING:
         {
             pCommand->stoneType = STONE_TYPE_STANDING;
 
-            return true;
+            break;
         }
 
         case COMMAND_CAPSTONE:
         {
             pCommand->stoneType = STONE_TYPE_CAP;
 
-            return true;
+            break;
         }
 
         case COMMAND_CYCLE_STONE_TYPE:
         {
             pCommand->stoneType = ( pCommand->stoneType % 3 ) + 1;
 
-            return true;
+            break;
         }
 
         case COMMAND_A:
         {
             pCommand->fileX = FILE_A;
 
-            return true;
+            break;
         }
 
         case COMMAND_B:
         {
             pCommand->fileX = FILE_B;
 
-            return true;
+            break;
         }
 
         case COMMAND_C:
         {
             pCommand->fileX = FILE_C;
 
-            return true;
+            break;
         }
 
         case COMMAND_D:
         {
             pCommand->fileX = FILE_D;
 
-            return true;
+            break;
         }
 
         case COMMAND_E:
         {
             pCommand->fileX = FILE_E;
 
-            return true;
+            break;
         }
 
         case COMMAND_F:
         {
             pCommand->fileX = FILE_F;
 
-            return true;
+            break;
         }
 
         case COMMAND_G:
         {
             pCommand->fileX = FILE_G;
 
-            return true;
+            break;
         }
 
         case COMMAND_H:
         {
             pCommand->fileX = FILE_H;
 
-            return true;
+            break;
         }
 
         case COMMAND_POSITION:
@@ -217,25 +217,29 @@ bool parseInputFirst(
                 pCommand->rankY
                     = ( boardSize - 1 ) - ( ( (int)pInputBuffer->position[1] - 1 ) / 4 );
             }
+
+            break;
         }
 
         case COMMAND_PLACE:
         {
             pCommand->actionType = ACTION_TYPE_PLACE;
 
-            return true;
+            break;
         }
 
         case COMMAND_MOVE:
         {
             pCommand->actionType = ACTION_TYPE_LIFT;
 
-            return true;
+            break;
         }
 
         default:
             return false;
     }
+
+    return true;
 }
 
 bool parseInputActionType(
