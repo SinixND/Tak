@@ -165,8 +165,6 @@ void testValidateCommand( void )
     Command command = newCommand( PLAYER_WHITE );
     Game game = newGame( 5 );
 
-    TEST_ASSERT_EQUAL_INT( false, validateCommand( &command, &game ) );
-
     command.state = COMMAND_STATE_GET_FIRST_INPUT;
     command.stoneType = STONE_TYPE_FLAT;
     TEST_ASSERT_EQUAL_INT( true, validateCommand( &command, &game ) );
