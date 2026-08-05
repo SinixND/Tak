@@ -11,7 +11,7 @@ InputBuffer newInputBuffer( void )
     return (InputBuffer){
         .mappings = newMappings(),
         .lastInput = INPUT_NONE,
-        .position = { 0, 0 },
+        .mousePosition = { 0, 0 },
     };
 }
 
@@ -36,10 +36,10 @@ CommandId getCommandId(
             UIElement const* const pUIElement = &pMappings->uiElements[contextId][elementIdx];
 
             if (
-                pInputBuffer->position[0] >= pUIElement->x
-                && pInputBuffer->position[0] < pUIElement->x + pUIElement->width
-                && pInputBuffer->position[1] >= pUIElement->y
-                && pInputBuffer->position[1] < pUIElement->y + pUIElement->height
+                pInputBuffer->mousePosition[0] >= pUIElement->x
+                && pInputBuffer->mousePosition[0] < pUIElement->x + pUIElement->width
+                && pInputBuffer->mousePosition[1] >= pUIElement->y
+                && pInputBuffer->mousePosition[1] < pUIElement->y + pUIElement->height
             )
             {
                 return pUIElement->commandId;

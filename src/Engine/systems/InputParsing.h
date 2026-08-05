@@ -46,7 +46,8 @@ bool parseInputRankY(
 /// Set dirction if input is valid
 bool parseInputDirection(
     Command* const pCommand,
-    InputBuffer const* const pInputBuffer
+    InputBuffer const* const pInputBuffer,
+    int const boardSize
 );
 
 /// Set first drop amount (0 - n) if input is valid

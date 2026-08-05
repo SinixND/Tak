@@ -1,8 +1,10 @@
 #include "InputParsing.h"
 
 #include "ActionTypeId.h"
+#include "BackendInterface.h"
 #include "CommandId.h"
 #include "CommandStateId.h"
+#include "DirectionId.h"
 #include "FileId.h"
 #include "InputBuffer.h"
 #include "RankId.h"
@@ -74,7 +76,8 @@ bool parseInputToCommand(
         {
             return parseInputDirection(
                 pCommand,
-                pInputBuffer
+                pInputBuffer,
+                boardSize
             );
         }
 
@@ -120,6 +123,20 @@ bool parseInputFirst(
         CONTEXT_INPUT_FIRST
     ) )
     {
+        case COMMAND_POSITION:
+        {
+            Tile tile = getTile(
+                pInputBuffer->mousePosition[0],
+                pInputBuffer->mousePosition[1],
+                boardSize
+            );
+
+            pCommand->fileX = tile.fileX;
+            pCommand->rankY = tile.rankY;
+
+            break;
+        }
+
         case COMMAND_FLAT:
         {
             pCommand->stoneType = STONE_TYPE_FLAT;
@@ -256,24 +273,6 @@ bool parseInputFirst(
         case COMMAND_8:
         {
             pCommand->rankY = RANK_8;
-
-            break;
-        }
-
-        case COMMAND_POSITION:
-        {
-            /// TODO: Store position in layout
-            if (
-                ( ( (int)pInputBuffer->position[0] - 21 ) % 4 )
-                && ( (int)pInputBuffer->position[1] - 1 ) % 4
-            )
-            {
-                pCommand->fileX
-                    = ( (int)pInputBuffer->position[0] - 21 ) / 4;
-
-                pCommand->rankY
-                    = ( boardSize - 1 ) - ( ( (int)pInputBuffer->position[1] - 1 ) / 4 );
-            }
 
             break;
         }
@@ -550,7 +549,8 @@ bool parseInputRankY(
 
 bool parseInputDirection(
     Command* const pCommand,
-    InputBuffer const* const pInputBuffer
+    InputBuffer const* const pInputBuffer,
+    int const boardSize
 )
 {
     assert(
@@ -568,11 +568,6 @@ bool parseInputDirection(
         CONTEXT_DIRECTION
     ) )
     {
-        default:
-        {
-            return false;
-        }
-
         case COMMAND_UP:
         {
             pCommand->direction = DIR_UP;
@@ -599,6 +594,36 @@ bool parseInputDirection(
             pCommand->direction = DIR_RIGHT;
 
             return true;
+        }
+
+        case COMMAND_POSITION:
+        {
+            Tile mouseTile = getTile(
+                pInputBuffer->mousePosition[0],
+                pInputBuffer->mousePosition[1],
+                boardSize
+            );
+
+            float const offset[2] = {
+                mouseTile.fileX - pCommand->fileX,
+                mouseTile.rankY - pCommand->rankY
+            };
+
+            pCommand->direction
+                = ( ( offset[0] * offset[0] ) > ( offset[1] * offset[1] ) )
+                      ? ( ( offset[0] < 0 )
+                              ? DIR_LEFT
+                              : DIR_RIGHT )
+                      : ( ( offset[1] < 0 )
+                              ? DIR_DOWN
+                              : DIR_UP );
+
+            return true;
+        }
+
+        default:
+        {
+            return false;
         }
     }
 }

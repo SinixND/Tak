@@ -201,8 +201,8 @@ void pollInput( InputBuffer* const pInput )
 
             MEVENT event;
             getmouse( &event );
-            pInput->position[0] = event.x;
-            pInput->position[1] = event.y;
+            pInput->mousePosition[0] = event.x;
+            pInput->mousePosition[1] = event.y;
 
             return;
         }

@@ -10,7 +10,7 @@ typedef struct InputBuffer
 {
     Mappings mappings;
     InputId lastInput;
-    float position[2];
+    float mousePosition[2];
 } InputBuffer;
 
 /// Return initialized object

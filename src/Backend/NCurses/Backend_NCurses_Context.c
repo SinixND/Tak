@@ -1,9 +1,34 @@
 #include "BackendInterface.h"
+#include "FileId.h"
 
 #ifdef BACKEND_NCURSES
 #include "Backend_NCurses_Layout.h"
 #include <assert.h>
 #include <ncurses.h>
+
+Tile getTile(
+    float mouseX,
+    float mouseY,
+    int boardSize
+)
+{
+    Tile tile = { FILE_NONE, RANK_NONE };
+
+    /// TODO: Store position in layout
+    if (
+        ( ( (int)mouseX - 21 ) % 4 )
+        && ( (int)mouseY - 1 ) % 4
+    )
+    {
+        tile.fileX
+            = ( (int)mouseX - 21 ) / 4;
+
+        tile.rankY
+            = ( boardSize - 1 ) - ( ( (int)mouseY - 1 ) / 4 );
+    }
+
+    return tile;
+}
 
 void setupBackend( UIData* const pUIData )
 {

@@ -2,7 +2,22 @@
 #define IG20260327175731
 
 #include "App.h"
+#include "FileId.h"
+#include "RankId.h"
 #include "UIData.h"
+
+/// Utility
+typedef struct Tile
+{
+    FileId fileX;
+    RankId rankY;
+} Tile;
+
+Tile getTile(
+    float mouseX,
+    float mouseY,
+    int boardSize
+);
 
 /// Context
 

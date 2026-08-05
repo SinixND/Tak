@@ -148,24 +148,25 @@ void testParseInputDirection( void )
 {
     Command command = newCommand( PLAYER_WHITE );
     InputBuffer inputBuffer = newInputBuffer();
+    int const boardSize = 8;
 
-    TEST_ASSERT_EQUAL_INT( false, parseInputDirection( &command, &inputBuffer ) );
+    TEST_ASSERT_EQUAL_INT( false, parseInputDirection( &command, &inputBuffer, boardSize ) );
     TEST_ASSERT_EQUAL_INT( DIR_NONE, command.direction );
 
     inputBuffer.lastInput = inputBuffer.mappings.inputs[CONTEXT_DIRECTION][COMMAND_UP];
-    TEST_ASSERT_EQUAL_INT( true, parseInputDirection( &command, &inputBuffer ) );
+    TEST_ASSERT_EQUAL_INT( true, parseInputDirection( &command, &inputBuffer, boardSize ) );
     TEST_ASSERT_EQUAL_INT( DIR_UP, command.direction );
 
     inputBuffer.lastInput = inputBuffer.mappings.inputs[CONTEXT_DIRECTION][COMMAND_DOWN];
-    TEST_ASSERT_EQUAL_INT( true, parseInputDirection( &command, &inputBuffer ) );
+    TEST_ASSERT_EQUAL_INT( true, parseInputDirection( &command, &inputBuffer, boardSize ) );
     TEST_ASSERT_EQUAL_INT( DIR_DOWN, command.direction );
 
     inputBuffer.lastInput = inputBuffer.mappings.inputs[CONTEXT_DIRECTION][COMMAND_LEFT];
-    TEST_ASSERT_EQUAL_INT( true, parseInputDirection( &command, &inputBuffer ) );
+    TEST_ASSERT_EQUAL_INT( true, parseInputDirection( &command, &inputBuffer, boardSize ) );
     TEST_ASSERT_EQUAL_INT( DIR_LEFT, command.direction );
 
     inputBuffer.lastInput = inputBuffer.mappings.inputs[CONTEXT_DIRECTION][COMMAND_RIGHT];
-    TEST_ASSERT_EQUAL_INT( true, parseInputDirection( &command, &inputBuffer ) );
+    TEST_ASSERT_EQUAL_INT( true, parseInputDirection( &command, &inputBuffer, boardSize ) );
     TEST_ASSERT_EQUAL_INT( DIR_RIGHT, command.direction );
 }
 
