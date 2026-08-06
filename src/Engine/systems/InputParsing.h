@@ -53,13 +53,15 @@ bool parseInputDirection(
 /// Set first drop amount (0 - n) if input is valid
 bool parseInputFirstDropAmount(
     Command* const pCommand,
-    InputBuffer const* const pInputBuffer
+    InputBuffer const* const pInputBuffer,
+    int const boardSize
 );
 
 /// Set drop amount (1 - n) if input is valid
 bool parseInputDropAmount(
     Command* const pCommand,
-    InputBuffer const* const pInputBuffer
+    InputBuffer const* const pInputBuffer,
+    int const boardSize
 );
 
 #endif
