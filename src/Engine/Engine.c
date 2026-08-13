@@ -11,6 +11,7 @@
 #include "History.h"
 #include "InputBuffer.h"
 #include "InputParsing.h"
+#include "PlayerId.h"
 #include "Position.h"
 #include "RankId.h"
 #include "Record.h"
@@ -428,7 +429,10 @@ void undoTurn(
             --pHistory->lastRecordIdx;
 
             /// Turn complete
-            pGame->activePlayer = ~pGame->activePlayer;
+            pGame->activePlayer
+                = ( pGame->activePlayer == PLAYER_WHITE )
+                      ? PLAYER_BLACK
+                      : PLAYER_WHITE;
 
             break;
         }
@@ -444,7 +448,10 @@ void undoTurn(
             --pHistory->lastRecordIdx;
 
             /// Undo turn complete
-            pGame->activePlayer = ~pGame->activePlayer;
+            pGame->activePlayer
+                = ( pGame->activePlayer == PLAYER_WHITE )
+                      ? PLAYER_BLACK
+                      : PLAYER_WHITE;
 
             break;
         }
@@ -481,6 +488,12 @@ void undoTurn(
             );
 
             --pHistory->lastRecordIdx;
+
+            /// Undo turn complete
+            pGame->activePlayer
+                = ( pGame->activePlayer == PLAYER_WHITE )
+                      ? PLAYER_BLACK
+                      : PLAYER_WHITE;
 
             break;
         }
@@ -524,7 +537,10 @@ void redoTurn(
             ++pHistory->lastRecordIdx;
 
             /// Redo turn complete
-            pGame->activePlayer = ~pGame->activePlayer;
+            pGame->activePlayer
+                = ( pGame->activePlayer == PLAYER_WHITE )
+                      ? PLAYER_BLACK
+                      : PLAYER_WHITE;
 
             break;
         }
@@ -584,7 +600,10 @@ void redoTurn(
             }
 
             /// Redo turn complete
-            pGame->activePlayer = ~pGame->activePlayer;
+            pGame->activePlayer
+                = ( pGame->activePlayer == PLAYER_WHITE )
+                      ? PLAYER_BLACK
+                      : PLAYER_WHITE;
 
             break;
         }

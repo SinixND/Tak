@@ -156,9 +156,11 @@ void updateFrame( App* const pApp )
             );
 
             /// Reset command
-            pApp->command = newCommand( pApp->command.playerId );
+            pApp->command = newCommand( pApp->game.activePlayer );
 
             pApp->state = APP_STATE_NORMAL_TURN;
+
+            updateScore( &pApp->game );
 
             break;
         }
@@ -178,9 +180,11 @@ void updateFrame( App* const pApp )
             }
 
             /// Reset command
-            pApp->command = newCommand( pApp->command.playerId );
+            pApp->command = newCommand( pApp->game.activePlayer );
 
             pApp->state = APP_STATE_NORMAL_TURN;
+
+            updateScore( &pApp->game );
 
             break;
         }
@@ -194,9 +198,11 @@ void updateFrame( App* const pApp )
             );
 
             /// Reset command
-            pApp->command = newCommand( pApp->command.playerId );
+            pApp->command = newCommand( pApp->game.activePlayer );
 
             pApp->state = APP_STATE_NORMAL_TURN;
+
+            updateScore( &pApp->game );
 
             break;
         }
