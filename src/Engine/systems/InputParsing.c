@@ -223,62 +223,6 @@ bool parseInputFirst(
             break;
         }
 
-        case COMMAND_1:
-        {
-            pCommand->rankY = RANK_1;
-
-            break;
-        }
-
-        case COMMAND_2:
-        {
-            pCommand->rankY = RANK_2;
-
-            break;
-        }
-
-        case COMMAND_3:
-        {
-            pCommand->rankY = RANK_3;
-
-            break;
-        }
-
-        case COMMAND_4:
-        {
-            pCommand->rankY = RANK_4;
-
-            break;
-        }
-
-        case COMMAND_5:
-        {
-            pCommand->rankY = RANK_5;
-
-            break;
-        }
-
-        case COMMAND_6:
-        {
-            pCommand->rankY = RANK_6;
-
-            break;
-        }
-
-        case COMMAND_7:
-        {
-            pCommand->rankY = RANK_7;
-
-            break;
-        }
-
-        case COMMAND_8:
-        {
-            pCommand->rankY = RANK_8;
-
-            break;
-        }
-
         case COMMAND_PLACE:
         {
             pCommand->actionType = ACTION_TYPE_PLACE;
