@@ -555,6 +555,12 @@ bool parseInputDirection(
                 mouseTile.rankY - pCommand->rankY
             };
 
+            if ( !offset[0]
+                 && !offset[1] )
+            {
+                return false;
+            }
+
             pCommand->direction
                 = ( ( offset[0] * offset[0] ) > ( offset[1] * offset[1] ) )
                       ? ( ( offset[0] < 0 )
