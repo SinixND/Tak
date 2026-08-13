@@ -172,7 +172,7 @@ void updateFrame( App* const pApp )
                 &pApp->game
             );
 
-            if ( handleGameEnd( pApp ) )
+            if ( isGameOver( pApp ) )
             {
                 pApp->state = APP_STATE_GAME_END;
 
@@ -407,7 +407,7 @@ bool isTurnComplete( App const* const pApp )
     return pApp->command.state == COMMAND_STATE_GET_FIRST_INPUT;
 }
 
-bool handleGameEnd( App* const pApp )
+bool isGameOver( App* const pApp )
 {
     for ( int playerId = 0; playerId < PLAYER_COUNT; ++playerId )
     {
@@ -443,7 +443,7 @@ void handleTurnEnd( App* const pApp )
         &pApp->game
     );
 
-    if ( handleGameEnd( pApp ) )
+    if ( isGameOver( pApp ) )
     {
         return;
     }

@@ -13,6 +13,7 @@ typedef struct Tile
     RankId rankY;
 } Tile;
 
+/// Returns file and rank under mouse
 Tile getTile(
     float mouseX,
     float mouseY,
