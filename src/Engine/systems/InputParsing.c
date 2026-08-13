@@ -678,6 +678,7 @@ bool parseInputFirstDropAmount(
             );
 
             /// If mouse == command position
+            /// -> Drop one in place
             if (
                 mouseTile.fileX == pCommand->fileX && mouseTile.rankY == pCommand->rankY
             )
@@ -686,7 +687,8 @@ bool parseInputFirstDropAmount(
 
                 return true;
             }
-            /// If offset is matching direction and no drops yet
+            /// If offset is matching next square in direction and no drops yet
+            /// -> Drop none in place, goto next square and drop one
             else if (
                 ( pCommand->fileX
                   + getOffsetX( pCommand->direction ) )
@@ -694,24 +696,13 @@ bool parseInputFirstDropAmount(
                 && ( pCommand->rankY
                      + getOffsetY( pCommand->direction ) )
                        == mouseTile.rankY
-                && !pCommand->dropCounts[0]
             )
             {
-                pCommand->dropCounts[0] = 0;
+                pCommand->dropCounts[0]
+                    = ( pCommand->dropCounts[0] < 0 )
+                          ? 0
+                          : pCommand->dropCounts[0];
 
-                return true;
-            }
-            /// If offset is matching next square and previous drops
-            else if (
-                ( pCommand->fileX
-                  + getOffsetX( pCommand->direction ) )
-                    == mouseTile.fileX
-                && ( pCommand->rankY
-                     + getOffsetY( pCommand->direction ) )
-                       == mouseTile.rankY
-                && pCommand->dropCounts[0] > 0
-            )
-            {
                 pCommand->dropCounts[1] = 1;
 
                 return true;

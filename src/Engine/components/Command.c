@@ -1,6 +1,7 @@
 #include "Command.h"
 
 #include "ActionTypeId.h"
+#include "BackendInterface.h"
 #include "CommandStateId.h"
 #include "DirectionId.h"
 #include "FileId.h"
@@ -205,6 +206,15 @@ void updateCommandPostEvent( Command* const pCommand )
     /// Un-ready command by updating drop count
     if ( pCommand->actionType == ACTION_TYPE_DROP )
     {
+        // TODO: If input position, && position == command+direction, dont advance aka. inc drops
+        // if (
+        //                 ( pCommand->fileX
+        //                   + getOffsetX( pCommand->direction ) )
+        //                     == mouseTile.fileX
+        //                 && ( pCommand->rankY
+        //                      + getOffsetY( pCommand->direction ) )
+        //                        == mouseTile.rankY
+        //             )
         ++pCommand->drops;
 
         return;
