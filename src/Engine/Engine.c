@@ -118,6 +118,15 @@ bool autocompleteDrop(
     Game const* const pGame
 )
 {
+    /// Complete if bufferedDropCount >= stackBuffer size
+    if ( pCommand->bufferedDropCount >= pGame->stackBuffer.stoneCount )
+    {
+        pCommand->dropCounts[pCommand->drops] = pCommand->bufferedDropCount;
+        pCommand->state = COMMAND_STATE_GET_FIRST_INPUT;
+
+        return true;
+    }
+
     FileId const nextFileX
         = pCommand->fileX
           + ( getOffsetX( pCommand->direction )
@@ -150,8 +159,9 @@ bool autocompleteDrop(
         pGame->board.size
     );
 
-    /// Drop nothing at source square if liftcount == 1
+    /// Drop nothing at source square if single pickup
     if ( pCommand->drops < 1
+         && pCommand->dropCounts[pCommand->drops] < 0
          && pGame->stackBuffer.stoneCount == 1 )
     {
         pCommand->dropCounts[pCommand->drops] = 0;
@@ -162,6 +172,7 @@ bool autocompleteDrop(
 
     /// Need to drop 'all' if not first drop and only one stone left in stack buffer
     if ( pCommand->drops > 0
+         && pCommand->dropCounts[pCommand->drops] < 0
          && pGame->stackBuffer.stoneCount == 1 )
     {
         pCommand->dropCounts[pCommand->drops] = 1;
@@ -251,6 +262,9 @@ void buildCommand(
             pCommand->fileX = FILE_NONE;
             pCommand->state = COMMAND_STATE_GET_FILE_X;
         }
+
+        /// Keep buffered stone count
+        pCommand->bufferedDropCount = command.bufferedDropCount;
 
         return;
     }
@@ -459,10 +473,7 @@ void undoTurn(
         case ACTION_TYPE_DROP:
         {
             /// Undo all drop events of the turn
-            while (
-                pHistory->records[pHistory->lastRecordIdx].actionType
-                == ACTION_TYPE_DROP
-            )
+            while ( pHistory->records[pHistory->lastRecordIdx].actionType == ACTION_TYPE_DROP )
             {
                 DataDrop const dataDrop
                     = pHistory->records[pHistory->lastRecordIdx].Data.drop;
@@ -555,10 +566,7 @@ void redoTurn(
             ++pHistory->lastRecordIdx;
 
             /// Redo drop action until turn finished
-            while (
-                pHistory->records[pHistory->lastRecordIdx + 1].actionType
-                == ACTION_TYPE_DROP
-            )
+            while ( pHistory->records[pHistory->lastRecordIdx + 1].actionType == ACTION_TYPE_DROP )
             {
                 DataDrop const dataDrop
                     = pHistory->records[pHistory->lastRecordIdx + 1].Data.drop;
@@ -580,10 +588,7 @@ void redoTurn(
         case ACTION_TYPE_DROP:
         {
             /// Redo drop action until turn finished
-            while (
-                pHistory->records[pHistory->lastRecordIdx + 1].actionType
-                == ACTION_TYPE_DROP
-            )
+            while ( pHistory->records[pHistory->lastRecordIdx + 1].actionType == ACTION_TYPE_DROP )
             {
                 DataDrop const dataDrop
                     = pHistory->records[pHistory->lastRecordIdx + 1].Data.drop;
@@ -669,10 +674,7 @@ void resetTurn(
         case ACTION_TYPE_DROP:
         {
             /// Undo all drop events of the turn
-            while (
-                pHistory->records[pHistory->lastRecordIdx].actionType
-                == ACTION_TYPE_DROP
-            )
+            while ( pHistory->records[pHistory->lastRecordIdx].actionType == ACTION_TYPE_DROP )
             {
                 DataDrop const dataDrop
                     = pHistory->records[pHistory->lastRecordIdx].Data.drop;

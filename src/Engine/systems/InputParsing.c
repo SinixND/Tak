@@ -683,9 +683,9 @@ bool parseInputFirstDropAmount(
                 mouseTile.fileX == pCommand->fileX && mouseTile.rankY == pCommand->rankY
             )
             {
-                pCommand->dropCounts[0] += ( pCommand->dropCounts[0] == -1 ) + 1;
+                ++pCommand->bufferedDropCount;
 
-                return true;
+                break;
             }
             /// If offset is matching next square in direction and no drops yet
             /// -> Drop none in place, goto next square and drop one
@@ -699,13 +699,11 @@ bool parseInputFirstDropAmount(
             )
             {
                 pCommand->dropCounts[0]
-                    = ( pCommand->dropCounts[0] < 0 )
-                          ? 0
-                          : pCommand->dropCounts[0];
+                    = pCommand->bufferedDropCount;
 
-                pCommand->dropCounts[1] = 1;
+                pCommand->bufferedDropCount = 1;
 
-                return true;
+                break;
             }
 
             return false;
@@ -819,9 +817,9 @@ bool parseInputDropAmount(
                        == mouseTile.rankY
             )
             {
-                ++pCommand->dropCounts[pCommand->drops];
+                ++pCommand->bufferedDropCount;
 
-                return false;
+                break;
             }
             /// If offset is matching next square direction
             else if (
@@ -833,9 +831,12 @@ bool parseInputDropAmount(
                        == mouseTile.rankY
             )
             {
-                pCommand->dropCounts[pCommand->drops + 1] = 1;
+                pCommand->dropCounts[pCommand->drops]
+                    = pCommand->bufferedDropCount;
 
-                return true;
+                pCommand->bufferedDropCount = 1;
+
+                break;
             }
         }
         default:
