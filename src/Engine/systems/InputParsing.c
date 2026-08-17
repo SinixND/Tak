@@ -143,105 +143,103 @@ bool parseInputFirst(
         {
             pCommand->stoneType = STONE_TYPE_FLAT;
 
-            break;
+            return true;
         }
 
         case COMMAND_STANDING:
         {
             pCommand->stoneType = STONE_TYPE_STANDING;
 
-            break;
+            return true;
         }
 
         case COMMAND_CAPSTONE:
         {
             pCommand->stoneType = STONE_TYPE_CAP;
 
-            break;
+            return true;
         }
 
         case COMMAND_CYCLE_STONE_TYPE:
         {
             pCommand->stoneType = ( pCommand->stoneType % 3 ) + 1;
 
-            break;
+            return true;
         }
 
         case COMMAND_A:
         {
             pCommand->fileX = FILE_A;
 
-            break;
+            return true;
         }
 
         case COMMAND_B:
         {
             pCommand->fileX = FILE_B;
 
-            break;
+            return true;
         }
 
         case COMMAND_C:
         {
             pCommand->fileX = FILE_C;
 
-            break;
+            return true;
         }
 
         case COMMAND_D:
         {
             pCommand->fileX = FILE_D;
 
-            break;
+            return true;
         }
 
         case COMMAND_E:
         {
             pCommand->fileX = FILE_E;
 
-            break;
+            return true;
         }
 
         case COMMAND_F:
         {
             pCommand->fileX = FILE_F;
 
-            break;
+            return true;
         }
 
         case COMMAND_G:
         {
             pCommand->fileX = FILE_G;
 
-            break;
+            return true;
         }
 
         case COMMAND_H:
         {
             pCommand->fileX = FILE_H;
 
-            break;
+            return true;
         }
 
         case COMMAND_PLACE:
         {
             pCommand->actionType = ACTION_TYPE_PLACE;
 
-            break;
+            return true;
         }
 
         case COMMAND_MOVE:
         {
             pCommand->actionType = ACTION_TYPE_LIFT;
 
-            break;
+            return true;
         }
 
         default:
             return false;
     }
-
-    return true;
 }
 
 bool parseInputActionType(
@@ -434,63 +432,61 @@ bool parseInputRankY(
         {
             pCommand->rankY = RANK_1;
 
-            break;
+            return true;
         }
 
         case COMMAND_2:
         {
             pCommand->rankY = RANK_2;
 
-            break;
+            return true;
         }
 
         case COMMAND_3:
         {
             pCommand->rankY = RANK_3;
 
-            break;
+            return true;
         }
 
         case COMMAND_4:
         {
             pCommand->rankY = RANK_4;
 
-            break;
+            return true;
         }
 
         case COMMAND_5:
         {
             pCommand->rankY = RANK_5;
 
-            break;
+            return true;
         }
 
         case COMMAND_6:
         {
             pCommand->rankY = RANK_6;
 
-            break;
+            return true;
         }
 
         case COMMAND_7:
         {
             pCommand->rankY = RANK_7;
 
-            break;
+            return true;
         }
 
         case COMMAND_8:
         {
             pCommand->rankY = RANK_8;
 
-            break;
+            return true;
         }
 
         default:
             return false;
     }
-
-    return true;
 }
 
 bool parseInputDirection(
@@ -610,63 +606,63 @@ bool parseInputFirstDropAmount(
         {
             pCommand->dropCounts[0] = 0;
 
-            break;
+            return true;
         }
 
         case COMMAND_1:
         {
             pCommand->dropCounts[0] = 1;
 
-            break;
+            return true;
         }
 
         case COMMAND_2:
         {
             pCommand->dropCounts[0] = 2;
 
-            break;
+            return true;
         }
 
         case COMMAND_3:
         {
             pCommand->dropCounts[0] = 3;
 
-            break;
+            return true;
         }
 
         case COMMAND_4:
         {
             pCommand->dropCounts[0] = 4;
 
-            break;
+            return true;
         }
 
         case COMMAND_5:
         {
             pCommand->dropCounts[0] = 5;
 
-            break;
+            return true;
         }
 
         case COMMAND_6:
         {
             pCommand->dropCounts[0] = 6;
 
-            break;
+            return true;
         }
 
         case COMMAND_7:
         {
             pCommand->dropCounts[0] = 7;
 
-            break;
+            return true;
         }
 
         case COMMAND_8:
         {
             pCommand->dropCounts[0] = 8;
 
-            break;
+            return true;
         }
 
         case COMMAND_POSITION:
@@ -685,7 +681,7 @@ bool parseInputFirstDropAmount(
             {
                 ++pCommand->bufferedDropCount;
 
-                break;
+                return true;
             }
             /// If offset is matching next square in direction and no drops yet
             /// -> Drop none in place, goto next square and drop one
@@ -703,7 +699,7 @@ bool parseInputFirstDropAmount(
 
                 pCommand->bufferedDropCount = 1;
 
-                break;
+                return true;
             }
 
             return false;
@@ -712,8 +708,6 @@ bool parseInputFirstDropAmount(
         default:
             return false;
     }
-
-    return true;
 }
 
 bool parseInputDropAmount(
@@ -746,49 +740,49 @@ bool parseInputDropAmount(
         {
             pCommand->dropCounts[pCommand->drops] = 1;
 
-            break;
+            return true;
         }
 
         case COMMAND_2:
         {
             pCommand->dropCounts[pCommand->drops] = 2;
 
-            break;
+            return true;
         }
 
         case COMMAND_3:
         {
             pCommand->dropCounts[pCommand->drops] = 3;
 
-            break;
+            return true;
         }
 
         case COMMAND_4:
         {
             pCommand->dropCounts[pCommand->drops] = 4;
 
-            break;
+            return true;
         }
 
         case COMMAND_5:
         {
             pCommand->dropCounts[pCommand->drops] = 5;
 
-            break;
+            return true;
         }
 
         case COMMAND_6:
         {
             pCommand->dropCounts[pCommand->drops] = 6;
 
-            break;
+            return true;
         }
 
         case COMMAND_7:
         {
             pCommand->dropCounts[pCommand->drops] = 7;
 
-            break;
+            return true;
         }
 
         case COMMAND_8:
@@ -796,7 +790,7 @@ bool parseInputDropAmount(
         {
             pCommand->dropCounts[pCommand->drops] = 8;
 
-            break;
+            return true;
         }
 
         case COMMAND_POSITION:
@@ -819,7 +813,7 @@ bool parseInputDropAmount(
             {
                 ++pCommand->bufferedDropCount;
 
-                break;
+                return true;
             }
             /// If offset is matching next square direction
             else if (
@@ -836,13 +830,11 @@ bool parseInputDropAmount(
 
                 pCommand->bufferedDropCount = 1;
 
-                break;
+                return true;
             }
         }
         default:
             return false;
     }
-
-    return true;
 }
 

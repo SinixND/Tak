@@ -61,7 +61,7 @@ void setNextCommandState(
                 pCommand->state
                     = COMMAND_STATE_GET_STONE_TYPE;
 
-                break;
+                return;
             }
 
             if ( pCommand->actionType == ACTION_TYPE_LIFT )
@@ -69,7 +69,7 @@ void setNextCommandState(
                 pCommand->state
                     = COMMAND_STATE_GET_FILE_X;
 
-                break;
+                return;
             }
 
             /// First: FileX & RankY
@@ -79,7 +79,7 @@ void setNextCommandState(
                 pCommand->state
                     = COMMAND_STATE_GET_FIRST_INPUT;
 
-                break;
+                return;
             }
 
             /// First: FileX
@@ -88,7 +88,7 @@ void setNextCommandState(
                 pCommand->state
                     = COMMAND_STATE_GET_RANK_Y;
 
-                break;
+                return;
             }
 
             return;
