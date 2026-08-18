@@ -28,15 +28,21 @@ typedef enum InputId
     INPUT_M,
     INPUT_P,
     INPUT_R,
-    INPUT_S,
+    INPUT_T,
     INPUT_U,
 
     INPUT_SPACE,
 
+    INPUT_CAP_C,
+    INPUT_CAP_F,
+    INPUT_CAP_S,
     INPUT_CAP_Q,
     INPUT_CAP_R,
     INPUT_CAP_U,
     INPUT_CAP_X,
+
+    INPUT_MOUSE,
+
     INPUT_COUNT
 } InputId;
 
@@ -63,9 +69,11 @@ static char const INPUT_ID_CHARS[] = {
     [INPUT_M] = 'm',
     [INPUT_P] = 'p',
     [INPUT_R] = 'r',
-    [INPUT_S] = 's',
     [INPUT_U] = 'u',
     [INPUT_SPACE] = '_',
+    [INPUT_CAP_C] = 'C',
+    [INPUT_CAP_F] = 'F',
+    [INPUT_CAP_S] = 'S',
     [INPUT_CAP_Q] = 'Q',
     [INPUT_CAP_R] = 'R',
     [INPUT_CAP_U] = 'U',

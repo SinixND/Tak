@@ -2,16 +2,15 @@
 #define IG20260327194613
 
 #include "App.h"
-#include "GameConstants.h"
 #include "InputSystem.h"
-#include "Keymap.h"
+#include "Mappings.h"
 #include <unity.h>
 
 void testHandleGlobalInput( void )
 {
     App app = newApp();
 
-    app.inputBuffer.lastInput = app.inputBuffer.keymap.inputs[CONTEXT_GLOBAL][COMMAND_QUIT];
+    app.inputBuffer.lastInput = app.inputBuffer.mappings.inputs[CONTEXT_GLOBAL][COMMAND_QUIT];
 
     handleGlobalInput( &app );
 

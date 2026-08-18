@@ -19,4 +19,11 @@ static char const STONE_TYPE_CHARS[] = {
     [STONE_TYPE_CAP] = 'C',
 };
 
+static char const STONE_TYPE_SYMBOLS[] = {
+    [STONE_TYPE_NONE] = ' ',
+    [STONE_TYPE_FLAT] = '-',
+    [STONE_TYPE_STANDING] = '/',
+    [STONE_TYPE_CAP] = '@',
+};
+
 #endif

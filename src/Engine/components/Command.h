@@ -27,6 +27,7 @@ typedef struct Command
     int8_t dropCounts[BOARD_SIZE_MAX];
     /// Updated post event execution
     int8_t drops;
+    int8_t bufferedDropCount;
 } Command;
 
 /// Return initialized object
@@ -39,7 +40,7 @@ void setNextCommandState(
 );
 
 /// Check if event can be build from command
-bool isCommandReady( Command const* const pCommand );
+bool isCommandComplete( Command const* const pCommand );
 
 /// Prepare command for next frame after event
 void updateCommandPostEvent( Command* const pCommand );

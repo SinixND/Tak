@@ -9,8 +9,10 @@
 #include "InputBuffer.h"
 #include "Prompts.h"
 #include "Simulation.h"
+#include "UIData.h"
 #include <stdbool.h>
 
+/// Application head structure
 typedef struct App
 {
     /// State
@@ -26,6 +28,7 @@ typedef struct App
     History history;
     /// Render
     Prompts prompts;
+    UIData uiData;
     /// Timing
     bool shouldClose;
 } App;
@@ -34,13 +37,13 @@ typedef struct App
 App newApp( void );
 
 /// Setup before running the application loop
-void setupApp( void );
+void setupApp( App* const pApp );
 
 /// Run main application loop, ticking frames
 void runApp( App* const pApp );
 
 /// Clean up before closing the application
-void closeApp( void );
+void closeApp( App* const pApp );
 
 /// Update one frame of the main loop
 void updateFrame( App* const pApp );
@@ -55,24 +58,27 @@ void progressTurn( App* const pApp );
 void getInput( App* const pApp );
 
 /// Get input and update dependent data
-void handleInput( App* const pApp );
+void processInput( App* const pApp );
 
 /// Update application state
 void updateApp( App* const pApp );
 
 /*
- * @brief: Modify game state from command
+ * @brief Modify game state from command
  *
  * Returns true if game was updated
  */
 bool updateGame( App* const pApp );
 
 /*
- * @brief: Check if current player turn is complete
+ * @brief Check if current player turn is complete
  *
  * Uses command state to check
  */
 bool isTurnComplete( App const* const pApp );
+
+/// Check if and which player won
+bool isGameOver( App* const pApp );
 
 /// Perform actions to prepare next turn
 void handleTurnEnd( App* const pApp );

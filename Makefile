@@ -6,18 +6,14 @@
 ### Target platform ( default: unix | TM4C123G )
 PLATFORM ?= unix
 ### Binary mode ( default: app | test )
-TARGET   ?= app
+BINARY   ?= app
 ### Backends ( default: noBackend | ncurses | raylib )
 BACKEND  ?= ncurses
 ### Build mode ( default: core | release | debug | fatal )
 BUILD    ?= fatal
 
 ### Entrypoint files
-MAIN_app  := main
-
-### Compiler & toolchain
-CC := clang
-LD := $(CC)
+MAIN := main
 
 ### Flags
 MAKEFLAGS := --no-print-directory
@@ -99,6 +95,12 @@ CPPCHECK_fatal   := --error-exitcode=1
 ### PLATFORMS
 #######################################
 
+### UNIX
+
+CC_unix := clang
+LD_unix := clang
+
+CPPFLAGS_unix   := -DPLATFORM_UNIX
 
 #######################################
 ### TARGETS
@@ -113,26 +115,31 @@ TEST_DIR := test
 MAIN_test := test
 
 ### External includes
-EXT_SRC_DIR_test := $(EXT_DIR)/Unity/src
-EXT_INC_DIR_test := $(EXT_DIR)/Unity/src
+EXT_SRC_DIRS_test := $(EXT_DIR)/Unity/src
+EXT_INC_DIRS_test := $(EXT_DIR)/Unity/src
 
 ### Sources
-SRCS_test := $(filter-out $(SRC_DIR)/$(MAIN_app).$(SRC_EXT),$(SRCS_app)) \
+SRCS_test := $(filter-out $(SRC_DIR)/$(MAIN).$(SRC_EXT),$(SRCS_app)) \
              $(call fn_files,$(TEST_DIR),*.$(SRC_EXT)) \
-             $(call fn_files,$(EXT_SRC_DIR_test),*.c) 
+             $(call fn_files,$(EXT_SRC_DIRS_test),*.c) 
 
 ### Includes
 INC_DIRS_test := $(call fn_dirs,$(SRC_DIR)) \
             $(call fn_dirs,$(TEST_DIR))
 
+### Exit code for unity
+EXIT_CODE_debug := | true
+EXIT_CODE_fatal :=
+EXIT_CODE_release :=
+
 ### Targets
 .PHONY: test-build
 test-build: ## Build tests
-	@$(MAKE) TARGET=test BUILD=debug build
+	@$(MAKE) BINARY=test BUILD=debug build
 
 .PHONY: test-run
 test-run: ## Run tests
-	@$(MAKE) TARGET=test BUILD=debug run
+	@$(MAKE) BINARY=test BUILD=debug run $(EXIT_CODE_$(BUILD))
 
 .PHONY: test
 test: test-build test-run ## Build and run tests
@@ -142,13 +149,22 @@ test: test-build test-run ## Build and run tests
 ### BACKENDS
 #######################################
 
+### RAYLIB
+
+SRC_DIR_raylib     := /usr/lib/raylib/src
+
+LIBS_raylib        := raylib m
+LIB_DIR_raylib    := $(SRC_DIR_raylib)
+CPPFLAGS_raylib    := -DBACKEND_RAYLIB
+EXT_INC_DIRS_raylib := $(SRC_DIR_raylib)
+
 ### NCURSES
 
 ### Libraries
 LIBS_ncurses := ncurses
 
 ### Flags
-CPPFLAGS_ncurses   := -DBACKEND_NCURSES
+CPPFLAGS_ncurses := -DBACKEND_NCURSES
 
 
 #######################################
@@ -156,23 +172,25 @@ CPPFLAGS_ncurses   := -DBACKEND_NCURSES
 #######################################
 
 ### Build config
-CONFIG_PATH := $(PLATFORM)/$(TARGET)/$(BACKEND)/$(BUILD)
+CONFIG_PATH := $(PLATFORM)/$(BINARY)/$(BACKEND)/$(BUILD)
 
 ### Objects and dependencies
 BUILD_DIR := $(OBJ_DIR)/$(CONFIG_PATH)
-OBJS      := $(patsubst %.$(SRC_EXT),$(BUILD_DIR)/%.$(OBJ_EXT),$(SRCS_$(TARGET)))
+OBJS      := $(patsubst %.$(SRC_EXT),$(BUILD_DIR)/%.$(OBJ_EXT),$(SRCS_$(BINARY)))
 DEPS      := $(OBJS:.$(OBJ_EXT)=.$(DEP_EXT))
 
 ### Flags
-CFLAGS   := $(CFLAGS_core) $(CFLAGS_$(BUILD))
-CPPFLAGS := $(CPPFLAGS_core) $(CPPFLAGS_$(BUILD)) $(CPPFLAGS_$(BACKEND))
+CFLAGS    := $(CFLAGS_core) $(CFLAGS_$(BUILD))
+CPPFLAGS  := $(CPPFLAGS_core) $(CPPFLAGS_$(BUILD)) $(CPPFLAGS_$(BACKEND)) $(CPPFLAGS_$(PLATFORM))
 
-LIBS 	 := $(LIBS_$(BACKEND))
-LDLIBS   := $(addprefix -l,$(LIBS))
-LDFLAGS  := $(LDFLAGS_core) $(LDFLAGS_$(BUILD))
+LIBS 	  := $(LIBS_$(BACKEND))
+LDLIBS    := $(addprefix -l,$(LIBS))
+LIB_DIRS  := $(LIB_DIR_$(BACKEND))
+LIB_FLAGS := $(addprefix -L,$(LIB_DIRS))
+LDFLAGS   := $(LDFLAGS_core) $(LDFLAGS_$(BUILD))
 
-INCFLAGS += $(addprefix -I,$(INC_DIRS_core) $(INC_DIRS_$(TARGET)))
-INCFLAGS += $(addprefix -isystem,$(EXT_INC_DIR_$(TARGET)))
+INCFLAGS  += $(addprefix -I,$(INC_DIRS_core) $(INC_DIRS_$(BINARY)))
+INCFLAGS  += $(addprefix -isystem,$(EXT_INC_DIRS_$(BINARY)) $(EXT_INC_DIRS_$(BACKEND)))
 
 
 #######################################
@@ -180,7 +198,7 @@ INCFLAGS += $(addprefix -isystem,$(EXT_INC_DIR_$(TARGET)))
 #######################################
 
 .PHONY: build 
-build: $(BIN_DIR)/$(TARGET) ## Build binary
+build: $(BIN_DIR)/$(BINARY) ## Build binary
 
 .PHONY: clean 
 clean: ## Delete binary and object files
@@ -219,7 +237,7 @@ compiledb: ## Build compile_command.json
 debug: ## Debug build config (default)
 	$(info )
 	$(info === Build app/debug ===)
-	@$(MAKE) TARGET=app BUILD=debug build
+	@$(MAKE) BINARY=app BUILD=debug build
 
 .PHONY: doxygen 
 doxygen: ## Build doxygen documentation
@@ -231,7 +249,7 @@ doxygen: ## Build doxygen documentation
 fatal: ## Debug build config (pedantic, fatal)
 	$(info )
 	$(info === Build app/fatal ===)
-	@$(MAKE) TARGET=app BUILD=fatal build
+	@$(MAKE) BINARY=app BUILD=fatal build
 
 .PHONY: format
 format: ## Format all code files
@@ -251,13 +269,13 @@ publish: ## Build fatal, cppcheck and release targets
 release: ## Build config
 	$(info )
 	$(info === Build app/release ===)
-	@$(MAKE) TARGET=app BUILD=release build
+	@$(MAKE) BINARY=app BUILD=release build
 
 .PHONY: run
 run: ## Run binary
 	$(info )
-	$(info === Execute $(TARGET) ===)
-	$(BIN_DIR)/$(TARGET)
+	$(info === Execute $(BINARY) ===)
+	$(BIN_DIR)/$(BINARY)
 
 #######################################
 ### RULES
@@ -266,16 +284,16 @@ run: ## Run binary
 ### === COMPILER COMMAND ===
 $(BUILD_DIR)/%.$(OBJ_EXT): %.$(SRC_EXT)
 	$(info )
-	$(info === Compile: PLATFORM=$(PLATFORM), TARGET=$(TARGET), BUILD=$(BUILD) ===)
+	$(info === Compile: PLATFORM=$(PLATFORM), BINARY=$(BINARY), BACKEND=$(BACKEND), BUILD=$(BUILD) ===)
 	@$(MKDIR) $(dir $@)
-	$(CC) -c $< -o $@ $(CFLAGS) $(CPPFLAGS) $(INCFLAGS)
+	$(CC_$(PLATFORM)) -c $< -o $@ $(CFLAGS) $(CPPFLAGS) $(INCFLAGS)
 
 ### === LINKER COMMAND ===
-$(BIN_DIR)/$(TARGET): $(OBJS)
+$(BIN_DIR)/$(BINARY): $(OBJS)
 	$(info )
-	$(info === Link: PLATFORM=$(PLATFORM), TARGET=$(TARGET), BUILD=$(BUILD) ===)
+	$(info === Link: PLATFORM=$(PLATFORM), BINARY=$(BINARY), BACKEND=$(BACKEND), BUILD=$(BUILD) ===)
 	@$(MKDIR) $(dir $@)
-	$(LD) $^ -o $@ $(LDFLAGS) $(LDLIBS)
+	$(LD_$(PLATFORM)) $^ -o $@ $(LDFLAGS) $(LIB_FLAGS) $(LDLIBS)
 
 
 #######################################

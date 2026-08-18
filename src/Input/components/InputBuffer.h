@@ -3,14 +3,14 @@
 
 #include "CommandId.h"
 #include "InputId.h"
-#include "Keymap.h"
-#include "PlayerId.h"
+#include "Mappings.h"
 
 /// Store per frame user input
 typedef struct InputBuffer
 {
-    Keymap keymap;
+    Mappings mappings;
     InputId lastInput;
+    float mousePosition[2];
 } InputBuffer;
 
 /// Return initialized object

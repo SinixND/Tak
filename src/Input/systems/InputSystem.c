@@ -2,7 +2,6 @@
 #include "AppStateId.h"
 #include "CommandId.h"
 #include "InputBuffer.h"
-#include "Keymap.h"
 #include <assert.h>
 
 void handleGlobalInput( App* const pApp )

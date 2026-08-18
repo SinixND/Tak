@@ -3,7 +3,7 @@
 
 #include "App.h"
 
-/// Handle input independent of app state
+/// Handle input that directly changes app state
 void handleGlobalInput( App* const pApp );
 
 #endif

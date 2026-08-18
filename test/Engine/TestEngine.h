@@ -38,11 +38,12 @@ void testAutocompleteCommand( void )
         &game
     );
     TEST_ASSERT_EQUAL_INT( 2, command.dropCounts[2] );
-    TEST_ASSERT_EQUAL_INT( COMMAND_STATE_GET_ACTION_TYPE, command.state );
+    TEST_ASSERT_EQUAL_INT( COMMAND_STATE_GET_FIRST_INPUT, command.state );
 
-    /// Drop nothing at source square if liftcount == 1
+    /// Drop nothing at source square if single pickup
     command.state = COMMAND_STATE_GET_FIRST_DROP_AMOUNT;
     game.stackBuffer.stoneCount = 1; // Only one stone in stack
+    command.dropCounts[0] = -1;      // No drops
     command.drops = 0;               // First drop
     autocompleteCommand(
         &command,
@@ -54,13 +55,14 @@ void testAutocompleteCommand( void )
     /// Need to drop 'all' if only one stone left in stack buffer and not first drop
     command.state = COMMAND_STATE_GET_DROP_AMOUNT;
     game.stackBuffer.stoneCount = 1; // Only one stone left in stack
+    command.dropCounts[1] = -1;      // No drops
     command.drops = 1;               // Not first drop
     autocompleteCommand(
         &command,
         &game
     );
     TEST_ASSERT_EQUAL_INT( 1, command.dropCounts[1] );
-    TEST_ASSERT_EQUAL_INT( COMMAND_STATE_GET_ACTION_TYPE, command.state );
+    TEST_ASSERT_EQUAL_INT( COMMAND_STATE_GET_FIRST_INPUT, command.state );
 
     /// Need to drop all if next squares type is capstone
     game.stackBuffer.stoneCount = 2;
@@ -72,7 +74,7 @@ void testAutocompleteCommand( void )
         &game
     );
     TEST_ASSERT_EQUAL_INT( 2, command.dropCounts[0] );
-    TEST_ASSERT_EQUAL_INT( COMMAND_STATE_GET_ACTION_TYPE, command.state );
+    TEST_ASSERT_EQUAL_INT( COMMAND_STATE_GET_FIRST_INPUT, command.state );
 
     /// Need to drop all if next squares type is standing and buffer type is not capstone
     game.stackBuffer.stoneCount = 2;
@@ -85,7 +87,7 @@ void testAutocompleteCommand( void )
         &game
     );
     TEST_ASSERT_EQUAL_INT( 2, command.dropCounts[0] );
-    TEST_ASSERT_EQUAL_INT( COMMAND_STATE_GET_ACTION_TYPE, command.state );
+    TEST_ASSERT_EQUAL_INT( COMMAND_STATE_GET_FIRST_INPUT, command.state );
 
     /// Need to drop all but one if
     /// - next squares type is standing
@@ -215,11 +217,11 @@ void testUndoTurn( void )
     );
 
     TEST_ASSERT_EQUAL_INT( PLAYER_WHITE, app.game.board.stoneIds[0] );
-    TEST_ASSERT_EQUAL_INT( 0, app.game.board.stoneCounts[0] );
-    TEST_ASSERT_EQUAL_INT( STONE_TYPE_NONE, app.game.board.stackTypes[0] );
+    TEST_ASSERT_EQUAL_INT( 1, app.game.board.stoneCounts[0] );
+    TEST_ASSERT_EQUAL_INT( STONE_TYPE_STANDING, app.game.board.stackTypes[0] );
     TEST_ASSERT_EQUAL_INT( 0, app.game.board.stoneCounts[1] );
 
-    TEST_ASSERT_EQUAL_INT( 0, app.history.lastRecordIdx );
+    TEST_ASSERT_EQUAL_INT( 1, app.history.lastRecordIdx );
     TEST_ASSERT_EQUAL_INT( 4, app.history.totalRecords );
 }
 

@@ -1,7 +1,7 @@
 #include "Simulation.h"
 
 #include "InputBuffer.h"
-#include "SimulationData.h"
+#include "SimulationDataMinimal.h"
 #include <assert.h>
 #include <stdbool.h>
 

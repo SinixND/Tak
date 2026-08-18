@@ -2,6 +2,8 @@
 
 #include "ActionTypeId.h"
 #include "DirectionId.h"
+#include "FileId.h"
+#include "PlayerId.h"
 #include "Position.h"
 #include "StoneTypeId.h"
 #include <assert.h>
@@ -24,6 +26,14 @@ bool validateCommand(
 
     switch ( pCommand->state )
     {
+        case COMMAND_STATE_GET_FIRST_INPUT:
+        {
+            return validateCommandFirstInput(
+                pCommand,
+                pGame
+            );
+        }
+
         case COMMAND_STATE_GET_ACTION_TYPE:
         {
             return validateCommandActionType(
@@ -82,6 +92,59 @@ bool validateCommand(
         default:
             return false;
     }
+}
+
+bool validateCommandFirstInput(
+    Command const* const pCommand,
+    Game const* const pGame
+)
+{
+    assert(
+        pCommand
+        && "Pointer is nullptr"
+    );
+
+    assert(
+        pGame
+        && "Pointer is nullptr"
+    );
+
+    // TODO: Check if || is correct logic (vs &&)
+    bool isValid = true;
+
+    if ( pCommand->actionType != ACTION_TYPE_NONE )
+    {
+        isValid &= validateCommandActionType(
+            pCommand,
+            pGame
+        );
+    }
+
+    if ( pCommand->stoneType != STONE_TYPE_NONE )
+    {
+        isValid &= validateCommandStoneType(
+            pCommand,
+            pGame
+        );
+    }
+
+    if ( pCommand->fileX != FILE_NONE )
+    {
+        isValid &= validateCommandFileX(
+            pCommand,
+            pGame
+        );
+    }
+
+    if ( pCommand->rankY != RANK_NONE )
+    {
+        isValid &= validateCommandRankY(
+            pCommand,
+            pGame
+        );
+    }
+
+    return isValid;
 }
 
 bool validateCommandActionType(
@@ -188,16 +251,20 @@ bool validateCommandRankY(
 
     int const squareIdx = positionToSquare( pCommand->fileX, pCommand->rankY, boardSize );
 
+    PlayerId const stackId = pGame->board.stackIds[squareIdx];
+
     return (
+        ( pCommand->actionType == ACTION_TYPE_NONE
+          && ( stackId == pCommand->playerId
+               || stackId == PLAYER_NONE ) )
         /// Place
-        ( pCommand->actionType == ACTION_TYPE_PLACE
-          && !pGame->board.stoneCounts[squareIdx] )
+        || ( pCommand->actionType == ACTION_TYPE_PLACE
+             && !pGame->board.stoneCounts[squareIdx] )
         /// Lift
         || ( pCommand->actionType == ACTION_TYPE_LIFT
              && pGame->board.stoneCounts[squareIdx]
              /// Player owns square
-             && pGame->board.stackIds[squareIdx]
-                    == pCommand->playerId )
+             && stackId == pCommand->playerId )
     );
 }
 

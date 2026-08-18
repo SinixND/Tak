@@ -1,9 +1,7 @@
 #ifndef IG20260614222942
 #define IG20260614222942
 
-enum
-{
-    MAX_PROMPT_LENGTH = 11,
-};
+#define MAX_PROMPT_LENGTH 11
+#define LAYOUT_UI_ELEMENTS 13
 
 #endif

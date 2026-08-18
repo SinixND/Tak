@@ -1,14 +1,21 @@
 #include "InputParsing.h"
 
+#include "ActionTypeId.h"
+#include "BackendInterface.h"
 #include "CommandId.h"
 #include "CommandStateId.h"
+#include "DirectionId.h"
+#include "FileId.h"
 #include "InputBuffer.h"
-#include "Keymap.h"
+#include "RankId.h"
+#include "StoneTypeId.h"
 #include <assert.h>
+#include <stdbool.h>
 
-bool parseInput(
+bool parseInputToCommand(
     Command* const pCommand,
-    InputBuffer const* const pInputBuffer
+    InputBuffer const* const pInputBuffer,
+    int const boardSize
 )
 {
     assert(
@@ -24,6 +31,15 @@ bool parseInput(
     switch ( pCommand->state )
     {
         case COMMAND_STATE_NONE:
+        case COMMAND_STATE_GET_FIRST_INPUT:
+        {
+            return parseInputFirst(
+                pCommand,
+                pInputBuffer,
+                boardSize
+            );
+        }
+
         case COMMAND_STATE_GET_ACTION_TYPE:
         {
             return parseInputActionType(
@@ -44,7 +60,8 @@ bool parseInput(
         {
             return parseInputFileX(
                 pCommand,
-                pInputBuffer
+                pInputBuffer,
+                boardSize
             );
         }
 
@@ -52,7 +69,8 @@ bool parseInput(
         {
             return parseInputRankY(
                 pCommand,
-                pInputBuffer
+                pInputBuffer,
+                boardSize
             );
         }
 
@@ -60,7 +78,8 @@ bool parseInput(
         {
             return parseInputDirection(
                 pCommand,
-                pInputBuffer
+                pInputBuffer,
+                boardSize
             );
         }
 
@@ -68,7 +87,8 @@ bool parseInput(
         {
             return parseInputFirstDropAmount(
                 pCommand,
-                pInputBuffer
+                pInputBuffer,
+                boardSize
             );
         }
 
@@ -76,8 +96,147 @@ bool parseInput(
         {
             return parseInputDropAmount(
                 pCommand,
-                pInputBuffer
+                pInputBuffer,
+                boardSize
             );
+        }
+
+        default:
+            return false;
+    }
+}
+
+bool parseInputFirst(
+    Command* const pCommand,
+    InputBuffer const* const pInputBuffer,
+    int const boardSize
+)
+{
+    assert(
+        pCommand
+        && "Pointer is nullptr"
+    );
+
+    assert(
+        pInputBuffer
+        && "Pointer is nullptr"
+    );
+
+    switch ( getCommandId(
+        pInputBuffer,
+        CONTEXT_INPUT_FIRST
+    ) )
+    {
+        case COMMAND_POSITION:
+        {
+            Tile tile = getTile(
+                pInputBuffer->mousePosition[0],
+                pInputBuffer->mousePosition[1],
+                boardSize
+            );
+
+            pCommand->fileX = tile.fileX;
+            pCommand->rankY = tile.rankY;
+
+            return true;
+        }
+
+        case COMMAND_FLAT:
+        {
+            pCommand->stoneType = STONE_TYPE_FLAT;
+
+            return true;
+        }
+
+        case COMMAND_STANDING:
+        {
+            pCommand->stoneType = STONE_TYPE_STANDING;
+
+            return true;
+        }
+
+        case COMMAND_CAPSTONE:
+        {
+            pCommand->stoneType = STONE_TYPE_CAP;
+
+            return true;
+        }
+
+        case COMMAND_CYCLE_STONE_TYPE:
+        {
+            pCommand->stoneType = ( pCommand->stoneType % 3 ) + 1;
+
+            return true;
+        }
+
+        case COMMAND_A:
+        {
+            pCommand->fileX = FILE_A;
+
+            return true;
+        }
+
+        case COMMAND_B:
+        {
+            pCommand->fileX = FILE_B;
+
+            return true;
+        }
+
+        case COMMAND_C:
+        {
+            pCommand->fileX = FILE_C;
+
+            return true;
+        }
+
+        case COMMAND_D:
+        {
+            pCommand->fileX = FILE_D;
+
+            return true;
+        }
+
+        case COMMAND_E:
+        {
+            pCommand->fileX = FILE_E;
+
+            return true;
+        }
+
+        case COMMAND_F:
+        {
+            pCommand->fileX = FILE_F;
+
+            return true;
+        }
+
+        case COMMAND_G:
+        {
+            pCommand->fileX = FILE_G;
+
+            return true;
+        }
+
+        case COMMAND_H:
+        {
+            pCommand->fileX = FILE_H;
+
+            return true;
+        }
+
+        case COMMAND_PLACE:
+        {
+            pCommand->actionType = ACTION_TYPE_PLACE;
+
+            return true;
+        }
+
+        case COMMAND_MOVE:
+        {
+            pCommand->actionType = ACTION_TYPE_LIFT;
+
+            return true;
         }
 
         default:
@@ -108,30 +267,6 @@ bool parseInputActionType(
         case COMMAND_PLACE:
         {
             pCommand->actionType = ACTION_TYPE_PLACE;
-
-            return true;
-        }
-
-        case COMMAND_FLAT:
-        {
-            pCommand->actionType = ACTION_TYPE_PLACE;
-            pCommand->stoneType = STONE_TYPE_FLAT;
-
-            return true;
-        }
-
-        case COMMAND_STANDING:
-        {
-            pCommand->actionType = ACTION_TYPE_PLACE;
-            pCommand->stoneType = STONE_TYPE_STANDING;
-
-            return true;
-        }
-
-        case COMMAND_CAPSTONE:
-        {
-            pCommand->actionType = ACTION_TYPE_PLACE;
-            pCommand->stoneType = STONE_TYPE_CAP;
 
             return true;
         }
@@ -196,7 +331,8 @@ bool parseInputStoneType(
 
 bool parseInputFileX(
     Command* const pCommand,
-    InputBuffer const* const pInputBuffer
+    InputBuffer const* const pInputBuffer,
+    int const boardSize
 )
 {
     assert(
@@ -214,6 +350,19 @@ bool parseInputFileX(
         CONTEXT_POSITION
     ) )
     {
+        case COMMAND_POSITION:
+        {
+            Tile tile = getTile(
+                pInputBuffer->mousePosition[0],
+                pInputBuffer->mousePosition[1],
+                boardSize
+            );
+
+            pCommand->fileX = tile.fileX;
+
+            return true;
+        }
+
         case COMMAND_A:
         {
             pCommand->fileX = FILE_A;
@@ -277,7 +426,8 @@ bool parseInputFileX(
 
 bool parseInputRankY(
     Command* const pCommand,
-    InputBuffer const* const pInputBuffer
+    InputBuffer const* const pInputBuffer,
+    int const boardSize
 )
 {
     assert(
@@ -295,6 +445,19 @@ bool parseInputRankY(
         CONTEXT_POSITION
     ) )
     {
+        case COMMAND_POSITION:
+        {
+            Tile tile = getTile(
+                pInputBuffer->mousePosition[0],
+                pInputBuffer->mousePosition[1],
+                boardSize
+            );
+
+            pCommand->rankY = tile.rankY;
+
+            return true;
+        }
+
         case COMMAND_1:
         {
             pCommand->rankY = RANK_1;
@@ -358,7 +521,8 @@ bool parseInputRankY(
 
 bool parseInputDirection(
     Command* const pCommand,
-    InputBuffer const* const pInputBuffer
+    InputBuffer const* const pInputBuffer,
+    int const boardSize
 )
 {
     assert(
@@ -376,11 +540,6 @@ bool parseInputDirection(
         CONTEXT_DIRECTION
     ) )
     {
-        default:
-        {
-            return false;
-        }
-
         case COMMAND_UP:
         {
             pCommand->direction = DIR_UP;
@@ -408,12 +567,49 @@ bool parseInputDirection(
 
             return true;
         }
+
+        case COMMAND_POSITION:
+        {
+            Tile mouseTile = getTile(
+                pInputBuffer->mousePosition[0],
+                pInputBuffer->mousePosition[1],
+                boardSize
+            );
+
+            int const offset[2] = {
+                mouseTile.fileX - pCommand->fileX,
+                mouseTile.rankY - pCommand->rankY
+            };
+
+            if ( !offset[0]
+                 && !offset[1] )
+            {
+                return false;
+            }
+
+            pCommand->direction
+                = ( ( offset[0] * offset[0] ) > ( offset[1] * offset[1] ) )
+                      ? ( ( offset[0] < 0 )
+                              ? DIR_LEFT
+                              : DIR_RIGHT )
+                      : ( ( offset[1] < 0 )
+                              ? DIR_DOWN
+                              : DIR_UP );
+
+            return true;
+        }
+
+        default:
+        {
+            return false;
+        }
     }
 }
 
 bool parseInputFirstDropAmount(
     Command* const pCommand,
-    InputBuffer const* const pInputBuffer
+    InputBuffer const* const pInputBuffer,
+    int const boardSize
 )
 {
     assert(
@@ -440,75 +636,114 @@ bool parseInputFirstDropAmount(
         {
             pCommand->dropCounts[0] = 0;
 
-            break;
+            return true;
         }
 
         case COMMAND_1:
         {
             pCommand->dropCounts[0] = 1;
 
-            break;
+            return true;
         }
 
         case COMMAND_2:
         {
             pCommand->dropCounts[0] = 2;
 
-            break;
+            return true;
         }
 
         case COMMAND_3:
         {
             pCommand->dropCounts[0] = 3;
 
-            break;
+            return true;
         }
 
         case COMMAND_4:
         {
             pCommand->dropCounts[0] = 4;
 
-            break;
+            return true;
         }
 
         case COMMAND_5:
         {
             pCommand->dropCounts[0] = 5;
 
-            break;
+            return true;
         }
 
         case COMMAND_6:
         {
             pCommand->dropCounts[0] = 6;
 
-            break;
+            return true;
         }
 
         case COMMAND_7:
         {
             pCommand->dropCounts[0] = 7;
 
-            break;
+            return true;
         }
 
         case COMMAND_8:
         {
             pCommand->dropCounts[0] = 8;
 
-            break;
+            return true;
+        }
+
+        case COMMAND_POSITION:
+        {
+            Tile mouseTile = getTile(
+                pInputBuffer->mousePosition[0],
+                pInputBuffer->mousePosition[1],
+                boardSize
+            );
+
+            /// If mouse == command position
+            /// -> Drop one in place
+            if (
+                mouseTile.fileX == pCommand->fileX && mouseTile.rankY == pCommand->rankY
+            )
+            {
+                ++pCommand->bufferedDropCount;
+
+                return true;
+            }
+            /// If offset is matching next square in direction and no drops yet
+            /// -> Drop none in place, goto next square and drop one
+            else if (
+                ( pCommand->fileX
+                  + getOffsetX( pCommand->direction ) )
+                    == mouseTile.fileX
+                && ( pCommand->rankY
+                     + getOffsetY( pCommand->direction ) )
+                       == mouseTile.rankY
+            )
+            {
+                pCommand->dropCounts[0]
+                    = pCommand->bufferedDropCount;
+
+                pCommand->bufferedDropCount = 1;
+
+                return true;
+            }
+
+            return false;
         }
 
         default:
             return false;
     }
-
-    return true;
 }
 
 bool parseInputDropAmount(
     Command* const pCommand,
-    InputBuffer const* const pInputBuffer
+    InputBuffer const* const pInputBuffer,
+    int const boardSize
 )
 {
     assert(
@@ -535,49 +770,49 @@ bool parseInputDropAmount(
         {
             pCommand->dropCounts[pCommand->drops] = 1;
 
-            break;
+            return true;
         }
 
         case COMMAND_2:
         {
             pCommand->dropCounts[pCommand->drops] = 2;
 
-            break;
+            return true;
         }
 
         case COMMAND_3:
         {
             pCommand->dropCounts[pCommand->drops] = 3;
 
-            break;
+            return true;
         }
 
         case COMMAND_4:
         {
             pCommand->dropCounts[pCommand->drops] = 4;
 
-            break;
+            return true;
         }
 
         case COMMAND_5:
         {
             pCommand->dropCounts[pCommand->drops] = 5;
 
-            break;
+            return true;
         }
 
         case COMMAND_6:
         {
             pCommand->dropCounts[pCommand->drops] = 6;
 
-            break;
+            return true;
         }
 
         case COMMAND_7:
         {
             pCommand->dropCounts[pCommand->drops] = 7;
 
-            break;
+            return true;
         }
 
         case COMMAND_8:
@@ -585,13 +820,51 @@ bool parseInputDropAmount(
         {
             pCommand->dropCounts[pCommand->drops] = 8;
 
-            break;
+            return true;
         }
 
+        case COMMAND_POSITION:
+        {
+            Tile mouseTile = getTile(
+                pInputBuffer->mousePosition[0],
+                pInputBuffer->mousePosition[1],
+                boardSize
+            );
+
+            /// If mouse == command position + offset
+            if (
+                ( pCommand->fileX
+                  + ( getOffsetX( pCommand->direction ) * pCommand->drops ) )
+                    == mouseTile.fileX
+                && ( pCommand->rankY
+                     + ( getOffsetY( pCommand->direction ) * pCommand->drops ) )
+                       == mouseTile.rankY
+            )
+            {
+                ++pCommand->bufferedDropCount;
+
+                return true;
+            }
+            /// If offset is matching next square direction
+            else if (
+                ( pCommand->fileX
+                  + ( getOffsetX( pCommand->direction ) * ( pCommand->drops + 1 ) ) )
+                    == mouseTile.fileX
+                && ( pCommand->rankY
+                     + ( getOffsetY( pCommand->direction ) * ( pCommand->drops + 1 ) ) )
+                       == mouseTile.rankY
+            )
+            {
+                pCommand->dropCounts[pCommand->drops]
+                    = pCommand->bufferedDropCount;
+
+                pCommand->bufferedDropCount = 1;
+
+                return true;
+            }
+        }
         default:
             return false;
     }
-
-    return true;
 }
 

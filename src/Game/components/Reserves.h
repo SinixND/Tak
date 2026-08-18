@@ -20,7 +20,7 @@ typedef struct Reserves
 Reserves newReserves( int const boardSize );
 
 /**
- * @brief: Reduce reserves for given player and stone type
+ * @brief Reduce reserves for given player and stone type
  *
  * - Decrease reserves
  * - Increase stones in play
@@ -32,7 +32,7 @@ void takeFromReserves(
 );
 
 /**
- * @brief: Increase reserves for given player and stone type
+ * @brief Increase reserves for given player and stone type
  *
  * - Increase reserves
  * - Decrease stones in play

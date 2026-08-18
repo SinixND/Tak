@@ -1,10 +1,9 @@
 #include "BackendInterface.h"
 
+#ifdef BACKEND_NCURSES
 #include "InputBuffer.h"
 #include "InputId.h"
 #include <assert.h>
-
-#ifdef BACKEND_NCURSES
 #include <ncurses.h>
 
 void pollInput( InputBuffer* const pInput )
@@ -142,12 +141,6 @@ void pollInput( InputBuffer* const pInput )
             return;
         }
 
-        case 's':
-        {
-            pInput->lastInput = INPUT_S;
-            return;
-        }
-
         case 'u':
         {
             pInput->lastInput = INPUT_U;
@@ -157,6 +150,24 @@ void pollInput( InputBuffer* const pInput )
         case ' ':
         {
             pInput->lastInput = INPUT_SPACE;
+            return;
+        }
+
+        case 'C':
+        {
+            pInput->lastInput = INPUT_CAP_C;
+            return;
+        }
+
+        case 'F':
+        {
+            pInput->lastInput = INPUT_CAP_F;
+            return;
+        }
+
+        case 'S':
+        {
+            pInput->lastInput = INPUT_CAP_S;
             return;
         }
 
@@ -181,6 +192,18 @@ void pollInput( InputBuffer* const pInput )
         case 'X':
         {
             pInput->lastInput = INPUT_CAP_X;
+            return;
+        }
+
+        case KEY_MOUSE:
+        {
+            pInput->lastInput = INPUT_MOUSE;
+
+            MEVENT event;
+            getmouse( &event );
+            pInput->mousePosition[0] = event.x;
+            pInput->mousePosition[1] = event.y;
+
             return;
         }
 

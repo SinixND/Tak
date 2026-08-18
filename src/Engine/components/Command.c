@@ -15,7 +15,7 @@
 Command newCommand( PlayerId const playerId )
 {
     Command command = {
-        .state = COMMAND_STATE_GET_ACTION_TYPE,
+        .state = COMMAND_STATE_GET_FIRST_INPUT,
         .playerId = playerId,
         .actionType = ACTION_TYPE_NONE,
         .stoneType = STONE_TYPE_NONE,
@@ -23,6 +23,7 @@ Command newCommand( PlayerId const playerId )
         .rankY = RANK_NONE,
         .direction = DIR_NONE,
         .drops = 0,
+        .bufferedDropCount = 0,
     };
 
     for ( int n = 0; n < BOARD_SIZE_MAX; ++n )
@@ -51,6 +52,48 @@ void setNextCommandState(
     switch ( pCommand->state )
     {
         case COMMAND_STATE_NONE:
+        case COMMAND_STATE_GET_FIRST_INPUT:
+        {
+            /// First: Action
+            if ( pCommand->actionType == ACTION_TYPE_PLACE
+                 && pCommand->stoneType == STONE_TYPE_NONE )
+            {
+                pCommand->state
+                    = COMMAND_STATE_GET_STONE_TYPE;
+
+                return;
+            }
+
+            if ( pCommand->actionType == ACTION_TYPE_LIFT )
+            {
+                pCommand->state
+                    = COMMAND_STATE_GET_FILE_X;
+
+                return;
+            }
+
+            /// First: FileX & RankY
+            if ( pCommand->fileX != FILE_NONE
+                 && pCommand->rankY != RANK_NONE )
+            {
+                pCommand->state
+                    = COMMAND_STATE_GET_FIRST_INPUT;
+
+                return;
+            }
+
+            /// First: FileX
+            if ( pCommand->fileX != FILE_NONE )
+            {
+                pCommand->state
+                    = COMMAND_STATE_GET_RANK_Y;
+
+                return;
+            }
+
+            return;
+        }
+
         case COMMAND_STATE_GET_ACTION_TYPE:
         {
             pCommand->state
@@ -78,15 +121,10 @@ void setNextCommandState(
 
         case COMMAND_STATE_GET_RANK_Y:
         {
-            assert(
-                pCommand->actionType != ACTION_TYPE_NONE
-                && "Action type invalid"
-            );
-
             pCommand->state
-                = ( pCommand->actionType == ACTION_TYPE_PLACE )
-                      ? COMMAND_STATE_GET_ACTION_TYPE
-                      : COMMAND_STATE_GET_DIRECTION;
+                = ( pCommand->actionType == ACTION_TYPE_LIFT )
+                      ? COMMAND_STATE_GET_DIRECTION
+                      : COMMAND_STATE_GET_FIRST_INPUT;
 
             return;
         }
@@ -103,7 +141,7 @@ void setNextCommandState(
         {
             pCommand->state
                 = ( pCommand->dropCounts[pCommand->drops] >= pGame->stackBuffer.stoneCount )
-                      ? COMMAND_STATE_GET_ACTION_TYPE
+                      ? COMMAND_STATE_GET_FIRST_INPUT
                       : COMMAND_STATE_GET_DROP_AMOUNT;
 
             return;
@@ -114,7 +152,7 @@ void setNextCommandState(
     }
 }
 
-bool isCommandReady( Command const* const pCommand )
+bool isCommandComplete( Command const* const pCommand )
 {
     assert(
         pCommand
