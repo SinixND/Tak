@@ -20,7 +20,6 @@ static int const BOARD_LABELS_X_LEFT = 0;
 static int const BOARD_LABELS_Y_TOP = 9;
 static int const BOARD_POS_X = 1;
 static int const BOARD_POS_Y = 10;
-static int const HISTORY_RENDER_COUNT = 2;
 static int const PLAYER_COLOR_WHITE = 1;
 static int const PLAYER_COLOR_BLACK = 2;
 static int const LAYOUT_COLOR = 3;
