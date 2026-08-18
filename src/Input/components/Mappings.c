@@ -145,6 +145,15 @@ Mappings newMappings( void )
                     .commandId = COMMAND_POSITION
                 },
             },
+            [CONTEXT_POSITION] = {
+                 (UIElement){
+                    .x = 22,
+                    .y = 3,
+                    .width = 32,
+                    .height = 32,
+                    .commandId = COMMAND_POSITION
+                },
+            },
             [CONTEXT_DIRECTION] = {
                  (UIElement){
                     .x = 22,

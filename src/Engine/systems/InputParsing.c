@@ -60,7 +60,8 @@ bool parseInputToCommand(
         {
             return parseInputFileX(
                 pCommand,
-                pInputBuffer
+                pInputBuffer,
+                boardSize
             );
         }
 
@@ -68,7 +69,8 @@ bool parseInputToCommand(
         {
             return parseInputRankY(
                 pCommand,
-                pInputBuffer
+                pInputBuffer,
+                boardSize
             );
         }
 
@@ -329,7 +331,8 @@ bool parseInputStoneType(
 
 bool parseInputFileX(
     Command* const pCommand,
-    InputBuffer const* const pInputBuffer
+    InputBuffer const* const pInputBuffer,
+    int const boardSize
 )
 {
     assert(
@@ -347,6 +350,19 @@ bool parseInputFileX(
         CONTEXT_POSITION
     ) )
     {
+        case COMMAND_POSITION:
+        {
+            Tile tile = getTile(
+                pInputBuffer->mousePosition[0],
+                pInputBuffer->mousePosition[1],
+                boardSize
+            );
+
+            pCommand->fileX = tile.fileX;
+
+            return true;
+        }
+
         case COMMAND_A:
         {
             pCommand->fileX = FILE_A;
@@ -410,7 +426,8 @@ bool parseInputFileX(
 
 bool parseInputRankY(
     Command* const pCommand,
-    InputBuffer const* const pInputBuffer
+    InputBuffer const* const pInputBuffer,
+    int const boardSize
 )
 {
     assert(
@@ -428,6 +445,19 @@ bool parseInputRankY(
         CONTEXT_POSITION
     ) )
     {
+        case COMMAND_POSITION:
+        {
+            Tile tile = getTile(
+                pInputBuffer->mousePosition[0],
+                pInputBuffer->mousePosition[1],
+                boardSize
+            );
+
+            pCommand->rankY = tile.rankY;
+
+            return true;
+        }
+
         case COMMAND_1:
         {
             pCommand->rankY = RANK_1;

@@ -10,6 +10,7 @@
 #include "Game.h"
 #include "History.h"
 #include "InputBuffer.h"
+#include "InputId.h"
 #include "InputParsing.h"
 #include "PlayerId.h"
 #include "Position.h"
@@ -123,6 +124,19 @@ bool autocompleteDrop(
     {
         pCommand->dropCounts[pCommand->drops] = pCommand->bufferedDropCount;
         pCommand->state = COMMAND_STATE_GET_FIRST_INPUT;
+
+        return true;
+    }
+
+    /// Complete if bufferedDropCount >= stackBuffer size - 1 on origin square
+    if (
+        pCommand->bufferedDropCount > 0
+        && pCommand->bufferedDropCount >= pGame->stackBuffer.stoneCount - 1
+        && !pCommand->drops
+    )
+    {
+        pCommand->dropCounts[pCommand->drops] = pCommand->bufferedDropCount;
+        pCommand->bufferedDropCount = 1;
 
         return true;
     }
@@ -267,6 +281,21 @@ void buildCommand(
         pCommand->bufferedDropCount = command.bufferedDropCount;
 
         return;
+    }
+
+    /// If complete position was provided via mouse
+    if (
+        command.state == COMMAND_STATE_GET_FILE_X
+        && pInputBuffer->lastInput == INPUT_MOUSE
+    )
+    {
+        command.state = COMMAND_STATE_GET_RANK_Y;
+
+        buildCommand(
+            &command,
+            pInputBuffer,
+            pGame
+        );
     }
 
     /// Update command state
