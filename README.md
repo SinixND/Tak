@@ -150,8 +150,6 @@ The following tools are used in the project but not required and not contained i
 
 
 ## ToDo notes
-- [ ] Fix first input validation
-- [ ] Input position for drops
 - [ ] Render raylib/web 
 
 - [ ] Todos
@@ -165,9 +163,6 @@ The following tools are used in the project but not required and not contained i
 
 
 ## Notes
-- Ignore History/Undo/Redo for now
-- Game state modification -> game
-- App component logic -> engine
-- Linking input/engine/render (in loop) -> app
+-
 
 <p align="right">(<a href="#readme-top">top</a>)</p>
