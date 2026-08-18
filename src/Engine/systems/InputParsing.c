@@ -164,7 +164,7 @@ bool parseInputFirst(
 
         case COMMAND_CYCLE_STONE_TYPE:
         {
-            pCommand->stoneType = ( pCommand->stoneType % 3 ) + 1;
+            pCommand->stoneType = ( pCommand->stoneType % ( 2 + ( boardSize > 4 ) ) ) + 1;
 
             return true;
         }
