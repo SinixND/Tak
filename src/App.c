@@ -76,7 +76,10 @@ void updateFrame( App* const pApp )
         {
             getInput( pApp );
 
-            if ( !setBoardSize( pApp ) )
+            if ( !setBoardSize(
+                     &pApp->game,
+                     &pApp->inputBuffer
+                 ) )
             {
                 break;
             }
@@ -223,66 +226,6 @@ void updateFrame( App* const pApp )
     }
 
     render( pApp );
-}
-
-// TODO: Move to engine
-bool setBoardSize( App* const pApp )
-{
-    assert(
-        pApp
-        && "Pointer is nullptr"
-    );
-
-    switch ( getCommandId(
-        &pApp->inputBuffer,
-        CONTEXT_SIZE
-    ) )
-    {
-        case COMMAND_CONFIRM:
-        {
-            pApp->game = newGame( BOARD_SIZE_DEFAULT );
-            return true;
-        }
-
-        case COMMAND_3:
-        {
-            pApp->game = newGame( 3 );
-            return true;
-        }
-
-        case COMMAND_4:
-        {
-            pApp->game = newGame( 4 );
-            return true;
-        }
-
-        case COMMAND_5:
-        {
-            pApp->game = newGame( 5 );
-            return true;
-        }
-
-        case COMMAND_6:
-        {
-            pApp->game = newGame( 6 );
-            return true;
-        }
-
-        case COMMAND_7:
-        {
-            pApp->game = newGame( 7 );
-            return true;
-        }
-
-        case COMMAND_8:
-        {
-            pApp->game = newGame( 8 );
-            return true;
-        }
-
-        default:
-            return false;
-    }
 }
 
 void progressTurn( App* const pApp )

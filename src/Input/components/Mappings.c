@@ -97,7 +97,6 @@ Mappings newMappings( void )
             }
         },
         .uiElements = {
-            // TODO: Store positions in Layout
             // clang-format off
             [CONTEXT_GLOBAL] = {
                  (UIElement){

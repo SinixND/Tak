@@ -20,6 +20,73 @@
 #include <assert.h>
 #include <stdbool.h>
 
+bool setBoardSize(
+    Game* const pGame,
+    InputBuffer const* const pInputBuffer
+)
+{
+    assert(
+        pInputBuffer
+        && "Pointer is nullptr"
+    );
+
+    assert(
+        pGame
+        && "Pointer is nullptr"
+    );
+
+    switch ( getCommandId(
+        pInputBuffer,
+        CONTEXT_SIZE
+    ) )
+    {
+        case COMMAND_CONFIRM:
+        {
+            *pGame = newGame( BOARD_SIZE_DEFAULT );
+            return true;
+        }
+
+        case COMMAND_3:
+        {
+            *pGame = newGame( 3 );
+            return true;
+        }
+
+        case COMMAND_4:
+        {
+            *pGame = newGame( 4 );
+            return true;
+        }
+
+        case COMMAND_5:
+        {
+            *pGame = newGame( 5 );
+            return true;
+        }
+
+        case COMMAND_6:
+        {
+            *pGame = newGame( 6 );
+            return true;
+        }
+
+        case COMMAND_7:
+        {
+            *pGame = newGame( 7 );
+            return true;
+        }
+
+        case COMMAND_8:
+        {
+            *pGame = newGame( 8 );
+            return true;
+        }
+
+        default:
+            return false;
+    }
+}
+
 bool autocompleteAction(
     Command* const pCommand,
     Game const* const pGame

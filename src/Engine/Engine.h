@@ -8,6 +8,12 @@
 #include "InputBuffer.h"
 #include <stdbool.h>
 
+/// Set board size at game start from user input
+bool setBoardSize(
+    Game* const pGame,
+    InputBuffer const* const pInputBuffer
+);
+
 /**
  * @brief Autocomplete drop command if certain conditions are met
  *

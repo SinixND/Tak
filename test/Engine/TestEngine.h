@@ -18,6 +18,42 @@
 #include "StoneTypeId.h"
 #include <unity.h>
 
+void testSetBoardSize( void )
+{
+    App app = newApp();
+
+    app.inputBuffer.lastInput = INPUT_2;
+    TEST_ASSERT_EQUAL_INT( false, setBoardSize( &app.game, &app.inputBuffer ) );
+
+    app.inputBuffer.lastInput = INPUT_3;
+    TEST_ASSERT_EQUAL_INT( true, setBoardSize( &app.game, &app.inputBuffer ) );
+    TEST_ASSERT_EQUAL_INT( 3, app.game.board.size );
+
+    app.inputBuffer.lastInput = INPUT_4;
+    TEST_ASSERT_EQUAL_INT( true, setBoardSize( &app.game, &app.inputBuffer ) );
+    TEST_ASSERT_EQUAL_INT( 4, app.game.board.size );
+
+    app.inputBuffer.lastInput = INPUT_5;
+    TEST_ASSERT_EQUAL_INT( true, setBoardSize( &app.game, &app.inputBuffer ) );
+    TEST_ASSERT_EQUAL_INT( 5, app.game.board.size );
+
+    app.inputBuffer.lastInput = INPUT_SPACE;
+    TEST_ASSERT_EQUAL_INT( true, setBoardSize( &app.game, &app.inputBuffer ) );
+    TEST_ASSERT_EQUAL_INT( BOARD_SIZE_DEFAULT, app.game.board.size );
+
+    app.inputBuffer.lastInput = INPUT_6;
+    TEST_ASSERT_EQUAL_INT( true, setBoardSize( &app.game, &app.inputBuffer ) );
+    TEST_ASSERT_EQUAL_INT( 6, app.game.board.size );
+
+    app.inputBuffer.lastInput = INPUT_7;
+    TEST_ASSERT_EQUAL_INT( true, setBoardSize( &app.game, &app.inputBuffer ) );
+    TEST_ASSERT_EQUAL_INT( 7, app.game.board.size );
+
+    app.inputBuffer.lastInput = INPUT_8;
+    TEST_ASSERT_EQUAL_INT( true, setBoardSize( &app.game, &app.inputBuffer ) );
+    TEST_ASSERT_EQUAL_INT( 8, app.game.board.size );
+}
+
 void testAutocompleteCommand( void )
 {
     Command command = newCommand( PLAYER_WHITE );
@@ -162,7 +198,7 @@ void testUndoTurn( void )
 {
     App app = newApp();
     app.inputBuffer.lastInput = INPUT_3;
-    setBoardSize( &app );
+    setBoardSize( &app.game, &app.inputBuffer );
 
     // app.command.state = COMMAND_STATE_GET_RANK_Y;
     app.command.actionType = ACTION_TYPE_PLACE;
@@ -229,7 +265,7 @@ void testRedoTurn( void )
 {
     App app = newApp();
     app.inputBuffer.lastInput = INPUT_3;
-    setBoardSize( &app );
+    setBoardSize( &app.game, &app.inputBuffer );
 
     // app.command.state = COMMAND_STATE_GET_RANK_Y;
     app.command.actionType = ACTION_TYPE_PLACE;
@@ -325,7 +361,7 @@ void testResetTurn( void )
 {
     App app = newApp();
     app.inputBuffer.lastInput = INPUT_3;
-    setBoardSize( &app );
+    setBoardSize( &app.game, &app.inputBuffer );
 
     app.command.actionType = ACTION_TYPE_PLACE;
     app.command.stoneType = STONE_TYPE_STANDING;

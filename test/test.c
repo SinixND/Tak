@@ -1,4 +1,3 @@
-#include "TestApp.h"
 #include "TestBoard.h"
 #include "TestCommand.h"
 #include "TestCommandValidation.h"
@@ -92,6 +91,7 @@ int main( void )
     RUN_TEST( testIsCommandReady );
 
     /// Engine
+    RUN_TEST( testSetBoardSize );
     RUN_TEST( testAutocompleteCommand );
     RUN_TEST( testBuildCommand );
     RUN_TEST( testBuildEvent );
@@ -101,9 +101,6 @@ int main( void )
 
     /// InputSystem
     RUN_TEST( testHandleGlobalInput );
-
-    /// App
-    RUN_TEST( testSetBoardSize );
 
     return UNITY_END();
 }

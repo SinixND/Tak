@@ -109,7 +109,6 @@ bool validateCommandFirstInput(
         && "Pointer is nullptr"
     );
 
-    // TODO: Check if || is correct logic (vs &&)
     bool isValid = true;
 
     if ( pCommand->actionType != ACTION_TYPE_NONE )

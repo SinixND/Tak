@@ -14,14 +14,13 @@ Tile getTile(
 {
     Tile tile = { FILE_NONE, RANK_NONE };
 
-    /// TODO: Store position in layout
     if (
-        ( ( (int)mouseX - 21 ) % 4 )
-        && ( (int)mouseY - 1 ) % 4
+        ( ( (int)mouseX - ( BOARD_POS_X + 1 ) ) % 4 )
+        && ( (int)mouseY - BOARD_POS_Y ) % 4
     )
     {
         tile.fileX
-            = ( (int)mouseX - 21 ) / 4;
+            = ( (int)mouseX - ( BOARD_POS_X + 1 ) ) / 4;
 
         tile.rankY
             = ( boardSize - 1 ) - ( ( (int)mouseY - 1 ) / 4 );
