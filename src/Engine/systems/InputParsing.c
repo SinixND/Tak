@@ -136,7 +136,7 @@ bool parseInputFirst(
             pCommand->fileX = tile.fileX;
             pCommand->rankY = tile.rankY;
 
-            break;
+            return true;
         }
 
         case COMMAND_FLAT:

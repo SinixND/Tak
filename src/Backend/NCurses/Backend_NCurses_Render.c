@@ -466,7 +466,7 @@ void renderHistory(
                     ' '
                 );
 
-                return;
+                break;
             }
 
             case ACTION_TYPE_LIFT:
@@ -513,7 +513,7 @@ void renderHistory(
                           : '0' + pLastCommand->dropCounts[7] )
                 );
 
-                return;
+                break;
             }
 
             default:
@@ -525,7 +525,7 @@ void renderHistory(
                     "            "
                 );
 
-                return;
+                break;
             }
         }
     }
