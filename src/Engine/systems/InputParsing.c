@@ -12,7 +12,7 @@
 #include <assert.h>
 #include <stdbool.h>
 
-bool parseInputToCommand(
+bool updateCommandFromInput(
     Command* const pCommand,
     InputBuffer const* const pInputBuffer,
     int const boardSize

@@ -6,7 +6,7 @@
 #include <assert.h>
 #include <ncurses.h>
 
-void pollInput( InputBuffer* const pInput )
+void getInputFromUser( InputBuffer* const pInput )
 {
     assert(
         pInput

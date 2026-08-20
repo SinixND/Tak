@@ -213,7 +213,7 @@ void updateFrame( App* const pApp )
 
         case APP_STATE_GAME_END:
         {
-            pollInput( &pApp->inputBuffer );
+            getInputFromUser( &pApp->inputBuffer );
             handleGlobalInput( pApp );
 
             break;
@@ -268,7 +268,7 @@ void getInput( App* const pApp )
         return;
     }
 
-    pollInput( &pApp->inputBuffer );
+    getInputFromUser( &pApp->inputBuffer );
 }
 
 void processInput( App* const pApp )
@@ -316,7 +316,7 @@ bool updateGame( App* const pApp )
         && "Pointer is nullptr"
     );
 
-    if ( !isCommandComplete( &pApp->command ) )
+    if ( !isCommandReadyForEvent( &pApp->command ) )
     {
         return false;
     }
@@ -392,9 +392,10 @@ void handleTurnEnd( App* const pApp )
         return;
     }
 
-    prepareGame( &pApp->game );
-    prepareCommand(
-        &pApp->command,
+    updateGamePostEvent( &pApp->game );
+
+    /// Reset command for next turn
+    pApp->command = newCommand(
         pApp->game.activePlayer
     );
 }

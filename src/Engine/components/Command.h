@@ -40,15 +40,9 @@ void setNextCommandState(
 );
 
 /// Check if event can be build from command
-bool isCommandComplete( Command const* const pCommand );
+bool isCommandReadyForEvent( Command const* const pCommand );
 
 /// Prepare command for next frame after event
 void updateCommandPostEvent( Command* const pCommand );
-
-/// Prepare command for next turn
-void prepareCommand(
-    Command* const pCommand,
-    PlayerId const playerId
-);
 
 #endif

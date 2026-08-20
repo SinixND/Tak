@@ -322,7 +322,7 @@ void buildCommand(
     Command command = *pCommand;
 
     /// Set context-dependent command value from input
-    if ( !parseInputToCommand(
+    if ( !updateCommandFromInput(
              &command,
              pInputBuffer,
              pGame->board.size

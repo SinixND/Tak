@@ -36,7 +36,7 @@ void wait( int const ms );
 /// Input
 
 /// Normalize user input from backend
-void pollInput( InputBuffer* const pInput );
+void getInputFromUser( InputBuffer* const pInput );
 
 /// Render
 

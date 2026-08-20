@@ -152,7 +152,7 @@ void setNextCommandState(
     }
 }
 
-bool isCommandComplete( Command const* const pCommand )
+bool isCommandReadyForEvent( Command const* const pCommand )
 {
     assert(
         pCommand
@@ -218,20 +218,3 @@ void updateCommandPostEvent( Command* const pCommand )
     }
 }
 
-void prepareCommand(
-    Command* const pCommand,
-    PlayerId const playerId
-)
-{
-    assert(
-        pCommand
-        && "Pointer is nullptr"
-    );
-
-    assert(
-        pCommand->playerId != PLAYER_NONE
-        && "PlayerId invalid"
-    );
-
-    *pCommand = newCommand( playerId );
-}

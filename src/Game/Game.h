@@ -28,7 +28,7 @@ typedef struct Game
 Game newGame( int boardSize );
 
 /// Prepare game for next turn
-void prepareGame( Game* const pGame );
+void updateGamePostEvent( Game* const pGame );
 
 /**
  * @brief From Reserves to Board

@@ -109,44 +109,44 @@ void testIsCommandReady( void )
 {
     Command command = newCommand( PLAYER_WHITE );
 
-    TEST_ASSERT_EQUAL_INT( false, isCommandComplete( &command ) );
+    TEST_ASSERT_EQUAL_INT( false, isCommandReadyForEvent( &command ) );
 
     command.actionType = ACTION_TYPE_PLACE;
 
-    TEST_ASSERT_EQUAL_INT( false, isCommandComplete( &command ) );
+    TEST_ASSERT_EQUAL_INT( false, isCommandReadyForEvent( &command ) );
 
     command.fileX = FILE_B;
     command.rankY = RANK_2;
-    TEST_ASSERT_EQUAL_INT( false, isCommandComplete( &command ) );
+    TEST_ASSERT_EQUAL_INT( false, isCommandReadyForEvent( &command ) );
 
     command.stoneType = STONE_TYPE_FLAT;
-    TEST_ASSERT_EQUAL_INT( true, isCommandComplete( &command ) );
+    TEST_ASSERT_EQUAL_INT( true, isCommandReadyForEvent( &command ) );
 
     command.actionType = ACTION_TYPE_LIFT;
     command.fileX = FILE_NONE;
-    TEST_ASSERT_EQUAL_INT( false, isCommandComplete( &command ) );
+    TEST_ASSERT_EQUAL_INT( false, isCommandReadyForEvent( &command ) );
 
     command.fileX = FILE_B;
-    TEST_ASSERT_EQUAL_INT( true, isCommandComplete( &command ) );
+    TEST_ASSERT_EQUAL_INT( true, isCommandReadyForEvent( &command ) );
 
     command.actionType = ACTION_TYPE_DROP;
-    TEST_ASSERT_EQUAL_INT( false, isCommandComplete( &command ) );
+    TEST_ASSERT_EQUAL_INT( false, isCommandReadyForEvent( &command ) );
 
     command.direction = DIR_DOWN;
     command.drops = 0;
-    TEST_ASSERT_EQUAL_INT( false, isCommandComplete( &command ) );
+    TEST_ASSERT_EQUAL_INT( false, isCommandReadyForEvent( &command ) );
 
     command.dropCounts[0] = 0;
-    TEST_ASSERT_EQUAL_INT( true, isCommandComplete( &command ) );
+    TEST_ASSERT_EQUAL_INT( true, isCommandReadyForEvent( &command ) );
 
     command.drops = 1;
-    TEST_ASSERT_EQUAL_INT( false, isCommandComplete( &command ) );
+    TEST_ASSERT_EQUAL_INT( false, isCommandReadyForEvent( &command ) );
 
     command.dropCounts[1] = 0;
-    TEST_ASSERT_EQUAL_INT( false, isCommandComplete( &command ) );
+    TEST_ASSERT_EQUAL_INT( false, isCommandReadyForEvent( &command ) );
 
     command.dropCounts[1] = 1;
-    TEST_ASSERT_EQUAL_INT( true, isCommandComplete( &command ) );
+    TEST_ASSERT_EQUAL_INT( true, isCommandReadyForEvent( &command ) );
 }
 
 #endif
