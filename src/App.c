@@ -108,6 +108,7 @@ void updateFrame( App* const pApp )
                 break;
             }
 
+            /// Place additional stone for two-stack opening
             placeStone(
                 &pApp->game,
                 pApp->history.records[1].Data.place.playerId,
