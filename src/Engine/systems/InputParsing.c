@@ -31,7 +31,7 @@ bool updateCommandFromInput(
     switch ( pCommand->state )
     {
         case COMMAND_STATE_NONE:
-        case COMMAND_STATE_GET_FIRST_INPUT:
+        case COMMAND_STATE_DEFAULT:
         {
             return parseInputFirst(
                 pCommand,
@@ -56,9 +56,9 @@ bool updateCommandFromInput(
             );
         }
 
-        case COMMAND_STATE_GET_FILE_X:
+        case COMMAND_STATE_GET_POSITION:
         {
-            return parseInputFileX(
+            return parseInputPosition(
                 pCommand,
                 pInputBuffer,
                 boardSize
@@ -329,7 +329,7 @@ bool parseInputStoneType(
     }
 }
 
-bool parseInputFileX(
+bool parseInputPosition(
     Command* const pCommand,
     InputBuffer const* const pInputBuffer,
     int const boardSize

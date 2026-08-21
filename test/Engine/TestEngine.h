@@ -74,7 +74,7 @@ void testAutocompleteCommand( void )
         &game
     );
     TEST_ASSERT_EQUAL_INT( 2, command.dropCounts[2] );
-    TEST_ASSERT_EQUAL_INT( COMMAND_STATE_GET_FIRST_INPUT, command.state );
+    TEST_ASSERT_EQUAL_INT( COMMAND_STATE_DEFAULT, command.state );
 
     /// Drop nothing at source square if single pickup
     command.state = COMMAND_STATE_GET_FIRST_DROP_AMOUNT;
@@ -98,7 +98,7 @@ void testAutocompleteCommand( void )
         &game
     );
     TEST_ASSERT_EQUAL_INT( 1, command.dropCounts[1] );
-    TEST_ASSERT_EQUAL_INT( COMMAND_STATE_GET_FIRST_INPUT, command.state );
+    TEST_ASSERT_EQUAL_INT( COMMAND_STATE_DEFAULT, command.state );
 
     /// Need to drop all if next squares type is capstone
     game.stackBuffer.stoneCount = 2;
@@ -110,7 +110,7 @@ void testAutocompleteCommand( void )
         &game
     );
     TEST_ASSERT_EQUAL_INT( 2, command.dropCounts[0] );
-    TEST_ASSERT_EQUAL_INT( COMMAND_STATE_GET_FIRST_INPUT, command.state );
+    TEST_ASSERT_EQUAL_INT( COMMAND_STATE_DEFAULT, command.state );
 
     /// Need to drop all if next squares type is standing and buffer type is not capstone
     game.stackBuffer.stoneCount = 2;
@@ -123,7 +123,7 @@ void testAutocompleteCommand( void )
         &game
     );
     TEST_ASSERT_EQUAL_INT( 2, command.dropCounts[0] );
-    TEST_ASSERT_EQUAL_INT( COMMAND_STATE_GET_FIRST_INPUT, command.state );
+    TEST_ASSERT_EQUAL_INT( COMMAND_STATE_DEFAULT, command.state );
 
     /// Need to drop all but one if
     /// - next squares type is standing

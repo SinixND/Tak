@@ -51,7 +51,7 @@ void updateFrame( App* const pApp );
 /// Handle app state
 void progressTurn( App* const pApp );
 
-/// Get input (simulated or polled)
+/// Get input (simulated or mapped user input)
 void getInput( App* const pApp );
 
 /// Get input and update dependent data

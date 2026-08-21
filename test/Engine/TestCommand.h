@@ -20,12 +20,12 @@ void testSetNextCommandState( void )
 
     TEST_ASSERT_EQUAL_INT( PLAYER_BLACK, command.playerId );
 
-    command.state = COMMAND_STATE_GET_FIRST_INPUT;
+    command.state = COMMAND_STATE_DEFAULT;
     setNextCommandState(
         &command,
         &game
     );
-    TEST_ASSERT_EQUAL_INT( COMMAND_STATE_GET_FIRST_INPUT, command.state );
+    TEST_ASSERT_EQUAL_INT( COMMAND_STATE_DEFAULT, command.state );
 
     command.fileX = FILE_A;
     setNextCommandState(
@@ -48,7 +48,7 @@ void testSetNextCommandState( void )
         &command,
         &game
     );
-    TEST_ASSERT_EQUAL_INT( COMMAND_STATE_GET_FILE_X, command.state );
+    TEST_ASSERT_EQUAL_INT( COMMAND_STATE_GET_POSITION, command.state );
 
     setNextCommandState(
         &command,
@@ -60,7 +60,7 @@ void testSetNextCommandState( void )
         &command,
         &game
     );
-    TEST_ASSERT_EQUAL_INT( COMMAND_STATE_GET_FIRST_INPUT, command.state );
+    TEST_ASSERT_EQUAL_INT( COMMAND_STATE_DEFAULT, command.state );
 
     command.state = COMMAND_STATE_GET_ACTION_TYPE;
     command.actionType = ACTION_TYPE_LIFT;
@@ -68,7 +68,7 @@ void testSetNextCommandState( void )
         &command,
         &game
     );
-    TEST_ASSERT_EQUAL_INT( COMMAND_STATE_GET_FILE_X, command.state );
+    TEST_ASSERT_EQUAL_INT( COMMAND_STATE_GET_POSITION, command.state );
 
     setNextCommandState(
         &command,
@@ -102,7 +102,7 @@ void testSetNextCommandState( void )
         &command,
         &game
     );
-    TEST_ASSERT_EQUAL_INT( COMMAND_STATE_GET_FIRST_INPUT, command.state );
+    TEST_ASSERT_EQUAL_INT( COMMAND_STATE_DEFAULT, command.state );
 }
 
 void testIsCommandReady( void )

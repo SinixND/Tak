@@ -60,39 +60,39 @@ void testParseInputFileX( void )
     Command command = newCommand( PLAYER_WHITE );
     InputBuffer inputBuffer = newInputBuffer();
 
-    TEST_ASSERT_EQUAL_INT( false, parseInputFileX( &command, &inputBuffer, 8 ) );
+    TEST_ASSERT_EQUAL_INT( false, parseInputPosition( &command, &inputBuffer, 8 ) );
     TEST_ASSERT_EQUAL_INT( FILE_NONE, command.fileX );
 
     inputBuffer.lastInput = inputBuffer.mappings.inputs[CONTEXT_POSITION][COMMAND_A];
-    TEST_ASSERT_EQUAL_INT( true, parseInputFileX( &command, &inputBuffer, 8 ) );
+    TEST_ASSERT_EQUAL_INT( true, parseInputPosition( &command, &inputBuffer, 8 ) );
     TEST_ASSERT_EQUAL_INT( FILE_A, command.fileX );
 
     inputBuffer.lastInput = inputBuffer.mappings.inputs[CONTEXT_POSITION][COMMAND_B];
-    TEST_ASSERT_EQUAL_INT( true, parseInputFileX( &command, &inputBuffer, 8 ) );
+    TEST_ASSERT_EQUAL_INT( true, parseInputPosition( &command, &inputBuffer, 8 ) );
     TEST_ASSERT_EQUAL_INT( FILE_B, command.fileX );
 
     inputBuffer.lastInput = inputBuffer.mappings.inputs[CONTEXT_POSITION][COMMAND_C];
-    TEST_ASSERT_EQUAL_INT( true, parseInputFileX( &command, &inputBuffer, 8 ) );
+    TEST_ASSERT_EQUAL_INT( true, parseInputPosition( &command, &inputBuffer, 8 ) );
     TEST_ASSERT_EQUAL_INT( FILE_C, command.fileX );
 
     inputBuffer.lastInput = inputBuffer.mappings.inputs[CONTEXT_POSITION][COMMAND_D];
-    TEST_ASSERT_EQUAL_INT( true, parseInputFileX( &command, &inputBuffer, 8 ) );
+    TEST_ASSERT_EQUAL_INT( true, parseInputPosition( &command, &inputBuffer, 8 ) );
     TEST_ASSERT_EQUAL_INT( FILE_D, command.fileX );
 
     inputBuffer.lastInput = inputBuffer.mappings.inputs[CONTEXT_POSITION][COMMAND_E];
-    TEST_ASSERT_EQUAL_INT( true, parseInputFileX( &command, &inputBuffer, 8 ) );
+    TEST_ASSERT_EQUAL_INT( true, parseInputPosition( &command, &inputBuffer, 8 ) );
     TEST_ASSERT_EQUAL_INT( FILE_E, command.fileX );
 
     inputBuffer.lastInput = inputBuffer.mappings.inputs[CONTEXT_POSITION][COMMAND_F];
-    TEST_ASSERT_EQUAL_INT( true, parseInputFileX( &command, &inputBuffer, 8 ) );
+    TEST_ASSERT_EQUAL_INT( true, parseInputPosition( &command, &inputBuffer, 8 ) );
     TEST_ASSERT_EQUAL_INT( FILE_F, command.fileX );
 
     inputBuffer.lastInput = inputBuffer.mappings.inputs[CONTEXT_POSITION][COMMAND_G];
-    TEST_ASSERT_EQUAL_INT( true, parseInputFileX( &command, &inputBuffer, 8 ) );
+    TEST_ASSERT_EQUAL_INT( true, parseInputPosition( &command, &inputBuffer, 8 ) );
     TEST_ASSERT_EQUAL_INT( FILE_G, command.fileX );
 
     inputBuffer.lastInput = inputBuffer.mappings.inputs[CONTEXT_POSITION][COMMAND_H];
-    TEST_ASSERT_EQUAL_INT( true, parseInputFileX( &command, &inputBuffer, 8 ) );
+    TEST_ASSERT_EQUAL_INT( true, parseInputPosition( &command, &inputBuffer, 8 ) );
     TEST_ASSERT_EQUAL_INT( FILE_H, command.fileX );
 }
 
@@ -300,7 +300,7 @@ void testParseInput( void )
     InputBuffer inputBuffer = newInputBuffer();
     Game game = newGame( 5 );
 
-    command.state = COMMAND_STATE_GET_FIRST_INPUT;
+    command.state = COMMAND_STATE_DEFAULT;
     TEST_ASSERT_EQUAL_INT( false, updateCommandFromInput( &command, &inputBuffer, game.board.size ) );
     inputBuffer.lastInput = inputBuffer.mappings.inputs[CONTEXT_INPUT_FIRST][COMMAND_FLAT];
     TEST_ASSERT_EQUAL_INT( true, updateCommandFromInput( &command, &inputBuffer, game.board.size ) );
@@ -317,7 +317,7 @@ void testParseInput( void )
     inputBuffer.lastInput = inputBuffer.mappings.inputs[CONTEXT_STONE_TYPE][COMMAND_STANDING];
     TEST_ASSERT_EQUAL_INT( true, updateCommandFromInput( &command, &inputBuffer, game.board.size ) );
 
-    command.state = COMMAND_STATE_GET_FILE_X;
+    command.state = COMMAND_STATE_GET_POSITION;
     inputBuffer.lastInput = inputBuffer.mappings.inputs[CONTEXT_POSITION][COMMAND_A];
     TEST_ASSERT_EQUAL_INT( true, updateCommandFromInput( &command, &inputBuffer, game.board.size ) );
 

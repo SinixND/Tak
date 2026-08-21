@@ -155,7 +155,7 @@ void updateStateChooseBoardSize( App* const pApp )
     );
 
     getInput( pApp );
-
+    // Quit?
     if ( !setBoardSize(
              &pApp->game,
              &pApp->inputBuffer
@@ -169,7 +169,7 @@ void updateStateChooseBoardSize( App* const pApp )
     pApp->command.playerId = PLAYER_BLACK;
     pApp->command.actionType = ACTION_TYPE_PLACE;
     pApp->command.stoneType = STONE_TYPE_FLAT;
-    pApp->command.state = COMMAND_STATE_GET_FILE_X;
+    pApp->command.state = COMMAND_STATE_GET_POSITION;
 
     pApp->state = APP_STATE_FIRST_TURN;
 }
@@ -203,7 +203,7 @@ void updateStateFirstTurn( App* const pApp )
     pApp->command.playerId = PLAYER_WHITE;
     pApp->command.actionType = ACTION_TYPE_PLACE;
     pApp->command.stoneType = STONE_TYPE_FLAT;
-    pApp->command.state = COMMAND_STATE_GET_FILE_X;
+    pApp->command.state = COMMAND_STATE_GET_POSITION;
 
     pApp->state = APP_STATE_SECOND_TURN;
 }
@@ -446,7 +446,7 @@ bool isTurnComplete( App const* const pApp )
         && "Pointer is nullptr"
     );
 
-    return pApp->command.state == COMMAND_STATE_GET_FIRST_INPUT;
+    return pApp->command.state == COMMAND_STATE_DEFAULT;
 }
 
 bool isGameOver( App* const pApp )
