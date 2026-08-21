@@ -38,7 +38,7 @@ bool validateCommandStoneType(
 );
 
 /// Check if file is on board
-bool validateCommandFileX(
+bool validateCommandPosition(
     Command const* const pCommand,
     Game const* const pGame
 );

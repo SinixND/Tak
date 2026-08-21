@@ -58,19 +58,19 @@ void testValidateCommandStoneType( void )
     TEST_ASSERT_EQUAL_INT( false, validateCommandStoneType( &command, &game ) );
 }
 
-void testValidateCommandFileX( void )
+void testValidateCommandPosition( void )
 {
     Command command = newCommand( PLAYER_WHITE );
     Game game = newGame( 5 );
 
     command.fileX = FILE_NONE;
-    TEST_ASSERT_EQUAL_INT( false, validateCommandFileX( &command, &game ) );
+    TEST_ASSERT_EQUAL_INT( false, validateCommandPosition( &command, &game ) );
 
     command.fileX = FILE_A;
-    TEST_ASSERT_EQUAL_INT( true, validateCommandFileX( &command, &game ) );
+    TEST_ASSERT_EQUAL_INT( true, validateCommandPosition( &command, &game ) );
 
     command.fileX = FILE_E;
-    TEST_ASSERT_EQUAL_INT( true, validateCommandFileX( &command, &game ) );
+    TEST_ASSERT_EQUAL_INT( true, validateCommandPosition( &command, &game ) );
 }
 
 void testValidateCommandRankY( void )

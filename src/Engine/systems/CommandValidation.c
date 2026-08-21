@@ -52,7 +52,7 @@ bool validateCommand(
 
         case COMMAND_STATE_GET_POSITION:
         {
-            return validateCommandFileX(
+            return validateCommandPosition(
                 pCommand,
                 pGame
             );
@@ -129,7 +129,7 @@ bool validateCommandFirstInput(
 
     if ( pCommand->fileX != FILE_NONE )
     {
-        isValid &= validateCommandFileX(
+        isValid &= validateCommandPosition(
             pCommand,
             pGame
         );
@@ -201,7 +201,7 @@ bool validateCommandStoneType(
     }
 }
 
-bool validateCommandFileX(
+bool validateCommandPosition(
     Command const* const pCommand,
     Game const* const pGame
 )

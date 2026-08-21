@@ -80,7 +80,7 @@ int main( void )
     /// Command validation
     RUN_TEST( testValidateCommandActionType );
     RUN_TEST( testValidateCommandStoneType );
-    RUN_TEST( testValidateCommandFileX );
+    RUN_TEST( testValidateCommandPosition );
     RUN_TEST( testValidateCommandRankY );
     RUN_TEST( testValidateCommandDirection );
     RUN_TEST( testValidateCommandDropAmount );
