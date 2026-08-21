@@ -1,5 +1,6 @@
 #include "Simulation.h"
 
+#include "BackendInterface.h"
 #include "InputBuffer.h"
 #include "SimulationDataMinimal.h"
 #include <assert.h>
@@ -32,6 +33,8 @@ bool simulateInput(
         ++pSimulation->inputIdx;
 
         pInputBuffer->lastInput = SIMULATION_DATA[pSimulation->inputIdx - 1];
+
+        wait( 10 );
 
         return true;
     }

@@ -21,6 +21,15 @@
 #include <assert.h>
 #include <stdbool.h>
 
+void updateStateChooseBoardSize( App* const pApp );
+void updateStateFirstTurn( App* const pApp );
+void updateStateSecondTurn( App* const pApp );
+void updateStateNormalTurn( App* const pApp );
+void updateStateUndoTurn( App* const pApp );
+void updateStateRedoTurn( App* const pApp );
+void updateStateResetTurn( App* const pApp );
+void updateStateGameEnd( App* const pApp );
+
 App newApp( void )
 {
     App app = {
@@ -70,153 +79,64 @@ void updateFrame( App* const pApp )
         && "Pointer is nullptr"
     );
 
+    render( pApp );
+
     switch ( pApp->state )
     {
         case APP_STATE_CHOOSE_BOARD_SIZE:
         {
-            getInput( pApp );
+            updateStateChooseBoardSize( pApp );
 
-            if ( !setBoardSize(
-                     &pApp->game,
-                     &pApp->inputBuffer
-                 ) )
-            {
-                break;
-            }
-
-            /// Prepare first turn: WHITE places BLACK
-            pApp->game.activePlayer = PLAYER_WHITE;
-            pApp->command.playerId = PLAYER_BLACK;
-            pApp->command.actionType = ACTION_TYPE_PLACE;
-            pApp->command.stoneType = STONE_TYPE_FLAT;
-            pApp->command.state = COMMAND_STATE_GET_FILE_X;
-
-            pApp->state = APP_STATE_FIRST_TURN;
-
-            break;
+            return;
         }
 
         case APP_STATE_FIRST_TURN:
         {
-            if (
-                !pApp->shouldClose
-                && !isTurnComplete( pApp )
-            )
-            {
-                progressTurn( pApp );
+            updateStateFirstTurn( pApp );
 
-                break;
-            }
-
-            /// Place additional stone for two-stack opening
-            placeStone(
-                &pApp->game,
-                pApp->history.records[1].Data.place.playerId,
-                pApp->history.records[1].Data.place.squareIdx,
-                STONE_TYPE_FLAT
-            );
-
-            /// Prepare second turn: BLACK places WHITE
-            pApp->game.activePlayer = PLAYER_BLACK;
-            pApp->command.playerId = PLAYER_WHITE;
-            pApp->command.actionType = ACTION_TYPE_PLACE;
-            pApp->command.stoneType = STONE_TYPE_FLAT;
-            pApp->command.state = COMMAND_STATE_GET_FILE_X;
-
-            pApp->state = APP_STATE_SECOND_TURN;
-
-            break;
+            return;
         }
 
         case APP_STATE_SECOND_TURN:
         {
-            if (
-                !pApp->shouldClose
-                && !isTurnComplete( pApp )
-            )
-            {
-                progressTurn( pApp );
+            updateStateSecondTurn( pApp );
 
-                break;
-            }
-
-            pApp->state = APP_STATE_NORMAL_TURN;
-
-            break;
+            return;
         }
 
         case APP_STATE_NORMAL_TURN:
         {
-            progressTurn( pApp );
+            updateStateNormalTurn( pApp );
 
-            break;
+            return;
         }
 
         case APP_STATE_TURN_UNDO:
         {
-            undoTurn(
-                &pApp->history,
-                &pApp->game
-            );
+            updateStateUndoTurn( pApp );
 
-            /// Reset command
-            pApp->command = newCommand( pApp->game.activePlayer );
-
-            pApp->state = APP_STATE_NORMAL_TURN;
-
-            updateScore( &pApp->game );
-
-            break;
+            return;
         }
 
         case APP_STATE_TURN_REDO:
         {
-            redoTurn(
-                &pApp->history,
-                &pApp->game
-            );
+            updateStateRedoTurn( pApp );
 
-            if ( isGameOver( pApp ) )
-            {
-                pApp->state = APP_STATE_GAME_END;
-
-                break;
-            }
-
-            /// Reset command
-            pApp->command = newCommand( pApp->game.activePlayer );
-
-            pApp->state = APP_STATE_NORMAL_TURN;
-
-            updateScore( &pApp->game );
-
-            break;
+            return;
         }
 
         case APP_STATE_TURN_RESET:
         {
-            resetTurn(
-                &pApp->command,
-                &pApp->history,
-                &pApp->game
-            );
+            updateStateResetTurn( pApp );
 
-            /// Reset command
-            pApp->command = newCommand( pApp->game.activePlayer );
-
-            pApp->state = APP_STATE_NORMAL_TURN;
-
-            updateScore( &pApp->game );
-
-            break;
+            return;
         }
 
         case APP_STATE_GAME_END:
         {
-            getInputFromUser( &pApp->inputBuffer );
-            handleGlobalInput( pApp );
+            updateStateGameEnd( pApp );
 
-            break;
+            return;
         }
 
         default:
@@ -225,8 +145,188 @@ void updateFrame( App* const pApp )
             return;
         }
     }
+}
 
-    render( pApp );
+void updateStateChooseBoardSize( App* const pApp )
+{
+    assert(
+        pApp
+        && "Pointer is nullptr"
+    );
+
+    getInput( pApp );
+
+    if ( !setBoardSize(
+             &pApp->game,
+             &pApp->inputBuffer
+         ) )
+    {
+        return;
+    }
+
+    /// Prepare first turn: WHITE places BLACK
+    pApp->game.activePlayer = PLAYER_WHITE;
+    pApp->command.playerId = PLAYER_BLACK;
+    pApp->command.actionType = ACTION_TYPE_PLACE;
+    pApp->command.stoneType = STONE_TYPE_FLAT;
+    pApp->command.state = COMMAND_STATE_GET_FILE_X;
+
+    pApp->state = APP_STATE_FIRST_TURN;
+}
+
+void updateStateFirstTurn( App* const pApp )
+{
+    assert(
+        pApp
+        && "Pointer is nullptr"
+    );
+
+    if (
+        !isTurnComplete( pApp )
+    )
+    {
+        progressTurn( pApp );
+
+        return;
+    }
+
+    /// Place additional stone for two-stack opening
+    placeStone(
+        &pApp->game,
+        pApp->history.records[1].Data.place.playerId,
+        pApp->history.records[1].Data.place.squareIdx,
+        STONE_TYPE_FLAT
+    );
+
+    /// Prepare second turn: BLACK places WHITE
+    pApp->game.activePlayer = PLAYER_BLACK;
+    pApp->command.playerId = PLAYER_WHITE;
+    pApp->command.actionType = ACTION_TYPE_PLACE;
+    pApp->command.stoneType = STONE_TYPE_FLAT;
+    pApp->command.state = COMMAND_STATE_GET_FILE_X;
+
+    pApp->state = APP_STATE_SECOND_TURN;
+}
+
+void updateStateSecondTurn( App* const pApp )
+{
+    assert(
+        pApp
+        && "Pointer is nullptr"
+    );
+
+    if (
+        !pApp->shouldClose
+        && !isTurnComplete( pApp )
+    )
+    {
+        progressTurn( pApp );
+
+        return;
+    }
+
+    pApp->state = APP_STATE_NORMAL_TURN;
+}
+
+void updateStateNormalTurn( App* const pApp )
+{
+    assert(
+        pApp
+        && "Pointer is nullptr"
+    );
+
+    /// Input
+    if ( !autocompleteCommand(
+             &pApp->command,
+             &pApp->game
+         ) )
+    {
+        getInput( pApp );
+
+        processInput( pApp );
+    };
+
+    /// Action
+    updateApp( pApp );
+}
+
+void updateStateUndoTurn( App* const pApp )
+{
+    assert(
+        pApp
+        && "Pointer is nullptr"
+    );
+
+    undoTurn(
+        &pApp->history,
+        &pApp->game
+    );
+
+    /// Reset command
+    pApp->command = newCommand( pApp->game.activePlayer );
+
+    pApp->state = APP_STATE_NORMAL_TURN;
+
+    updateScore( &pApp->game );
+}
+
+void updateStateRedoTurn( App* const pApp )
+{
+    assert(
+        pApp
+        && "Pointer is nullptr"
+    );
+
+    redoTurn(
+        &pApp->history,
+        &pApp->game
+    );
+
+    if ( isGameOver( pApp ) )
+    {
+        pApp->state = APP_STATE_GAME_END;
+
+        return;
+    }
+
+    /// Reset command
+    pApp->command = newCommand( pApp->game.activePlayer );
+
+    pApp->state = APP_STATE_NORMAL_TURN;
+
+    updateScore( &pApp->game );
+}
+
+void updateStateResetTurn( App* const pApp )
+{
+    assert(
+        pApp
+        && "Pointer is nullptr"
+    );
+
+    resetTurn(
+        &pApp->command,
+        &pApp->history,
+        &pApp->game
+    );
+
+    /// Reset command
+    pApp->command = newCommand( pApp->game.activePlayer );
+
+    pApp->state = APP_STATE_NORMAL_TURN;
+
+    updateScore( &pApp->game );
+}
+
+void updateStateGameEnd( App* const pApp )
+{
+    assert(
+        pApp
+        && "Pointer is nullptr"
+    );
+
+    getInputFromUser( &pApp->inputBuffer );
+    handleGlobalInput( pApp );
 }
 
 void progressTurn( App* const pApp )
@@ -251,7 +351,6 @@ void progressTurn( App* const pApp )
     updateApp( pApp );
 }
 
-// NOTE: Only required as long as simulation is used here
 void getInput( App* const pApp )
 {
     assert(
@@ -264,7 +363,6 @@ void getInput( App* const pApp )
              &pApp->simulation
          ) )
     {
-        wait( 10 );
         return;
     }
 
