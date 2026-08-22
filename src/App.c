@@ -5,6 +5,7 @@
 #include "BackendInterface.h"
 #include "Command.h"
 #include "CommandStateId.h"
+#include "CommandValidation.h"
 #include "Engine.h"
 #include "Event.h"
 #include "Game.h"
@@ -12,6 +13,7 @@
 #include "GameEnd.h"
 #include "History.h"
 #include "InputBuffer.h"
+#include "InputParsing.h"
 #include "InputSystem.h"
 #include "PlatformInterface.h"
 #include "PlayerId.h"
@@ -182,25 +184,88 @@ void updateStateFirstTurn( App* const pApp )
     );
 
     if (
+        // TODO: Check if position complete (own new function)
         !isTurnComplete( pApp )
     )
     {
         /// Input
-        if ( !autocompleteCommand(
-                 &pApp->command,
+        getInput( pApp );
+
+        /// Check for Quit input
+        if ( getCommandId(
+                 &pApp->inputBuffer,
+                 CONTEXT_GLOBAL
+             )
+             == COMMAND_QUIT )
+        {
+            pApp->shouldClose = true;
+
+            return;
+        }
+
+        /// updateCommand(setPosition), validateCommand(validatePosition), resetPos(if invalid), setNextState()
+        // buildCommand(
+        //     &pApp->command,
+        //     &pApp->inputBuffer,
+        //     &pApp->game
+        // );
+
+        /// Make a temporary command
+        Command command = pApp->command;
+
+        /// Set context-dependent command value from input
+        if ( !parseInputPosition(
+                 &command,
+                 &pApp->inputBuffer,
+                 pApp->game.board.size
+             ) )
+        {
+            return;
+        }
+
+        // TODO: Continue here
+        /// Validate position against game
+        if ( !validateCommand(
+                 &command,
                  &pApp->game
              ) )
         {
-            getInput( pApp );
+            /// Reset original command to query for file if rank invalid
+            if ( command.state == COMMAND_STATE_GET_RANK_Y )
+            {
+                pApp->command.fileX = FILE_NONE;
+                pApp->command.state = COMMAND_STATE_GET_POSITION;
+            }
 
-            handleGlobalInput( pApp );
+            /// Keep buffered stone count
+            pApp->command.bufferedDropCount = command.bufferedDropCount;
+
+            return;
+        }
+
+        /// If complete position was provided via mouse
+        if (
+            command.state == COMMAND_STATE_GET_POSITION
+            && pApp->inputBuffer.lastInput == INPUT_MOUSE
+        )
+        {
+            command.state = COMMAND_STATE_GET_RANK_Y;
 
             buildCommand(
-                &pApp->command,
+                &command,
                 &pApp->inputBuffer,
                 &pApp->game
             );
-        };
+        }
+
+        /// Update command state
+        setNextCommandState(
+            &command,
+            &pApp->game
+        );
+
+        /// Copy temp command to original
+        pApp->command = command;
 
         /// Action
         updateApp( pApp );

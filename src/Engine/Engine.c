@@ -318,7 +318,7 @@ void buildCommand(
         && "Pointer is nullptr"
     );
 
-    /// Temporary command
+    /// Make a temporary command
     Command command = *pCommand;
 
     /// Set context-dependent command value from input
