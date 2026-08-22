@@ -48,14 +48,8 @@ void closeApp( App* const pApp );
 /// Update one frame of the main loop
 void updateFrame( App* const pApp );
 
-/// Handle app state
-void progressTurn( App* const pApp );
-
 /// Get input (simulated or mapped user input)
 void getInput( App* const pApp );
-
-/// Get input and update dependent data
-void processInput( App* const pApp );
 
 /// Update application state
 void updateApp( App* const pApp );

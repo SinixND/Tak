@@ -185,7 +185,25 @@ void updateStateFirstTurn( App* const pApp )
         !isTurnComplete( pApp )
     )
     {
-        progressTurn( pApp );
+        /// Input
+        if ( !autocompleteCommand(
+                 &pApp->command,
+                 &pApp->game
+             ) )
+        {
+            getInput( pApp );
+
+            handleGlobalInput( pApp );
+
+            buildCommand(
+                &pApp->command,
+                &pApp->inputBuffer,
+                &pApp->game
+            );
+        };
+
+        /// Action
+        updateApp( pApp );
 
         return;
     }
@@ -220,7 +238,25 @@ void updateStateSecondTurn( App* const pApp )
         && !isTurnComplete( pApp )
     )
     {
-        progressTurn( pApp );
+        /// Input
+        if ( !autocompleteCommand(
+                 &pApp->command,
+                 &pApp->game
+             ) )
+        {
+            getInput( pApp );
+
+            handleGlobalInput( pApp );
+
+            buildCommand(
+                &pApp->command,
+                &pApp->inputBuffer,
+                &pApp->game
+            );
+        };
+
+        /// Action
+        updateApp( pApp );
 
         return;
     }
@@ -243,7 +279,13 @@ void updateStateNormalTurn( App* const pApp )
     {
         getInput( pApp );
 
-        processInput( pApp );
+        handleGlobalInput( pApp );
+
+        buildCommand(
+            &pApp->command,
+            &pApp->inputBuffer,
+            &pApp->game
+        );
     };
 
     /// Action
@@ -329,28 +371,6 @@ void updateStateGameEnd( App* const pApp )
     handleGlobalInput( pApp );
 }
 
-void progressTurn( App* const pApp )
-{
-    assert(
-        pApp
-        && "Pointer is nullptr"
-    );
-
-    /// Input
-    if ( !autocompleteCommand(
-             &pApp->command,
-             &pApp->game
-         ) )
-    {
-        getInput( pApp );
-
-        processInput( pApp );
-    };
-
-    /// Action
-    updateApp( pApp );
-}
-
 void getInput( App* const pApp )
 {
     assert(
@@ -367,22 +387,6 @@ void getInput( App* const pApp )
     }
 
     getInputFromUser( &pApp->inputBuffer );
-}
-
-void processInput( App* const pApp )
-{
-    assert(
-        pApp
-        && "Pointer is nullptr"
-    );
-
-    handleGlobalInput( pApp );
-
-    buildCommand(
-        &pApp->command,
-        &pApp->inputBuffer,
-        &pApp->game
-    );
 }
 
 void updateApp( App* const pApp )
