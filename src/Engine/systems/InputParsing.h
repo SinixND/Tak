@@ -13,54 +13,54 @@ bool updateCommandFromInput(
 );
 
 /// Set stone type or file
-bool parseInputFirst(
+bool parseDefaultInputToCommand(
     Command* const pCommand,
     InputBuffer const* const pInputBuffer,
     int const boardSize
 );
 
 /// Set action type (place / lift) if input is valid
-bool parseInputActionType(
+bool parseActionTypeToCommand(
     Command* const pCommand,
     InputBuffer const* const pInputBuffer
 );
 
 /// Set stone type if input is valid
-bool parseInputStoneType(
+bool parseStoneTypeInputToCommand(
     Command* const pCommand,
     InputBuffer const* const pInputBuffer
 );
 
 /// Set fileX / rankY if input is valid
-bool parseInputPosition(
+bool parsePositionInputToCommand(
     Command* const pCommand,
     InputBuffer const* const pInputBuffer,
     int const boardSize
 );
 
 /// Set rankY if input is valid
-bool parseInputRankY(
+bool parseRankYInputToCommand(
     Command* const pCommand,
     InputBuffer const* const pInputBuffer,
     int const boardSize
 );
 
 /// Set dirction if input is valid
-bool parseInputDirection(
+bool parseDirectionInputToCommand(
     Command* const pCommand,
     InputBuffer const* const pInputBuffer,
     int const boardSize
 );
 
 /// Set first drop amount (0 - n) if input is valid
-bool parseInputFirstDropAmount(
+bool parseFirstDropAmountInputToCommand(
     Command* const pCommand,
     InputBuffer const* const pInputBuffer,
     int const boardSize
 );
 
 /// Set drop amount (1 - n) if input is valid
-bool parseInputDropAmount(
+bool parseDropAmountInputToCommand(
     Command* const pCommand,
     InputBuffer const* const pInputBuffer,
     int const boardSize

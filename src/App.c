@@ -202,7 +202,7 @@ void updateStateFirstTurn( App* const pApp )
     Command command = pApp->command;
 
     /// Set context-dependent command value from input
-    if ( !parseInputPosition(
+    if ( !parsePositionInputToCommand(
              &command,
              &pApp->inputBuffer,
              pApp->game.board.size
