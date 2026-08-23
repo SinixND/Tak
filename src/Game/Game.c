@@ -26,7 +26,7 @@ Game newGame( int boardSize )
     };
 }
 
-void updateGamePostEvent( Game* const pGame )
+void changeActivePlayer( Game* const pGame )
 {
     assert(
         pGame

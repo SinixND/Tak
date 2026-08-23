@@ -5,6 +5,7 @@
 #include "FileId.h"
 #include "PlayerId.h"
 #include "Position.h"
+#include "RankId.h"
 #include "StoneTypeId.h"
 #include <assert.h>
 #include <stdbool.h>
@@ -218,11 +219,23 @@ bool validateCommandPosition(
 
     int const boardSize = pGame->board.size;
 
+    /// Verify fileX w/o rankY
+    if (
+        pCommand->fileX >= 0
+        && ( pCommand->fileX < boardSize )
+        && pCommand->rankY == RANK_NONE
+    )
+    {
+        return true;
+    }
+
     /// Verify valid input to positionToSquare()
-    if ( pCommand->rankY < 0
-         || pCommand->fileX < 0
-         || ( pCommand->fileX >= boardSize )
-         || ( pCommand->rankY >= boardSize ) )
+    if (
+        pCommand->fileX < 0
+        || ( pCommand->fileX >= boardSize )
+        || pCommand->rankY < 0
+        || ( pCommand->rankY >= boardSize )
+    )
     {
         return false;
     }
@@ -233,9 +246,8 @@ bool validateCommandPosition(
 
     return (
         /// Player can place or lift
-        ( pCommand->actionType == ACTION_TYPE_NONE
-          && ( stackId == pCommand->playerId
-               || stackId == PLAYER_NONE ) )
+        ( stackId == pCommand->playerId
+          || stackId == PLAYER_NONE )
         /// NOTE: Needed?
         // /// Place
         // || ( pCommand->actionType == ACTION_TYPE_PLACE
@@ -267,10 +279,12 @@ bool validateCommandRankY(
     int const boardSize = pGame->board.size;
 
     /// Verify valid input to positionToSquare()
-    if ( pCommand->rankY < 0
-         || pCommand->fileX < 0
-         || ( pCommand->fileX >= boardSize )
-         || ( pCommand->rankY >= boardSize ) )
+    if (
+        pCommand->fileX < 0
+        || ( pCommand->fileX >= boardSize )
+        || pCommand->rankY < 0
+        || ( pCommand->rankY >= boardSize )
+    )
     {
         return false;
     }

@@ -37,12 +37,13 @@ bool validateCommandStoneType(
     Game const* const pGame
 );
 
-/// Check if file is on board
+/// Check if position input is valid
 bool validateCommandPosition(
     Command const* const pCommand,
     Game const* const pGame
 );
 
+// TODO: Remove?
 /// Check if position input is valid
 bool validateCommandRankY(
     Command const* const pCommand,

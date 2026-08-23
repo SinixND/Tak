@@ -72,6 +72,6 @@ bool isTurnComplete( App const* const pApp );
 bool isGameOver( App* const pApp );
 
 /// Perform actions to prepare next turn
-void handleTurnEnd( App* const pApp );
+void endTurn( App* const pApp );
 
 #endif

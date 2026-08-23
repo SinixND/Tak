@@ -8,6 +8,7 @@
 #include "CommandValidation.h"
 #include "Engine.h"
 #include "Event.h"
+#include "FileId.h"
 #include "Game.h"
 #include "GameConstants.h"
 #include "GameEnd.h"
@@ -198,7 +199,7 @@ void updateStateFirstTurn( App* const pApp )
         return;
     }
 
-    /// Make a temporary command
+    /// Build command
     Command command = pApp->command;
 
     /// Set context-dependent command value from input
@@ -211,19 +212,19 @@ void updateStateFirstTurn( App* const pApp )
         return;
     }
 
-    // TODO: Continue here
-    /// Validate position against game
-    if ( !validateCommand(
+    /// Validate command against game
+    if ( !validateCommandPosition(
              &command,
              &pApp->game
          ) )
     {
-        /// Reset original command to query for file if rank invalid
-        if ( command.state == COMMAND_STATE_GET_RANK_Y )
-        {
-            pApp->command.fileX = FILE_NONE;
-            pApp->command.state = COMMAND_STATE_GET_POSITION;
-        }
+        /// Reset position
+        pApp->command.fileX
+            = ( pApp->command.rankY == RANK_NONE )
+                  ? FILE_NONE
+                  : pApp->command.fileX;
+
+        pApp->command.rankY = RANK_NONE;
 
         /// Keep buffered stone count
         pApp->command.bufferedDropCount = command.bufferedDropCount;
@@ -231,32 +232,31 @@ void updateStateFirstTurn( App* const pApp )
         return;
     }
 
-    /// If complete position was provided via mouse
-    if (
-        command.state == COMMAND_STATE_GET_POSITION
-        && pApp->inputBuffer.lastInput == INPUT_MOUSE
-    )
-    {
-        command.state = COMMAND_STATE_GET_RANK_Y;
-
-        buildCommand(
-            &command,
-            &pApp->inputBuffer,
-            &pApp->game
-        );
-    }
-
-    /// Update command state
-    setNextCommandState(
-        &command,
-        &pApp->game
-    );
-
     /// Copy temp command to original
     pApp->command = command;
 
-    /// Action
-    updateApp( pApp );
+    /// Apply command
+    if ( !isCommandCompleteForEvent( &pApp->command ) )
+    {
+        return;
+    }
+
+    buildEvent(
+        &pApp->event,
+        &pApp->command,
+        pApp->game.board.size
+    );
+
+    recordEvent(
+        &pApp->history,
+        &pApp->event,
+        &pApp->game
+    );
+
+    executeEvent(
+        &pApp->game,
+        &pApp->event
+    );
 
     /// Place additional stone for two-stack opening
     placeStone(
@@ -264,6 +264,21 @@ void updateStateFirstTurn( App* const pApp )
         pApp->history.records[1].Data.place.playerId,
         pApp->history.records[1].Data.place.squareIdx,
         STONE_TYPE_FLAT
+    );
+
+    updateScore( &pApp->game );
+
+    recordCommand(
+        &pApp->history,
+        &pApp->command,
+        &pApp->game
+    );
+
+    changeActivePlayer( &pApp->game );
+
+    /// Reset command for next turn
+    pApp->command = newCommand(
+        pApp->game.activePlayer
     );
 
     /// Prepare second turn: BLACK places WHITE
@@ -458,7 +473,7 @@ void updateApp( App* const pApp )
         return;
     }
 
-    handleTurnEnd( pApp );
+    endTurn( pApp );
 }
 
 bool updateGame( App* const pApp )
@@ -468,7 +483,7 @@ bool updateGame( App* const pApp )
         && "Pointer is nullptr"
     );
 
-    if ( !isCommandReadyForEvent( &pApp->command ) )
+    if ( !isCommandCompleteForEvent( &pApp->command ) )
     {
         return false;
     }
@@ -524,7 +539,7 @@ bool isGameOver( App* const pApp )
     return false;
 }
 
-void handleTurnEnd( App* const pApp )
+void endTurn( App* const pApp )
 {
     assert(
         pApp
@@ -544,7 +559,7 @@ void handleTurnEnd( App* const pApp )
         return;
     }
 
-    updateGamePostEvent( &pApp->game );
+    changeActivePlayer( &pApp->game );
 
     /// Reset command for next turn
     pApp->command = newCommand(
