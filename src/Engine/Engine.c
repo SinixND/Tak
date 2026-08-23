@@ -141,44 +141,45 @@ bool autocompleteAction(
     Game const* const pGame
 )
 {
-    /// If position w/o actionType
+    /// Return if required input not met
     if (
-        pCommand->fileX != FILE_NONE
-        && pCommand->rankY != RANK_NONE
-        && pCommand->actionType == ACTION_TYPE_NONE
+        pCommand->fileX == FILE_NONE
+        || pCommand->rankY == RANK_NONE
+        || pCommand->actionType != ACTION_TYPE_NONE
     )
     {
-        PlayerId stackId
-            = pGame->board.stackIds[positionToSquare(
-                pCommand->fileX,
-                pCommand->rankY,
-                pGame->board.size
-            )];
-
-        /// Add action type depending on who owns the square
-        pCommand->actionType
-            = ( stackId == pGame->activePlayer )
-                  ? ACTION_TYPE_LIFT
-              : ( stackId == PLAYER_NONE )
-                  ? ACTION_TYPE_PLACE
-                  : ACTION_TYPE_NONE;
-
-        /// Change state for lift action
-        pCommand->state
-            = ( pCommand->actionType == ACTION_TYPE_LIFT )
-                  ? COMMAND_STATE_GET_DIRECTION
-                  : pCommand->state;
-
-        /// Set stone type if not set
-        pCommand->stoneType
-            = ( pCommand->stoneType == STONE_TYPE_NONE )
-                  ? STONE_TYPE_FLAT
-                  : pCommand->stoneType;
-
-        return true;
+        return false;
     }
 
-    return false;
+    /// Deduce action from position
+    PlayerId stackId
+        = pGame->board.stackIds[positionToSquare(
+            pCommand->fileX,
+            pCommand->rankY,
+            pGame->board.size
+        )];
+
+    /// Add action type depending on who owns the square
+    pCommand->actionType
+        = ( stackId == pGame->activePlayer )
+              ? ACTION_TYPE_LIFT
+          : ( stackId == PLAYER_NONE )
+              ? ACTION_TYPE_PLACE
+              : ACTION_TYPE_NONE;
+
+    /// Change state for lift action
+    pCommand->state
+        = ( pCommand->actionType == ACTION_TYPE_LIFT )
+              ? COMMAND_STATE_GET_DIRECTION
+              : pCommand->state;
+
+    /// Set stone type if not set
+    pCommand->stoneType
+        = ( pCommand->stoneType == STONE_TYPE_NONE )
+              ? STONE_TYPE_FLAT
+              : pCommand->stoneType;
+
+    return true;
 }
 
 bool autocompleteDrop(
@@ -186,16 +187,17 @@ bool autocompleteDrop(
     Game const* const pGame
 )
 {
-    /// Complete if bufferedDropCount >= stackBuffer size
+    /// Complete drop action if bufferedDropCount >= stackBuffer size
     if ( pCommand->bufferedDropCount >= pGame->stackBuffer.stoneCount )
     {
         pCommand->dropCounts[pCommand->drops] = pCommand->bufferedDropCount;
-        pCommand->state = COMMAND_STATE_DEFAULT;
+        /// TODO: Delete/Required?
+        // pCommand->state = COMMAND_STATE_DEFAULT;
 
         return true;
     }
 
-    /// Complete if bufferedDropCount >= stackBuffer size - 1 on origin square
+    /// Can not drop all on source square: Complete if bufferedDropCount >= stackBuffer size - 1 on origin square
     if (
         pCommand->bufferedDropCount > 0
         && pCommand->bufferedDropCount >= pGame->stackBuffer.stoneCount - 1
@@ -208,6 +210,7 @@ bool autocompleteDrop(
         return true;
     }
 
+    /// Need to drop all if next square out of board
     FileId const nextFileX
         = pCommand->fileX
           + ( getOffsetX( pCommand->direction )
@@ -220,7 +223,6 @@ bool autocompleteDrop(
               * ( pCommand->drops
                   + 1 ) );
 
-    /// Need to drop all if next square out of board
     if (
         ( nextFileX < 0 )
         || ( nextFileX >= pGame->board.size )
@@ -233,12 +235,6 @@ bool autocompleteDrop(
 
         return true;
     }
-
-    int const nextSquareIdx = positionToSquare(
-        nextFileX,
-        nextRankY,
-        pGame->board.size
-    );
 
     /// Drop nothing at source square if single pickup
     if ( pCommand->drops < 1
@@ -263,6 +259,12 @@ bool autocompleteDrop(
     }
 
     /// Need to drop all if next squares type is capstone
+    int const nextSquareIdx = positionToSquare(
+        nextFileX,
+        nextRankY,
+        pGame->board.size
+    );
+
     if ( pGame->board.stackTypes[nextSquareIdx] == STONE_TYPE_CAP )
     {
         pCommand->dropCounts[pCommand->drops] = pGame->stackBuffer.stoneCount;
@@ -284,10 +286,13 @@ bool autocompleteDrop(
     /// Need to drop all but one if
     /// - next squares type is standing
     /// - buffer type is capstone
+    // TODO: Required/delete?
     /// - this is the first drop
     if ( pGame->board.stackTypes[nextSquareIdx] == STONE_TYPE_STANDING
          && pGame->stackBuffer.stackType == STONE_TYPE_CAP
-         && !pCommand->drops )
+         // TODO: Required/delete?
+         // && !pCommand->drops
+    )
     {
         pCommand->dropCounts[pCommand->drops] = pGame->stackBuffer.stoneCount - 1;
 
