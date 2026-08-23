@@ -75,7 +75,7 @@ void setNextCommandState(
     }
 }
 
-bool isCommandCompleteForEvent( Command const* const pCommand )
+bool isCommandReadyForEvent( Command const* const pCommand )
 {
     assert(
         pCommand

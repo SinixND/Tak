@@ -380,7 +380,6 @@ void testResetTurn( void )
     app.command.state = COMMAND_STATE_GET_DIRECTION;
 
     resetTurn(
-        &app.command,
         &app.history,
         &app.game
     );
@@ -402,7 +401,6 @@ void testResetTurn( void )
     app.command.state = COMMAND_STATE_GET_FIRST_DROP_AMOUNT;
 
     resetTurn(
-        &app.command,
         &app.history,
         &app.game
     );
@@ -431,7 +429,6 @@ void testResetTurn( void )
     app.command.state = COMMAND_STATE_GET_DROP_AMOUNT;
 
     resetTurn(
-        &app.command,
         &app.history,
         &app.game
     );

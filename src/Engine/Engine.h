@@ -57,6 +57,13 @@ void recordEvent(
     Game const* const pGame
 );
 
+/// Undo events of current turn
+bool resetTurn(
+    Command const* const pCommand,
+    History* const pHistory,
+    Game* const pGame
+);
+
 /// Undo last events
 void undoTurn(
     History* const pHistory,
@@ -65,13 +72,6 @@ void undoTurn(
 
 /// Redo next events
 void redoTurn(
-    History* const pHistory,
-    Game* const pGame
-);
-
-/// Undo events of current turn
-void resetTurn(
-    Command* const pCommand,
     History* const pHistory,
     Game* const pGame
 );

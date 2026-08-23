@@ -40,7 +40,7 @@ void setNextCommandState(
 );
 
 /// Check if event can be build from command
-bool isCommandCompleteForEvent( Command const* const pCommand );
+bool isCommandReadyForEvent( Command const* const pCommand );
 
 /// Prepare command for next frame after event
 void updateCommandPostEvent( Command* const pCommand );

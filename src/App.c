@@ -114,6 +114,13 @@ void updateFrame( App* const pApp )
             return;
         }
 
+        case APP_STATE_TURN_RESET:
+        {
+            updateStateResetTurn( pApp );
+
+            return;
+        }
+
         case APP_STATE_TURN_UNDO:
         {
             updateStateUndoTurn( pApp );
@@ -124,13 +131,6 @@ void updateFrame( App* const pApp )
         case APP_STATE_TURN_REDO:
         {
             updateStateRedoTurn( pApp );
-
-            return;
-        }
-
-        case APP_STATE_TURN_RESET:
-        {
-            updateStateResetTurn( pApp );
 
             return;
         }
@@ -238,9 +238,6 @@ void updateStateFirstTurn( App* const pApp )
 
         pApp->command.rankY = RANK_NONE;
 
-        /// Keep buffered stone count
-        pApp->command.bufferedDropCount = command.bufferedDropCount;
-
         return;
     }
 
@@ -248,7 +245,7 @@ void updateStateFirstTurn( App* const pApp )
     pApp->command = command;
 
     /// Apply command
-    if ( !isCommandCompleteForEvent( &pApp->command ) )
+    if ( !isCommandReadyForEvent( &pApp->command ) )
     {
         return;
     }
@@ -352,9 +349,6 @@ void updateStateSecondTurn( App* const pApp )
 
         pApp->command.rankY = RANK_NONE;
 
-        /// Keep buffered stone count
-        pApp->command.bufferedDropCount = command.bufferedDropCount;
-
         return;
     }
 
@@ -362,7 +356,7 @@ void updateStateSecondTurn( App* const pApp )
     pApp->command = command;
 
     /// Apply command
-    if ( !isCommandCompleteForEvent( &pApp->command ) )
+    if ( !isCommandReadyForEvent( &pApp->command ) )
     {
         return;
     }
@@ -440,12 +434,50 @@ void updateStateNormalTurn( App* const pApp )
     updateApp( pApp );
 }
 
+void updateStateResetTurn( App* const pApp )
+{
+    assert(
+        pApp
+        && "Pointer is nullptr"
+    );
+
+    resetTurn(
+        &pApp->command,
+        &pApp->history,
+        &pApp->game
+    );
+
+    /// Reset command
+    pApp->command = newCommand( pApp->game.activePlayer );
+
+    pApp->state = APP_STATE_NORMAL_TURN;
+
+    updateScore( &pApp->game );
+}
+
 void updateStateUndoTurn( App* const pApp )
 {
     assert(
         pApp
         && "Pointer is nullptr"
     );
+
+    /// Prefer reset over undo
+    if ( resetTurn(
+             &pApp->command,
+             &pApp->history,
+             &pApp->game
+         ) )
+    {
+        /// Reset command
+        pApp->command = newCommand( pApp->game.activePlayer );
+
+        pApp->state = APP_STATE_NORMAL_TURN;
+
+        updateScore( &pApp->game );
+
+        return;
+    }
 
     undoTurn(
         &pApp->history,
@@ -467,6 +499,23 @@ void updateStateRedoTurn( App* const pApp )
         && "Pointer is nullptr"
     );
 
+    /// Reset before redo
+    if ( resetTurn(
+             &pApp->command,
+             &pApp->history,
+             &pApp->game
+         ) )
+    {
+        /// Reset command
+        pApp->command = newCommand( pApp->game.activePlayer );
+
+        pApp->state = APP_STATE_NORMAL_TURN;
+
+        updateScore( &pApp->game );
+
+        return;
+    }
+
     redoTurn(
         &pApp->history,
         &pApp->game
@@ -478,27 +527,6 @@ void updateStateRedoTurn( App* const pApp )
 
         return;
     }
-
-    /// Reset command
-    pApp->command = newCommand( pApp->game.activePlayer );
-
-    pApp->state = APP_STATE_NORMAL_TURN;
-
-    updateScore( &pApp->game );
-}
-
-void updateStateResetTurn( App* const pApp )
-{
-    assert(
-        pApp
-        && "Pointer is nullptr"
-    );
-
-    resetTurn(
-        &pApp->command,
-        &pApp->history,
-        &pApp->game
-    );
 
     /// Reset command
     pApp->command = newCommand( pApp->game.activePlayer );
@@ -566,7 +594,7 @@ bool updateGame( App* const pApp )
         && "Pointer is nullptr"
     );
 
-    if ( !isCommandCompleteForEvent( &pApp->command ) )
+    if ( !isCommandReadyForEvent( &pApp->command ) )
     {
         return false;
     }
