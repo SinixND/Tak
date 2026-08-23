@@ -216,12 +216,39 @@ bool validateCommandPosition(
         && "Pointer is nullptr"
     );
 
+    int const boardSize = pGame->board.size;
+
+    /// Verify valid input to positionToSquare()
+    if ( pCommand->rankY < 0
+         || pCommand->fileX < 0
+         || ( pCommand->fileX >= boardSize )
+         || ( pCommand->rankY >= boardSize ) )
+    {
+        return false;
+    }
+
+    int const squareIdx = positionToSquare( pCommand->fileX, pCommand->rankY, boardSize );
+
+    PlayerId const stackId = pGame->board.stackIds[squareIdx];
+
     return (
-        ( pCommand->fileX >= 0 )
-        && ( pCommand->fileX < pGame->board.size )
+        /// Player can place or lift
+        ( pCommand->actionType == ACTION_TYPE_NONE
+          && ( stackId == pCommand->playerId
+               || stackId == PLAYER_NONE ) )
+        /// NOTE: Needed?
+        // /// Place
+        // || ( pCommand->actionType == ACTION_TYPE_PLACE
+        //      && !pGame->board.stoneCounts[squareIdx] )
+        // /// Lift
+        // || ( pCommand->actionType == ACTION_TYPE_LIFT
+        //      && pGame->board.stoneCounts[squareIdx]
+        //      /// Player owns square
+        //      && stackId == pCommand->playerId )
     );
 }
 
+// TODO: Remove
 bool validateCommandRankY(
     Command const* const pCommand,
     Game const* const pGame
@@ -359,20 +386,22 @@ bool validateCommandDropAmount(
 
     /// Return false if
     if (
+        ( pCommand->drops < 0 )
+        || ( pCommand->drops >= pGame->board.size )
         /// First drop count can be 0, must not drop all
-        ( !pCommand->drops
-          && ( ( pCommand->dropCounts[pCommand->drops] < 0 )
-               || pCommand->dropCounts[pCommand->drops] >= pGame->stackBuffer.stoneCount ) )
+        || ( !pCommand->drops
+             && ( ( pCommand->dropCounts[pCommand->drops] < 0 )
+                  || pCommand->dropCounts[pCommand->drops] >= pGame->stackBuffer.stoneCount ) )
         /// Only first drop count can be 0
         || ( pCommand->drops
              && ( ( pCommand->dropCounts[pCommand->drops] < 1 )
                   || ( pCommand->dropCounts[pCommand->drops] > pGame->stackBuffer.stoneCount ) ) )
-        || ( pCommand->drops < 0 )
-        || ( pCommand->drops >= pGame->board.size )
         /// Need to drop at least all but one if next drop can flatten
         || ( pCommand->dropCounts[pCommand->drops] < ( pGame->stackBuffer.stoneCount - 1 )
              && ( pGame->board.stackTypes[nextSquareIdx] == STONE_TYPE_STANDING
                   && pGame->stackBuffer.stackType == STONE_TYPE_CAP ) )
+        // NOTE: Needed?
+        /// Need to drop all if next square is type standing
     )
     {
         return false;
