@@ -183,95 +183,80 @@ void updateStateFirstTurn( App* const pApp )
         && "Pointer is nullptr"
     );
 
-    if (
-        // TODO: Check if position complete (own new function)
-        !isTurnComplete( pApp )
-    )
+    /// Input
+    getInput( pApp );
+
+    /// Check for Quit input
+    if ( getCommandId(
+             &pApp->inputBuffer,
+             CONTEXT_GLOBAL
+         )
+         == COMMAND_QUIT )
     {
-        /// Input
-        getInput( pApp );
-
-        /// Check for Quit input
-        if ( getCommandId(
-                 &pApp->inputBuffer,
-                 CONTEXT_GLOBAL
-             )
-             == COMMAND_QUIT )
-        {
-            pApp->shouldClose = true;
-
-            return;
-        }
-
-        /// updateCommand(setPosition), validateCommand(validatePosition), resetPos(if invalid), setNextState()
-        // buildCommand(
-        //     &pApp->command,
-        //     &pApp->inputBuffer,
-        //     &pApp->game
-        // );
-
-        /// Make a temporary command
-        Command command = pApp->command;
-
-        /// Set context-dependent command value from input
-        if ( !parseInputPosition(
-                 &command,
-                 &pApp->inputBuffer,
-                 pApp->game.board.size
-             ) )
-        {
-            return;
-        }
-
-        // TODO: Continue here
-        /// Validate position against game
-        if ( !validateCommand(
-                 &command,
-                 &pApp->game
-             ) )
-        {
-            /// Reset original command to query for file if rank invalid
-            if ( command.state == COMMAND_STATE_GET_RANK_Y )
-            {
-                pApp->command.fileX = FILE_NONE;
-                pApp->command.state = COMMAND_STATE_GET_POSITION;
-            }
-
-            /// Keep buffered stone count
-            pApp->command.bufferedDropCount = command.bufferedDropCount;
-
-            return;
-        }
-
-        /// If complete position was provided via mouse
-        if (
-            command.state == COMMAND_STATE_GET_POSITION
-            && pApp->inputBuffer.lastInput == INPUT_MOUSE
-        )
-        {
-            command.state = COMMAND_STATE_GET_RANK_Y;
-
-            buildCommand(
-                &command,
-                &pApp->inputBuffer,
-                &pApp->game
-            );
-        }
-
-        /// Update command state
-        setNextCommandState(
-            &command,
-            &pApp->game
-        );
-
-        /// Copy temp command to original
-        pApp->command = command;
-
-        /// Action
-        updateApp( pApp );
+        pApp->shouldClose = true;
 
         return;
     }
+
+    /// Make a temporary command
+    Command command = pApp->command;
+
+    /// Set context-dependent command value from input
+    if ( !parseInputPosition(
+             &command,
+             &pApp->inputBuffer,
+             pApp->game.board.size
+         ) )
+    {
+        return;
+    }
+
+    // TODO: Continue here
+    /// Validate position against game
+    if ( !validateCommand(
+             &command,
+             &pApp->game
+         ) )
+    {
+        /// Reset original command to query for file if rank invalid
+        if ( command.state == COMMAND_STATE_GET_RANK_Y )
+        {
+            pApp->command.fileX = FILE_NONE;
+            pApp->command.state = COMMAND_STATE_GET_POSITION;
+        }
+
+        /// Keep buffered stone count
+        pApp->command.bufferedDropCount = command.bufferedDropCount;
+
+        return;
+    }
+
+    /// If complete position was provided via mouse
+    if (
+        command.state == COMMAND_STATE_GET_POSITION
+        && pApp->inputBuffer.lastInput == INPUT_MOUSE
+    )
+    {
+        command.state = COMMAND_STATE_GET_RANK_Y;
+
+        buildCommand(
+            &command,
+            &pApp->inputBuffer,
+            &pApp->game
+        );
+    }
+
+    /// Update command state
+    setNextCommandState(
+        &command,
+        &pApp->game
+    );
+
+    /// Copy temp command to original
+    pApp->command = command;
+
+    /// Action
+    updateApp( pApp );
 
     /// Place additional stone for two-stack opening
     placeStone(
