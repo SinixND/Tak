@@ -12,6 +12,13 @@ bool updateCommandFromInput(
     int const boardSize
 );
 
+/// Set stone type or position
+bool parseDefaultInputToCommand(
+    Command* const pCommand,
+    InputBuffer const* const pInputBuffer,
+    int const boardSize
+);
+
 /// Set fileX / rankY if input is valid
 bool parsePositionInputToCommand(
     Command* const pCommand,
@@ -19,17 +26,9 @@ bool parsePositionInputToCommand(
     int const boardSize
 );
 
-/// Set stone type or position
 bool parseStoneTypeInputToCommand(
     Command* const pCommand,
     InputBuffer const* const pInputBuffer
-);
-
-/// Set rankY if input is valid
-bool parseRankYInputToCommand(
-    Command* const pCommand,
-    InputBuffer const* const pInputBuffer,
-    int const boardSize
 );
 
 /// Set dirction if input is valid
@@ -39,6 +38,7 @@ bool parseDirectionInputToCommand(
     int const boardSize
 );
 
+// TODO: Remove?
 /// Set first drop amount (0 - n) if input is valid
 bool parseFirstDropAmountInputToCommand(
     Command* const pCommand,

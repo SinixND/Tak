@@ -4,6 +4,6 @@
 #include "App.h"
 
 /// Handle input that directly changes app state
-void handleGlobalInput( App* const pApp );
+bool handleGlobalInput( App* const pApp );
 
 #endif

@@ -4,7 +4,7 @@
 #include "InputBuffer.h"
 #include <assert.h>
 
-void handleGlobalInput( App* const pApp )
+bool handleGlobalInput( App* const pApp )
 {
     assert(
         pApp
@@ -20,31 +20,33 @@ void handleGlobalInput( App* const pApp )
         {
             pApp->shouldClose = true;
 
-            return;
+            return true;
         }
 
         case COMMAND_UNDO:
         {
             pApp->state = APP_STATE_TURN_UNDO;
 
-            return;
+            return true;
         }
 
         case COMMAND_REDO:
         {
             pApp->state = APP_STATE_TURN_REDO;
 
-            return;
+            return true;
         }
 
         case COMMAND_RESET:
         {
             pApp->state = APP_STATE_TURN_RESET;
 
-            return;
+            return true;
         }
 
         default:
-            return;
+            return false;
     }
+
+    return false;
 }

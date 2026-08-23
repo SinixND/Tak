@@ -29,23 +29,7 @@ bool validateCommand(
     {
         case COMMAND_STATE_DEFAULT:
         {
-            return validateCommandFirstInput(
-                pCommand,
-                pGame
-            );
-        }
-
-        case COMMAND_STATE_GET_ACTION_TYPE:
-        {
-            return validateCommandActionType(
-                pCommand,
-                pGame
-            );
-        }
-
-        case COMMAND_STATE_GET_STONE_TYPE:
-        {
-            return validateCommandStoneType(
+            return validateCommandDefault(
                 pCommand,
                 pGame
             );
@@ -54,14 +38,6 @@ bool validateCommand(
         case COMMAND_STATE_GET_POSITION:
         {
             return validateCommandPosition(
-                pCommand,
-                pGame
-            );
-        }
-
-        case COMMAND_STATE_GET_RANK_Y:
-        {
-            return validateCommandRankY(
                 pCommand,
                 pGame
             );
@@ -78,7 +54,7 @@ bool validateCommand(
         case COMMAND_STATE_GET_FIRST_DROP_AMOUNT:
         case COMMAND_STATE_GET_DROP_AMOUNT:
         {
-            /// Cap drop count
+            /// Allow drop count input to exceed buffer size by capping drop count
             if ( pCommand->dropCounts[pCommand->drops] > pGame->stackBuffer.stoneCount )
             {
                 pCommand->dropCounts[pCommand->drops] = pGame->stackBuffer.stoneCount;
@@ -95,7 +71,7 @@ bool validateCommand(
     }
 }
 
-bool validateCommandFirstInput(
+bool validateCommandDefault(
     Command const* const pCommand,
     Game const* const pGame
 )
@@ -110,6 +86,7 @@ bool validateCommandFirstInput(
         && "Pointer is nullptr"
     );
 
+    /// Check all set command members
     bool isValid = true;
 
     if ( pCommand->actionType != ACTION_TYPE_NONE )
@@ -128,17 +105,12 @@ bool validateCommandFirstInput(
         );
     }
 
-    if ( pCommand->fileX != FILE_NONE )
+    if (
+        pCommand->fileX != FILE_NONE
+        || pCommand->rankY != RANK_NONE
+    )
     {
         isValid &= validateCommandPosition(
-            pCommand,
-            pGame
-        );
-    }
-
-    if ( pCommand->rankY != RANK_NONE )
-    {
-        isValid &= validateCommandRankY(
             pCommand,
             pGame
         );

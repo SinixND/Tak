@@ -181,8 +181,8 @@ void updateStateChooseBoardSize( App* const pApp )
 
     /// Prepare first turn: WHITE places BLACK
     pApp->game.activePlayer = PLAYER_WHITE;
-    pApp->command.playerId = PLAYER_BLACK;
     pApp->command.actionType = ACTION_TYPE_PLACE;
+    pApp->command.playerId = PLAYER_BLACK;
     pApp->command.stoneType = STONE_TYPE_FLAT;
     pApp->command.state = COMMAND_STATE_GET_POSITION;
 
@@ -295,8 +295,8 @@ void updateStateFirstTurn( App* const pApp )
 
     /// Prepare second turn: BLACK places WHITE
     pApp->game.activePlayer = PLAYER_BLACK;
-    pApp->command.playerId = PLAYER_WHITE;
     pApp->command.actionType = ACTION_TYPE_PLACE;
+    pApp->command.playerId = PLAYER_WHITE;
     pApp->command.stoneType = STONE_TYPE_FLAT;
     pApp->command.state = COMMAND_STATE_GET_POSITION;
 
@@ -409,22 +409,32 @@ void updateStateNormalTurn( App* const pApp )
         && "Pointer is nullptr"
     );
 
-    /// Input
-    if ( !autocompleteCommand(
+    /// Skip input if command can be autocompleted
+    if ( autocompleteCommand(
              &pApp->command,
              &pApp->game
          ) )
     {
-        getInput( pApp );
+        /// Action
+        updateApp( pApp );
 
-        handleGlobalInput( pApp );
+        return;
+    }
 
-        buildCommand(
+    /// Input
+    getInput( pApp );
+
+    if (
+        !handleGlobalInput( pApp )
+        && !buildCommand(
             &pApp->command,
             &pApp->inputBuffer,
             &pApp->game
-        );
-    };
+        )
+    )
+    {
+        return;
+    }
 
     /// Action
     updateApp( pApp );

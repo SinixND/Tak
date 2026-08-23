@@ -151,35 +151,35 @@ bool autocompleteAction(
         return false;
     }
 
-    /// Deduce action from position
-    PlayerId stackId
+    /// Deduce action type from target position
+    PlayerId targetStackId
         = pGame->board.stackIds[positionToSquare(
             pCommand->fileX,
             pCommand->rankY,
             pGame->board.size
         )];
 
-    /// Add action type depending on who owns the square
-    pCommand->actionType
-        = ( stackId == pGame->activePlayer )
-              ? ACTION_TYPE_LIFT
-          : ( stackId == PLAYER_NONE )
-              ? ACTION_TYPE_PLACE
-              : ACTION_TYPE_NONE;
+    /// Update command depending on who owns the targeted square
+    if ( targetStackId == PLAYER_NONE )
+    {
+        pCommand->actionType = ACTION_TYPE_PLACE;
+        /// Default to stone type FLAT if not set
+        pCommand->stoneType
+            = ( pCommand->stoneType == STONE_TYPE_NONE )
+                  ? STONE_TYPE_FLAT
+                  : pCommand->stoneType;
 
-    /// Change state for lift action
-    pCommand->state
-        = ( pCommand->actionType == ACTION_TYPE_LIFT )
-              ? COMMAND_STATE_GET_DIRECTION
-              : pCommand->state;
+        return true;
+    }
+    else if ( targetStackId == pGame->activePlayer )
+    {
+        pCommand->actionType = ACTION_TYPE_LIFT;
+        pCommand->state = COMMAND_STATE_GET_DIRECTION;
 
-    /// Set stone type if not set
-    pCommand->stoneType
-        = ( pCommand->stoneType == STONE_TYPE_NONE )
-              ? STONE_TYPE_FLAT
-              : pCommand->stoneType;
+        return true;
+    }
 
-    return true;
+    return false;
 }
 
 bool autocompleteDrop(
@@ -302,7 +302,7 @@ bool autocompleteDrop(
     return false;
 }
 
-void buildCommand(
+bool buildCommand(
     Command* const pCommand,
     InputBuffer const* const pInputBuffer,
     Game const* const pGame
@@ -333,7 +333,7 @@ void buildCommand(
              pGame->board.size
          ) )
     {
-        return;
+        return false;
     }
 
     /// Validate input against game
@@ -342,32 +342,18 @@ void buildCommand(
              pGame
          ) )
     {
-        /// Reset original command to query for file if rank invalid
-        if ( command.state == COMMAND_STATE_GET_RANK_Y )
-        {
-            pCommand->fileX = FILE_NONE;
-            pCommand->state = COMMAND_STATE_GET_POSITION;
-        }
+        /// Reset original command position if invalid
+        pCommand->fileX
+            = ( pCommand->rankY == RANK_NONE )
+                  ? FILE_NONE
+                  : pCommand->fileX;
+
+        pCommand->rankY = RANK_NONE;
 
         /// Keep buffered stone count
         pCommand->bufferedDropCount = command.bufferedDropCount;
 
-        return;
-    }
-
-    /// If complete position was provided via mouse
-    if (
-        command.state == COMMAND_STATE_GET_POSITION
-        && pInputBuffer->lastInput == INPUT_MOUSE
-    )
-    {
-        command.state = COMMAND_STATE_GET_RANK_Y;
-
-        buildCommand(
-            &command,
-            pInputBuffer,
-            pGame
-        );
+        return false;
     }
 
     /// Update command state
@@ -378,6 +364,8 @@ void buildCommand(
 
     /// Copy temp command to original
     *pCommand = command;
+
+    return true;
 }
 
 void recordCommand(

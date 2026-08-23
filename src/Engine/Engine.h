@@ -27,11 +27,10 @@ bool autocompleteCommand(
 /**
  * @brief Build command from input and against game
  *
- * - Parse input to command
- * - Validate command
- * - Advance commnd state
+ * - Update command from input
+ * - Validate command against game
  */
-void buildCommand(
+bool buildCommand(
     Command* const pCommand,
     InputBuffer const* const pInputBuffer,
     Game const* const pGame

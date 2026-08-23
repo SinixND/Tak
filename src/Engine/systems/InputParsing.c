@@ -1,6 +1,5 @@
 #include "InputParsing.h"
 
-#include "ActionTypeId.h"
 #include "BackendInterface.h"
 #include "CommandId.h"
 #include "CommandStateId.h"
@@ -40,34 +39,9 @@ bool updateCommandFromInput(
             );
         }
 
-        case COMMAND_STATE_GET_ACTION_TYPE:
-        {
-            return parseActionTypeToCommand(
-                pCommand,
-                pInputBuffer
-            );
-        }
-
-        case COMMAND_STATE_GET_STONE_TYPE:
-        {
-            return parseStoneTypeInputToCommand(
-                pCommand,
-                pInputBuffer
-            );
-        }
-
         case COMMAND_STATE_GET_POSITION:
         {
             return parsePositionInputToCommand(
-                pCommand,
-                pInputBuffer,
-                boardSize
-            );
-        }
-
-        case COMMAND_STATE_GET_RANK_Y:
-        {
-            return parseRankYInputToCommand(
                 pCommand,
                 pInputBuffer,
                 boardSize
@@ -122,211 +96,25 @@ bool parseDefaultInputToCommand(
         && "Pointer is nullptr"
     );
 
-    switch ( getCommandId(
-        pInputBuffer,
-        CONTEXT_INPUT_FIRST
-    ) )
+    if ( parsePositionInputToCommand(
+             pCommand,
+             pInputBuffer,
+             boardSize
+         ) )
     {
-        case COMMAND_POSITION:
-        {
-            Tile tile = getTile(
-                pInputBuffer->mousePosition[0],
-                pInputBuffer->mousePosition[1],
-                boardSize
-            );
+        return true;
+    };
 
-            pCommand->fileX = tile.fileX;
-            pCommand->rankY = tile.rankY;
+    if ( parseStoneTypeInputToCommand(
 
-            return true;
-        }
-
-        case COMMAND_FLAT:
-        {
-            pCommand->stoneType = STONE_TYPE_FLAT;
-
-            return true;
-        }
-
-        case COMMAND_STANDING:
-        {
-            pCommand->stoneType = STONE_TYPE_STANDING;
-
-            return true;
-        }
-
-        case COMMAND_CAPSTONE:
-        {
-            pCommand->stoneType = STONE_TYPE_CAP;
-
-            return true;
-        }
-
-        case COMMAND_CYCLE_STONE_TYPE:
-        {
-            pCommand->stoneType = ( pCommand->stoneType % ( 2 + ( boardSize > 4 ) ) ) + 1;
-
-            return true;
-        }
-
-        case COMMAND_A:
-        {
-            pCommand->fileX = FILE_A;
-
-            return true;
-        }
-
-        case COMMAND_B:
-        {
-            pCommand->fileX = FILE_B;
-
-            return true;
-        }
-
-        case COMMAND_C:
-        {
-            pCommand->fileX = FILE_C;
-
-            return true;
-        }
-
-        case COMMAND_D:
-        {
-            pCommand->fileX = FILE_D;
-
-            return true;
-        }
-
-        case COMMAND_E:
-        {
-            pCommand->fileX = FILE_E;
-
-            return true;
-        }
-
-        case COMMAND_F:
-        {
-            pCommand->fileX = FILE_F;
-
-            return true;
-        }
-
-        case COMMAND_G:
-        {
-            pCommand->fileX = FILE_G;
-
-            return true;
-        }
-
-        case COMMAND_H:
-        {
-            pCommand->fileX = FILE_H;
-
-            return true;
-        }
-
-        case COMMAND_PLACE:
-        {
-            pCommand->actionType = ACTION_TYPE_PLACE;
-
-            return true;
-        }
-
-        case COMMAND_MOVE:
-        {
-            pCommand->actionType = ACTION_TYPE_LIFT;
-
-            return true;
-        }
-
-        default:
-            return false;
-    }
-}
-
-bool parseActionTypeToCommand(
-    Command* const pCommand,
-    InputBuffer const* const pInputBuffer
-)
-{
-    assert(
-        pCommand
-        && "Pointer is nullptr"
-    );
-
-    assert(
-        pInputBuffer
-        && "Pointer is nullptr"
-    );
-
-    switch ( getCommandId(
-        pInputBuffer,
-        CONTEXT_ACTION_TYPE
-    ) )
+             pCommand,
+             pInputBuffer
+         ) )
     {
-        case COMMAND_PLACE:
-        {
-            pCommand->actionType = ACTION_TYPE_PLACE;
-
-            return true;
-        }
-
-        case COMMAND_MOVE:
-        {
-            pCommand->actionType = ACTION_TYPE_LIFT;
-
-            return true;
-        }
-
-        default:
-            return false;
+        return true;
     }
-}
 
-bool parseStoneTypeInputToCommand(
-    Command* const pCommand,
-    InputBuffer const* const pInputBuffer
-)
-{
-    assert(
-        pCommand
-        && "Pointer is nullptr"
-    );
-
-    assert(
-        pInputBuffer
-        && "Pointer is nullptr"
-    );
-
-    switch ( getCommandId(
-        pInputBuffer,
-        CONTEXT_STONE_TYPE
-    ) )
-    {
-        case COMMAND_FLAT:
-        {
-            pCommand->stoneType = STONE_TYPE_FLAT;
-
-            return true;
-        }
-
-        case COMMAND_STANDING:
-        {
-            pCommand->stoneType = STONE_TYPE_STANDING;
-
-            return true;
-        }
-
-        case COMMAND_CAPSTONE:
-        {
-            pCommand->stoneType = STONE_TYPE_CAP;
-
-            return true;
-        }
-
-        default:
-            return false;
-    }
+    return false;
 }
 
 bool parsePositionInputToCommand(
@@ -481,10 +269,9 @@ bool parsePositionInputToCommand(
     }
 }
 
-bool parseRankYInputToCommand(
+bool parseStoneTypeInputToCommand(
     Command* const pCommand,
-    InputBuffer const* const pInputBuffer,
-    int const boardSize
+    InputBuffer const* const pInputBuffer
 )
 {
     assert(
@@ -499,74 +286,26 @@ bool parseRankYInputToCommand(
 
     switch ( getCommandId(
         pInputBuffer,
-        CONTEXT_POSITION
+        CONTEXT_STONE_TYPE
     ) )
     {
-        case COMMAND_POSITION:
+        case COMMAND_FLAT:
         {
-            Tile tile = getTile(
-                pInputBuffer->mousePosition[0],
-                pInputBuffer->mousePosition[1],
-                boardSize
-            );
-
-            pCommand->rankY = tile.rankY;
+            pCommand->stoneType = STONE_TYPE_FLAT;
 
             return true;
         }
 
-        case COMMAND_1:
+        case COMMAND_STANDING:
         {
-            pCommand->rankY = RANK_1;
+            pCommand->stoneType = STONE_TYPE_STANDING;
 
             return true;
         }
 
-        case COMMAND_2:
+        case COMMAND_CAPSTONE:
         {
-            pCommand->rankY = RANK_2;
-
-            return true;
-        }
-
-        case COMMAND_3:
-        {
-            pCommand->rankY = RANK_3;
-
-            return true;
-        }
-
-        case COMMAND_4:
-        {
-            pCommand->rankY = RANK_4;
-
-            return true;
-        }
-
-        case COMMAND_5:
-        {
-            pCommand->rankY = RANK_5;
-
-            return true;
-        }
-
-        case COMMAND_6:
-        {
-            pCommand->rankY = RANK_6;
-
-            return true;
-        }
-
-        case COMMAND_7:
-        {
-            pCommand->rankY = RANK_7;
-
-            return true;
-        }
-
-        case COMMAND_8:
-        {
-            pCommand->rankY = RANK_8;
+            pCommand->stoneType = STONE_TYPE_CAP;
 
             return true;
         }
