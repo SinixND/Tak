@@ -45,7 +45,7 @@ void recordCommand(
 );
 
 /// Build event from command
-void buildEvent(
+void buildEventFromCommand(
     Event* const pEvent,
     Command const* const pCommand,
     int const boardSize

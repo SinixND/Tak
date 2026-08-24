@@ -181,7 +181,7 @@ void testBuildEvent( void )
     command.dropCounts[1] = 2;
     command.drops = 1;
 
-    buildEvent(
+    buildEventFromCommand(
         &event,
         &command,
         boardSize

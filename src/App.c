@@ -5,6 +5,7 @@
 #include "BackendInterface.h"
 #include "Command.h"
 #include "CommandStateId.h"
+#include "CommandValidation.h"
 #include "Engine.h"
 #include "Event.h"
 #include "Game.h"
@@ -12,6 +13,7 @@
 #include "GameEnd.h"
 #include "History.h"
 #include "InputBuffer.h"
+#include "InputParsing.h"
 #include "InputSystem.h"
 #include "PlatformInterface.h"
 #include "PlayerId.h"
@@ -193,32 +195,92 @@ void updateStateFirstTurn( App* const pApp )
         && "Pointer is nullptr"
     );
 
-    if (
-        !isTurnComplete( pApp )
-    )
+    /// Input
+    getInput( pApp );
+
+    /// Check for Quit input
+    if ( getCommandId(
+             &pApp->inputBuffer,
+             CONTEXT_GLOBAL
+         )
+         == COMMAND_QUIT )
     {
-        /// Input
-        if ( !autocompleteCommand(
-                 &pApp->command,
-                 &pApp->game
-             ) )
-        {
-            getInput( pApp );
-
-            handleGlobalInput( pApp );
-
-            buildCommand(
-                &pApp->command,
-                &pApp->inputBuffer,
-                &pApp->game
-            );
-        };
-
-        /// Action
-        updateApp( pApp );
+        pApp->shouldClose = true;
 
         return;
     }
+
+    /// Build command
+    Command command = pApp->command;
+
+    /// Set context-dependent command value from input
+    if ( !parsePositionInputToCommand(
+             &command,
+             &pApp->inputBuffer,
+             pApp->game.board.size
+         ) )
+    {
+        return;
+    }
+
+    /// Validate command against game
+    if ( !validateCommandPosition(
+             &command,
+             &pApp->game
+         ) )
+    {
+        /// Reset position
+        pApp->command.fileX
+            = ( pApp->command.rankY == RANK_NONE )
+                  ? FILE_NONE
+                  : pApp->command.fileX;
+
+        pApp->command.rankY = RANK_NONE;
+
+        return;
+    }
+
+    /// Copy temp command to original
+    pApp->command = command;
+
+    /// Action
+    if ( !isCommandReadyForEvent( &pApp->command ) )
+    {
+        return;
+    }
+
+    buildEventFromCommand(
+        &pApp->event,
+        &pApp->command,
+        pApp->game.board.size
+    );
+
+    recordEvent(
+        &pApp->history,
+        &pApp->event,
+        &pApp->game
+    );
+
+    executeEvent(
+        &pApp->game,
+        &pApp->event
+    );
+
+    /// Post game update
+    updateScore( &pApp->game );
+
+    recordCommand(
+        &pApp->history,
+        &pApp->command,
+        &pApp->game
+    );
+
+    changeActivePlayer( &pApp->game );
+
+    /// Reset command for next turn
+    pApp->command = newCommand(
+        pApp->game.activePlayer
+    );
 
     /// Place additional stone for two-stack opening
     placeStone(
@@ -435,7 +497,7 @@ bool updateGame( App* const pApp )
         return false;
     }
 
-    buildEvent(
+    buildEventFromCommand(
         &pApp->event,
         &pApp->command,
         pApp->game.board.size
@@ -506,7 +568,7 @@ void handleTurnEnd( App* const pApp )
         return;
     }
 
-    updateGamePostEvent( &pApp->game );
+    changeActivePlayer( &pApp->game );
 
     /// Reset command for next turn
     pApp->command = newCommand(
