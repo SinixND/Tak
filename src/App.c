@@ -205,7 +205,13 @@ void updateStateFirstTurn( App* const pApp )
         {
             getInput( pApp );
 
-            processInput( pApp );
+            handleGlobalInput( pApp );
+
+            buildCommand(
+                &pApp->command,
+                &pApp->inputBuffer,
+                &pApp->game
+            );
         };
 
         /// Action
@@ -252,7 +258,13 @@ void updateStateSecondTurn( App* const pApp )
         {
             getInput( pApp );
 
-            processInput( pApp );
+            handleGlobalInput( pApp );
+
+            buildCommand(
+                &pApp->command,
+                &pApp->inputBuffer,
+                &pApp->game
+            );
         };
 
         /// Action
@@ -279,7 +291,13 @@ void updateStateNormalTurn( App* const pApp )
     {
         getInput( pApp );
 
-        processInput( pApp );
+        handleGlobalInput( pApp );
+
+        buildCommand(
+            &pApp->command,
+            &pApp->inputBuffer,
+            &pApp->game
+        );
     };
 
     /// Action
@@ -381,22 +399,6 @@ void getInput( App* const pApp )
     }
 
     getInputFromUser( &pApp->inputBuffer );
-}
-
-void processInput( App* const pApp )
-{
-    assert(
-        pApp
-        && "Pointer is nullptr"
-    );
-
-    handleGlobalInput( pApp );
-
-    buildCommand(
-        &pApp->command,
-        &pApp->inputBuffer,
-        &pApp->game
-    );
 }
 
 void updateApp( App* const pApp )
