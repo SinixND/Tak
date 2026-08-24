@@ -150,6 +150,8 @@ The following tools are used in the project but not required and not contained i
 
 
 ## ToDo notes
+- [ ] Fix place onto standing!
+- [ ] Rename file/rank to column/row
 - [ ] Render raylib/web 
 
 - [ ] Todos

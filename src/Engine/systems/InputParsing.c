@@ -31,9 +31,9 @@ bool updateCommandFromInput(
     switch ( pCommand->state )
     {
         case COMMAND_STATE_NONE:
-        case COMMAND_STATE_GET_FIRST_INPUT:
+        case COMMAND_STATE_DEFAULT:
         {
-            return parseInputFirst(
+            return parseDefaultInputToCommand(
                 pCommand,
                 pInputBuffer,
                 boardSize
@@ -42,7 +42,7 @@ bool updateCommandFromInput(
 
         case COMMAND_STATE_GET_ACTION_TYPE:
         {
-            return parseInputActionType(
+            return parseActionTypeInputToCommand(
                 pCommand,
                 pInputBuffer
             );
@@ -50,7 +50,7 @@ bool updateCommandFromInput(
 
         case COMMAND_STATE_GET_STONE_TYPE:
         {
-            return parseInputStoneType(
+            return parseStoneTypeInputToCommand(
                 pCommand,
                 pInputBuffer
             );
@@ -58,7 +58,7 @@ bool updateCommandFromInput(
 
         case COMMAND_STATE_GET_FILE_X:
         {
-            return parseInputFileX(
+            return parseFileXInputToCommand(
                 pCommand,
                 pInputBuffer,
                 boardSize
@@ -67,7 +67,7 @@ bool updateCommandFromInput(
 
         case COMMAND_STATE_GET_RANK_Y:
         {
-            return parseInputRankY(
+            return parseRankYInputToCommand(
                 pCommand,
                 pInputBuffer,
                 boardSize
@@ -76,7 +76,7 @@ bool updateCommandFromInput(
 
         case COMMAND_STATE_GET_DIRECTION:
         {
-            return parseInputDirection(
+            return parseDirectionInputToCommand(
                 pCommand,
                 pInputBuffer,
                 boardSize
@@ -85,7 +85,7 @@ bool updateCommandFromInput(
 
         case COMMAND_STATE_GET_FIRST_DROP_AMOUNT:
         {
-            return parseInputFirstDropAmount(
+            return parseFirstDropAmountInputToCommand(
                 pCommand,
                 pInputBuffer,
                 boardSize
@@ -94,7 +94,7 @@ bool updateCommandFromInput(
 
         case COMMAND_STATE_GET_DROP_AMOUNT:
         {
-            return parseInputDropAmount(
+            return parseDropAmountInputToCommand(
                 pCommand,
                 pInputBuffer,
                 boardSize
@@ -106,7 +106,7 @@ bool updateCommandFromInput(
     }
 }
 
-bool parseInputFirst(
+bool parseDefaultInputToCommand(
     Command* const pCommand,
     InputBuffer const* const pInputBuffer,
     int const boardSize
@@ -244,7 +244,7 @@ bool parseInputFirst(
     }
 }
 
-bool parseInputActionType(
+bool parseActionTypeInputToCommand(
     Command* const pCommand,
     InputBuffer const* const pInputBuffer
 )
@@ -283,7 +283,7 @@ bool parseInputActionType(
     }
 }
 
-bool parseInputStoneType(
+bool parseStoneTypeInputToCommand(
     Command* const pCommand,
     InputBuffer const* const pInputBuffer
 )
@@ -329,7 +329,7 @@ bool parseInputStoneType(
     }
 }
 
-bool parseInputFileX(
+bool parseFileXInputToCommand(
     Command* const pCommand,
     InputBuffer const* const pInputBuffer,
     int const boardSize
@@ -424,7 +424,7 @@ bool parseInputFileX(
     }
 }
 
-bool parseInputRankY(
+bool parseRankYInputToCommand(
     Command* const pCommand,
     InputBuffer const* const pInputBuffer,
     int const boardSize
@@ -519,7 +519,7 @@ bool parseInputRankY(
     }
 }
 
-bool parseInputDirection(
+bool parseDirectionInputToCommand(
     Command* const pCommand,
     InputBuffer const* const pInputBuffer,
     int const boardSize
@@ -606,7 +606,7 @@ bool parseInputDirection(
     }
 }
 
-bool parseInputFirstDropAmount(
+bool parseFirstDropAmountInputToCommand(
     Command* const pCommand,
     InputBuffer const* const pInputBuffer,
     int const boardSize
@@ -740,7 +740,7 @@ bool parseInputFirstDropAmount(
     }
 }
 
-bool parseInputDropAmount(
+bool parseDropAmountInputToCommand(
     Command* const pCommand,
     InputBuffer const* const pInputBuffer,
     int const boardSize

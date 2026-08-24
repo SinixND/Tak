@@ -26,7 +26,7 @@ bool validateCommand(
 
     switch ( pCommand->state )
     {
-        case COMMAND_STATE_GET_FIRST_INPUT:
+        case COMMAND_STATE_DEFAULT:
         {
             return validateCommandFirstInput(
                 pCommand,

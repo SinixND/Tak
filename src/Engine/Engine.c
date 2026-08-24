@@ -114,7 +114,7 @@ bool autocompleteCommand(
 
     switch ( pCommand->state )
     {
-        case COMMAND_STATE_GET_FIRST_INPUT:
+        case COMMAND_STATE_DEFAULT:
         {
             return autocompleteAction(
                 pCommand,
@@ -190,7 +190,7 @@ bool autocompleteDrop(
     if ( pCommand->bufferedDropCount >= pGame->stackBuffer.stoneCount )
     {
         pCommand->dropCounts[pCommand->drops] = pCommand->bufferedDropCount;
-        pCommand->state = COMMAND_STATE_GET_FIRST_INPUT;
+        pCommand->state = COMMAND_STATE_DEFAULT;
 
         return true;
     }
@@ -229,7 +229,7 @@ bool autocompleteDrop(
     )
     {
         pCommand->dropCounts[pCommand->drops] = pGame->stackBuffer.stoneCount;
-        pCommand->state = COMMAND_STATE_GET_FIRST_INPUT;
+        pCommand->state = COMMAND_STATE_DEFAULT;
 
         return true;
     }
@@ -257,7 +257,7 @@ bool autocompleteDrop(
          && pGame->stackBuffer.stoneCount == 1 )
     {
         pCommand->dropCounts[pCommand->drops] = 1;
-        pCommand->state = COMMAND_STATE_GET_FIRST_INPUT;
+        pCommand->state = COMMAND_STATE_DEFAULT;
 
         return true;
     }
@@ -266,7 +266,7 @@ bool autocompleteDrop(
     if ( pGame->board.stackTypes[nextSquareIdx] == STONE_TYPE_CAP )
     {
         pCommand->dropCounts[pCommand->drops] = pGame->stackBuffer.stoneCount;
-        pCommand->state = COMMAND_STATE_GET_FIRST_INPUT;
+        pCommand->state = COMMAND_STATE_DEFAULT;
 
         return true;
     }
@@ -276,7 +276,7 @@ bool autocompleteDrop(
          && pGame->stackBuffer.stackType != STONE_TYPE_CAP )
     {
         pCommand->dropCounts[pCommand->drops] = pGame->stackBuffer.stoneCount;
-        pCommand->state = COMMAND_STATE_GET_FIRST_INPUT;
+        pCommand->state = COMMAND_STATE_DEFAULT;
 
         return true;
     }
