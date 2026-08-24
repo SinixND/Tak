@@ -156,6 +156,18 @@ void updateStateChooseBoardSize( App* const pApp )
 
     getInput( pApp );
 
+    /// Check for Quit input
+    if ( getCommandId(
+             &pApp->inputBuffer,
+             CONTEXT_GLOBAL
+         )
+         == COMMAND_QUIT )
+    {
+        pApp->shouldClose = true;
+
+        return;
+    }
+
     if ( !setBoardSize(
              &pApp->game,
              &pApp->inputBuffer
