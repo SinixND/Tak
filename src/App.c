@@ -197,7 +197,19 @@ void updateStateFirstTurn( App* const pApp )
         !isTurnComplete( pApp )
     )
     {
-        progressTurn( pApp );
+        /// Input
+        if ( !autocompleteCommand(
+                 &pApp->command,
+                 &pApp->game
+             ) )
+        {
+            getInput( pApp );
+
+            processInput( pApp );
+        };
+
+        /// Action
+        updateApp( pApp );
 
         return;
     }
@@ -232,7 +244,19 @@ void updateStateSecondTurn( App* const pApp )
         && !isTurnComplete( pApp )
     )
     {
-        progressTurn( pApp );
+        /// Input
+        if ( !autocompleteCommand(
+                 &pApp->command,
+                 &pApp->game
+             ) )
+        {
+            getInput( pApp );
+
+            processInput( pApp );
+        };
+
+        /// Action
+        updateApp( pApp );
 
         return;
     }
@@ -339,28 +363,6 @@ void updateStateGameEnd( App* const pApp )
 
     getInputFromUser( &pApp->inputBuffer );
     handleGlobalInput( pApp );
-}
-
-void progressTurn( App* const pApp )
-{
-    assert(
-        pApp
-        && "Pointer is nullptr"
-    );
-
-    /// Input
-    if ( !autocompleteCommand(
-             &pApp->command,
-             &pApp->game
-         ) )
-    {
-        getInput( pApp );
-
-        processInput( pApp );
-    };
-
-    /// Action
-    updateApp( pApp );
 }
 
 void getInput( App* const pApp )

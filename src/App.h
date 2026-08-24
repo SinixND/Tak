@@ -48,9 +48,6 @@ void closeApp( App* const pApp );
 /// Update one frame of the main loop
 void updateFrame( App* const pApp );
 
-/// Handle app state
-void progressTurn( App* const pApp );
-
 /// Get input (simulated or polled)
 void getInput( App* const pApp );
 
