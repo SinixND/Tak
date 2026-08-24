@@ -678,6 +678,12 @@ void redoTurn(
                 ++pHistory->lastRecordIdx;
             }
 
+            /// Redo turn complete
+            pGame->activePlayer
+                = ( pGame->activePlayer == PLAYER_WHITE )
+                      ? PLAYER_BLACK
+                      : PLAYER_WHITE;
+
             break;
         }
 
