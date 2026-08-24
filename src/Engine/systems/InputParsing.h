@@ -31,6 +31,13 @@ bool parseStoneTypeInputToCommand(
     InputBuffer const* const pInputBuffer
 );
 
+/// Set fileX / rankY if input is valid
+bool parsePositionInputToCommand(
+    Command* const pCommand,
+    InputBuffer const* const pInputBuffer,
+    int const boardSize
+);
+
 /// Set fileX if input is valid
 bool parseFileXInputToCommand(
     Command* const pCommand,

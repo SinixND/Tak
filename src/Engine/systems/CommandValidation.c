@@ -201,6 +201,64 @@ bool validateCommandStoneType(
     }
 }
 
+bool validateCommandPosition(
+    Command const* const pCommand,
+    Game const* const pGame
+)
+{
+    assert(
+        pCommand
+        && "Pointer is nullptr"
+    );
+
+    assert(
+        pGame
+        && "Pointer is nullptr"
+    );
+
+    int const boardSize = pGame->board.size;
+
+    /// Verify fileX w/o rankY
+    if (
+        pCommand->fileX >= 0
+        && ( pCommand->fileX < boardSize )
+        && pCommand->rankY == RANK_NONE
+    )
+    {
+        return true;
+    }
+
+    /// Verify valid input to positionToSquare()
+    if (
+        pCommand->fileX < 0
+        || ( pCommand->fileX >= boardSize )
+        || pCommand->rankY < 0
+        || ( pCommand->rankY >= boardSize )
+    )
+    {
+        return false;
+    }
+
+    int const squareIdx = positionToSquare( pCommand->fileX, pCommand->rankY, boardSize );
+
+    PlayerId const stackId = pGame->board.stackIds[squareIdx];
+
+    return (
+        /// Player can place or lift
+        ( stackId == pCommand->playerId
+          || stackId == PLAYER_NONE )
+        /// NOTE: Needed?
+        // /// Place
+        // || ( pCommand->actionType == ACTION_TYPE_PLACE
+        //      && !pGame->board.stoneCounts[squareIdx] )
+        // /// Lift
+        // || ( pCommand->actionType == ACTION_TYPE_LIFT
+        //      && pGame->board.stoneCounts[squareIdx]
+        //      /// Player owns square
+        //      && stackId == pCommand->playerId )
+    );
+}
+
 bool validateCommandFileX(
     Command const* const pCommand,
     Game const* const pGame

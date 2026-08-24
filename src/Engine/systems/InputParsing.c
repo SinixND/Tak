@@ -329,6 +329,158 @@ bool parseStoneTypeInputToCommand(
     }
 }
 
+bool parsePositionInputToCommand(
+    Command* const pCommand,
+    InputBuffer const* const pInputBuffer,
+    int const boardSize
+)
+{
+    assert(
+        pCommand
+        && "Pointer is nullptr"
+    );
+
+    assert(
+        pInputBuffer
+        && "Pointer is nullptr"
+    );
+
+    switch ( getCommandId(
+        pInputBuffer,
+        CONTEXT_POSITION
+    ) )
+    {
+        case COMMAND_POSITION:
+        {
+            Tile tile = getTile(
+                pInputBuffer->mousePosition[0],
+                pInputBuffer->mousePosition[1],
+                boardSize
+            );
+
+            pCommand->fileX = tile.fileX;
+            pCommand->rankY = tile.rankY;
+
+            return true;
+        }
+
+        case COMMAND_A:
+        {
+            pCommand->fileX = FILE_A;
+
+            return true;
+        }
+
+        case COMMAND_B:
+        {
+            pCommand->fileX = FILE_B;
+
+            return true;
+        }
+
+        case COMMAND_C:
+        {
+            pCommand->fileX = FILE_C;
+
+            return true;
+        }
+
+        case COMMAND_D:
+        {
+            pCommand->fileX = FILE_D;
+
+            return true;
+        }
+
+        case COMMAND_E:
+        {
+            pCommand->fileX = FILE_E;
+
+            return true;
+        }
+
+        case COMMAND_F:
+        {
+            pCommand->fileX = FILE_F;
+
+            return true;
+        }
+
+        case COMMAND_G:
+        {
+            pCommand->fileX = FILE_G;
+
+            return true;
+        }
+
+        case COMMAND_H:
+        {
+            pCommand->fileX = FILE_H;
+
+            return true;
+        }
+
+        case COMMAND_1:
+        {
+            pCommand->rankY = RANK_1;
+
+            return true;
+        }
+
+        case COMMAND_2:
+        {
+            pCommand->rankY = RANK_2;
+
+            return true;
+        }
+
+        case COMMAND_3:
+        {
+            pCommand->rankY = RANK_3;
+
+            return true;
+        }
+
+        case COMMAND_4:
+        {
+            pCommand->rankY = RANK_4;
+
+            return true;
+        }
+
+        case COMMAND_5:
+        {
+            pCommand->rankY = RANK_5;
+
+            return true;
+        }
+
+        case COMMAND_6:
+        {
+            pCommand->rankY = RANK_6;
+
+            return true;
+        }
+
+        case COMMAND_7:
+        {
+            pCommand->rankY = RANK_7;
+
+            return true;
+        }
+
+        case COMMAND_8:
+        {
+            pCommand->rankY = RANK_8;
+
+            return true;
+        }
+
+        default:
+            return false;
+    }
+}
+
 bool parseFileXInputToCommand(
     Command* const pCommand,
     InputBuffer const* const pInputBuffer,
