@@ -135,17 +135,26 @@ bool validateCommandDefaultInput(
         );
     }
 
-    if ( pCommand->fileX != FILE_NONE )
-    {
-        isValid &= validateCommandFileX(
-            pCommand,
-            pGame
-        );
-    }
+    // if ( pCommand->fileX != FILE_NONE )
+    // {
+    //     isValid &= validateCommandFileX(
+    //         pCommand,
+    //         pGame
+    //     );
+    // }
+    //
+    // if ( pCommand->rankY != RANK_NONE )
+    // {
+    //     isValid &= validateCommandRankY(
+    //         pCommand,
+    //         pGame
+    //     );
+    // }
 
-    if ( pCommand->rankY != RANK_NONE )
+    if ( pCommand->fileX != FILE_NONE
+         || pCommand->rankY != RANK_NONE )
     {
-        isValid &= validateCommandRankY(
+        isValid &= validateCommandPosition(
             pCommand,
             pGame
         );

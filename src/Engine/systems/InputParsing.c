@@ -133,7 +133,7 @@ bool parseDefaultInputToCommand(
 
     switch ( getCommandId(
         pInputBuffer,
-        CONTEXT_INPUT_FIRST
+        CONTEXT_INPUT_DEFAULT
     ) )
     {
         case COMMAND_POSITION:
@@ -230,6 +230,62 @@ bool parseDefaultInputToCommand(
         case COMMAND_H:
         {
             pCommand->fileX = FILE_H;
+
+            return true;
+        }
+
+        case COMMAND_1:
+        {
+            pCommand->rankY = RANK_1;
+
+            return true;
+        }
+
+        case COMMAND_2:
+        {
+            pCommand->rankY = RANK_2;
+
+            return true;
+        }
+
+        case COMMAND_3:
+        {
+            pCommand->rankY = RANK_3;
+
+            return true;
+        }
+
+        case COMMAND_4:
+        {
+            pCommand->rankY = RANK_4;
+
+            return true;
+        }
+
+        case COMMAND_5:
+        {
+            pCommand->rankY = RANK_5;
+
+            return true;
+        }
+
+        case COMMAND_6:
+        {
+            pCommand->rankY = RANK_6;
+
+            return true;
+        }
+
+        case COMMAND_7:
+        {
+            pCommand->rankY = RANK_7;
+
+            return true;
+        }
+
+        case COMMAND_8:
+        {
+            pCommand->rankY = RANK_8;
 
             return true;
         }

@@ -9,7 +9,7 @@ Mappings newMappings( void )
 {
     Mappings mappings = {
         .inputs = {
-            [CONTEXT_INPUT_FIRST] = {
+            [CONTEXT_INPUT_DEFAULT] = {
                 [COMMAND_FLAT] = INPUT_CAP_F,
                 [COMMAND_STANDING] = INPUT_CAP_S,
                 [COMMAND_CAPSTONE] = INPUT_CAP_C,
@@ -128,7 +128,7 @@ Mappings newMappings( void )
                     .commandId = COMMAND_QUIT
                 },
             },
-            [CONTEXT_INPUT_FIRST] = {
+            [CONTEXT_INPUT_DEFAULT] = {
                  (UIElement){
                     .x = 0,
                     .y = 6,

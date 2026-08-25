@@ -32,9 +32,9 @@ Prompts newPrompts( Mappings const* const pMappings )
                 ' ', '-', '-', '-', ' ', ' ', ' ', ' ', ' ', ' ', '\0'
             },
             [COMMAND_STATE_DEFAULT]  = {
-                INPUT_ID_CHARS[pMappings->inputs[CONTEXT_INPUT_FIRST][COMMAND_A]],
+                INPUT_ID_CHARS[pMappings->inputs[CONTEXT_INPUT_DEFAULT][COMMAND_A]],
                 '-',
-                INPUT_ID_CHARS[pMappings->inputs[CONTEXT_INPUT_FIRST][COMMAND_8]],
+                INPUT_ID_CHARS[pMappings->inputs[CONTEXT_INPUT_DEFAULT][COMMAND_8]],
                 ',',
                 ' ',
                 INPUT_ID_CHARS[pMappings->inputs[CONTEXT_STONE_TYPE][COMMAND_FLAT]],

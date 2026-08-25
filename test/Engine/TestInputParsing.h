@@ -302,9 +302,9 @@ void testParseInput( void )
 
     command.state = COMMAND_STATE_DEFAULT;
     TEST_ASSERT_EQUAL_INT( false, updateCommandFromInput( &command, &inputBuffer, game.board.size ) );
-    inputBuffer.lastInput = inputBuffer.mappings.inputs[CONTEXT_INPUT_FIRST][COMMAND_FLAT];
+    inputBuffer.lastInput = inputBuffer.mappings.inputs[CONTEXT_INPUT_DEFAULT][COMMAND_FLAT];
     TEST_ASSERT_EQUAL_INT( true, updateCommandFromInput( &command, &inputBuffer, game.board.size ) );
-    inputBuffer.lastInput = inputBuffer.mappings.inputs[CONTEXT_INPUT_FIRST][COMMAND_A];
+    inputBuffer.lastInput = inputBuffer.mappings.inputs[CONTEXT_INPUT_DEFAULT][COMMAND_A];
     TEST_ASSERT_EQUAL_INT( true, updateCommandFromInput( &command, &inputBuffer, game.board.size ) );
 
     command.state = COMMAND_STATE_GET_ACTION_TYPE;

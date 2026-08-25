@@ -339,11 +339,11 @@ void buildCommand(
              pGame
          ) )
     {
-        /// Reset original command to query for file if rank invalid
-        if ( command.state == COMMAND_STATE_GET_RANK_Y )
+        /// Reset original command position if invalid
+        if ( command.state == COMMAND_STATE_DEFAULT )
         {
             pCommand->fileX = FILE_NONE;
-            pCommand->state = COMMAND_STATE_GET_FILE_X;
+            pCommand->rankY = RANK_NONE;
         }
 
         /// Keep buffered stone count

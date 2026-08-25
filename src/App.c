@@ -183,7 +183,7 @@ void updateStateChooseBoardSize( App* const pApp )
     pApp->command.playerId = PLAYER_BLACK;
     pApp->command.actionType = ACTION_TYPE_PLACE;
     pApp->command.stoneType = STONE_TYPE_FLAT;
-    pApp->command.state = COMMAND_STATE_GET_FILE_X;
+    pApp->command.state = COMMAND_STATE_GET_POSITION;
 
     pApp->state = APP_STATE_FIRST_TURN;
 }
@@ -230,11 +230,7 @@ void updateStateFirstTurn( App* const pApp )
          ) )
     {
         /// Reset position
-        pApp->command.fileX
-            = ( pApp->command.rankY == RANK_NONE )
-                  ? FILE_NONE
-                  : pApp->command.fileX;
-
+        pApp->command.fileX = FILE_NONE;
         pApp->command.rankY = RANK_NONE;
 
         return;
@@ -295,7 +291,7 @@ void updateStateFirstTurn( App* const pApp )
     pApp->command.playerId = PLAYER_WHITE;
     pApp->command.actionType = ACTION_TYPE_PLACE;
     pApp->command.stoneType = STONE_TYPE_FLAT;
-    pApp->command.state = COMMAND_STATE_GET_FILE_X;
+    pApp->command.state = COMMAND_STATE_GET_POSITION;
 
     pApp->state = APP_STATE_SECOND_TURN;
 }
@@ -342,11 +338,7 @@ void updateStateSecondTurn( App* const pApp )
          ) )
     {
         /// Reset position
-        pApp->command.fileX
-            = ( pApp->command.rankY == RANK_NONE )
-                  ? FILE_NONE
-                  : pApp->command.fileX;
-
+        pApp->command.fileX = FILE_NONE;
         pApp->command.rankY = RANK_NONE;
 
         return;
