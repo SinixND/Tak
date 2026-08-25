@@ -405,21 +405,26 @@ void updateStateNormalTurn( App* const pApp )
     );
 
     /// Input
-    if ( !autocompleteCommand(
+    if ( autocompleteCommand(
              &pApp->command,
              &pApp->game
          ) )
     {
-        getInput( pApp );
+        /// Action
+        updateApp( pApp );
 
-        handleGlobalInput( pApp );
-
-        buildCommand(
-            &pApp->command,
-            &pApp->inputBuffer,
-            &pApp->game
-        );
+        return;
     };
+
+    getInput( pApp );
+
+    handleGlobalInput( pApp );
+
+    buildCommand(
+        &pApp->command,
+        &pApp->inputBuffer,
+        &pApp->game
+    );
 
     /// Action
     updateApp( pApp );
