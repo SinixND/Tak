@@ -394,7 +394,8 @@ void updateScore( Game* const pGame )
 
     for ( int squareIdx = 0; squareIdx < squareCount; ++squareIdx )
     {
-        if ( pGame->board.stackTypes[squareIdx] == STONE_TYPE_FLAT )
+        if ( pGame->board.stackTypes[squareIdx] == STONE_TYPE_FLAT
+             && pGame->board.stackIds[squareIdx] != PLAYER_NONE )
         {
             ++pGame->scores[pGame->board.stackIds[squareIdx]];
         }

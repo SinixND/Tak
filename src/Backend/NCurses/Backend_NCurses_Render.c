@@ -279,8 +279,8 @@ void renderInfoPaneContent( App const* const pApp )
     /// Print white flat score
     attron( COLOR_PAIR( CPAIR_FGB_BGW ) );
     mvprintw(
-        POSITION_WHITE_RESERVES_SCORE[0],
-        POSITION_WHITE_RESERVES_SCORE[1],
+        POSITION_WHITE_SCORE[0],
+        POSITION_WHITE_SCORE[1],
         "%2i",
         pApp->game.scores[PLAYER_WHITE]
     );
@@ -305,8 +305,8 @@ void renderInfoPaneContent( App const* const pApp )
     /// Print black flat score
     attron( COLOR_PAIR( CPAIR_FGW_BGB ) );
     mvprintw(
-        POSITION_BLACK_RESERVES_SCORE[0],
-        POSITION_BLACK_RESERVES_SCORE[1],
+        POSITION_BLACK_SCORE[0],
+        POSITION_BLACK_SCORE[1],
         "%2i",
         pApp->game.scores[PLAYER_BLACK]
     );
