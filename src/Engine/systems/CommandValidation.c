@@ -28,7 +28,7 @@ bool validateCommand(
     {
         case COMMAND_STATE_DEFAULT:
         {
-            return validateCommandFirstInput(
+            return validateCommandDefaultInput(
                 pCommand,
                 pGame
             );
@@ -94,7 +94,7 @@ bool validateCommand(
     }
 }
 
-bool validateCommandFirstInput(
+bool validateCommandDefaultInput(
     Command const* const pCommand,
     Game const* const pGame
 )

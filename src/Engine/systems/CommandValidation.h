@@ -16,7 +16,7 @@ bool validateCommand(
  * ... stone type is valid
  * ... file/column is valid
  */
-bool validateCommandFirstInput(
+bool validateCommandDefaultInput(
     Command const* const pCommand,
     Game const* const pGame
 );
