@@ -65,7 +65,7 @@ void testAutocompleteCommand( void )
 
     /// Need to drop all if next square out of board
     command.state = COMMAND_STATE_GET_DROP_AMOUNT;
-    command.drops = 2; // Next square index is out of board
+    command.currentDropIdx = 2; // Next square index is out of board
     command.dropCounts[0] = 0;
     command.dropCounts[1] = 1;
     game.stackBuffer.stoneCount = 2; // Two stones left in stack after previous drops
@@ -80,7 +80,7 @@ void testAutocompleteCommand( void )
     command.state = COMMAND_STATE_GET_FIRST_DROP_AMOUNT;
     game.stackBuffer.stoneCount = 1; // Only one stone in stack
     command.dropCounts[0] = -1;      // No drops
-    command.drops = 0;               // First drop
+    command.currentDropIdx = 0;      // First drop
     autocompleteCommand(
         &command,
         &game
@@ -92,7 +92,7 @@ void testAutocompleteCommand( void )
     command.state = COMMAND_STATE_GET_DROP_AMOUNT;
     game.stackBuffer.stoneCount = 1; // Only one stone left in stack
     command.dropCounts[1] = -1;      // No drops
-    command.drops = 1;               // Not first drop
+    command.currentDropIdx = 1;      // Not first drop
     autocompleteCommand(
         &command,
         &game
@@ -103,7 +103,7 @@ void testAutocompleteCommand( void )
     /// Need to drop all if next squares type is capstone
     game.stackBuffer.stoneCount = 2;
     command.state = COMMAND_STATE_GET_FIRST_DROP_AMOUNT;
-    command.drops = 0;                         // Next square index is 0
+    command.currentDropIdx = 0;                // Next square index is 0
     game.board.stackTypes[1] = STONE_TYPE_CAP; // Next squares type is capstone
     autocompleteCommand(
         &command,
@@ -115,7 +115,7 @@ void testAutocompleteCommand( void )
     /// Need to drop all if next squares type is standing and buffer type is not capstone
     game.stackBuffer.stoneCount = 2;
     command.state = COMMAND_STATE_GET_FIRST_DROP_AMOUNT;
-    command.drops = 0;                              // Next square index is 0
+    command.currentDropIdx = 0;                     // Next square index is 0
     game.board.stackTypes[1] = STONE_TYPE_STANDING; // Next squares type is standing
     game.stackBuffer.stackType = STONE_TYPE_FLAT;   // Buffertype is not capstone
     autocompleteCommand(
@@ -131,7 +131,7 @@ void testAutocompleteCommand( void )
     /// - this is the first drop
     game.stackBuffer.stoneCount = 2;
     command.state = COMMAND_STATE_GET_FIRST_DROP_AMOUNT;
-    command.drops = 0;                              // Next square index is 0
+    command.currentDropIdx = 0;                     // Next square index is 0
     game.board.stackTypes[1] = STONE_TYPE_STANDING; // Next squares type is standing
     game.stackBuffer.stackType = STONE_TYPE_CAP;    // Buffertype is capstone
     autocompleteCommand(
@@ -151,7 +151,7 @@ void testBuildCommand( void )
     command.rankY = RANK_1;
     command.state = COMMAND_STATE_GET_DROP_AMOUNT;
     command.actionType = ACTION_TYPE_DROP;
-    command.drops = 1;
+    command.currentDropIdx = 1;
     command.dropCounts[0] = 2;
     game.stackBuffer.stoneCount = 3;
     inputBuffer.lastInput = INPUT_4;
@@ -179,7 +179,7 @@ void testBuildEvent( void )
     command.direction = DIR_DOWN;
     command.dropCounts[0] = 0;
     command.dropCounts[1] = 2;
-    command.drops = 1;
+    command.currentDropIdx = 1;
 
     buildEventFromCommand(
         &event,
@@ -219,7 +219,7 @@ void testUndoTurn( void )
     app.command.fileX = FILE_A;
     app.command.rankY = RANK_1;
     app.command.direction = DIR_RIGHT;
-    app.command.drops = 0;
+    app.command.currentDropIdx = 0;
     app.command.dropCounts[0] = 0;
     updateGame( &app );
 
@@ -228,7 +228,7 @@ void testUndoTurn( void )
     app.command.fileX = FILE_A;
     app.command.rankY = RANK_1;
     app.command.direction = DIR_RIGHT;
-    app.command.drops = 1;
+    app.command.currentDropIdx = 1;
     app.command.dropCounts[1] = 1;
     updateGame( &app );
 
@@ -286,7 +286,7 @@ void testRedoTurn( void )
     app.command.fileX = FILE_A;
     app.command.rankY = RANK_1;
     app.command.direction = DIR_RIGHT;
-    app.command.drops = 0;
+    app.command.currentDropIdx = 0;
     app.command.dropCounts[0] = 0;
     updateGame( &app );
 
@@ -295,7 +295,7 @@ void testRedoTurn( void )
     app.command.fileX = FILE_A;
     app.command.rankY = RANK_1;
     app.command.direction = DIR_RIGHT;
-    app.command.drops = 1;
+    app.command.currentDropIdx = 1;
     app.command.dropCounts[1] = 1;
     updateGame( &app );
 
@@ -424,7 +424,7 @@ void testResetTurn( void )
     app.command.fileX = FILE_A;
     app.command.rankY = RANK_1;
     app.command.direction = DIR_RIGHT;
-    app.command.drops = 0;
+    app.command.currentDropIdx = 0;
     app.command.dropCounts[0] = 0;
     updateGame( &app );
 

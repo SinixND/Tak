@@ -775,7 +775,7 @@ bool parseFirstDropAmountInputToCommand(
     );
 
     assert(
-        !pCommand->drops
+        !pCommand->currentDropIdx
         && "Drops value invalid"
     );
 
@@ -909,7 +909,7 @@ bool parseDropAmountInputToCommand(
     );
 
     assert(
-        pCommand->drops > 0
+        pCommand->currentDropIdx > 0
         && "Drops value invalid"
     );
 
@@ -920,49 +920,49 @@ bool parseDropAmountInputToCommand(
     {
         case COMMAND_1:
         {
-            pCommand->dropCounts[pCommand->drops] = 1;
+            pCommand->dropCounts[pCommand->currentDropIdx] = 1;
 
             return true;
         }
 
         case COMMAND_2:
         {
-            pCommand->dropCounts[pCommand->drops] = 2;
+            pCommand->dropCounts[pCommand->currentDropIdx] = 2;
 
             return true;
         }
 
         case COMMAND_3:
         {
-            pCommand->dropCounts[pCommand->drops] = 3;
+            pCommand->dropCounts[pCommand->currentDropIdx] = 3;
 
             return true;
         }
 
         case COMMAND_4:
         {
-            pCommand->dropCounts[pCommand->drops] = 4;
+            pCommand->dropCounts[pCommand->currentDropIdx] = 4;
 
             return true;
         }
 
         case COMMAND_5:
         {
-            pCommand->dropCounts[pCommand->drops] = 5;
+            pCommand->dropCounts[pCommand->currentDropIdx] = 5;
 
             return true;
         }
 
         case COMMAND_6:
         {
-            pCommand->dropCounts[pCommand->drops] = 6;
+            pCommand->dropCounts[pCommand->currentDropIdx] = 6;
 
             return true;
         }
 
         case COMMAND_7:
         {
-            pCommand->dropCounts[pCommand->drops] = 7;
+            pCommand->dropCounts[pCommand->currentDropIdx] = 7;
 
             return true;
         }
@@ -970,7 +970,7 @@ bool parseDropAmountInputToCommand(
         case COMMAND_8:
         case COMMAND_ALL:
         {
-            pCommand->dropCounts[pCommand->drops] = 8;
+            pCommand->dropCounts[pCommand->currentDropIdx] = 8;
 
             return true;
         }
@@ -986,10 +986,10 @@ bool parseDropAmountInputToCommand(
             /// If mouse == command position + offset
             if (
                 ( pCommand->fileX
-                  + ( getOffsetX( pCommand->direction ) * pCommand->drops ) )
+                  + ( getOffsetX( pCommand->direction ) * pCommand->currentDropIdx ) )
                     == mouseTile.fileX
                 && ( pCommand->rankY
-                     + ( getOffsetY( pCommand->direction ) * pCommand->drops ) )
+                     + ( getOffsetY( pCommand->direction ) * pCommand->currentDropIdx ) )
                        == mouseTile.rankY
             )
             {
@@ -1000,14 +1000,14 @@ bool parseDropAmountInputToCommand(
             /// If offset is matching next square direction
             else if (
                 ( pCommand->fileX
-                  + ( getOffsetX( pCommand->direction ) * ( pCommand->drops + 1 ) ) )
+                  + ( getOffsetX( pCommand->direction ) * ( pCommand->currentDropIdx + 1 ) ) )
                     == mouseTile.fileX
                 && ( pCommand->rankY
-                     + ( getOffsetY( pCommand->direction ) * ( pCommand->drops + 1 ) ) )
+                     + ( getOffsetY( pCommand->direction ) * ( pCommand->currentDropIdx + 1 ) ) )
                        == mouseTile.rankY
             )
             {
-                pCommand->dropCounts[pCommand->drops]
+                pCommand->dropCounts[pCommand->currentDropIdx]
                     = pCommand->bufferedDropCount;
 
                 pCommand->bufferedDropCount = 1;

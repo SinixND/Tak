@@ -94,7 +94,7 @@ void testSetNextCommandState( void )
     );
     TEST_ASSERT_EQUAL_INT( COMMAND_STATE_GET_DROP_AMOUNT, command.state );
 
-    command.drops = 1;
+    command.currentDropIdx = 1;
     command.dropCounts[0] = 1;
     command.dropCounts[1] = 2;
     game.stackBuffer.stoneCount = 2;
@@ -133,13 +133,13 @@ void testIsCommandReady( void )
     TEST_ASSERT_EQUAL_INT( false, isCommandReadyForEvent( &command ) );
 
     command.direction = DIR_DOWN;
-    command.drops = 0;
+    command.currentDropIdx = 0;
     TEST_ASSERT_EQUAL_INT( false, isCommandReadyForEvent( &command ) );
 
     command.dropCounts[0] = 0;
     TEST_ASSERT_EQUAL_INT( true, isCommandReadyForEvent( &command ) );
 
-    command.drops = 1;
+    command.currentDropIdx = 1;
     TEST_ASSERT_EQUAL_INT( false, isCommandReadyForEvent( &command ) );
 
     command.dropCounts[1] = 0;

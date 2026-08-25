@@ -189,7 +189,7 @@ bool autocompleteDrop(
     /// Complete if bufferedDropCount >= stackBuffer size
     if ( pCommand->bufferedDropCount >= pGame->stackBuffer.stoneCount )
     {
-        pCommand->dropCounts[pCommand->drops] = pCommand->bufferedDropCount;
+        pCommand->dropCounts[pCommand->currentDropIdx] = pCommand->bufferedDropCount;
         pCommand->state = COMMAND_STATE_DEFAULT;
 
         return true;
@@ -199,10 +199,10 @@ bool autocompleteDrop(
     if (
         pCommand->bufferedDropCount > 0
         && pCommand->bufferedDropCount >= pGame->stackBuffer.stoneCount - 1
-        && !pCommand->drops
+        && !pCommand->currentDropIdx
     )
     {
-        pCommand->dropCounts[pCommand->drops] = pCommand->bufferedDropCount;
+        pCommand->dropCounts[pCommand->currentDropIdx] = pCommand->bufferedDropCount;
         pCommand->bufferedDropCount = 1;
 
         return true;
@@ -211,13 +211,13 @@ bool autocompleteDrop(
     FileId const nextFileX
         = pCommand->fileX
           + ( getOffsetX( pCommand->direction )
-              * ( pCommand->drops
+              * ( pCommand->currentDropIdx
                   + 1 ) );
 
     RankId const nextRankY
         = pCommand->rankY
           + ( getOffsetY( pCommand->direction )
-              * ( pCommand->drops
+              * ( pCommand->currentDropIdx
                   + 1 ) );
 
     /// Need to drop all if next square out of board
@@ -228,7 +228,7 @@ bool autocompleteDrop(
         || ( nextRankY >= pGame->board.size )
     )
     {
-        pCommand->dropCounts[pCommand->drops] = pGame->stackBuffer.stoneCount;
+        pCommand->dropCounts[pCommand->currentDropIdx] = pGame->stackBuffer.stoneCount;
         pCommand->state = COMMAND_STATE_DEFAULT;
 
         return true;
@@ -241,23 +241,12 @@ bool autocompleteDrop(
     );
 
     /// Drop nothing at source square if single pickup
-    if ( pCommand->drops < 1
-         && pCommand->dropCounts[pCommand->drops] < 0
+    if ( pCommand->currentDropIdx < 1
+         && pCommand->dropCounts[pCommand->currentDropIdx] < 0
          && pGame->stackBuffer.stoneCount == 1 )
     {
-        pCommand->dropCounts[pCommand->drops] = 0;
+        pCommand->dropCounts[pCommand->currentDropIdx] = 0;
         pCommand->state = COMMAND_STATE_GET_DROP_AMOUNT;
-
-        return true;
-    }
-
-    /// Need to drop 'all' if not first drop and only one stone left in stack buffer
-    if ( pCommand->drops > 0
-         && pCommand->dropCounts[pCommand->drops] < 0
-         && pGame->stackBuffer.stoneCount == 1 )
-    {
-        pCommand->dropCounts[pCommand->drops] = 1;
-        pCommand->state = COMMAND_STATE_DEFAULT;
 
         return true;
     }
@@ -265,7 +254,7 @@ bool autocompleteDrop(
     /// Need to drop all if next squares type is capstone
     if ( pGame->board.stackTypes[nextSquareIdx] == STONE_TYPE_CAP )
     {
-        pCommand->dropCounts[pCommand->drops] = pGame->stackBuffer.stoneCount;
+        pCommand->dropCounts[pCommand->currentDropIdx] = pGame->stackBuffer.stoneCount;
         pCommand->state = COMMAND_STATE_DEFAULT;
 
         return true;
@@ -275,7 +264,18 @@ bool autocompleteDrop(
     if ( pGame->board.stackTypes[nextSquareIdx] == STONE_TYPE_STANDING
          && pGame->stackBuffer.stackType != STONE_TYPE_CAP )
     {
-        pCommand->dropCounts[pCommand->drops] = pGame->stackBuffer.stoneCount;
+        pCommand->dropCounts[pCommand->currentDropIdx] = pGame->stackBuffer.stoneCount;
+        pCommand->state = COMMAND_STATE_DEFAULT;
+
+        return true;
+    }
+
+    /// Need to drop 'all' if not first drop and only one stone left in stack buffer
+    if ( pCommand->currentDropIdx > 0
+         && pCommand->dropCounts[pCommand->currentDropIdx] < 0
+         && pGame->stackBuffer.stoneCount == 1 )
+    {
+        pCommand->dropCounts[pCommand->currentDropIdx] = 1;
         pCommand->state = COMMAND_STATE_DEFAULT;
 
         return true;
@@ -284,12 +284,14 @@ bool autocompleteDrop(
     /// Need to drop all but one if
     /// - next squares type is standing
     /// - buffer type is capstone
+    // TODO: Delete? Required?
     /// - this is the first drop
     if ( pGame->board.stackTypes[nextSquareIdx] == STONE_TYPE_STANDING
          && pGame->stackBuffer.stackType == STONE_TYPE_CAP
-         && !pCommand->drops )
+         // && !pCommand->drops
+    )
     {
-        pCommand->dropCounts[pCommand->drops] = pGame->stackBuffer.stoneCount - 1;
+        pCommand->dropCounts[pCommand->currentDropIdx] = pGame->stackBuffer.stoneCount - 1;
 
         return true;
     }
@@ -431,12 +433,12 @@ void buildEventFromCommand(
         = ( ( pCommand->fileX + pCommand->rankY ) < 0 )
               ? -1
               : positionToSquare(
-                    pCommand->fileX + ( getOffsetX( pCommand->direction ) * pCommand->drops ),
-                    pCommand->rankY + ( getOffsetY( pCommand->direction ) * pCommand->drops ),
+                    pCommand->fileX + ( getOffsetX( pCommand->direction ) * pCommand->currentDropIdx ),
+                    pCommand->rankY + ( getOffsetY( pCommand->direction ) * pCommand->currentDropIdx ),
                     boardSize
                 );
 
-    pEvent->dropCount = pCommand->dropCounts[pCommand->drops];
+    pEvent->dropCount = pCommand->dropCounts[pCommand->currentDropIdx];
 }
 
 void recordEvent(

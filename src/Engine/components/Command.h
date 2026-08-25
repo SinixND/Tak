@@ -26,7 +26,7 @@ typedef struct Command
     /// Stone counts dropped
     int8_t dropCounts[BOARD_SIZE_MAX];
     /// Updated post event execution
-    int8_t drops;
+    int8_t currentDropIdx;
     int8_t bufferedDropCount;
 } Command;
 

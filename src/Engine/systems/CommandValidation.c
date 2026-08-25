@@ -78,9 +78,9 @@ bool validateCommand(
         case COMMAND_STATE_GET_DROP_AMOUNT:
         {
             /// Cap drop count
-            if ( pCommand->dropCounts[pCommand->drops] > pGame->stackBuffer.stoneCount )
+            if ( pCommand->dropCounts[pCommand->currentDropIdx] > pGame->stackBuffer.stoneCount )
             {
-                pCommand->dropCounts[pCommand->drops] = pGame->stackBuffer.stoneCount;
+                pCommand->dropCounts[pCommand->currentDropIdx] = pGame->stackBuffer.stoneCount;
             }
 
             return validateCommandDropAmount(
@@ -390,13 +390,13 @@ bool validateCommandDropAmount(
     FileId const nextFileX
         = pCommand->fileX
           + ( getOffsetX( pCommand->direction )
-              * ( pCommand->drops
+              * ( pCommand->currentDropIdx
                   + 1 ) );
 
     RankId const nextRankY
         = pCommand->rankY
           + ( getOffsetY( pCommand->direction )
-              * ( pCommand->drops
+              * ( pCommand->currentDropIdx
                   + 1 ) );
 
     if (
@@ -418,17 +418,17 @@ bool validateCommandDropAmount(
     /// Return false if
     if (
         /// First drop count can be 0, must not drop all
-        ( !pCommand->drops
-          && ( ( pCommand->dropCounts[pCommand->drops] < 0 )
-               || pCommand->dropCounts[pCommand->drops] >= pGame->stackBuffer.stoneCount ) )
+        ( !pCommand->currentDropIdx
+          && ( ( pCommand->dropCounts[pCommand->currentDropIdx] < 0 )
+               || pCommand->dropCounts[pCommand->currentDropIdx] >= pGame->stackBuffer.stoneCount ) )
         /// Only first drop count can be 0
-        || ( pCommand->drops
-             && ( ( pCommand->dropCounts[pCommand->drops] < 1 )
-                  || ( pCommand->dropCounts[pCommand->drops] > pGame->stackBuffer.stoneCount ) ) )
-        || ( pCommand->drops < 0 )
-        || ( pCommand->drops >= pGame->board.size )
+        || ( pCommand->currentDropIdx
+             && ( ( pCommand->dropCounts[pCommand->currentDropIdx] < 1 )
+                  || ( pCommand->dropCounts[pCommand->currentDropIdx] > pGame->stackBuffer.stoneCount ) ) )
+        || ( pCommand->currentDropIdx < 0 )
+        || ( pCommand->currentDropIdx >= pGame->board.size )
         /// Need to drop at least all but one if next drop can flatten
-        || ( pCommand->dropCounts[pCommand->drops] < ( pGame->stackBuffer.stoneCount - 1 )
+        || ( pCommand->dropCounts[pCommand->currentDropIdx] < ( pGame->stackBuffer.stoneCount - 1 )
              && ( pGame->board.stackTypes[nextSquareIdx] == STONE_TYPE_STANDING
                   && pGame->stackBuffer.stackType == STONE_TYPE_CAP ) )
     )

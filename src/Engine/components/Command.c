@@ -22,7 +22,7 @@ Command newCommand( PlayerId const playerId )
         .fileX = FILE_NONE,
         .rankY = RANK_NONE,
         .direction = DIR_NONE,
-        .drops = 0,
+        .currentDropIdx = 0,
         .bufferedDropCount = 0,
     };
 
@@ -140,7 +140,7 @@ void setNextCommandState(
         case COMMAND_STATE_GET_DROP_AMOUNT:
         {
             pCommand->state
-                = ( pCommand->dropCounts[pCommand->drops] >= pGame->stackBuffer.stoneCount )
+                = ( pCommand->dropCounts[pCommand->currentDropIdx] >= pGame->stackBuffer.stoneCount )
                       ? COMMAND_STATE_DEFAULT
                       : COMMAND_STATE_GET_DROP_AMOUNT;
 
@@ -185,9 +185,9 @@ bool isCommandReadyForEvent( Command const* const pCommand )
                 ( pCommand->fileX != FILE_NONE )
                 && ( pCommand->rankY != RANK_NONE )
                 && ( pCommand->direction != DIR_NONE )
-                && ( ( !pCommand->drops )
-                         ? pCommand->dropCounts[pCommand->drops] >= 0
-                         : pCommand->dropCounts[pCommand->drops] > 0 )
+                && ( ( !pCommand->currentDropIdx )
+                         ? pCommand->dropCounts[pCommand->currentDropIdx] >= 0
+                         : pCommand->dropCounts[pCommand->currentDropIdx] > 0 )
             );
         }
 
@@ -206,7 +206,7 @@ void updateCommandPostEvent( Command* const pCommand )
     /// Un-ready command by updating drop count
     if ( pCommand->actionType == ACTION_TYPE_DROP )
     {
-        ++pCommand->drops;
+        ++pCommand->currentDropIdx;
 
         return;
     }

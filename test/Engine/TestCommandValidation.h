@@ -128,10 +128,10 @@ void testValidateCommandDropAmount( void )
     command.fileX = FILE_A;
     command.rankY = RANK_1;
 
-    command.drops = -1;
+    command.currentDropIdx = -1;
     TEST_ASSERT_EQUAL_INT( false, validateCommandDropAmount( &command, &game ) );
 
-    command.drops = 0;
+    command.currentDropIdx = 0;
     game.stackBuffer.stoneCount = 3;
 
     command.dropCounts[0] = -1;
@@ -146,7 +146,7 @@ void testValidateCommandDropAmount( void )
     command.dropCounts[0] = 3;
     TEST_ASSERT_EQUAL_INT( false, validateCommandDropAmount( &command, &game ) );
 
-    command.drops = 1;
+    command.currentDropIdx = 1;
     command.dropCounts[1] = -1;
     TEST_ASSERT_EQUAL_INT( false, validateCommandDropAmount( &command, &game ) );
 
@@ -200,7 +200,7 @@ void testValidateCommand( void )
     command.state = COMMAND_STATE_GET_FIRST_DROP_AMOUNT;
     command.actionType = ACTION_TYPE_DROP;
     command.dropCounts[0] = 3;
-    command.drops = 0;
+    command.currentDropIdx = 0;
     TEST_ASSERT_EQUAL_INT( false, validateCommand( &command, &game ) );
 
     command.dropCounts[0] = 1;
@@ -208,7 +208,7 @@ void testValidateCommand( void )
 
     command.state = COMMAND_STATE_GET_DROP_AMOUNT;
     command.actionType = ACTION_TYPE_DROP;
-    command.drops = 1;
+    command.currentDropIdx = 1;
     command.dropCounts[1] = 1;
     TEST_ASSERT_EQUAL_INT( true, validateCommand( &command, &game ) );
 }
