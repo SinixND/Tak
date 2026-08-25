@@ -150,7 +150,8 @@ The following tools are used in the project but not required and not contained i
 
 
 ## ToDo notes
-- [ ] Reapplied d9b7458 from backup branch
+- [ ] Remove Input/Opts
+- [ ] Replace command states
 - [ ] Rename file/rank to column/row
 - [ ] Render raylib/web 
 

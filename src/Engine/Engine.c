@@ -251,6 +251,17 @@ bool autocompleteDrop(
         return true;
     }
 
+    /// Need to drop 'all' if not first drop and only one stone left in stack buffer
+    if ( pCommand->currentDropIdx > 0
+         && pCommand->dropCounts[pCommand->currentDropIdx] < 0
+         && pGame->stackBuffer.stoneCount == 1 )
+    {
+        pCommand->dropCounts[pCommand->currentDropIdx] = 1;
+        pCommand->state = COMMAND_STATE_DEFAULT;
+
+        return true;
+    }
+
     /// Need to drop all if next square type is capstone
     if ( pGame->board.stackTypes[nextSquareIdx] == STONE_TYPE_CAP )
     {
@@ -265,17 +276,6 @@ bool autocompleteDrop(
          && pGame->stackBuffer.stackType != STONE_TYPE_CAP )
     {
         pCommand->dropCounts[pCommand->currentDropIdx] = pGame->stackBuffer.stoneCount;
-        pCommand->state = COMMAND_STATE_DEFAULT;
-
-        return true;
-    }
-
-    /// Need to drop 'all' if not first drop and only one stone left in stack buffer
-    if ( pCommand->currentDropIdx > 0
-         && pCommand->dropCounts[pCommand->currentDropIdx] < 0
-         && pGame->stackBuffer.stoneCount == 1 )
-    {
-        pCommand->dropCounts[pCommand->currentDropIdx] = 1;
         pCommand->state = COMMAND_STATE_DEFAULT;
 
         return true;
