@@ -364,15 +364,16 @@ bool validateCommandDirection(
     );
 
     /// Next square type must not be capstone
-    if ( pGame->board.stackTypes[nextSquareIdx] == STONE_TYPE_CAPSTONE )
+    if ( pGame->board.stackTypes[nextSquareIdx] == STONE_TYPE_CAP )
     {
         return false;
     }
 
     /// Next square type must not be standing if stackBuffer type is not capstone
-    if ( 
-        pGame->board.stackTypes[nextSquareIdx] == STONE_TYPE_STANDING 
-        && pGame->stackBuffer.stackType != STONE_TYPE_CAP )
+    if (
+        pGame->board.stackTypes[nextSquareIdx] == STONE_TYPE_STANDING
+        && pGame->stackBuffer.stackType != STONE_TYPE_CAP
+    )
     {
         return false;
     }
