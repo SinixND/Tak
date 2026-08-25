@@ -414,6 +414,14 @@ void renderCommand( Command const* const pCommand )
                 ( pCommand->dropCounts[7] < 0 ) ? ' ' : '0' + pCommand->dropCounts[7]
             );
 
+            attron( COLOR_PAIR( CPAIR_HIGHLIGHT ) );
+            mvaddch(
+                POSITION_INPUT_CURRENT[0],
+                POSITION_INPUT_CURRENT[1] + 6 + pCommand->currentDropIdx,
+                '0' + pCommand->bufferedDropCount
+            );
+            attroff( COLOR_PAIR( CPAIR_HIGHLIGHT ) );
+
             return;
         }
     }

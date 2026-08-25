@@ -11,11 +11,13 @@ static int const BOARD_POS_Y = 1;
 static int const PLAYER_COLOR_WHITE = 1;
 static int const PLAYER_COLOR_BLACK = 2;
 static int const LAYOUT_COLOR = 3;
+static int const HIGHLIGHT_COLOR = 4;
 static int const CPAIR_FGB_BGW = 1;
 static int const CPAIR_FGW_BGB = 2;
 static int const CPAIR_FGW = 3;
 static int const CPAIR_FGB = 4;
 static int const CPAIR_LAYOUT = 5;
+static int const CPAIR_HIGHLIGHT = 6;
 
 /// Positions (y, x)
 static int const POSITION_STACK_BUFFER[] = { 2, 3 };
