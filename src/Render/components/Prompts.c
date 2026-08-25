@@ -19,6 +19,7 @@ Prompts newPrompts( Mappings const* const pMappings )
             [COMMAND_STATE_DEFAULT] = "Type|Pos ",
             [COMMAND_STATE_GET_ACTION_TYPE] = "Action    ",
             [COMMAND_STATE_GET_STONE_TYPE] = "Stone Type",
+            [COMMAND_STATE_GET_POSITION] = "Col / Row",
             [COMMAND_STATE_GET_FILE_X] = "File / Col",
             [COMMAND_STATE_GET_RANK_Y] = "Rank / Row",
             [COMMAND_STATE_GET_DIRECTION] = "Direction ",
@@ -33,7 +34,7 @@ Prompts newPrompts( Mappings const* const pMappings )
             [COMMAND_STATE_DEFAULT]  = {
                 INPUT_ID_CHARS[pMappings->inputs[CONTEXT_INPUT_FIRST][COMMAND_A]],
                 '-',
-                INPUT_ID_CHARS[pMappings->inputs[CONTEXT_INPUT_FIRST][COMMAND_H]],
+                INPUT_ID_CHARS[pMappings->inputs[CONTEXT_INPUT_FIRST][COMMAND_8]],
                 ',',
                 ' ',
                 INPUT_ID_CHARS[pMappings->inputs[CONTEXT_STONE_TYPE][COMMAND_FLAT]],
@@ -63,6 +64,16 @@ Prompts newPrompts( Mappings const* const pMappings )
                 ',', ' ',
                 INPUT_ID_CHARS[pMappings->inputs[CONTEXT_STONE_TYPE][COMMAND_CAPSTONE]],
                 ' ', ' ', ' ', '\0'
+            },
+            [COMMAND_STATE_GET_POSITION]  = {
+                INPUT_ID_CHARS[pMappings->inputs[CONTEXT_POSITION][COMMAND_A]],
+                '-',
+                INPUT_ID_CHARS[pMappings->inputs[CONTEXT_POSITION][COMMAND_H]],
+                 ',',' ',
+                INPUT_ID_CHARS[pMappings->inputs[CONTEXT_POSITION][COMMAND_1]],
+                  '-',  
+                INPUT_ID_CHARS[pMappings->inputs[CONTEXT_POSITION][COMMAND_8]],
+                   ' ', ' ', '\0'
             },
             [COMMAND_STATE_GET_FILE_X]  = {
                 INPUT_ID_CHARS[pMappings->inputs[CONTEXT_POSITION][COMMAND_A]],

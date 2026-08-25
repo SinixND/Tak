@@ -56,6 +56,15 @@ bool updateCommandFromInput(
             );
         }
 
+        case COMMAND_STATE_GET_POSITION:
+        {
+            return parsePositionInputToCommand(
+                pCommand,
+                pInputBuffer,
+                boardSize
+            );
+        }
+
         case COMMAND_STATE_GET_FILE_X:
         {
             return parseFileXInputToCommand(

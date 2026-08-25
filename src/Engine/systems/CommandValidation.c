@@ -50,6 +50,14 @@ bool validateCommand(
             );
         }
 
+        case COMMAND_STATE_GET_POSITION:
+        {
+            return validateCommandPosition(
+                pCommand,
+                pGame
+            );
+        }
+
         case COMMAND_STATE_GET_FILE_X:
         {
             return validateCommandFileX(
@@ -228,6 +236,16 @@ bool validateCommandPosition(
         return true;
     }
 
+    /// Verify rankY w/o fileX
+    if (
+        pCommand->rankY >= 0
+        && ( pCommand->rankY < boardSize )
+        && pCommand->fileX == FILE_NONE
+    )
+    {
+        return true;
+    }
+
     /// Verify valid input to positionToSquare()
     if (
         pCommand->fileX < 0
@@ -245,17 +263,8 @@ bool validateCommandPosition(
 
     return (
         /// Player can place or lift
-        ( stackId == pCommand->playerId
-          || stackId == PLAYER_NONE )
-        /// NOTE: Needed?
-        // /// Place
-        // || ( pCommand->actionType == ACTION_TYPE_PLACE
-        //      && !pGame->board.stoneCounts[squareIdx] )
-        // /// Lift
-        // || ( pCommand->actionType == ACTION_TYPE_LIFT
-        //      && pGame->board.stoneCounts[squareIdx]
-        //      /// Player owns square
-        //      && stackId == pCommand->playerId )
+        stackId == pCommand->playerId
+        || stackId == PLAYER_NONE
     );
 }
 

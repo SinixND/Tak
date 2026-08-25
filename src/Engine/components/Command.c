@@ -112,6 +112,16 @@ void setNextCommandState(
             return;
         }
 
+        case COMMAND_STATE_GET_POSITION:
+        {
+            pCommand->state
+                = ( pCommand->actionType == ACTION_TYPE_LIFT )
+                      ? COMMAND_STATE_GET_DIRECTION
+                      : COMMAND_STATE_DEFAULT;
+
+            return;
+        }
+
         case COMMAND_STATE_GET_FILE_X:
         {
             pCommand->state = COMMAND_STATE_GET_RANK_Y;
