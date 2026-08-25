@@ -141,30 +141,6 @@ void testAutocompleteCommand( void )
     TEST_ASSERT_EQUAL_INT( 1, command.dropCounts[0] );
 }
 
-void testBuildCommand( void )
-{
-    Command command = newCommand( PLAYER_WHITE );
-    InputBuffer inputBuffer = newInputBuffer();
-    Game game = newGame( 5 );
-
-    command.fileX = FILE_A;
-    command.rankY = RANK_1;
-    command.state = COMMAND_STATE_GET_DROP_AMOUNT;
-    command.actionType = ACTION_TYPE_DROP;
-    command.currentDropIdx = 1;
-    command.dropCounts[0] = 2;
-    game.stackBuffer.stoneCount = 3;
-    inputBuffer.lastInput = INPUT_4;
-
-    buildCommand(
-        &command,
-        &inputBuffer,
-        &game
-    );
-
-    TEST_ASSERT_EQUAL_INT( 3, command.dropCounts[1] );
-}
-
 void testBuildEvent( void )
 {
     Event event = newEvent();

@@ -396,30 +396,72 @@ void updateStateNormalTurn( App* const pApp )
         && "Pointer is nullptr"
     );
 
-    /// Input
-    if ( autocompleteCommand(
+    if ( !autocompleteCommand(
              &pApp->command,
              &pApp->game
          ) )
     {
-        /// Action
-        updateApp( pApp );
+        /// Input
+        getInput( pApp );
 
+        handleGlobalInput( pApp );
+
+        /// Temporary command
+        Command command = pApp->command;
+
+        /// Set context-dependent command value from input
+        if ( !updateCommandFromInput(
+                 &command,
+                 &pApp->inputBuffer,
+                 pApp->game.board.size
+             ) )
+        {
+            return;
+        }
+
+        /// Validate input against game
+        if ( !validateCommand(
+                 &command,
+                 &pApp->game
+             ) )
+        {
+            /// Reset original command position if invalid
+            if ( command.state == COMMAND_STATE_DEFAULT )
+            {
+                pApp->command.fileX = FILE_NONE;
+                pApp->command.rankY = RANK_NONE;
+            }
+
+            /// Keep buffered stone count
+            pApp->command.bufferedDropCount = command.bufferedDropCount;
+
+            return;
+        }
+
+        /// Update command state
+        setNextCommandState(
+            &command,
+            &pApp->game
+        );
+
+        /// Copy temp command to original
+        pApp->command = command;
+    };
+
+    /// Action
+    if ( !updateGame( pApp ) )
+    {
         return;
     };
 
-    getInput( pApp );
+    updateCommandPostEvent( &pApp->command );
 
-    handleGlobalInput( pApp );
+    if ( !isTurnComplete( pApp ) )
+    {
+        return;
+    }
 
-    buildCommand(
-        &pApp->command,
-        &pApp->inputBuffer,
-        &pApp->game
-    );
-
-    /// Action
-    updateApp( pApp );
+    handleTurnEnd( pApp );
 }
 
 void updateStateUndoTurn( App* const pApp )
@@ -517,28 +559,6 @@ void getInput( App* const pApp )
     }
 
     getInputFromUser( &pApp->inputBuffer );
-}
-
-void updateApp( App* const pApp )
-{
-    assert(
-        pApp
-        && "Pointer is nullptr"
-    );
-
-    if ( !updateGame( pApp ) )
-    {
-        return;
-    };
-
-    updateCommandPostEvent( &pApp->command );
-
-    if ( !isTurnComplete( pApp ) )
-    {
-        return;
-    }
-
-    handleTurnEnd( pApp );
 }
 
 bool updateGame( App* const pApp )

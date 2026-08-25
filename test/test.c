@@ -93,7 +93,6 @@ int main( void )
     /// Engine
     RUN_TEST( testSetBoardSize );
     RUN_TEST( testAutocompleteCommand );
-    RUN_TEST( testBuildCommand );
     RUN_TEST( testBuildEvent );
     RUN_TEST( testUndoTurn );
     RUN_TEST( testRedoTurn );

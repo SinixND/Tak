@@ -51,9 +51,6 @@ void updateFrame( App* const pApp );
 /// Get input (simulated or polled)
 void getInput( App* const pApp );
 
-/// Update application state
-void updateApp( App* const pApp );
-
 /*
  * @brief Modify game state from command
  *

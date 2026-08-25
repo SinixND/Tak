@@ -24,19 +24,6 @@ bool autocompleteCommand(
     Game const* const pGame
 );
 
-/**
- * @brief Build command from input and against game
- *
- * - Parse input to command
- * - Validate command
- * - Advance commnd state
- */
-void buildCommand(
-    Command* const pCommand,
-    InputBuffer const* const pInputBuffer,
-    Game const* const pGame
-);
-
 /// Make history entry from command
 void recordCommand(
     History* const pHistory,

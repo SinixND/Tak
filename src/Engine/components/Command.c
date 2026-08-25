@@ -213,7 +213,7 @@ void updateCommandPostEvent( Command* const pCommand )
         && "Pointer is nullptr"
     );
 
-    /// Un-ready command by updating drop count
+    /// Fnish drop command
     if ( pCommand->actionType == ACTION_TYPE_DROP )
     {
         ++pCommand->currentDropIdx;
