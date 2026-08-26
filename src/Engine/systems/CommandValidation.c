@@ -34,41 +34,9 @@ bool validateCommand(
             );
         }
 
-        case COMMAND_STATE_GET_ACTION_TYPE:
-        {
-            return validateCommandActionType(
-                pCommand,
-                pGame
-            );
-        }
-
-        case COMMAND_STATE_GET_STONE_TYPE:
-        {
-            return validateCommandStoneType(
-                pCommand,
-                pGame
-            );
-        }
-
         case COMMAND_STATE_GET_POSITION:
         {
             return validateCommandPosition(
-                pCommand,
-                pGame
-            );
-        }
-
-        case COMMAND_STATE_GET_FILE_X:
-        {
-            return validateCommandFileX(
-                pCommand,
-                pGame
-            );
-        }
-
-        case COMMAND_STATE_GET_RANK_Y:
-        {
-            return validateCommandRankY(
                 pCommand,
                 pGame
             );
@@ -119,14 +87,6 @@ bool validateCommandDefaultInput(
 
     bool isValid = true;
 
-    if ( pCommand->actionType != ACTION_TYPE_NONE )
-    {
-        isValid &= validateCommandActionType(
-            pCommand,
-            pGame
-        );
-    }
-
     if ( pCommand->stoneType != STONE_TYPE_NONE )
     {
         isValid &= validateCommandStoneType(
@@ -134,22 +94,6 @@ bool validateCommandDefaultInput(
             pGame
         );
     }
-
-    // if ( pCommand->fileX != FILE_NONE )
-    // {
-    //     isValid &= validateCommandFileX(
-    //         pCommand,
-    //         pGame
-    //     );
-    // }
-    //
-    // if ( pCommand->rankY != RANK_NONE )
-    // {
-    //     isValid &= validateCommandRankY(
-    //         pCommand,
-    //         pGame
-    //     );
-    // }
 
     if ( pCommand->fileX != FILE_NONE
          || pCommand->rankY != RANK_NONE )
@@ -161,27 +105,6 @@ bool validateCommandDefaultInput(
     }
 
     return isValid;
-}
-
-bool validateCommandActionType(
-    Command const* const pCommand,
-    Game const* const pGame
-)
-{
-    assert(
-        pCommand
-        && "Pointer is nullptr"
-    );
-
-    assert(
-        pGame
-        && "Pointer is nullptr"
-    );
-
-    return (
-        ( pCommand->actionType == ACTION_TYPE_PLACE
-          || pCommand->actionType == ACTION_TYPE_LIFT )
-    );
 }
 
 bool validateCommandStoneType(
@@ -274,72 +197,6 @@ bool validateCommandPosition(
         /// Player can place or lift
         stackId == pCommand->playerId
         || stackId == PLAYER_NONE
-    );
-}
-
-bool validateCommandFileX(
-    Command const* const pCommand,
-    Game const* const pGame
-)
-{
-    assert(
-        pCommand
-        && "Pointer is nullptr"
-    );
-
-    assert(
-        pGame
-        && "Pointer is nullptr"
-    );
-
-    return (
-        ( pCommand->fileX >= 0 )
-        && ( pCommand->fileX < pGame->board.size )
-    );
-}
-
-bool validateCommandRankY(
-    Command const* const pCommand,
-    Game const* const pGame
-)
-{
-    assert(
-        pCommand
-        && "Pointer is nullptr"
-    );
-
-    assert(
-        pGame
-        && "Pointer is nullptr"
-    );
-
-    int const boardSize = pGame->board.size;
-
-    /// Verify valid input to positionToSquare()
-    if ( pCommand->rankY < 0
-         || pCommand->fileX < 0
-         || ( pCommand->fileX >= boardSize )
-         || ( pCommand->rankY >= boardSize ) )
-    {
-        return false;
-    }
-
-    int const squareIdx = positionToSquare( pCommand->fileX, pCommand->rankY, boardSize );
-
-    PlayerId const stackId = pGame->board.stackIds[squareIdx];
-
-    return (
-        ( pCommand->actionType == ACTION_TYPE_NONE
-          && ( stackId == pCommand->playerId
-               || stackId == PLAYER_NONE ) )
-        /// Place
-        || ( pCommand->actionType == ACTION_TYPE_PLACE
-             && !pGame->board.stoneCounts[squareIdx] )
-        /// Lift
-        || ( pCommand->actionType == ACTION_TYPE_LIFT
-             && pGame->board.stoneCounts[squareIdx]
-             /// Player owns square
-             && stackId == pCommand->playerId )
     );
 }
 

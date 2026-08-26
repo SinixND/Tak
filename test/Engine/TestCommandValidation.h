@@ -13,22 +13,6 @@
 #include <stdbool.h>
 #include <unity.h>
 
-void testValidateCommandActionType( void )
-{
-    Command command = newCommand( PLAYER_WHITE );
-    Game game = newGame( 5 );
-
-    command.playerId = PLAYER_WHITE;
-
-    TEST_ASSERT_EQUAL_INT( false, validateCommandActionType( &command, &game ) );
-
-    command.actionType = ACTION_TYPE_PLACE;
-    TEST_ASSERT_EQUAL_INT( true, validateCommandActionType( &command, &game ) );
-
-    command.actionType = ACTION_TYPE_LIFT;
-    TEST_ASSERT_EQUAL_INT( true, validateCommandActionType( &command, &game ) );
-}
-
 void testValidateCommandStoneType( void )
 {
     Command command = newCommand( PLAYER_WHITE );
@@ -56,47 +40,6 @@ void testValidateCommandStoneType( void )
 
     command.stoneType = STONE_TYPE_CAP;
     TEST_ASSERT_EQUAL_INT( false, validateCommandStoneType( &command, &game ) );
-}
-
-void testValidateCommandFileX( void )
-{
-    Command command = newCommand( PLAYER_WHITE );
-    Game game = newGame( 5 );
-
-    command.fileX = FILE_NONE;
-    TEST_ASSERT_EQUAL_INT( false, validateCommandFileX( &command, &game ) );
-
-    command.fileX = FILE_A;
-    TEST_ASSERT_EQUAL_INT( true, validateCommandFileX( &command, &game ) );
-
-    command.fileX = FILE_E;
-    TEST_ASSERT_EQUAL_INT( true, validateCommandFileX( &command, &game ) );
-}
-
-void testValidateCommandRankY( void )
-{
-    Command command = newCommand( PLAYER_WHITE );
-    Game game = newGame( 5 );
-    game.board.stoneCounts[0] = 1;
-    game.board.stoneIds[0] = PLAYER_WHITE;
-    game.board.stackIds[0] = PLAYER_WHITE;
-
-    command.actionType = ACTION_TYPE_PLACE;
-    command.fileX = FILE_A;
-
-    command.rankY = RANK_NONE;
-    TEST_ASSERT_EQUAL_INT( false, validateCommandRankY( &command, &game ) );
-
-    command.rankY = RANK_2;
-    TEST_ASSERT_EQUAL_INT( true, validateCommandRankY( &command, &game ) );
-
-    command.rankY = RANK_5;
-    TEST_ASSERT_EQUAL_INT( true, validateCommandRankY( &command, &game ) );
-
-    command.actionType = ACTION_TYPE_LIFT;
-
-    command.rankY = RANK_1;
-    TEST_ASSERT_EQUAL_INT( true, validateCommandRankY( &command, &game ) );
 }
 
 void testValidateCommandDirection( void )
@@ -173,22 +116,23 @@ void testValidateCommand( void )
     TEST_ASSERT_EQUAL_INT( true, validateCommand( &command, &game ) );
 
     command = newCommand( PLAYER_WHITE );
-
-    command.state = COMMAND_STATE_GET_ACTION_TYPE;
-    command.playerId = PLAYER_WHITE;
-    command.actionType = ACTION_TYPE_PLACE;
+    command.rankY = RANK_1;
     TEST_ASSERT_EQUAL_INT( true, validateCommand( &command, &game ) );
 
-    command.state = COMMAND_STATE_GET_STONE_TYPE;
-    command.stoneType = STONE_TYPE_FLAT;
-    TEST_ASSERT_EQUAL_INT( true, validateCommand( &command, &game ) );
-
-    command.state = COMMAND_STATE_GET_FILE_X;
     command.fileX = FILE_A;
     TEST_ASSERT_EQUAL_INT( true, validateCommand( &command, &game ) );
 
-    command.state = COMMAND_STATE_GET_RANK_Y;
+    command = newCommand( PLAYER_WHITE );
+
+    command.state = COMMAND_STATE_GET_POSITION;
+    command.fileX = FILE_A;
+    TEST_ASSERT_EQUAL_INT( true, validateCommand( &command, &game ) );
+
+    command = newCommand( PLAYER_WHITE );
     command.rankY = RANK_1;
+    TEST_ASSERT_EQUAL_INT( true, validateCommand( &command, &game ) );
+
+    command.fileX = FILE_A;
     TEST_ASSERT_EQUAL_INT( true, validateCommand( &command, &game ) );
 
     command.state = COMMAND_STATE_GET_DIRECTION;

@@ -21,16 +21,6 @@ bool validateCommandDefaultInput(
     Game const* const pGame
 );
 
-/**
- * @brief Check if...
- * ... playerId matches game.active player
- * ... action type is either `Place` or `Lift`
- */
-bool validateCommandActionType(
-    Command const* const pCommand,
-    Game const* const pGame
-);
-
 /// Check for sufficient reserves
 bool validateCommandStoneType(
     Command const* const pCommand,
@@ -39,18 +29,6 @@ bool validateCommandStoneType(
 
 /// Check if position input is valid
 bool validateCommandPosition(
-    Command const* const pCommand,
-    Game const* const pGame
-);
-
-/// Check if file is on board
-bool validateCommandFileX(
-    Command const* const pCommand,
-    Game const* const pGame
-);
-
-/// Check if position input is valid
-bool validateCommandRankY(
     Command const* const pCommand,
     Game const* const pGame
 );

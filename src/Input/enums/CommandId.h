@@ -4,9 +4,6 @@
 typedef enum CommandId
 {
     COMMAND_NONE,
-    /// Player action
-    COMMAND_PLACE,
-    COMMAND_MOVE,
     /// Stone type
     COMMAND_FLAT,
     COMMAND_STANDING,

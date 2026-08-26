@@ -19,34 +19,8 @@ bool parseDefaultInputToCommand(
     int const boardSize
 );
 
-/// Set action type (place / lift) if input is valid
-bool parseActionTypeInputToCommand(
-    Command* const pCommand,
-    InputBuffer const* const pInputBuffer
-);
-
-/// Set stone type if input is valid
-bool parseStoneTypeInputToCommand(
-    Command* const pCommand,
-    InputBuffer const* const pInputBuffer
-);
-
 /// Set fileX / rankY if input is valid
 bool parsePositionInputToCommand(
-    Command* const pCommand,
-    InputBuffer const* const pInputBuffer,
-    int const boardSize
-);
-
-/// Set fileX if input is valid
-bool parseFileXInputToCommand(
-    Command* const pCommand,
-    InputBuffer const* const pInputBuffer,
-    int const boardSize
-);
-
-/// Set rankY if input is valid
-bool parseRankYInputToCommand(
     Command* const pCommand,
     InputBuffer const* const pInputBuffer,
     int const boardSize

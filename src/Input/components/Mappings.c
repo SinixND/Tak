@@ -31,17 +31,6 @@ Mappings newMappings( void )
                 [COMMAND_6] = INPUT_6,
                 [COMMAND_7] = INPUT_7,
                 [COMMAND_8] = INPUT_8,
-                [COMMAND_PLACE] = INPUT_P,
-                [COMMAND_MOVE] = INPUT_M,
-            },
-            [CONTEXT_ACTION_TYPE] = {
-                [COMMAND_PLACE] = INPUT_P,
-                [COMMAND_MOVE] = INPUT_M,
-            },
-            [CONTEXT_STONE_TYPE] = {
-                [COMMAND_FLAT] = INPUT_CAP_F,
-                [COMMAND_STANDING] = INPUT_CAP_S,
-                [COMMAND_CAPSTONE] = INPUT_CAP_C,
             },
             [CONTEXT_POSITION] = {
                 [COMMAND_A] = INPUT_A,

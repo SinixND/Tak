@@ -68,20 +68,13 @@ int main( void )
     RUN_TEST( testGetOffsetY );
 
     /// Input parsing
-    RUN_TEST( testParseInputActionType );
-    RUN_TEST( testParseInputStoneType );
-    RUN_TEST( testParseInputFileX );
-    RUN_TEST( testParseInputRankY );
     RUN_TEST( testParseInputDirection );
     RUN_TEST( testParseInputFirstDropAmount );
     RUN_TEST( testParseInputDropAmount );
     RUN_TEST( testParseInput );
 
     /// Command validation
-    RUN_TEST( testValidateCommandActionType );
     RUN_TEST( testValidateCommandStoneType );
-    RUN_TEST( testValidateCommandFileX );
-    RUN_TEST( testValidateCommandRankY );
     RUN_TEST( testValidateCommandDirection );
     RUN_TEST( testValidateCommandDropAmount );
     RUN_TEST( testValidateCommand );
