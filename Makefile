@@ -33,10 +33,10 @@ OBJ_DIR := build
 EXT_DIR := external
 
 ### File extentions
-SRC_EXT := c
-HDR_EXT := h
-OBJ_EXT := o
-DEP_EXT := d
+SRC_EXT := .c
+HDR_EXT := .h
+OBJ_EXT := .o
+DEP_EXT := .d
 
 #######################################
 ### AUTOMATIC VARIABLES
@@ -48,7 +48,7 @@ fn_files     = $(sort $(call fn_rwildcard,$1,$2))
 fn_dirs      = $(sort $(dir $(call fn_rwildcard,$1,*)))
 
 ### Sources
-SRCS_app  := $(call fn_files,$(SRC_DIR),*.$(SRC_EXT))
+SRCS_app  := $(call fn_files,$(SRC_DIR),*$(SRC_EXT))
 
 ### Includes
 INC_DIRS_core  := $(call fn_dirs,$(SRC_DIR))
@@ -97,10 +97,21 @@ CPPCHECK_fatal   := --error-exitcode=1
 
 ### UNIX
 
+BIN_EXT_unix :=
+
 CC_unix := clang
 LD_unix := clang
 
 CPPFLAGS_unix   := -DPLATFORM_UNIX
+
+### WEB
+
+BIN_EXT_web := .html
+
+CC_web := emcc
+LD_web := emcc
+
+CPPFLAGS_web   := -DPLATFORM_WEB
 
 #######################################
 ### TARGETS
@@ -119,8 +130,8 @@ EXT_SRC_DIRS_test := $(EXT_DIR)/Unity/src
 EXT_INC_DIRS_test := $(EXT_DIR)/Unity/src
 
 ### Sources
-SRCS_test := $(filter-out $(SRC_DIR)/$(MAIN).$(SRC_EXT),$(SRCS_app)) \
-             $(call fn_files,$(TEST_DIR),*.$(SRC_EXT)) \
+SRCS_test := $(filter-out $(SRC_DIR)/$(MAIN)$(SRC_EXT),$(SRCS_app)) \
+             $(call fn_files,$(TEST_DIR),*$(SRC_EXT)) \
              $(call fn_files,$(EXT_SRC_DIRS_test),*.c) 
 
 ### Includes
@@ -176,8 +187,8 @@ CONFIG_PATH := $(PLATFORM)/$(BINARY)/$(BACKEND)/$(BUILD)
 
 ### Objects and dependencies
 BUILD_DIR := $(OBJ_DIR)/$(CONFIG_PATH)
-OBJS      := $(patsubst %.$(SRC_EXT),$(BUILD_DIR)/%.$(OBJ_EXT),$(SRCS_$(BINARY)))
-DEPS      := $(OBJS:.$(OBJ_EXT)=.$(DEP_EXT))
+OBJS      := $(patsubst %$(SRC_EXT),$(BUILD_DIR)/%$(OBJ_EXT),$(SRCS_$(BINARY)))
+DEPS      := $(OBJS:$(OBJ_EXT)=$(DEP_EXT))
 
 ### Flags
 CFLAGS    := $(CFLAGS_core) $(CFLAGS_$(BUILD))
@@ -198,7 +209,7 @@ INCFLAGS  += $(addprefix -isystem,$(EXT_INC_DIRS_$(BINARY)) $(EXT_INC_DIRS_$(BAC
 #######################################
 
 .PHONY: build 
-build: $(BIN_DIR)/$(BINARY) ## Build binary
+build: $(BIN_DIR)/$(BINARY)$(BIN_EXT_$(PLATFORM)) ## Build binary
 
 .PHONY: clean 
 clean: ## Delete binary and object files
@@ -255,7 +266,7 @@ fatal: ## Debug build config (pedantic, fatal)
 format: ## Format all code files
 	$(info )
 	$(info === Format code ===)
-	clang-format -i `find $(SRC_DIR) $(TEST_DIR) -name '*.$(SRC_EXT)' -o -name '*.$(HDR_EXT)'`
+	clang-format -i `find $(SRC_DIR) $(TEST_DIR) -name '*$(SRC_EXT)' -o -name '*$(HDR_EXT)'`
 
 .PHONY: publish
 publish: ## Build fatal, cppcheck and release targets
@@ -274,24 +285,24 @@ release: ## Build config
 .PHONY: run
 run: ## Run binary
 	$(info )
-	$(info === Execute $(BINARY) ===)
-	$(BIN_DIR)/$(BINARY)
+	$(info === Execute $(BINARY)$(BIN_EXT_$(PLATFORM)) ===)
+	$(BIN_DIR)/$(BINARY)$(BIN_EXT_$(PLATFORM))
 
 #######################################
 ### RULES
 #######################################
 
 ### === COMPILER COMMAND ===
-$(BUILD_DIR)/%.$(OBJ_EXT): %.$(SRC_EXT)
+$(BUILD_DIR)/%$(OBJ_EXT): %$(SRC_EXT)
 	$(info )
-	$(info === Compile: PLATFORM=$(PLATFORM), BINARY=$(BINARY), BACKEND=$(BACKEND), BUILD=$(BUILD) ===)
+	$(info === Compile: PLATFORM=$(PLATFORM), BINARY=$(BINARY)$(BIN_EXT_$(PLATFORM)), BACKEND=$(BACKEND), BUILD=$(BUILD) ===)
 	@$(MKDIR) $(dir $@)
 	$(CC_$(PLATFORM)) -c $< -o $@ $(CFLAGS) $(CPPFLAGS) $(INCFLAGS)
 
 ### === LINKER COMMAND ===
-$(BIN_DIR)/$(BINARY): $(OBJS)
+$(BIN_DIR)/$(BINARY)$(BIN_EXT_$(PLATFORM)): $(OBJS)
 	$(info )
-	$(info === Link: PLATFORM=$(PLATFORM), BINARY=$(BINARY), BACKEND=$(BACKEND), BUILD=$(BUILD) ===)
+	$(info === Link: PLATFORM=$(PLATFORM), BINARY=$(BINARY)$(BIN_EXT_$(PLATFORM)), BACKEND=$(BACKEND), BUILD=$(BUILD) ===)
 	@$(MKDIR) $(dir $@)
 	$(LD_$(PLATFORM)) $^ -o $@ $(LDFLAGS) $(LIB_FLAGS) $(LDLIBS)
 
