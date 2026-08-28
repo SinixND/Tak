@@ -10,7 +10,7 @@ BINARY   ?= app
 ### Backends ( default: noBackend | ncurses | raylib )
 BACKEND  ?= ncurses
 ### Build mode ( default: core | release | debug | fatal )
-BUILD    ?= fatal
+BUILD    ?= debug
 
 ### Entrypoint files
 MAIN := main
@@ -62,6 +62,12 @@ INC_DIRS_core  := $(call fn_dirs,$(SRC_DIR))
 RM    := rm -rf
 MKDIR := mkdir -p
 
+### Directories
+ifdef TERMUX_VERSION
+	USR := $(PREFIX)/local
+else
+	USR := /usr/local
+endif
 
 #######################################
 ### BUILD MODES
@@ -92,6 +98,28 @@ CPPCHECK_fatal   := --error-exitcode=1
 
 
 #######################################
+### BACKENDS
+#######################################
+
+### RAYLIB
+
+SRC_DIR_raylib     := $(USR)/lib/raylib/src
+
+LIBS_raylib        := raylib m
+LIB_DIR_raylib    := $(EXT_DIR)/raylib/lib/$(PLATFORM)/$(BUILD)
+CPPFLAGS_raylib    := -DBACKEND_RAYLIB
+EXT_INC_DIRS_raylib := $(SRC_DIR_raylib)
+
+### NCURSES
+
+### Libraries
+LIBS_ncurses := ncurses
+
+### Flags
+CPPFLAGS_ncurses := -DBACKEND_NCURSES
+
+
+#######################################
 ### PLATFORMS
 #######################################
 
@@ -111,7 +139,25 @@ BIN_EXT_web := .html
 CC_web := emcc
 LD_web := emcc
 
-CPPFLAGS_web   := -DPLATFORM_WEB
+CPPFLAGS_web := -DPLATFORM_WEB
+
+LDFLAGS_web := -sUSE_GLFW=3 --shell-file $(SRC_DIR_raylib)/minshell.html
+
+.PHONY: web-build
+web-build: ## Build for browser
+	$(info )
+	$(info === Build app/release ===)
+	@$(MAKE) BINARY=app BUILD=release BACKEND=raylib PLATFORM=web build
+
+.PHONY: web-run
+web-run: ## Build for browser
+	$(info )
+	$(info === Run web/release ===)
+	http-server -c-1 -o index.html
+
+.PHONY: web
+web: web-build web-run ## Build for browser and run
+
 
 #######################################
 ### TARGETS
@@ -157,36 +203,11 @@ test: test-build test-run ## Build and run tests
 
 
 #######################################
-### BACKENDS
-#######################################
-
-### RAYLIB
-
-SRC_DIR_raylib     := /usr/lib/raylib/src
-
-LIBS_raylib        := raylib m
-LIB_DIR_raylib    := $(SRC_DIR_raylib)
-CPPFLAGS_raylib    := -DBACKEND_RAYLIB
-EXT_INC_DIRS_raylib := $(SRC_DIR_raylib)
-
-### NCURSES
-
-### Libraries
-LIBS_ncurses := ncurses
-
-### Flags
-CPPFLAGS_ncurses := -DBACKEND_NCURSES
-
-
-#######################################
 ### DERIVED VARIABLES
 #######################################
 
-### Build config
-CONFIG_PATH := $(PLATFORM)/$(BINARY)/$(BACKEND)/$(BUILD)
-
 ### Objects and dependencies
-BUILD_DIR := $(OBJ_DIR)/$(CONFIG_PATH)
+BUILD_DIR := $(OBJ_DIR)
 OBJS      := $(patsubst %$(SRC_EXT),$(BUILD_DIR)/%$(OBJ_EXT),$(SRCS_$(BINARY)))
 DEPS      := $(OBJS:$(OBJ_EXT)=$(DEP_EXT))
 
@@ -198,11 +219,11 @@ LIBS 	  := $(LIBS_$(BACKEND))
 LDLIBS    := $(addprefix -l,$(LIBS))
 LIB_DIRS  := $(LIB_DIR_$(BACKEND))
 LIB_FLAGS := $(addprefix -L,$(LIB_DIRS))
-LDFLAGS   := $(LDFLAGS_core) $(LDFLAGS_$(BUILD))
+LDFLAGS   := $(LDFLAGS_core) $(LDFLAGS_$(BUILD)) $(LDFLAGS_$(PLATFORM))
 
-INCFLAGS  += $(addprefix -I,$(INC_DIRS_core) $(INC_DIRS_$(BINARY)))
-INCFLAGS  += $(addprefix -isystem,$(EXT_INC_DIRS_$(BINARY)) $(EXT_INC_DIRS_$(BACKEND)))
-
+INCFLAGS_unix  += $(addprefix -isystem,$(EXT_INC_DIRS_$(BINARY)) $(EXT_INC_DIRS_$(BACKEND)))
+INCFLAGS_web  += $(addprefix -I,$(EXT_INC_DIRS_$(BINARY)) $(EXT_INC_DIRS_$(BACKEND)))
+INCFLAGS += $(addprefix -I,$(INC_DIRS_core) $(INC_DIRS_$(BINARY))) $(INCFLAGS_$(PLATFORM))
 
 #######################################
 ### TARGETS
@@ -288,6 +309,7 @@ run: ## Run binary
 	$(info === Execute $(BINARY)$(BIN_EXT_$(PLATFORM)) ===)
 	$(BIN_DIR)/$(BINARY)$(BIN_EXT_$(PLATFORM))
 
+
 #######################################
 ### RULES
 #######################################
@@ -297,14 +319,14 @@ $(BUILD_DIR)/%$(OBJ_EXT): %$(SRC_EXT)
 	$(info )
 	$(info === Compile: PLATFORM=$(PLATFORM), BINARY=$(BINARY)$(BIN_EXT_$(PLATFORM)), BACKEND=$(BACKEND), BUILD=$(BUILD) ===)
 	@$(MKDIR) $(dir $@)
-	$(CC_$(PLATFORM)) -c $< -o $@ $(CFLAGS) $(CPPFLAGS) $(INCFLAGS)
+	$(CC_$(PLATFORM)) -o $@ -c $< $(CFLAGS) $(CPPFLAGS) $(INCFLAGS)
 
 ### === LINKER COMMAND ===
 $(BIN_DIR)/$(BINARY)$(BIN_EXT_$(PLATFORM)): $(OBJS)
 	$(info )
 	$(info === Link: PLATFORM=$(PLATFORM), BINARY=$(BINARY)$(BIN_EXT_$(PLATFORM)), BACKEND=$(BACKEND), BUILD=$(BUILD) ===)
 	@$(MKDIR) $(dir $@)
-	$(LD_$(PLATFORM)) $^ -o $@ $(LDFLAGS) $(LIB_FLAGS) $(LDLIBS)
+	$(LD_$(PLATFORM)) -o $@ $^ $(LDFLAGS) $(LIB_FLAGS) $(LDLIBS)
 
 
 #######################################

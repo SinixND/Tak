@@ -1,8 +1,9 @@
 #include "BackendInterface.h"
-#include "FileId.h"
 
 #ifdef BACKEND_NCURSES
 #include "Backend_NCurses_Layout.h"
+#include "FileId.h"
+#include "RankId.h"
 #include <assert.h>
 #include <ncurses.h>
 

@@ -74,8 +74,10 @@ void closeApp( App* const pApp )
     closeBackend( &pApp->uiData );
 }
 
-void updateFrame( App* const pApp )
+void updateFrame( void* arg )
 {
+    App* const pApp = (App*)arg;
+
     assert(
         pApp
         && "Pointer is nullptr"

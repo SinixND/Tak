@@ -45,8 +45,11 @@ void runApp( App* const pApp );
 /// Clean up before closing the application
 void closeApp( App* const pApp );
 
-/// Update one frame of the main loop
-void updateFrame( App* const pApp );
+/* @brief Update one frame of the main loop
+*
+* Void argument in function signature needed for emscripten
+*/
+void updateFrame( void* arg );
 
 /// Get input (simulated or polled)
 void getInput( App* const pApp );
