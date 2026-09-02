@@ -747,16 +747,25 @@ void renderStartScreen( void )
         1,
         1,
         "%s",
-        "Choose board size. "
+        "Choose board size:"
     );
 
     mvprintw(
-        2,
+        3,
         1,
-        "Options: %i - %i, confirm for default (%i)",
-        BOARD_SIZE_MIN,
-        BOARD_SIZE_MAX,
-        BOARD_SIZE_DEFAULT
+        " 3x3                4x4"
+    );
+
+    mvprintw(
+        6,
+        1,
+        " 5x5 <- Standard    6x6"
+    );
+
+    mvprintw(
+        9,
+        1,
+        " 7x7                8x8"
     );
 }
 

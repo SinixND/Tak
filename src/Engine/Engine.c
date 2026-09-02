@@ -1,17 +1,15 @@
 #include "Engine.h"
 
 #include "ActionTypeId.h"
+#include "BackendInterface.h"
 #include "Command.h"
 #include "CommandStateId.h"
-#include "CommandValidation.h"
 #include "DirectionId.h"
 #include "Event.h"
 #include "FileId.h"
 #include "Game.h"
 #include "History.h"
 #include "InputBuffer.h"
-#include "InputId.h"
-#include "InputParsing.h"
 #include "PlayerId.h"
 #include "Position.h"
 #include "RankId.h"
@@ -40,6 +38,70 @@ bool setBoardSize(
         CONTEXT_SIZE
     ) )
     {
+        case COMMAND_POSITION:
+        {
+            UIPosition uiPosition = getUIPosition(
+                pInputBuffer->mousePosition[0],
+                pInputBuffer->mousePosition[1]
+            );
+
+            if ( uiPosition.y >= 2
+                 && uiPosition.y <= 4
+                 && uiPosition.x >= 0
+                 && uiPosition.x <= 4 )
+            {
+                *pGame = newGame( 3 );
+                return true;
+            }
+
+            if ( uiPosition.y >= 2
+                 && uiPosition.y <= 4
+                 && uiPosition.x >= 19
+                 && uiPosition.x <= 23 )
+            {
+                *pGame = newGame( 4 );
+                return true;
+            }
+
+            if ( uiPosition.y >= 5
+                 && uiPosition.y <= 7
+                 && uiPosition.x >= 0
+                 && uiPosition.x <= 4 )
+            {
+                *pGame = newGame( 5 );
+                return true;
+            }
+
+            if ( uiPosition.y >= 5
+                 && uiPosition.y <= 7
+                 && uiPosition.x >= 19
+                 && uiPosition.x <= 23 )
+            {
+                *pGame = newGame( 6 );
+                return true;
+            }
+
+            if ( uiPosition.y >= 8
+                 && uiPosition.y <= 10
+                 && uiPosition.x >= 0
+                 && uiPosition.x <= 4 )
+            {
+                *pGame = newGame( 7 );
+                return true;
+            }
+
+            if ( uiPosition.y >= 8
+                 && uiPosition.y <= 10
+                 && uiPosition.x >= 19
+                 && uiPosition.x <= 23 )
+            {
+                *pGame = newGame( 8 );
+                return true;
+            }
+
+            return false;
+        }
+
         case COMMAND_CONFIRM:
         {
             *pGame = newGame( BOARD_SIZE_DEFAULT );

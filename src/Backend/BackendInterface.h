@@ -7,11 +7,23 @@
 #include "UIData.h"
 
 /// Utility
+typedef struct UIPosition
+{
+    int x;
+    int y;
+} UIPosition;
+
 typedef struct Tile
 {
     FileId fileX;
     RankId rankY;
 } Tile;
+
+/// Returns ui position under mouse
+UIPosition getUIPosition(
+    float mouseX,
+    float mouseY
+);
 
 /// Returns file and rank under mouse
 Tile getTile(

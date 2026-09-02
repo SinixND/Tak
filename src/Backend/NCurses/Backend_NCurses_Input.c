@@ -1,10 +1,45 @@
 #include "BackendInterface.h"
+#include "Backend_NCurses_Layout.h"
 
 #ifdef BACKEND_NCURSES
 #include "InputBuffer.h"
 #include "InputId.h"
 #include <assert.h>
 #include <ncurses.h>
+
+UIPosition getUIPosition(
+    float mouseX,
+    float mouseY
+)
+{
+    return (UIPosition){
+        (int)mouseX,
+        (int)mouseY
+    };
+}
+
+Tile getTile(
+    float mouseX,
+    float mouseY,
+    int boardSize
+)
+{
+    Tile tile = { FILE_NONE, RANK_NONE };
+
+    if (
+        ( ( (int)mouseX - ( BOARD_POS_X + 1 ) ) % 4 )
+        && ( (int)mouseY - BOARD_POS_Y ) % 4
+    )
+    {
+        tile.fileX
+            = ( (int)mouseX - ( BOARD_POS_X + 1 ) ) / 4;
+
+        tile.rankY
+            = ( boardSize - 1 ) - ( ( (int)mouseY - 1 ) / 4 );
+    }
+
+    return tile;
+}
 
 void getInputFromUser( InputBuffer* const pInput )
 {

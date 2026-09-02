@@ -117,6 +117,15 @@ Mappings newMappings( void )
                     .commandId = COMMAND_QUIT
                 },
             },
+            [CONTEXT_SIZE] = {
+                 (UIElement){
+                    .x = 0,
+                    .y = 2,
+                    .width = 23,
+                    .height = 10,
+                    .commandId = COMMAND_POSITION
+                },
+            },
             [CONTEXT_INPUT_DEFAULT] = {
                  (UIElement){
                     .x = 0,
