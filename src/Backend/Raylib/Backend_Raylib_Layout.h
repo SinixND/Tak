@@ -7,11 +7,11 @@
 #define LAYOUT_PLAYER_INFO_SIZE 8
 #define LAYOUT_BOARD_SQUARE_SIZE 4
 
-static int const WINDOW_WIDTH = 40;
-static int const WINDOW_HEIGHT = 20;
-static int const WINDOW_WIDTH_MIN = 20;
-static int const WINDOW_HEIGHT_MIN = 10;
-static int const FPS_TARGET = 3;
+static int const WINDOW_WIDTH = 600;
+static int const WINDOW_HEIGHT = 800;
+static int const WINDOW_WIDTH_MIN = 200;
+static int const WINDOW_HEIGHT_MIN = 100;
+static int const FPS_TARGET = 30;
 
 static Color const COLOR_BG = BLACK;
 static Color const COLOR_FG = RAYWHITE;
