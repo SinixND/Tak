@@ -62,6 +62,7 @@ void render( App const* const pApp )
         {
             renderStatic( pApp );
             renderDynamic( pApp );
+            renderCommandGameEnd( pApp );
 
             break;
         }
@@ -245,10 +246,10 @@ void renderStartScreen( UIData const* const pUIData )
 {
     DrawTextEx(
         pUIData->font,
-        "Choose board size. ",
+        "Choose board size:",
         (Vector2){
-            10.0f,
-            10.0f
+            1 * pUIData->fontSize,
+            1 * pUIData->fontSize,
         },
         pUIData->fontSize,
         pUIData->spacing,
@@ -257,15 +258,34 @@ void renderStartScreen( UIData const* const pUIData )
 
     DrawTextEx(
         pUIData->font,
-        TextFormat(
-            "Options: %i - %i, confirm for default (%i)",
-            BOARD_SIZE_MIN,
-            BOARD_SIZE_MAX,
-            BOARD_SIZE_DEFAULT
-        ),
+        " 3x3                4x4",
         (Vector2){
-            10.0f,
-            40.0f
+            1 * pUIData->fontSize,
+            3 * pUIData->fontSize
+        },
+        pUIData->fontSize,
+        pUIData->spacing,
+        RAYWHITE
+    );
+
+    DrawTextEx(
+        pUIData->font,
+        " 5x5 <- Standard    6x6",
+        (Vector2){
+            1 * pUIData->fontSize,
+            6 * pUIData->fontSize
+        },
+        pUIData->fontSize,
+        pUIData->spacing,
+        RAYWHITE
+    );
+
+    DrawTextEx(
+        pUIData->font,
+        " 7x7                8x8",
+        (Vector2){
+            1 * pUIData->fontSize,
+            9 * pUIData->fontSize
         },
         pUIData->fontSize,
         pUIData->spacing,

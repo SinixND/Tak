@@ -20,7 +20,8 @@
 
 bool setBoardSize(
     Game* const pGame,
-    InputBuffer const* const pInputBuffer
+    InputBuffer const* const pInputBuffer,
+    UIData const* const pUIData
 )
 {
     assert(
@@ -42,7 +43,8 @@ bool setBoardSize(
         {
             UIPosition uiPosition = getUIPosition(
                 pInputBuffer->mousePosition[0],
-                pInputBuffer->mousePosition[1]
+                pInputBuffer->mousePosition[1],
+                pUIData
             );
 
             if ( uiPosition.y >= 2

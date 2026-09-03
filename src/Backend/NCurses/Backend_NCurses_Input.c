@@ -9,9 +9,15 @@
 
 UIPosition getUIPosition(
     float mouseX,
-    float mouseY
+    float mouseY,
+    UIData const* const pUIData
 )
 {
+    assert(
+        pUIData
+        && "Invalid pointer"
+    );
+
     return (UIPosition){
         (int)mouseX,
         (int)mouseY
@@ -21,9 +27,15 @@ UIPosition getUIPosition(
 Tile getTile(
     float mouseX,
     float mouseY,
-    int boardSize
+    int boardSize,
+    UIData const* const pUIData
 )
 {
+    assert(
+        pUIData
+        && "Invalid pointer"
+    );
+
     Tile tile = { FILE_NONE, RANK_NONE };
 
     if (

@@ -27,10 +27,11 @@ LDFLAGS_core  :=
 all: compiledb build test cppcheck
 
 ### Directories
-SRC_DIR := src
-BIN_DIR := bin
-OBJ_DIR := build
-EXT_DIR := external
+SRC_DIR    := src
+BIN_DIR    := bin
+OBJ_DIR    := build
+EXT_DIR    := external
+ASSETS_DIR := assets
 
 ### File extentions
 SRC_EXT := .c
@@ -141,12 +142,12 @@ LD_web := emcc
 
 CPPFLAGS_web := -DPLATFORM_WEB
 
-LDFLAGS_web := -sUSE_GLFW=3 --shell-file $(SRC_DIR_raylib)/minshell.html
+LDFLAGS_web := -sUSE_GLFW=3 --shell-file $(SRC_DIR_raylib)/minshell.html --preload-file ./$(ASSETS_DIR)/
 
 .PHONY: web-build
 web-build: ## Build for browser
 	$(info )
-	$(info === Build app/release ===)
+	$(info === Build web/release ===)
 	@$(MAKE) BINARY=app BUILD=release BACKEND=raylib PLATFORM=web build
 
 .PHONY: web-run

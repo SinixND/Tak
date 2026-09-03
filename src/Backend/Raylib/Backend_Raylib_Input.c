@@ -1,10 +1,57 @@
 #include "BackendInterface.h"
 
 #ifdef BACKEND_RAYLIB
+#include "Backend_Raylib_Layout.h"
 #include "InputBuffer.h"
 #include "InputId.h"
 #include <assert.h>
 #include <raylib.h>
+
+UIPosition getUIPosition(
+    float mouseX,
+    float mouseY,
+    UIData const* const pUIData
+)
+{
+    assert(
+        pUIData
+        && "Invalid pointer"
+    );
+
+    return (UIPosition){
+        (int)( mouseX * pUIData->fontSize ),
+        (int)( mouseY * pUIData->fontSize )
+    };
+}
+
+Tile getTile(
+    float mouseX,
+    float mouseY,
+    int boardSize,
+    UIData const* const pUIData
+)
+{
+    assert(
+        pUIData
+        && "Invalid pointer"
+    );
+
+    Tile tile = { FILE_NONE, RANK_NONE };
+
+    if (
+        ( ( (int)( mouseX * pUIData->fontSize ) - ( BOARD_POS_X + 1 ) ) % 4 )
+        && ( (int)( mouseY * pUIData->fontSize ) - BOARD_POS_Y ) % 4
+    )
+    {
+        tile.fileX
+            = ( (int)( mouseX * pUIData->fontSize ) - ( BOARD_POS_X + 1 ) ) / 4;
+
+        tile.rankY
+            = ( boardSize - 1 ) - ( ( (int)( mouseY * pUIData->fontSize ) - 1 ) / 4 );
+    }
+
+    return tile;
+}
 
 void getInputFromUser( InputBuffer* const pInput )
 {

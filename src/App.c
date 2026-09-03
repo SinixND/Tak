@@ -174,7 +174,8 @@ void updateStateChooseBoardSize( App* const pApp )
 
     if ( !setBoardSize(
              &pApp->game,
-             &pApp->inputBuffer
+             &pApp->inputBuffer,
+             &pApp->uiData
          ) )
     {
         return;
@@ -219,7 +220,8 @@ void updateStateFirstTurn( App* const pApp )
     if ( !parsePositionInputToCommand(
              &command,
              &pApp->inputBuffer,
-             pApp->game.board.size
+             pApp->game.board.size,
+             &pApp->uiData
          ) )
     {
         return;
@@ -327,7 +329,8 @@ void updateStateSecondTurn( App* const pApp )
     if ( !parsePositionInputToCommand(
              &command,
              &pApp->inputBuffer,
-             pApp->game.board.size
+             pApp->game.board.size,
+             &pApp->uiData
          ) )
     {
         return;
@@ -415,7 +418,8 @@ void updateStateNormalTurn( App* const pApp )
         if ( !updateCommandFromInput(
                  &command,
                  &pApp->inputBuffer,
-                 pApp->game.board.size
+                 pApp->game.board.size,
+                 &pApp->uiData
              ) )
         {
             return;

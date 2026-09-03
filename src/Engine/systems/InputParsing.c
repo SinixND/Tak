@@ -1,6 +1,5 @@
 #include "InputParsing.h"
 
-#include "ActionTypeId.h"
 #include "BackendInterface.h"
 #include "CommandId.h"
 #include "CommandStateId.h"
@@ -9,13 +8,15 @@
 #include "InputBuffer.h"
 #include "RankId.h"
 #include "StoneTypeId.h"
+#include "UIData.h"
 #include <assert.h>
 #include <stdbool.h>
 
 bool updateCommandFromInput(
     Command* const pCommand,
     InputBuffer const* const pInputBuffer,
-    int const boardSize
+    int const boardSize,
+    UIData const* const pUIData
 )
 {
     assert(
@@ -36,7 +37,8 @@ bool updateCommandFromInput(
             return parseDefaultInputToCommand(
                 pCommand,
                 pInputBuffer,
-                boardSize
+                boardSize,
+                pUIData
             );
         }
 
@@ -45,7 +47,8 @@ bool updateCommandFromInput(
             return parsePositionInputToCommand(
                 pCommand,
                 pInputBuffer,
-                boardSize
+                boardSize,
+                pUIData
             );
         }
 
@@ -54,7 +57,8 @@ bool updateCommandFromInput(
             return parseDirectionInputToCommand(
                 pCommand,
                 pInputBuffer,
-                boardSize
+                boardSize,
+                pUIData
             );
         }
 
@@ -63,7 +67,8 @@ bool updateCommandFromInput(
             return parseFirstDropAmountInputToCommand(
                 pCommand,
                 pInputBuffer,
-                boardSize
+                boardSize,
+                pUIData
             );
         }
 
@@ -72,7 +77,8 @@ bool updateCommandFromInput(
             return parseDropAmountInputToCommand(
                 pCommand,
                 pInputBuffer,
-                boardSize
+                boardSize,
+                pUIData
             );
         }
 
@@ -84,7 +90,8 @@ bool updateCommandFromInput(
 bool parseDefaultInputToCommand(
     Command* const pCommand,
     InputBuffer const* const pInputBuffer,
-    int const boardSize
+    int const boardSize,
+    UIData const* const pUIData
 )
 {
     assert(
@@ -107,7 +114,8 @@ bool parseDefaultInputToCommand(
             Tile tile = getTile(
                 pInputBuffer->mousePosition[0],
                 pInputBuffer->mousePosition[1],
-                boardSize
+                boardSize,
+                pUIData
             );
 
             pCommand->fileX = tile.fileX;
@@ -264,7 +272,8 @@ bool parseDefaultInputToCommand(
 bool parsePositionInputToCommand(
     Command* const pCommand,
     InputBuffer const* const pInputBuffer,
-    int const boardSize
+    int const boardSize,
+    UIData const* const pUIData
 )
 {
     assert(
@@ -287,7 +296,8 @@ bool parsePositionInputToCommand(
             Tile tile = getTile(
                 pInputBuffer->mousePosition[0],
                 pInputBuffer->mousePosition[1],
-                boardSize
+                boardSize,
+                pUIData
             );
 
             pCommand->fileX = tile.fileX;
@@ -416,7 +426,8 @@ bool parsePositionInputToCommand(
 bool parseDirectionInputToCommand(
     Command* const pCommand,
     InputBuffer const* const pInputBuffer,
-    int const boardSize
+    int const boardSize,
+    UIData const* const pUIData
 )
 {
     assert(
@@ -426,6 +437,11 @@ bool parseDirectionInputToCommand(
 
     assert(
         pInputBuffer
+        && "Pointer is nullptr"
+    );
+
+    assert(
+        pUIData
         && "Pointer is nullptr"
     );
 
@@ -467,7 +483,8 @@ bool parseDirectionInputToCommand(
             Tile mouseTile = getTile(
                 pInputBuffer->mousePosition[0],
                 pInputBuffer->mousePosition[1],
-                boardSize
+                boardSize,
+                pUIData
             );
 
             int const offset[2] = {
@@ -503,7 +520,8 @@ bool parseDirectionInputToCommand(
 bool parseFirstDropAmountInputToCommand(
     Command* const pCommand,
     InputBuffer const* const pInputBuffer,
-    int const boardSize
+    int const boardSize,
+    UIData const* const pUIData
 )
 {
     assert(
@@ -594,7 +612,8 @@ bool parseFirstDropAmountInputToCommand(
             Tile mouseTile = getTile(
                 pInputBuffer->mousePosition[0],
                 pInputBuffer->mousePosition[1],
-                boardSize
+                boardSize,
+                pUIData
             );
 
             /// If mouse == command position
@@ -637,7 +656,8 @@ bool parseFirstDropAmountInputToCommand(
 bool parseDropAmountInputToCommand(
     Command* const pCommand,
     InputBuffer const* const pInputBuffer,
-    int const boardSize
+    int const boardSize,
+    UIData const* const pUIData
 )
 {
     assert(
@@ -722,7 +742,8 @@ bool parseDropAmountInputToCommand(
             Tile mouseTile = getTile(
                 pInputBuffer->mousePosition[0],
                 pInputBuffer->mousePosition[1],
-                boardSize
+                boardSize,
+                pUIData
             );
 
             /// If mouse == command position + offset

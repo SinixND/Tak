@@ -22,14 +22,16 @@ typedef struct Tile
 /// Returns ui position under mouse
 UIPosition getUIPosition(
     float mouseX,
-    float mouseY
+    float mouseY,
+    UIData const* const pUIData
 );
 
 /// Returns file and rank under mouse
 Tile getTile(
     float mouseX,
     float mouseY,
-    int boardSize
+    int boardSize,
+    UIData const* const pUIData
 );
 
 /// Context

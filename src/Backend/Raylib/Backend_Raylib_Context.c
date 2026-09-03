@@ -5,28 +5,6 @@
 #include "UIData.h"
 #include <raylib.h>
 
-Tile getTile(
-    float mouseX,
-    float mouseY,
-    int boardSize
-)
-{
-    Tile tile = { FILE_NONE, RANK_NONE };
-
-    if (
-        ( ( (int)mouseX - ( BOARD_POS_X + 1 ) ) % 4 )
-        && ( (int)mouseY - BOARD_POS_Y ) % 4
-    )
-    {
-        tile.fileX
-            = ( (int)mouseX - ( BOARD_POS_X + 1 ) ) / 4;
-
-        tile.rankY
-            = ( boardSize - 1 ) - ( ( (int)mouseY - 1 ) / 4 );
-    }
-
-    return tile;
-}
 void setupBackend( UIData* const pUIData )
 {
     /// Raylib flags
@@ -54,6 +32,7 @@ void setupBackend( UIData* const pUIData )
         0,
         0
     );
+
     pUIData->fontWidth
         = MeasureTextEx(
               pUIData->font,
