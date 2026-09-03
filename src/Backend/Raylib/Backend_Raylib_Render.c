@@ -293,4 +293,27 @@ void renderStartScreen( UIData const* const pUIData )
     );
 }
 
+void renderCommandGameEnd( App const* const pApp )
+{
+    assert(
+        pApp
+        && "Pointer is nullptr"
+    );
+
+    DrawTextEx(
+        pApp->uiData.font,
+        TextFormat(
+            "%c: WIN! ",
+            PLAYER_CHARS[pApp->game.activePlayer]
+        ),
+        (Vector2){
+            50,
+            50
+        },
+        pApp->uiData.fontSize,
+        pApp->uiData.spacing,
+        RAYWHITE
+    );
+}
+
 #endif

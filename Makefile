@@ -3,14 +3,14 @@
 #######################################
 
 ### DEFAULT BUILD CONFIG
-### Target platform ( default: unix | TM4C123G )
-PLATFORM ?= unix
+### Target platform ( default: unix | web | TM4C123G )
+PLATFORM ?= web
 ### Binary mode ( default: app | test )
 BINARY   ?= app
 ### Backends ( default: noBackend | ncurses | raylib )
-BACKEND  ?= ncurses
+BACKEND  ?= raylib
 ### Build mode ( default: core | release | debug | fatal )
-BUILD    ?= debug
+BUILD    ?= release
 
 ### Entrypoint files
 MAIN := main

@@ -60,196 +60,216 @@ void getInputFromUser( InputBuffer* const pInput )
         && "Pointer is nullptr"
     );
 
-    switch ( GetCharPressed() )
+    switch ( GetKeyPressed() )
     {
-        case '0':
+        case KEY_ZERO:
         {
             pInput->lastInput = INPUT_0;
             return;
         }
 
-        case '1':
+        case KEY_ONE:
         {
             pInput->lastInput = INPUT_1;
             return;
         }
 
-        case '2':
+        case KEY_TWO:
         {
             pInput->lastInput = INPUT_2;
             return;
         }
 
-        case '3':
+        case KEY_THREE:
         {
             pInput->lastInput = INPUT_3;
             return;
         }
 
-        case '4':
+        case KEY_FOUR:
         {
             pInput->lastInput = INPUT_4;
             return;
         }
 
-        case '5':
+        case KEY_FIVE:
         {
             pInput->lastInput = INPUT_5;
             return;
         }
 
-        case '6':
+        case KEY_SIX:
         {
             pInput->lastInput = INPUT_6;
             return;
         }
 
-        case '7':
+        case KEY_SEVEN:
         {
             pInput->lastInput = INPUT_7;
             return;
         }
 
-        case '8':
+        case KEY_EIGHT:
         {
             pInput->lastInput = INPUT_8;
             return;
         }
 
-        case 'a':
+        case KEY_A:
         {
             pInput->lastInput = INPUT_A;
             return;
         }
 
-        case 'b':
+        case KEY_B:
         {
             pInput->lastInput = INPUT_B;
             return;
         }
 
-        case 'c':
+        case KEY_C:
         {
+            if ( IsKeyDown( KEY_LEFT_SHIFT ) )
+            {
+                pInput->lastInput = INPUT_CAP_C;
+                return;
+            }
+
             pInput->lastInput = INPUT_C;
             return;
         }
 
-        case 'd':
+        case KEY_D:
         {
             pInput->lastInput = INPUT_D;
             return;
         }
 
-        case 'e':
+        case KEY_E:
         {
             pInput->lastInput = INPUT_E;
             return;
         }
 
-        case 'f':
+        case KEY_F:
         {
+            if ( IsKeyDown( KEY_LEFT_SHIFT ) )
+            {
+                pInput->lastInput = INPUT_CAP_F;
+                return;
+            }
+
             pInput->lastInput = INPUT_F;
             return;
         }
 
-        case 'g':
+        case KEY_G:
         {
             pInput->lastInput = INPUT_G;
             return;
         }
 
-        case 'h':
+        case KEY_H:
         {
             pInput->lastInput = INPUT_H;
             return;
         }
 
-        case 'l':
+        case KEY_L:
         {
             pInput->lastInput = INPUT_L;
             return;
         }
 
-        case 'm':
+        case KEY_M:
         {
             pInput->lastInput = INPUT_M;
             return;
         }
 
-        case 'p':
+        case KEY_P:
         {
             pInput->lastInput = INPUT_P;
             return;
         }
 
-        case 'r':
+        case KEY_R:
         {
+            if ( IsKeyDown( KEY_LEFT_SHIFT ) )
+            {
+                pInput->lastInput = INPUT_CAP_R;
+                return;
+            }
+
             pInput->lastInput = INPUT_R;
             return;
         }
 
-        case 't':
+        case KEY_T:
         {
             pInput->lastInput = INPUT_T;
             return;
         }
 
-        case 'u':
+        case KEY_U:
         {
+            if ( IsKeyDown( KEY_LEFT_SHIFT ) )
+            {
+                pInput->lastInput = INPUT_CAP_U;
+                return;
+            }
+
             pInput->lastInput = INPUT_U;
             return;
         }
 
-        case ' ':
+        case KEY_SPACE:
         {
             pInput->lastInput = INPUT_SPACE;
             return;
         }
 
-        case 'C':
+        case KEY_Q:
         {
-            pInput->lastInput = INPUT_CAP_C;
+            if ( IsKeyDown( KEY_LEFT_SHIFT ) )
+            {
+                pInput->lastInput = INPUT_CAP_Q;
+            }
             return;
         }
 
-        case 'F':
+        case KEY_S:
         {
-            pInput->lastInput = INPUT_CAP_F;
+            if ( IsKeyDown( KEY_LEFT_SHIFT ) )
+            {
+                pInput->lastInput = INPUT_CAP_S;
+            }
             return;
         }
 
-        case 'Q':
+        case KEY_X:
         {
-            pInput->lastInput = INPUT_CAP_Q;
-            return;
-        }
-
-        case 'R':
-        {
-            pInput->lastInput = INPUT_CAP_R;
-            return;
-        }
-
-        case 'S':
-        {
-            pInput->lastInput = INPUT_CAP_S;
-            return;
-        }
-
-        case 'U':
-        {
-            pInput->lastInput = INPUT_CAP_U;
-            return;
-        }
-
-        case 'X':
-        {
-            pInput->lastInput = INPUT_CAP_X;
+            if ( IsKeyDown( KEY_LEFT_SHIFT ) )
+            {
+                pInput->lastInput = INPUT_CAP_X;
+            }
             return;
         }
 
         default:
         {
+            if ( IsMouseButtonPressed( MOUSE_LEFT_BUTTON ) )
+            {
+                pInput->lastInput = INPUT_MOUSE;
+
+                Vector2 mousePosition = GetMousePosition();
+                pInput->mousePosition[0] = mousePosition.x;
+                pInput->mousePosition[1] = mousePosition.y;
+
+                return;
+            }
+
             pInput->lastInput = INPUT_NONE;
             return;
         }
