@@ -14,6 +14,7 @@ Prompts newPrompts( Mappings const* const pMappings )
     );
 
     return (Prompts){
+        // clang-format off
         .pInputs = {
             [COMMAND_STATE_NONE] = " ---      ",
             [COMMAND_STATE_DEFAULT] = "Type|Pos ",
@@ -23,7 +24,6 @@ Prompts newPrompts( Mappings const* const pMappings )
             [COMMAND_STATE_GET_DROP_AMOUNT] = "Amount    ",
         },
         .options = {
-            // clang-format off
             [COMMAND_STATE_NONE] = {
                 ' ', '-', '-', '-', ' ', ' ', ' ', ' ', ' ', ' ', '\0'
             },
@@ -33,11 +33,11 @@ Prompts newPrompts( Mappings const* const pMappings )
                 INPUT_ID_CHARS[pMappings->inputs[CONTEXT_INPUT_DEFAULT][COMMAND_8]],
                 ',',
                 ' ',
-                INPUT_ID_CHARS[pMappings->inputs[CONTEXT_STONE_TYPE][COMMAND_FLAT]],
+                INPUT_ID_CHARS[pMappings->inputs[CONTEXT_INPUT_DEFAULT][COMMAND_FLAT]],
                 '|', 
-                INPUT_ID_CHARS[pMappings->inputs[CONTEXT_STONE_TYPE][COMMAND_STANDING]],
+                INPUT_ID_CHARS[pMappings->inputs[CONTEXT_INPUT_DEFAULT][COMMAND_STANDING]],
                 '|', 
-                INPUT_ID_CHARS[pMappings->inputs[CONTEXT_STONE_TYPE][COMMAND_CAPSTONE]],
+                INPUT_ID_CHARS[pMappings->inputs[CONTEXT_INPUT_DEFAULT][COMMAND_CAPSTONE]],
                 '\0'
             },
             [COMMAND_STATE_GET_POSITION]  = {

@@ -53,6 +53,95 @@ Tile getTile(
     return tile;
 }
 
+void addUIElements( Mappings* const pMappings )
+{
+    pMappings->uiElements[CONTEXT_GLOBAL][0]
+        = (UIElement){
+            .x = 12,
+            .y = 0,
+            .width = 2,
+            .height = 2,
+            .commandId = COMMAND_UNDO
+        };
+
+    pMappings->uiElements[CONTEXT_GLOBAL][1] = (UIElement){
+        .x = 16,
+        .y = 0,
+        .width = 2,
+        .height = 2,
+        .commandId = COMMAND_REDO
+    };
+
+    pMappings->uiElements[CONTEXT_GLOBAL][2] = (UIElement){
+        .x = 12,
+        .y = 2,
+        .width = 2,
+        .height = 2,
+        .commandId = COMMAND_RESET
+    };
+
+    pMappings->uiElements[CONTEXT_GLOBAL][3] = (UIElement){
+        .x = 16,
+        .y = 2,
+        .width = 2,
+        .height = 2,
+        .commandId = COMMAND_QUIT
+    };
+
+    pMappings->uiElements[CONTEXT_SIZE][0]
+        = (UIElement){
+            .x = 0,
+            .y = 2,
+            .width = 23,
+            .height = 10,
+            .commandId = COMMAND_POSITION
+        };
+
+    pMappings->uiElements[CONTEXT_INPUT_DEFAULT][0]
+        = (UIElement){
+            .x = 0,
+            .y = 6,
+            .width = 18,
+            .height = 8,
+            .commandId = COMMAND_CYCLE_STONE_TYPE
+        };
+
+    pMappings->uiElements[CONTEXT_INPUT_DEFAULT][1] = (UIElement){
+        .x = 22,
+        .y = 3,
+        .width = 32,
+        .height = 32,
+        .commandId = COMMAND_POSITION
+    };
+
+    pMappings->uiElements[CONTEXT_POSITION][0]
+        = (UIElement){
+            .x = 22,
+            .y = 3,
+            .width = 32,
+            .height = 32,
+            .commandId = COMMAND_POSITION
+        };
+
+    pMappings->uiElements[CONTEXT_DIRECTION][0]
+        = (UIElement){
+            .x = 22,
+            .y = 3,
+            .width = 32,
+            .height = 32,
+            .commandId = COMMAND_POSITION
+        };
+
+    pMappings->uiElements[CONTEXT_AMOUNT][0]
+        = (UIElement){
+            .x = 22,
+            .y = 3,
+            .width = 32,
+            .height = 32,
+            .commandId = COMMAND_POSITION
+        };
+}
+
 void getInputFromUser( InputBuffer* const pInput )
 {
     assert(

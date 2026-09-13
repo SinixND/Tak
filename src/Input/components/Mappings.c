@@ -1,9 +1,9 @@
 #include "Mappings.h"
 
+#include "BackendInterface.h"
 #include "CommandId.h"
 #include "ContextId.h"
 #include "InputId.h"
-#include "UIElement.h"
 
 Mappings newMappings( void )
 {
@@ -85,93 +85,9 @@ Mappings newMappings( void )
                 [COMMAND_REDO] = INPUT_CAP_R,
             }
         },
-        .uiElements = {
-            // clang-format off
-            [CONTEXT_GLOBAL] = {
-                 (UIElement){
-                    .x = 12,
-                    .y = 0,
-                    .width = 2,
-                    .height = 2,
-                    .commandId = COMMAND_UNDO
-                },
-                (UIElement){
-                    .x = 16,
-                    .y = 0,
-                    .width = 2,
-                    .height = 2,
-                    .commandId = COMMAND_REDO
-                },
-                (UIElement){
-                    .x = 12,
-                    .y = 2,
-                    .width = 2,
-                    .height = 2,
-                    .commandId = COMMAND_RESET
-                },
-                (UIElement){
-                    .x = 16,
-                    .y = 2,
-                    .width = 2,
-                    .height = 2,
-                    .commandId = COMMAND_QUIT
-                },
-            },
-            [CONTEXT_SIZE] = {
-                 (UIElement){
-                    .x = 0,
-                    .y = 2,
-                    .width = 23,
-                    .height = 10,
-                    .commandId = COMMAND_POSITION
-                },
-            },
-            [CONTEXT_INPUT_DEFAULT] = {
-                 (UIElement){
-                    .x = 0,
-                    .y = 6,
-                    .width = 18,
-                    .height = 8,
-                    .commandId = COMMAND_CYCLE_STONE_TYPE
-                },
-                 (UIElement){
-                    .x = 22,
-                    .y = 3,
-                    .width = 32,
-                    .height = 32,
-                    .commandId = COMMAND_POSITION
-                },
-            },
-            [CONTEXT_POSITION] = {
-                 (UIElement){
-                    .x = 22,
-                    .y = 3,
-                    .width = 32,
-                    .height = 32,
-                    .commandId = COMMAND_POSITION
-                },
-            },
-            [CONTEXT_DIRECTION] = {
-                 (UIElement){
-                    .x = 22,
-                    .y = 3,
-                    .width = 32,
-                    .height = 32,
-                    .commandId = COMMAND_POSITION
-                },
-            },
-            [CONTEXT_AMOUNT] = {
-                 (UIElement){
-                    .x = 22,
-                    .y = 3,
-                    .width = 32,
-                    .height = 32,
-                    .commandId = COMMAND_POSITION
-                },
-            },
-            // clang-format on
-        },
     };
+
+    addUIElements( &mappings );
 
     /// Commands
     for ( int contextId = 0; contextId < CONTEXT_COUNT; ++contextId )

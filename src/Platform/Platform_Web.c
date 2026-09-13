@@ -16,7 +16,7 @@ void loop( App* const pApp )
     emscripten_set_main_loop_arg(
         updateFrame,
         pApp,
-        60 /*FPS*/,
+        0 /*FPS*/,
         1 /*Simulate infinite loop*/
     );
 }

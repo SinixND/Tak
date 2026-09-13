@@ -3,6 +3,7 @@
 
 #include "App.h"
 #include "FileId.h"
+#include "Mappings.h"
 #include "RankId.h"
 #include "UIData.h"
 
@@ -48,6 +49,9 @@ void closeBackend( UIData const* const pUIData );
 void wait( int const ms );
 
 /// Input
+
+/// UI Mappings
+void addUIElements( Mappings* const pMappings );
 
 /// Normalize user input from backend
 void getInputFromUser( InputBuffer* const pInput );
