@@ -150,9 +150,8 @@ The following tools are used in the project but not required and not contained i
 
 
 ## ToDo notes
-- [ ] Remove Input/Opts
-- [ ] Replace command states
 - [ ] Rename file/rank to column/row
+- [ ] Rework UIData & UIPosition / UIElements: Move to Backend
 - [ ] Render raylib/web 
 
 - [ ] Todos

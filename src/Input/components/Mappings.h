@@ -4,8 +4,9 @@
 #include "CommandId.h"
 #include "ContextId.h"
 #include "InputId.h"
-#include "Layout.h"
 #include "UIElement.h"
+
+#define LAYOUT_UI_ELEMENTS 13
 
 /// Input mappings (2-way)
 typedef struct Mappings

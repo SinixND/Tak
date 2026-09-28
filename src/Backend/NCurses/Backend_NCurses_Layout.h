@@ -1,7 +1,7 @@
 #ifndef IG20260419211535
 #define IG20260419211535
 
-#define LAYOUT_PANE_HEIGHT 13
+#define LAYOUT_PANE_HEIGHT 11
 #define LAYOUT_BOARD_SQUARE_SIZE 4
 
 static int const BOARD_LABELS_X_LEFT = 19;
@@ -31,10 +31,8 @@ static int const POSITION_BLACK_SCORE[] = { 7, 14 };
 // static int const POSITION_SCORE_BLACK[] = { 7, 13 };
 static int const POSITION_ACTIVE_PLAYER[] = { 8, 8 };
 static int const POSITION_PLAYER_SYMBOL[] = { 8, 15 };
-static int const POSITION_INPUT_TYPE[] = { 9, 7 };
-static int const POSITION_INPUT_OPTIONS[] = { 10, 7 };
-static int const POSITION_INPUT_CURRENT[] = { 11, 2 };
-static int const POSITION_HISTORY_TOP_LEFT[] = { 13, 0 };
+static int const POSITION_INPUT_CURRENT[] = { 9, 2 };
+static int const POSITION_HISTORY_TOP_LEFT[] = { 11, 0 };
 
 static char* const LAYOUT_INFO_PANE[LAYOUT_PANE_HEIGHT] = {
     "StackBuffer <<  >>",
@@ -46,8 +44,6 @@ static char* const LAYOUT_INFO_PANE[LAYOUT_PANE_HEIGHT] = {
     "White:    |  ",
     "Black:    |  ",
     "Active:       [ ]",
-    "Input:",
-    "Opts :",
     ">",
     "History:",
 };
