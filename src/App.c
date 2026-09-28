@@ -17,7 +17,6 @@
 #include "InputSystem.h"
 #include "PlatformInterface.h"
 #include "PlayerId.h"
-#include "Prompts.h"
 #include "Simulation.h"
 #include "StoneTypeId.h"
 #include <assert.h>
@@ -45,8 +44,6 @@ App newApp( void )
         .shouldClose = false,
         .uiData = newUIData(),
     };
-
-    app.prompts = newPrompts( &app.inputBuffer.mappings );
 
     return app;
 }

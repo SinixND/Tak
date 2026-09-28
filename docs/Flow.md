@@ -1,5 +1,5 @@
 # Data Flow
-InputBuffer
+Input
 -> Command
 -> Event
 -> Game

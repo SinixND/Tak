@@ -10,7 +10,7 @@ BINARY   ?= app
 ### Backends ( default: noBackend | ncurses | raylib )
 BACKEND  ?= ncurses
 ### Build mode ( default: core | release | debug | fatal )
-BUILD    ?= debug
+BUILD    ?= fatal
 
 ### Entrypoint files
 MAIN := main

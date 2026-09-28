@@ -332,29 +332,13 @@ void renderInfoPaneContent( App const* const pApp )
     );
     attroff( COLOR_PAIR( ( pApp->game.activePlayer == PLAYER_WHITE ) ? CPAIR_FGB_BGW : CPAIR_FGW_BGB ) );
 
-    /// Print required input
-    mvprintw(
-        POSITION_INPUT_TYPE[0],
-        POSITION_INPUT_TYPE[1],
-        "%s",
-        pApp->prompts.pInputs[pApp->command.state]
-    );
-
-    /// Print possible input options
-    mvprintw(
-        POSITION_INPUT_OPTIONS[0],
-        POSITION_INPUT_OPTIONS[1],
-        "%s",
-        pApp->prompts.options[pApp->command.state]
-    );
-
     /// Print current player input
     renderCommand( &pApp->command );
 
     renderHistory(
         &pApp->history,
         /// 2 rows @ size == 3, +4 for every board size increase
-        ( 2 + ( pApp->game.board.size - 3 ) * 4 )
+        ( 4 + ( pApp->game.board.size - 3 ) * 4 )
     );
 }
 

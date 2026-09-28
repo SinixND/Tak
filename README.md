@@ -150,8 +150,11 @@ The following tools are used in the project but not required and not contained i
 
 
 ## ToDo notes
-- [ ] Remove Input/Opts
-- [ ] Replace command states
+- [ ] UI
+    - UI{elements*}
+    - UIElementId{enum}
+    - UIElementType{enum text,button}
+    - UIElements{rect,text,cmd}
 - [ ] Rename file/rank to column/row
 - [ ] Render raylib/web 
 

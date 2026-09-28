@@ -7,7 +7,6 @@
 #include "Game.h"
 #include "History.h"
 #include "InputBuffer.h"
-#include "Prompts.h"
 #include "Simulation.h"
 #include "UIData.h"
 #include <stdbool.h>
@@ -27,7 +26,6 @@ typedef struct App
     Event event;
     History history;
     /// Render
-    Prompts prompts;
     UIData uiData;
     /// Timing
     bool shouldClose;
