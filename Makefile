@@ -24,7 +24,7 @@ LDFLAGS_core  :=
 
 ### Targets
 .PHONY: all ## Default make target
-all: build test cppcheck compiledb 
+all: compiledb build test cppcheck
 
 ### Directories
 SRC_DIR    := src
