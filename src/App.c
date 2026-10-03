@@ -14,7 +14,7 @@
 #include "History.h"
 #include "InputBuffer.h"
 #include "InputParsing.h"
-#include "InputSystem.h"
+#include "InputSystem_core.h"
 #include "PlatformInterface.h"
 #include "PlayerId.h"
 #include "Simulation.h"

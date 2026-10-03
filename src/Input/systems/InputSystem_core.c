@@ -1,4 +1,5 @@
-#include "InputSystem.h"
+#include "InputSystem_core.h"
+
 #include "AppStateId.h"
 #include "CommandId.h"
 #include "InputBuffer.h"

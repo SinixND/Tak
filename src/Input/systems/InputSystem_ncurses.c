@@ -1,9 +1,9 @@
 #include "BackendInterface.h"
-#include "Backend_NCurses_Layout.h"
 
 #ifdef BACKEND_NCURSES
 #include "InputBuffer.h"
 #include "InputId.h"
+#include "UILayout_ncurses.h"
 #include <assert.h>
 #include <ncurses.h>
 
@@ -39,12 +39,12 @@ Tile getTile(
     Tile tile = { FILE_NONE, RANK_NONE };
 
     if (
-        ( ( (int)mouseX - ( BOARD_POS_X + 1 ) ) % 4 )
-        && ( (int)mouseY - BOARD_POS_Y ) % 4
+        ( ( (int)mouseX - ( BOARD_POS[1] + 1 ) ) % 4 )
+        && ( (int)mouseY - BOARD_POS[0] ) % 4
     )
     {
         tile.fileX
-            = ( (int)mouseX - ( BOARD_POS_X + 1 ) ) / 4;
+            = ( (int)mouseX - ( BOARD_POS[1] + 1 ) ) / 4;
 
         tile.rankY
             = ( boardSize - 1 ) - ( ( (int)mouseY - 1 ) / 4 );

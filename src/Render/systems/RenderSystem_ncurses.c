@@ -4,7 +4,6 @@
 #include "ActionTypeId.h"
 #include "App.h"
 #include "AppStateId.h"
-#include "Backend_NCurses_Layout.h"
 #include "Command.h"
 #include "DirectionId.h"
 #include "FileId.h"
@@ -14,17 +13,22 @@
 #include "Position.h"
 #include "RankId.h"
 #include "StoneTypeId.h"
+#include "UILayout_ncurses.h"
 #include <assert.h>
 #include <ncurses.h>
 
-void renderStatic( App const* const pApp );
+void renderStartScreen( void );
+
+void renderGameState( App const* const pApp );
+
+/// Static
 void renderInfoPane( void );
 void renderFileLabels( int const boardSize );
 void renderRankLabels( int const boardSize );
 void renderBoard( int const boardSize );
 void renderBoardEdges( int const boardSize );
 
-void renderDynamic( App const* const pApp );
+/// Dynamic
 void renderCommand( Command const* const pCommand );
 void renderHistory( History const* const pHistory, int const entryCount );
 void renderInfoPaneContent( App const* const pApp );
@@ -32,22 +36,12 @@ void renderStackBufferContent( App const* const pApp );
 void renderBoardContent( App const* const pApp );
 void renderSquareContent( App const* const pApp, int const squareIdx );
 
-void renderStartScreen( void );
-
 void renderCommandGameEnd( App const* const pApp );
 
 void render( App const* const pApp )
 {
     switch ( pApp->state )
     {
-        default:
-        {
-            renderStatic( pApp );
-            renderDynamic( pApp );
-
-            break;
-        }
-
         case APP_STATE_CHOOSE_BOARD_SIZE:
         {
             renderStartScreen();
@@ -55,10 +49,16 @@ void render( App const* const pApp )
             break;
         }
 
+        default:
+        {
+            renderGameState( pApp );
+
+            break;
+        }
+
         case APP_STATE_GAME_END:
         {
-            renderStatic( pApp );
-            renderDynamic( pApp );
+            renderGameState( pApp );
             renderCommandGameEnd( pApp );
 
             break;
@@ -68,7 +68,35 @@ void render( App const* const pApp )
     refresh();
 }
 
-void renderStatic( App const* const pApp )
+void renderStartScreen( void )
+{
+    mvprintw(
+        1,
+        1,
+        "%s",
+        "Choose board size:"
+    );
+
+    mvprintw(
+        3,
+        1,
+        " 3x3                4x4"
+    );
+
+    mvprintw(
+        6,
+        1,
+        " 5x5 <- Standard    6x6"
+    );
+
+    mvprintw(
+        9,
+        1,
+        " 7x7                8x8"
+    );
+}
+
+void renderGameState( App const* const pApp )
 {
     assert(
         pApp
@@ -78,6 +106,8 @@ void renderStatic( App const* const pApp )
     clear();
 
     attron( COLOR_PAIR( CPAIR_LAYOUT ) );
+
+    /// Static
     renderInfoPane();
 
     int const boardSize = pApp->game.board.size;
@@ -88,19 +118,23 @@ void renderStatic( App const* const pApp )
     renderBoardEdges( boardSize );
 
     attroff( COLOR_PAIR( CPAIR_LAYOUT ) );
+
+    /// Dynamic
+    renderInfoPaneContent( pApp );
+    renderStackBufferContent( pApp );
+    renderBoardContent( pApp );
+
+    refresh();
 }
 
 void renderInfoPane( void )
 {
-    for ( int idx = 0; idx < ( LAYOUT_PANE_HEIGHT ); ++idx )
-    {
-        mvprintw(
-            idx,
-            0,
-            "%s",
-            LAYOUT_INFO_PANE[idx]
-        );
-    }
+    mvprintw(
+        0,
+        0,
+        "%s",
+        LAYOUT_INFO_PANE
+    );
 }
 
 void renderFileLabels( int const boardSize )
@@ -113,8 +147,8 @@ void renderFileLabels( int const boardSize )
 
     /// Top
     mvprintw(
-        BOARD_LABELS_Y_TOP,
-        BOARD_LABELS_X_LEFT,
+        BOARD_POS[0] - 1,
+        BOARD_POS[1] - 1,
         "%.*s", // Partly render file labels
         boardSize * 4,
         LAYOUT_LABELS_FILE
@@ -122,8 +156,8 @@ void renderFileLabels( int const boardSize )
 
     /// Bottom
     mvprintw(
-        BOARD_LABELS_Y_TOP + 2 + ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ),
-        BOARD_LABELS_X_LEFT,
+        BOARD_POS[0] + 1 + ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ),
+        BOARD_POS[1] - 1,
         "%.*s",
         boardSize * 4,
         LAYOUT_LABELS_FILE
@@ -146,9 +180,9 @@ void renderRankLabels( int const boardSize )
     for ( int y = 0; y < ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ); ++y )
     {
         mvprintw(
-            BOARD_LABELS_Y_TOP + y,
-            BOARD_LABELS_X_LEFT,
-            "%s",
+            BOARD_POS[0] - 1 + y,
+            BOARD_POS[1] - 1,
+            "%c",
             LAYOUT_LABELS_RANK[offsetIntoRankLabelsLayout + y]
         );
     }
@@ -157,9 +191,9 @@ void renderRankLabels( int const boardSize )
     for ( int y = 0; y < ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ); ++y )
     {
         mvprintw(
-            BOARD_LABELS_Y_TOP + y,
-            BOARD_LABELS_X_LEFT + 1 + ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ) + 1,
-            "%s",
+            BOARD_POS[0] - 1 + y,
+            BOARD_POS[1] + ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ) + 1,
+            "%c",
             LAYOUT_LABELS_RANK[offsetIntoRankLabelsLayout + y]
         );
     }
@@ -180,9 +214,9 @@ void renderBoard( int const boardSize )
             for ( int layoutIdx = 0; layoutIdx < ( LAYOUT_BOARD_SQUARE_SIZE + 1 ); ++layoutIdx )
             {
                 mvprintw(
-                    BOARD_POS_Y + ( y * ( LAYOUT_BOARD_SQUARE_SIZE ) ) + layoutIdx,
-                    BOARD_POS_X + ( x * ( LAYOUT_BOARD_SQUARE_SIZE ) ),
-                    "%s",
+                    BOARD_POS[0] + ( y * ( LAYOUT_BOARD_SQUARE_SIZE ) ) + layoutIdx,
+                    BOARD_POS[1] + ( x * ( LAYOUT_BOARD_SQUARE_SIZE ) ),
+                    "%c",
                     LAYOUT_BOARD_SQUARE[layoutIdx]
                 );
             }
@@ -202,8 +236,8 @@ void renderBoardEdges( int const boardSize )
     for ( int x = 0; x < ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ) - 1; ++x )
     {
         mvaddch(
-            BOARD_POS_Y,
-            BOARD_POS_X + 1 + x,
+            BOARD_POS[0],
+            BOARD_POS[1] + 1 + x,
             '-'
         );
     }
@@ -212,8 +246,8 @@ void renderBoardEdges( int const boardSize )
     for ( int y = 0; y < ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ) - 1; ++y )
     {
         mvaddch(
-            BOARD_POS_Y + 1 + y,
-            BOARD_POS_X,
+            BOARD_POS[0] + 1 + y,
+            BOARD_POS[1],
             '|'
         );
     }
@@ -222,8 +256,8 @@ void renderBoardEdges( int const boardSize )
     for ( int y = 0; y < ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ) - 1; ++y )
     {
         mvaddch(
-            BOARD_POS_Y + 1 + y,
-            BOARD_POS_X + ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ),
+            BOARD_POS[0] + 1 + y,
+            BOARD_POS[1] + ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ),
             '|'
         );
     }
@@ -232,25 +266,11 @@ void renderBoardEdges( int const boardSize )
     for ( int x = 0; x < ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ) - 1; ++x )
     {
         mvaddch(
-            BOARD_POS_Y + ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ),
-            BOARD_POS_X + 1 + x,
+            BOARD_POS[0] + ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ),
+            BOARD_POS[1] + 1 + x,
             '-'
         );
     }
-}
-
-void renderDynamic( App const* const pApp )
-{
-    assert(
-        pApp
-        && "Pointer is nullptr"
-    );
-
-    renderInfoPaneContent( pApp );
-    renderStackBufferContent( pApp );
-    renderBoardContent( pApp );
-
-    refresh();
 }
 
 void renderInfoPaneContent( App const* const pApp )
@@ -523,31 +543,6 @@ void renderHistory(
     }
 }
 
-void renderCommandGameEnd( App const* const pApp )
-{
-    assert(
-        pApp
-        && "Pointer is nullptr"
-    );
-
-    attron( COLOR_PAIR( ( pApp->game.activePlayer == PLAYER_WHITE ) ? CPAIR_FGW : CPAIR_FGB ) );
-    mvprintw(
-        POSITION_INPUT_CURRENT[0],
-        POSITION_INPUT_CURRENT[1],
-        "%c: WIN! ",
-        PLAYER_CHARS[pApp->game.activePlayer]
-    );
-    attroff( COLOR_PAIR( ( pApp->game.activePlayer == PLAYER_WHITE ) ? CPAIR_FGW : CPAIR_FGB ) );
-
-    mvprintw(
-        POSITION_INPUT_CURRENT[0],
-        POSITION_INPUT_CURRENT[1] + 8,
-        "[Q]uit"
-    );
-
-    refresh();
-}
-
 void renderStackBufferContent( App const* const pApp )
 {
     assert(
@@ -646,7 +641,7 @@ void renderSquareContent(
 
     int const squareEdgeY = ( ( pBoard->size - ( squareIdx / pBoard->size ) ) * LAYOUT_BOARD_SQUARE_SIZE ) - 2;
 
-    int const squareEdgeX = ( BOARD_POS_X + 1 ) + ( squareIdx % pBoard->size ) * LAYOUT_BOARD_SQUARE_SIZE;
+    int const squareEdgeX = ( BOARD_POS[1] + 1 ) + ( squareIdx % pBoard->size ) * LAYOUT_BOARD_SQUARE_SIZE;
 
     /// Render stack type
     if (
@@ -725,32 +720,29 @@ void renderSquareContent(
     }
 }
 
-void renderStartScreen( void )
+void renderCommandGameEnd( App const* const pApp )
 {
-    mvprintw(
-        1,
-        1,
-        "%s",
-        "Choose board size:"
+    assert(
+        pApp
+        && "Pointer is nullptr"
     );
 
+    attron( COLOR_PAIR( ( pApp->game.activePlayer == PLAYER_WHITE ) ? CPAIR_FGW : CPAIR_FGB ) );
     mvprintw(
-        3,
-        1,
-        " 3x3                4x4"
+        POSITION_INPUT_CURRENT[0],
+        POSITION_INPUT_CURRENT[1],
+        "%c: WIN! ",
+        PLAYER_CHARS[pApp->game.activePlayer]
     );
+    attroff( COLOR_PAIR( ( pApp->game.activePlayer == PLAYER_WHITE ) ? CPAIR_FGW : CPAIR_FGB ) );
 
     mvprintw(
-        6,
-        1,
-        " 5x5 <- Standard    6x6"
+        POSITION_INPUT_CURRENT[0],
+        POSITION_INPUT_CURRENT[1] + 8,
+        "[Q]uit"
     );
 
-    mvprintw(
-        9,
-        1,
-        " 7x7                8x8"
-    );
+    refresh();
 }
 
 #endif

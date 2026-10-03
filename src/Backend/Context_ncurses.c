@@ -1,7 +1,7 @@
 #include "BackendInterface.h"
 
 #ifdef BACKEND_NCURSES
-#include "Backend_NCurses_Layout.h"
+#include "UILayout_ncurses.h"
 #include <assert.h>
 #include <ncurses.h>
 
