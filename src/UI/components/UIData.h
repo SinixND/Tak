@@ -5,8 +5,14 @@
 #include <raylib.h>
 #endif
 
+/**
+ * @brief Data used by backend to calculate the UI
+ *
+ * Note: Only required by raylib, not ncurses
+ */
 typedef struct UIData
 {
+    /// Required for ncurses because no empty structs allowed
     int fontSize;
 #ifdef BACKEND_RAYLIB
     Font font;

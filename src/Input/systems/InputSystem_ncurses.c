@@ -1,4 +1,4 @@
-#include "BackendInterface.h"
+#include "InputSystem_backend.h"
 
 #ifdef BACKEND_NCURSES
 #include "InputBuffer.h"
@@ -39,12 +39,12 @@ Tile getTile(
     Tile tile = { FILE_NONE, RANK_NONE };
 
     if (
-        ( ( (int)mouseX - ( BOARD_POS[1] + 1 ) ) % 4 )
-        && ( (int)mouseY - BOARD_POS[0] ) % 4
+        ( ( (int)mouseX - ( POSITION_BOARD[1] + 2 ) ) % 4 )
+        && ( (int)mouseY - POSITION_BOARD[0] + 1 ) % 4
     )
     {
         tile.fileX
-            = ( (int)mouseX - ( BOARD_POS[1] + 1 ) ) / 4;
+            = ( (int)mouseX - ( POSITION_BOARD[1] + 2 ) ) / 4;
 
         tile.rankY
             = ( boardSize - 1 ) - ( ( (int)mouseY - 1 ) / 4 );

@@ -16,10 +16,9 @@ static int const CPAIR_LAYOUT = 5;
 static int const CPAIR_HIGHLIGHT = 6;
 
 /// Positions (y, x)
-static int const BOARD_LABELS[]
+static int const POSITION_BOARD[]
     = { 0, 19 };
-static int const BOARD_POS[]
-    = { 1, 20 };
+
 static int const POSITION_STACK_BUFFER[]
     = { 2, 3 };
 static int const POSITION_WHITE_RESERVES_REGULAR[]
@@ -39,9 +38,8 @@ static int const POSITION_ACTIVE_PLAYER[]
 static int const POSITION_PLAYER_SYMBOL[]
     = { 8, 15 };
 static int const POSITION_INPUT_CURRENT[]
-
     = { 9, 2 };
-static int const POSITION_HISTORY_TOP_LEFT[]
+static int const POSITION_HISTORY[]
     = { 11, 0 };
 
 static char const LAYOUT_INFO_PANE[]

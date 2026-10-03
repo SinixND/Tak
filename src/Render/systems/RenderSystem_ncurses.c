@@ -1,4 +1,4 @@
-#include "BackendInterface.h"
+#include "RenderSystem_backend.h"
 
 #ifdef BACKEND_NCURSES
 #include "ActionTypeId.h"
@@ -147,8 +147,8 @@ void renderFileLabels( int const boardSize )
 
     /// Top
     mvprintw(
-        BOARD_POS[0] - 1,
-        BOARD_POS[1] - 1,
+        POSITION_BOARD[0],
+        POSITION_BOARD[1],
         "%.*s", // Partly render file labels
         boardSize * 4,
         LAYOUT_LABELS_FILE
@@ -156,8 +156,8 @@ void renderFileLabels( int const boardSize )
 
     /// Bottom
     mvprintw(
-        BOARD_POS[0] + 1 + ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ),
-        BOARD_POS[1] - 1,
+        POSITION_BOARD[0] + 2 + ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ),
+        POSITION_BOARD[1],
         "%.*s",
         boardSize * 4,
         LAYOUT_LABELS_FILE
@@ -180,8 +180,8 @@ void renderRankLabels( int const boardSize )
     for ( int y = 0; y < ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ); ++y )
     {
         mvprintw(
-            BOARD_POS[0] - 1 + y,
-            BOARD_POS[1] - 1,
+            POSITION_BOARD[0] + y,
+            POSITION_BOARD[1],
             "%c",
             LAYOUT_LABELS_RANK[offsetIntoRankLabelsLayout + y]
         );
@@ -191,8 +191,8 @@ void renderRankLabels( int const boardSize )
     for ( int y = 0; y < ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ); ++y )
     {
         mvprintw(
-            BOARD_POS[0] - 1 + y,
-            BOARD_POS[1] + ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ) + 1,
+            POSITION_BOARD[0] + y,
+            POSITION_BOARD[1] + 1 + ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ) + 1,
             "%c",
             LAYOUT_LABELS_RANK[offsetIntoRankLabelsLayout + y]
         );
@@ -214,8 +214,8 @@ void renderBoard( int const boardSize )
             for ( int layoutIdx = 0; layoutIdx < ( LAYOUT_BOARD_SQUARE_SIZE + 1 ); ++layoutIdx )
             {
                 mvprintw(
-                    BOARD_POS[0] + ( y * ( LAYOUT_BOARD_SQUARE_SIZE ) ) + layoutIdx,
-                    BOARD_POS[1] + ( x * ( LAYOUT_BOARD_SQUARE_SIZE ) ),
+                    POSITION_BOARD[0] + 1 + ( y * ( LAYOUT_BOARD_SQUARE_SIZE ) ) + layoutIdx,
+                    POSITION_BOARD[1] + 1 + ( x * ( LAYOUT_BOARD_SQUARE_SIZE ) ),
                     "%c",
                     LAYOUT_BOARD_SQUARE[layoutIdx]
                 );
@@ -236,8 +236,8 @@ void renderBoardEdges( int const boardSize )
     for ( int x = 0; x < ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ) - 1; ++x )
     {
         mvaddch(
-            BOARD_POS[0],
-            BOARD_POS[1] + 1 + x,
+            POSITION_BOARD[0] + 1,
+            POSITION_BOARD[1] + 2 + x,
             '-'
         );
     }
@@ -246,8 +246,8 @@ void renderBoardEdges( int const boardSize )
     for ( int y = 0; y < ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ) - 1; ++y )
     {
         mvaddch(
-            BOARD_POS[0] + 1 + y,
-            BOARD_POS[1],
+            POSITION_BOARD[0] + 2 + y,
+            POSITION_BOARD[1] + 1,
             '|'
         );
     }
@@ -256,8 +256,8 @@ void renderBoardEdges( int const boardSize )
     for ( int y = 0; y < ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ) - 1; ++y )
     {
         mvaddch(
-            BOARD_POS[0] + 1 + y,
-            BOARD_POS[1] + ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ),
+            POSITION_BOARD[0] + 2 + y,
+            POSITION_BOARD[1] + 1 + ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ),
             '|'
         );
     }
@@ -266,8 +266,8 @@ void renderBoardEdges( int const boardSize )
     for ( int x = 0; x < ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ) - 1; ++x )
     {
         mvaddch(
-            BOARD_POS[0] + ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ),
-            BOARD_POS[1] + 1 + x,
+            POSITION_BOARD[0] + 1 + ( boardSize * LAYOUT_BOARD_SQUARE_SIZE ),
+            POSITION_BOARD[1] + 2 + x,
             '-'
         );
     }
@@ -456,8 +456,8 @@ void renderHistory(
             case ACTION_TYPE_PLACE:
             {
                 mvprintw(
-                    POSITION_HISTORY_TOP_LEFT[0] + i,
-                    POSITION_HISTORY_TOP_LEFT[1],
+                    POSITION_HISTORY[0] + i,
+                    POSITION_HISTORY[1],
                     "%c[%i] %c%c%c%c%c%c%c%c%c%c%c",
                     PLAYER_CHARS[pLastCommand->playerId],
                     ( 1 + pHistory->lastCommandIdx - i ) / 2,
@@ -485,8 +485,8 @@ void renderHistory(
             case ACTION_TYPE_DROP:
             {
                 mvprintw(
-                    POSITION_HISTORY_TOP_LEFT[0] + i,
-                    POSITION_HISTORY_TOP_LEFT[1],
+                    POSITION_HISTORY[0] + i,
+                    POSITION_HISTORY[1],
                     "%c[%i] %c%c%c%c%c%c%c%c%c%c%c",
                     PLAYER_CHARS[pLastCommand->playerId],
                     ( 1 + pHistory->lastCommandIdx - i ) / 2,
@@ -531,8 +531,8 @@ void renderHistory(
             default:
             {
                 mvprintw(
-                    POSITION_HISTORY_TOP_LEFT[0],
-                    POSITION_HISTORY_TOP_LEFT[1],
+                    POSITION_HISTORY[0],
+                    POSITION_HISTORY[1],
                     "%s",
                     "            "
                 );
@@ -641,7 +641,7 @@ void renderSquareContent(
 
     int const squareEdgeY = ( ( pBoard->size - ( squareIdx / pBoard->size ) ) * LAYOUT_BOARD_SQUARE_SIZE ) - 2;
 
-    int const squareEdgeX = ( BOARD_POS[1] + 1 ) + ( squareIdx % pBoard->size ) * LAYOUT_BOARD_SQUARE_SIZE;
+    int const squareEdgeX = ( POSITION_BOARD[1] + 2 ) + ( squareIdx % pBoard->size ) * LAYOUT_BOARD_SQUARE_SIZE;
 
     /// Render stack type
     if (

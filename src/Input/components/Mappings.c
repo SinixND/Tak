@@ -1,9 +1,9 @@
 #include "Mappings.h"
 
-#include "BackendInterface.h"
 #include "CommandId.h"
 #include "ContextId.h"
 #include "InputId.h"
+#include "InputSystem_backend.h"
 
 Mappings newMappings( void )
 {

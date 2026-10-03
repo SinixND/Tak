@@ -1,6 +1,7 @@
-#include "BackendInterface.h"
+#include "Context_backend.h"
 
 #ifdef BACKEND_NCURSES
+#include "UIData.h"
 #include "UILayout_ncurses.h"
 #include <assert.h>
 #include <ncurses.h>

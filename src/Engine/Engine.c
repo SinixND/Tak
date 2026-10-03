@@ -1,7 +1,6 @@
 #include "Engine.h"
 
 #include "ActionTypeId.h"
-#include "BackendInterface.h"
 #include "Command.h"
 #include "CommandStateId.h"
 #include "DirectionId.h"
@@ -10,6 +9,7 @@
 #include "Game.h"
 #include "History.h"
 #include "InputBuffer.h"
+#include "InputSystem_backend.h"
 #include "PlayerId.h"
 #include "Position.h"
 #include "RankId.h"

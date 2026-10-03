@@ -1,11 +1,11 @@
 #include "InputParsing.h"
 
-#include "BackendInterface.h"
 #include "CommandId.h"
 #include "CommandStateId.h"
 #include "DirectionId.h"
 #include "FileId.h"
 #include "InputBuffer.h"
+#include "InputSystem_backend.h"
 #include "RankId.h"
 #include "StoneTypeId.h"
 #include "UIData.h"
