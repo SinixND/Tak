@@ -6,20 +6,14 @@
 #include "Mappings.h"
 
 /// Store per frame user input
-typedef struct InputBuffer
+typedef struct Input
 {
     Mappings mappings;
     InputId lastInput;
     float mousePosition[2];
-} InputBuffer;
+} Input;
 
 /// Return initialized object
-InputBuffer newInputBuffer( void );
-
-/// Get context dependent command input
-CommandId getCommandId(
-    InputBuffer const* const pInputBuffer,
-    ContextId const contextId
-);
+Input newInput( void );
 
 #endif

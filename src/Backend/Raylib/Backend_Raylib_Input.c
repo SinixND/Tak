@@ -2,7 +2,7 @@
 
 #ifdef BACKEND_RAYLIB
 #include "Backend_Raylib_Layout.h"
-#include "InputBuffer.h"
+#include "Input.h"
 #include "InputId.h"
 #include <assert.h>
 #include <raylib.h>
@@ -141,7 +141,7 @@ void addUIElements( Mappings* const pMappings )
             .commandId = COMMAND_POSITION
         };
 }
-void getInputFromUser( InputBuffer* const pInput )
+void getInputFromUser( Input* const pInput )
 {
     assert(
         pInput

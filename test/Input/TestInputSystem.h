@@ -2,7 +2,7 @@
 #define IG20260327194613
 
 #include "App.h"
-#include "InputSystem.h"
+#include "InputParsing.h"
 #include "Mappings.h"
 #include <unity.h>
 
@@ -10,7 +10,7 @@ void testHandleGlobalInput( void )
 {
     App app = newApp();
 
-    app.inputBuffer.lastInput = app.inputBuffer.mappings.inputs[CONTEXT_GLOBAL][COMMAND_QUIT];
+    app.input.lastInput = app.input.mappings.inputs[CONTEXT_GLOBAL][COMMAND_QUIT];
 
     handleGlobalInput( &app );
 

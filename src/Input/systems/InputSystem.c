@@ -1,50 +1,42 @@
 #include "InputSystem.h"
 #include "AppStateId.h"
 #include "CommandId.h"
-#include "InputBuffer.h"
+#include "Input.h"
 #include <assert.h>
 
-void handleGlobalInput( App* const pApp )
+CommandId getCommandId(
+    Input const* const pInput,
+    ContextId const contextId
+)
 {
     assert(
-        pApp
+        pInput
         && "Pointer is nullptr"
     );
 
-    switch ( getCommandId(
-        &pApp->inputBuffer,
-        CONTEXT_GLOBAL
-    ) )
+    Mappings const* const pMappings = &pInput->mappings;
+
+    if ( pInput->lastInput == INPUT_MOUSE )
     {
-        case COMMAND_QUIT:
-        {
-            pApp->shouldClose = true;
+        /// Check if mouse is at uiElement
+        for ( int elementIdx = 0; elementIdx < LAYOUT_UI_ELEMENTS; ++elementIdx )
 
-            return;
+        {
+            UIElement const* const pUIElement = &pMappings->uiElements[contextId][elementIdx];
+
+            if (
+                pInput->mousePosition[0] >= pUIElement->x
+                && pInput->mousePosition[0] < pUIElement->x + pUIElement->width
+                && pInput->mousePosition[1] >= pUIElement->y
+                && pInput->mousePosition[1] < pUIElement->y + pUIElement->height
+            )
+            {
+                return pUIElement->commandId;
+            }
         }
 
-        case COMMAND_UNDO:
-        {
-            pApp->state = APP_STATE_TURN_UNDO;
-
-            return;
-        }
-
-        case COMMAND_REDO:
-        {
-            pApp->state = APP_STATE_TURN_REDO;
-
-            return;
-        }
-
-        case COMMAND_RESET:
-        {
-            pApp->state = APP_STATE_TURN_RESET;
-
-            return;
-        }
-
-        default:
-            return;
+        return COMMAND_NONE;
     }
+
+    return pMappings->commands[contextId][pInput->lastInput];
 }

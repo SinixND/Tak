@@ -11,7 +11,7 @@
 #include "FileId.h"
 #include "Game.h"
 #include "History.h"
-#include "InputBuffer.h"
+#include "Input.h"
 #include "InputId.h"
 #include "PlayerId.h"
 #include "RankId.h"
@@ -22,35 +22,35 @@ void testSetBoardSize( void )
 {
     App app = newApp();
 
-    app.inputBuffer.lastInput = INPUT_2;
-    TEST_ASSERT_EQUAL_INT( false, setBoardSize( &app.game, &app.inputBuffer, &app.uiData ) );
+    app.input.lastInput = INPUT_2;
+    TEST_ASSERT_EQUAL_INT( false, setBoardSize( &app.game, &app.input, &app.uiData ) );
 
-    app.inputBuffer.lastInput = INPUT_3;
-    TEST_ASSERT_EQUAL_INT( true, setBoardSize( &app.game, &app.inputBuffer, &app.uiData ) );
+    app.input.lastInput = INPUT_3;
+    TEST_ASSERT_EQUAL_INT( true, setBoardSize( &app.game, &app.input, &app.uiData ) );
     TEST_ASSERT_EQUAL_INT( 3, app.game.board.size );
 
-    app.inputBuffer.lastInput = INPUT_4;
-    TEST_ASSERT_EQUAL_INT( true, setBoardSize( &app.game, &app.inputBuffer, &app.uiData ) );
+    app.input.lastInput = INPUT_4;
+    TEST_ASSERT_EQUAL_INT( true, setBoardSize( &app.game, &app.input, &app.uiData ) );
     TEST_ASSERT_EQUAL_INT( 4, app.game.board.size );
 
-    app.inputBuffer.lastInput = INPUT_5;
-    TEST_ASSERT_EQUAL_INT( true, setBoardSize( &app.game, &app.inputBuffer, &app.uiData ) );
+    app.input.lastInput = INPUT_5;
+    TEST_ASSERT_EQUAL_INT( true, setBoardSize( &app.game, &app.input, &app.uiData ) );
     TEST_ASSERT_EQUAL_INT( 5, app.game.board.size );
 
-    app.inputBuffer.lastInput = INPUT_SPACE;
-    TEST_ASSERT_EQUAL_INT( true, setBoardSize( &app.game, &app.inputBuffer, &app.uiData ) );
+    app.input.lastInput = INPUT_SPACE;
+    TEST_ASSERT_EQUAL_INT( true, setBoardSize( &app.game, &app.input, &app.uiData ) );
     TEST_ASSERT_EQUAL_INT( BOARD_SIZE_DEFAULT, app.game.board.size );
 
-    app.inputBuffer.lastInput = INPUT_6;
-    TEST_ASSERT_EQUAL_INT( true, setBoardSize( &app.game, &app.inputBuffer, &app.uiData ) );
+    app.input.lastInput = INPUT_6;
+    TEST_ASSERT_EQUAL_INT( true, setBoardSize( &app.game, &app.input, &app.uiData ) );
     TEST_ASSERT_EQUAL_INT( 6, app.game.board.size );
 
-    app.inputBuffer.lastInput = INPUT_7;
-    TEST_ASSERT_EQUAL_INT( true, setBoardSize( &app.game, &app.inputBuffer, &app.uiData ) );
+    app.input.lastInput = INPUT_7;
+    TEST_ASSERT_EQUAL_INT( true, setBoardSize( &app.game, &app.input, &app.uiData ) );
     TEST_ASSERT_EQUAL_INT( 7, app.game.board.size );
 
-    app.inputBuffer.lastInput = INPUT_8;
-    TEST_ASSERT_EQUAL_INT( true, setBoardSize( &app.game, &app.inputBuffer, &app.uiData ) );
+    app.input.lastInput = INPUT_8;
+    TEST_ASSERT_EQUAL_INT( true, setBoardSize( &app.game, &app.input, &app.uiData ) );
     TEST_ASSERT_EQUAL_INT( 8, app.game.board.size );
 }
 
@@ -173,8 +173,8 @@ void testBuildEvent( void )
 void testUndoTurn( void )
 {
     App app = newApp();
-    app.inputBuffer.lastInput = INPUT_3;
-    setBoardSize( &app.game, &app.inputBuffer, &app.uiData );
+    app.input.lastInput = INPUT_3;
+    setBoardSize( &app.game, &app.input, &app.uiData );
 
     // app.command.state = COMMAND_STATE_GET_RANK_Y;
     app.command.actionType = ACTION_TYPE_PLACE;
@@ -240,8 +240,8 @@ void testUndoTurn( void )
 void testRedoTurn( void )
 {
     App app = newApp();
-    app.inputBuffer.lastInput = INPUT_3;
-    setBoardSize( &app.game, &app.inputBuffer, &app.uiData );
+    app.input.lastInput = INPUT_3;
+    setBoardSize( &app.game, &app.input, &app.uiData );
 
     // app.command.state = COMMAND_STATE_GET_RANK_Y;
     app.command.actionType = ACTION_TYPE_PLACE;
@@ -336,8 +336,8 @@ void testRedoTurn( void )
 void testResetTurn( void )
 {
     App app = newApp();
-    app.inputBuffer.lastInput = INPUT_3;
-    setBoardSize( &app.game, &app.inputBuffer, &app.uiData );
+    app.input.lastInput = INPUT_3;
+    setBoardSize( &app.game, &app.input, &app.uiData );
 
     app.command.actionType = ACTION_TYPE_PLACE;
     app.command.stoneType = STONE_TYPE_STANDING;

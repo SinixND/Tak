@@ -1,7 +1,7 @@
 #include "Simulation.h"
 
 #include "BackendInterface.h"
-#include "InputBuffer.h"
+#include "Input.h"
 #include "SimulationDataMinimal.h"
 #include <assert.h>
 #include <stdbool.h>
@@ -14,12 +14,12 @@ Simulation newSimulation( void )
 }
 
 bool simulateInput(
-    InputBuffer* const pInputBuffer,
+    Input* const pInput,
     Simulation* const pSimulation
 )
 {
     assert(
-        pInputBuffer
+        pInput
         && "Pointer is nullptr"
     );
 
@@ -32,7 +32,7 @@ bool simulateInput(
     {
         ++pSimulation->inputIdx;
 
-        pInputBuffer->lastInput = SIMULATION_DATA[pSimulation->inputIdx - 1];
+        pInput->lastInput = SIMULATION_DATA[pSimulation->inputIdx - 1];
 
         wait( 10 );
 

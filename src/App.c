@@ -12,7 +12,7 @@
 #include "GameConstants.h"
 #include "GameEnd.h"
 #include "History.h"
-#include "InputBuffer.h"
+#include "Input.h"
 #include "InputParsing.h"
 #include "InputSystem.h"
 #include "PlatformInterface.h"
@@ -36,7 +36,7 @@ App newApp( void )
     App app = {
         .state = APP_STATE_CHOOSE_BOARD_SIZE,
         .game = newGame( BOARD_SIZE_DEFAULT ),
-        .inputBuffer = newInputBuffer(),
+        .input = newInput(),
         .simulation = newSimulation(),
         .command = newCommand( PLAYER_BLACK ),
         .event = newEvent(),
@@ -159,7 +159,7 @@ void updateStateChooseBoardSize( App* const pApp )
 
     /// Check for Quit input
     if ( getCommandId(
-             &pApp->inputBuffer,
+             &pApp->input,
              CONTEXT_GLOBAL
          )
          == COMMAND_QUIT )
@@ -171,7 +171,7 @@ void updateStateChooseBoardSize( App* const pApp )
 
     if ( !setBoardSize(
              &pApp->game,
-             &pApp->inputBuffer,
+             &pApp->input,
              &pApp->uiData
          ) )
     {
@@ -200,7 +200,7 @@ void updateStateFirstTurn( App* const pApp )
 
     /// Check for Quit input
     if ( getCommandId(
-             &pApp->inputBuffer,
+             &pApp->input,
              CONTEXT_GLOBAL
          )
          == COMMAND_QUIT )
@@ -216,7 +216,7 @@ void updateStateFirstTurn( App* const pApp )
     /// Set context-dependent command value from input
     if ( !parsePositionInputToCommand(
              &command,
-             &pApp->inputBuffer,
+             &pApp->input,
              pApp->game.board.size,
              &pApp->uiData
          ) )
@@ -309,7 +309,7 @@ void updateStateSecondTurn( App* const pApp )
 
     /// Check for Quit input
     if ( getCommandId(
-             &pApp->inputBuffer,
+             &pApp->input,
              CONTEXT_GLOBAL
          )
          == COMMAND_QUIT )
@@ -325,7 +325,7 @@ void updateStateSecondTurn( App* const pApp )
     /// Set context-dependent command value from input
     if ( !parsePositionInputToCommand(
              &command,
-             &pApp->inputBuffer,
+             &pApp->input,
              pApp->game.board.size,
              &pApp->uiData
          ) )
@@ -414,7 +414,7 @@ void updateStateNormalTurn( App* const pApp )
         /// Set context-dependent command value from input
         if ( !updateCommandFromInput(
                  &command,
-                 &pApp->inputBuffer,
+                 &pApp->input,
                  pApp->game.board.size,
                  &pApp->uiData
              ) )
@@ -542,7 +542,7 @@ void updateStateGameEnd( App* const pApp )
         && "Pointer is nullptr"
     );
 
-    getInputFromUser( &pApp->inputBuffer );
+    getInputFromUser( &pApp->input );
     handleGlobalInput( pApp );
 }
 
@@ -554,14 +554,14 @@ void getInput( App* const pApp )
     );
 
     if ( simulateInput(
-             &pApp->inputBuffer,
+             &pApp->input,
              &pApp->simulation
          ) )
     {
         return;
     }
 
-    getInputFromUser( &pApp->inputBuffer );
+    getInputFromUser( &pApp->input );
 }
 
 bool updateGame( App* const pApp )

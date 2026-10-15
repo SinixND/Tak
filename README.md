@@ -150,6 +150,8 @@ The following tools are used in the project but not required and not contained i
 
 
 ## ToDo notes
+- [ ] Split backend into input, render and ui
+- [ ] Split Tile into Engine
 - [ ] UI
     - UI{elements*}
     - UIElementId{enum}

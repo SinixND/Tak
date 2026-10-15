@@ -6,7 +6,7 @@
 #include "Event.h"
 #include "Game.h"
 #include "History.h"
-#include "InputBuffer.h"
+#include "Input.h"
 #include "Simulation.h"
 #include "UIData.h"
 #include <stdbool.h>
@@ -19,7 +19,7 @@ typedef struct App
     /// Core
     Game game;
     /// Input
-    InputBuffer inputBuffer;
+    Input input;
     Simulation simulation;
     /// Engine
     Command command;

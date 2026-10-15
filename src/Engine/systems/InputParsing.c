@@ -5,16 +5,62 @@
 #include "CommandStateId.h"
 #include "DirectionId.h"
 #include "FileId.h"
-#include "InputBuffer.h"
+#include "Input.h"
+#include "InputSystem.h"
 #include "RankId.h"
 #include "StoneTypeId.h"
 #include "UIData.h"
 #include <assert.h>
 #include <stdbool.h>
 
+void handleGlobalInput( App* const pApp )
+{
+    assert(
+        pApp
+        && "Pointer is nullptr"
+    );
+
+    switch ( getCommandId(
+        &pApp->input,
+        CONTEXT_GLOBAL
+    ) )
+    {
+        case COMMAND_QUIT:
+        {
+            pApp->shouldClose = true;
+
+            return;
+        }
+
+        case COMMAND_UNDO:
+        {
+            pApp->state = APP_STATE_TURN_UNDO;
+
+            return;
+        }
+
+        case COMMAND_REDO:
+        {
+            pApp->state = APP_STATE_TURN_REDO;
+
+            return;
+        }
+
+        case COMMAND_RESET:
+        {
+            pApp->state = APP_STATE_TURN_RESET;
+
+            return;
+        }
+
+        default:
+            return;
+    }
+}
+
 bool updateCommandFromInput(
     Command* const pCommand,
-    InputBuffer const* const pInputBuffer,
+    Input const* const pInput,
     int const boardSize,
     UIData const* const pUIData
 )
@@ -25,7 +71,7 @@ bool updateCommandFromInput(
     );
 
     assert(
-        pInputBuffer
+        pInput
         && "Pointer is nullptr"
     );
 
@@ -36,7 +82,7 @@ bool updateCommandFromInput(
         {
             return parseDefaultInputToCommand(
                 pCommand,
-                pInputBuffer,
+                pInput,
                 boardSize,
                 pUIData
             );
@@ -46,7 +92,7 @@ bool updateCommandFromInput(
         {
             return parsePositionInputToCommand(
                 pCommand,
-                pInputBuffer,
+                pInput,
                 boardSize,
                 pUIData
             );
@@ -56,7 +102,7 @@ bool updateCommandFromInput(
         {
             return parseDirectionInputToCommand(
                 pCommand,
-                pInputBuffer,
+                pInput,
                 boardSize,
                 pUIData
             );
@@ -66,7 +112,7 @@ bool updateCommandFromInput(
         {
             return parseFirstDropAmountInputToCommand(
                 pCommand,
-                pInputBuffer,
+                pInput,
                 boardSize,
                 pUIData
             );
@@ -76,7 +122,7 @@ bool updateCommandFromInput(
         {
             return parseDropAmountInputToCommand(
                 pCommand,
-                pInputBuffer,
+                pInput,
                 boardSize,
                 pUIData
             );
@@ -89,7 +135,7 @@ bool updateCommandFromInput(
 
 bool parseDefaultInputToCommand(
     Command* const pCommand,
-    InputBuffer const* const pInputBuffer,
+    Input const* const pInput,
     int const boardSize,
     UIData const* const pUIData
 )
@@ -100,20 +146,20 @@ bool parseDefaultInputToCommand(
     );
 
     assert(
-        pInputBuffer
+        pInput
         && "Pointer is nullptr"
     );
 
     switch ( getCommandId(
-        pInputBuffer,
+        pInput,
         CONTEXT_INPUT_DEFAULT
     ) )
     {
         case COMMAND_POSITION:
         {
             Tile tile = getTile(
-                pInputBuffer->mousePosition[0],
-                pInputBuffer->mousePosition[1],
+                pInput->mousePosition[0],
+                pInput->mousePosition[1],
                 boardSize,
                 pUIData
             );
@@ -271,7 +317,7 @@ bool parseDefaultInputToCommand(
 
 bool parsePositionInputToCommand(
     Command* const pCommand,
-    InputBuffer const* const pInputBuffer,
+    Input const* const pInput,
     int const boardSize,
     UIData const* const pUIData
 )
@@ -282,20 +328,20 @@ bool parsePositionInputToCommand(
     );
 
     assert(
-        pInputBuffer
+        pInput
         && "Pointer is nullptr"
     );
 
     switch ( getCommandId(
-        pInputBuffer,
+        pInput,
         CONTEXT_POSITION
     ) )
     {
         case COMMAND_POSITION:
         {
             Tile tile = getTile(
-                pInputBuffer->mousePosition[0],
-                pInputBuffer->mousePosition[1],
+                pInput->mousePosition[0],
+                pInput->mousePosition[1],
                 boardSize,
                 pUIData
             );
@@ -425,7 +471,7 @@ bool parsePositionInputToCommand(
 
 bool parseDirectionInputToCommand(
     Command* const pCommand,
-    InputBuffer const* const pInputBuffer,
+    Input const* const pInput,
     int const boardSize,
     UIData const* const pUIData
 )
@@ -436,7 +482,7 @@ bool parseDirectionInputToCommand(
     );
 
     assert(
-        pInputBuffer
+        pInput
         && "Pointer is nullptr"
     );
 
@@ -446,7 +492,7 @@ bool parseDirectionInputToCommand(
     );
 
     switch ( getCommandId(
-        pInputBuffer,
+        pInput,
         CONTEXT_DIRECTION
     ) )
     {
@@ -481,8 +527,8 @@ bool parseDirectionInputToCommand(
         case COMMAND_POSITION:
         {
             Tile mouseTile = getTile(
-                pInputBuffer->mousePosition[0],
-                pInputBuffer->mousePosition[1],
+                pInput->mousePosition[0],
+                pInput->mousePosition[1],
                 boardSize,
                 pUIData
             );
@@ -519,7 +565,7 @@ bool parseDirectionInputToCommand(
 
 bool parseFirstDropAmountInputToCommand(
     Command* const pCommand,
-    InputBuffer const* const pInputBuffer,
+    Input const* const pInput,
     int const boardSize,
     UIData const* const pUIData
 )
@@ -530,7 +576,7 @@ bool parseFirstDropAmountInputToCommand(
     );
 
     assert(
-        pInputBuffer
+        pInput
         && "Pointer is nullptr"
     );
 
@@ -540,7 +586,7 @@ bool parseFirstDropAmountInputToCommand(
     );
 
     switch ( getCommandId(
-        pInputBuffer,
+        pInput,
         CONTEXT_AMOUNT
     ) )
     {
@@ -610,8 +656,8 @@ bool parseFirstDropAmountInputToCommand(
         case COMMAND_POSITION:
         {
             Tile mouseTile = getTile(
-                pInputBuffer->mousePosition[0],
-                pInputBuffer->mousePosition[1],
+                pInput->mousePosition[0],
+                pInput->mousePosition[1],
                 boardSize,
                 pUIData
             );
@@ -655,7 +701,7 @@ bool parseFirstDropAmountInputToCommand(
 
 bool parseDropAmountInputToCommand(
     Command* const pCommand,
-    InputBuffer const* const pInputBuffer,
+    Input const* const pInput,
     int const boardSize,
     UIData const* const pUIData
 )
@@ -666,7 +712,7 @@ bool parseDropAmountInputToCommand(
     );
 
     assert(
-        pInputBuffer
+        pInput
         && "Pointer is nullptr"
     );
 
@@ -676,7 +722,7 @@ bool parseDropAmountInputToCommand(
     );
 
     switch ( getCommandId(
-        pInputBuffer,
+        pInput,
         CONTEXT_AMOUNT
     ) )
     {
@@ -740,8 +786,8 @@ bool parseDropAmountInputToCommand(
         case COMMAND_POSITION:
         {
             Tile mouseTile = getTile(
-                pInputBuffer->mousePosition[0],
-                pInputBuffer->mousePosition[1],
+                pInput->mousePosition[0],
+                pInput->mousePosition[1],
                 boardSize,
                 pUIData
             );

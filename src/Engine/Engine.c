@@ -9,7 +9,8 @@
 #include "FileId.h"
 #include "Game.h"
 #include "History.h"
-#include "InputBuffer.h"
+#include "Input.h"
+#include "InputSystem.h"
 #include "PlayerId.h"
 #include "Position.h"
 #include "RankId.h"
@@ -20,12 +21,12 @@
 
 bool setBoardSize(
     Game* const pGame,
-    InputBuffer const* const pInputBuffer,
+    Input const* const pInput,
     UIData const* const pUIData
 )
 {
     assert(
-        pInputBuffer
+        pInput
         && "Pointer is nullptr"
     );
 
@@ -35,15 +36,15 @@ bool setBoardSize(
     );
 
     switch ( getCommandId(
-        pInputBuffer,
+        pInput,
         CONTEXT_SIZE
     ) )
     {
         case COMMAND_POSITION:
         {
             UIPosition uiPosition = getUIPosition(
-                pInputBuffer->mousePosition[0],
-                pInputBuffer->mousePosition[1],
+                pInput->mousePosition[0],
+                pInput->mousePosition[1],
                 pUIData
             );
 

@@ -1,7 +1,7 @@
 #ifndef IG20260507160740
 #define IG20260507160740
 
-#include "InputBuffer.h"
+#include "Input.h"
 #include <stdbool.h>
 #include <stdint.h>
 
@@ -16,7 +16,7 @@ Simulation newSimulation( void );
 
 /// Get next simulated input
 bool simulateInput(
-    InputBuffer* const pInputBuffer,
+    Input* const pInput,
     Simulation* const pSimulation
 );
 

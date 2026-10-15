@@ -2,7 +2,7 @@
 #include "Backend_NCurses_Layout.h"
 
 #ifdef BACKEND_NCURSES
-#include "InputBuffer.h"
+#include "Input.h"
 #include "InputId.h"
 #include <assert.h>
 #include <ncurses.h>
@@ -142,7 +142,7 @@ void addUIElements( Mappings* const pMappings )
         };
 }
 
-void getInputFromUser( InputBuffer* const pInput )
+void getInputFromUser( Input* const pInput )
 {
     assert(
         pInput

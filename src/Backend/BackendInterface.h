@@ -54,7 +54,7 @@ void wait( int const ms );
 void addUIElements( Mappings* const pMappings );
 
 /// Normalize user input from backend
-void getInputFromUser( InputBuffer* const pInput );
+void getInputFromUser( Input* const pInput );
 
 /// Render
 

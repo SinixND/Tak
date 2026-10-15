@@ -3,7 +3,10 @@
 
 #include "App.h"
 
-/// Handle input that directly changes app state
-void handleGlobalInput( App* const pApp );
+/// Get context dependent command input
+CommandId getCommandId(
+    Input const* const pInput,
+    ContextId const contextId
+);
 
 #endif
