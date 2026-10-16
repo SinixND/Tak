@@ -1,7 +1,6 @@
 #include "Engine.h"
 
 #include "ActionTypeId.h"
-#include "BackendInterface.h"
 #include "Command.h"
 #include "CommandStateId.h"
 #include "DirectionId.h"
@@ -22,7 +21,7 @@
 bool setBoardSize(
     Game* const pGame,
     Input const* const pInput,
-    UIData const* const pUIData
+    UI const* const pUI
 )
 {
     assert(
@@ -35,6 +34,11 @@ bool setBoardSize(
         && "Pointer is nullptr"
     );
 
+    assert(
+        pUI
+        && "Pointer is nullptr"
+    );
+
     switch ( getCommandId(
         pInput,
         CONTEXT_SIZE
@@ -42,66 +46,6 @@ bool setBoardSize(
     {
         case COMMAND_POSITION:
         {
-            UIPosition uiPosition = getUIPosition(
-                pInput->mousePosition[0],
-                pInput->mousePosition[1],
-                pUIData
-            );
-
-            if ( uiPosition.y >= 2
-                 && uiPosition.y <= 4
-                 && uiPosition.x >= 0
-                 && uiPosition.x <= 4 )
-            {
-                *pGame = newGame( 3 );
-                return true;
-            }
-
-            if ( uiPosition.y >= 2
-                 && uiPosition.y <= 4
-                 && uiPosition.x >= 19
-                 && uiPosition.x <= 23 )
-            {
-                *pGame = newGame( 4 );
-                return true;
-            }
-
-            if ( uiPosition.y >= 5
-                 && uiPosition.y <= 7
-                 && uiPosition.x >= 0
-                 && uiPosition.x <= 4 )
-            {
-                *pGame = newGame( 5 );
-                return true;
-            }
-
-            if ( uiPosition.y >= 5
-                 && uiPosition.y <= 7
-                 && uiPosition.x >= 19
-                 && uiPosition.x <= 23 )
-            {
-                *pGame = newGame( 6 );
-                return true;
-            }
-
-            if ( uiPosition.y >= 8
-                 && uiPosition.y <= 10
-                 && uiPosition.x >= 0
-                 && uiPosition.x <= 4 )
-            {
-                *pGame = newGame( 7 );
-                return true;
-            }
-
-            if ( uiPosition.y >= 8
-                 && uiPosition.y <= 10
-                 && uiPosition.x >= 19
-                 && uiPosition.x <= 23 )
-            {
-                *pGame = newGame( 8 );
-                return true;
-            }
-
             return false;
         }
 

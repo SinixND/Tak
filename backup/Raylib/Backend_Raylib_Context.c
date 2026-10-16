@@ -1,11 +1,11 @@
 #include "BackendInterface.h"
 
 #ifdef BACKEND_RAYLIB
-#include "Backend_Raylib_Layout.h"
-#include "UIData.h"
+#include "BackendLayout_Raylib.h"
+#include "UI.h"
 #include <raylib.h>
 
-void setupBackend( UIData* const pUIData )
+void setupBackend( UI* const pUI )
 {
     /// Raylib flags
     SetConfigFlags( FLAG_WINDOW_RESIZABLE );
@@ -26,19 +26,19 @@ void setupBackend( UIData* const pUIData )
     );
 
     /// Font
-    pUIData->font = LoadFontEx(
+    pUI->font = LoadFontEx(
         "assets/fonts/LiberationMono-Regular.ttf",
-        pUIData->fontSize,
+        pUI->fontSize,
         0,
         0
     );
 
-    pUIData->fontWidth
+    pUI->fontWidth
         = MeasureTextEx(
-              pUIData->font,
+              pUI->font,
               "X",
-              pUIData->fontSize,
-              pUIData->spacing
+              pUI->fontSize,
+              pUI->spacing
         )
               .x;
 
@@ -49,9 +49,9 @@ void setupBackend( UIData* const pUIData )
     SetTargetFPS( FPS_TARGET );
 }
 
-void closeBackend( UIData const* const pUIData )
+void closeBackend( UI const* const pUI )
 {
-    UnloadFont( pUIData->font );
+    UnloadFont( pUI->font );
     /// Close window and opengl context
     CloseWindow();
 }

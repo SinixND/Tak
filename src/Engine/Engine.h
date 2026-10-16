@@ -6,14 +6,14 @@
 #include "Game.h"
 #include "History.h"
 #include "Input.h"
-#include "UIData.h"
+#include "UI.h"
 #include <stdbool.h>
 
 /// Set board size at game start from user input
 bool setBoardSize(
     Game* const pGame,
     Input const* const pInput,
-    UIData const* const pUIData
+    UI const* const pUI
 );
 
 /**

@@ -1,7 +1,7 @@
 #include "BackendInterface.h"
 
 #ifdef BACKEND_RAYLIB
-#include "Backend_Raylib_Layout.h"
+#include "BackendLayout_Raylib.h"
 #include "Input.h"
 #include "InputId.h"
 #include <assert.h>
@@ -10,17 +10,17 @@
 UIPosition getUIPosition(
     float mouseX,
     float mouseY,
-    UIData const* const pUIData
+    UI const* const pUI
 )
 {
     assert(
-        pUIData
+        pUI
         && "Invalid pointer"
     );
 
     return (UIPosition){
-        (int)( mouseX * pUIData->fontSize ),
-        (int)( mouseY * pUIData->fontSize )
+        (int)( mouseX * pUI->fontSize ),
+        (int)( mouseY * pUI->fontSize )
     };
 }
 
@@ -28,26 +28,26 @@ Tile getTile(
     float mouseX,
     float mouseY,
     int boardSize,
-    UIData const* const pUIData
+    UI const* const pUI
 )
 {
     assert(
-        pUIData
+        pUI
         && "Invalid pointer"
     );
 
     Tile tile = { FILE_NONE, RANK_NONE };
 
     if (
-        ( ( (int)( mouseX * pUIData->fontSize ) - ( BOARD_POS_X + 1 ) ) % 4 )
-        && ( (int)( mouseY * pUIData->fontSize ) - BOARD_POS_Y ) % 4
+        ( ( (int)( mouseX * pUI->fontSize ) - ( BOARD_POS_X + 1 ) ) % 4 )
+        && ( (int)( mouseY * pUI->fontSize ) - BOARD_POS_Y ) % 4
     )
     {
         tile.fileX
-            = ( (int)( mouseX * pUIData->fontSize ) - ( BOARD_POS_X + 1 ) ) / 4;
+            = ( (int)( mouseX * pUI->fontSize ) - ( BOARD_POS_X + 1 ) ) / 4;
 
         tile.rankY
-            = ( boardSize - 1 ) - ( ( (int)( mouseY * pUIData->fontSize ) - 1 ) / 4 );
+            = ( boardSize - 1 ) - ( ( (int)( mouseY * pUI->fontSize ) - 1 ) / 4 );
     }
 
     return tile;

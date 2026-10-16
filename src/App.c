@@ -2,7 +2,9 @@
 
 #include "ActionTypeId.h"
 #include "AppStateId.h"
-#include "BackendInterface.h"
+#include "BackendContext_Interface.h"
+#include "BackendInput_Interface.h"
+#include "BackendRender_Interface.h"
 #include "Command.h"
 #include "CommandStateId.h"
 #include "CommandValidation.h"
@@ -42,7 +44,7 @@ App newApp( void )
         .event = newEvent(),
         .history = newHistory(),
         .shouldClose = false,
-        .uiData = newUIData(),
+        .uiData = newUI(),
     };
 
     return app;
@@ -542,7 +544,7 @@ void updateStateGameEnd( App* const pApp )
         && "Pointer is nullptr"
     );
 
-    getInputFromUser( &pApp->input );
+    readUserInput( &pApp->input );
     handleGlobalInput( pApp );
 }
 
@@ -561,7 +563,7 @@ void getInput( App* const pApp )
         return;
     }
 
-    getInputFromUser( &pApp->input );
+    readUserInput( &pApp->input );
 }
 
 bool updateGame( App* const pApp )

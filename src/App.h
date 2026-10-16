@@ -8,7 +8,7 @@
 #include "History.h"
 #include "Input.h"
 #include "Simulation.h"
-#include "UIData.h"
+#include "UI.h"
 #include <stdbool.h>
 
 /// Application head structure
@@ -26,7 +26,7 @@ typedef struct App
     Event event;
     History history;
     /// Render
-    UIData uiData;
+    UI uiData;
     /// Timing
     bool shouldClose;
 } App;

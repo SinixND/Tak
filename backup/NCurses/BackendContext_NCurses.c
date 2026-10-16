@@ -1,15 +1,15 @@
 #include "BackendInterface.h"
 
 #ifdef BACKEND_NCURSES
-#include "Backend_NCurses_Layout.h"
+#include "BackendLayout_NCurses.h"
 #include <assert.h>
 #include <ncurses.h>
 
-void setupBackend( UIData* const pUIData )
+void setupBackend( UI* const pUI )
 {
     /// Used for compatibility between backends
     assert(
-        pUIData
+        pUI
         && "Pointer is nullptr"
     );
 
@@ -48,11 +48,11 @@ void setupBackend( UIData* const pUIData )
     keypad( stdscr, TRUE ); // Enable arrow keys and function keys
 }
 
-void closeBackend( UIData const* const pUIData )
+void closeBackend( UI const* const pUI )
 {
     /// Used for compatibility between backends
     assert(
-        pUIData
+        pUI
         && "Pointer is nullptr"
     );
 

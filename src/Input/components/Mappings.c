@@ -1,6 +1,5 @@
 #include "Mappings.h"
 
-#include "BackendInterface.h"
 #include "CommandId.h"
 #include "ContextId.h"
 #include "InputId.h"
@@ -86,8 +85,6 @@ Mappings newMappings( void )
             }
         },
     };
-
-    addUIElements( &mappings );
 
     /// Commands
     for ( int contextId = 0; contextId < CONTEXT_COUNT; ++contextId )

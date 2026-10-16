@@ -1,10 +1,10 @@
-#include "BackendInterface.h"
+#include "BackendRender_Interface.h"
 
 #ifdef BACKEND_NCURSES
 #include "ActionTypeId.h"
 #include "App.h"
 #include "AppStateId.h"
-#include "Backend_NCurses_Layout.h"
+#include "BackendLayout_NCurses.h"
 #include "Command.h"
 #include "DirectionId.h"
 #include "FileId.h"

@@ -1,6 +1,5 @@
 #include "InputParsing.h"
 
-#include "BackendInterface.h"
 #include "CommandId.h"
 #include "CommandStateId.h"
 #include "DirectionId.h"
@@ -9,7 +8,7 @@
 #include "InputSystem.h"
 #include "RankId.h"
 #include "StoneTypeId.h"
-#include "UIData.h"
+#include "UI.h"
 #include <assert.h>
 #include <stdbool.h>
 
@@ -62,7 +61,7 @@ bool updateCommandFromInput(
     Command* const pCommand,
     Input const* const pInput,
     int const boardSize,
-    UIData const* const pUIData
+    UI const* const pUI
 )
 {
     assert(
@@ -84,7 +83,7 @@ bool updateCommandFromInput(
                 pCommand,
                 pInput,
                 boardSize,
-                pUIData
+                pUI
             );
         }
 
@@ -94,7 +93,7 @@ bool updateCommandFromInput(
                 pCommand,
                 pInput,
                 boardSize,
-                pUIData
+                pUI
             );
         }
 
@@ -104,7 +103,7 @@ bool updateCommandFromInput(
                 pCommand,
                 pInput,
                 boardSize,
-                pUIData
+                pUI
             );
         }
 
@@ -114,7 +113,7 @@ bool updateCommandFromInput(
                 pCommand,
                 pInput,
                 boardSize,
-                pUIData
+                pUI
             );
         }
 
@@ -124,7 +123,7 @@ bool updateCommandFromInput(
                 pCommand,
                 pInput,
                 boardSize,
-                pUIData
+                pUI
             );
         }
 
@@ -137,7 +136,7 @@ bool parseDefaultInputToCommand(
     Command* const pCommand,
     Input const* const pInput,
     int const boardSize,
-    UIData const* const pUIData
+    UI const* const pUI
 )
 {
     assert(
@@ -150,6 +149,11 @@ bool parseDefaultInputToCommand(
         && "Pointer is nullptr"
     );
 
+    assert(
+        pUI
+        && "Pointer is nullptr"
+    );
+
     switch ( getCommandId(
         pInput,
         CONTEXT_INPUT_DEFAULT
@@ -157,17 +161,7 @@ bool parseDefaultInputToCommand(
     {
         case COMMAND_POSITION:
         {
-            Tile tile = getTile(
-                pInput->mousePosition[0],
-                pInput->mousePosition[1],
-                boardSize,
-                pUIData
-            );
-
-            pCommand->fileX = tile.fileX;
-            pCommand->rankY = tile.rankY;
-
-            return true;
+            return false;
         }
 
         case COMMAND_FLAT:
@@ -319,7 +313,7 @@ bool parsePositionInputToCommand(
     Command* const pCommand,
     Input const* const pInput,
     int const boardSize,
-    UIData const* const pUIData
+    UI const* const pUI
 )
 {
     assert(
@@ -332,6 +326,17 @@ bool parsePositionInputToCommand(
         && "Pointer is nullptr"
     );
 
+    assert(
+        pUI
+        && "Pointer is nullptr"
+    );
+
+    assert(
+        ( boardSize >= BOARD_SIZE_MIN )
+        && ( boardSize <= BOARD_SIZE_MAX )
+        && "Board size invalid"
+    );
+
     switch ( getCommandId(
         pInput,
         CONTEXT_POSITION
@@ -339,17 +344,7 @@ bool parsePositionInputToCommand(
     {
         case COMMAND_POSITION:
         {
-            Tile tile = getTile(
-                pInput->mousePosition[0],
-                pInput->mousePosition[1],
-                boardSize,
-                pUIData
-            );
-
-            pCommand->fileX = tile.fileX;
-            pCommand->rankY = tile.rankY;
-
-            return true;
+            return false;
         }
 
         case COMMAND_A:
@@ -473,7 +468,7 @@ bool parseDirectionInputToCommand(
     Command* const pCommand,
     Input const* const pInput,
     int const boardSize,
-    UIData const* const pUIData
+    UI const* const pUI
 )
 {
     assert(
@@ -487,8 +482,14 @@ bool parseDirectionInputToCommand(
     );
 
     assert(
-        pUIData
+        pUI
         && "Pointer is nullptr"
+    );
+
+    assert(
+        ( boardSize >= BOARD_SIZE_MIN )
+        && ( boardSize <= BOARD_SIZE_MAX )
+        && "Board size invalid"
     );
 
     switch ( getCommandId(
@@ -526,34 +527,7 @@ bool parseDirectionInputToCommand(
 
         case COMMAND_POSITION:
         {
-            Tile mouseTile = getTile(
-                pInput->mousePosition[0],
-                pInput->mousePosition[1],
-                boardSize,
-                pUIData
-            );
-
-            int const offset[2] = {
-                mouseTile.fileX - pCommand->fileX,
-                mouseTile.rankY - pCommand->rankY
-            };
-
-            if ( !offset[0]
-                 && !offset[1] )
-            {
-                return false;
-            }
-
-            pCommand->direction
-                = ( ( offset[0] * offset[0] ) > ( offset[1] * offset[1] ) )
-                      ? ( ( offset[0] < 0 )
-                              ? DIR_LEFT
-                              : DIR_RIGHT )
-                      : ( ( offset[1] < 0 )
-                              ? DIR_DOWN
-                              : DIR_UP );
-
-            return true;
+            return false;
         }
 
         default:
@@ -567,7 +541,7 @@ bool parseFirstDropAmountInputToCommand(
     Command* const pCommand,
     Input const* const pInput,
     int const boardSize,
-    UIData const* const pUIData
+    UI const* const pUI
 )
 {
     assert(
@@ -583,6 +557,17 @@ bool parseFirstDropAmountInputToCommand(
     assert(
         !pCommand->currentDropIdx
         && "Drops value invalid"
+    );
+
+    assert(
+        pUI
+        && "Pointer is nullptr"
+    );
+
+    assert(
+        ( boardSize >= BOARD_SIZE_MIN )
+        && ( boardSize <= BOARD_SIZE_MAX )
+        && "Board size invalid"
     );
 
     switch ( getCommandId(
@@ -655,42 +640,6 @@ bool parseFirstDropAmountInputToCommand(
 
         case COMMAND_POSITION:
         {
-            Tile mouseTile = getTile(
-                pInput->mousePosition[0],
-                pInput->mousePosition[1],
-                boardSize,
-                pUIData
-            );
-
-            /// If mouse == command position
-            /// -> Drop one in place
-            if (
-                mouseTile.fileX == pCommand->fileX && mouseTile.rankY == pCommand->rankY
-            )
-            {
-                ++pCommand->bufferedDropCount;
-
-                return true;
-            }
-            /// If offset is matching next square in direction and no drops yet
-            /// -> Drop none in place, goto next square and drop one
-            else if (
-                ( pCommand->fileX
-                  + getOffsetX( pCommand->direction ) )
-                    == mouseTile.fileX
-                && ( pCommand->rankY
-                     + getOffsetY( pCommand->direction ) )
-                       == mouseTile.rankY
-            )
-            {
-                pCommand->dropCounts[0]
-                    = pCommand->bufferedDropCount;
-
-                pCommand->bufferedDropCount = 1;
-
-                return true;
-            }
-
             return false;
         }
 
@@ -703,7 +652,7 @@ bool parseDropAmountInputToCommand(
     Command* const pCommand,
     Input const* const pInput,
     int const boardSize,
-    UIData const* const pUIData
+    UI const* const pUI
 )
 {
     assert(
@@ -719,6 +668,17 @@ bool parseDropAmountInputToCommand(
     assert(
         pCommand->currentDropIdx > 0
         && "Drops value invalid"
+    );
+
+    assert(
+        pUI
+        && "Pointer is nullptr"
+    );
+
+    assert(
+        ( boardSize >= BOARD_SIZE_MIN )
+        && ( boardSize <= BOARD_SIZE_MAX )
+        && "Board size invalid"
     );
 
     switch ( getCommandId(
@@ -785,44 +745,7 @@ bool parseDropAmountInputToCommand(
 
         case COMMAND_POSITION:
         {
-            Tile mouseTile = getTile(
-                pInput->mousePosition[0],
-                pInput->mousePosition[1],
-                boardSize,
-                pUIData
-            );
-
-            /// If mouse == command position + offset
-            if (
-                ( pCommand->fileX
-                  + ( getOffsetX( pCommand->direction ) * pCommand->currentDropIdx ) )
-                    == mouseTile.fileX
-                && ( pCommand->rankY
-                     + ( getOffsetY( pCommand->direction ) * pCommand->currentDropIdx ) )
-                       == mouseTile.rankY
-            )
-            {
-                ++pCommand->bufferedDropCount;
-
-                return true;
-            }
-            /// If offset is matching next square direction
-            else if (
-                ( pCommand->fileX
-                  + ( getOffsetX( pCommand->direction ) * ( pCommand->currentDropIdx + 1 ) ) )
-                    == mouseTile.fileX
-                && ( pCommand->rankY
-                     + ( getOffsetY( pCommand->direction ) * ( pCommand->currentDropIdx + 1 ) ) )
-                       == mouseTile.rankY
-            )
-            {
-                pCommand->dropCounts[pCommand->currentDropIdx]
-                    = pCommand->bufferedDropCount;
-
-                pCommand->bufferedDropCount = 1;
-
-                return true;
-            }
+            return false;
         }
         default:
             return false;
