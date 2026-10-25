@@ -5,6 +5,7 @@
 #include "BackendContext_Interface.h"
 #include "BackendInput_Interface.h"
 #include "BackendRender_Interface.h"
+#include "BackendUI_Interface.h"
 #include "Command.h"
 #include "CommandStateId.h"
 #include "CommandValidation.h"
