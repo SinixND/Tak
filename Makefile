@@ -207,8 +207,10 @@ test: test-build test-run ## Build and run tests
 ### DERIVED VARIABLES
 #######################################
 
+CONFIG_PATH := $(PLATFORM)/$(BINARY)/$(BACKEND)/$(BUILD)
+
 ### Objects and dependencies
-BUILD_DIR := $(OBJ_DIR)
+BUILD_DIR := $(OBJ_DIR)/$(CONFIG_PATH)
 OBJS      := $(patsubst %$(SRC_EXT),$(BUILD_DIR)/%$(OBJ_EXT),$(SRCS_$(BINARY)))
 DEPS      := $(OBJS:$(OBJ_EXT)=$(DEP_EXT))
 
