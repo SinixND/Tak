@@ -1,4 +1,4 @@
-#include "BackendUI_Interface.h"
+#include "UI_Interface.h"
 
 #ifdef BACKEND_NCURSES
 #include "CommandId.h"
