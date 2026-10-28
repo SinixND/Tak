@@ -1,4 +1,4 @@
-#include "BackendInput_Interface.h"
+#include "Input_Interface.h"
 
 #ifdef BACKEND_NCURSES
 #include "Input.h"

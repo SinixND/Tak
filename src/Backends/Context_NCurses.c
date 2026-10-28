@@ -1,7 +1,7 @@
-#include "BackendContext_Interface.h"
+#include "Context_Interface.h"
 
 #ifdef BACKEND_NCURSES
-#include "BackendLayout_NCurses.h"
+#include "Layout_NCurses.h"
 #include "UI.h"
 #include <assert.h>
 #include <ncurses.h>

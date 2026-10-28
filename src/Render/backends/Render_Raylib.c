@@ -1,11 +1,11 @@
-#include "BackendRender_Interface.h"
+#include "Render_Interface.h"
 
 #ifdef BACKEND_RAYLIB
 /// Only define once
 #define RAYGUI_IMPLEMENTATION
 /// Required for custom icons set
 // #define RAYGUI_CUSTOM_ICONS
-#include "BackendLayout_Raylib.h"
+#include "Layout_Raylib.h"
 #include "UI.h"
 #include <assert.h>
 #include <raygui.h>

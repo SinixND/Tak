@@ -1,4 +1,4 @@
-#include "BackendTiming_Interface.h"
+#include "Timing_Interface.h"
 
 #ifdef BACKEND_NCURSES
 #include <assert.h>

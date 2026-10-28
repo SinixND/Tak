@@ -1,10 +1,10 @@
-#include "BackendRender_Interface.h"
+#include "Render_Interface.h"
 #include "UIElement.h"
 #include "UIElementId.h"
 
 #ifdef BACKEND_NCURSES
 #include "App.h"
-#include "BackendLayout_NCurses.h"
+#include "Layout_NCurses.h"
 #include <assert.h>
 #include <ncurses.h>
 
@@ -21,22 +21,6 @@ void render( App const* const pApp )
 
             break;
         }
-
-            // case APP_STATE_CHOOSE_BOARD_SIZE:
-            // {
-            //     renderStartScreen();
-            //
-            //     break;
-            // }
-
-            // case APP_STATE_GAME_END:
-            // {
-            //     renderStatic( pApp );
-            //     renderDynamic( pApp );
-            //     renderCommandGameEnd( pApp );
-            //
-            //     break;
-            // }
     }
 
     refresh();
