@@ -11,6 +11,7 @@
 #include "Mappings.h"
 #include "PlayerId.h"
 #include "UI.h"
+#include "UI_Interface.h"
 #include <unity.h>
 
 void testParseInputDirection( void )

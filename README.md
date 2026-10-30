@@ -160,6 +160,7 @@ The following tools are used in the project but not required and not contained i
     - UIElements{rect,text,cmd}
 - [ ] Rename file/rank to column/row
 - [ ] Render raylib/web 
+- [ ] Remove warning-suppressing nullptr asserts
 
 - [ ] Todos
 - [ ] Add cursor? -> raylib

@@ -26,7 +26,7 @@ typedef struct App
     Event event;
     History history;
     /// Render
-    UI uiData;
+    UI ui;
     /// Timing
     bool shouldClose;
 } App;

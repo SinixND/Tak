@@ -45,7 +45,7 @@ App newApp( void )
         .event = newEvent(),
         .history = newHistory(),
         .shouldClose = false,
-        .uiData = newUI(),
+        .ui = newUI(),
     };
 
     return app;
@@ -53,7 +53,7 @@ App newApp( void )
 
 void setupApp( App* const pApp )
 {
-    setupBackend( &pApp->uiData );
+    setupBackend( &pApp->ui );
 }
 
 void runApp( App* const pApp )
@@ -71,7 +71,7 @@ void runApp( App* const pApp )
 
 void closeApp( App* const pApp )
 {
-    closeBackend( &pApp->uiData );
+    closeBackend( &pApp->ui );
 }
 
 void updateFrame( void* arg )
@@ -175,11 +175,13 @@ void updateStateChooseBoardSize( App* const pApp )
     if ( !setBoardSize(
              &pApp->game,
              &pApp->input,
-             &pApp->uiData
+             &pApp->ui
          ) )
     {
         return;
     }
+
+    updateUI( &pApp->ui, pApp->game.board.size );
 
     /// Prepare first turn: WHITE places BLACK
     pApp->game.activePlayer = PLAYER_WHITE;
@@ -221,7 +223,7 @@ void updateStateFirstTurn( App* const pApp )
              &command,
              &pApp->input,
              pApp->game.board.size,
-             &pApp->uiData
+             &pApp->ui
          ) )
     {
         return;
@@ -330,7 +332,7 @@ void updateStateSecondTurn( App* const pApp )
              &command,
              &pApp->input,
              pApp->game.board.size,
-             &pApp->uiData
+             &pApp->ui
          ) )
     {
         return;
@@ -419,7 +421,7 @@ void updateStateNormalTurn( App* const pApp )
                  &command,
                  &pApp->input,
                  pApp->game.board.size,
-                 &pApp->uiData
+                 &pApp->ui
              ) )
         {
             return;

@@ -8,6 +8,9 @@
 #include <assert.h>
 #include <ncurses.h>
 
+void renderStartScreen( App const* const pApp );
+void renderChooseSizeText( UIElement const* const pUI_Element );
+
 void renderUI( App const* const pApp );
 void renderInfoText( UIElement const* const pUI_Element );
 
@@ -15,6 +18,13 @@ void render( App const* const pApp )
 {
     switch ( pApp->state )
     {
+        case APP_STATE_CHOOSE_BOARD_SIZE:
+        {
+            renderStartScreen( pApp );
+
+            break;
+        }
+
         default:
         {
             renderUI( pApp );
@@ -24,6 +34,30 @@ void render( App const* const pApp )
     }
 
     refresh();
+}
+
+void renderStartScreen( App const* const pApp )
+{
+    assert(
+        pApp
+        && "Pointer is nullptr"
+    );
+
+    clear();
+
+    attron( COLOR_PAIR( CPAIR_LAYOUT ) );
+
+    renderChooseSizeText( &pApp->ui.uiElements[UI_ELEMENT_CHOOSE_SIZE_TEXT] );
+
+    attroff( COLOR_PAIR( CPAIR_LAYOUT ) );
+}
+
+void renderChooseSizeText( UIElement const* const pUI_Element )
+{
+    assert(
+        pUI_Element
+        && "Pointer is nullptr"
+    );
 }
 
 void renderUI( App const* const pApp )
@@ -37,7 +71,7 @@ void renderUI( App const* const pApp )
 
     attron( COLOR_PAIR( CPAIR_LAYOUT ) );
 
-    renderInfoText( &pApp->uiData.uiElements[UI_ELEMENT_INFO] );
+    renderInfoText( &pApp->ui.uiElements[UI_ELEMENT_INFO] );
 
     attroff( COLOR_PAIR( CPAIR_LAYOUT ) );
 }
