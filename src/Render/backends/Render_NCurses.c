@@ -178,15 +178,15 @@ void renderBoard(
         for ( int y = 0; y < boardSize; ++y )
         {
             mvprintw(
-                pUI->uiElements[UIELEMENT_BOARD].y + y * 4,
-                pUI->uiElements[UIELEMENT_BOARD].x + x * 4,
+                ( y * 4 ) + pUI->uiElements[UIELEMENT_BOARD].y,
+                ( x * 4 ) + pUI->uiElements[UIELEMENT_BOARD].x,
                 "%s",
                 "+   +"
             );
 
             mvprintw(
-                pUI->uiElements[UIELEMENT_BOARD].y + ( y * 4 ) + 4,
-                pUI->uiElements[UIELEMENT_BOARD].x + x * 4,
+                ( y * 4 ) + pUI->uiElements[UIELEMENT_BOARD].y + 4,
+                ( x * 4 ) + pUI->uiElements[UIELEMENT_BOARD].x,
                 "%s",
                 "+   +"
             );
@@ -197,6 +197,38 @@ void renderBoard(
     renderBox( &pUI->uiElements[UIELEMENT_BOARD] );
 
     /// Labels
+    char ch = 'A';
+
+    for ( int x = 0; x < boardSize; ++x )
+    {
+        mvaddch(
+            pUI->uiElements[UIELEMENT_BOARD].y - 1,
+            ( x * 4 ) + pUI->uiElements[UIELEMENT_BOARD].x + 2,
+            ch
+        );
+
+        mvaddch(
+            pUI->uiElements[UIELEMENT_BOARD].y + pUI->uiElements[UIELEMENT_BOARD].height,
+            ( x * 4 ) + pUI->uiElements[UIELEMENT_BOARD].x + 2,
+            ch++
+        );
+    }
+
+    ch = '1';
+    for ( int y = 0; y < boardSize; ++y )
+    {
+        mvaddch(
+            ( ( boardSize - y ) * 4 ) + pUI->uiElements[UIELEMENT_BOARD].y - 2,
+            pUI->uiElements[UIELEMENT_BOARD].x - 1,
+            ch
+        );
+
+        mvaddch(
+            ( ( boardSize - y ) * 4 ) + pUI->uiElements[UIELEMENT_BOARD].y - 2,
+            pUI->uiElements[UIELEMENT_BOARD].x + pUI->uiElements[UIELEMENT_BOARD].width,
+            ch++
+        );
+    }
 }
 
 void renderUIContent( App const* const pApp );

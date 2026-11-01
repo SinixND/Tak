@@ -45,6 +45,9 @@ void setupBackend( UI* const pUI )
     init_pair( COLORS_UI, COLOR_UI, COLOR_BLACK );
     init_pair( COLORS_INACTIVE, COLOR_INACTIVE, COLOR_BLACK );
 
+    /// Fill background
+    bkgd( COLOR_PAIR( COLORS_UI ) );
+
     noecho();      // Don’t print typed characters automatically
     curs_set( 0 ); // Hide cursor
 
