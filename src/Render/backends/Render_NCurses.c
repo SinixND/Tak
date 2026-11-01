@@ -163,10 +163,10 @@ void renderUI( App const* const pApp )
     renderReset( &pApp->ui );
     renderQuit( &pApp->ui );
 
-    // renderText( &pApp->ui.uiElements[UIELEMENT_INFO] );
-    // renderText( &pApp->ui.uiElements[UIELEMENT_ACTIVE_PLAYER] );
-    // renderText( &pApp->ui.uiElements[UIELEMENT_COMMAND] );
-    // renderText( &pApp->ui.uiElements[UIELEMENT_HISTORY] );
+    renderInfo( &pApp->ui );
+    renderActivePlayer( &pApp->ui );
+    renderCommand( &pApp->ui );
+    renderHistory( &pApp->ui );
 
     renderBoard(
         &pApp->ui,
@@ -234,6 +234,7 @@ void renderQuit( UI const* const pUI )
         pUI->elements[UIELEMENT_QUIT].x,
         "\\/"
     );
+
     mvprintw(
         pUI->elements[UIELEMENT_QUIT].y + 1,
         pUI->elements[UIELEMENT_QUIT].x,
@@ -241,10 +242,38 @@ void renderQuit( UI const* const pUI )
     );
 }
 
-void renderInfo( UI const* const pUI );
-void renderActivePlayer( UI const* const pUI );
-void renderCommand( UI const* const pUI );
-void renderHistory( UI const* const pUI );
+void renderInfo( UI const* const pUI )
+{
+    mvprintw(
+        pUI->elements[UIELEMENT_INFO].y,
+        pUI->elements[UIELEMENT_INFO].x,
+        "         R|C Score"
+    );
+
+    mvprintw(
+        pUI->elements[UIELEMENT_INFO].y + 1,
+        pUI->elements[UIELEMENT_INFO].x,
+        "White:    |  "
+    );
+
+    mvprintw(
+        pUI->elements[UIELEMENT_INFO].y + 2,
+        pUI->elements[UIELEMENT_INFO].x,
+        "Black:    |  "
+    );
+}
+
+void renderActivePlayer( UI const* const pUI )
+{
+}
+
+void renderCommand( UI const* const pUI )
+{
+}
+
+void renderHistory( UI const* const pUI )
+{
+}
 
 void renderBoard(
     UI const* const pUI,

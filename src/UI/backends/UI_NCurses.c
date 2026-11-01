@@ -60,35 +60,35 @@ UI newUI( void )
     ui.elements[UIELEMENT_CHOOSE_SIZE_8x8].commandId = COMMAND_8;
     ui.elements[UIELEMENT_CHOOSE_SIZE_8x8].text = "8x8";
 
-    ui.elements[UIELEMENT_STACK_BUFFER].x = 2;
-    ui.elements[UIELEMENT_STACK_BUFFER].y = 1;
-    ui.elements[UIELEMENT_STACK_BUFFER].width = 5;
-    ui.elements[UIELEMENT_STACK_BUFFER].height = 5;
-    ui.elements[UIELEMENT_STACK_BUFFER].commandId = COMMAND_NONE;
-
-    ui.elements[UIELEMENT_UNDO].x = 11;
+    ui.elements[UIELEMENT_UNDO].x = 1;
     ui.elements[UIELEMENT_UNDO].y = 1;
     ui.elements[UIELEMENT_UNDO].width = 2;
     ui.elements[UIELEMENT_UNDO].height = 2;
     ui.elements[UIELEMENT_UNDO].commandId = COMMAND_UNDO;
 
-    ui.elements[UIELEMENT_REDO].x = 15;
+    ui.elements[UIELEMENT_REDO].x = 5;
     ui.elements[UIELEMENT_REDO].y = 1;
     ui.elements[UIELEMENT_REDO].width = 2;
     ui.elements[UIELEMENT_REDO].height = 2;
     ui.elements[UIELEMENT_REDO].commandId = COMMAND_REDO;
 
-    ui.elements[UIELEMENT_RESET].x = 11;
+    ui.elements[UIELEMENT_RESET].x = 1;
     ui.elements[UIELEMENT_RESET].y = 4;
     ui.elements[UIELEMENT_RESET].width = 2;
     ui.elements[UIELEMENT_RESET].height = 2;
     ui.elements[UIELEMENT_RESET].commandId = COMMAND_RESET;
 
-    ui.elements[UIELEMENT_QUIT].x = 15;
+    ui.elements[UIELEMENT_QUIT].x = 5;
     ui.elements[UIELEMENT_QUIT].y = 4;
     ui.elements[UIELEMENT_QUIT].width = 2;
     ui.elements[UIELEMENT_QUIT].height = 2;
     ui.elements[UIELEMENT_QUIT].commandId = COMMAND_QUIT;
+
+    ui.elements[UIELEMENT_STACK_BUFFER].x = 11;
+    ui.elements[UIELEMENT_STACK_BUFFER].y = 1;
+    ui.elements[UIELEMENT_STACK_BUFFER].width = 5;
+    ui.elements[UIELEMENT_STACK_BUFFER].height = 5;
+    ui.elements[UIELEMENT_STACK_BUFFER].commandId = COMMAND_NONE;
 
     ui.elements[UIELEMENT_INFO].x = 0;
     ui.elements[UIELEMENT_INFO].y = 6;
