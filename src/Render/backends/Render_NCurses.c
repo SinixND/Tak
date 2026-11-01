@@ -1,37 +1,40 @@
 #include "Render_Interface.h"
-#include "UI.h"
 
 #ifdef BACKEND_NCURSES
 #include "App.h"
 #include "Constants_NCurses.h"
+#include "UI.h"
 #include "UIElement.h"
 #include "UIElementId.h"
 #include <assert.h>
 #include <ncurses.h>
 
 void renderText( UIElement const* const pUIElement );
-/// UI elements position and size needs to account for border
+/// UI elements position and size needs to include border weight
 void renderBox( UIElement const* const pUIElement );
 void renderButton( UIElement const* const pUIElement );
 
 void renderStartScreen( UI const* const pUI );
 void renderUI( App const* const pApp );
 
-void renderStackBuffer( UI const* const pUI );
 void renderUndo( UI const* const pUI );
 void renderRedo( UI const* const pUI );
 void renderReset( UI const* const pUI );
 void renderQuit( UI const* const pUI );
+
+void renderStackBuffer( UI const* const pUI );
+
 void renderInfo( UI const* const pUI );
 void renderActivePlayer( UI const* const pUI );
 void renderCommand( UI const* const pUI );
 void renderHistory( UI const* const pUI );
-void renderBoard(
-    UI const* const pUI,
-    int const boardSize
-);
 
-void renderUIContent( App const* const pApp );
+void renderBoard( UI const* const pUI, int const boardSize );
+
+void renderInfoContent( UI const* const pUI, Game const* const pGame );
+void renderActivePlayerContent( UI const* const pUI, Game const* const pGame );
+void renderCommandContent( UI const* const pUI, Game const* const pGame );
+void renderHistoryContent( UI const* const pUI, Game const* const pGame );
 
 void render( App const* const pApp )
 {
@@ -141,27 +144,29 @@ void renderStartScreen( UI const* const pUI )
 {
     attron( COLOR_PAIR( COLORS_UI ) );
 
-    renderText( &pUI->elements[UIELEMENT_CHOOSE_SIZE_TEXT] );
+    renderText( &pUI->elements[UIELEMENT_CHOOSE_SIZE] );
 
-    renderButton( &pUI->elements[UIELEMENT_CHOOSE_SIZE_3x3] );
-    renderButton( &pUI->elements[UIELEMENT_CHOOSE_SIZE_4x4] );
-    renderButton( &pUI->elements[UIELEMENT_CHOOSE_SIZE_5x5] );
-    renderButton( &pUI->elements[UIELEMENT_CHOOSE_SIZE_6x6] );
-    renderButton( &pUI->elements[UIELEMENT_CHOOSE_SIZE_7x7] );
-    renderButton( &pUI->elements[UIELEMENT_CHOOSE_SIZE_8x8] );
+    renderButton( &pUI->elements[UIELEMENT_3x3] );
+    renderButton( &pUI->elements[UIELEMENT_4x4] );
+    renderButton( &pUI->elements[UIELEMENT_5x5] );
+    renderButton( &pUI->elements[UIELEMENT_6x6] );
+    renderButton( &pUI->elements[UIELEMENT_7x7] );
+    renderButton( &pUI->elements[UIELEMENT_8x8] );
 
     attroff( COLOR_PAIR( COLORS_UI ) );
 }
 
 void renderUI( App const* const pApp )
 {
+    /// Static
     attron( COLOR_PAIR( COLORS_UI ) );
 
-    renderStackBuffer( &pApp->ui );
     renderUndo( &pApp->ui );
     renderRedo( &pApp->ui );
     renderReset( &pApp->ui );
     renderQuit( &pApp->ui );
+
+    renderStackBuffer( &pApp->ui );
 
     renderInfo( &pApp->ui );
     renderActivePlayer( &pApp->ui );
@@ -174,20 +179,26 @@ void renderUI( App const* const pApp )
     );
 
     attroff( COLOR_PAIR( COLORS_UI ) );
-}
 
-void renderStackBuffer( UI const* const pUI )
-{
-    mvprintw(
-        pUI->elements[UIELEMENT_STACK_BUFFER].y,
-        pUI->elements[UIELEMENT_STACK_BUFFER].x,
-        "+   +"
+    /// Dynamic
+    renderInfoContent(
+        &pApp->ui,
+        &pApp->game
     );
 
-    mvprintw(
-        pUI->elements[UIELEMENT_STACK_BUFFER].y + pUI->elements[UIELEMENT_STACK_BUFFER].height - 1,
-        pUI->elements[UIELEMENT_STACK_BUFFER].x,
-        "+   +"
+    renderActivePlayerContent(
+        &pApp->ui,
+        &pApp->game
+    );
+
+    renderCommandContent(
+        &pApp->ui,
+        &pApp->game
+    );
+
+    renderHistoryContent(
+        &pApp->ui,
+        &pApp->game
     );
 }
 
@@ -239,6 +250,21 @@ void renderQuit( UI const* const pUI )
         pUI->elements[UIELEMENT_QUIT].y + 1,
         pUI->elements[UIELEMENT_QUIT].x,
         "/\\"
+    );
+}
+
+void renderStackBuffer( UI const* const pUI )
+{
+    mvprintw(
+        pUI->elements[UIELEMENT_STACK_BUFFER].y,
+        pUI->elements[UIELEMENT_STACK_BUFFER].x,
+        "+   +"
+    );
+
+    mvprintw(
+        pUI->elements[UIELEMENT_STACK_BUFFER].y + pUI->elements[UIELEMENT_STACK_BUFFER].height - 1,
+        pUI->elements[UIELEMENT_STACK_BUFFER].x,
+        "+   +"
     );
 }
 
@@ -355,6 +381,83 @@ void renderBoard(
     }
 }
 
-void renderUIContent( App const* const pApp );
+void renderInfoContent(
+    UI const* const pUI,
+    Game const* const pGame
+)
+{
+    /// Stone counts
+    attron( COLOR_PAIR( COLORS_DEFAULT ) );
+
+    mvprintw(
+        pUI->elements[UIELEMENT_INFO].y + 1,
+        pUI->elements[UIELEMENT_INFO].x + 8,
+        "%2i",
+        pGame->reserves.regular[PLAYER_WHITE]
+    );
+
+    mvprintw(
+        pUI->elements[UIELEMENT_INFO].y + 1,
+        pUI->elements[UIELEMENT_INFO].x + 11,
+        "%i",
+        pGame->reserves.capstone[PLAYER_WHITE]
+    );
+
+    mvprintw(
+        pUI->elements[UIELEMENT_INFO].y + 2,
+        pUI->elements[UIELEMENT_INFO].x + 8,
+        "%2i",
+        pGame->reserves.regular[PLAYER_BLACK]
+    );
+
+    mvprintw(
+        pUI->elements[UIELEMENT_INFO].y + 2,
+        pUI->elements[UIELEMENT_INFO].x + 11,
+        "%i",
+        pGame->reserves.capstone[PLAYER_BLACK]
+    );
+
+    /// Player scores
+    attron( COLOR_PAIR( COLORS_PLAYER_WHITE_STRONG ) );
+
+    mvprintw(
+        pUI->elements[UIELEMENT_INFO].y + 1,
+        pUI->elements[UIELEMENT_INFO].x + 14,
+        "%2i",
+        pGame->reserves.capstone[PLAYER_BLACK]
+    );
+
+    attron( COLOR_PAIR( COLORS_PLAYER_BLACK_STRONG ) );
+
+    mvprintw(
+        pUI->elements[UIELEMENT_INFO].y + 2,
+        pUI->elements[UIELEMENT_INFO].x + 14,
+        "%2i",
+        pGame->reserves.capstone[PLAYER_BLACK]
+    );
+
+    attroff( COLOR_PAIR( COLORS_PLAYER_BLACK_STRONG ) );
+}
+
+void renderActivePlayerContent(
+    UI const* const pUI,
+    Game const* const pGame
+)
+{
+}
+
+void renderCommandContent(
+    UI const* const pUI,
+    Game const* const pGame
+)
+{
+}
+
+void renderHistoryContent(
+    UI const* const pUI,
+    Game const* const pGame
+)
+{
+}
 
 #endif

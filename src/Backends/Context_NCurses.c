@@ -30,7 +30,7 @@ void setupBackend( UI* const pUI )
 
     /// Set colors
     init_color( COLOR_BLACK, 0, 0, 0 );
-    init_color( COLOR_WHITE, 1000, 1000, 1000 );
+    init_color( COLOR_WHITE, 800, 800, 800 );
 
     init_color( COLOR_PLAYER_WHITE, 580, 741, 439 );
     init_color( COLOR_PLAYER_BLACK, 180, 341, 39 );
@@ -38,6 +38,7 @@ void setupBackend( UI* const pUI )
     init_color( COLOR_INACTIVE, 500, 500, 500 );
 
     /// Set color pairs
+    init_pair( COLORS_DEFAULT, COLOR_WHITE, COLOR_BLACK );
     init_pair( COLORS_PLAYER_WHITE_STRONG, COLOR_PLAYER_BLACK, COLOR_PLAYER_WHITE );
     init_pair( COLORS_PLAYER_BLACK_STRONG, COLOR_PLAYER_WHITE, COLOR_PLAYER_BLACK );
     init_pair( COLORS_PLAYER_WHITE_WEAK, COLOR_PLAYER_WHITE, COLOR_BLACK );
