@@ -95,86 +95,30 @@ UI newUI( void )
     ui.elements[UIELEMENT_INFO].width = 18;
     ui.elements[UIELEMENT_INFO].height = 3;
     ui.elements[UIELEMENT_INFO].commandId = COMMAND_CYCLE_STONE_TYPE;
-    ui.elements[UIELEMENT_INFO].text = "  +   +  R|C Score"
-                                       "White:    |  "
-                                       "Black:    |  ";
 
     ui.elements[UIELEMENT_ACTIVE_PLAYER].x = 0;
     ui.elements[UIELEMENT_ACTIVE_PLAYER].y = 9;
     ui.elements[UIELEMENT_ACTIVE_PLAYER].width = 17;
     ui.elements[UIELEMENT_ACTIVE_PLAYER].height = 1;
     ui.elements[UIELEMENT_ACTIVE_PLAYER].commandId = COMMAND_CYCLE_STONE_TYPE;
-    ui.elements[UIELEMENT_ACTIVE_PLAYER].text = "Active:       [ ]";
 
     ui.elements[UIELEMENT_COMMAND].x = 0;
     ui.elements[UIELEMENT_COMMAND].y = 10;
     ui.elements[UIELEMENT_COMMAND].width = 16;
     ui.elements[UIELEMENT_COMMAND].height = 1;
     ui.elements[UIELEMENT_COMMAND].commandId = COMMAND_CYCLE_STONE_TYPE;
-    ui.elements[UIELEMENT_COMMAND].text = ">"; //  "> B:Ma1+12345678",
 
     ui.elements[UIELEMENT_HISTORY].x = 0;
     ui.elements[UIELEMENT_HISTORY].y = 11;
     ui.elements[UIELEMENT_HISTORY].width = 8;
     ui.elements[UIELEMENT_HISTORY].height = 1;
     ui.elements[UIELEMENT_HISTORY].commandId = COMMAND_NONE;
-    ui.elements[UIELEMENT_HISTORY].text = "History:";
 
     ui.elements[UIELEMENT_BOARD].x = 20;
     ui.elements[UIELEMENT_BOARD].y = 1;
     ui.elements[UIELEMENT_BOARD].width = -1;
     ui.elements[UIELEMENT_BOARD].height = -1;
     ui.elements[UIELEMENT_BOARD].commandId = COMMAND_POSITION;
-    ui.elements[UIELEMENT_BOARD].text = "+   +"
-                                        ""
-                                        ""
-                                        ""
-                                        "+   +";
-
-    ui.elements[UIELEMENT_LABELS_FILE].x = 19;
-    ui.elements[UIELEMENT_LABELS_FILE].y = 0;
-    ui.elements[UIELEMENT_LABELS_FILE].width = -1;
-    ui.elements[UIELEMENT_LABELS_FILE].height = 1;
-    ui.elements[UIELEMENT_LABELS_FILE].commandId = COMMAND_NONE;
-    ui.elements[UIELEMENT_LABELS_FILE].text = "   A   B   C   D   E   F   G   H";
-
-    ui.elements[UIELEMENT_LABELS_RANK].x = 19;
-    ui.elements[UIELEMENT_LABELS_RANK].y = 0;
-    ui.elements[UIELEMENT_LABELS_RANK].width = 1;
-    ui.elements[UIELEMENT_LABELS_RANK].height = -1;
-    ui.elements[UIELEMENT_LABELS_RANK].commandId = COMMAND_NONE;
-    ui.elements[UIELEMENT_LABELS_RANK].text = " " //0
-                                              " "
-                                              " "
-                                              "8" //3
-                                              " " //4
-                                              " "
-                                              " "
-                                              "7" //7
-                                              " " //8
-                                              " "
-                                              " "
-                                              "6"
-                                              " "
-                                              " "
-                                              " "
-                                              "5"
-                                              " "
-                                              " "
-                                              " "
-                                              "4"
-                                              " "
-                                              " "
-                                              " "
-                                              "3"
-                                              " "
-                                              " "
-                                              " "
-                                              "2"
-                                              " " //28
-                                              " "
-                                              " "
-                                              "1";
 
     return ui;
 }

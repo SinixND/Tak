@@ -265,14 +265,30 @@ void renderInfo( UI const* const pUI )
 
 void renderActivePlayer( UI const* const pUI )
 {
+    mvprintw(
+        pUI->elements[UIELEMENT_ACTIVE_PLAYER].y,
+        pUI->elements[UIELEMENT_ACTIVE_PLAYER].x,
+        "Active:       [ ]"
+    );
 }
 
 void renderCommand( UI const* const pUI )
 {
+    mvprintw(
+        pUI->elements[UIELEMENT_COMMAND].y,
+        pUI->elements[UIELEMENT_COMMAND].x,
+        //"> B:Ma1+12345678",
+        ">"
+    );
 }
 
 void renderHistory( UI const* const pUI )
 {
+    mvprintw(
+        pUI->elements[UIELEMENT_HISTORY].y,
+        pUI->elements[UIELEMENT_HISTORY].x,
+        "History:"
+    );
 }
 
 void renderBoard(
