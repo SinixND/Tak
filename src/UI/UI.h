@@ -6,7 +6,7 @@
 
 typedef struct UI
 {
-    UIElement uiElements[UIELEMENT_COUNT];
+    UIElement elements[UIELEMENT_COUNT];
 } UI;
 
 #endif

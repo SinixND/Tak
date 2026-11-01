@@ -11,183 +11,170 @@ UI newUI( void )
 {
     UI ui;
 
-    ui.uiElements[UIELEMENT_CHOOSE_SIZE_TEXT].x = 1;
-    ui.uiElements[UIELEMENT_CHOOSE_SIZE_TEXT].y = 1;
-    ui.uiElements[UIELEMENT_CHOOSE_SIZE_TEXT].width = 17;
-    ui.uiElements[UIELEMENT_CHOOSE_SIZE_TEXT].height = 1;
-    ui.uiElements[UIELEMENT_CHOOSE_SIZE_TEXT].commandId = COMMAND_NONE;
-    ui.uiElements[UIELEMENT_CHOOSE_SIZE_TEXT].text = "Choose board size";
+    ui.elements[UIELEMENT_CHOOSE_SIZE_TEXT].x = 1;
+    ui.elements[UIELEMENT_CHOOSE_SIZE_TEXT].y = 1;
+    ui.elements[UIELEMENT_CHOOSE_SIZE_TEXT].width = 17;
+    ui.elements[UIELEMENT_CHOOSE_SIZE_TEXT].height = 1;
+    ui.elements[UIELEMENT_CHOOSE_SIZE_TEXT].commandId = COMMAND_NONE;
+    ui.elements[UIELEMENT_CHOOSE_SIZE_TEXT].text = "Choose board size";
 
-    ui.uiElements[UIELEMENT_CHOOSE_SIZE_3x3].x = 2;
-    ui.uiElements[UIELEMENT_CHOOSE_SIZE_3x3].y = 3;
-    ui.uiElements[UIELEMENT_CHOOSE_SIZE_3x3].width = 5;
-    ui.uiElements[UIELEMENT_CHOOSE_SIZE_3x3].height = 3;
-    ui.uiElements[UIELEMENT_CHOOSE_SIZE_3x3].commandId = COMMAND_3;
-    ui.uiElements[UIELEMENT_CHOOSE_SIZE_3x3].text = "3x3";
+    ui.elements[UIELEMENT_CHOOSE_SIZE_3x3].x = 2;
+    ui.elements[UIELEMENT_CHOOSE_SIZE_3x3].y = 3;
+    ui.elements[UIELEMENT_CHOOSE_SIZE_3x3].width = 5;
+    ui.elements[UIELEMENT_CHOOSE_SIZE_3x3].height = 3;
+    ui.elements[UIELEMENT_CHOOSE_SIZE_3x3].commandId = COMMAND_3;
+    ui.elements[UIELEMENT_CHOOSE_SIZE_3x3].text = "3x3";
 
-    ui.uiElements[UIELEMENT_CHOOSE_SIZE_4x4].x = 12;
-    ui.uiElements[UIELEMENT_CHOOSE_SIZE_4x4].y = 3;
-    ui.uiElements[UIELEMENT_CHOOSE_SIZE_4x4].width = 5;
-    ui.uiElements[UIELEMENT_CHOOSE_SIZE_4x4].height = 3;
-    ui.uiElements[UIELEMENT_CHOOSE_SIZE_4x4].commandId = COMMAND_4;
-    ui.uiElements[UIELEMENT_CHOOSE_SIZE_4x4].text = "4x4";
+    ui.elements[UIELEMENT_CHOOSE_SIZE_4x4].x = 12;
+    ui.elements[UIELEMENT_CHOOSE_SIZE_4x4].y = 3;
+    ui.elements[UIELEMENT_CHOOSE_SIZE_4x4].width = 5;
+    ui.elements[UIELEMENT_CHOOSE_SIZE_4x4].height = 3;
+    ui.elements[UIELEMENT_CHOOSE_SIZE_4x4].commandId = COMMAND_4;
+    ui.elements[UIELEMENT_CHOOSE_SIZE_4x4].text = "4x4";
 
-    ui.uiElements[UIELEMENT_CHOOSE_SIZE_5x5].x = 2;
-    ui.uiElements[UIELEMENT_CHOOSE_SIZE_5x5].y = 7;
-    ui.uiElements[UIELEMENT_CHOOSE_SIZE_5x5].width = 5;
-    ui.uiElements[UIELEMENT_CHOOSE_SIZE_5x5].height = 3;
-    ui.uiElements[UIELEMENT_CHOOSE_SIZE_5x5].commandId = COMMAND_5;
-    ui.uiElements[UIELEMENT_CHOOSE_SIZE_5x5].text = "5x5";
+    ui.elements[UIELEMENT_CHOOSE_SIZE_5x5].x = 2;
+    ui.elements[UIELEMENT_CHOOSE_SIZE_5x5].y = 7;
+    ui.elements[UIELEMENT_CHOOSE_SIZE_5x5].width = 5;
+    ui.elements[UIELEMENT_CHOOSE_SIZE_5x5].height = 3;
+    ui.elements[UIELEMENT_CHOOSE_SIZE_5x5].commandId = COMMAND_5;
+    ui.elements[UIELEMENT_CHOOSE_SIZE_5x5].text = "5x5";
 
-    ui.uiElements[UIELEMENT_CHOOSE_SIZE_6x6].x = 12;
-    ui.uiElements[UIELEMENT_CHOOSE_SIZE_6x6].y = 7;
-    ui.uiElements[UIELEMENT_CHOOSE_SIZE_6x6].width = 5;
-    ui.uiElements[UIELEMENT_CHOOSE_SIZE_6x6].height = 3;
-    ui.uiElements[UIELEMENT_CHOOSE_SIZE_6x6].commandId = COMMAND_6;
-    ui.uiElements[UIELEMENT_CHOOSE_SIZE_6x6].text = "6x6";
+    ui.elements[UIELEMENT_CHOOSE_SIZE_6x6].x = 12;
+    ui.elements[UIELEMENT_CHOOSE_SIZE_6x6].y = 7;
+    ui.elements[UIELEMENT_CHOOSE_SIZE_6x6].width = 5;
+    ui.elements[UIELEMENT_CHOOSE_SIZE_6x6].height = 3;
+    ui.elements[UIELEMENT_CHOOSE_SIZE_6x6].commandId = COMMAND_6;
+    ui.elements[UIELEMENT_CHOOSE_SIZE_6x6].text = "6x6";
 
-    ui.uiElements[UIELEMENT_CHOOSE_SIZE_7x7].x = 2;
-    ui.uiElements[UIELEMENT_CHOOSE_SIZE_7x7].y = 11;
-    ui.uiElements[UIELEMENT_CHOOSE_SIZE_7x7].width = 5;
-    ui.uiElements[UIELEMENT_CHOOSE_SIZE_7x7].height = 3;
-    ui.uiElements[UIELEMENT_CHOOSE_SIZE_7x7].commandId = COMMAND_7;
-    ui.uiElements[UIELEMENT_CHOOSE_SIZE_7x7].text = "7x7";
+    ui.elements[UIELEMENT_CHOOSE_SIZE_7x7].x = 2;
+    ui.elements[UIELEMENT_CHOOSE_SIZE_7x7].y = 11;
+    ui.elements[UIELEMENT_CHOOSE_SIZE_7x7].width = 5;
+    ui.elements[UIELEMENT_CHOOSE_SIZE_7x7].height = 3;
+    ui.elements[UIELEMENT_CHOOSE_SIZE_7x7].commandId = COMMAND_7;
+    ui.elements[UIELEMENT_CHOOSE_SIZE_7x7].text = "7x7";
 
-    ui.uiElements[UIELEMENT_CHOOSE_SIZE_8x8].x = 12;
-    ui.uiElements[UIELEMENT_CHOOSE_SIZE_8x8].y = 11;
-    ui.uiElements[UIELEMENT_CHOOSE_SIZE_8x8].width = 5;
-    ui.uiElements[UIELEMENT_CHOOSE_SIZE_8x8].height = 3;
-    ui.uiElements[UIELEMENT_CHOOSE_SIZE_8x8].commandId = COMMAND_8;
-    ui.uiElements[UIELEMENT_CHOOSE_SIZE_8x8].text = "8x8";
+    ui.elements[UIELEMENT_CHOOSE_SIZE_8x8].x = 12;
+    ui.elements[UIELEMENT_CHOOSE_SIZE_8x8].y = 11;
+    ui.elements[UIELEMENT_CHOOSE_SIZE_8x8].width = 5;
+    ui.elements[UIELEMENT_CHOOSE_SIZE_8x8].height = 3;
+    ui.elements[UIELEMENT_CHOOSE_SIZE_8x8].commandId = COMMAND_8;
+    ui.elements[UIELEMENT_CHOOSE_SIZE_8x8].text = "8x8";
 
-    ui.uiElements[UIELEMENT_STACK_BUFFER].x = 0;
-    ui.uiElements[UIELEMENT_STACK_BUFFER].y = 0;
-    ui.uiElements[UIELEMENT_STACK_BUFFER].width = 11;
-    ui.uiElements[UIELEMENT_STACK_BUFFER].height = 6;
-    ui.uiElements[UIELEMENT_STACK_BUFFER].commandId = COMMAND_NONE;
-    ui.uiElements[UIELEMENT_STACK_BUFFER].text = "+   +"
-                                                 ""
-                                                 ""
-                                                 ""
-                                                 "+   +";
+    ui.elements[UIELEMENT_STACK_BUFFER].x = 2;
+    ui.elements[UIELEMENT_STACK_BUFFER].y = 1;
+    ui.elements[UIELEMENT_STACK_BUFFER].width = 5;
+    ui.elements[UIELEMENT_STACK_BUFFER].height = 5;
+    ui.elements[UIELEMENT_STACK_BUFFER].commandId = COMMAND_NONE;
 
-    ui.uiElements[UIELEMENT_UNDO].x = 12;
-    ui.uiElements[UIELEMENT_UNDO].y = 1;
-    ui.uiElements[UIELEMENT_UNDO].width = 2;
-    ui.uiElements[UIELEMENT_UNDO].height = 2;
-    ui.uiElements[UIELEMENT_UNDO].commandId = COMMAND_UNDO;
-    ui.uiElements[UIELEMENT_UNDO].text = "<<"
-                                         "<<";
+    ui.elements[UIELEMENT_UNDO].x = 11;
+    ui.elements[UIELEMENT_UNDO].y = 1;
+    ui.elements[UIELEMENT_UNDO].width = 2;
+    ui.elements[UIELEMENT_UNDO].height = 2;
+    ui.elements[UIELEMENT_UNDO].commandId = COMMAND_UNDO;
 
-    ui.uiElements[UIELEMENT_REDO].x = 16;
-    ui.uiElements[UIELEMENT_REDO].y = 1;
-    ui.uiElements[UIELEMENT_REDO].width = 2;
-    ui.uiElements[UIELEMENT_REDO].height = 2;
-    ui.uiElements[UIELEMENT_REDO].commandId = COMMAND_REDO;
-    ui.uiElements[UIELEMENT_REDO].text = ">>"
-                                         ">>";
+    ui.elements[UIELEMENT_REDO].x = 15;
+    ui.elements[UIELEMENT_REDO].y = 1;
+    ui.elements[UIELEMENT_REDO].width = 2;
+    ui.elements[UIELEMENT_REDO].height = 2;
+    ui.elements[UIELEMENT_REDO].commandId = COMMAND_REDO;
 
-    ui.uiElements[UIELEMENT_RESET].x = 12;
-    ui.uiElements[UIELEMENT_RESET].y = 4;
-    ui.uiElements[UIELEMENT_RESET].width = 2;
-    ui.uiElements[UIELEMENT_RESET].height = 2;
-    ui.uiElements[UIELEMENT_RESET].commandId = COMMAND_RESET;
-    ui.uiElements[UIELEMENT_RESET].text = "|<"
-                                          "|<";
+    ui.elements[UIELEMENT_RESET].x = 11;
+    ui.elements[UIELEMENT_RESET].y = 4;
+    ui.elements[UIELEMENT_RESET].width = 2;
+    ui.elements[UIELEMENT_RESET].height = 2;
+    ui.elements[UIELEMENT_RESET].commandId = COMMAND_RESET;
 
-    ui.uiElements[UIELEMENT_QUIT].x = 16;
-    ui.uiElements[UIELEMENT_QUIT].y = 4;
-    ui.uiElements[UIELEMENT_QUIT].width = 2;
-    ui.uiElements[UIELEMENT_QUIT].height = 2;
-    ui.uiElements[UIELEMENT_QUIT].commandId = COMMAND_QUIT;
-    ui.uiElements[UIELEMENT_QUIT].text = "\\/"
-                                         "/\\";
+    ui.elements[UIELEMENT_QUIT].x = 15;
+    ui.elements[UIELEMENT_QUIT].y = 4;
+    ui.elements[UIELEMENT_QUIT].width = 2;
+    ui.elements[UIELEMENT_QUIT].height = 2;
+    ui.elements[UIELEMENT_QUIT].commandId = COMMAND_QUIT;
 
-    ui.uiElements[UIELEMENT_INFO].x = 0;
-    ui.uiElements[UIELEMENT_INFO].y = 6;
-    ui.uiElements[UIELEMENT_INFO].width = 18;
-    ui.uiElements[UIELEMENT_INFO].height = 3;
-    ui.uiElements[UIELEMENT_INFO].commandId = COMMAND_CYCLE_STONE_TYPE;
-    ui.uiElements[UIELEMENT_INFO].text = "  +   +  R|C Score"
-                                         "White:    |  "
-                                         "Black:    |  ";
+    ui.elements[UIELEMENT_INFO].x = 0;
+    ui.elements[UIELEMENT_INFO].y = 6;
+    ui.elements[UIELEMENT_INFO].width = 18;
+    ui.elements[UIELEMENT_INFO].height = 3;
+    ui.elements[UIELEMENT_INFO].commandId = COMMAND_CYCLE_STONE_TYPE;
+    ui.elements[UIELEMENT_INFO].text = "  +   +  R|C Score"
+                                       "White:    |  "
+                                       "Black:    |  ";
 
-    ui.uiElements[UIELEMENT_ACTIVE_PLAYER].x = 0;
-    ui.uiElements[UIELEMENT_ACTIVE_PLAYER].y = 9;
-    ui.uiElements[UIELEMENT_ACTIVE_PLAYER].width = 17;
-    ui.uiElements[UIELEMENT_ACTIVE_PLAYER].height = 1;
-    ui.uiElements[UIELEMENT_ACTIVE_PLAYER].commandId = COMMAND_CYCLE_STONE_TYPE;
-    ui.uiElements[UIELEMENT_ACTIVE_PLAYER].text = "Active:       [ ]";
+    ui.elements[UIELEMENT_ACTIVE_PLAYER].x = 0;
+    ui.elements[UIELEMENT_ACTIVE_PLAYER].y = 9;
+    ui.elements[UIELEMENT_ACTIVE_PLAYER].width = 17;
+    ui.elements[UIELEMENT_ACTIVE_PLAYER].height = 1;
+    ui.elements[UIELEMENT_ACTIVE_PLAYER].commandId = COMMAND_CYCLE_STONE_TYPE;
+    ui.elements[UIELEMENT_ACTIVE_PLAYER].text = "Active:       [ ]";
 
-    ui.uiElements[UIELEMENT_COMMAND].x = 0;
-    ui.uiElements[UIELEMENT_COMMAND].y = 10;
-    ui.uiElements[UIELEMENT_COMMAND].width = 16;
-    ui.uiElements[UIELEMENT_COMMAND].height = 1;
-    ui.uiElements[UIELEMENT_COMMAND].commandId = COMMAND_CYCLE_STONE_TYPE;
-    ui.uiElements[UIELEMENT_COMMAND].text = ">"; //  "> B:Ma1+12345678",
+    ui.elements[UIELEMENT_COMMAND].x = 0;
+    ui.elements[UIELEMENT_COMMAND].y = 10;
+    ui.elements[UIELEMENT_COMMAND].width = 16;
+    ui.elements[UIELEMENT_COMMAND].height = 1;
+    ui.elements[UIELEMENT_COMMAND].commandId = COMMAND_CYCLE_STONE_TYPE;
+    ui.elements[UIELEMENT_COMMAND].text = ">"; //  "> B:Ma1+12345678",
 
-    ui.uiElements[UIELEMENT_HISTORY].x = 0;
-    ui.uiElements[UIELEMENT_HISTORY].y = 11;
-    ui.uiElements[UIELEMENT_HISTORY].width = 8;
-    ui.uiElements[UIELEMENT_HISTORY].height = 1;
-    ui.uiElements[UIELEMENT_HISTORY].commandId = COMMAND_NONE;
-    ui.uiElements[UIELEMENT_HISTORY].text = "History:";
+    ui.elements[UIELEMENT_HISTORY].x = 0;
+    ui.elements[UIELEMENT_HISTORY].y = 11;
+    ui.elements[UIELEMENT_HISTORY].width = 8;
+    ui.elements[UIELEMENT_HISTORY].height = 1;
+    ui.elements[UIELEMENT_HISTORY].commandId = COMMAND_NONE;
+    ui.elements[UIELEMENT_HISTORY].text = "History:";
 
-    ui.uiElements[UIELEMENT_BOARD].x = 20;
-    ui.uiElements[UIELEMENT_BOARD].y = 1;
-    ui.uiElements[UIELEMENT_BOARD].width = -1;
-    ui.uiElements[UIELEMENT_BOARD].height = -1;
-    ui.uiElements[UIELEMENT_BOARD].commandId = COMMAND_POSITION;
-    ui.uiElements[UIELEMENT_BOARD].text = "+   +"
-                                          ""
-                                          ""
-                                          ""
-                                          "+   +";
+    ui.elements[UIELEMENT_BOARD].x = 20;
+    ui.elements[UIELEMENT_BOARD].y = 1;
+    ui.elements[UIELEMENT_BOARD].width = -1;
+    ui.elements[UIELEMENT_BOARD].height = -1;
+    ui.elements[UIELEMENT_BOARD].commandId = COMMAND_POSITION;
+    ui.elements[UIELEMENT_BOARD].text = "+   +"
+                                        ""
+                                        ""
+                                        ""
+                                        "+   +";
 
-    ui.uiElements[UIELEMENT_LABELS_FILE].x = 19;
-    ui.uiElements[UIELEMENT_LABELS_FILE].y = 0;
-    ui.uiElements[UIELEMENT_LABELS_FILE].width = -1;
-    ui.uiElements[UIELEMENT_LABELS_FILE].height = 1;
-    ui.uiElements[UIELEMENT_LABELS_FILE].commandId = COMMAND_NONE;
-    ui.uiElements[UIELEMENT_LABELS_FILE].text = "   A   B   C   D   E   F   G   H";
+    ui.elements[UIELEMENT_LABELS_FILE].x = 19;
+    ui.elements[UIELEMENT_LABELS_FILE].y = 0;
+    ui.elements[UIELEMENT_LABELS_FILE].width = -1;
+    ui.elements[UIELEMENT_LABELS_FILE].height = 1;
+    ui.elements[UIELEMENT_LABELS_FILE].commandId = COMMAND_NONE;
+    ui.elements[UIELEMENT_LABELS_FILE].text = "   A   B   C   D   E   F   G   H";
 
-    ui.uiElements[UIELEMENT_LABELS_RANK].x = 19;
-    ui.uiElements[UIELEMENT_LABELS_RANK].y = 0;
-    ui.uiElements[UIELEMENT_LABELS_RANK].width = 1;
-    ui.uiElements[UIELEMENT_LABELS_RANK].height = -1;
-    ui.uiElements[UIELEMENT_LABELS_RANK].commandId = COMMAND_NONE;
-    ui.uiElements[UIELEMENT_LABELS_RANK].text = " " //0
-                                                " "
-                                                " "
-                                                "8" //3
-                                                " " //4
-                                                " "
-                                                " "
-                                                "7" //7
-                                                " " //8
-                                                " "
-                                                " "
-                                                "6"
-                                                " "
-                                                " "
-                                                " "
-                                                "5"
-                                                " "
-                                                " "
-                                                " "
-                                                "4"
-                                                " "
-                                                " "
-                                                " "
-                                                "3"
-                                                " "
-                                                " "
-                                                " "
-                                                "2"
-                                                " " //28
-                                                " "
-                                                " "
-                                                "1";
+    ui.elements[UIELEMENT_LABELS_RANK].x = 19;
+    ui.elements[UIELEMENT_LABELS_RANK].y = 0;
+    ui.elements[UIELEMENT_LABELS_RANK].width = 1;
+    ui.elements[UIELEMENT_LABELS_RANK].height = -1;
+    ui.elements[UIELEMENT_LABELS_RANK].commandId = COMMAND_NONE;
+    ui.elements[UIELEMENT_LABELS_RANK].text = " " //0
+                                              " "
+                                              " "
+                                              "8" //3
+                                              " " //4
+                                              " "
+                                              " "
+                                              "7" //7
+                                              " " //8
+                                              " "
+                                              " "
+                                              "6"
+                                              " "
+                                              " "
+                                              " "
+                                              "5"
+                                              " "
+                                              " "
+                                              " "
+                                              "4"
+                                              " "
+                                              " "
+                                              " "
+                                              "3"
+                                              " "
+                                              " "
+                                              " "
+                                              "2"
+                                              " " //28
+                                              " "
+                                              " "
+                                              "1";
 
     return ui;
 }
@@ -199,8 +186,8 @@ void updateUI(
 {
     assert( pUI && "Pointer is invalid" );
 
-    pUI->uiElements[UIELEMENT_BOARD].width = ( boardSize * 4 ) + 1;
-    pUI->uiElements[UIELEMENT_BOARD].height = ( boardSize * 4 ) + 1;
+    pUI->elements[UIELEMENT_BOARD].width = ( boardSize * 4 ) + 1;
+    pUI->elements[UIELEMENT_BOARD].height = ( boardSize * 4 ) + 1;
 }
 
 #endif

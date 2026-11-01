@@ -14,8 +14,18 @@ void renderText( UIElement const* const pUIElement );
 void renderBox( UIElement const* const pUIElement );
 void renderButton( UIElement const* const pUIElement );
 
-void renderStartScreen( App const* const pApp );
+void renderStartScreen( UI const* const pUI );
 void renderUI( App const* const pApp );
+
+void renderStackBuffer( UI const* const pUI );
+void renderUndo( UI const* const pUI );
+void renderRedo( UI const* const pUI );
+void renderReset( UI const* const pUI );
+void renderQuit( UI const* const pUI );
+void renderInfo( UI const* const pUI );
+void renderActivePlayer( UI const* const pUI );
+void renderCommand( UI const* const pUI );
+void renderHistory( UI const* const pUI );
 void renderBoard(
     UI const* const pUI,
     int const boardSize
@@ -31,7 +41,7 @@ void render( App const* const pApp )
     {
         case APP_STATE_CHOOSE_BOARD_SIZE:
         {
-            renderStartScreen( pApp );
+            renderStartScreen( &pApp->ui );
 
             break;
         }
@@ -127,18 +137,18 @@ void renderButton( UIElement const* const pUIElement )
     );
 }
 
-void renderStartScreen( App const* const pApp )
+void renderStartScreen( UI const* const pUI )
 {
     attron( COLOR_PAIR( COLORS_UI ) );
 
-    renderText( &pApp->ui.uiElements[UIELEMENT_CHOOSE_SIZE_TEXT] );
+    renderText( &pUI->elements[UIELEMENT_CHOOSE_SIZE_TEXT] );
 
-    renderButton( &pApp->ui.uiElements[UIELEMENT_CHOOSE_SIZE_3x3] );
-    renderButton( &pApp->ui.uiElements[UIELEMENT_CHOOSE_SIZE_4x4] );
-    renderButton( &pApp->ui.uiElements[UIELEMENT_CHOOSE_SIZE_5x5] );
-    renderButton( &pApp->ui.uiElements[UIELEMENT_CHOOSE_SIZE_6x6] );
-    renderButton( &pApp->ui.uiElements[UIELEMENT_CHOOSE_SIZE_7x7] );
-    renderButton( &pApp->ui.uiElements[UIELEMENT_CHOOSE_SIZE_8x8] );
+    renderButton( &pUI->elements[UIELEMENT_CHOOSE_SIZE_3x3] );
+    renderButton( &pUI->elements[UIELEMENT_CHOOSE_SIZE_4x4] );
+    renderButton( &pUI->elements[UIELEMENT_CHOOSE_SIZE_5x5] );
+    renderButton( &pUI->elements[UIELEMENT_CHOOSE_SIZE_6x6] );
+    renderButton( &pUI->elements[UIELEMENT_CHOOSE_SIZE_7x7] );
+    renderButton( &pUI->elements[UIELEMENT_CHOOSE_SIZE_8x8] );
 
     attroff( COLOR_PAIR( COLORS_UI ) );
 }
@@ -147,13 +157,12 @@ void renderUI( App const* const pApp )
 {
     attron( COLOR_PAIR( COLORS_UI ) );
 
-    // renderText( &pApp->ui.uiElements[UIELEMENT_STACK_BUFFER] );
-    //
-    // renderText( &pApp->ui.uiElements[UIELEMENT_UNDO] );
-    // renderText( &pApp->ui.uiElements[UIELEMENT_REDO] );
-    // renderText( &pApp->ui.uiElements[UIELEMENT_RESET] );
-    // renderText( &pApp->ui.uiElements[UIELEMENT_QUIT] );
-    //
+    renderStackBuffer( &pApp->ui );
+    renderUndo( &pApp->ui );
+    renderRedo( &pApp->ui );
+    renderReset( &pApp->ui );
+    renderQuit( &pApp->ui );
+
     // renderText( &pApp->ui.uiElements[UIELEMENT_INFO] );
     // renderText( &pApp->ui.uiElements[UIELEMENT_ACTIVE_PLAYER] );
     // renderText( &pApp->ui.uiElements[UIELEMENT_COMMAND] );
@@ -167,6 +176,76 @@ void renderUI( App const* const pApp )
     attroff( COLOR_PAIR( COLORS_UI ) );
 }
 
+void renderStackBuffer( UI const* const pUI )
+{
+    mvprintw(
+        pUI->elements[UIELEMENT_STACK_BUFFER].y,
+        pUI->elements[UIELEMENT_STACK_BUFFER].x,
+        "+   +"
+    );
+
+    mvprintw(
+        pUI->elements[UIELEMENT_STACK_BUFFER].y + pUI->elements[UIELEMENT_STACK_BUFFER].height - 1,
+        pUI->elements[UIELEMENT_STACK_BUFFER].x,
+        "+   +"
+    );
+}
+
+void renderUndo( UI const* const pUI )
+{
+    for ( int y = 0; y < pUI->elements[UIELEMENT_UNDO].height; ++y )
+    {
+        mvprintw(
+            pUI->elements[UIELEMENT_UNDO].y + y,
+            pUI->elements[UIELEMENT_UNDO].x,
+            "<<"
+        );
+    }
+}
+
+void renderRedo( UI const* const pUI )
+{
+    for ( int y = 0; y < pUI->elements[UIELEMENT_REDO].height; ++y )
+    {
+        mvprintw(
+            pUI->elements[UIELEMENT_REDO].y + y,
+            pUI->elements[UIELEMENT_REDO].x,
+            ">>"
+        );
+    }
+}
+
+void renderReset( UI const* const pUI )
+{
+    for ( int y = 0; y < pUI->elements[UIELEMENT_RESET].height; ++y )
+    {
+        mvprintw(
+            pUI->elements[UIELEMENT_RESET].y + y,
+            pUI->elements[UIELEMENT_RESET].x,
+            "|<"
+        );
+    }
+}
+
+void renderQuit( UI const* const pUI )
+{
+    mvprintw(
+        pUI->elements[UIELEMENT_QUIT].y,
+        pUI->elements[UIELEMENT_QUIT].x,
+        "\\/"
+    );
+    mvprintw(
+        pUI->elements[UIELEMENT_QUIT].y + 1,
+        pUI->elements[UIELEMENT_QUIT].x,
+        "/\\"
+    );
+}
+
+void renderInfo( UI const* const pUI );
+void renderActivePlayer( UI const* const pUI );
+void renderCommand( UI const* const pUI );
+void renderHistory( UI const* const pUI );
+
 void renderBoard(
     UI const* const pUI,
     int const boardSize
@@ -178,15 +257,15 @@ void renderBoard(
         for ( int y = 0; y < boardSize; ++y )
         {
             mvprintw(
-                ( y * 4 ) + pUI->uiElements[UIELEMENT_BOARD].y,
-                ( x * 4 ) + pUI->uiElements[UIELEMENT_BOARD].x,
+                ( y * 4 ) + pUI->elements[UIELEMENT_BOARD].y,
+                ( x * 4 ) + pUI->elements[UIELEMENT_BOARD].x,
                 "%s",
                 "+   +"
             );
 
             mvprintw(
-                ( y * 4 ) + pUI->uiElements[UIELEMENT_BOARD].y + 4,
-                ( x * 4 ) + pUI->uiElements[UIELEMENT_BOARD].x,
+                ( y * 4 ) + pUI->elements[UIELEMENT_BOARD].y + 4,
+                ( x * 4 ) + pUI->elements[UIELEMENT_BOARD].x,
                 "%s",
                 "+   +"
             );
@@ -194,7 +273,7 @@ void renderBoard(
     }
 
     /// Box
-    renderBox( &pUI->uiElements[UIELEMENT_BOARD] );
+    renderBox( &pUI->elements[UIELEMENT_BOARD] );
 
     /// Labels
     char ch = 'A';
@@ -202,14 +281,14 @@ void renderBoard(
     for ( int x = 0; x < boardSize; ++x )
     {
         mvaddch(
-            pUI->uiElements[UIELEMENT_BOARD].y - 1,
-            ( x * 4 ) + pUI->uiElements[UIELEMENT_BOARD].x + 2,
+            pUI->elements[UIELEMENT_BOARD].y - 1,
+            ( x * 4 ) + pUI->elements[UIELEMENT_BOARD].x + 2,
             ch
         );
 
         mvaddch(
-            pUI->uiElements[UIELEMENT_BOARD].y + pUI->uiElements[UIELEMENT_BOARD].height,
-            ( x * 4 ) + pUI->uiElements[UIELEMENT_BOARD].x + 2,
+            pUI->elements[UIELEMENT_BOARD].y + pUI->elements[UIELEMENT_BOARD].height,
+            ( x * 4 ) + pUI->elements[UIELEMENT_BOARD].x + 2,
             ch++
         );
     }
@@ -218,14 +297,14 @@ void renderBoard(
     for ( int y = 0; y < boardSize; ++y )
     {
         mvaddch(
-            ( ( boardSize - y ) * 4 ) + pUI->uiElements[UIELEMENT_BOARD].y - 2,
-            pUI->uiElements[UIELEMENT_BOARD].x - 1,
+            ( ( boardSize - y ) * 4 ) + pUI->elements[UIELEMENT_BOARD].y - 2,
+            pUI->elements[UIELEMENT_BOARD].x - 1,
             ch
         );
 
         mvaddch(
-            ( ( boardSize - y ) * 4 ) + pUI->uiElements[UIELEMENT_BOARD].y - 2,
-            pUI->uiElements[UIELEMENT_BOARD].x + pUI->uiElements[UIELEMENT_BOARD].width,
+            ( ( boardSize - y ) * 4 ) + pUI->elements[UIELEMENT_BOARD].y - 2,
+            pUI->elements[UIELEMENT_BOARD].x + pUI->elements[UIELEMENT_BOARD].width,
             ch++
         );
     }
