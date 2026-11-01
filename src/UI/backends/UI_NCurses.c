@@ -198,8 +198,9 @@ void updateUI(
 )
 {
     assert( pUI && "Pointer is invalid" );
-    pUI->uiElements[UIELEMENT_BOARD].width = ( boardSize * 4 ) + 3;
-    pUI->uiElements[UIELEMENT_BOARD].height = ( boardSize * 4 ) + 3;
+
+    pUI->uiElements[UIELEMENT_BOARD].width = ( boardSize * 4 ) + 1;
+    pUI->uiElements[UIELEMENT_BOARD].height = ( boardSize * 4 ) + 1;
 }
 
 #endif

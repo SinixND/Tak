@@ -147,17 +147,17 @@ void renderUI( App const* const pApp )
 {
     attron( COLOR_PAIR( COLORS_UI ) );
 
-    renderText( &pApp->ui.uiElements[UIELEMENT_STACK_BUFFER] );
-
-    renderText( &pApp->ui.uiElements[UIELEMENT_UNDO] );
-    renderText( &pApp->ui.uiElements[UIELEMENT_REDO] );
-    renderText( &pApp->ui.uiElements[UIELEMENT_RESET] );
-    renderText( &pApp->ui.uiElements[UIELEMENT_QUIT] );
-
-    renderText( &pApp->ui.uiElements[UIELEMENT_INFO] );
-    renderText( &pApp->ui.uiElements[UIELEMENT_ACTIVE_PLAYER] );
-    renderText( &pApp->ui.uiElements[UIELEMENT_COMMAND] );
-    renderText( &pApp->ui.uiElements[UIELEMENT_HISTORY] );
+    // renderText( &pApp->ui.uiElements[UIELEMENT_STACK_BUFFER] );
+    //
+    // renderText( &pApp->ui.uiElements[UIELEMENT_UNDO] );
+    // renderText( &pApp->ui.uiElements[UIELEMENT_REDO] );
+    // renderText( &pApp->ui.uiElements[UIELEMENT_RESET] );
+    // renderText( &pApp->ui.uiElements[UIELEMENT_QUIT] );
+    //
+    // renderText( &pApp->ui.uiElements[UIELEMENT_INFO] );
+    // renderText( &pApp->ui.uiElements[UIELEMENT_ACTIVE_PLAYER] );
+    // renderText( &pApp->ui.uiElements[UIELEMENT_COMMAND] );
+    // renderText( &pApp->ui.uiElements[UIELEMENT_HISTORY] );
 
     renderBoard(
         &pApp->ui,
@@ -172,28 +172,29 @@ void renderBoard(
     int const boardSize
 )
 {
-    /// Board
-    for ( int file = 0; file < ( boardSize * boardSize ); ++file )
+    /// Grid
+    for ( int x = 0; x < boardSize; ++x )
     {
-        for ( int rank = 0; rank < ( boardSize * boardSize ); ++rank )
+        for ( int y = 0; y < boardSize; ++y )
         {
             mvprintw(
-                pUI->uiElements[UIELEMENT_BOARD].y + rank,
-                pUI->uiElements[UIELEMENT_BOARD].x + file,
+                pUI->uiElements[UIELEMENT_BOARD].y + y * 4,
+                pUI->uiElements[UIELEMENT_BOARD].x + x * 4,
                 "%s",
                 "+   +"
             );
 
             mvprintw(
-                pUI->uiElements[UIELEMENT_BOARD].y + rank + 4,
-                pUI->uiElements[UIELEMENT_BOARD].x + file,
+                pUI->uiElements[UIELEMENT_BOARD].y + ( y * 4 ) + 4,
+                pUI->uiElements[UIELEMENT_BOARD].x + x * 4,
                 "%s",
                 "+   +"
             );
         }
     }
 
-    /// Borders
+    /// Box
+    renderBox( &pUI->uiElements[UIELEMENT_BOARD] );
 
     /// Labels
 }
