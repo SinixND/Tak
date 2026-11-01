@@ -2,17 +2,17 @@
 #define IG20260728124832
 
 #include "CommandId.h"
-#include "UIElementId.h"
+#include <stdbool.h>
 
-/// Links position with command
+/// @brief: Links position with command
 typedef struct UIElement
 {
     float x;
     float y;
     float width;
     float height;
-    UIElementId uiElementId;
     CommandId commandId;
+    char const* text;
 } UIElement;
 
 #endif

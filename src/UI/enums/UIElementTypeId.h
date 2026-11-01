@@ -1,0 +1,10 @@
+#ifndef IG20261101222208
+#define IG20261101222208
+
+typedef enum
+{
+    UIELEMENT_TYPE_TEXT,
+    UIELEMENT_TYPE_BUTTON,
+} UIElementTypeId;
+
+#endif

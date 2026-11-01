@@ -151,21 +151,12 @@ The following tools are used in the project but not required and not contained i
 
 
 ## ToDo notes
-- [ ] Split Tile into Engine
-- [ ] Split backend into input, render and ui
-- [ ] UI
-    - UI{elements*}
-    - UIElementId{enum}
-    - UIElementType{enum text,button}
-    - UIElements{rect,text,cmd}
-- [ ] Rename file/rank to column/row
-- [ ] Render raylib/web 
 - [ ] Remove warning-suppressing nullptr asserts
+- [ ] Rename file/rank to column/row
+
+- [ ] Render raylib/web 
 
 - [ ] Todos
-- [ ] Add cursor? -> raylib
-    - Cursor == Frame around square
-    - New appstate GET_POSITION
 
 - [ ] Save/Load?
 

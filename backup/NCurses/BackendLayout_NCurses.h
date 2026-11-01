@@ -45,6 +45,7 @@ static char* const LAYOUT_INFO_PANE[LAYOUT_PANE_HEIGHT] = {
     "Black:    |  ",
     "Active:       [ ]",
     ">",
+    //"> B:Ma1+12345678",
     "History:",
 };
 
