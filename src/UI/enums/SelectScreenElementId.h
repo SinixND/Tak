@@ -1,0 +1,17 @@
+#ifndef IG20261017172153
+#define IG20261017172153
+
+typedef enum
+{
+    UIELEMENT_CHOOSE_SIZE,
+    UIELEMENT_3x3,
+    UIELEMENT_4x4,
+    UIELEMENT_5x5,
+    UIELEMENT_6x6,
+    UIELEMENT_7x7,
+    UIELEMENT_8x8,
+
+    SELECT_SCREEN_ELEMENT_COUNT,
+} SelectScreenElementId;
+
+#endif

@@ -5,7 +5,6 @@
 #include "Constants_NCurses.h"
 #include "UI.h"
 #include "UIElement.h"
-#include "UIElementId.h"
 #include <assert.h>
 #include <ncurses.h>
 
@@ -144,14 +143,14 @@ void renderStartScreen( UI const* const pUI )
 {
     attron( COLOR_PAIR( COLORS_UI ) );
 
-    renderText( &pUI->elements[UIELEMENT_CHOOSE_SIZE] );
+    renderText( &pUI->selectScreenElements[UIELEMENT_CHOOSE_SIZE] );
 
-    renderButton( &pUI->elements[UIELEMENT_3x3] );
-    renderButton( &pUI->elements[UIELEMENT_4x4] );
-    renderButton( &pUI->elements[UIELEMENT_5x5] );
-    renderButton( &pUI->elements[UIELEMENT_6x6] );
-    renderButton( &pUI->elements[UIELEMENT_7x7] );
-    renderButton( &pUI->elements[UIELEMENT_8x8] );
+    renderButton( &pUI->selectScreenElements[UIELEMENT_3x3] );
+    renderButton( &pUI->selectScreenElements[UIELEMENT_4x4] );
+    renderButton( &pUI->selectScreenElements[UIELEMENT_5x5] );
+    renderButton( &pUI->selectScreenElements[UIELEMENT_6x6] );
+    renderButton( &pUI->selectScreenElements[UIELEMENT_7x7] );
+    renderButton( &pUI->selectScreenElements[UIELEMENT_8x8] );
 
     attroff( COLOR_PAIR( COLORS_UI ) );
 }
@@ -204,11 +203,11 @@ void renderUI( App const* const pApp )
 
 void renderUndo( UI const* const pUI )
 {
-    for ( int y = 0; y < pUI->elements[UIELEMENT_UNDO].height; ++y )
+    for ( int y = 0; y < pUI->gameScreenElements[UIELEMENT_UNDO].height; ++y )
     {
         mvprintw(
-            pUI->elements[UIELEMENT_UNDO].y + y,
-            pUI->elements[UIELEMENT_UNDO].x,
+            pUI->gameScreenElements[UIELEMENT_UNDO].y + y,
+            pUI->gameScreenElements[UIELEMENT_UNDO].x,
             "<<"
         );
     }
@@ -216,11 +215,11 @@ void renderUndo( UI const* const pUI )
 
 void renderRedo( UI const* const pUI )
 {
-    for ( int y = 0; y < pUI->elements[UIELEMENT_REDO].height; ++y )
+    for ( int y = 0; y < pUI->gameScreenElements[UIELEMENT_REDO].height; ++y )
     {
         mvprintw(
-            pUI->elements[UIELEMENT_REDO].y + y,
-            pUI->elements[UIELEMENT_REDO].x,
+            pUI->gameScreenElements[UIELEMENT_REDO].y + y,
+            pUI->gameScreenElements[UIELEMENT_REDO].x,
             ">>"
         );
     }
@@ -228,11 +227,11 @@ void renderRedo( UI const* const pUI )
 
 void renderReset( UI const* const pUI )
 {
-    for ( int y = 0; y < pUI->elements[UIELEMENT_RESET].height; ++y )
+    for ( int y = 0; y < pUI->gameScreenElements[UIELEMENT_RESET].height; ++y )
     {
         mvprintw(
-            pUI->elements[UIELEMENT_RESET].y + y,
-            pUI->elements[UIELEMENT_RESET].x,
+            pUI->gameScreenElements[UIELEMENT_RESET].y + y,
+            pUI->gameScreenElements[UIELEMENT_RESET].x,
             "|<"
         );
     }
@@ -241,14 +240,14 @@ void renderReset( UI const* const pUI )
 void renderQuit( UI const* const pUI )
 {
     mvprintw(
-        pUI->elements[UIELEMENT_QUIT].y,
-        pUI->elements[UIELEMENT_QUIT].x,
+        pUI->gameScreenElements[UIELEMENT_QUIT].y,
+        pUI->gameScreenElements[UIELEMENT_QUIT].x,
         "\\/"
     );
 
     mvprintw(
-        pUI->elements[UIELEMENT_QUIT].y + 1,
-        pUI->elements[UIELEMENT_QUIT].x,
+        pUI->gameScreenElements[UIELEMENT_QUIT].y + 1,
+        pUI->gameScreenElements[UIELEMENT_QUIT].x,
         "/\\"
     );
 }
@@ -256,14 +255,14 @@ void renderQuit( UI const* const pUI )
 void renderStackBuffer( UI const* const pUI )
 {
     mvprintw(
-        pUI->elements[UIELEMENT_STACK_BUFFER].y,
-        pUI->elements[UIELEMENT_STACK_BUFFER].x,
+        pUI->gameScreenElements[UIELEMENT_STACK_BUFFER].y,
+        pUI->gameScreenElements[UIELEMENT_STACK_BUFFER].x,
         "+   +"
     );
 
     mvprintw(
-        pUI->elements[UIELEMENT_STACK_BUFFER].y + pUI->elements[UIELEMENT_STACK_BUFFER].height - 1,
-        pUI->elements[UIELEMENT_STACK_BUFFER].x,
+        pUI->gameScreenElements[UIELEMENT_STACK_BUFFER].y + pUI->gameScreenElements[UIELEMENT_STACK_BUFFER].height - 1,
+        pUI->gameScreenElements[UIELEMENT_STACK_BUFFER].x,
         "+   +"
     );
 }
@@ -271,20 +270,20 @@ void renderStackBuffer( UI const* const pUI )
 void renderInfo( UI const* const pUI )
 {
     mvprintw(
-        pUI->elements[UIELEMENT_INFO].y,
-        pUI->elements[UIELEMENT_INFO].x,
+        pUI->gameScreenElements[UIELEMENT_INFO].y,
+        pUI->gameScreenElements[UIELEMENT_INFO].x,
         "         R|C Score"
     );
 
     mvprintw(
-        pUI->elements[UIELEMENT_INFO].y + 1,
-        pUI->elements[UIELEMENT_INFO].x,
+        pUI->gameScreenElements[UIELEMENT_INFO].y + 1,
+        pUI->gameScreenElements[UIELEMENT_INFO].x,
         "White:    |  "
     );
 
     mvprintw(
-        pUI->elements[UIELEMENT_INFO].y + 2,
-        pUI->elements[UIELEMENT_INFO].x,
+        pUI->gameScreenElements[UIELEMENT_INFO].y + 2,
+        pUI->gameScreenElements[UIELEMENT_INFO].x,
         "Black:    |  "
     );
 }
@@ -292,8 +291,8 @@ void renderInfo( UI const* const pUI )
 void renderActivePlayer( UI const* const pUI )
 {
     mvprintw(
-        pUI->elements[UIELEMENT_ACTIVE_PLAYER].y,
-        pUI->elements[UIELEMENT_ACTIVE_PLAYER].x,
+        pUI->gameScreenElements[UIELEMENT_ACTIVE_PLAYER].y,
+        pUI->gameScreenElements[UIELEMENT_ACTIVE_PLAYER].x,
         "Active:       [ ]"
     );
 }
@@ -301,8 +300,8 @@ void renderActivePlayer( UI const* const pUI )
 void renderCommand( UI const* const pUI )
 {
     mvprintw(
-        pUI->elements[UIELEMENT_COMMAND].y,
-        pUI->elements[UIELEMENT_COMMAND].x,
+        pUI->gameScreenElements[UIELEMENT_COMMAND].y,
+        pUI->gameScreenElements[UIELEMENT_COMMAND].x,
         //"> B:Ma1+12345678",
         ">"
     );
@@ -311,8 +310,8 @@ void renderCommand( UI const* const pUI )
 void renderHistory( UI const* const pUI )
 {
     mvprintw(
-        pUI->elements[UIELEMENT_HISTORY].y,
-        pUI->elements[UIELEMENT_HISTORY].x,
+        pUI->gameScreenElements[UIELEMENT_HISTORY].y,
+        pUI->gameScreenElements[UIELEMENT_HISTORY].x,
         "History:"
     );
 }
@@ -328,15 +327,15 @@ void renderBoard(
         for ( int y = 0; y < boardSize; ++y )
         {
             mvprintw(
-                ( y * 4 ) + pUI->elements[UIELEMENT_BOARD].y,
-                ( x * 4 ) + pUI->elements[UIELEMENT_BOARD].x,
+                ( y * 4 ) + pUI->gameScreenElements[UIELEMENT_BOARD].y,
+                ( x * 4 ) + pUI->gameScreenElements[UIELEMENT_BOARD].x,
                 "%s",
                 "+   +"
             );
 
             mvprintw(
-                ( y * 4 ) + pUI->elements[UIELEMENT_BOARD].y + 4,
-                ( x * 4 ) + pUI->elements[UIELEMENT_BOARD].x,
+                ( y * 4 ) + pUI->gameScreenElements[UIELEMENT_BOARD].y + 4,
+                ( x * 4 ) + pUI->gameScreenElements[UIELEMENT_BOARD].x,
                 "%s",
                 "+   +"
             );
@@ -344,7 +343,7 @@ void renderBoard(
     }
 
     /// Box
-    renderBox( &pUI->elements[UIELEMENT_BOARD] );
+    renderBox( &pUI->gameScreenElements[UIELEMENT_BOARD] );
 
     /// Labels
     char ch = 'A';
@@ -352,14 +351,14 @@ void renderBoard(
     for ( int x = 0; x < boardSize; ++x )
     {
         mvaddch(
-            pUI->elements[UIELEMENT_BOARD].y - 1,
-            ( x * 4 ) + pUI->elements[UIELEMENT_BOARD].x + 2,
+            pUI->gameScreenElements[UIELEMENT_BOARD].y - 1,
+            ( x * 4 ) + pUI->gameScreenElements[UIELEMENT_BOARD].x + 2,
             ch
         );
 
         mvaddch(
-            pUI->elements[UIELEMENT_BOARD].y + pUI->elements[UIELEMENT_BOARD].height,
-            ( x * 4 ) + pUI->elements[UIELEMENT_BOARD].x + 2,
+            pUI->gameScreenElements[UIELEMENT_BOARD].y + pUI->gameScreenElements[UIELEMENT_BOARD].height,
+            ( x * 4 ) + pUI->gameScreenElements[UIELEMENT_BOARD].x + 2,
             ch++
         );
     }
@@ -368,14 +367,14 @@ void renderBoard(
     for ( int y = 0; y < boardSize; ++y )
     {
         mvaddch(
-            ( ( boardSize - y ) * 4 ) + pUI->elements[UIELEMENT_BOARD].y - 2,
-            pUI->elements[UIELEMENT_BOARD].x - 1,
+            ( ( boardSize - y ) * 4 ) + pUI->gameScreenElements[UIELEMENT_BOARD].y - 2,
+            pUI->gameScreenElements[UIELEMENT_BOARD].x - 1,
             ch
         );
 
         mvaddch(
-            ( ( boardSize - y ) * 4 ) + pUI->elements[UIELEMENT_BOARD].y - 2,
-            pUI->elements[UIELEMENT_BOARD].x + pUI->elements[UIELEMENT_BOARD].width,
+            ( ( boardSize - y ) * 4 ) + pUI->gameScreenElements[UIELEMENT_BOARD].y - 2,
+            pUI->gameScreenElements[UIELEMENT_BOARD].x + pUI->gameScreenElements[UIELEMENT_BOARD].width,
             ch++
         );
     }
@@ -390,29 +389,29 @@ void renderInfoContent(
     attron( COLOR_PAIR( COLORS_DEFAULT ) );
 
     mvprintw(
-        pUI->elements[UIELEMENT_INFO].y + 1,
-        pUI->elements[UIELEMENT_INFO].x + 8,
+        pUI->gameScreenElements[UIELEMENT_INFO].y + 1,
+        pUI->gameScreenElements[UIELEMENT_INFO].x + 8,
         "%2i",
         pGame->reserves.regular[PLAYER_WHITE]
     );
 
     mvprintw(
-        pUI->elements[UIELEMENT_INFO].y + 1,
-        pUI->elements[UIELEMENT_INFO].x + 11,
+        pUI->gameScreenElements[UIELEMENT_INFO].y + 1,
+        pUI->gameScreenElements[UIELEMENT_INFO].x + 11,
         "%i",
         pGame->reserves.capstone[PLAYER_WHITE]
     );
 
     mvprintw(
-        pUI->elements[UIELEMENT_INFO].y + 2,
-        pUI->elements[UIELEMENT_INFO].x + 8,
+        pUI->gameScreenElements[UIELEMENT_INFO].y + 2,
+        pUI->gameScreenElements[UIELEMENT_INFO].x + 8,
         "%2i",
         pGame->reserves.regular[PLAYER_BLACK]
     );
 
     mvprintw(
-        pUI->elements[UIELEMENT_INFO].y + 2,
-        pUI->elements[UIELEMENT_INFO].x + 11,
+        pUI->gameScreenElements[UIELEMENT_INFO].y + 2,
+        pUI->gameScreenElements[UIELEMENT_INFO].x + 11,
         "%i",
         pGame->reserves.capstone[PLAYER_BLACK]
     );
@@ -421,8 +420,8 @@ void renderInfoContent(
     attron( COLOR_PAIR( COLORS_PLAYER_WHITE_STRONG ) );
 
     mvprintw(
-        pUI->elements[UIELEMENT_INFO].y + 1,
-        pUI->elements[UIELEMENT_INFO].x + 14,
+        pUI->gameScreenElements[UIELEMENT_INFO].y + 1,
+        pUI->gameScreenElements[UIELEMENT_INFO].x + 14,
         "%2i",
         pGame->reserves.capstone[PLAYER_BLACK]
     );
@@ -430,8 +429,8 @@ void renderInfoContent(
     attron( COLOR_PAIR( COLORS_PLAYER_BLACK_STRONG ) );
 
     mvprintw(
-        pUI->elements[UIELEMENT_INFO].y + 2,
-        pUI->elements[UIELEMENT_INFO].x + 14,
+        pUI->gameScreenElements[UIELEMENT_INFO].y + 2,
+        pUI->gameScreenElements[UIELEMENT_INFO].x + 14,
         "%2i",
         pGame->reserves.capstone[PLAYER_BLACK]
     );
