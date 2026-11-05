@@ -1,4 +1,5 @@
 #include "Command.h"
+#include "History.h"
 #include "Render_Interface.h"
 
 #ifdef BACKEND_NCURSES
@@ -35,7 +36,7 @@ void renderBoard( UI const* const pUI, int const boardSize );
 void renderInfoContent( UI const* const pUI, Game const* const pGame );
 void renderActivePlayerContent( UI const* const pUI, Game const* const pGame );
 void renderCommandContent( UI const* const pUI, Command const* const pCommand );
-void renderHistoryContent( UI const* const pUI, Game const* const pGame );
+void renderHistoryContent( UI const* const pUI, Game const* const pGame, History const* const pHistory );
 
 void render( App const* const pApp )
 {
@@ -201,7 +202,8 @@ void renderUI( App const* const pApp )
 
     renderHistoryContent(
         &pApp->ui,
-        &pApp->game
+        &pApp->game,
+        &pApp->history
     );
 
     attroff( COLOR_PAIR( COLORS_DEFAULT ) );
@@ -539,9 +541,112 @@ void renderCommandContent(
 
 void renderHistoryContent(
     UI const* const pUI,
-    Game const* const pGame
+    Game const* const pGame,
+    History const* const pHistory
 )
 {
+    int const entryCount = ( 4 * ( pGame->board.size - 3 ) + 3 );
+
+    for ( int i = 0; i < entryCount; ++i )
+    {
+        if ( pHistory->lastCommandIdx - i <= 0 )
+        {
+            return;
+        }
+
+        Command const* const pLastCommand
+            = &pHistory->commands[pHistory->lastCommandIdx - i];
+
+        switch ( pLastCommand->actionType )
+        {
+            case ACTION_TYPE_PLACE:
+            {
+                mvprintw(
+                    pUI->gameScreenElements[UIELEMENT_HISTORY].y + 1 + i,
+                    pUI->gameScreenElements[UIELEMENT_HISTORY].x,
+                    "%c[%i] %c%c%c%c%c%c%c%c%c%c%c",
+                    PLAYER_CHARS[pLastCommand->playerId],
+                    ( 1 + pHistory->lastCommandIdx - i ) / 2,
+                    STONE_TYPE_CHARS[pLastCommand->stoneType],
+                    ( ( pLastCommand->fileX < 0 )
+                          ? ' '
+                          : FILE_CHARS[pLastCommand->fileX] ),
+                    ( ( pLastCommand->rankY < 0 )
+                          ? ' '
+                          : RANK_CHARS[pLastCommand->rankY] ),
+                    ' ',
+                    ' ',
+                    ' ',
+                    ' ',
+                    ' ',
+                    ' ',
+                    ' ',
+                    ' '
+                );
+
+                break;
+            }
+
+            case ACTION_TYPE_LIFT:
+            case ACTION_TYPE_DROP:
+            {
+                mvprintw(
+                    pUI->gameScreenElements[UIELEMENT_HISTORY].y + 1 + i,
+                    pUI->gameScreenElements[UIELEMENT_HISTORY].x,
+                    "%c[%i] %c%c%c%c%c%c%c%c%c%c%c",
+                    PLAYER_CHARS[pLastCommand->playerId],
+                    ( 1 + pHistory->lastCommandIdx - i ) / 2,
+                    ( ( pLastCommand->fileX < 0 )
+                          ? ' '
+                          : FILE_CHARS[pLastCommand->fileX] ),
+                    ( ( pLastCommand->rankY < 0 )
+                          ? ' '
+                          : RANK_CHARS[pLastCommand->rankY] ),
+                    ( ( pLastCommand->direction < 0 )
+                          ? ' '
+                          : DIRECTION_CHARS[pLastCommand->direction] ),
+                    ( ( pLastCommand->dropCounts[0] < 0 )
+                          ? ' '
+                          : '0' + pLastCommand->dropCounts[0] ),
+                    ( ( pLastCommand->dropCounts[1] < 0 )
+                          ? ' '
+                          : '0' + pLastCommand->dropCounts[1] ),
+                    ( ( pLastCommand->dropCounts[2] < 0 )
+                          ? ' '
+                          : '0' + pLastCommand->dropCounts[2] ),
+                    ( ( pLastCommand->dropCounts[3] < 0 )
+                          ? ' '
+                          : '0' + pLastCommand->dropCounts[3] ),
+                    ( ( pLastCommand->dropCounts[4] < 0 )
+                          ? ' '
+                          : '0' + pLastCommand->dropCounts[4] ),
+                    ( ( pLastCommand->dropCounts[5] < 0 )
+                          ? ' '
+                          : '0' + pLastCommand->dropCounts[5] ),
+                    ( ( pLastCommand->dropCounts[6] < 0 )
+                          ? ' '
+                          : '0' + pLastCommand->dropCounts[6] ),
+                    ( ( pLastCommand->dropCounts[7] < 0 )
+                          ? ' '
+                          : '0' + pLastCommand->dropCounts[7] )
+                );
+
+                break;
+            }
+
+            default:
+            {
+                mvprintw(
+                    pUI->gameScreenElements[UIELEMENT_HISTORY].y + 1,
+                    pUI->gameScreenElements[UIELEMENT_HISTORY].x,
+                    "%s",
+                    "            "
+                );
+
+                break;
+            }
+        }
+    }
 }
 
 #endif
