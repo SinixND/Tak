@@ -3,6 +3,7 @@
 #ifdef BACKEND_NCURSES
 #include "App.h"
 #include "Constants_NCurses.h"
+#include "GameScreenElementId.h"
 #include "UI.h"
 #include "UIElement.h"
 #include <assert.h>
@@ -443,6 +444,25 @@ void renderActivePlayerContent(
     Game const* const pGame
 )
 {
+    attron( COLOR_PAIR( ( pGame->activePlayer == PLAYER_WHITE ) ? COLORS_PLAYER_WHITE_WEAK : COLORS_PLAYER_BLACK_WEAK ) );
+
+    mvprintw(
+        pUI->gameScreenElements[UIELEMENT_ACTIVE_PLAYER].y,
+        pUI->gameScreenElements[UIELEMENT_ACTIVE_PLAYER].x + 8,
+        "%s",
+        ( pGame->activePlayer == PLAYER_WHITE ) ? "WHITE" : "BLACK"
+    );
+
+    attroff( COLOR_PAIR( ( pGame->activePlayer == PLAYER_WHITE ) ? COLORS_PLAYER_WHITE_WEAK : COLORS_PLAYER_BLACK_WEAK ) );
+
+    attron( COLOR_PAIR( ( pGame->activePlayer == PLAYER_WHITE ) ? COLORS_PLAYER_WHITE_STRONG : COLORS_PLAYER_BLACK_STRONG ) );
+    mvprintw(
+        pUI->gameScreenElements[UIELEMENT_ACTIVE_PLAYER].y,
+        pUI->gameScreenElements[UIELEMENT_ACTIVE_PLAYER].x + 15,
+        "%c",
+        PLAYER_CHARS[pGame->activePlayer]
+    );
+    attroff( COLOR_PAIR( ( pGame->activePlayer == PLAYER_WHITE ) ? COLORS_PLAYER_WHITE_STRONG : COLORS_PLAYER_BLACK_STRONG ) );
 }
 
 void renderCommandContent(
