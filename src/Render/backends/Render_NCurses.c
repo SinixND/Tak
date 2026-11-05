@@ -1,3 +1,4 @@
+#include "Command.h"
 #include "Render_Interface.h"
 
 #ifdef BACKEND_NCURSES
@@ -33,7 +34,7 @@ void renderBoard( UI const* const pUI, int const boardSize );
 
 void renderInfoContent( UI const* const pUI, Game const* const pGame );
 void renderActivePlayerContent( UI const* const pUI, Game const* const pGame );
-void renderCommandContent( UI const* const pUI, Game const* const pGame );
+void renderCommandContent( UI const* const pUI, Command const* const pCommand );
 void renderHistoryContent( UI const* const pUI, Game const* const pGame );
 
 void render( App const* const pApp )
@@ -191,15 +192,19 @@ void renderUI( App const* const pApp )
         &pApp->game
     );
 
+    attron( COLOR_PAIR( COLORS_DEFAULT ) );
+
     renderCommandContent(
         &pApp->ui,
-        &pApp->game
+        &pApp->command
     );
 
     renderHistoryContent(
         &pApp->ui,
         &pApp->game
     );
+
+    attroff( COLOR_PAIR( COLORS_DEFAULT ) );
 }
 
 void renderUndo( UI const* const pUI )
@@ -467,9 +472,69 @@ void renderActivePlayerContent(
 
 void renderCommandContent(
     UI const* const pUI,
-    Game const* const pGame
+    Command const* const pCommand
 )
 {
+    /// W:A@c#
+    /// B:Ac#+#######
+    ///
+    mvprintw(
+        pUI->gameScreenElements[UIELEMENT_COMMAND].y,
+        pUI->gameScreenElements[UIELEMENT_COMMAND].x + 2,
+        "%c:",
+        PLAYER_CHARS[pCommand->playerId]
+    );
+
+    switch ( pCommand->actionType )
+    {
+        default:
+        case ACTION_TYPE_PLACE:
+        {
+            mvprintw(
+                pUI->gameScreenElements[UIELEMENT_COMMAND].y,
+                pUI->gameScreenElements[UIELEMENT_COMMAND].x + 4,
+                "%c%c%c%c",
+                ACTION_TYPE_CHARS[pCommand->actionType],
+                STONE_TYPE_CHARS[pCommand->stoneType],
+                ( pCommand->fileX < 0 ) ? ' ' : FILE_CHARS[pCommand->fileX],
+                ( pCommand->rankY < 0 ) ? ' ' : RANK_CHARS[pCommand->rankY]
+            );
+
+            return;
+        }
+
+        case ACTION_TYPE_LIFT:
+        case ACTION_TYPE_DROP:
+        {
+            mvprintw(
+                pUI->gameScreenElements[UIELEMENT_COMMAND].y,
+                pUI->gameScreenElements[UIELEMENT_COMMAND].x + 4,
+                "%c%c%c%c%c%c%c%c%c%c%c%c",
+                ACTION_TYPE_CHARS[pCommand->actionType],
+                ( pCommand->fileX < 0 ) ? ' ' : FILE_CHARS[pCommand->fileX],
+                ( pCommand->rankY < 0 ) ? ' ' : RANK_CHARS[pCommand->rankY],
+                ( pCommand->direction < 0 ) ? ' ' : DIRECTION_CHARS[pCommand->direction],
+                ( pCommand->dropCounts[0] < 0 ) ? ' ' : '0' + pCommand->dropCounts[0],
+                ( pCommand->dropCounts[1] < 0 ) ? ' ' : '0' + pCommand->dropCounts[1],
+                ( pCommand->dropCounts[2] < 0 ) ? ' ' : '0' + pCommand->dropCounts[2],
+                ( pCommand->dropCounts[3] < 0 ) ? ' ' : '0' + pCommand->dropCounts[3],
+                ( pCommand->dropCounts[4] < 0 ) ? ' ' : '0' + pCommand->dropCounts[4],
+                ( pCommand->dropCounts[5] < 0 ) ? ' ' : '0' + pCommand->dropCounts[5],
+                ( pCommand->dropCounts[6] < 0 ) ? ' ' : '0' + pCommand->dropCounts[6],
+                ( pCommand->dropCounts[7] < 0 ) ? ' ' : '0' + pCommand->dropCounts[7]
+            );
+
+            attron( COLOR_PAIR( COLORS_INACTIVE ) );
+            mvaddch(
+                pUI->gameScreenElements[UIELEMENT_COMMAND].y,
+                pUI->gameScreenElements[UIELEMENT_COMMAND].x + 8 + pCommand->currentDropIdx,
+                '0' + pCommand->bufferedDropCount
+            );
+            attroff( COLOR_PAIR( COLORS_INACTIVE ) );
+
+            return;
+        }
+    }
 }
 
 void renderHistoryContent(
