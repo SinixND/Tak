@@ -1,8 +1,8 @@
 #include "Game.h"
 
 #include "Board.h"
+#include "Conversion.h"
 #include "PlayerId.h"
-#include "Position.h"
 #include "Reserves.h"
 #include "StackBuffer.h"
 #include "StoneTypeId.h"

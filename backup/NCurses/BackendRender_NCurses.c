@@ -6,12 +6,12 @@
 #include "AppStateId.h"
 #include "BackendLayout_NCurses.h"
 #include "Command.h"
+#include "Conversion.h"
 #include "DirectionId.h"
 #include "FileId.h"
 #include "GameConstants.h"
 #include "History.h"
 #include "PlayerId.h"
-#include "Position.h"
 #include "RankId.h"
 #include "StoneTypeId.h"
 #include <assert.h>

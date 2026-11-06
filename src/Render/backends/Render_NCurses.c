@@ -1,13 +1,16 @@
-#include "Command.h"
-#include "History.h"
 #include "Render_Interface.h"
 
 #ifdef BACKEND_NCURSES
 #include "App.h"
+#include "Command.h"
 #include "Constants_NCurses.h"
+#include "Conversion.h"
+#include "Game.h"
 #include "GameScreenElementId.h"
+#include "History.h"
 #include "UI.h"
 #include "UIElement.h"
+#include "UIPosition.h"
 #include <assert.h>
 #include <ncurses.h>
 
@@ -37,6 +40,8 @@ void renderInfoContent( UI const* const pUI, Game const* const pGame );
 void renderActivePlayerContent( UI const* const pUI, Game const* const pGame );
 void renderCommandContent( UI const* const pUI, Command const* const pCommand );
 void renderHistoryContent( UI const* const pUI, Game const* const pGame, History const* const pHistory );
+
+void renderBoardContent( UI const* const pUI, Game const* const pGame );
 
 void render( App const* const pApp )
 {
@@ -207,6 +212,11 @@ void renderUI( App const* const pApp )
     );
 
     attroff( COLOR_PAIR( COLORS_DEFAULT ) );
+
+    renderBoardContent(
+        &pApp->ui,
+        &pApp->game
+    );
 }
 
 void renderUndo( UI const* const pUI )
@@ -644,6 +654,100 @@ void renderHistoryContent(
                 );
 
                 break;
+            }
+        }
+    }
+}
+
+void renderBoardContent( UI const* const pUI, Game const* const pGame )
+{
+    int const squareCount = pGame->board.squareCount;
+    Board const* const pBoard = &pGame->board;
+    UIPosition squareEdge = {};
+
+    for ( int squareIdx = 0; squareIdx < squareCount; ++squareIdx )
+    {
+        /// Define top-left square position
+        squareEdge.x = ( pUI->gameScreenElements[UIELEMENT_BOARD].x + 1 ) + 4 * ( squareIdx % pBoard->size );
+        squareEdge.y = ( pUI->gameScreenElements[UIELEMENT_BOARD].y + 1 ) + 4 * ( ( pBoard->size - (int)( squareIdx / pBoard->size ) ) - 1 );
+
+        /// Render stack type
+        if (
+            pBoard->stoneCounts[squareIdx] > 0
+            && pBoard->stackTypes[squareIdx] != STONE_TYPE_STANDING
+        )
+        {
+            attron( COLOR_PAIR( ( pBoard->stackIds[squareIdx] == PLAYER_WHITE ) ? COLORS_PLAYER_WHITE_STRONG : COLORS_PLAYER_BLACK_STRONG ) );
+
+            mvaddch(
+                squareEdge.y,
+                squareEdge.x,
+                STONE_TYPE_SYMBOLS[pBoard->stackTypes[squareIdx]]
+            );
+
+            attroff( COLOR_PAIR( ( pBoard->stackIds[squareIdx] == PLAYER_WHITE ) ? COLORS_PLAYER_WHITE_STRONG : COLORS_PLAYER_BLACK_STRONG ) );
+        }
+        else if (
+            pBoard->stoneCounts[squareIdx] > 0
+            && pBoard->stackTypes[squareIdx] == STONE_TYPE_STANDING
+        )
+        {
+            attron( COLOR_PAIR( ( pBoard->stackIds[squareIdx] == PLAYER_WHITE ) ? COLORS_PLAYER_WHITE_WEAK : COLORS_PLAYER_WHITE_WEAK ) );
+
+            mvaddch(
+                squareEdge.y,
+                squareEdge.x,
+                STONE_TYPE_SYMBOLS[pBoard->stackTypes[squareIdx]]
+            );
+
+            attron( COLOR_PAIR( ( pBoard->stackIds[squareIdx] == PLAYER_WHITE ) ? COLORS_PLAYER_WHITE_WEAK : COLORS_PLAYER_WHITE_WEAK ) );
+        }
+        else
+        {
+            mvaddch(
+                squareEdge.y,
+                squareEdge.x,
+                ' '
+            );
+        }
+
+        /// Render stack Ids
+        for ( int stoneIdxOffset = 1; stoneIdxOffset <= BOARD_SIZE_MAX; ++stoneIdxOffset )
+        {
+            int const stackIdx = squareToStackIndex(
+                squareIdx,
+                pBoard->size
+            );
+
+            int stoneIdx = stackIdx + pBoard->stoneCounts[squareIdx] - 1;
+
+            if ( stoneIdxOffset < pBoard->stoneCounts[squareIdx] )
+            {
+                attron( COLOR_PAIR( ( pBoard->stoneIds[stoneIdx - stoneIdxOffset] == PLAYER_WHITE ) ? COLORS_PLAYER_WHITE_WEAK : COLORS_PLAYER_BLACK_WEAK ) );
+
+                mvaddch(
+                    squareEdge.y
+                        + (int)( stoneIdxOffset
+                                 % ( 4 - 1 ) ),
+                    squareEdge.x
+                        + (int)( stoneIdxOffset
+                                 / ( 4 - 1 ) ),
+                    STONE_TYPE_SYMBOLS[STONE_TYPE_FLAT]
+                );
+
+                attron( COLOR_PAIR( ( pBoard->stoneIds[stoneIdx - stoneIdxOffset] == PLAYER_WHITE ) ? COLORS_PLAYER_WHITE_WEAK : COLORS_PLAYER_BLACK_WEAK ) );
+            }
+            else
+            {
+                mvaddch(
+                    squareEdge.y
+                        + (int)( stoneIdxOffset
+                                 % ( 4 - 1 ) ),
+                    squareEdge.x
+                        + (int)( stoneIdxOffset
+                                 / ( 4 - 1 ) ),
+                    ' '
+                );
             }
         }
     }

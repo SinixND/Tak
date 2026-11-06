@@ -1,8 +1,8 @@
 #include "Board.h"
 
+#include "Conversion.h"
 #include "GameConstants.h"
 #include "PlayerId.h"
-#include "Position.h"
 #include "StoneTypeId.h"
 #include <assert.h>
 

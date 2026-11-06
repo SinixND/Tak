@@ -1,12 +1,12 @@
 #include "GameEnd.h"
 
 #include "Board.h"
+#include "Conversion.h"
 #include "FileId.h"
 #include "Game.h"
 #include "GameConstants.h"
 #include "PathSquare.h"
 #include "PlayerId.h"
-#include "Position.h"
 #include "RankId.h"
 #include <assert.h>
 

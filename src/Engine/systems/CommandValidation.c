@@ -1,10 +1,10 @@
 #include "CommandValidation.h"
 
 #include "ActionTypeId.h"
+#include "Conversion.h"
 #include "DirectionId.h"
 #include "FileId.h"
 #include "PlayerId.h"
-#include "Position.h"
 #include "StoneTypeId.h"
 #include <assert.h>
 #include <stdbool.h>
