@@ -23,8 +23,8 @@ Tile getTile(
     Tile tile = { FILE_NONE, RANK_NONE };
 
     if (
-        ( (int)( mouseX - ( pUI->gameScreenElements[ELEMENT_BOARD].x + 1 ) ) % 4 )
-        && (int)( mouseY - pUI->gameScreenElements[ELEMENT_BOARD].y ) % 4
+        ( (int)( mouseX -  pUI->gameScreenElements[ELEMENT_BOARD].x + 1  ) % 4 )
+        && ( (int)( mouseY - pUI->gameScreenElements[ELEMENT_BOARD].y ) % 4 )
     )
     {
         tile.fileX
