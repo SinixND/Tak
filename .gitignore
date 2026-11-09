@@ -4,6 +4,7 @@ bin/
 build/
 docs/html/*
 worktrees/
+tags
 *.json
 *.vim
 *.tags

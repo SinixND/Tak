@@ -125,7 +125,7 @@ void updateCommandPostEvent( Command* const pCommand )
         && "Pointer is nullptr"
     );
 
-    /// Fnish drop command
+    /// Finish drop command
     if ( pCommand->actionType == ACTION_TYPE_DROP )
     {
         ++pCommand->currentDropIdx;

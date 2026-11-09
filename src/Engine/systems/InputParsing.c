@@ -6,6 +6,7 @@
 #include "FileId.h"
 #include "Input.h"
 #include "InputSystem.h"
+#include "Input_Interface.h"
 #include "RankId.h"
 #include "StoneTypeId.h"
 #include "UI.h"
@@ -163,7 +164,17 @@ bool parseDefaultInputToCommand(
     {
         case COMMAND_POSITION:
         {
-            return false;
+            Tile tile = getTile(
+                pInput->mousePosition[0],
+                pInput->mousePosition[1],
+                boardSize,
+                pUI
+            );
+
+            pCommand->fileX = tile.fileX;
+            pCommand->rankY = tile.rankY;
+
+            return true;
         }
 
         case COMMAND_FLAT:
@@ -347,7 +358,17 @@ bool parsePositionInputToCommand(
     {
         case COMMAND_POSITION:
         {
-            return false;
+            Tile tile = getTile(
+                pInput->mousePosition[0],
+                pInput->mousePosition[1],
+                boardSize,
+                pUI
+            );
+
+            pCommand->fileX = tile.fileX;
+            pCommand->rankY = tile.rankY;
+
+            return true;
         }
 
         case COMMAND_A:
@@ -531,7 +552,34 @@ bool parseDirectionInputToCommand(
 
         case COMMAND_POSITION:
         {
-            return false;
+            Tile mouseTile = getTile(
+                pInput->mousePosition[0],
+                pInput->mousePosition[1],
+                boardSize,
+                pUI
+            );
+
+            int const offset[2] = {
+                mouseTile.fileX - pCommand->fileX,
+                mouseTile.rankY - pCommand->rankY
+            };
+
+            if ( !offset[0]
+                 && !offset[1] )
+            {
+                return false;
+            }
+
+            pCommand->direction
+                = ( ( offset[0] * offset[0] ) > ( offset[1] * offset[1] ) )
+                      ? ( ( offset[0] < 0 )
+                              ? DIR_LEFT
+                              : DIR_RIGHT )
+                      : ( ( offset[1] < 0 )
+                              ? DIR_DOWN
+                              : DIR_UP );
+
+            return true;
         }
 
         default:
@@ -645,6 +693,42 @@ bool parseFirstDropAmountInputToCommand(
 
         case COMMAND_POSITION:
         {
+            Tile mouseTile = getTile(
+                pInput->mousePosition[0],
+                pInput->mousePosition[1],
+                boardSize,
+                pUI
+            );
+
+            /// If mouse == command position
+            /// -> Drop one in place
+            if (
+                mouseTile.fileX == pCommand->fileX && mouseTile.rankY == pCommand->rankY
+            )
+            {
+                ++pCommand->bufferedDropCount;
+
+                return true;
+            }
+            /// If offset is matching next square in direction and no drops yet
+            /// -> Drop none in place, goto next square and drop one
+            else if (
+                ( pCommand->fileX
+                  + getOffsetX( pCommand->direction ) )
+                    == mouseTile.fileX
+                && ( pCommand->rankY
+                     + getOffsetY( pCommand->direction ) )
+                       == mouseTile.rankY
+            )
+            {
+                pCommand->dropCounts[0]
+                    = pCommand->bufferedDropCount;
+
+                pCommand->bufferedDropCount = 1;
+
+                return true;
+            }
+
             return false;
         }
 
@@ -751,8 +835,46 @@ bool parseDropAmountInputToCommand(
 
         case COMMAND_POSITION:
         {
-            return false;
+            Tile mouseTile = getTile(
+                pInput->mousePosition[0],
+                pInput->mousePosition[1],
+                boardSize,
+                pUI
+            );
+
+            /// If mouse == command position + offset
+            if (
+                ( pCommand->fileX
+                  + ( getOffsetX( pCommand->direction ) * pCommand->currentDropIdx ) )
+                    == mouseTile.fileX
+                && ( pCommand->rankY
+                     + ( getOffsetY( pCommand->direction ) * pCommand->currentDropIdx ) )
+                       == mouseTile.rankY
+            )
+            {
+                ++pCommand->bufferedDropCount;
+
+                return true;
+            }
+            /// If offset is matching next square direction
+            else if (
+                ( pCommand->fileX
+                  + ( getOffsetX( pCommand->direction ) * ( pCommand->currentDropIdx + 1 ) ) )
+                    == mouseTile.fileX
+                && ( pCommand->rankY
+                     + ( getOffsetY( pCommand->direction ) * ( pCommand->currentDropIdx + 1 ) ) )
+                       == mouseTile.rankY
+            )
+            {
+                pCommand->dropCounts[pCommand->currentDropIdx]
+                    = pCommand->bufferedDropCount;
+
+                pCommand->bufferedDropCount = 1;
+
+                return true;
+            }
         }
+
         default:
             return false;
     }

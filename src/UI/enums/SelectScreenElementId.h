@@ -3,13 +3,13 @@
 
 typedef enum
 {
-    UIELEMENT_CHOOSE_SIZE,
-    UIELEMENT_3x3,
-    UIELEMENT_4x4,
-    UIELEMENT_5x5,
-    UIELEMENT_6x6,
-    UIELEMENT_7x7,
-    UIELEMENT_8x8,
+    ELEMENT_CHOOSE_SIZE,
+    ELEMENT_3x3,
+    ELEMENT_4x4,
+    ELEMENT_5x5,
+    ELEMENT_6x6,
+    ELEMENT_7x7,
+    ELEMENT_8x8,
 
     SELECT_SCREEN_ELEMENT_COUNT,
 } SelectScreenElementId;

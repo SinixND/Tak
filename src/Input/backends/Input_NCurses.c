@@ -1,3 +1,4 @@
+#include "GameScreenElementId.h"
 #include "Input_Interface.h"
 
 #ifdef BACKEND_NCURSES
@@ -5,6 +6,36 @@
 #include "InputId.h"
 #include <assert.h>
 #include <ncurses.h>
+
+Tile getTile(
+    float mouseX,
+    float mouseY,
+    int boardSize,
+    UI const* const pUI
+)
+{
+    /// Need ui pointer for unified backend interface
+    assert(
+        pUI
+        && "Invalid pointer"
+    );
+
+    Tile tile = { FILE_NONE, RANK_NONE };
+
+    if (
+        ( (int)( mouseX - ( pUI->gameScreenElements[ELEMENT_BOARD].x + 1 ) ) % 4 )
+        && (int)( mouseY - pUI->gameScreenElements[ELEMENT_BOARD].y ) % 4
+    )
+    {
+        tile.fileX
+            = (int)( mouseX - ( pUI->gameScreenElements[ELEMENT_BOARD].x + 1 ) ) / 4;
+
+        tile.rankY
+            = ( boardSize - 1 ) - ( ( (int)mouseY - 1 ) / 4 );
+    }
+
+    return tile;
+}
 
 void readUserInput( Input* const pInput )
 {
