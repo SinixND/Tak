@@ -1,13 +1,16 @@
-#include "UI_Interface.h"
+#include "UI.h"
 
 #ifdef BACKEND_NCURSES
 #include "CommandId.h"
-#include "UI.h"
 #include <assert.h>
 
 UI newUI( void )
 {
     UI ui;
+
+    /// Not used for ncurses
+    ui.windowWidth = -1;
+    ui.windowHeight = -1;
 
     ui.selectScreenElements[ELEMENT_CHOOSE_SIZE].x = 1;
     ui.selectScreenElements[ELEMENT_CHOOSE_SIZE].y = 1;
