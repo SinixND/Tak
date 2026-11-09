@@ -36,6 +36,7 @@ void renderHistory( UI const* const pUI );
 
 void renderBoard( UI const* const pUI, int const boardSize );
 
+void renderStackBufferContent( UI const* const pUI, Game const* const pGame );
 void renderInfoContent( UI const* const pUI, Game const* const pGame );
 void renderActivePlayerContent( UI const* const pUI, Game const* const pGame );
 void renderCommandContent( UI const* const pUI, Command const* const pCommand );
@@ -188,6 +189,11 @@ void renderUI( App const* const pApp )
     attroff( COLOR_PAIR( COLORS_UI ) );
 
     /// Dynamic
+    renderStackBufferContent(
+        &pApp->ui,
+        &pApp->game
+    );
+
     renderInfoContent(
         &pApp->ui,
         &pApp->game
@@ -395,6 +401,68 @@ void renderBoard(
             pUI->gameScreenElements[ELEMENT_BOARD].x + pUI->gameScreenElements[ELEMENT_BOARD].width,
             ch++
         );
+    }
+}
+
+void renderStackBufferContent(
+    UI const* const pUI,
+    Game const* const pGame
+)
+{
+    /// Render buffer type
+    if ( pGame->stackBuffer.stoneCount > 0 )
+    {
+        attron( COLOR_PAIR( ( pGame->stackBuffer.stoneIds[0] == PLAYER_WHITE ) ? COLORS_PLAYER_WHITE_STRONG : COLORS_PLAYER_BLACK_STRONG ) );
+
+        mvaddch(
+            pUI->gameScreenElements[ELEMENT_STACK_BUFFER].y,
+            pUI->gameScreenElements[ELEMENT_STACK_BUFFER].x,
+            STONE_TYPE_SYMBOLS[pGame->stackBuffer.stackType]
+        );
+
+        attroff( COLOR_PAIR( ( pGame->stackBuffer.stoneIds[0] == PLAYER_WHITE ) ? COLORS_PLAYER_WHITE_STRONG : COLORS_PLAYER_BLACK_STRONG ) );
+    }
+    else
+    {
+        mvaddch(
+            pUI->gameScreenElements[ELEMENT_STACK_BUFFER].y,
+            pUI->gameScreenElements[ELEMENT_STACK_BUFFER].x,
+            ' '
+        );
+    }
+
+    /// Render stack Ids
+    for ( int idx = 1; idx <= BOARD_SIZE_MAX; ++idx )
+    {
+        if ( idx < pGame->stackBuffer.stoneCount )
+        {
+            attron( COLOR_PAIR( ( pGame->stackBuffer.stoneIds[idx] == PLAYER_WHITE ) ? COLORS_PLAYER_WHITE_WEAK : COLORS_PLAYER_BLACK_WEAK ) );
+
+            mvaddch(
+                pUI->gameScreenElements[ELEMENT_STACK_BUFFER].y
+                    + ( ( idx )
+                        % ( 4 - 1 ) ),
+                pUI->gameScreenElements[ELEMENT_STACK_BUFFER].x
+                    + ( ( idx )
+                        / ( 4 - 1 ) ),
+                STONE_TYPE_SYMBOLS[STONE_TYPE_FLAT]
+
+            );
+
+            attroff( COLOR_PAIR( ( pGame->stackBuffer.stoneIds[idx] == PLAYER_WHITE ) ? COLORS_PLAYER_WHITE_WEAK : COLORS_PLAYER_BLACK_WEAK ) );
+        }
+        else
+        {
+            mvaddch(
+                pUI->gameScreenElements[ELEMENT_STACK_BUFFER].y
+                    + ( ( idx )
+                        % ( 4 - 1 ) ),
+                pUI->gameScreenElements[ELEMENT_STACK_BUFFER].x
+                    + ( ( idx )
+                        / ( 4 - 1 ) ),
+                ' '
+            );
+        }
     }
 }
 
