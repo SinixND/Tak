@@ -663,7 +663,10 @@ void renderBoardContent( UI const* const pUI, Game const* const pGame )
 {
     int const squareCount = pGame->board.squareCount;
     Board const* const pBoard = &pGame->board;
-    UIPosition squareEdge = {};
+    UIPosition squareEdge = {
+        .x = -1,
+        .y = -1,
+    };
 
     for ( int squareIdx = 0; squareIdx < squareCount; ++squareIdx )
     {
@@ -692,7 +695,7 @@ void renderBoardContent( UI const* const pUI, Game const* const pGame )
             && pBoard->stackTypes[squareIdx] == STONE_TYPE_STANDING
         )
         {
-            attron( COLOR_PAIR( ( pBoard->stackIds[squareIdx] == PLAYER_WHITE ) ? COLORS_PLAYER_WHITE_WEAK : COLORS_PLAYER_WHITE_WEAK ) );
+            attron( COLOR_PAIR( ( pBoard->stackIds[squareIdx] == PLAYER_WHITE ) ? COLORS_PLAYER_WHITE_WEAK : COLORS_PLAYER_BLACK_WEAK ) );
 
             mvaddch(
                 squareEdge.y,
@@ -700,7 +703,7 @@ void renderBoardContent( UI const* const pUI, Game const* const pGame )
                 STONE_TYPE_SYMBOLS[pBoard->stackTypes[squareIdx]]
             );
 
-            attron( COLOR_PAIR( ( pBoard->stackIds[squareIdx] == PLAYER_WHITE ) ? COLORS_PLAYER_WHITE_WEAK : COLORS_PLAYER_WHITE_WEAK ) );
+            attroff( COLOR_PAIR( ( pBoard->stackIds[squareIdx] == PLAYER_WHITE ) ? COLORS_PLAYER_WHITE_WEAK : COLORS_PLAYER_BLACK_WEAK ) );
         }
         else
         {

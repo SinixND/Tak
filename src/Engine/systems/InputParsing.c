@@ -21,6 +21,7 @@ void handleGlobalInput( App* const pApp )
 
     switch ( getCommandId(
         &pApp->input,
+        &pApp->ui,
         CONTEXT_GLOBAL
     ) )
     {
@@ -156,6 +157,7 @@ bool parseDefaultInputToCommand(
 
     switch ( getCommandId(
         pInput,
+        pUI,
         CONTEXT_INPUT_DEFAULT
     ) )
     {
@@ -339,6 +341,7 @@ bool parsePositionInputToCommand(
 
     switch ( getCommandId(
         pInput,
+        pUI,
         CONTEXT_POSITION
     ) )
     {
@@ -494,6 +497,7 @@ bool parseDirectionInputToCommand(
 
     switch ( getCommandId(
         pInput,
+        pUI,
         CONTEXT_DIRECTION
     ) )
     {
@@ -572,6 +576,7 @@ bool parseFirstDropAmountInputToCommand(
 
     switch ( getCommandId(
         pInput,
+        pUI,
         CONTEXT_AMOUNT
     ) )
     {
@@ -683,6 +688,7 @@ bool parseDropAmountInputToCommand(
 
     switch ( getCommandId(
         pInput,
+        pUI,
         CONTEXT_AMOUNT
     ) )
     {

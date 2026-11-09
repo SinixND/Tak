@@ -163,6 +163,7 @@ void updateStateChooseBoardSize( App* const pApp )
     /// Check for Quit input
     if ( getCommandId(
              &pApp->input,
+             &pApp->ui,
              CONTEXT_GLOBAL
          )
          == COMMAND_QUIT )
@@ -206,6 +207,7 @@ void updateStateFirstTurn( App* const pApp )
     /// Check for Quit input
     if ( getCommandId(
              &pApp->input,
+             &pApp->ui,
              CONTEXT_GLOBAL
          )
          == COMMAND_QUIT )
@@ -315,6 +317,7 @@ void updateStateSecondTurn( App* const pApp )
     /// Check for Quit input
     if ( getCommandId(
              &pApp->input,
+             &pApp->ui,
              CONTEXT_GLOBAL
          )
          == COMMAND_QUIT )

@@ -13,7 +13,6 @@ typedef struct Mappings
 {
     InputId inputs[CONTEXT_COUNT][COMMAND_COUNT];
     CommandId commands[CONTEXT_COUNT][INPUT_COUNT];
-    UIElement uiElements[CONTEXT_COUNT][LAYOUT_UI_ELEMENTS];
 } Mappings;
 
 Mappings newMappings( void );

@@ -41,6 +41,7 @@ bool setBoardSize(
 
     switch ( getCommandId(
         pInput,
+        pUI,
         CONTEXT_SIZE
     ) )
     {
