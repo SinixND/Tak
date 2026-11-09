@@ -1,16 +1,16 @@
-#include "GameScreenElementId.h"
 #include "Input_Interface.h"
 
 #ifdef BACKEND_NCURSES
+#include "GameScreenElementId.h"
 #include "Input.h"
 #include "InputId.h"
 #include <assert.h>
 #include <ncurses.h>
 
 Tile getTile(
-    float mouseX,
-    float mouseY,
-    int boardSize,
+    float const mouseX,
+    float const mouseY,
+    int const boardSize,
     UI const* const pUI
 )
 {

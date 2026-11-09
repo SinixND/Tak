@@ -22,27 +22,27 @@ void renderButton( UIElement const* const pUIElement );
 void renderStartScreen( UI const* const pUI );
 void renderUI( App const* const pApp );
 
+/// Static
 void renderUndo( UI const* const pUI );
 void renderRedo( UI const* const pUI );
 void renderReset( UI const* const pUI );
 void renderQuit( UI const* const pUI );
-
 void renderStackBuffer( UI const* const pUI );
-
 void renderInfo( UI const* const pUI );
 void renderActivePlayer( UI const* const pUI );
 void renderCommand( UI const* const pUI );
 void renderHistory( UI const* const pUI );
-
 void renderBoard( UI const* const pUI, int const boardSize );
 
+/// Dynamic
 void renderStackBufferContent( UI const* const pUI, Game const* const pGame );
 void renderInfoContent( UI const* const pUI, Game const* const pGame );
 void renderActivePlayerContent( UI const* const pUI, Game const* const pGame );
 void renderCommandContent( UI const* const pUI, Command const* const pCommand );
 void renderHistoryContent( UI const* const pUI, Game const* const pGame, History const* const pHistory );
-
 void renderBoardContent( UI const* const pUI, Game const* const pGame );
+
+void renderGameEndCommand( UI const* const pUI, Game const* const pGame );
 
 void render( App const* const pApp )
 {
@@ -60,6 +60,18 @@ void render( App const* const pApp )
         default:
         {
             renderUI( pApp );
+
+            break;
+        }
+
+        case APP_STATE_GAME_END:
+        {
+            renderUI( pApp );
+
+            renderGameEndCommand(
+                &pApp->ui,
+                &pApp->game
+            );
 
             break;
         }
@@ -415,8 +427,8 @@ void renderStackBufferContent(
         attron( COLOR_PAIR( ( pGame->stackBuffer.stoneIds[0] == PLAYER_WHITE ) ? COLORS_PLAYER_WHITE_STRONG : COLORS_PLAYER_BLACK_STRONG ) );
 
         mvaddch(
-            pUI->gameScreenElements[ELEMENT_STACK_BUFFER].y,
-            pUI->gameScreenElements[ELEMENT_STACK_BUFFER].x,
+            pUI->gameScreenElements[ELEMENT_STACK_BUFFER].y + 1,
+            pUI->gameScreenElements[ELEMENT_STACK_BUFFER].x + 1,
             STONE_TYPE_SYMBOLS[pGame->stackBuffer.stackType]
         );
 
@@ -425,8 +437,8 @@ void renderStackBufferContent(
     else
     {
         mvaddch(
-            pUI->gameScreenElements[ELEMENT_STACK_BUFFER].y,
-            pUI->gameScreenElements[ELEMENT_STACK_BUFFER].x,
+            pUI->gameScreenElements[ELEMENT_STACK_BUFFER].y + 1,
+            pUI->gameScreenElements[ELEMENT_STACK_BUFFER].x + 1,
             ' '
         );
     }
@@ -439,12 +451,12 @@ void renderStackBufferContent(
             attron( COLOR_PAIR( ( pGame->stackBuffer.stoneIds[idx] == PLAYER_WHITE ) ? COLORS_PLAYER_WHITE_WEAK : COLORS_PLAYER_BLACK_WEAK ) );
 
             mvaddch(
-                pUI->gameScreenElements[ELEMENT_STACK_BUFFER].y
-                    + ( ( idx )
-                        % ( 4 - 1 ) ),
-                pUI->gameScreenElements[ELEMENT_STACK_BUFFER].x
-                    + ( ( idx )
-                        / ( 4 - 1 ) ),
+                pUI->gameScreenElements[ELEMENT_STACK_BUFFER].y + 1
+                    + (int)( idx
+                             % ( 4 - 1 ) ),
+                pUI->gameScreenElements[ELEMENT_STACK_BUFFER].x + 1
+                    + (int)( idx
+                             / ( 4 - 1 ) ),
                 STONE_TYPE_SYMBOLS[STONE_TYPE_FLAT]
 
             );
@@ -455,11 +467,11 @@ void renderStackBufferContent(
         {
             mvaddch(
                 pUI->gameScreenElements[ELEMENT_STACK_BUFFER].y
-                    + ( ( idx )
-                        % ( 4 - 1 ) ),
+                    + (int)( idx
+                             % ( 4 - 1 ) ),
                 pUI->gameScreenElements[ELEMENT_STACK_BUFFER].x
-                    + ( ( idx )
-                        / ( 4 - 1 ) ),
+                    + (int)( idx
+                             / ( 4 - 1 ) ),
                 ' '
             );
         }
@@ -822,6 +834,28 @@ void renderBoardContent( UI const* const pUI, Game const* const pGame )
             }
         }
     }
+}
+
+void renderGameEndCommand( UI const* const pUI, Game const* const pGame )
+{
+    attron( COLOR_PAIR( ( pGame->activePlayer == PLAYER_WHITE ) ? COLORS_PLAYER_WHITE_WEAK : COLORS_PLAYER_BLACK_WEAK ) );
+
+    mvprintw(
+        pUI->gameScreenElements[ELEMENT_COMMAND].y,
+        pUI->gameScreenElements[ELEMENT_COMMAND].x + 2,
+        "%c: WIN! ",
+        PLAYER_CHARS[pGame->activePlayer]
+    );
+
+    attroff( COLOR_PAIR( ( pGame->activePlayer == PLAYER_WHITE ) ? COLORS_PLAYER_WHITE_WEAK : COLORS_PLAYER_BLACK_WEAK ) );
+
+    mvprintw(
+        pUI->gameScreenElements[ELEMENT_COMMAND].y,
+        pUI->gameScreenElements[ELEMENT_COMMAND].x + 10,
+        "[Q]uit"
+    );
+
+    refresh();
 }
 
 #endif

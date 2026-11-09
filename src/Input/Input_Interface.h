@@ -14,9 +14,9 @@ typedef struct Tile
 
 /// Get file/rank under cursor
 Tile getTile(
-    float mouseX,
-    float mouseY,
-    int boardSize,
+    float const mouseX,
+    float const mouseY,
+    int const boardSize,
     UI const* const pUI
 );
 
